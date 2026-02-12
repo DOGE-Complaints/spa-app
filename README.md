@@ -1,0 +1,2 @@
+# spa
+SPA on Arweave
