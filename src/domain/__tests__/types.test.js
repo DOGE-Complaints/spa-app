@@ -1,0 +1,208 @@
+import { describe, expect, it } from 'vitest'
+import {
+  IMPACT_ESTIMATION,
+  ISSUE_STATUS,
+  ISSUE_TYPE,
+  PROBLEM_STATUS,
+  SEVERITY,
+  assertCreateIssueCommand,
+  assertCreateIssueResult,
+  assertIssue,
+  assertIssueIntakePayload,
+  isCreateIssueCommand,
+  isCreateIssueResult,
+  isIssue,
+  isIssueIntakePayload,
+  normalizeIssueTimeType,
+} from '../types.js'
+
+describe('domain types: Issue', () => {
+  it('accepts valid Issue shape', () => {
+    const issue = {
+      id: 'DE-0001',
+      type: ISSUE_TYPE.COMPLAINT,
+      title: 'Road lights broken',
+      status: ISSUE_STATUS.NEW,
+      labels: ['infrastructure'],
+      description: 'No lights on two streets',
+      arweave_txid: 'ar://abc123',
+      image_txid: 'ar://img123',
+      image_hash: 'sha256:deadbeef',
+      created_at: '2026-02-09T12:00:00Z',
+    }
+
+    expect(isIssue(issue)).toBe(true)
+    expect(assertIssue(issue)).toEqual(issue)
+  })
+
+  it('rejects invalid Issue type/status', () => {
+    const issue = {
+      id: 'DE-0001',
+      type: 'invalid',
+      title: 'Broken',
+      status: 'INVALID',
+      labels: [],
+    }
+
+    expect(isIssue(issue)).toBe(false)
+    expect(() => assertIssue(issue)).toThrow('Invalid Issue')
+  })
+})
+
+describe('domain types: IssueIntakePayload', () => {
+  it('accepts valid intake payload with canonical time type', () => {
+    const intake = {
+      user: { first_name: 'John', last_name: 'Doe' },
+      problem_categories: ['infrastructure', 'road safety'],
+      description: 'Street is blocked after storm',
+      location: { details: 'Tallinn center' },
+      media_files: [{ type: 'image', url: 'https://example.com/photo.jpg' }],
+      time: { type: 'date_range', value: { start_date: '2026-01-10', end_date: '2026-01-15' } },
+      severity: SEVERITY.HIGH,
+      impact_estimation: IMPACT_ESTIMATION.CITY_TOWN,
+      problem_status: PROBLEM_STATUS.ONGOING,
+      related_events: ['#storm', '#transport'],
+      metadata: { source: 'GPT-system', tokenized: false },
+    }
+
+    expect(isIssueIntakePayload(intake)).toBe(true)
+    expect(assertIssueIntakePayload(intake)).toEqual(intake)
+  })
+
+  it('accepts alias time types via normalization', () => {
+    const intakeExactDate = {
+      user: { first_name: 'A', last_name: 'B' },
+      problem_categories: ['infrastructure'],
+      description: 'Issue text',
+      location: { details: 'Location text' },
+      time: { type: 'exact_date', value: '2026-01-10' },
+      severity: SEVERITY.MEDIUM,
+      impact_estimation: IMPACT_ESTIMATION.STATE,
+      problem_status: PROBLEM_STATUS.ONGOING,
+    }
+
+    const intakeApproximate = {
+      user: { first_name: 'A', last_name: 'B' },
+      problem_categories: ['infrastructure'],
+      description: 'Issue text',
+      location: { details: 'Location text' },
+      time: { type: 'approximate_period', value: 'winter 2025' },
+      severity: SEVERITY.MEDIUM,
+      impact_estimation: IMPACT_ESTIMATION.STATE,
+      problem_status: PROBLEM_STATUS.ONGOING,
+    }
+
+    expect(isIssueIntakePayload(intakeExactDate)).toBe(true)
+    expect(isIssueIntakePayload(intakeApproximate)).toBe(true)
+  })
+
+  it('rejects invalid enum values', () => {
+    const intake = {
+      user: { first_name: 'John', last_name: 'Doe' },
+      problem_categories: ['infrastructure'],
+      description: 'Issue text',
+      location: { details: 'Tallinn' },
+      severity: 'urgent',
+      impact_estimation: IMPACT_ESTIMATION.COUNTRY,
+      problem_status: PROBLEM_STATUS.ONGOING,
+    }
+
+    expect(isIssueIntakePayload(intake)).toBe(false)
+    expect(() => assertIssueIntakePayload(intake)).toThrow('Invalid IssueIntakePayload')
+  })
+})
+
+describe('domain types: CreateIssueCommand', () => {
+  it('accepts valid command', () => {
+    const command = {
+      title: 'Water supply delay',
+      description: 'District has no water for 8 hours',
+      type: ISSUE_TYPE.COMPLAINT,
+      labels: ['utilities', 'city'],
+      image: { kind: 'url', value: 'https://example.com/image.png' },
+      intake_payload: {
+        user: { first_name: 'John', last_name: 'Doe' },
+        problem_categories: ['infrastructure'],
+        description: 'District has no water for 8 hours',
+        location: { details: 'Tallinn' },
+        severity: SEVERITY.HIGH,
+        impact_estimation: IMPACT_ESTIMATION.CITY_TOWN,
+        problem_status: PROBLEM_STATUS.ONGOING,
+      },
+    }
+
+    expect(isCreateIssueCommand(command)).toBe(true)
+    expect(assertCreateIssueCommand(command)).toEqual(command)
+  })
+
+  it('rejects invalid command type', () => {
+    const command = {
+      title: 'Water supply delay',
+      type: 'invalid_type',
+      labels: [],
+    }
+
+    expect(isCreateIssueCommand(command)).toBe(false)
+    expect(() => assertCreateIssueCommand(command)).toThrow('Invalid CreateIssueCommand')
+  })
+})
+
+describe('domain types: CreateIssueResult', () => {
+  it('accepts created result', () => {
+    const result = {
+      issue_id: 'DE-0042',
+      content_hash: 'sha256:abc123',
+      duplicate: false,
+      arweave_txid: 'ar://content42',
+      image_txid: 'ar://image42',
+      tx_hash: 'doge_tx_42',
+      status: 'created',
+    }
+
+    expect(isCreateIssueResult(result)).toBe(true)
+    expect(assertCreateIssueResult(result)).toEqual(result)
+  })
+
+  it('accepts duplicate result with existing_issue_id', () => {
+    const result = {
+      issue_id: 'DE-0018',
+      content_hash: 'sha256:dup',
+      duplicate: true,
+      existing_issue_id: 'DE-0018',
+      status: 'duplicate',
+    }
+
+    expect(isCreateIssueResult(result)).toBe(true)
+    expect(assertCreateIssueResult(result)).toEqual(result)
+  })
+
+  it('rejects result without required fields', () => {
+    const result = {
+      issue_id: 'DE-0002',
+      duplicate: false,
+      status: 'created',
+    }
+
+    expect(isCreateIssueResult(result)).toBe(false)
+    expect(() => assertCreateIssueResult(result)).toThrow('Invalid CreateIssueResult')
+  })
+})
+
+describe('normalizeIssueTimeType', () => {
+  it('normalizes exact_date to exact', () => {
+    expect(normalizeIssueTimeType('exact_date')).toBe('exact')
+  })
+
+  it('normalizes approximate_period to approx_period', () => {
+    expect(normalizeIssueTimeType('approximate_period')).toBe('approx_period')
+  })
+
+  it('keeps canonical value unchanged', () => {
+    expect(normalizeIssueTimeType('date_range')).toBe('date_range')
+  })
+
+  it('returns null for non-string input', () => {
+    expect(normalizeIssueTimeType(null)).toBe(null)
+    expect(normalizeIssueTimeType(undefined)).toBe(null)
+  })
+})
