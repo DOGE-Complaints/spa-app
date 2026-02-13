@@ -17,3 +17,4 @@ npm run preview # Preview production build
 ```
 
 См. `../docs/epics/` для roadmap и требований.
+Контракт домена и фасада: `docs/domain-facade-contract.md`.
