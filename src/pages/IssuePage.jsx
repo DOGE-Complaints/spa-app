@@ -5,7 +5,7 @@ export function IssuePage() {
 
   return (
     <main>
-      <h1>dogeestonia</h1>
+      <h1>DOGEstonia</h1>
       <p>Issue placeholder: {id}</p>
     </main>
   )

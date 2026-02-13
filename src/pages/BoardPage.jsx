@@ -1,7 +1,7 @@
 export function BoardPage() {
   return (
     <main>
-      <h1>dogeestonia</h1>
+      <h1>DOGEstonia</h1>
       <p>Board placeholder</p>
     </main>
   )
