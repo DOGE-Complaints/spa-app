@@ -14,7 +14,9 @@ npm install   # Install dependencies
 npm run dev   # Start dev server (http://localhost:5173)
 npm run build # Build static bundle to dist/
 npm run preview # Preview production build
+npm run deploy # Deploy dist/ to Arweave (requires ARWEAVE_WALLET_PATH)
 ```
 
 См. `../docs/epics/` для roadmap и требований.
 Контракт домена и фасада: `docs/domain-facade-contract.md`.
+Инструкция деплоя: `docs/deploy-arweave.md`.
