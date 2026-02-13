@@ -1,10 +1,54 @@
 import { spawn } from 'node:child_process'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
+import path from 'node:path'
 
 function fail(message) {
   console.error(`[deploy-arweave] ${message}`)
   process.exit(1)
 }
+
+function resolveWalletPath(inputPath) {
+  if (!inputPath) return null
+
+  const candidates = [
+    inputPath,
+    path.resolve(process.cwd(), inputPath),
+    path.resolve(process.cwd(), '..', inputPath),
+  ]
+
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      return candidate
+    }
+  }
+
+  return null
+}
+
+function loadEnvFromDotFile(dotEnvPath = '.env') {
+  if (!existsSync(dotEnvPath)) return
+
+  const content = readFileSync(dotEnvPath, 'utf8')
+  const lines = content.split(/\r?\n/)
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.startsWith('#')) continue
+
+    const separatorIndex = trimmed.indexOf('=')
+    if (separatorIndex === -1) continue
+
+    const key = trimmed.slice(0, separatorIndex).trim()
+    const rawValue = trimmed.slice(separatorIndex + 1).trim()
+    const value = rawValue.replace(/^['"]|['"]$/g, '')
+
+    if (!process.env[key]) {
+      process.env[key] = value
+    }
+  }
+}
+
+loadEnvFromDotFile('.env')
 
 if (!existsSync('dist')) {
   fail('dist/ not found. Run "npm run build" first.')
@@ -15,11 +59,15 @@ if (!walletPath) {
   fail('ARWEAVE_WALLET_PATH is required. See .env.example.')
 }
 
-if (!existsSync(walletPath)) {
-  fail(`Wallet file not found: ${walletPath}`)
+const resolvedWalletPath = resolveWalletPath(walletPath)
+if (!resolvedWalletPath) {
+  fail(
+    `Wallet file not found: ${walletPath}. ` +
+      'Use absolute path or relative path from spa-app (for your setup: ../keys/arweave-wallet.json).',
+  )
 }
 
-const args = ['arkb', 'deploy', 'dist', '--wallet', walletPath]
+const args = ['arkb', 'deploy', 'dist', '--wallet', resolvedWalletPath]
 
 if (process.env.ARWEAVE_USE_BUNDLER === 'true') {
   args.push('--use-bundler')
@@ -31,6 +79,7 @@ if (process.env.ARWEAVE_USE_BUNDLER === 'true') {
 args.push('--tag-name', 'App-Name', '--tag-value', 'dogeestonia-spa')
 args.push('--tag-name', 'App-Env', '--tag-value', 'mvp')
 
+console.log(`[deploy-arweave] wallet: ${resolvedWalletPath}`)
 console.log(`[deploy-arweave] running: npx ${args.join(' ')}`)
 
 const child = spawn('npx', args, {
@@ -57,11 +106,17 @@ child.on('close', (code) => {
     process.exit(code ?? 1)
   }
 
-  const matches = output.match(/\b[a-zA-Z0-9_-]{43}\b/g) ?? []
-  const txid = matches.at(-1)
+  if (/don't have enough balance/i.test(output) || /not enough balance/i.test(output)) {
+    fail('Deploy failed: wallet has insufficient AR balance.')
+  }
+
+  const urlMatch = output.match(/https:\/\/arweave\.net\/([a-zA-Z0-9_-]{43})/i)
+  const labeledMatch =
+    output.match(/(?:manifest id|deployment id|txid|transaction id)\s*[:=]\s*([a-zA-Z0-9_-]{43})/i) ?? null
+  const txid = (urlMatch && urlMatch[1]) || (labeledMatch && labeledMatch[1]) || null
+
   if (!txid) {
-    console.log('[deploy-arweave] deploy finished, but txid was not auto-detected from CLI output.')
-    process.exit(0)
+    fail('Deploy finished, but txid was not auto-detected from CLI output.')
   }
 
   console.log(`[deploy-arweave] txid: ${txid}`)
