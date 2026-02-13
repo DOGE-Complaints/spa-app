@@ -1,9 +1,14 @@
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { BoardPage } from './pages/BoardPage.jsx'
+import { IssuePage } from './pages/IssuePage.jsx'
+
 function App() {
   return (
-    <main>
-      <h1>dogeestonia</h1>
-      <p>Issue tracker</p>
-    </main>
+    <Routes>
+      <Route path="/" element={<Navigate to="/board" replace />} />
+      <Route path="/board" element={<BoardPage />} />
+      <Route path="/issue/:id" element={<IssuePage />} />
+    </Routes>
   )
 }
 
