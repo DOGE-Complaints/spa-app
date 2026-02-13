@@ -4,6 +4,8 @@ dist
 *.local
 .env
 .env.*
+!.env.example
+arweave-wallet*.json
 */docs/analysis/*
 */docs/tasks/*
 docs/analysis/**
