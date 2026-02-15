@@ -10,6 +10,7 @@
     "test": "vitest",
     "test:run": "vitest run --passWithNoTests",
     "test:ui:board-shell": "node ./tests/puppeteer/board-shell-smoke.mjs",
+    "test:ui:status-badge": "node ./tests/puppeteer/status-badge-smoke.mjs",
     "test:ui:epic03": "node ./tests/puppeteer/epic03-mockup-validation.mjs",
     "deploy": "node ./scripts/deploy-arweave.mjs"
   },
