@@ -52,7 +52,17 @@ function parseStoryStatuses(logContent) {
 async function collectBoardMetrics(page) {
   await page.goto('http://127.0.0.1:4173/#/board', { waitUntil: 'networkidle0' })
 
-  const selectors = ['.board-shell', '.header-strip', '.board-main', '.board-sidebar', '.board-toolbar', '.board-columns', '.board-column', '.board-footer']
+  const selectors = [
+    '.board-shell',
+    '.header-strip',
+    '.board-main',
+    '.board-sidebar',
+    '.board-toolbar',
+    '.board-columns',
+    '.board-column',
+    '.board-footer',
+    '.header-locale-trigger',
+  ]
   for (const selector of selectors) {
     if (!(await page.$(selector))) throw new Error(`Missing selector: ${selector}`)
   }
@@ -77,10 +87,7 @@ async function collectBoardMetrics(page) {
       columnWidths: columns,
       hasLogoImageLoaded: logoLoaded,
       statusBadgesCount: document.querySelectorAll('.status-badge').length,
-      hasInReviewLabel:
-        (document.querySelector('.status-badge-in-review .status-badge-label')?.textContent ?? '')
-          .trim()
-          .toUpperCase() === 'IN REVIEW',
+      inReviewLabel: (document.querySelector('.status-badge-in-review .status-badge-label')?.textContent ?? '').trim(),
     }
   })
 
@@ -97,8 +104,51 @@ async function collectBoardMetrics(page) {
     { name: 'Columns are near-equal width (spread <= 10% of avg)', pass: avgWidth > 0 ? spread <= avgWidth * TOLERANCE : false, actual: `avg=${avgWidth.toFixed(2)}, spread=${spread.toFixed(2)}` },
     { name: 'Header logo image is loaded', pass: metrics.hasLogoImageLoaded, actual: metrics.hasLogoImageLoaded ? 'yes' : 'no' },
     { name: 'Status badge system renders 4 badges', pass: metrics.statusBadgesCount >= 4, actual: String(metrics.statusBadgesCount) },
-    { name: 'IN_REVIEW enum is rendered as IN REVIEW label', pass: metrics.hasInReviewLabel, actual: metrics.hasInReviewLabel ? 'yes' : 'no' },
+    {
+      name: 'IN_REVIEW enum has localized display label',
+      pass: ['IN REVIEW', 'НА РАССМОТРЕНИИ', 'LÄBIVAATUSEL'].includes(metrics.inReviewLabel),
+      actual: metrics.inReviewLabel || 'empty',
+    },
   ]
+
+  const routeBefore = page.url()
+  await page.$eval('.header-locale-trigger', (node) => node.click())
+  await page.waitForFunction(() => Boolean(document.querySelector('.header-locale-menu')))
+  const localeOptions = await page.$$eval('.header-locale-option', (nodes) => nodes.map((node) => node.textContent?.trim() ?? ''))
+  const localeFlagsCount = await page.$$eval('.header-locale-menu .header-locale-flag', (nodes) => nodes.length)
+  const localeButtons = await page.$$('.header-locale-option')
+  if (localeButtons[1]) {
+    await localeButtons[1].click()
+    await page.waitForFunction(
+      () => document.querySelector('.board-toolbar h2')?.textContent?.trim() === 'Доска',
+      { timeout: 3000 },
+    )
+  }
+
+  const routeAfter = page.url()
+  const storedLocale = await page.evaluate(() => localStorage.getItem('doge.locale'))
+  checks.push(
+    {
+      name: 'Language selector open-state exposes Eesti/Русский/English options',
+      pass: localeOptions.length === 3 && localeOptions[0] === 'Eesti' && localeOptions[1] === 'Русский' && localeOptions[2] === 'English',
+      actual: localeOptions.join(' | '),
+    },
+    {
+      name: 'Locale switch keeps hash route unchanged',
+      pass: routeBefore === routeAfter,
+      actual: `${routeBefore} -> ${routeAfter}`,
+    },
+    {
+      name: 'Locale is persisted to localStorage',
+      pass: storedLocale === 'ru',
+      actual: String(storedLocale),
+    },
+    {
+      name: 'Language selector renders flags for all options',
+      pass: localeFlagsCount === 3,
+      actual: String(localeFlagsCount),
+    },
+  )
 
   return { checks }
 }
@@ -129,6 +179,16 @@ function renderReport(storyStatuses, boardResult, screenshots) {
       const pass = boardResult.checks.every((item) => item.pass)
       const note = story === 'S03-1B' ? 'Status badges checked (4 variants, IN REVIEW label)' : 'Shell layout and geometry checked with ±10% tolerance'
       lines.push(`| ${story} | ${status} | ${pass ? '✅ automated' : '❌ automated'} | ${note} |`)
+    } else if (story === 'S03-10') {
+      const i18nCheckNames = new Set([
+        'Language selector open-state exposes Eesti/Русский/English options',
+        'Locale switch keeps hash route unchanged',
+        'Locale is persisted to localStorage',
+        'Language selector renders flags for all options',
+      ])
+      const i18nChecks = boardResult.checks.filter((check) => i18nCheckNames.has(check.name))
+      const pass = i18nChecks.length === i18nCheckNames.size && i18nChecks.every((check) => check.pass)
+      lines.push(`| ${story} | ${status} | ${pass ? '✅ automated' : '❌ automated'} | I18n switcher contract checked (M17/M20): options, route stability, locale persistence |`)
     } else {
       lines.push(`| ${story} | ${status} | ⏳ planned | Auto-validation scenario reserved; activates when story is implemented |`)
     }
