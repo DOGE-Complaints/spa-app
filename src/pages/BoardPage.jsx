@@ -1,9 +1,24 @@
 import { useState } from 'react'
 import { ISSUE_STATUS } from '../domain/types.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
+import { useI18n } from '../i18n/I18nProvider.jsx'
+
+const LANGUAGE_OPTIONS = Object.freeze([
+  { value: 'et', nativeLabel: 'Eesti', flagSrc: '/assets/ET.svg' },
+  { value: 'ru', nativeLabel: 'Русский', flagSrc: '/assets/RU.svg' },
+  { value: 'en', nativeLabel: 'English', flagSrc: '/assets/US.svg' },
+])
 
 export function BoardPage() {
   const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
+  const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
+  const { locale, setLocale, t } = useI18n()
+  const selectedLocaleOption = LANGUAGE_OPTIONS.find((option) => option.value === locale) ?? LANGUAGE_OPTIONS[0]
+
+  function handleLocaleSelect(nextLocale) {
+    setLocale(nextLocale)
+    setIsLocaleMenuOpen(false)
+  }
 
   return (
     <main className="board-shell" aria-label="Issue Board">
@@ -19,27 +34,52 @@ export function BoardPage() {
 
         <div className="header-controls">
           <span className="header-status" aria-label="Sync status">
-            SYNCED
+            {t('synced')}
           </span>
-          <button type="button" className="header-locale-trigger" aria-label="Language selector placeholder">
-            ET
-            <span aria-hidden="true">v</span>
-          </button>
+          <div className="header-locale" data-open={isLocaleMenuOpen ? 'yes' : 'no'}>
+            <button
+              type="button"
+              className="header-locale-trigger"
+              aria-label="Language selector"
+              aria-expanded={isLocaleMenuOpen}
+              onClick={() => setIsLocaleMenuOpen(!isLocaleMenuOpen)}
+            >
+              <img src={selectedLocaleOption.flagSrc} alt="" className="header-locale-flag" />
+              <span className="header-locale-text">{selectedLocaleOption.nativeLabel}</span>
+              <span aria-hidden="true">{isLocaleMenuOpen ? '^' : 'v'}</span>
+            </button>
+            {isLocaleMenuOpen ? (
+              <ul className="header-locale-menu" role="listbox" aria-label="Locale options">
+                {LANGUAGE_OPTIONS.map((option) => (
+                  <li key={option.value}>
+                    <button
+                      type="button"
+                      className={`header-locale-option ${locale === option.value ? 'header-locale-option-active' : ''}`}
+                      onClick={() => handleLocaleSelect(option.value)}
+                    >
+                      <img src={option.flagSrc} alt="" className="header-locale-flag" />
+                      <span className="header-locale-text">{option.nativeLabel}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
         </div>
       </header>
 
       <section className="board-main">
         <aside className="board-sidebar" aria-label="Sidebar">
-          <p className="board-sidebar-workspace">Workspace</p>
+          <p className="board-sidebar-workspace">{t('workspace')}</p>
           <nav className="board-nav" aria-label="Board navigation">
             <button type="button" className="board-nav-item board-nav-item-active">
-              Board
+              {t('board')}
             </button>
             <button type="button" className="board-nav-item" disabled>
-              Issues
+              {t('issues')}
             </button>
             <button type="button" className="board-nav-item" disabled>
-              Settings
+              {t('settings')}
             </button>
           </nav>
         </aside>
@@ -47,17 +87,17 @@ export function BoardPage() {
         <section className="board-workspace">
           <header className="board-toolbar">
             <div className="board-toolbar-copy">
-              <h2>Board</h2>
+              <h2>{t('board')}</h2>
             </div>
             <button type="button" className="board-cta" disabled>
-              Create Issue
+              {t('createIssue')}
             </button>
           </header>
 
           <section className="board-columns" aria-label="Board columns scaffold">
             <section className="board-column" aria-label="Status NEW column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.NEW} locale="en" />
+                <StatusBadge status={ISSUE_STATUS.NEW} locale={locale} />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
@@ -66,7 +106,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status VERIFIED column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.VERIFIED} locale="en" />
+                <StatusBadge status={ISSUE_STATUS.VERIFIED} locale={locale} />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
@@ -75,7 +115,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status IN REVIEW column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.IN_REVIEW} locale="en" />
+                <StatusBadge status={ISSUE_STATUS.IN_REVIEW} locale={locale} />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
@@ -84,7 +124,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status ARCHIVED column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.ARCHIVED} locale="en" />
+                <StatusBadge status={ISSUE_STATUS.ARCHIVED} locale={locale} />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
@@ -93,7 +133,7 @@ export function BoardPage() {
           </section>
 
           <footer className="board-footer">
-            DOGEstonia - Decentralized Civic Issue Tracker
+            {t('footer')}
           </footer>
         </section>
       </section>
