@@ -102,6 +102,7 @@ Design System состоит из 4 слоёв:
 |--------|--------|
 | NEW | текст + серый маркер |
 | VERIFIED | mini dogeestonia icon |
+| IN_REVIEW | текст + нейтральный muted стиль |
 | ARCHIVED | текст + приглушённый цвет |
 
 ---
@@ -175,9 +176,13 @@ Design System состоит из 4 слоёв:
 
 ### 5.1 Issue Lifecycle Pattern
 
-- NEW → VERIFIED → ARCHIVED
+- NEW → VERIFIED → IN_REVIEW → ARCHIVED
 - Состояние вычисляется из событий.
 - UI **не** «меняет статус» напрямую.
+
+Правило enum/display:
+- Domain enum: `IN_REVIEW`
+- UI label (EN): `IN REVIEW`
 
 ### 5.2 Verification Pattern
 
