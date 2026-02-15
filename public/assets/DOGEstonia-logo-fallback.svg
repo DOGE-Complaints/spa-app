@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96" viewBox="0 0 360 96" fill="none">
+  <rect width="360" height="96" rx="12" fill="#0F1117"/>
+  <circle cx="44" cy="48" r="22" fill="#C7A646"/>
+  <text x="78" y="44" fill="#F2F2F2" font-family="Arial, sans-serif" font-size="28" font-weight="700">DOGEstonia</text>
+  <text x="78" y="68" fill="#A0A3AC" font-family="Arial, sans-serif" font-size="16">Decentralized Civic Issue Tracker</text>
+</svg>

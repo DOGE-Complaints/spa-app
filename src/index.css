@@ -35,27 +35,14 @@ body {
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0;
 }
 
 .header-brand-logo {
-  width: 38px;
-  height: 38px;
+  width: auto;
+  height: 44px;
+  max-width: 320px;
   object-fit: contain;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.header-brand-copy h1 {
-  margin: 0;
-  font-size: 1.1rem;
-  line-height: 1.1;
-}
-
-.header-brand-copy p {
-  margin: 2px 0 0;
-  font-size: 0.75rem;
-  color: #a0a3ac;
 }
 
 .header-controls {

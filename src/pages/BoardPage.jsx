@@ -1,13 +1,20 @@
+import { useState } from 'react'
+import { ISSUE_STATUS } from '../domain/types.js'
+import { StatusBadge } from '../components/StatusBadge.jsx'
+
 export function BoardPage() {
+  const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
+
   return (
     <main className="board-shell" aria-label="Issue Board">
       <header className="header-strip" aria-label="Header strip">
         <div className="header-brand">
-          <img src="/dist/assets/DOGEstonia-logo-big.png" alt="DOGEstonia logo" className="header-brand-logo" />
-          <div className="header-brand-copy">
-            <h1>DOGEstonia</h1>
-            <p>Decentralized Civic Issue Tracker</p>
-          </div>
+          <img
+            src={logoSrc}
+            alt="DOGEstonia logo"
+            className="header-brand-logo"
+            onError={() => setLogoSrc('/assets/DOGEstonia-logo-fallback.svg')}
+          />
         </div>
 
         <div className="header-controls">
@@ -50,7 +57,7 @@ export function BoardPage() {
           <section className="board-columns" aria-label="Board columns scaffold">
             <section className="board-column" aria-label="Status NEW column">
               <header className="board-column-header">
-                <h3>NEW</h3>
+                <StatusBadge status={ISSUE_STATUS.NEW} locale="en" />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
@@ -59,7 +66,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status VERIFIED column">
               <header className="board-column-header">
-                <h3>VERIFIED</h3>
+                <StatusBadge status={ISSUE_STATUS.VERIFIED} locale="en" />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
@@ -68,7 +75,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status IN REVIEW column">
               <header className="board-column-header">
-                <h3>IN REVIEW</h3>
+                <StatusBadge status={ISSUE_STATUS.IN_REVIEW} locale="en" />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
@@ -77,7 +84,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status ARCHIVED column">
               <header className="board-column-header">
-                <h3>ARCHIVED</h3>
+                <StatusBadge status={ISSUE_STATUS.ARCHIVED} locale="en" />
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
