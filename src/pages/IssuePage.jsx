@@ -1,8 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { issueService } from '../services/issueService.js'
+
+const LANGUAGE_OPTIONS = Object.freeze([
+  { value: 'et', nativeLabel: 'Eesti', flagSrc: '/assets/ET.svg' },
+  { value: 'ru', nativeLabel: 'Русский', flagSrc: '/assets/RU.svg' },
+  { value: 'en', nativeLabel: 'English', flagSrc: '/assets/US.svg' },
+])
 
 function formatDate(value) {
   if (!value || typeof value !== 'string') return ''
@@ -26,10 +32,13 @@ export function IssuePage() {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { locale, t, resolveLocalizedText } = useI18n()
+  const { locale, setLocale, t, resolveLocalizedText } = useI18n()
+  const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
+  const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
   const [issue, setIssue] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const selectedLocaleOption = LANGUAGE_OPTIONS.find((option) => option.value === locale) ?? LANGUAGE_OPTIONS[0]
 
   const boardBackUrl = useMemo(() => {
     const params = new URLSearchParams(location.search)
@@ -60,14 +69,12 @@ export function IssuePage() {
     fetchIssue()
   }, [id])
 
-  return (
-    <main className="issue-page-shell">
-      <header className="issue-page-header">
-        <button type="button" className="issue-back-button" onClick={() => navigate(boardBackUrl)}>
-          {t('backToBoard')}
-        </button>
-      </header>
-      {loading ? (
+  function handleLocaleSelect(nextLocale) {
+    setLocale(nextLocale)
+    setIsLocaleMenuOpen(false)
+  }
+
+  const content = loading ? (
         <section className="issue-details-state issue-details-state-loading">
           <p>{t('issuePlaceholder')}</p>
         </section>
@@ -136,7 +143,83 @@ export function IssuePage() {
           <h1>{t('notFoundTitle')}</h1>
           <p>{id}</p>
         </section>
-      )}
+      )
+
+  return (
+    <main className="board-shell" aria-label="Issue Details">
+      <header className="header-strip" aria-label="Header strip">
+        <div className="header-brand">
+          <img
+            src={logoSrc}
+            alt="DOGEstonia logo"
+            className="header-brand-logo"
+            onError={() => setLogoSrc('/assets/DOGEstonia-logo-fallback.svg')}
+          />
+        </div>
+        <div className="header-controls">
+          <span className="header-status" aria-label="Sync status">
+            {t('synced')}
+          </span>
+          <div className="header-locale" data-open={isLocaleMenuOpen ? 'yes' : 'no'}>
+            <button
+              type="button"
+              className="header-locale-trigger"
+              aria-label="Language selector"
+              aria-expanded={isLocaleMenuOpen}
+              onClick={() => setIsLocaleMenuOpen(!isLocaleMenuOpen)}
+            >
+              <img src={selectedLocaleOption.flagSrc} alt="" className="header-locale-flag" />
+              <span className="header-locale-text">{selectedLocaleOption.nativeLabel}</span>
+              <span aria-hidden="true">{isLocaleMenuOpen ? '^' : 'v'}</span>
+            </button>
+            {isLocaleMenuOpen ? (
+              <ul className="header-locale-menu" role="listbox" aria-label="Locale options">
+                {LANGUAGE_OPTIONS.map((option) => (
+                  <li key={option.value}>
+                    <button
+                      type="button"
+                      className={`header-locale-option ${locale === option.value ? 'header-locale-option-active' : ''}`}
+                      onClick={() => handleLocaleSelect(option.value)}
+                    >
+                      <img src={option.flagSrc} alt="" className="header-locale-flag" />
+                      <span className="header-locale-text">{option.nativeLabel}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        </div>
+      </header>
+
+      <section className="board-main">
+        <aside className="board-sidebar" aria-label="Sidebar">
+          <p className="board-sidebar-workspace">{t('workspace')}</p>
+          <nav className="board-nav" aria-label="Board navigation">
+            <Link to={boardBackUrl} className="board-nav-item board-nav-item-active">
+              {t('board')}
+            </Link>
+            <button type="button" className="board-nav-item" disabled>
+              {t('issues')}
+            </button>
+            <button type="button" className="board-nav-item" disabled>
+              {t('settings')}
+            </button>
+          </nav>
+        </aside>
+
+        <section className="board-workspace">
+          <header className="issue-page-header">
+            <button type="button" className="issue-back-button" onClick={() => navigate(boardBackUrl)}>
+              {t('backToBoard')}
+            </button>
+          </header>
+          {content}
+          <footer className="board-footer">
+            {t('footer')}
+          </footer>
+        </section>
+      </section>
     </main>
   )
 }

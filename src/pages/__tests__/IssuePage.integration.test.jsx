@@ -13,11 +13,11 @@ describe('IssuePage integration', () => {
         </MemoryRouter>
       </I18nProvider>,
     )
-    expect(html).toContain('issue-page-shell')
+    expect(html).toContain('board-shell')
     expect(html).toMatch(/issue-details-state-loading|issue-details-state-default/)
   })
 
-  it('shell includes back affordance', () => {
+  it('shell includes header strip, sidebar, back affordance, footer', () => {
     const html = renderToStaticMarkup(
       <I18nProvider>
         <MemoryRouter initialEntries={['/issue/DE-042']}>
@@ -26,6 +26,9 @@ describe('IssuePage integration', () => {
       </I18nProvider>,
     )
     expect(html).toContain('issue-back-button')
+    expect(html).toContain('header-strip')
+    expect(html).toContain('board-sidebar')
+    expect(html).toContain('board-footer')
   })
 
   it('renders not-found state for unknown id', () => {
@@ -36,7 +39,7 @@ describe('IssuePage integration', () => {
         </MemoryRouter>
       </I18nProvider>,
     )
-    expect(html).toContain('issue-page-shell')
+    expect(html).toContain('board-shell')
     expect(html).toMatch(/issue-details-state-loading|issue-details-state-not-found/)
   })
 })

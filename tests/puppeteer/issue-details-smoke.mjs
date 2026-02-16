@@ -38,6 +38,11 @@ async function run() {
     await page.goto('http://127.0.0.1:4173/#/issue/DE-042', { waitUntil: 'networkidle0' })
     await page.waitForSelector('.issue-details-state-default', { timeout: 3000 })
 
+    // Shell: header strip, sidebar, footer (per mockup)
+    if (!(await page.$('.header-strip'))) throw new Error('Header strip missing')
+    if (!(await page.$('.board-sidebar'))) throw new Error('Sidebar missing')
+    if (!(await page.$('.board-footer'))) throw new Error('Footer missing')
+
     const hasHeader = await page.$('.issue-details-header')
     const hasId = await page.$('.issue-details-id')
     const hasStatusBadge = await page.$('.status-badge')
@@ -70,6 +75,7 @@ async function run() {
 
     // Board -> Details -> Back (filter restoration)
     await page.goto('http://127.0.0.1:4173/#/board?status=NEW&type=complaint', { waitUntil: 'networkidle0' })
+    await page.waitForSelector('a.issue-card', { timeout: 5000 })
     await page.click('a.issue-card')
     await page.waitForSelector('.issue-details-state-default', { timeout: 3000 })
     await page.click('.issue-back-button')
