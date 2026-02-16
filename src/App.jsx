@@ -8,6 +8,7 @@ function App() {
       <Route path="/" element={<Navigate to="/board" replace />} />
       <Route path="/board" element={<BoardPage />} />
       <Route path="/issue/:id" element={<IssuePage />} />
+      <Route path="*" element={<Navigate to="/board" replace />} />
     </Routes>
   )
 }

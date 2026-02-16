@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { ISSUE_STATUS } from '../domain/types.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
+import { normalizeBoardSearch, parseBoardQuery } from '../router/boardQuery.js'
+import { ROUTING_DEMO_ISSUES } from '../router/mockIssues.js'
 
 const LANGUAGE_OPTIONS = Object.freeze([
   { value: 'et', nativeLabel: 'Eesti', flagSrc: '/assets/ET.svg' },
@@ -10,10 +13,23 @@ const LANGUAGE_OPTIONS = Object.freeze([
 ])
 
 export function BoardPage() {
+  const location = useLocation()
   const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
   const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
-  const { locale, setLocale, t } = useI18n()
+  const { locale, setLocale, t, resolveLocalizedText } = useI18n()
   const selectedLocaleOption = LANGUAGE_OPTIONS.find((option) => option.value === locale) ?? LANGUAGE_OPTIONS[0]
+  const boardFilters = parseBoardQuery(location.search)
+  const normalizedSearch = normalizeBoardSearch(location.search)
+  const boardUrlForBack = `/board${normalizedSearch}`
+  const filteredIssues = ROUTING_DEMO_ISSUES.filter((issue) => {
+    const statusPass = boardFilters.status.length === 0 || boardFilters.status.includes(issue.status)
+    const typePass = !boardFilters.type || boardFilters.type === issue.type
+    const labelsPass = boardFilters.labels.length === 0 || boardFilters.labels.every((label) => issue.labels.includes(label))
+    const text = `${resolveLocalizedText(issue.title)} ${resolveLocalizedText(issue.description)}`.toLowerCase()
+    const searchPass = !boardFilters.search || text.includes(boardFilters.search.toLowerCase())
+
+    return statusPass && typePass && labelsPass && searchPass
+  })
 
   function handleLocaleSelect(nextLocale) {
     setLocale(nextLocale)
@@ -88,6 +104,9 @@ export function BoardPage() {
           <header className="board-toolbar">
             <div className="board-toolbar-copy">
               <h2>{t('board')}</h2>
+              <p className="board-routing-query" aria-label="Board query state">
+                {normalizedSearch || '(no query)'}
+              </p>
             </div>
             <button type="button" className="board-cta" disabled>
               {t('createIssue')}
@@ -98,10 +117,22 @@ export function BoardPage() {
             <section className="board-column" aria-label="Status NEW column">
               <header className="board-column-header">
                 <StatusBadge status={ISSUE_STATUS.NEW} locale={locale} />
-                <span>0</span>
+                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.NEW).length}</span>
               </header>
               <div className="board-column-divider" />
-              <div className="board-column-placeholder">Cards placeholder</div>
+              <div className="board-column-placeholder">
+                {filteredIssues
+                  .filter((item) => item.status === ISSUE_STATUS.NEW)
+                  .map((item) => (
+                    <article key={item.id} className="issue-card-routing">
+                      <p className="issue-card-routing-id">{item.id}</p>
+                      <p className="issue-card-routing-title">{resolveLocalizedText(item.title)}</p>
+                      <Link className="issue-card-link" to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}>
+                        Open details
+                      </Link>
+                    </article>
+                  ))}
+              </div>
             </section>
 
             <section className="board-column" aria-label="Status VERIFIED column">
@@ -110,7 +141,7 @@ export function BoardPage() {
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
-              <div className="board-column-placeholder">Cards placeholder</div>
+              <div className="board-column-placeholder">No cards</div>
             </section>
 
             <section className="board-column" aria-label="Status IN REVIEW column">
@@ -119,7 +150,7 @@ export function BoardPage() {
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
-              <div className="board-column-placeholder">Cards placeholder</div>
+              <div className="board-column-placeholder">No cards</div>
             </section>
 
             <section className="board-column" aria-label="Status ARCHIVED column">
@@ -128,7 +159,7 @@ export function BoardPage() {
                 <span>0</span>
               </header>
               <div className="board-column-divider" />
-              <div className="board-column-placeholder">Cards placeholder</div>
+              <div className="board-column-placeholder">No cards</div>
             </section>
           </section>
 

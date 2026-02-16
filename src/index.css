@@ -210,6 +210,12 @@ body {
   min-width: 0;
 }
 
+.board-routing-query {
+  margin: 3px 0 0;
+  color: #9ca0ab;
+  font-size: 0.72rem;
+}
+
 .board-toolbar h2 {
   margin: 0;
   font-size: 1rem;
@@ -284,11 +290,64 @@ body {
   border: 1px dashed rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   min-height: 124px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
   color: #8f939f;
   font-size: 0.82rem;
   padding: 10px;
+}
+
+.issue-card-routing {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(30, 31, 35, 0.8);
+}
+
+.issue-card-routing-id,
+.issue-card-routing-title {
+  margin: 0 0 6px;
+}
+
+.issue-card-link {
+  color: #d9c481;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.issue-card-link:hover {
+  text-decoration: underline;
+}
+
+.issue-page-shell {
+  min-height: 100vh;
+  padding: 16px 20px;
+}
+
+.issue-page-header {
+  margin-bottom: 16px;
+}
+
+.issue-back-button,
+.issue-retry-button {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: #232428;
+  color: #f2f2f2;
+  padding: 8px 12px;
+}
+
+.issue-details-state {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: #1b1c1f;
+  padding: 16px;
+}
+
+.issue-details-state h1 {
+  margin-top: 0;
 }
 
 .board-footer {
