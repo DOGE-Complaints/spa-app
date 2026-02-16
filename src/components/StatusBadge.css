@@ -26,6 +26,12 @@
   color: #c5a162;
 }
 
+.status-badge-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
 .status-badge-in-review {
   background: #242831;
   color: #aab0bc;

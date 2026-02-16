@@ -10,10 +10,11 @@ describe('StatusBadge', () => {
     expect(html).toContain('status-badge-in-review')
   })
 
-  it('renders VERIFIED status label without prefix marker', () => {
+  it('renders VERIFIED status label with icon', () => {
     const html = renderToStaticMarkup(<StatusBadge status={ISSUE_STATUS.VERIFIED} locale="en" />)
     expect(html).toContain('VERIFIED')
-    expect(html).not.toContain('status-badge-marker')
+    expect(html).toContain('status-badge-icon')
+    expect(html).toContain('favicon.svg')
   })
 
   it('falls back to UNKNOWN variant for unexpected value', () => {
