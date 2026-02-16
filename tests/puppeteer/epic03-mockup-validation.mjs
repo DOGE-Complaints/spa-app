@@ -150,6 +150,22 @@ async function collectBoardMetrics(page) {
     },
   )
 
+  await page.goto('http://127.0.0.1:4173/#/issue/UNKNOWN-ID', { waitUntil: 'networkidle0' })
+  const hasNotFoundState = await page.$('.issue-details-state-not-found')
+  checks.push({
+    name: 'Direct open unknown issue renders details not-found state',
+    pass: Boolean(hasNotFoundState),
+    actual: hasNotFoundState ? 'yes' : 'no',
+  })
+
+  await page.goto('http://127.0.0.1:4173/#/unknown', { waitUntil: 'networkidle0' })
+  const redirectedHash = await page.evaluate(() => location.hash)
+  checks.push({
+    name: 'Invalid route redirects to #/board',
+    pass: redirectedHash.startsWith('#/board'),
+    actual: redirectedHash,
+  })
+
   return { checks }
 }
 
@@ -189,6 +205,14 @@ function renderReport(storyStatuses, boardResult, screenshots) {
       const i18nChecks = boardResult.checks.filter((check) => i18nCheckNames.has(check.name))
       const pass = i18nChecks.length === i18nCheckNames.size && i18nChecks.every((check) => check.pass)
       lines.push(`| ${story} | ${status} | ${pass ? '✅ automated' : '❌ automated'} | I18n switcher contract checked (M17/M20): options, route stability, locale persistence |`)
+    } else if (story === 'S03-9') {
+      const routingCheckNames = new Set([
+        'Direct open unknown issue renders details not-found state',
+        'Invalid route redirects to #/board',
+      ])
+      const routingChecks = boardResult.checks.filter((check) => routingCheckNames.has(check.name))
+      const pass = routingChecks.length === routingCheckNames.size && routingChecks.every((check) => check.pass)
+      lines.push(`| ${story} | ${status} | ${pass ? '✅ automated' : '❌ automated'} | Routing behavior A/C/D baseline checked (invalid redirect + details not-found) |`)
     } else {
       lines.push(`| ${story} | ${status} | ⏳ planned | Auto-validation scenario reserved; activates when story is implemented |`)
     }
