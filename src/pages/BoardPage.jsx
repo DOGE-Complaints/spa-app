@@ -13,7 +13,17 @@ import { useI18n } from '../i18n/I18nProvider.jsx'
 import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
 
-const AVAILABLE_LABELS = ['bureaucracy', 'infrastructure']
+const AVAILABLE_LABELS = ['bureaucracy', 'infrastructure', 'healthcare']
+
+function BoardColumnPlaceholder({ count = 3 }) {
+  return (
+    <>
+      {Array.from({ length: count }, (_, i) => (
+        <div key={i} className="board-skeleton-card" aria-hidden="true" />
+      ))}
+    </>
+  )
+}
 
 const LANGUAGE_OPTIONS = Object.freeze([
   { value: 'et', nativeLabel: 'Eesti', flagSrc: '/assets/ET.svg' },
@@ -27,21 +37,38 @@ export function BoardPage() {
   const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
   const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
   const [issues, setIssues] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const { locale, setLocale, t, resolveLocalizedText } = useI18n()
   const selectedLocaleOption = LANGUAGE_OPTIONS.find((option) => option.value === locale) ?? LANGUAGE_OPTIONS[0]
   const boardFilters = parseBoardQuery(location.search)
   const normalizedSearch = normalizeBoardSearch(location.search)
   const boardUrlForBack = `/board${normalizedSearch}`
 
-  useEffect(() => {
+  function fetchIssues() {
+    setLoading(true)
+    setError(null)
     const options = {
       status: boardFilters.status.length > 0 ? boardFilters.status : undefined,
       type: boardFilters.type || undefined,
       labels: boardFilters.labels.length > 0 ? boardFilters.labels : undefined,
     }
-    issueService.getIssues(options).then((list) => {
-      setIssues(list)
-    })
+    issueService
+      .getIssues(options)
+      .then((list) => {
+        setIssues(list)
+      })
+      .catch((err) => {
+        setError(err)
+        setIssues([])
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  useEffect(() => {
+    fetchIssues()
   }, [location.search])
 
   const filteredIssues = (() => {
@@ -172,7 +199,19 @@ export function BoardPage() {
             </button>
           </header>
 
-          {hasActiveFilters && filteredIssues.length === 0 ? (
+          {error ? (
+            <div className="board-load-error">
+              <h3>{t('loadErrorTitle')}</h3>
+              <p>{t('loadErrorSubtitle')}</p>
+              <button type="button" className="board-retry-button" onClick={fetchIssues}>
+                {t('retry')}
+              </button>
+            </div>
+          ) : !loading && !hasActiveFilters && issues.length === 0 ? (
+            <div className="board-no-issues">
+              <p>{t('noIssuesRecorded')}</p>
+            </div>
+          ) : hasActiveFilters && filteredIssues.length === 0 ? (
             <div className="board-no-results">
               <p>{t('noResultsMatch')}</p>
               <div className="board-no-results-actions">
@@ -193,9 +232,12 @@ export function BoardPage() {
               </header>
               <div className="board-column-divider" />
               <div className="board-column-placeholder">
-                {filteredIssues
-                  .filter((item) => item.status === ISSUE_STATUS.NEW)
-                  .map((item) => (
+                {loading ? (
+                  <BoardColumnPlaceholder />
+                ) : (
+                  filteredIssues
+                    .filter((item) => item.status === ISSUE_STATUS.NEW)
+                    .map((item) => (
                     <IssueCard
                       key={item.id}
                       issue={item}
@@ -204,7 +246,8 @@ export function BoardPage() {
                       footerText={t('footer')}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
-                  ))}
+                  ))
+                )}
               </div>
             </section>
 
@@ -215,9 +258,12 @@ export function BoardPage() {
               </header>
               <div className="board-column-divider" />
               <div className="board-column-placeholder">
-                {filteredIssues
-                  .filter((item) => item.status === ISSUE_STATUS.VERIFIED)
-                  .map((item) => (
+                {loading ? (
+                  <BoardColumnPlaceholder />
+                ) : (
+                  filteredIssues
+                    .filter((item) => item.status === ISSUE_STATUS.VERIFIED)
+                    .map((item) => (
                     <IssueCard
                       key={item.id}
                       issue={item}
@@ -226,7 +272,8 @@ export function BoardPage() {
                       footerText={t('footer')}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
-                  ))}
+                  ))
+                )}
               </div>
             </section>
 
@@ -237,9 +284,12 @@ export function BoardPage() {
               </header>
               <div className="board-column-divider" />
               <div className="board-column-placeholder">
-                {filteredIssues
-                  .filter((item) => item.status === ISSUE_STATUS.IN_REVIEW)
-                  .map((item) => (
+                {loading ? (
+                  <BoardColumnPlaceholder />
+                ) : (
+                  filteredIssues
+                    .filter((item) => item.status === ISSUE_STATUS.IN_REVIEW)
+                    .map((item) => (
                     <IssueCard
                       key={item.id}
                       issue={item}
@@ -248,7 +298,8 @@ export function BoardPage() {
                       footerText={t('footer')}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
-                  ))}
+                  ))
+                )}
               </div>
             </section>
 
@@ -259,9 +310,12 @@ export function BoardPage() {
               </header>
               <div className="board-column-divider" />
               <div className="board-column-placeholder">
-                {filteredIssues
-                  .filter((item) => item.status === ISSUE_STATUS.ARCHIVED)
-                  .map((item) => (
+                {loading ? (
+                  <BoardColumnPlaceholder />
+                ) : (
+                  filteredIssues
+                    .filter((item) => item.status === ISSUE_STATUS.ARCHIVED)
+                    .map((item) => (
                     <IssueCard
                       key={item.id}
                       issue={item}
@@ -270,7 +324,8 @@ export function BoardPage() {
                       footerText={t('footer')}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
-                  ))}
+                  ))
+                )}
               </div>
             </section>
           </section>
