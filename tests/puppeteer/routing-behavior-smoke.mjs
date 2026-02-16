@@ -46,7 +46,7 @@ async function run() {
     if (querySummary.includes('foo=')) {
       throw new Error(`Unknown query key leaked into normalized state: ${querySummary}`)
     }
-    await page.click('.issue-card-link')
+    await page.click('a.issue-card')
     await page.waitForFunction(() => location.hash.startsWith('#/issue/DE-042'))
 
     // Scenario B: back to board with restored filters
