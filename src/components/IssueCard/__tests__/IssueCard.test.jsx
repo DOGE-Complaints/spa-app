@@ -87,6 +87,24 @@ describe('IssueCard', () => {
     expect(html).toMatch(/Feb|2025/)
   })
 
+  it('renders summary when present (card shows summary, not full description)', () => {
+    const issueWithSummary = {
+      ...minimalIssue,
+      summary: { et: 'Lühike', ru: 'Краткое', en: 'Short summary for card' },
+      description: { en: 'Full long description for details page' },
+    }
+    const html = renderToStaticMarkup(
+      <IssueCard
+        issue={issueWithSummary}
+        locale="en"
+        resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        footerText="Footer"
+      />,
+    )
+    expect(html).toContain('Short summary for card')
+    expect(html).not.toContain('Full long description for details page')
+  })
+
   it('uses resolveLocalizedText for title locale', () => {
     const html = renderToStaticMarkup(
       <IssueCard

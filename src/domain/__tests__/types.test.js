@@ -61,6 +61,23 @@ describe('domain types: Issue', () => {
     expect(isIssue(issue)).toBe(true)
     expect(assertIssue(issue)).toEqual(issue)
   })
+
+  it('accepts Issue with optional summary and institution (i18n)', () => {
+    const issue = {
+      id: 'DE-001',
+      type: ISSUE_TYPE.COMPLAINT,
+      title: { et: 'Pensionide indekseerimine', ru: 'Пенсионная индексация', en: 'Pension indexation' },
+      summary: { et: 'Pension tõusis, kuid kulud tõusid.', ru: 'Пенсия выросла, но расходы выросли.', en: 'Pension increased but costs rose.' },
+      description: { et: 'Pikk tekst.', ru: 'Полный текст.', en: 'Full text.' },
+      institution: { et: 'Sotsiaalkindlustusamet', ru: 'Sotsiaalkindlustusamet', en: 'Social Insurance Board' },
+      status: ISSUE_STATUS.VERIFIED,
+      labels: ['pensions', 'social'],
+      created_at: '2025-01-15T10:00:00Z',
+    }
+
+    expect(isIssue(issue)).toBe(true)
+    expect(assertIssue(issue)).toEqual(issue)
+  })
 })
 
 describe('domain types: IssueIntakePayload', () => {

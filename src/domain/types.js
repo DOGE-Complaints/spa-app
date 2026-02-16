@@ -57,6 +57,8 @@ export const PROBLEM_STATUS = Object.freeze({
  * @property {IssueType} type
  * @property {string} title
  * @property {string=} description
+ * @property {string|{et?:string,ru?:string,en?:string}=} summary — краткий текст для карточки (fallback: title)
+ * @property {string|{et?:string,ru?:string,en?:string}=} institution — инстанция/ведомство
  * @property {IssueStatus} status
  * @property {string[]} labels
  * @property {string=} arweave_txid
@@ -132,6 +134,8 @@ export function isIssue(value) {
     Object.values(ISSUE_TYPE).includes(value.type) &&
     (typeof value.title === 'string' || isOptionalStringOrI18n(value.title)) &&
     (isOptionalString(value.description) || isOptionalStringOrI18n(value.description)) &&
+    (value.summary === undefined || isOptionalString(value.summary) || isOptionalStringOrI18n(value.summary)) &&
+    (value.institution === undefined || isOptionalString(value.institution) || isOptionalStringOrI18n(value.institution)) &&
     Object.values(ISSUE_STATUS).includes(value.status) &&
     Array.isArray(value.labels) &&
     value.labels.every((item) => typeof item === 'string') &&

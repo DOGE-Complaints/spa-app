@@ -36,7 +36,7 @@ export function IssueCard({
   to,
   className = '',
 }) {
-  const titleText = resolveLocalizedText(issue.title)
+  const cardText = resolveLocalizedText(issue.summary ?? issue.title)
   const dateText = formatDate(issue.created_at)
   const typeDisplay = String(issue.type ?? '').toUpperCase()
   const labelChips = (issue.labels ?? []).map((l) => String(l).toUpperCase())
@@ -50,7 +50,7 @@ export function IssueCard({
           …
         </span>
       </div>
-      <h3 className="issue-card-title">{titleText}</h3>
+      <h3 className="issue-card-title">{cardText}</h3>
       <div className="issue-card-labels">
         <span className="issue-card-chip issue-card-chip-type">{typeDisplay}</span>
         {labelChips.map((chip) => (
@@ -67,7 +67,9 @@ export function IssueCard({
           <span>{dateText}</span>
         </div>
       ) : null}
-      <footer className="issue-card-footer">{footerText}</footer>
+      {footerText ? (
+        <footer className="issue-card-footer">{footerText}</footer>
+      ) : null}
     </>
   )
 
@@ -83,7 +85,7 @@ export function IssueCard({
     className: classes,
     'data-selected': selected || undefined,
     'aria-selected': selected || undefined,
-    'aria-label': `Issue ${issue.id}: ${titleText}`,
+    'aria-label': `Issue ${issue.id}: ${cardText}`,
   }
 
   if (to) {

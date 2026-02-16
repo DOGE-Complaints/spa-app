@@ -8,7 +8,7 @@ describe('IssuePage integration', () => {
   it('renders loading or success state with issueService', () => {
     const html = renderToStaticMarkup(
       <I18nProvider>
-        <MemoryRouter initialEntries={['/issue/DE-042']}>
+        <MemoryRouter initialEntries={['/issue/DE-001']}>
           <IssuePage />
         </MemoryRouter>
       </I18nProvider>,
@@ -20,7 +20,7 @@ describe('IssuePage integration', () => {
   it('shell includes header strip, sidebar, back affordance, footer', () => {
     const html = renderToStaticMarkup(
       <I18nProvider>
-        <MemoryRouter initialEntries={['/issue/DE-042']}>
+        <MemoryRouter initialEntries={['/issue/DE-001']}>
           <IssuePage />
         </MemoryRouter>
       </I18nProvider>,

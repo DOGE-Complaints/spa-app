@@ -45,6 +45,7 @@ export const UI_DICTIONARY = Object.freeze({
     metadataArweaveTxid: 'Arweave TXID',
     metadataImageTxid: 'Pildi TXID',
     metadataImageHash: 'Pildi räsi',
+    metadataInstitution: 'Asutus',
   },
   ru: {
     board: 'Доска',
@@ -92,6 +93,7 @@ export const UI_DICTIONARY = Object.freeze({
     metadataArweaveTxid: 'Arweave TXID',
     metadataImageTxid: 'TXID изображения',
     metadataImageHash: 'Хеш изображения',
+    metadataInstitution: 'Инстанция',
   },
   en: {
     board: 'Board',
@@ -139,5 +141,6 @@ export const UI_DICTIONARY = Object.freeze({
     metadataArweaveTxid: 'Arweave TXID',
     metadataImageTxid: 'Image TXID',
     metadataImageHash: 'Image Hash',
+    metadataInstitution: 'Institution',
   },
 })

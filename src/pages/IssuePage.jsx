@@ -112,6 +112,12 @@ export function IssuePage() {
                 </span>
               </div>
             ) : null}
+            {issue.institution ? (
+              <div className="issue-details-metadata-row">
+                <span className="issue-details-metadata-label">{t('metadataInstitution')}:</span>
+                <span className="issue-details-metadata-value">{resolveLocalizedText(issue.institution)}</span>
+              </div>
+            ) : null}
             {issue.created_at ? (
               <div className="issue-details-metadata-row">
                 <span className="issue-details-metadata-label">{t('metadataCreated')}:</span>
