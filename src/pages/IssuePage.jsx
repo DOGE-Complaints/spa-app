@@ -1,13 +1,32 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { issueService } from '../services/issueService.js'
+
+function formatDate(value) {
+  if (!value || typeof value !== 'string') return ''
+  try {
+    const d = new Date(value)
+    if (Number.isNaN(d.getTime())) return value
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  } catch {
+    return value
+  }
+}
+
+function hasDescription(issue) {
+  if (!issue?.description) return false
+  if (typeof issue.description === 'string') return Boolean(issue.description.trim())
+  const obj = issue.description
+  return Boolean(obj?.et?.trim() || obj?.ru?.trim() || obj?.en?.trim())
+}
 
 export function IssuePage() {
   const { id } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
-  const { t, resolveLocalizedText } = useI18n()
+  const { locale, t, resolveLocalizedText } = useI18n()
   const [issue, setIssue] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -62,12 +81,55 @@ export function IssuePage() {
         </section>
       ) : issue ? (
         <section className="issue-details-state issue-details-state-default">
-          <h1>{t('detailsPageTitle')}</h1>
-          <p>
-            {t('issuePlaceholder')}: {issue.id}
-          </p>
-          <p>{resolveLocalizedText(issue.title)}</p>
-          <p>{resolveLocalizedText(issue.description)}</p>
+          <header className="issue-details-header">
+            <span className="issue-details-id">{issue.id}</span>
+            <StatusBadge status={issue.status} locale={locale} />
+            <span className="issue-details-type">{t(`issueType.${issue.type}`)}</span>
+            <h1 className="issue-details-title">{resolveLocalizedText(issue.title)}</h1>
+          </header>
+          {hasDescription(issue) ? (
+            <section className="issue-details-body">
+              <p>{resolveLocalizedText(issue.description)}</p>
+            </section>
+          ) : null}
+          <section className="issue-details-metadata">
+            {issue.labels?.length > 0 ? (
+              <div className="issue-details-metadata-row">
+                <span className="issue-details-metadata-label">{t('metadataLabels')}:</span>
+                <span className="issue-details-metadata-value">
+                  {issue.labels.map((l) => (
+                    <span key={l} className="issue-details-chip">
+                      {String(l).toUpperCase()}
+                    </span>
+                  ))}
+                </span>
+              </div>
+            ) : null}
+            {issue.created_at ? (
+              <div className="issue-details-metadata-row">
+                <span className="issue-details-metadata-label">{t('metadataCreated')}:</span>
+                <span className="issue-details-metadata-value">{formatDate(issue.created_at)}</span>
+              </div>
+            ) : null}
+            {issue.arweave_txid ? (
+              <div className="issue-details-metadata-row">
+                <span className="issue-details-metadata-label">{t('metadataArweaveTxid')}:</span>
+                <span className="issue-details-metadata-value issue-details-metadata-monospace">{issue.arweave_txid}</span>
+              </div>
+            ) : null}
+            {issue.image_txid ? (
+              <div className="issue-details-metadata-row">
+                <span className="issue-details-metadata-label">{t('metadataImageTxid')}:</span>
+                <span className="issue-details-metadata-value issue-details-metadata-monospace">{issue.image_txid}</span>
+              </div>
+            ) : null}
+            {issue.image_hash ? (
+              <div className="issue-details-metadata-row issue-details-metadata-secondary">
+                <span className="issue-details-metadata-label">{t('metadataImageHash')}:</span>
+                <span className="issue-details-metadata-value issue-details-metadata-monospace">{issue.image_hash}</span>
+              </div>
+            ) : null}
+          </section>
         </section>
       ) : (
         <section className="issue-details-state issue-details-state-not-found">

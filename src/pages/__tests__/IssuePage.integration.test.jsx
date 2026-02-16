@@ -17,6 +17,17 @@ describe('IssuePage integration', () => {
     expect(html).toMatch(/issue-details-state-loading|issue-details-state-default/)
   })
 
+  it('shell includes back affordance', () => {
+    const html = renderToStaticMarkup(
+      <I18nProvider>
+        <MemoryRouter initialEntries={['/issue/DE-042']}>
+          <IssuePage />
+        </MemoryRouter>
+      </I18nProvider>,
+    )
+    expect(html).toContain('issue-back-button')
+  })
+
   it('renders not-found state for unknown id', () => {
     const html = renderToStaticMarkup(
       <I18nProvider>
