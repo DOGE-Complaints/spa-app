@@ -194,9 +194,14 @@ export function BoardPage() {
               />
             </div>
             </div>
-            <button type="button" className="board-cta" disabled>
+            <a
+              href="https://chatgpt.com/g/g-RkVU9xLWN-dogestonia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="board-cta"
+            >
               {t('createIssue')}
-            </button>
+            </a>
           </header>
 
           {error ? (
