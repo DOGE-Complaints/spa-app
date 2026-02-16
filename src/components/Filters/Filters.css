@@ -1,0 +1,153 @@
+/* Board filters — M10, M11, M12, M13 */
+
+.board-filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+}
+
+.board-filter-wrap {
+  position: relative;
+}
+
+.board-filter-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: #1f2024;
+  color: #ececf0;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.board-filter-trigger:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.board-filter-label {
+  color: #9a9da6;
+}
+
+.board-filter-value {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.board-filter-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.board-filter-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  min-width: 160px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: #1b1c1f;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.board-filter-dropdown-labels {
+  min-width: 200px;
+}
+
+.board-filter-option {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #ececf0;
+  font-size: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.board-filter-option:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.board-filter-option-selected {
+  background: rgba(199, 166, 70, 0.2);
+  color: #d9c481;
+}
+
+.board-filter-clear {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #9a9da6;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.board-filter-clear:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ececf0;
+}
+
+.board-filter-search {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: #25262c;
+  color: #ececf0;
+  font-size: 0.8rem;
+}
+
+.board-filter-search::placeholder {
+  color: #6b6e78;
+}
+
+.board-filter-reset {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: #25262c;
+  color: #9a9da6;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.board-filter-reset:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ececf0;
+}
+
+.board-filter-reset:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.board-no-results {
+  padding: 24px;
+  text-align: center;
+  color: #9a9da6;
+  font-size: 0.9rem;
+}
+
+.board-no-results-actions {
+  margin-top: 12px;
+}

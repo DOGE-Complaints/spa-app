@@ -1,11 +1,19 @@
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ISSUE_STATUS } from '../domain/types.js'
+import {
+  StatusFilter,
+  TypeFilter,
+  LabelsFilter,
+  ResetFiltersControl,
+} from '../components/Filters/index.js'
 import { IssueCard } from '../components/IssueCard/index.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
-import { normalizeBoardSearch, parseBoardQuery } from '../router/boardQuery.js'
-import { ROUTING_DEMO_ISSUES } from '../router/mockIssues.js'
+import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../router/boardQuery.js'
+import { issueService } from '../services/issueService.js'
+
+const AVAILABLE_LABELS = ['bureaucracy', 'infrastructure']
 
 const LANGUAGE_OPTIONS = Object.freeze([
   { value: 'et', nativeLabel: 'Eesti', flagSrc: '/assets/ET.svg' },
@@ -15,26 +23,50 @@ const LANGUAGE_OPTIONS = Object.freeze([
 
 export function BoardPage() {
   const location = useLocation()
+  const navigate = useNavigate()
   const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
   const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
+  const [issues, setIssues] = useState([])
   const { locale, setLocale, t, resolveLocalizedText } = useI18n()
   const selectedLocaleOption = LANGUAGE_OPTIONS.find((option) => option.value === locale) ?? LANGUAGE_OPTIONS[0]
   const boardFilters = parseBoardQuery(location.search)
   const normalizedSearch = normalizeBoardSearch(location.search)
   const boardUrlForBack = `/board${normalizedSearch}`
-  const filteredIssues = ROUTING_DEMO_ISSUES.filter((issue) => {
-    const statusPass = boardFilters.status.length === 0 || boardFilters.status.includes(issue.status)
-    const typePass = !boardFilters.type || boardFilters.type === issue.type
-    const labelsPass = boardFilters.labels.length === 0 || boardFilters.labels.every((label) => issue.labels.includes(label))
-    const text = `${resolveLocalizedText(issue.title)} ${resolveLocalizedText(issue.description)}`.toLowerCase()
-    const searchPass = !boardFilters.search || text.includes(boardFilters.search.toLowerCase())
 
-    return statusPass && typePass && labelsPass && searchPass
-  })
+  useEffect(() => {
+    const options = {
+      status: boardFilters.status.length > 0 ? boardFilters.status : undefined,
+      type: boardFilters.type || undefined,
+      labels: boardFilters.labels.length > 0 ? boardFilters.labels : undefined,
+    }
+    issueService.getIssues(options).then((list) => {
+      setIssues(list)
+    })
+  }, [location.search])
+
+  const filteredIssues = (() => {
+    if (!boardFilters.search || !boardFilters.search.trim()) return issues
+    const q = boardFilters.search.toLowerCase().trim()
+    return issues.filter((issue) => {
+      const text = `${resolveLocalizedText(issue.title)} ${resolveLocalizedText(issue.description)}`.toLowerCase()
+      return text.includes(q)
+    })
+  })()
 
   function handleLocaleSelect(nextLocale) {
     setLocale(nextLocale)
     setIsLocaleMenuOpen(false)
+  }
+
+  const hasActiveFilters =
+    boardFilters.status.length > 0 ||
+    !!boardFilters.type ||
+    boardFilters.labels.length > 0 ||
+    !!(boardFilters.search && boardFilters.search.trim())
+
+  function applyFilters(next) {
+    const q = serializeBoardQuery(next)
+    navigate({ pathname: '/board', search: q }, { replace: true })
   }
 
   return (
@@ -103,16 +135,55 @@ export function BoardPage() {
 
         <section className="board-workspace">
           <header className="board-toolbar">
-            <div className="board-toolbar-copy">
-              <h2>{t('board')}</h2>
-              <p className="board-routing-query" aria-label="Board query state">
-                {normalizedSearch || '(no query)'}
-              </p>
+            <div className="board-toolbar-left">
+              <div className="board-toolbar-copy">
+                <h2>{t('board')}</h2>
+                <p className="board-routing-query" aria-label="Board query state">
+                  {normalizedSearch || '(no query)'}
+                </p>
+              </div>
+              <div className="board-filters-row">
+              <StatusFilter
+                status={boardFilters.status}
+                onChange={(status) => applyFilters({ ...boardFilters, status })}
+                locale={locale}
+                t={t}
+              />
+              <TypeFilter
+                type={boardFilters.type}
+                onChange={(type) => applyFilters({ ...boardFilters, type })}
+                t={t}
+              />
+              <LabelsFilter
+                labels={boardFilters.labels}
+                availableLabels={AVAILABLE_LABELS}
+                onChange={(labels) => applyFilters({ ...boardFilters, labels })}
+                t={t}
+              />
+              <ResetFiltersControl
+                hasActiveFilters={hasActiveFilters}
+                onReset={() => applyFilters({ status: [], type: '', labels: [], search: '' })}
+                t={t}
+              />
+            </div>
             </div>
             <button type="button" className="board-cta" disabled>
               {t('createIssue')}
             </button>
           </header>
+
+          {hasActiveFilters && filteredIssues.length === 0 ? (
+            <div className="board-no-results">
+              <p>{t('noResultsMatch')}</p>
+              <div className="board-no-results-actions">
+                <ResetFiltersControl
+                  hasActiveFilters={true}
+                  onReset={() => applyFilters({ status: [], type: '', labels: [], search: '' })}
+                  t={t}
+                />
+              </div>
+            </div>
+          ) : null}
 
           <section className="board-columns" aria-label="Board columns scaffold">
             <section className="board-column" aria-label="Status NEW column">
@@ -140,28 +211,67 @@ export function BoardPage() {
             <section className="board-column" aria-label="Status VERIFIED column">
               <header className="board-column-header">
                 <StatusBadge status={ISSUE_STATUS.VERIFIED} locale={locale} />
-                <span>0</span>
+                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.VERIFIED).length}</span>
               </header>
               <div className="board-column-divider" />
-              <div className="board-column-placeholder">No cards</div>
+              <div className="board-column-placeholder">
+                {filteredIssues
+                  .filter((item) => item.status === ISSUE_STATUS.VERIFIED)
+                  .map((item) => (
+                    <IssueCard
+                      key={item.id}
+                      issue={item}
+                      locale={locale}
+                      resolveLocalizedText={resolveLocalizedText}
+                      footerText={t('footer')}
+                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                    />
+                  ))}
+              </div>
             </section>
 
             <section className="board-column" aria-label="Status IN REVIEW column">
               <header className="board-column-header">
                 <StatusBadge status={ISSUE_STATUS.IN_REVIEW} locale={locale} />
-                <span>0</span>
+                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.IN_REVIEW).length}</span>
               </header>
               <div className="board-column-divider" />
-              <div className="board-column-placeholder">No cards</div>
+              <div className="board-column-placeholder">
+                {filteredIssues
+                  .filter((item) => item.status === ISSUE_STATUS.IN_REVIEW)
+                  .map((item) => (
+                    <IssueCard
+                      key={item.id}
+                      issue={item}
+                      locale={locale}
+                      resolveLocalizedText={resolveLocalizedText}
+                      footerText={t('footer')}
+                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                    />
+                  ))}
+              </div>
             </section>
 
             <section className="board-column" aria-label="Status ARCHIVED column">
               <header className="board-column-header">
                 <StatusBadge status={ISSUE_STATUS.ARCHIVED} locale={locale} />
-                <span>0</span>
+                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.ARCHIVED).length}</span>
               </header>
               <div className="board-column-divider" />
-              <div className="board-column-placeholder">No cards</div>
+              <div className="board-column-placeholder">
+                {filteredIssues
+                  .filter((item) => item.status === ISSUE_STATUS.ARCHIVED)
+                  .map((item) => (
+                    <IssueCard
+                      key={item.id}
+                      issue={item}
+                      locale={locale}
+                      resolveLocalizedText={resolveLocalizedText}
+                      footerText={t('footer')}
+                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                    />
+                  ))}
+              </div>
             </section>
           </section>
 

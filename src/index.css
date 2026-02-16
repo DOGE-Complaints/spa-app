@@ -206,6 +206,14 @@ body {
   padding: 6px 12px;
 }
 
+.board-toolbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
 .board-toolbar-copy {
   min-width: 0;
 }
