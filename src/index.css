@@ -295,8 +295,6 @@ body {
 }
 
 .board-column-placeholder {
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
   min-height: 124px;
   display: flex;
   flex-direction: column;
@@ -304,7 +302,7 @@ body {
   gap: 10px;
   color: #8f939f;
   font-size: 0.82rem;
-  padding: 10px;
+  padding: 10px 0;
 }
 
 .board-skeleton-card {
