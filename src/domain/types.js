@@ -118,14 +118,20 @@ function isOptionalStringArray(value) {
   return value === undefined || (Array.isArray(value) && value.every((item) => typeof item === 'string'))
 }
 
+function isOptionalStringOrI18n(value) {
+  if (value === undefined || typeof value === 'string') return true
+  if (!isRecord(value)) return false
+  return typeof value.et === 'string' || typeof value.ru === 'string' || typeof value.en === 'string'
+}
+
 export function isIssue(value) {
   if (!isRecord(value)) return false
 
   return (
     typeof value.id === 'string' &&
     Object.values(ISSUE_TYPE).includes(value.type) &&
-    typeof value.title === 'string' &&
-    isOptionalString(value.description) &&
+    (typeof value.title === 'string' || isOptionalStringOrI18n(value.title)) &&
+    (isOptionalString(value.description) || isOptionalStringOrI18n(value.description)) &&
     Object.values(ISSUE_STATUS).includes(value.status) &&
     Array.isArray(value.labels) &&
     value.labels.every((item) => typeof item === 'string') &&

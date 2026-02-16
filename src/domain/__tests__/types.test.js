@@ -47,6 +47,20 @@ describe('domain types: Issue', () => {
     expect(isIssue(issue)).toBe(false)
     expect(() => assertIssue(issue)).toThrow('Invalid Issue')
   })
+
+  it('accepts Issue with i18n title and description', () => {
+    const issue = {
+      id: 'DE-042',
+      type: ISSUE_TYPE.COMPLAINT,
+      title: { et: 'Silla remondi viivitus', ru: 'Задержка ремонта моста', en: 'Bridge repair delay' },
+      description: { et: 'Objektil puudub liikumine.', ru: 'На объекте нет движения.', en: 'No activity on site.' },
+      status: ISSUE_STATUS.NEW,
+      labels: ['bureaucracy', 'infrastructure'],
+    }
+
+    expect(isIssue(issue)).toBe(true)
+    expect(assertIssue(issue)).toEqual(issue)
+  })
 })
 
 describe('domain types: IssueIntakePayload', () => {

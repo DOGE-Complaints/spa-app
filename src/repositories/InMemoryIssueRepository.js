@@ -11,7 +11,10 @@ function applyReadFilters(items, options) {
 
   let result = items
 
-  if (typeof options.status === 'string') {
+  if (Array.isArray(options.status) && options.status.length > 0) {
+    const statusSet = new Set(options.status)
+    result = result.filter((item) => statusSet.has(item.status))
+  } else if (typeof options.status === 'string') {
     result = result.filter((item) => item.status === options.status)
   }
 
@@ -20,7 +23,9 @@ function applyReadFilters(items, options) {
   }
 
   if (Array.isArray(options.labels) && options.labels.length > 0) {
-    result = result.filter((item) => options.labels.every((label) => item.labels.includes(label)))
+    result = result.filter((item) =>
+      options.labels.some((label) => item.labels && item.labels.includes(label)),
+    )
   }
 
   return result

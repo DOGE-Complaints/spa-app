@@ -1,5 +1,6 @@
 import { assertIssueRepository } from '../domain/IssueRepository.js'
 import { createInMemoryIssueRepository } from '../repositories/InMemoryIssueRepository.js'
+import { ROUTING_DEMO_ISSUES } from '../router/mockIssues.js'
 
 /**
  * @typedef {Object} IssueService
@@ -25,4 +26,4 @@ export function createIssueService(repository) {
   }
 }
 
-export const issueService = createIssueService(createInMemoryIssueRepository())
+export const issueService = createIssueService(createInMemoryIssueRepository([...ROUTING_DEMO_ISSUES]))
