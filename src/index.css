@@ -299,28 +299,6 @@ body {
   padding: 10px;
 }
 
-.issue-card-routing {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 8px;
-  background: rgba(30, 31, 35, 0.8);
-}
-
-.issue-card-routing-id,
-.issue-card-routing-title {
-  margin: 0 0 6px;
-}
-
-.issue-card-link {
-  color: #d9c481;
-  font-size: 0.8rem;
-  text-decoration: none;
-}
-
-.issue-card-link:hover {
-  text-decoration: underline;
-}
-
 .issue-page-shell {
   min-height: 100vh;
   padding: 16px 20px;

@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { ISSUE_STATUS } from '../domain/types.js'
+import { IssueCard } from '../components/IssueCard/index.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { normalizeBoardSearch, parseBoardQuery } from '../router/boardQuery.js'
@@ -124,13 +125,14 @@ export function BoardPage() {
                 {filteredIssues
                   .filter((item) => item.status === ISSUE_STATUS.NEW)
                   .map((item) => (
-                    <article key={item.id} className="issue-card-routing">
-                      <p className="issue-card-routing-id">{item.id}</p>
-                      <p className="issue-card-routing-title">{resolveLocalizedText(item.title)}</p>
-                      <Link className="issue-card-link" to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}>
-                        Open details
-                      </Link>
-                    </article>
+                    <IssueCard
+                      key={item.id}
+                      issue={item}
+                      locale={locale}
+                      resolveLocalizedText={resolveLocalizedText}
+                      footerText={t('footer')}
+                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                    />
                   ))}
               </div>
             </section>

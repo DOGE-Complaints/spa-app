@@ -1,0 +1,107 @@
+/* IssueCard — EPIC-03 board card, M02 + M04 */
+
+.issue-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background: #1f2024;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  color: #ececf0;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.issue-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: #25262c;
+}
+
+.issue-card:focus-visible {
+  outline: 2px solid rgba(199, 166, 70, 0.8);
+  outline-offset: 2px;
+}
+
+.issue-card-selected,
+.issue-card[data-selected='true'] {
+  border-left: 3px solid #bb944a;
+  padding-left: 17px;
+}
+
+.issue-card-selected:focus-visible,
+.issue-card[data-selected='true']:focus-visible {
+  outline: 2px solid rgba(199, 166, 70, 0.8);
+  outline-offset: 2px;
+}
+
+.issue-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.issue-card-id {
+  font-size: 0.8rem;
+  color: #9a9da6;
+  font-weight: 500;
+}
+
+.issue-card-overflow {
+  margin-left: auto;
+  color: #6b6e78;
+  font-size: 1rem;
+  cursor: default;
+}
+
+.issue-card-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.issue-card-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.issue-card-chip {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #b8bbc4;
+}
+
+.issue-card-chip-type {
+  background: rgba(190, 160, 86, 0.2);
+  color: #bea056;
+}
+
+.issue-card-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #9a9da6;
+}
+
+.issue-card-date-bullet {
+  color: #6b6e78;
+}
+
+.issue-card-footer {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.72rem;
+  color: #6b6e78;
+}
