@@ -38,16 +38,17 @@ async function run() {
     const page = await browser.newPage()
     await page.setViewport({ width: 1536, height: 1024 })
 
-    // Scenario A + query normalization
-    await page.goto('http://127.0.0.1:4173/#/board?status=NEW&type=complaint&labels=bureaucracy,infrastructure&search=bridge&foo=bar', {
+    // Scenario A + query normalization (labels matching new mocks: bureaucracy, pensions)
+    await page.goto('http://127.0.0.1:4173/#/board?status=NEW&type=complaint&labels=bureaucracy,pensions&foo=bar', {
       waitUntil: 'networkidle0',
     })
     const querySummary = await page.$eval('.board-routing-query', (node) => node.textContent?.trim() ?? '')
     if (querySummary.includes('foo=')) {
       throw new Error(`Unknown query key leaked into normalized state: ${querySummary}`)
     }
+    await page.waitForSelector('a.issue-card', { timeout: 5000 })
     await page.click('a.issue-card')
-    await page.waitForFunction(() => location.hash.startsWith('#/issue/DE-042'))
+    await page.waitForFunction(() => /^#\/issue\/DE-\d{3}(?:\?|$)/.test(location.hash))
 
     // Scenario B: back to board with restored filters
     await page.click('.issue-back-button')
@@ -58,7 +59,7 @@ async function run() {
     }
 
     // Scenario C: direct open details + not-found
-    await page.goto('http://127.0.0.1:4173/#/issue/DE-042', { waitUntil: 'networkidle0' })
+    await page.goto('http://127.0.0.1:4173/#/issue/DE-001', { waitUntil: 'networkidle0' })
     await page.waitForSelector('.issue-details-state-default')
     await page.goto('http://127.0.0.1:4173/#/issue/UNKNOWN-ID', { waitUntil: 'networkidle0' })
     await page.waitForSelector('.issue-details-state-not-found')

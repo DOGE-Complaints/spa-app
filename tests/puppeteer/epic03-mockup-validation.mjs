@@ -176,7 +176,7 @@ async function captureScreenshots(page) {
   await page.screenshot({ path: boardPath, fullPage: true })
 
   const detailsPath = path.join(SCREENSHOT_DIR, 'issue-details-current.png')
-  await page.goto('http://127.0.0.1:4173/#/issue/DE-042', { waitUntil: 'networkidle0' })
+  await page.goto('http://127.0.0.1:4173/#/issue/DE-001', { waitUntil: 'networkidle0' })
   await page.screenshot({ path: detailsPath, fullPage: true })
 
   return { boardPath, detailsPath }

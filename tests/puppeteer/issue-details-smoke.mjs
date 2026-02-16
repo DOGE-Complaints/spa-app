@@ -34,8 +34,8 @@ async function run() {
     const page = await browser.newPage()
     await page.setViewport({ width: 1536, height: 1024 })
 
-    // Direct open details with existing id
-    await page.goto('http://127.0.0.1:4173/#/issue/DE-042', { waitUntil: 'networkidle0' })
+    // Direct open details with existing id (DE-001..DE-012)
+    await page.goto('http://127.0.0.1:4173/#/issue/DE-001', { waitUntil: 'networkidle0' })
     await page.waitForSelector('.issue-details-state-default', { timeout: 3000 })
 
     // Shell: header strip, sidebar, footer (per mockup)
@@ -56,10 +56,10 @@ async function run() {
     if (!hasStatusBadge) throw new Error('StatusBadge missing')
     if (!hasTitle) throw new Error('Details title missing')
     if (!hasMetadata) throw new Error('Metadata block missing')
-    if (idText !== 'DE-042') throw new Error(`Expected id DE-042, got: ${idText}`)
+    if (idText !== 'DE-001') throw new Error(`Expected id DE-001, got: ${idText}`)
     if (!titleText || titleText.length < 3) throw new Error(`Expected non-empty title, got: ${titleText}`)
 
-    // Metadata: labels present for DE-042 (has labels: bureaucracy, infrastructure)
+    // Metadata: labels present for DE-001 (has labels: pensions, social)
     const labelsRow = await page.$('.issue-details-metadata-row')
     if (!labelsRow) throw new Error('Metadata labels row missing')
 
