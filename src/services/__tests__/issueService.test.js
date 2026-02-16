@@ -59,7 +59,10 @@ describe('issueService facade (read-side)', () => {
     expect('createIssue' in service).toBe(false)
   })
 
-  it('exports default issueService with in-memory repository for dev', async () => {
-    await expect(issueService.getIssues()).resolves.toEqual([])
+  it('exports default issueService with in-memory repository for dev (seeded with demo issues)', async () => {
+    const list = await issueService.getIssues()
+    expect(Array.isArray(list)).toBe(true)
+    expect(list.length).toBeGreaterThanOrEqual(1)
+    expect(list[0]).toHaveProperty('id', 'DE-042')
   })
 })

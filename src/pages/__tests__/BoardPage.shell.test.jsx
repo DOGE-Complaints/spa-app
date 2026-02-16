@@ -38,4 +38,21 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).toContain('Status IN REVIEW column')
     expect(html).toContain('Status ARCHIVED column')
   })
+
+  it('renders filter controls and reset in toolbar', () => {
+    const html = renderToStaticMarkup(
+      <I18nProvider>
+        <MemoryRouter>
+          <BoardPage />
+        </MemoryRouter>
+      </I18nProvider>,
+    )
+
+    expect(html).toContain('board-filters-row')
+    expect(html).toContain('board-filter-trigger')
+    expect(html).toContain('Reset Filters')
+    expect(html).toContain('Status')
+    expect(html).toContain('Type')
+    expect(html).toContain('Labels')
+  })
 })

@@ -40,4 +40,32 @@ describe('InMemoryIssueRepository (read-side)', () => {
     const repo = createInMemoryIssueRepository()
     expect('createIssue' in repo).toBe(false)
   })
+
+  it('filters by options.status array (multi-select OR)', async () => {
+    const issues = [
+      makeIssue({ id: 'A', status: ISSUE_STATUS.NEW }),
+      makeIssue({ id: 'B', status: ISSUE_STATUS.VERIFIED }),
+      makeIssue({ id: 'C', status: ISSUE_STATUS.IN_REVIEW }),
+    ]
+    const repo = createInMemoryIssueRepository(issues)
+
+    const result = await repo.getIssues({ status: [ISSUE_STATUS.NEW, ISSUE_STATUS.VERIFIED] })
+
+    expect(result).toHaveLength(2)
+    expect(result.map((r) => r.id)).toEqual(['A', 'B'])
+  })
+
+  it('filters by options.labels (OR: issue has at least one label)', async () => {
+    const issues = [
+      makeIssue({ id: 'A', labels: ['infrastructure'] }),
+      makeIssue({ id: 'B', labels: ['bureaucracy'] }),
+      makeIssue({ id: 'C', labels: ['health'] }),
+    ]
+    const repo = createInMemoryIssueRepository(issues)
+
+    const result = await repo.getIssues({ labels: ['bureaucracy', 'health'] })
+
+    expect(result).toHaveLength(2)
+    expect(result.map((r) => r.id)).toEqual(['B', 'C'])
+  })
 })
