@@ -14,7 +14,7 @@ describe('StatusBadge', () => {
     const html = renderToStaticMarkup(<StatusBadge status={ISSUE_STATUS.VERIFIED} locale="en" />)
     expect(html).toContain('VERIFIED')
     expect(html).toContain('status-badge-icon')
-    expect(html).toContain('favicon.svg')
+    expect(html).toContain('icons/verified.svg')
   })
 
   it('falls back to UNKNOWN variant for unexpected value', () => {

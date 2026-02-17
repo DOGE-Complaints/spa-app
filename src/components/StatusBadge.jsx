@@ -58,7 +58,7 @@ export function StatusBadge({ status, locale = 'en', className = '' }) {
   return (
     <span className={classes} data-status={normalizedStatus} aria-label={`Status: ${label}`}>
       {normalizedStatus === ISSUE_STATUS.VERIFIED && (
-        <img src="/favicon.svg" alt="" className="status-badge-icon" aria-hidden />
+        <img src="/icons/verified.svg" alt="" className="status-badge-icon" aria-hidden />
       )}
       <span className="status-badge-label">{label}</span>
     </span>

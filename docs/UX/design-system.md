@@ -94,7 +94,7 @@ Design System состоит из 4 слоёв:
 - SVG (монохром),
 - масштабируемый до 12px без потери читаемости.
 
-**Расположение:** `src/assets/icons/` или `public/icons/` (локально).
+**Расположение:** `public/icons/` (локально). VERIFIED: `public/icons/verified.svg`.
 
 ### 3.2 Статусные иконки
 
