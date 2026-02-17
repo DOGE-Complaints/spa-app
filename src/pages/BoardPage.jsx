@@ -7,6 +7,7 @@ import {
   LabelsFilter,
   ResetFiltersControl,
 } from '../components/Filters/index.js'
+import { EmptyState } from '../components/EmptyState/index.js'
 import { IssueCard } from '../components/IssueCard/index.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
@@ -214,7 +215,7 @@ export function BoardPage() {
             </div>
           ) : !loading && !hasActiveFilters && issues.length === 0 ? (
             <div className="board-no-issues">
-              <p>{t('noIssuesRecorded')}</p>
+              <EmptyState message={t('noIssuesRecorded')} />
             </div>
           ) : hasActiveFilters && filteredIssues.length === 0 ? (
             <div className="board-no-results">
