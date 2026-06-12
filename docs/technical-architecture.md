@@ -17,7 +17,11 @@
 
 Этот документ фиксирует именно такую траекторию.
 
-**Root-level runtime контур (Custom GPT -> Edge -> Dogeparty/Arweave -> SPA):** `docs/architecture/dogeestonia-ingest-runtime-architecture.md`
+**Root-level runtime контур (Custom GPT -> Edge -> Dogeparty/Arweave -> SPA):** см. [doge-complaints-gateway runtime-docs API_REFERENCE](../../../doge-complaints-gateway/docs/runtime-docs/api-reference/API_REFERENCE.md) (intake + issues API) и §0 настоящего документа.
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G11 закрыт документально — битая ссылка заменена.
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G1 закрыт — `GET {VITE_GATEWAY_BASE_URL}/tallinn/issues` ([STORY-SPA-G1](tasks/epics/EPIC-DASH-01-dashboard-read-side-cutover/stories/STORY-SPA-G1-gateway-endpoint-alignment/STORY-SPA-G1-gateway-endpoint-alignment.md), pkg-000001).
 
 ---
 
@@ -29,6 +33,7 @@
 2. **Repository Contract Layer** — интерфейс доступа к данным (`IssueRepository`).
 3. **Repository Implementations** — подменяемые реализации:
    - `InMemoryIssueRepository` (EPIC-00, для TDD/dev),
+   - `GatewayIssueRepository` (read-side runtime для `GFL-DRIVEN`),
    - `Arweave write path` (EPIC-05),
    - `BroadcastIssueRepository` (EPIC-04).
 4. **Service Facade Layer** — `issueService`, единая точка для UI.
@@ -71,13 +76,15 @@ EPIC-00 формирует фундаментальные части пункт�
 
 - `getIssues(options?) -> Promise<Issue[]>`
 - `getIssue(id) -> Promise<Issue | null>`
-- `createIssue(command) -> Promise<CreateIssueResult>`
+
+> Для текущего SPA runtime (read-side) `createIssue` в контракт `IssueRepository` не входит.
 
 #### Facade contract (для UI)
 
 - `issueService.getIssues(options?)`
 - `issueService.getIssue(id)`
-- `issueService.createIssue(command)`
+
+> Для текущего SPA runtime (read-side) фасад экспортирует только read-методы.
 
 **Ключевой принцип:** UI не импортирует и не вызывает репозитории напрямую.
 
@@ -89,15 +96,23 @@ EPIC-00 формирует фундаментальные части пункт�
 
 `UI -> issueService.getIssues() -> InMemoryIssueRepository.getIssues() -> Issue[]`
 
+### 3.1.1 Read flow (gateway runtime)
+
+`UI -> issueService.getIssues() -> GatewayIssueRepository.getIssues() -> GET /tallinn/issues -> Issue[]`
+
 ### 3.2 Read by id flow
 
 `UI -> issueService.getIssue(id) -> InMemoryIssueRepository.getIssue(id) -> Issue | null`
 
-### 3.3 Create flow (локальный baseline)
+### 3.2.1 Read by id flow (gateway runtime)
 
-`UI -> issueService.createIssue(command) -> InMemoryIssueRepository.createIssue(command) -> CreateIssueResult`
+`UI -> issueService.getIssue(id) -> GatewayIssueRepository.getIssue(id) -> GET /tallinn/issues/{id} -> Issue | null`
 
-На уровне EPIC-00 `createIssue` может быть локальным. Внешняя персистентность добавляется в EPIC-05/EPIC-10/EPIC-11 через замену реализации репозитория/адаптера.
+### 3.3 Create flow (ingest-side, вне SPA runtime)
+
+`Custom GPT -> Edge ingest -> gateway orchestration -> storage/publish`
+
+В текущем SPA create-path не исполняется через `issueService`/`IssueRepository`; SPA runtime остаётся read-only.
 
 ---
 

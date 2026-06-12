@@ -132,6 +132,12 @@ Facade methods:
 - `getIssues(options?) -> Promise<Issue[]>`
 - `getIssue(id) -> Promise<Issue | null>`
 
+Runtime data-source selection (resolved inside service wiring):
+- `VITE_LIFE_REALITY_MODE=FAKE-OLD` -> `InMemoryIssueRepository` seeded by `ROUTING_DEMO_ISSUES`
+- `VITE_LIFE_REALITY_MODE=GFL-DRIVEN` -> `GatewayIssueRepository(VITE_GATEWAY_BASE_URL)` → `GET /tallinn/issues` (канон gateway; см. [API_REFERENCE §7](../../../doge-complaints-gateway/docs/runtime-docs/api-reference/API_REFERENCE.md))
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G1 закрыт — runtime path `/tallinn/issues` в [GatewayIssueRepository.js](../../src/repositories/GatewayIssueRepository.js).
+
 Creation APIs are out of scope for SPA runtime in MVP.
 
 ---
