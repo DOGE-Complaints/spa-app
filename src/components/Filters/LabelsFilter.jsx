@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { formatLabelKey } from '../../i18n/labelDisplay.js'
 import './Filters.css'
 
 /**
@@ -14,12 +15,14 @@ export function LabelsFilter({ labels, availableLabels, onChange, t }) {
     return availableLabels.filter((l) => String(l).toLowerCase().includes(q))
   }, [availableLabels, search])
 
+  const formatLabel = (key) => formatLabelKey(t, key)
+
   const label =
     labels.length === 0
       ? t('filterLabels')
       : labels.length <= 2
-        ? labels.join(', ')
-        : `${labels.slice(0, 2).join(', ')} +${labels.length - 2}`
+        ? labels.map(formatLabel).join(', ')
+        : `${labels.slice(0, 2).map(formatLabel).join(', ')} +${labels.length - 2}`
 
   const toggle = (l) => {
     if (labels.includes(l)) {
@@ -63,7 +66,7 @@ export function LabelsFilter({ labels, availableLabels, onChange, t }) {
                 className={`board-filter-option ${labels.includes(l) ? 'board-filter-option-selected' : ''}`}
                 onClick={() => toggle(l)}
               >
-                {l}
+                {formatLabelKey(t, l)}
               </button>
             ))}
             {labels.length > 0 ? (

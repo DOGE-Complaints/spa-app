@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { StatusBadge } from '../components/StatusBadge.jsx'
+import { formatLabelKey } from '../i18n/labelDisplay.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { issueService } from '../services/issueService.js'
 
@@ -106,7 +107,7 @@ export function IssuePage() {
                 <span className="issue-details-metadata-value">
                   {issue.labels.map((l) => (
                     <span key={l} className="issue-details-chip">
-                      {String(l).toUpperCase()}
+                      {formatLabelKey(t, String(l))}
                     </span>
                   ))}
                 </span>

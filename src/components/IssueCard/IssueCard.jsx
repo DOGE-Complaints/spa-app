@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { formatLabelKey } from '../../i18n/labelDisplay.js'
 import { StatusBadge } from '../StatusBadge.jsx'
 import './IssueCard.css'
 
@@ -25,12 +26,14 @@ function formatDate(value) {
  * @param {string} footerText
  * @param {boolean} [selected]
  * @param {string} [to] — href для Link
+ * @param {(k: string) => string} t
  * @param {string} [className]
  */
 export function IssueCard({
   issue,
   locale,
   resolveLocalizedText,
+  t,
   footerText,
   selected = false,
   to,
@@ -39,7 +42,10 @@ export function IssueCard({
   const cardText = resolveLocalizedText(issue.summary ?? issue.title)
   const dateText = formatDate(issue.created_at)
   const typeDisplay = String(issue.type ?? '').toUpperCase()
-  const labelChips = (issue.labels ?? []).map((l) => String(l).toUpperCase())
+  const labelChips = (issue.labels ?? []).map((l) => ({
+    key: String(l),
+    text: formatLabelKey(t, String(l)),
+  }))
 
   const content = (
     <>
@@ -54,8 +60,8 @@ export function IssueCard({
       <div className="issue-card-labels">
         <span className="issue-card-chip issue-card-chip-type">{typeDisplay}</span>
         {labelChips.map((chip) => (
-          <span key={chip} className="issue-card-chip">
-            {chip}
+          <span key={chip.key} className="issue-card-chip">
+            {chip.text}
           </span>
         ))}
       </div>

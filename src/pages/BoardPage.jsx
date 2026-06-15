@@ -13,8 +13,7 @@ import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
-
-const AVAILABLE_LABELS = ['bureaucracy', 'infrastructure', 'healthcare', 'pensions', 'education', 'housing', 'tax', 'digital', 'social', 'language']
+import { AVAILABLE_LABELS } from '../i18n/labelKeys.js'
 
 function BoardColumnPlaceholder({ count = 3 }) {
   return (
@@ -249,6 +248,7 @@ export function BoardPage() {
                       issue={item}
                       locale={locale}
                       resolveLocalizedText={resolveLocalizedText}
+                      t={t}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
                   ))
@@ -274,6 +274,7 @@ export function BoardPage() {
                       issue={item}
                       locale={locale}
                       resolveLocalizedText={resolveLocalizedText}
+                      t={t}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
                   ))
@@ -299,6 +300,7 @@ export function BoardPage() {
                       issue={item}
                       locale={locale}
                       resolveLocalizedText={resolveLocalizedText}
+                      t={t}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
                   ))
@@ -324,6 +326,7 @@ export function BoardPage() {
                       issue={item}
                       locale={locale}
                       resolveLocalizedText={resolveLocalizedText}
+                      t={t}
                       to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                     />
                   ))
