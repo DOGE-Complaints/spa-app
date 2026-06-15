@@ -162,14 +162,25 @@ function resolveLocalizedText(field, lang) {
 - хранение labels как canonical key (`"bureaucracy"`, `"healthcare"`),
 - отображение через UI dictionary (`label key -> localized label`).
 
-Минимальный контракт label keys (MVP baseline):
+Минимальный контракт label keys (MVP baseline, источник истины — `AVAILABLE_LABELS` в [`src/i18n/labelKeys.js`](../src/i18n/labelKeys.js); product SSOT — [label-taxonomy-G2-approved.md](analysis/label-taxonomy-G2-approved.md)):
 - `bureaucracy`
 - `infrastructure`
 - `healthcare`
-- `road_safety`
-- `storm_damage`
+- `pensions`
+- `education`
+- `housing`
+- `tax`
+- `digital`
+- `social`
+- `language`
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G5 закрыт документально — список ключей синхронизирован с `AVAILABLE_LABELS`.
 
 Это проще и чище на MVP, чем хранить i18n-объект внутри каждого label.
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G2 закрыт — `labels.*` в [`dictionaries.js`](../src/i18n/dictionaries.js); UI через `formatLabelKey` ([`labelDisplay.js`](../src/i18n/labelDisplay.js)).
+
+Пример: `t('labels.bureaucracy')` → et `Bürokraatia`, ru `Бюрократия`, en `Bureaucracy`.
 
 ---
 
@@ -183,10 +194,12 @@ function resolveLocalizedText(field, lang) {
 - делает переключение языка доступным на board/details без доп. скролла;
 - сохраняет чистый layout action-зон board.
 
-Формат selector:
-- компактный dropdown `ET / RU / EN`;
-- без флагов;
+Формат selector (фактический MVP в коде):
+- dropdown с кодом языка (`ET` / `RU` / `EN`) и флагами (`/assets/ET.svg`, `RU.svg`, `US.svg` для EN);
+- native label в option (`Eesti`, `Русский`, `English`) — хардкод в `BoardPage`/`IssuePage`, не из словаря;
 - без анимаций.
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G6 закрыт документально — флаги узаконены. Словарь `languages.*` в `dictionaries.js` зарезервирован, пока не используется в рантайме.
 
 ---
 

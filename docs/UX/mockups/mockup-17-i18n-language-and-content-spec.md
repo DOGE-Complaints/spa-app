@@ -72,7 +72,11 @@ No runtime translation services are used.
 
 - Title/preview truncation must hold for `et/ru/en`.
 - Long strings must not break card/details layout.
-- Selector uses compact `ET / RU / EN` without flags.
+- Selector: код языка + флаг (`ET`/`RU`/`EN` + `/assets/ET.svg`, `RU.svg`, `US.svg`) — фактический MVP.
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G6 закрыт документально.
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G2 закрыт — `labels.*` в [`dictionaries.js`](../../../src/i18n/dictionaries.js).
 
 ---
 

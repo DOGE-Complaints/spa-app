@@ -5,6 +5,8 @@
 **Status:** active SSOT for labels-filter control  
 **Related epic:** `docs/epics/EPIC-03-issue-board-mvp.md`
 
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G2 закрыт — localized labels в [`LabelsFilter.jsx`](../../../src/components/Filters/LabelsFilter.jsx).
+
 ---
 
 ## 1) Что фиксирует этот мокап

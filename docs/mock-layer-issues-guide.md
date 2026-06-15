@@ -4,6 +4,10 @@
 **Область:** `spa-app`, EPIC-03  
 **Связано:** `docs/i18n-architecture.md`, `docs/domain-facade-contract.md`, `mockup-16-data-annotation-overlay-spec.md`
 
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G11 закрыт документально — канон моков: `src/router/mockIssues.js`.
+
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G2 закрыт — `labels.*` в [`dictionaries.js`](../src/i18n/dictionaries.js), SSOT ключей [`labelKeys.js`](../src/i18n/labelKeys.js) ([STORY-SPA-G2](tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/STORY-SPA-G2-labels-i18n-dictionary.md), pkg-000002).
+
 ---
 
 ## 1. Где хранятся моки
@@ -12,9 +16,11 @@
 |-----|------|
 | **Список моков** | `src/router/mockIssues.js` |
 | **Константа** | `ROUTING_DEMO_ISSUES` (Object.freeze) |
-| **Потребление** | `src/services/issueService.js` → `createInMemoryIssueRepository([...ROUTING_DEMO_ISSUES])` |
+| **Потребление** | `src/services/issueService.js` (ветка `FAKE-OLD`) → `createInMemoryIssueRepository([...ROUTING_DEMO_ISSUES])` |
 
-Цепочка: `mockIssues.js` → `issueService` → `InMemoryIssueRepository` → BoardPage / IssuePage.
+Цепочка в mock-режиме: `mockIssues.js` → `issueService` (`VITE_LIFE_REALITY_MODE=FAKE-OLD`) → `InMemoryIssueRepository` → BoardPage / IssuePage.
+
+Если `VITE_LIFE_REALITY_MODE=GFL-DRIVEN`, данные берутся не из mock-слоя, а через `GatewayIssueRepository`.
 
 ---
 
@@ -117,7 +123,7 @@ import { ISSUE_STATUS, ISSUE_TYPE } from '../domain/types.js'
 
 2. Labels в моках — строковые ключи; UI показывает их в фильтре и на карточке как есть (uppercase).
 
-3. Если нужны переводимые названия labels — расширить `UI_DICTIONARY` в `src/i18n/dictionaries.js` (например `labels.bureaucracy`).
+3. Переводимые названия labels — через `labels.*` в `UI_DICTIONARY` (`src/i18n/dictionaries.js`); ключи — [`labelKeys.js`](../src/i18n/labelKeys.js); product SSOT — [label-taxonomy-G2-approved.md](analysis/label-taxonomy-G2-approved.md).
 
 ---
 
@@ -160,7 +166,7 @@ export const ROUTING_DEMO_ISSUES = Object.freeze([
     institution: { et: 'Haridus- ja Teadusministeerium', ru: '...', en: '...' },
     created_at: '2025-01-18T14:30:00Z',
   },
-  // ... всего 12 issues (DE-001 … DE-012) из issues-raw-data.md
+  // ... всего 12 issues (DE-001 … DE-012) — канонический источник: src/router/mockIssues.js ROUTING_DEMO_ISSUES
 ])
 ```
 
