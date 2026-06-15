@@ -2,7 +2,20 @@ import { describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import { ISSUE_STATUS, ISSUE_TYPE } from '../../../domain/types.js'
+import { UI_DICTIONARY } from '../../../i18n/dictionaries.js'
 import { IssueCard } from '../IssueCard.jsx'
+
+function makeT(locale = 'en') {
+  const dict = UI_DICTIONARY[locale] ?? UI_DICTIONARY.en
+  return (key) => {
+    const parts = String(key).split('.')
+    let current = dict
+    for (const part of parts) {
+      current = current?.[part]
+    }
+    return typeof current === 'string' ? current : key
+  }
+}
 
 function resolveLocalizedText(field, locale = 'en') {
   if (!field) return ''
@@ -25,6 +38,7 @@ describe('IssueCard', () => {
         issue={minimalIssue}
         locale="en"
         resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
         footerText="Footer"
       />,
     )
@@ -33,8 +47,9 @@ describe('IssueCard', () => {
     expect(html).toContain('NEW')
     expect(html).toContain('status-badge')
     expect(html).toContain('COMPLAINT')
-    expect(html).toContain('BUREAUCRACY')
-    expect(html).toContain('INFRASTRUCTURE')
+    expect(html).toContain('Bureaucracy')
+    expect(html).toContain('Infrastructure')
+    expect(html).not.toContain('BUREAUCRACY')
     expect(html).toContain('Footer')
   })
 
@@ -51,6 +66,7 @@ describe('IssueCard', () => {
         issue={issueWithExtra}
         locale="en"
         resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
         footerText="Footer"
       />,
     )
@@ -66,6 +82,7 @@ describe('IssueCard', () => {
         issue={minimalIssue}
         locale="en"
         resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
         footerText="Footer"
       />,
     )
@@ -80,6 +97,7 @@ describe('IssueCard', () => {
         issue={issueWithDate}
         locale="en"
         resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
         footerText="Footer"
       />,
     )
@@ -98,6 +116,7 @@ describe('IssueCard', () => {
         issue={issueWithSummary}
         locale="en"
         resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
         footerText="Footer"
       />,
     )
@@ -111,6 +130,7 @@ describe('IssueCard', () => {
         issue={minimalIssue}
         locale="ru"
         resolveLocalizedText={(f) => resolveLocalizedText(f, 'ru')}
+        t={makeT('ru')}
         footerText="Footer"
       />,
     )
@@ -124,6 +144,7 @@ describe('IssueCard', () => {
           issue={minimalIssue}
           locale="en"
           resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+          t={makeT('en')}
           footerText="Footer"
           to="/issue/DE-042"
         />
@@ -138,6 +159,7 @@ describe('IssueCard', () => {
         issue={minimalIssue}
         locale="en"
         resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
         footerText="Footer"
       />,
     )

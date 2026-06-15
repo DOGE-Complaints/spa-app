@@ -59,11 +59,11 @@ describe('InMemoryIssueRepository (read-side)', () => {
     const issues = [
       makeIssue({ id: 'A', labels: ['infrastructure'] }),
       makeIssue({ id: 'B', labels: ['bureaucracy'] }),
-      makeIssue({ id: 'C', labels: ['health'] }),
+      makeIssue({ id: 'C', labels: ['healthcare'] }),
     ]
     const repo = createInMemoryIssueRepository(issues)
 
-    const result = await repo.getIssues({ labels: ['bureaucracy', 'health'] })
+    const result = await repo.getIssues({ labels: ['bureaucracy', 'healthcare'] })
 
     expect(result).toHaveLength(2)
     expect(result.map((r) => r.id)).toEqual(['B', 'C'])

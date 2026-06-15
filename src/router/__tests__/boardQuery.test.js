@@ -3,12 +3,12 @@ import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../b
 
 describe('boardQuery helpers', () => {
   it('parses supported keys and ignores unknown params', () => {
-    const parsed = parseBoardQuery('?status=NEW,VERIFIED,INVALID&type=complaint&labels=bureaucracy,road_safety&search=bridge&foo=bar')
+    const parsed = parseBoardQuery('?status=NEW,VERIFIED,INVALID&type=complaint&labels=bureaucracy,infrastructure&search=bridge&foo=bar')
 
     expect(parsed).toEqual({
       status: ['NEW', 'VERIFIED'],
       type: 'complaint',
-      labels: ['bureaucracy', 'road_safety'],
+      labels: ['bureaucracy', 'infrastructure'],
       search: 'bridge',
     })
   })
