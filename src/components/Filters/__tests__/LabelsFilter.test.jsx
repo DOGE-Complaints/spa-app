@@ -28,4 +28,16 @@ describe('LabelsFilter', () => {
     expect(html).toContain('Bureaucracy')
     expect(html).not.toContain('BUREAUCRACY')
   })
+
+  it('keeps trigger disabled when there are no available labels', () => {
+    const html = renderToStaticMarkup(
+      <LabelsFilter
+        labels={[]}
+        availableLabels={[]}
+        onChange={() => {}}
+        t={makeT('en')}
+      />,
+    )
+    expect(html).toContain('disabled')
+  })
 })

@@ -68,4 +68,17 @@ describe('InMemoryIssueRepository (read-side)', () => {
     expect(result).toHaveLength(2)
     expect(result.map((r) => r.id)).toEqual(['B', 'C'])
   })
+
+  it('filters by labels outside curated core keys', async () => {
+    const issues = [
+      makeIssue({ id: 'A', labels: ['cluster_transport'] }),
+      makeIssue({ id: 'B', labels: ['bureaucracy'] }),
+    ]
+    const repo = createInMemoryIssueRepository(issues)
+
+    const result = await repo.getIssues({ labels: ['cluster_transport'] })
+
+    expect(result).toHaveLength(1)
+    expect(result[0].id).toBe('A')
+  })
 })
