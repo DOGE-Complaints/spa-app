@@ -47,7 +47,19 @@ Rendering rule:
 
 No runtime translation services are used.
 
----
+### 4.1 Translation / language markers (L10N-03)
+
+When content or labels are not in the requested UI language, the UI shows calm inline markers (not error styling):
+
+| Marker | When | Source |
+|--------|------|--------|
+| Machine translation | UI locale ∉ `issue.original_locale` (field present and non-empty) | `original_locale` from gateway projection |
+| Shown in ⟨language⟩ | Field fallback: requested locale empty, another locale used | `resolveLocalizedTextWithMeta` |
+| No translation | Label key missing in `labels.*` dictionary (humanize) | `formatLabelKeyWithMeta` |
+
+If `original_locale` is absent or empty → **no MT marker** (legacy issues; soft degradation).
+
+> **Статус реализации (2026-06-16):** L10N-03 Done — [`IssueCard.jsx`](../src/components/IssueCard/IssueCard.jsx), [`IssuePage.jsx`](../src/pages/IssuePage.jsx).
 
 ## 5) Labels and status
 

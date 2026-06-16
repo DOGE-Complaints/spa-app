@@ -143,8 +143,14 @@ export function resolveLocalizedText(field, locale) {
 ## 6) Правило консистентности контента
 
 - В рамках одного issue на экране показывается один UI-язык.
-- Для конкретного текстового поля используется единая fallback-цепочка.
+- Для конкретного текстового поля используется единая fallback-цепочка (`resolveLocalizedText` / `resolveLocalizedTextWithMeta` в [`core.js`](../src/i18n/core.js)).
 - Смешивание языков в одном поле не допускается.
+
+> **Статус реализации (2026-06-16, L10N-03):** откат больше не молчаливый — видимые маркеры:
+> - **MT** — по `issue.original_locale` (локаль UI ∉ списка; при отсутствии поля маркер не показывается, bridge §7);
+> - **fallback** — «показано на ⟨язык⟩», когда запрошенная локаль пуста и использована другая из цепочки;
+> - **метка** — «нет перевода» при humanize-fallback (`formatLabelKeyWithMeta`).
+> UI: [`TranslationMarker`](../src/components/TranslationMarker/TranslationMarker.jsx); helpers: [`translationMarkers.js`](../src/i18n/translationMarkers.js).
 
 ---
 
