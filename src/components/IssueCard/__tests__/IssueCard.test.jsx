@@ -1,8 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import { ISSUE_STATUS, ISSUE_TYPE } from '../../../domain/types.js'
 import { UI_DICTIONARY } from '../../../i18n/dictionaries.js'
+import { LOCALE_STORAGE_KEY } from '../../../i18n/core.js'
+import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
 import { IssueCard } from '../IssueCard.jsx'
 
 function makeT(locale = 'en') {
@@ -31,9 +33,29 @@ const minimalIssue = {
   labels: ['bureaucracy', 'infrastructure'],
 }
 
+const localeStorage = new Map()
+
+function renderIssueCard(node, locale = 'en') {
+  localeStorage.set(LOCALE_STORAGE_KEY, locale)
+  return renderToStaticMarkup(<I18nProvider>{node}</I18nProvider>)
+}
+
 describe('IssueCard', () => {
+  beforeEach(() => {
+    localeStorage.clear()
+    vi.stubGlobal('localStorage', {
+      getItem: (key) => (localeStorage.has(key) ? localeStorage.get(key) : null),
+      setItem: (key, value) => {
+        localeStorage.set(key, value)
+      },
+      removeItem: (key) => {
+        localeStorage.delete(key)
+      },
+    })
+  })
+
   it('renders id, title, status badge, labels, type', () => {
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <IssueCard
         issue={minimalIssue}
         locale="en"
@@ -61,7 +83,7 @@ describe('IssueCard', () => {
       image_txid: 'img-456',
       image_hash: 'hash789',
     }
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <IssueCard
         issue={issueWithExtra}
         locale="en"
@@ -77,7 +99,7 @@ describe('IssueCard', () => {
   })
 
   it('renders without created_at without layout break', () => {
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <IssueCard
         issue={minimalIssue}
         locale="en"
@@ -92,7 +114,7 @@ describe('IssueCard', () => {
 
   it('renders created_at when present', () => {
     const issueWithDate = { ...minimalIssue, created_at: '2025-02-01T12:00:00Z' }
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <IssueCard
         issue={issueWithDate}
         locale="en"
@@ -111,7 +133,7 @@ describe('IssueCard', () => {
       summary: { et: 'Lühike', ru: 'Краткое', en: 'Short summary for card' },
       description: { en: 'Full long description for details page' },
     }
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <IssueCard
         issue={issueWithSummary}
         locale="en"
@@ -125,7 +147,7 @@ describe('IssueCard', () => {
   })
 
   it('uses resolveLocalizedText for title locale', () => {
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <IssueCard
         issue={minimalIssue}
         locale="ru"
@@ -133,12 +155,13 @@ describe('IssueCard', () => {
         t={makeT('ru')}
         footerText="Footer"
       />,
+      'ru',
     )
     expect(html).toContain('Задержка ремонта моста')
   })
 
   it('renders as Link when to prop provided', () => {
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <MemoryRouter>
         <IssueCard
           issue={minimalIssue}
@@ -154,7 +177,7 @@ describe('IssueCard', () => {
   })
 
   it('renders as article when to not provided', () => {
-    const html = renderToStaticMarkup(
+    const html = renderIssueCard(
       <IssueCard
         issue={minimalIssue}
         locale="en"

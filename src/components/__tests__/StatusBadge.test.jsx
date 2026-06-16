@@ -1,24 +1,50 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ISSUE_STATUS } from '../../domain/types.js'
+import { I18nProvider } from '../../i18n/I18nProvider.jsx'
+import { LOCALE_STORAGE_KEY } from '../../i18n/core.js'
 import { StatusBadge } from '../StatusBadge.jsx'
 
+const localeStorage = new Map()
+
+function renderBadge(status) {
+  return renderToStaticMarkup(
+    <I18nProvider>
+      <StatusBadge status={status} />
+    </I18nProvider>,
+  )
+}
+
 describe('StatusBadge', () => {
+  beforeEach(() => {
+    localeStorage.clear()
+    vi.stubGlobal('localStorage', {
+      getItem: (key) => (localeStorage.has(key) ? localeStorage.get(key) : null),
+      setItem: (key, value) => {
+        localeStorage.set(key, value)
+      },
+      removeItem: (key) => {
+        localeStorage.delete(key)
+      },
+    })
+    localeStorage.set(LOCALE_STORAGE_KEY, 'en')
+  })
+
   it('renders canonical EN label for IN_REVIEW', () => {
-    const html = renderToStaticMarkup(<StatusBadge status={ISSUE_STATUS.IN_REVIEW} locale="en" />)
+    const html = renderBadge(ISSUE_STATUS.IN_REVIEW)
     expect(html).toContain('IN REVIEW')
     expect(html).toContain('status-badge-in-review')
   })
 
   it('renders VERIFIED status label with icon', () => {
-    const html = renderToStaticMarkup(<StatusBadge status={ISSUE_STATUS.VERIFIED} locale="en" />)
+    const html = renderBadge(ISSUE_STATUS.VERIFIED)
     expect(html).toContain('VERIFIED')
     expect(html).toContain('status-badge-icon')
     expect(html).toContain('icons/verified.svg')
   })
 
   it('falls back to UNKNOWN variant for unexpected value', () => {
-    const html = renderToStaticMarkup(<StatusBadge status="INVALID" locale="en" />)
+    const html = renderBadge('INVALID')
     expect(html).toContain('status-badge-unknown')
     expect(html).toContain('UNKNOWN')
   })
