@@ -51,7 +51,7 @@ export function IssueCard({
     <>
       <div className="issue-card-meta">
         <span className="issue-card-id">{issue.id}</span>
-        <StatusBadge status={issue.status} locale={locale} />
+        <StatusBadge status={issue.status} />
         <span className="issue-card-overflow" aria-hidden="true">
           …
         </span>

@@ -1,6 +1,12 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { UI_DICTIONARY } from './dictionaries.js'
-import { LOCALE_STORAGE_KEY, resolveLanguage, resolveLocalizedText } from './core.js'
+import {
+  DEFAULT_LOCALE,
+  LOCALE_STORAGE_KEY,
+  localeDictionaryFallbackOrder,
+  resolveLanguage,
+  resolveLocalizedText,
+} from './core.js'
 
 const I18nContext = createContext(null)
 
@@ -19,7 +25,7 @@ function detectInitialLocale() {
   }
 
   if (typeof navigator === 'undefined') {
-    return 'et'
+    return DEFAULT_LOCALE
   }
 
   return resolveLanguage([...(navigator.languages || []), navigator.language].filter(Boolean))
@@ -31,10 +37,6 @@ function persistLocale(locale) {
   } catch {
     // localStorage может быть недоступен в ограниченном окружении.
   }
-}
-
-function resolveUiCopy(locale) {
-  return UI_DICTIONARY[locale] || UI_DICTIONARY.et
 }
 
 export function I18nProvider({ children }) {
@@ -49,7 +51,9 @@ export function I18nProvider({ children }) {
   const t = useCallback(
     (key) => {
       const parts = String(key).split('.')
-      const fallbackChain = [resolveUiCopy(locale), UI_DICTIONARY.et, UI_DICTIONARY.ru, UI_DICTIONARY.en]
+      const fallbackChain = localeDictionaryFallbackOrder(locale).map(
+        (code) => UI_DICTIONARY[code],
+      )
 
       for (const dictionary of fallbackChain) {
         let current = dictionary

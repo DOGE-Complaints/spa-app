@@ -3,13 +3,8 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { formatLabelKey } from '../i18n/labelDisplay.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
+import { LOCALE_SELECTOR_OPTIONS } from '../i18n/core.js'
 import { issueService } from '../services/issueService.js'
-
-const LANGUAGE_OPTIONS = Object.freeze([
-  { value: 'et', nativeLabel: 'Eesti', flagSrc: '/assets/ET.svg' },
-  { value: 'ru', nativeLabel: 'Русский', flagSrc: '/assets/RU.svg' },
-  { value: 'en', nativeLabel: 'English', flagSrc: '/assets/US.svg' },
-])
 
 function formatDate(value) {
   if (!value || typeof value !== 'string') return ''
@@ -39,7 +34,7 @@ export function IssuePage() {
   const [issue, setIssue] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const selectedLocaleOption = LANGUAGE_OPTIONS.find((option) => option.value === locale) ?? LANGUAGE_OPTIONS[0]
+  const selectedLocaleOption = LOCALE_SELECTOR_OPTIONS.find((option) => option.value === locale) ?? LOCALE_SELECTOR_OPTIONS[0]
 
   const boardBackUrl = useMemo(() => {
     const params = new URLSearchParams(location.search)
@@ -91,7 +86,7 @@ export function IssuePage() {
         <section className="issue-details-state issue-details-state-default">
           <header className="issue-details-header">
             <span className="issue-details-id">{issue.id}</span>
-            <StatusBadge status={issue.status} locale={locale} />
+            <StatusBadge status={issue.status} />
             <span className="issue-details-type">{t(`issueType.${issue.type}`)}</span>
             <h1 className="issue-details-title">{resolveLocalizedText(issue.title)}</h1>
           </header>
@@ -181,7 +176,7 @@ export function IssuePage() {
             </button>
             {isLocaleMenuOpen ? (
               <ul className="header-locale-menu" role="listbox" aria-label="Locale options">
-                {LANGUAGE_OPTIONS.map((option) => (
+                {LOCALE_SELECTOR_OPTIONS.map((option) => (
                   <li key={option.value}>
                     <button
                       type="button"

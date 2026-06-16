@@ -1,29 +1,6 @@
 import { ISSUE_STATUS } from '../domain/types.js'
+import { useI18n } from '../i18n/I18nProvider.jsx'
 import './StatusBadge.css'
-
-const STATUS_LABELS = Object.freeze({
-  et: {
-    [ISSUE_STATUS.NEW]: 'UUS',
-    [ISSUE_STATUS.VERIFIED]: 'KINNITATUD',
-    [ISSUE_STATUS.IN_REVIEW]: 'LÄBIVAATUSEL',
-    [ISSUE_STATUS.ARCHIVED]: 'ARHIIVIS',
-    UNKNOWN: 'TEADMATA',
-  },
-  ru: {
-    [ISSUE_STATUS.NEW]: 'НОВОЕ',
-    [ISSUE_STATUS.VERIFIED]: 'ПОДТВЕРЖДЕНО',
-    [ISSUE_STATUS.IN_REVIEW]: 'НА РАССМОТРЕНИИ',
-    [ISSUE_STATUS.ARCHIVED]: 'В АРХИВЕ',
-    UNKNOWN: 'НЕИЗВЕСТНО',
-  },
-  en: {
-    [ISSUE_STATUS.NEW]: 'NEW',
-    [ISSUE_STATUS.VERIFIED]: 'VERIFIED',
-    [ISSUE_STATUS.IN_REVIEW]: 'IN REVIEW',
-    [ISSUE_STATUS.ARCHIVED]: 'ARCHIVED',
-    UNKNOWN: 'UNKNOWN',
-  },
-})
 
 const STATUS_CLASS = Object.freeze({
   [ISSUE_STATUS.NEW]: 'status-badge-new',
@@ -33,10 +10,6 @@ const STATUS_CLASS = Object.freeze({
   UNKNOWN: 'status-badge-unknown',
 })
 
-function resolveLocale(locale) {
-  return STATUS_LABELS[locale] ? locale : 'en'
-}
-
 function resolveStatus(status) {
   return Object.values(ISSUE_STATUS).includes(status) ? status : 'UNKNOWN'
 }
@@ -44,14 +17,13 @@ function resolveStatus(status) {
 /**
  * @param {{
  *   status: import('../domain/types.js').IssueStatus | string,
- *   locale?: 'et'|'ru'|'en',
  *   className?: string
  * }} props
  */
-export function StatusBadge({ status, locale = 'en', className = '' }) {
+export function StatusBadge({ status, className = '' }) {
+  const { t } = useI18n()
   const normalizedStatus = resolveStatus(status)
-  const normalizedLocale = resolveLocale(locale)
-  const label = STATUS_LABELS[normalizedLocale][normalizedStatus]
+  const label = t(`status.${normalizedStatus}`)
   const variantClass = STATUS_CLASS[normalizedStatus]
   const classes = ['status-badge', variantClass, className].filter(Boolean).join(' ')
 

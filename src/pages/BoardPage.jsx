@@ -14,6 +14,7 @@ import { useI18n } from '../i18n/I18nProvider.jsx'
 import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
 import { AVAILABLE_LABELS } from '../i18n/labelKeys.js'
+import { LOCALE_SELECTOR_OPTIONS } from '../i18n/core.js'
 
 function BoardColumnPlaceholder({ count = 3 }) {
   return (
@@ -25,12 +26,6 @@ function BoardColumnPlaceholder({ count = 3 }) {
   )
 }
 
-const LANGUAGE_OPTIONS = Object.freeze([
-  { value: 'et', nativeLabel: 'Eesti', flagSrc: '/assets/ET.svg' },
-  { value: 'ru', nativeLabel: 'Русский', flagSrc: '/assets/RU.svg' },
-  { value: 'en', nativeLabel: 'English', flagSrc: '/assets/US.svg' },
-])
-
 export function BoardPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -40,7 +35,7 @@ export function BoardPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { locale, setLocale, t, resolveLocalizedText } = useI18n()
-  const selectedLocaleOption = LANGUAGE_OPTIONS.find((option) => option.value === locale) ?? LANGUAGE_OPTIONS[0]
+  const selectedLocaleOption = LOCALE_SELECTOR_OPTIONS.find((option) => option.value === locale) ?? LOCALE_SELECTOR_OPTIONS[0]
   const boardFilters = parseBoardQuery(location.search)
   const normalizedSearch = normalizeBoardSearch(location.search)
   const boardUrlForBack = `/board${normalizedSearch}`
@@ -126,7 +121,7 @@ export function BoardPage() {
             </button>
             {isLocaleMenuOpen ? (
               <ul className="header-locale-menu" role="listbox" aria-label="Locale options">
-                {LANGUAGE_OPTIONS.map((option) => (
+                {LOCALE_SELECTOR_OPTIONS.map((option) => (
                   <li key={option.value}>
                     <button
                       type="button"
@@ -232,7 +227,7 @@ export function BoardPage() {
           <section className="board-columns" aria-label="Board columns scaffold">
             <section className="board-column" aria-label="Status NEW column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.NEW} locale={locale} />
+                <StatusBadge status={ISSUE_STATUS.NEW} />
                 <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.NEW).length}</span>
               </header>
               <div className="board-column-divider" />
@@ -258,7 +253,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status VERIFIED column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.VERIFIED} locale={locale} />
+                <StatusBadge status={ISSUE_STATUS.VERIFIED} />
                 <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.VERIFIED).length}</span>
               </header>
               <div className="board-column-divider" />
@@ -284,7 +279,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status IN REVIEW column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.IN_REVIEW} locale={locale} />
+                <StatusBadge status={ISSUE_STATUS.IN_REVIEW} />
                 <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.IN_REVIEW).length}</span>
               </header>
               <div className="board-column-divider" />
@@ -310,7 +305,7 @@ export function BoardPage() {
 
             <section className="board-column" aria-label="Status ARCHIVED column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.ARCHIVED} locale={locale} />
+                <StatusBadge status={ISSUE_STATUS.ARCHIVED} />
                 <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.ARCHIVED).length}</span>
               </header>
               <div className="board-column-divider" />

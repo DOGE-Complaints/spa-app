@@ -1,12 +1,33 @@
-export const SUPPORTED_LOCALES = Object.freeze(['et', 'ru', 'en'])
+/** Product SSOT for supported UI locales (endonyms are not translated). */
+export const SUPPORTED_LOCALES = Object.freeze([
+  Object.freeze({ code: 'et', endonym: 'Eesti', flag: '/assets/ET.svg', dir: 'ltr' }),
+  Object.freeze({ code: 'ru', endonym: 'Русский', flag: '/assets/RU.svg', dir: 'ltr' }),
+  Object.freeze({ code: 'en', endonym: 'English', flag: '/assets/US.svg', dir: 'ltr' }),
+])
+
+export const LOCALE_CODES = Object.freeze(SUPPORTED_LOCALES.map((entry) => entry.code))
+
+export const DEFAULT_LOCALE = SUPPORTED_LOCALES[0].code
+
+/** Language selector options for Board/Issue header (maps registry → legacy UI shape). */
+export const LOCALE_SELECTOR_OPTIONS = Object.freeze(
+  SUPPORTED_LOCALES.map(({ code, endonym, flag }) =>
+    Object.freeze({
+      value: code,
+      nativeLabel: endonym,
+      flagSrc: flag,
+    }),
+  ),
+)
+
 export const LOCALE_STORAGE_KEY = 'doge.locale'
 
 export function normalizeLocale(value) {
   if (typeof value !== 'string') return null
   const lower = value.toLowerCase()
-  if (lower.startsWith('et')) return 'et'
-  if (lower.startsWith('ru')) return 'ru'
-  if (lower.startsWith('en')) return 'en'
+  for (const { code } of SUPPORTED_LOCALES) {
+    if (lower.startsWith(code)) return code
+  }
   return null
 }
 
@@ -21,7 +42,7 @@ export function resolveLanguage(browserLanguages = []) {
     if (resolved) return resolved
   }
 
-  return 'et'
+  return DEFAULT_LOCALE
 }
 
 export function resolveLocalizedText(field, locale) {
@@ -30,8 +51,22 @@ export function resolveLocalizedText(field, locale) {
   if (typeof field !== 'object') return ''
 
   if (field[locale]) return field[locale]
-  if (field.et) return field.et
-  if (field.ru) return field.ru
-  if (field.en) return field.en
+  for (const code of LOCALE_CODES) {
+    if (field[code]) return field[code]
+  }
   return ''
+}
+
+/** UI dictionary fallback order: active locale, then remaining registry codes. */
+export function localeDictionaryFallbackOrder(activeLocale) {
+  const order = [activeLocale, ...LOCALE_CODES.filter((code) => code !== activeLocale)]
+  const seen = new Set()
+  const dictionaries = []
+  for (const code of order) {
+    if (!seen.has(code)) {
+      seen.add(code)
+      dictionaries.push(code)
+    }
+  }
+  return dictionaries
 }

@@ -34,11 +34,7 @@ export const UI_DICTIONARY = Object.freeze({
       VERIFIED: 'KINNITATUD',
       IN_REVIEW: 'LÄBIVAATUSEL',
       ARCHIVED: 'ARHIIVIS',
-    },
-    languages: {
-      et: 'ET Eesti',
-      ru: 'RU Русский',
-      en: 'EN English',
+      UNKNOWN: 'TEADMATA',
     },
     labels: {
       bureaucracy: 'Bürokraatia',
@@ -94,11 +90,7 @@ export const UI_DICTIONARY = Object.freeze({
       VERIFIED: 'ПОДТВЕРЖДЕНО',
       IN_REVIEW: 'НА РАССМОТРЕНИИ',
       ARCHIVED: 'В АРХИВЕ',
-    },
-    languages: {
-      et: 'ET Eesti',
-      ru: 'RU Русский',
-      en: 'EN English',
+      UNKNOWN: 'НЕИЗВЕСТНО',
     },
     labels: {
       bureaucracy: 'Бюрократия',
@@ -154,11 +146,7 @@ export const UI_DICTIONARY = Object.freeze({
       VERIFIED: 'VERIFIED',
       IN_REVIEW: 'IN REVIEW',
       ARCHIVED: 'ARCHIVED',
-    },
-    languages: {
-      et: 'ET Eesti',
-      ru: 'RU Русский',
-      en: 'EN English',
+      UNKNOWN: 'UNKNOWN',
     },
     labels: {
       bureaucracy: 'Bureaucracy',
