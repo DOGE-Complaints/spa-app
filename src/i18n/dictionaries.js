@@ -54,6 +54,11 @@ export const UI_DICTIONARY = Object.freeze({
     metadataImageTxid: 'Pildi TXID',
     metadataImageHash: 'Pildi räsi',
     metadataInstitution: 'Asutus',
+    markers: {
+      machineTranslation: 'Masintõlge',
+      shownInPrefix: 'Kuvatud keeles',
+      untranslatedLabel: 'Tõlkimata',
+    },
   },
   ru: {
     board: 'Доска',
@@ -110,6 +115,11 @@ export const UI_DICTIONARY = Object.freeze({
     metadataImageTxid: 'TXID изображения',
     metadataImageHash: 'Хеш изображения',
     metadataInstitution: 'Инстанция',
+    markers: {
+      machineTranslation: 'Машинный перевод',
+      shownInPrefix: 'Показано на',
+      untranslatedLabel: 'Без перевода',
+    },
   },
   en: {
     board: 'Board',
@@ -166,5 +176,10 @@ export const UI_DICTIONARY = Object.freeze({
     metadataImageTxid: 'Image TXID',
     metadataImageHash: 'Image Hash',
     metadataInstitution: 'Institution',
+    markers: {
+      machineTranslation: 'Machine translation',
+      shownInPrefix: 'Shown in',
+      untranslatedLabel: 'No translation',
+    },
   },
 })

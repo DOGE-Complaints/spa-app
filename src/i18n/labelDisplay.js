@@ -14,13 +14,22 @@ export function humanizeLabelSlug(key) {
 /**
  * @param {(k: string) => string} t
  * @param {string} key
- * @returns {string}
+ * @returns {{ text: string, usedHumanize: boolean }}
  */
-export function formatLabelKey(t, key) {
+export function formatLabelKeyWithMeta(t, key) {
   const dictKey = `labels.${key}`
   const translated = t(dictKey)
   if (translated !== dictKey) {
-    return translated
+    return { text: translated, usedHumanize: false }
   }
-  return humanizeLabelSlug(key)
+  return { text: humanizeLabelSlug(key), usedHumanize: true }
+}
+
+/**
+ * @param {(k: string) => string} t
+ * @param {string} key
+ * @returns {string}
+ */
+export function formatLabelKey(t, key) {
+  return formatLabelKeyWithMeta(t, key).text
 }

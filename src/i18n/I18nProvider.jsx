@@ -6,6 +6,7 @@ import {
   localeDictionaryFallbackOrder,
   resolveLanguage,
   resolveLocalizedText,
+  resolveLocalizedTextWithMeta,
 } from './core.js'
 
 const I18nContext = createContext(null)
@@ -77,6 +78,7 @@ export function I18nProvider({ children }) {
       setLocale,
       t,
       resolveLocalizedText: (field) => resolveLocalizedText(field, locale),
+      resolveLocalizedTextWithMeta: (field) => resolveLocalizedTextWithMeta(field, locale),
     }),
     [locale, setLocale, t],
   )

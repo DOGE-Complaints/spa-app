@@ -45,16 +45,36 @@ export function resolveLanguage(browserLanguages = []) {
   return DEFAULT_LOCALE
 }
 
-export function resolveLocalizedText(field, locale) {
-  if (!field) return ''
-  if (typeof field === 'string') return field
-  if (typeof field !== 'object') return ''
-
-  if (field[locale]) return field[locale]
-  for (const code of LOCALE_CODES) {
-    if (field[code]) return field[code]
+export function resolveLocalizedTextWithMeta(field, locale) {
+  const requestedLocale = locale
+  if (!field) {
+    return { text: '', requestedLocale, resolvedLocale: requestedLocale, usedFallback: false }
   }
-  return ''
+  if (typeof field === 'string') {
+    return { text: field, requestedLocale, resolvedLocale: requestedLocale, usedFallback: false }
+  }
+  if (typeof field !== 'object') {
+    return { text: '', requestedLocale, resolvedLocale: requestedLocale, usedFallback: false }
+  }
+
+  if (field[locale]) {
+    return { text: field[locale], requestedLocale, resolvedLocale: locale, usedFallback: false }
+  }
+  for (const code of LOCALE_CODES) {
+    if (field[code]) {
+      return {
+        text: field[code],
+        requestedLocale,
+        resolvedLocale: code,
+        usedFallback: code !== locale,
+      }
+    }
+  }
+  return { text: '', requestedLocale, resolvedLocale: requestedLocale, usedFallback: false }
+}
+
+export function resolveLocalizedText(field, locale) {
+  return resolveLocalizedTextWithMeta(field, locale).text
 }
 
 /** UI dictionary fallback order: active locale, then remaining registry codes. */

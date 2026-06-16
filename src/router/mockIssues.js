@@ -1,7 +1,7 @@
 import { ISSUE_STATUS, ISSUE_TYPE } from '../domain/types.js'
 
 /**
- * 12 civic issues — canonical seed for FAKE-OLD mode (ROUTING_DEMO_ISSUES).
+ * 13 civic issues — canonical seed for FAKE-OLD mode (ROUTING_DEMO_ISSUES).
  * summary — для карточки; description — полный текст для деталей.
  * institution, labels — метаданные.
  */
@@ -27,6 +27,7 @@ export const ROUTING_DEMO_ISSUES = Object.freeze([
     description: { et: 'Minu laps õpib 4. klassis. Ained õpetatakse eesti keeles, kuid keeletase klassis on erinev. Aasta lõpuks ei tule märkimisväärne osa õpilasi programmiga toime. Palun teavitada, millised konkreetsed tugimeetmed on ette nähtud lastele, kes ei ole saavutanud vajalikku keeletaset.', ru: 'Мой ребёнок учится в 4 классе. Предметы преподаются на эстонском языке, но уровень владения языком у класса разный. По итогам года значительная часть учеников не справляется с программой. Прошу сообщить, какие конкретные механизмы поддержки предусмотрены для детей, которые не достигли необходимого языкового уровня.', en: 'My child is in 4th grade. Subjects are taught in Estonian, but language proficiency varies across the class. By year end, a significant share of pupils struggle with the programme. Please inform what specific support mechanisms are in place for children who have not reached the required language level.' },
     institution: { et: 'Haridus- ja Teadusministeerium', ru: 'Haridus- ja Teadusministeerium', en: 'Ministry of Education and Research' },
     created_at: '2025-01-18T14:30:00Z',
+    original_locale: ['ru'],
   },
   {
     id: 'DE-003',
@@ -137,6 +138,29 @@ export const ROUTING_DEMO_ISSUES = Object.freeze([
     description: { et: 'Eelmistele avaldustele sain vormilised vastused ilma konkreetsete tegevuste märkimiseta. Palun rakendada avalduste staatuse jälgimise mehhanism koos läbipaistva töötlemise meetrikaga.', ru: 'На предыдущие обращения получены формальные ответы без указания конкретных действий. Прошу внедрить механизм отслеживания статуса обращений с прозрачной метрикой обработки.', en: 'Previous submissions received formal responses without specifying concrete actions. Please implement a mechanism to track submission status with a transparent processing metric.' },
     institution: { et: 'Riigikantselei', ru: 'Riigikantselei', en: 'Government Office' },
     created_at: '2025-02-08T15:20:00Z',
+  },
+  {
+    id: 'DE-013',
+    status: ISSUE_STATUS.NEW,
+    type: ISSUE_TYPE.COMPLAINT,
+    labels: ['bureaucracy'],
+    title: {
+      et: 'Inglisekeelne pealkiri puudub',
+      ru: 'Английский заголовок отсутствует',
+    },
+    summary: {
+      et: 'Demonstreerib fallback-märki, kui UI keel puudub väljal.',
+      ru: 'Демонстрирует маркер fallback при отсутствии локали в поле.',
+      en: 'Demonstrates fallback marker when UI locale is missing on field.',
+    },
+    description: {
+      et: 'See issue on mõeldud fallback-märgi näitamiseks FAKE-OLD režiimis: pealkirjal pole ingliskeelset varianti.',
+      ru: 'Это обращение для демонстрации маркера fallback в FAKE-OLD: у заголовка нет английской локали.',
+      en: 'This issue demonstrates the content fallback marker in FAKE-OLD: title has no English locale.',
+    },
+    institution: { et: 'Riigikantselei', ru: 'Правительственная канцелярия' },
+    original_locale: ['et', 'ru', 'en'],
+    created_at: '2025-02-09T10:00:00Z',
   },
 ])
 

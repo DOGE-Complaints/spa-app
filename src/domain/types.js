@@ -1,3 +1,5 @@
+import { LOCALE_CODES } from '../i18n/core.js'
+
 export const ISSUE_STATUS = Object.freeze({
   NEW: 'NEW',
   VERIFIED: 'VERIFIED',
@@ -65,6 +67,7 @@ export const PROBLEM_STATUS = Object.freeze({
  * @property {string=} image_txid
  * @property {string=} image_hash
  * @property {string=} created_at
+ * @property {('et'|'ru'|'en')[]=} original_locale — human-submitted locales from backend projection
  *
  * @typedef {Object} IssueIntakePayload
  * @property {{ first_name: string, last_name: string }} user
@@ -126,6 +129,13 @@ function isOptionalStringOrI18n(value) {
   return typeof value.et === 'string' || typeof value.ru === 'string' || typeof value.en === 'string'
 }
 
+function isOptionalOriginalLocaleArray(value) {
+  if (value === undefined) return true
+  if (!Array.isArray(value)) return false
+  const allowed = new Set(LOCALE_CODES)
+  return value.every((item) => typeof item === 'string' && allowed.has(item))
+}
+
 export function isIssue(value) {
   if (!isRecord(value)) return false
 
@@ -142,7 +152,8 @@ export function isIssue(value) {
     isOptionalString(value.arweave_txid) &&
     isOptionalString(value.image_txid) &&
     isOptionalString(value.image_hash) &&
-    isOptionalString(value.created_at)
+    isOptionalString(value.created_at) &&
+    isOptionalOriginalLocaleArray(value.original_locale)
   )
 }
 

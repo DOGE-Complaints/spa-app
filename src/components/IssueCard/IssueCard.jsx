@@ -1,5 +1,11 @@
 import { Link } from 'react-router-dom'
-import { formatLabelKey } from '../../i18n/labelDisplay.js'
+import { resolveLocalizedTextWithMeta } from '../../i18n/core.js'
+import { formatLabelKeyWithMeta } from '../../i18n/labelDisplay.js'
+import {
+  shouldShowContentFallbackMarker,
+  shouldShowMtMarker,
+} from '../../i18n/translationMarkers.js'
+import { TranslationMarker } from '../TranslationMarker/TranslationMarker.jsx'
 import { StatusBadge } from '../StatusBadge.jsx'
 import './IssueCard.css'
 
@@ -39,13 +45,22 @@ export function IssueCard({
   to,
   className = '',
 }) {
-  const cardText = resolveLocalizedText(issue.summary ?? issue.title)
+  const contentField = issue.summary ?? issue.title
+  const contentMeta = resolveLocalizedTextWithMeta(contentField, locale)
+  const cardText = resolveLocalizedText(contentField)
+  const showMtMarker = shouldShowMtMarker(issue, locale)
+  const showFallbackMarker = shouldShowContentFallbackMarker(contentMeta)
   const dateText = formatDate(issue.created_at)
   const typeDisplay = String(issue.type ?? '').toUpperCase()
-  const labelChips = (issue.labels ?? []).map((l) => ({
-    key: String(l),
-    text: formatLabelKey(t, String(l)),
-  }))
+  const labelChips = (issue.labels ?? []).map((l) => {
+    const key = String(l)
+    const formatted = formatLabelKeyWithMeta(t, key)
+    return {
+      key,
+      text: formatted.text,
+      usedHumanize: formatted.usedHumanize,
+    }
+  })
 
   const content = (
     <>
@@ -56,12 +71,28 @@ export function IssueCard({
           …
         </span>
       </div>
-      <h3 className="issue-card-title">{cardText}</h3>
+      <h3 className="issue-card-title">
+        {cardText}
+        {showMtMarker ? (
+          <TranslationMarker kind="mt" locale={locale} t={t} />
+        ) : null}
+        {!showMtMarker && showFallbackMarker ? (
+          <TranslationMarker
+            kind="fallback"
+            locale={locale}
+            resolvedLocale={contentMeta.resolvedLocale}
+            t={t}
+          />
+        ) : null}
+      </h3>
       <div className="issue-card-labels">
         <span className="issue-card-chip issue-card-chip-type">{typeDisplay}</span>
         {labelChips.map((chip) => (
           <span key={chip.key} className="issue-card-chip">
             {chip.text}
+            {chip.usedHumanize ? (
+              <TranslationMarker kind="untranslated-label" locale={locale} t={t} />
+            ) : null}
           </span>
         ))}
       </div>

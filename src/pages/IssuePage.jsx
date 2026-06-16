@@ -1,9 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { StatusBadge } from '../components/StatusBadge.jsx'
-import { formatLabelKey } from '../i18n/labelDisplay.js'
+import { TranslationMarker } from '../components/TranslationMarker/TranslationMarker.jsx'
+import { LOCALE_SELECTOR_OPTIONS, resolveLocalizedTextWithMeta } from '../i18n/core.js'
+import { formatLabelKeyWithMeta } from '../i18n/labelDisplay.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
-import { LOCALE_SELECTOR_OPTIONS } from '../i18n/core.js'
+import {
+  shouldShowContentFallbackMarker,
+  shouldShowMtMarker,
+} from '../i18n/translationMarkers.js'
 import { issueService } from '../services/issueService.js'
 
 function formatDate(value) {
@@ -83,16 +88,53 @@ export function IssuePage() {
           </button>
         </section>
       ) : issue ? (
+        (() => {
+          const titleMeta = resolveLocalizedTextWithMeta(issue.title, locale)
+          const descriptionMeta = hasDescription(issue)
+            ? resolveLocalizedTextWithMeta(issue.description, locale)
+            : null
+          const institutionMeta = issue.institution
+            ? resolveLocalizedTextWithMeta(issue.institution, locale)
+            : null
+          const showMtMarker = shouldShowMtMarker(issue, locale)
+
+          return (
         <section className="issue-details-state issue-details-state-default">
           <header className="issue-details-header">
             <span className="issue-details-id">{issue.id}</span>
             <StatusBadge status={issue.status} />
             <span className="issue-details-type">{t(`issueType.${issue.type}`)}</span>
-            <h1 className="issue-details-title">{resolveLocalizedText(issue.title)}</h1>
+            <h1 className="issue-details-title">
+              {resolveLocalizedText(issue.title)}
+              {showMtMarker ? (
+                <TranslationMarker kind="mt" locale={locale} t={t} />
+              ) : null}
+              {!showMtMarker && shouldShowContentFallbackMarker(titleMeta) ? (
+                <TranslationMarker
+                  kind="fallback"
+                  locale={locale}
+                  resolvedLocale={titleMeta.resolvedLocale}
+                  t={t}
+                />
+              ) : null}
+            </h1>
           </header>
           {hasDescription(issue) ? (
             <section className="issue-details-body">
-              <p>{resolveLocalizedText(issue.description)}</p>
+              <p>
+                {resolveLocalizedText(issue.description)}
+                {showMtMarker ? (
+                  <TranslationMarker kind="mt" locale={locale} t={t} />
+                ) : null}
+                {!showMtMarker && shouldShowContentFallbackMarker(descriptionMeta) ? (
+                  <TranslationMarker
+                    kind="fallback"
+                    locale={locale}
+                    resolvedLocale={descriptionMeta?.resolvedLocale}
+                    t={t}
+                  />
+                ) : null}
+              </p>
             </section>
           ) : null}
           <section className="issue-details-metadata">
@@ -100,18 +142,35 @@ export function IssuePage() {
               <div className="issue-details-metadata-row">
                 <span className="issue-details-metadata-label">{t('metadataLabels')}:</span>
                 <span className="issue-details-metadata-value">
-                  {issue.labels.map((l) => (
-                    <span key={l} className="issue-details-chip">
-                      {formatLabelKey(t, String(l))}
-                    </span>
-                  ))}
+                  {issue.labels.map((l) => {
+                    const key = String(l)
+                    const formatted = formatLabelKeyWithMeta(t, key)
+                    return (
+                      <span key={l} className="issue-details-chip">
+                        {formatted.text}
+                        {formatted.usedHumanize ? (
+                          <TranslationMarker kind="untranslated-label" locale={locale} t={t} />
+                        ) : null}
+                      </span>
+                    )
+                  })}
                 </span>
               </div>
             ) : null}
             {issue.institution ? (
               <div className="issue-details-metadata-row">
                 <span className="issue-details-metadata-label">{t('metadataInstitution')}:</span>
-                <span className="issue-details-metadata-value">{resolveLocalizedText(issue.institution)}</span>
+                <span className="issue-details-metadata-value">
+                  {institutionMeta.text}
+                  {!showMtMarker && shouldShowContentFallbackMarker(institutionMeta) ? (
+                    <TranslationMarker
+                      kind="fallback"
+                      locale={locale}
+                      resolvedLocale={institutionMeta.resolvedLocale}
+                      t={t}
+                    />
+                  ) : null}
+                </span>
               </div>
             ) : null}
             {issue.created_at ? (
@@ -140,6 +199,8 @@ export function IssuePage() {
             ) : null}
           </section>
         </section>
+          )
+        })()
       ) : (
         <section className="issue-details-state issue-details-state-not-found">
           <h1>{t('notFoundTitle')}</h1>
