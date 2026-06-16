@@ -51,7 +51,7 @@ Design System состоит из 4 слоёв:
 
 **Правило:** Цвет никогда не несёт смысл в одиночку — только вместе с формой/иконкой.
 
-**Техническая адаптация:** ТЗ §8 — чёрный фон, жёлтые акценты, белый текст. Реализовать в `src/styles/tokens.css` (локальные переменные).
+**Техническая адаптация:** ТЗ §8 — чёрный фон, жёлтые акценты, белый текст. Target: `src/styles/tokens.css` — [STORY-SPA-G4](../tasks/backlog-stories/STORY-SPA-G4-design-tokens-foundation.md) (пока хардкод в CSS).
 
 ### 2.2 Typography Tokens
 
@@ -67,7 +67,7 @@ Design System состоит из 4 слоёв:
 | `font.size.medium` | 16px | `--font-size-medium` |
 | `font.size.large` | 18px | `--font-size-large` |
 
-**Техническая адаптация:** ТЗ §10 — все ассеты локально, без внешних CDN. Шрифты Inter и JetBrains Mono — в `public/fonts/` или через `@font-face` из локальных файлов.
+**Техническая адаптация:** ТЗ §10 — все ассеты локально, без внешних CDN. Target: `public/fonts/` + `@font-face` — [STORY-SPA-G7](../tasks/backlog-stories/STORY-SPA-G7-self-hosted-fonts.md) (пока системный Inter fallback).
 
 ### 2.3 Spacing & Density
 
@@ -121,7 +121,7 @@ Design System состоит из 4 слоёв:
 - баннеры
 - сообщения пользователю
 
-**Компонент:** `src/components/Header/Header.jsx`
+**Компонент (target):** `src/components/AppShell/Header.jsx` — сейчас inline в `BoardPage`/`IssuePage` ([STORY-SPA-G8](../tasks/backlog-stories/STORY-SPA-G8-app-shell-refactor.md)).
 
 ### 4.2 Sidebar
 
@@ -134,7 +134,7 @@ Design System состоит из 4 слоёв:
 - always visible
 - no collapse (в MVP)
 
-**Компонент:** `src/components/Sidebar/Sidebar.jsx`
+**Компонент (target):** `src/components/AppShell/Sidebar.jsx` — сейчас inline в `BoardPage`/`IssuePage` ([STORY-SPA-G8](../tasks/backlog-stories/STORY-SPA-G8-app-shell-refactor.md)).
 
 ### 4.3 Issue List Item
 
@@ -228,13 +228,18 @@ Design System состоит из 4 слоёв:
 
 ## Техническая карта (spa-app)
 
-| Артефакт | Путь | Назначение |
-|----------|------|------------|
-| Токены CSS | `src/styles/tokens.css` | Foundations: цвета, шрифты, spacing |
-| Глобальные стили | `src/index.css` | Подключение токенов, base styles |
-| Шрифты | `public/fonts/` | Inter, JetBrains Mono (локально) |
-| Иконки | `public/icons/` или `src/assets/icons/` | dogeestonia logo, VERIFIED |
-| Компоненты | `src/components/` | Header, Sidebar, IssueList, IssueCard, EmptyState |
+**Фактический MVP (2026-06-12):** токены и self-hosted шрифты ещё не внедрены; header/sidebar inline в `BoardPage.jsx` / `IssuePage.jsx`; отдельные `Header/`, `Sidebar/` каталогов нет.
+
+| Артефакт | Путь (target) | Факт / назначение |
+|----------|---------------|-------------------|
+| Токены CSS | `src/styles/tokens.css` | **planned** — хардкод в component CSS → [STORY-SPA-G4](../tasks/backlog-stories/STORY-SPA-G4-design-tokens-foundation.md) |
+| Глобальные стили | `src/index.css` | base styles, системный Inter fallback |
+| Шрифты | `public/fonts/` | **planned** → [STORY-SPA-G7](../tasks/backlog-stories/STORY-SPA-G7-self-hosted-fonts.md) |
+| Иконки | `public/icons/`, `public/assets/` | verified marker, флаги локалей |
+| Shell | `src/components/AppShell/` | **planned** — сейчас inline в pages → [STORY-SPA-G8](../tasks/backlog-stories/STORY-SPA-G8-app-shell-refactor.md) |
+| Компоненты | `src/components/` | StatusBadge, IssueCard, EmptyState, Filters (факт) |
+
+> **Статус реализации (2026-06-12):** не выполнено — gaps G4, G7, G8. Backlog stories выше.
 
 ---
 

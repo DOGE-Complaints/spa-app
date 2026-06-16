@@ -5,7 +5,7 @@
 **Status:** active SSOT for labels-filter control  
 **Related epic:** `docs/epics/EPIC-03-issue-board-mvp.md`
 
-> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G2 закрыт — localized labels в [`LabelsFilter.jsx`](../../../src/components/Filters/LabelsFilter.jsx).
+> **Статус реализации (2026-06-16):** соответствует коду. Фильтр получает список меток из загруженных issue (L10N-02), `AVAILABLE_LABELS` остаётся curated translated core.
 
 ---
 
@@ -53,6 +53,7 @@
 - `Clear all` очищает только labels-filter.
 - Глобальный `Reset Filters` очищает все фильтры.
 - Поиск внутри dropdown фильтрует список доступных label, не сам список issues.
+- Источник `availableLabels` — текущий набор загруженных issue (D9), опционально стабилизированный translated core.
 
 ---
 

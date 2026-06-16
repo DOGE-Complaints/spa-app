@@ -18,6 +18,11 @@
 - SPA в MVP **read-only**.
 - Create-flow идет через `Create Issue -> Custom GPT`, без локальной формы submit.
 
+> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G9 закрыт документально — CTA всегда активная ссылка на GPT URL (hardcoded в `BoardPage.jsx`).
+
+> **Статус реализации (2026-06-12):** не выполнено — gap G3 (SearchInput в тулбаре).  
+> Backlog: [STORY-SPA-G3-search-input-toolbar](../tasks/backlog-stories/STORY-SPA-G3-search-input-toolbar.md)
+
 ---
 
 ## 2) Data-model сопоставление (Issue vs Intake)
@@ -123,7 +128,7 @@ UI в `EPIC-03` рендерит `Issue`:
 
 | Fragment | default | hover | active/selected | loading | empty | error | disabled |
 |---|---|---|---|---|---|---|---|
-| Top CTA `Create Issue` | ✅ | ✅ | ✅ | - | - | - | ✅ (если URL не задан) |
+| Top CTA `Create Issue` | ✅ | ✅ | ✅ | - | - | - | — (в MVP всегда активная `<a>` на GPT URL) |
 | Sidebar item | ✅ | ✅ | ✅ | - | - | - | - |
 | Filter control | ✅ | ✅ | ✅ | - | - | - | ✅ |
 | Issue list container | ✅ | - | - | ✅ skeleton | ✅ no-issues/no-results | ✅ load-error | - |
@@ -239,7 +244,7 @@ UI в `EPIC-03` рендерит `Issue`:
 
 ## 5.2 Компонентные state sheets
 
-- [ ] CTA `Create Issue` (`default/hover/active/disabled`)
+- [ ] CTA `Create Issue` (`default/hover/active` — disabled не используется в MVP)
 - [ ] Filter controls (`default/hover/active/disabled`)
 - [ ] Issue card (`default/hover/selected/loading`)
 - [ ] Status badges (`NEW/VERIFIED/IN_REVIEW/ARCHIVED`)

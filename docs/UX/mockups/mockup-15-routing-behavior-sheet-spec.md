@@ -5,6 +5,9 @@
 **Status:** active SSOT for navigation behavior  
 **Related epic:** `docs/epics/EPIC-03-issue-board-mvp.md`
 
+> **Статус реализации (2026-06-12):** не выполнено — gap G3 (`?search=` в URL работает, SearchInput в UI — нет).  
+> Backlog: [STORY-SPA-G3-search-input-toolbar](../../tasks/backlog-stories/STORY-SPA-G3-search-input-toolbar.md)
+
 ---
 
 ## 1) Контекст и ограничения MVP

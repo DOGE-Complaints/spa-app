@@ -16,6 +16,17 @@
 
 Этим документом фиксируется целевая компонентная архитектура как SSOT.
 
+**Фактический MVP (2026-06-12):** реализованы L3 `StatusBadge`, `Filter*Control`, `ResetFiltersControl`, L2 `IssueCard`, L4 `EmptyState`; `AppShell`, `SearchInput`, отдельные `Board*State` — inline в `BoardPage`/`IssuePage` или отсутствуют.
+
+> **Статус реализации (2026-06-12):** не выполнено — gap G8 (AppShell refactor).  
+> Backlog: [STORY-SPA-G8-app-shell-refactor](../tasks/backlog-stories/STORY-SPA-G8-app-shell-refactor.md)
+
+> **Статус реализации (2026-06-12):** не выполнено — gap G3 (SearchInput).  
+> Backlog: [STORY-SPA-G3-search-input-toolbar](../tasks/backlog-stories/STORY-SPA-G3-search-input-toolbar.md)
+
+> **Статус реализации (2026-06-12):** не выполнено — gap G4 (design tokens L0).  
+> Backlog: [STORY-SPA-G4-design-tokens-foundation](../tasks/backlog-stories/STORY-SPA-G4-design-tokens-foundation.md)
+
 ---
 
 ## 2) Принципы архитектуры

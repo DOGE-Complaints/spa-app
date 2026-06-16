@@ -170,9 +170,10 @@ export function resolveLocalizedText(field, locale) {
 
 Для MVP принято:
 - хранение labels как canonical key (`"bureaucracy"`, `"healthcare"`),
-- отображение через UI dictionary (`label key -> localized label`).
+- отображение через UI dictionary (`label key -> localized label`),
+- построение списка фильтра label **из загруженных issues** (L10N-02, D9).
 
-Минимальный контракт label keys (MVP baseline, источник истины — `AVAILABLE_LABELS` в [`src/i18n/labelKeys.js`](../src/i18n/labelKeys.js); product SSOT — [label-taxonomy-G2-approved.md](analysis/label-taxonomy-G2-approved.md)):
+Минимальный контракт label keys (MVP baseline, translated core — `AVAILABLE_LABELS` в [`src/i18n/labelKeys.js`](../src/i18n/labelKeys.js); product SSOT — [label-taxonomy-G2-approved.md](analysis/label-taxonomy-G2-approved.md)):
 - `bureaucracy`
 - `infrastructure`
 - `healthcare`
@@ -184,11 +185,11 @@ export function resolveLocalizedText(field, locale) {
 - `social`
 - `language`
 
-> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G5 закрыт документально — список ключей синхронизирован с `AVAILABLE_LABELS`.
+> **Статус реализации (2026-06-16):** `AVAILABLE_LABELS` используется как «гарантированно переведённое ядро», а не как источник фильтра доски.
 
 Это проще и чище на MVP, чем хранить i18n-объект внутри каждого label.
 
-> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G2 закрыт — `labels.*` в [`dictionaries.js`](../src/i18n/dictionaries.js); UI через `formatLabelKey` ([`labelDisplay.js`](../src/i18n/labelDisplay.js)).
+> **Статус реализации (2026-06-16):** Gap G2/GL-2 закрыт — `BoardPage` агрегирует `availableLabels` из загруженных issues (union с ядром), UI через `formatLabelKey` ([`labelDisplay.js`](../src/i18n/labelDisplay.js)).
 
 Пример: `t('labels.bureaucracy')` → et `Bürokraatia`, ru `Бюрократия`, en `Bureaucracy`.
 
