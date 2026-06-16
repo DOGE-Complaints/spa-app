@@ -8,6 +8,7 @@ import './Filters.css'
 export function LabelsFilter({ labels, availableLabels, onChange, t }) {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
+  const hasAvailableLabels = availableLabels.length > 0
 
   const filtered = useMemo(() => {
     if (!search.trim()) return availableLabels
@@ -37,7 +38,11 @@ export function LabelsFilter({ labels, availableLabels, onChange, t }) {
       <button
         type="button"
         className="board-filter-trigger"
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          if (!hasAvailableLabels) return
+          setOpen(!open)
+        }}
+        disabled={!hasAvailableLabels}
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-label={t('filterLabels')}

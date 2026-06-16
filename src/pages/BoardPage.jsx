@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ISSUE_STATUS } from '../domain/types.js'
 import {
@@ -13,7 +13,7 @@ import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
-import { AVAILABLE_LABELS } from '../i18n/labelKeys.js'
+import { collectLabelKeysFromIssues } from '../i18n/collectLabelKeysFromIssues.js'
 import { LOCALE_SELECTOR_OPTIONS } from '../i18n/core.js'
 
 function BoardColumnPlaceholder({ count = 3 }) {
@@ -74,6 +74,10 @@ export function BoardPage() {
       return text.includes(q)
     })
   })()
+  const availableLabels = useMemo(
+    () => collectLabelKeysFromIssues(issues, { includeCore: false }),
+    [issues],
+  )
 
   function handleLocaleSelect(nextLocale) {
     setLocale(nextLocale)
@@ -178,7 +182,7 @@ export function BoardPage() {
               />
               <LabelsFilter
                 labels={boardFilters.labels}
-                availableLabels={AVAILABLE_LABELS}
+                availableLabels={availableLabels}
                 onChange={(labels) => applyFilters({ ...boardFilters, labels })}
                 t={t}
               />

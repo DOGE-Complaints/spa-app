@@ -1,7 +1,7 @@
 import { ISSUE_STATUS, ISSUE_TYPE } from '../domain/types.js'
 
 /**
- * 12 civic issues from issues-raw-data.md.
+ * 12 civic issues — canonical seed for FAKE-OLD mode (ROUTING_DEMO_ISSUES).
  * summary — для карточки; description — полный текст для деталей.
  * institution, labels — метаданные.
  */
@@ -43,7 +43,7 @@ export const ROUTING_DEMO_ISSUES = Object.freeze([
     id: 'DE-004',
     status: ISSUE_STATUS.NEW,
     type: ISSUE_TYPE.COMPLAINT,
-    labels: ['infrastructure', 'digital'],
+    labels: ['infrastructure', 'digital', 'cluster_transport'],
     title: { et: 'Imetehnilised süsteemid maksmiste jaoks', ru: 'Устаревшие системы выплат', en: 'Outdated payment systems' },
     summary: { et: 'IT-süsteemid pensionide ja toetuste maksmiseks on vananenud. Palun avalik moderniseerimisplaan.', ru: 'IT-системы для выплат пенсий и пособий устарели. Прошу публичную дорожную карту модернизации.', en: 'IT systems for pensions and benefit payments are outdated. Request for public modernisation roadmap.' },
     description: { et: 'Meedias kajastati vananenud IT-süsteemide kasutamist pensionide ja toetuste maksmiseks. Palun esitada avalik moderniseerimise teekond ja ligikaudsed uuendamise tähtajad.', ru: 'В СМИ сообщалось об использовании устаревших IT-систем для выплат пенсий и пособий. Прошу предоставить публичную дорожную карту модернизации этих систем и ориентировочные сроки обновления.', en: 'The media reported on the use of outdated IT systems for pensions and benefit payments. Please provide a public roadmap for modernising these systems and approximate update timelines.' },
