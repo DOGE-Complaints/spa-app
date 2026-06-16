@@ -20,19 +20,24 @@
 
 ### 2.1 Поддерживаемые языки
 
-Приоритет fallback chain:
-1. `et` (Эстонский)
-2. `ru` (Русский)
-3. `en` (Английский)
+**Источник истины (SSOT):** реестр `SUPPORTED_LOCALES` в [`src/i18n/core.js`](../src/i18n/core.js) — массив объектов `{ code, endonym, flag, dir }`. Порядок записей задаёт fallback-цепочку UI и контента.
+
+Текущий MVP (3 локали, `dir: 'ltr'`):
+
+| code | endonym | flag |
+|---|---|---|
+| `et` | Eesti | `/assets/ET.svg` |
+| `ru` | Русский | `/assets/RU.svg` |
+| `en` | English | `/assets/US.svg` |
+
+Производные экспорты: `LOCALE_CODES`, `DEFAULT_LOCALE` (первая запись реестра), `LOCALE_SELECTOR_OPTIONS` (селектор Board/Issue).
 
 ### 2.2 Автовыбор языка
 
-Алгоритм:
-1. Проверяем `navigator.languages`, затем `navigator.language`.
-2. Если найден префикс `et` -> `et`.
-3. Иначе `ru` -> `ru`.
-4. Иначе `en` -> `en`.
-5. Иначе fallback -> `et`.
+Алгоритм (`resolveLanguage` / `normalizeLocale`):
+1. Проверяем `navigator.languages`, затем `navigator.language` (или сохранённый `localStorage`).
+2. Для каждого значения ищем префикс, совпадающий с `code` из реестра.
+3. Иначе fallback → `DEFAULT_LOCALE` (сейчас `et`).
 
 ### 2.3 Ручной выбор и сохранение
 
@@ -105,26 +110,31 @@
 
 ### 5.1 Выбор UI language
 
+Реализация: [`resolveLanguage`](../src/i18n/core.js) читает коды из `SUPPORTED_LOCALES`; дефолт — `DEFAULT_LOCALE`.
+
 ```js
-function resolveLanguage(browserLangs) {
-  const normalized = (browserLangs || []).map((l) => String(l).toLowerCase());
-  if (normalized.some((l) => l.startsWith("et"))) return "et";
-  if (normalized.some((l) => l.startsWith("ru"))) return "ru";
-  if (normalized.some((l) => l.startsWith("en"))) return "en";
-  return "et";
+export function resolveLanguage(browserLanguages = []) {
+  for (const locale of normalized) {
+    const resolved = normalizeLocale(locale) // prefix match по registry.code
+    if (resolved) return resolved
+  }
+  return DEFAULT_LOCALE
 }
 ```
 
 ### 5.2 Выбор локализованного контента
 
+Реализация: [`resolveLocalizedText`](../src/i18n/core.js) — активная локаль, затем `LOCALE_CODES` в порядке реестра.
+
 ```js
-function resolveLocalizedText(field, lang) {
-  if (!field) return "";
-  if (typeof field === "string") return field; // transitional compatibility
-  if (field[lang]) return field[lang];
-  if (field.et) return field.et;
-  if (field.ru) return field.ru;
-  return field.en || "";
+export function resolveLocalizedText(field, locale) {
+  if (!field) return ""
+  if (typeof field === "string") return field // transitional compatibility
+  if (field[locale]) return field[locale]
+  for (const code of LOCALE_CODES) {
+    if (field[code]) return field[code]
+  }
+  return ""
 }
 ```
 
@@ -195,11 +205,11 @@ function resolveLocalizedText(field, lang) {
 - сохраняет чистый layout action-зон board.
 
 Формат selector (фактический MVP в коде):
-- dropdown с кодом языка (`ET` / `RU` / `EN`) и флагами (`/assets/ET.svg`, `RU.svg`, `US.svg` для EN);
-- native label в option (`Eesti`, `Русский`, `English`) — хардкод в `BoardPage`/`IssuePage`, не из словаря;
+- dropdown с endonym (`Eesti`, `Русский`, `English`) и флагами из реестра (`LOCALE_SELECTOR_OPTIONS`);
+- `BoardPage` / `IssuePage` импортируют опции из [`core.js`](../src/i18n/core.js), без локального `LANGUAGE_OPTIONS`;
 - без анимаций.
 
-> **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G6 закрыт документально — флаги узаконены. Словарь `languages.*` в `dictionaries.js` зарезервирован, пока не используется в рантайме.
+> **Статус реализации (2026-06-16):** L10N-01 — реестр `SUPPORTED_LOCALES` SSOT; селектор и fallback читают из реестра. Мёртвый словарь `languages.*` удалён из `dictionaries.js` (HK-001 closed).
 
 ---
 
