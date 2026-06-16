@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { UI_DICTIONARY } from '../dictionaries.js'
 import { AVAILABLE_LABELS } from '../labelKeys.js'
-import { formatLabelKey, humanizeLabelSlug } from '../labelDisplay.js'
+import { formatLabelKey, formatLabelKeyWithMeta, humanizeLabelSlug } from '../labelDisplay.js'
 
 function makeT(locale) {
   const dict = UI_DICTIONARY[locale] ?? UI_DICTIONARY.et
@@ -28,6 +28,14 @@ describe('labelDisplay', () => {
 
   it('falls back to humanize when dictionary miss', () => {
     expect(formatLabelKey(makeT('en'), 'road_safety')).toBe('Road Safety')
+    expect(formatLabelKeyWithMeta(makeT('en'), 'road_safety')).toEqual({
+      text: 'Road Safety',
+      usedHumanize: true,
+    })
+    expect(formatLabelKeyWithMeta(makeT('en'), 'bureaucracy')).toEqual({
+      text: 'Bureaucracy',
+      usedHumanize: false,
+    })
   })
 
   it('resolves every AVAILABLE_LABELS key in et/ru/en (dictionary completeness guard)', () => {

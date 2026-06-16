@@ -78,6 +78,20 @@ describe('domain types: Issue', () => {
     expect(isIssue(issue)).toBe(true)
     expect(assertIssue(issue)).toEqual(issue)
   })
+
+  it('accepts optional original_locale from backend projection', () => {
+    const issue = {
+      id: 'DE-002',
+      type: ISSUE_TYPE.COMPLAINT,
+      title: { en: 'Title' },
+      status: ISSUE_STATUS.NEW,
+      labels: ['education'],
+      original_locale: ['ru'],
+    }
+
+    expect(isIssue(issue)).toBe(true)
+    expect(isIssue({ ...issue, original_locale: ['xx'] })).toBe(false)
+  })
 })
 
 describe('domain types: IssueIntakePayload', () => {

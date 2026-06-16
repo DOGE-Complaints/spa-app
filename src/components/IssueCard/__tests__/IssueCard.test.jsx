@@ -188,4 +188,53 @@ describe('IssueCard', () => {
     )
     expect(html).toContain('<article')
   })
+
+  it('renders MT marker when locale is outside original_locale', () => {
+    const issueWithMt = {
+      ...minimalIssue,
+      original_locale: ['ru'],
+    }
+    const html = renderIssueCard(
+      <IssueCard
+        issue={issueWithMt}
+        locale="en"
+        resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
+        footerText="Footer"
+      />,
+    )
+    expect(html).toContain('translation-marker-mt')
+    expect(html).toContain('Machine translation')
+  })
+
+  it('does not render MT marker when original_locale is absent', () => {
+    const html = renderIssueCard(
+      <IssueCard
+        issue={minimalIssue}
+        locale="en"
+        resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
+        footerText="Footer"
+      />,
+    )
+    expect(html).not.toContain('translation-marker-mt')
+  })
+
+  it('renders untranslated label marker for humanized label keys', () => {
+    const issueWithOutsideLabel = {
+      ...minimalIssue,
+      labels: ['cluster_transport'],
+    }
+    const html = renderIssueCard(
+      <IssueCard
+        issue={issueWithOutsideLabel}
+        locale="en"
+        resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
+        footerText="Footer"
+      />,
+    )
+    expect(html).toContain('translation-marker-untranslated-label')
+    expect(html).toContain('No translation')
+  })
 })

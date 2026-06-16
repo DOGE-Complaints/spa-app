@@ -7,6 +7,7 @@ import {
   normalizeLocale,
   resolveLanguage,
   resolveLocalizedText,
+  resolveLocalizedTextWithMeta,
 } from '../core.js'
 
 describe('i18n core helpers', () => {
@@ -55,6 +56,22 @@ describe('i18n core helpers', () => {
     expect(resolveLocalizedText(field, 'ru')).toBe('Привет')
     expect(resolveLocalizedText(field, 'et')).toBe('Привет')
     expect(resolveLocalizedText(field, 'en')).toBe('Hello')
+  })
+
+  it('resolveLocalizedTextWithMeta reports resolved locale on fallback', () => {
+    const field = { ru: 'Привет', en: 'Hello' }
+    expect(resolveLocalizedTextWithMeta(field, 'et')).toEqual({
+      text: 'Привет',
+      requestedLocale: 'et',
+      resolvedLocale: 'ru',
+      usedFallback: true,
+    })
+    expect(resolveLocalizedTextWithMeta(field, 'ru')).toEqual({
+      text: 'Привет',
+      requestedLocale: 'ru',
+      resolvedLocale: 'ru',
+      usedFallback: false,
+    })
   })
 
   it('supports transitional string format', () => {
