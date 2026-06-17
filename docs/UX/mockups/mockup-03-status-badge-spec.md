@@ -1,7 +1,7 @@
 # Mockup 03 Spec — Status Badge System
 
 **Mockup source:** `docs/UX/mockups/DOGEstonia-Mockup-Dashboard-status-badge.png`  
-**Version:** v1.0  
+**Version:** v1.1 (gateway canon, SEARCH-01)  
 **Status:** active SSOT for status badges  
 **Related epic:** `docs/epics/EPIC-03-issue-board-mvp.md`
 
@@ -11,12 +11,13 @@
 
 Системный компонентный sheet для статусов issue на board:
 - `NEW`
-- `VERIFIED` (с doge-маркером)
 - `IN REVIEW`
-- `ARCHIVED`
+- `PUBLISHED`
 
 Фокус только на badge-компонентах и их визуальной иерархии.
 Текстовые футеры внизу мокапа в scope не входят.
+
+> **Примечание (2026-06-17):** legacy статусы `VERIFIED` / `ARCHIVED` и doge-marker удалены из канона gateway ([`enums.py`](../../../../doge-complaints-gateway/src/core/projection/enums.py)); runtime — [`StatusBadge.jsx`](../../src/components/StatusBadge.jsx).
 
 ---
 
@@ -34,13 +35,10 @@
 ## 3) Визуальная иерархия статусов
 
 1. **NEW** — базовый primary neutral (белый текст на темном фоне).
-2. **VERIFIED** — акцентный, но вторичный относительно контента issue:
-   - doge icon + yellow text;
-   - не должен перетягивать внимание у title карточки.
-3. **IN REVIEW** — нейтральный muted.
-4. **ARCHIVED** — нейтральный muted, сопоставимый с `IN REVIEW`.
+2. **IN REVIEW** — нейтральный muted.
+3. **PUBLISHED** — акцентный warm-neutral (золотистый текст), но вторичный относительно контента issue; без иконки.
 
-Правило: статус различается не только цветом, но и текстом/иконкой.
+Правило: статус различается цветом и текстом; иконки статуса нет.
 
 ---
 
@@ -53,8 +51,8 @@
 - Бейдж-бордер: `rgba(255,255,255,0.10..0.16)`.
 - Текст neutral badge: `#e6e8ef`.
 - Текст muted badge: `#a2a7b3`.
-- VERIFIED accent: `~#b38b47`.
-- VERIFIED фон: темный warm-neutral (без яркого свечения).
+- PUBLISHED accent: `~#c5a162`.
+- PUBLISHED фон: темный warm-neutral `~#2a271f` (без яркого свечения).
 
 ---
 
@@ -62,22 +60,21 @@
 
 - `StatusBadge` принимает одно из:
   - `NEW`
-  - `VERIFIED`
   - `IN_REVIEW`
-  - `ARCHIVED`
+  - `PUBLISHED`
 - Канонический контракт без двусмысленности:
-  - **Domain enum:** `NEW`, `VERIFIED`, `IN_REVIEW`, `ARCHIVED`
-  - **Display label (EN):** `NEW`, `VERIFIED`, `IN REVIEW`, `ARCHIVED`
+  - **Domain enum:** `NEW`, `IN_REVIEW`, `PUBLISHED`
+  - **Display label (EN):** `NEW`, `IN REVIEW`, `PUBLISHED`
   - `IN REVIEW` используется только как UI-label; в данных всегда `IN_REVIEW`.
-- `VERIFIED` рендерит иконку doge (локальный ассет/inline icon).
+- Иконки статуса нет (legacy `verified.svg` удалён).
 - Неизвестный статус должен иметь safe fallback (`UNKNOWN` style) без падения UI.
 
 ### 5.1 I18n labels for status (UI layer)
 
 - `status.NEW`: `et=UUS`, `ru=НОВОЕ`, `en=NEW`
-- `status.VERIFIED`: `et=KINNITATUD`, `ru=ПОДТВЕРЖДЕНО`, `en=VERIFIED`
 - `status.IN_REVIEW`: `et=LÄBIVAATUSEL`, `ru=НА РАССМОТРЕНИИ`, `en=IN REVIEW`
-- `status.ARCHIVED`: `et=ARHIIVIS`, `ru=В АРХИВЕ`, `en=ARCHIVED`
+- `status.PUBLISHED`: `et=AVALDATUD`, `ru=ОПУБЛИКОВАНО`, `en=PUBLISHED`
+- `status.UNKNOWN`: `et=TEADMATA`, `ru=НЕИЗВЕСТНО`, `en=UNKNOWN`
 
 ---
 
@@ -102,4 +99,4 @@
 
 - `task-implement-epic03-status-badge-system` (новая) — реализация badge-компонента и state map.
 - `task-implement-epic03-issue-card-fields` — интеграция badge в `IssueCard`.
-- `task-implement-epic03-branding-and-verified-ui` — doge-marker и бренд-консистентность VERIFIED.
+- ~~`task-implement-epic03-branding-and-verified-ui`~~ — superseded (VERIFIED/doge-marker вне канона gateway).

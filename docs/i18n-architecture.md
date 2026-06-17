@@ -91,8 +91,8 @@
 {
   "id": "DE-042",
   "status": "NEW",
-  "type": "complaint",
-  "labels": ["bureaucracy", "healthcare"],
+  "type": "INCIDENT",
+  "labels": ["waste", "infrastructure"],
   "title": { "et": "...", "ru": "...", "en": "..." },
   "description": { "et": "...", "ru": "...", "en": "..." },
   "created_at": "2026-02-01T10:00:00Z",
@@ -159,7 +159,7 @@ export function resolveLocalizedText(field, locale) {
 ### 7.1 Status
 
 - `status` остается enum.
-- Канонические enum-значения (данные/API): `NEW`, `VERIFIED`, `IN_REVIEW`, `ARCHIVED`.
+- Канонические enum-значения (данные/API): `NEW`, `IN_REVIEW`, `PUBLISHED`.
 - Перевод делается UI-слоем через словарь.
 - Правило без двусмысленности: `IN_REVIEW` (enum) -> `IN REVIEW` (EN display label).
 
@@ -168,36 +168,31 @@ export function resolveLocalizedText(field, locale) {
 | Enum | et | ru | en |
 |---|---|---|---|
 | `NEW` | UUS | НОВОЕ | NEW |
-| `VERIFIED` | KINNITATUD | ПОДТВЕРЖДЕНО | VERIFIED |
 | `IN_REVIEW` | LÄBIVAATUSEL | НА РАССМОТРЕНИИ | IN REVIEW |
-| `ARCHIVED` | ARHIIVIS | В АРХИВЕ | ARCHIVED |
+| `PUBLISHED` | AVALDATUD | ОПУБЛИКОВАНО | PUBLISHED |
+
+> **Статус (2026-06-17, SEARCH-01):** enum и словари выровнены под gateway [enums.py](../../../doge-complaints-gateway/src/core/projection/enums.py).
 
 ### 7.2 Labels
 
 Для MVP принято:
-- хранение labels как canonical key (`"bureaucracy"`, `"healthcare"`),
+- хранение labels как canonical key (`"waste"`, `"infrastructure"`, …),
 - отображение через UI dictionary (`label key -> localized label`),
 - построение списка фильтра label **из загруженных issues** (L10N-02, D9).
 
-Минимальный контракт label keys (MVP baseline, translated core — `AVAILABLE_LABELS` в [`src/i18n/labelKeys.js`](../src/i18n/labelKeys.js); product SSOT — [label-taxonomy-G2-approved.md](analysis/label-taxonomy-G2-approved.md)):
-- `bureaucracy`
+Минимальный контракт label keys (gateway governed-набор — `AVAILABLE_LABELS` в [`src/i18n/labelKeys.js`](../src/i18n/labelKeys.js); SSOT — [enums.py](../../../doge-complaints-gateway/src/core/projection/enums.py) `DOGEIssueLabel`):
+- `waste`
+- `district`
 - `infrastructure`
-- `healthcare`
-- `pensions`
-- `education`
-- `housing`
-- `tax`
-- `digital`
-- `social`
-- `language`
+- `safety`
 
-> **Статус реализации (2026-06-16):** `AVAILABLE_LABELS` используется как «гарантированно переведённое ядро», а не как источник фильтра доски.
+> **Статус реализации (2026-06-17, SEARCH-01):** `AVAILABLE_LABELS` = gateway governed-набор; legacy SPA-ключи (`bureaucracy`, …) удалены.
 
 Это проще и чище на MVP, чем хранить i18n-объект внутри каждого label.
 
 > **Статус реализации (2026-06-16):** Gap G2/GL-2 закрыт — `BoardPage` агрегирует `availableLabels` из загруженных issues (union с ядром), UI через `formatLabelKey` ([`labelDisplay.js`](../src/i18n/labelDisplay.js)).
 
-Пример: `t('labels.bureaucracy')` → et `Bürokraatia`, ru `Бюрократия`, en `Bureaucracy`.
+Пример: `t('labels.waste')` → et `Jäätmed`, ru `Отходы`, en `Waste`.
 
 ---
 
