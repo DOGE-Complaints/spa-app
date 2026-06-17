@@ -61,6 +61,18 @@ export function serializeBoardQuery(filters) {
   return query ? `?${query}` : ''
 }
 
+export function serializeServerBoardQuery(input) {
+  const filters = typeof input === 'string' || input instanceof URLSearchParams
+    ? parseBoardQuery(input)
+    : input
+  return serializeBoardQuery({
+    status: filters?.status ?? [],
+    type: filters?.type ?? '',
+    labels: filters?.labels ?? [],
+    search: '',
+  })
+}
+
 export function normalizeBoardSearch(input) {
   return serializeBoardQuery(parseBoardQuery(input))
 }

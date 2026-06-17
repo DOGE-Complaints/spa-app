@@ -1,10 +1,11 @@
 import { assertIssueRepository } from '../domain/IssueRepository.js'
 
 function assertBaseUrl(baseUrl) {
-  if (typeof baseUrl !== 'string' || !baseUrl.trim()) {
+  const trimmed = typeof baseUrl === 'string' ? baseUrl.trim() : ''
+  if (!trimmed) {
     throw new Error('GatewayIssueRepository: VITE_GATEWAY_BASE_URL is required in GFL-DRIVEN mode')
   }
-  return baseUrl.replace(/\/+$/, '')
+  return trimmed.replace(/\/+$/, '')
 }
 
 function appendArrayParams(params, key, values) {

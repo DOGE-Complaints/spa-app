@@ -6,12 +6,13 @@ import {
   TypeFilter,
   LabelsFilter,
   ResetFiltersControl,
+  SearchInput,
 } from '../components/Filters/index.js'
 import { EmptyState } from '../components/EmptyState/index.js'
 import { IssueCard } from '../components/IssueCard/index.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
-import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../router/boardQuery.js'
+import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery, serializeServerBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
 import { collectLabelKeysFromIssues } from '../i18n/collectLabelKeysFromIssues.js'
 import { LOCALE_SELECTOR_OPTIONS } from '../i18n/core.js'
@@ -39,6 +40,10 @@ export function BoardPage() {
   const boardFilters = parseBoardQuery(location.search)
   const normalizedSearch = normalizeBoardSearch(location.search)
   const boardUrlForBack = `/board${normalizedSearch}`
+  const serverFilterKey = useMemo(
+    () => serializeServerBoardQuery(boardFilters),
+    [boardFilters.status.join(','), boardFilters.type, boardFilters.labels.join(',')],
+  )
 
   function fetchIssues() {
     setLoading(true)
@@ -64,7 +69,7 @@ export function BoardPage() {
 
   useEffect(() => {
     fetchIssues()
-  }, [location.search])
+  }, [serverFilterKey])
 
   const filteredIssues = (() => {
     if (!boardFilters.search || !boardFilters.search.trim()) return issues
@@ -169,6 +174,12 @@ export function BoardPage() {
                 </p>
               </div>
               <div className="board-filters-row">
+              <SearchInput
+                value={boardFilters.search}
+                onChange={(search) => applyFilters({ ...boardFilters, search })}
+                placeholder={t('searchPlaceholder')}
+                ariaLabel={t('searchPlaceholder')}
+              />
               <StatusFilter
                 status={boardFilters.status}
                 onChange={(status) => applyFilters({ ...boardFilters, status })}

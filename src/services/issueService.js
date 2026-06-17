@@ -1,5 +1,6 @@
 import { assertIssueRepository } from '../domain/IssueRepository.js'
 import { createInMemoryIssueRepository } from '../repositories/InMemoryIssueRepository.js'
+import { createGatewayIssueRepository } from '../repositories/GatewayIssueRepository.js'
 import { ROUTING_DEMO_ISSUES } from '../router/mockIssues.js'
 
 /**
@@ -26,4 +27,18 @@ export function createIssueService(repository) {
   }
 }
 
-export const issueService = createIssueService(createInMemoryIssueRepository([...ROUTING_DEMO_ISSUES]))
+const REALITY_MODE = import.meta.env.VITE_LIFE_REALITY_MODE ?? 'FAKE-OLD'
+const GATEWAY_BASE_URL = import.meta.env.VITE_GATEWAY_BASE_URL ?? ''
+
+export function resolveIssueRepositoryForMode(mode, gatewayBaseUrl = '') {
+  if (mode === 'GFL-DRIVEN') {
+    return createGatewayIssueRepository(gatewayBaseUrl)
+  }
+  return createInMemoryIssueRepository([...ROUTING_DEMO_ISSUES])
+}
+
+export function resolveIssueRepository() {
+  return resolveIssueRepositoryForMode(REALITY_MODE, GATEWAY_BASE_URL)
+}
+
+export const issueService = createIssueService(resolveIssueRepository())
