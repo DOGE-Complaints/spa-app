@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { ISSUE_STATUS, ISSUE_TYPE } from '../../domain/types.js'
-import { createIssueService, issueService } from '../issueService.js'
+import { createIssueService, resolveIssueRepositoryForMode } from '../issueService.js'
 
 function makeIssue(overrides = {}) {
   return {
@@ -59,11 +59,23 @@ describe('issueService facade (read-side)', () => {
     expect('createIssue' in service).toBe(false)
   })
 
-  it('exports default issueService with in-memory repository for dev (seeded with demo issues)', async () => {
-    const list = await issueService.getIssues()
+  it('createIssueService with FAKE-OLD repository returns seeded demo issues (hermetic)', async () => {
+    const service = createIssueService(resolveIssueRepositoryForMode('FAKE-OLD'))
+    const list = await service.getIssues()
     expect(Array.isArray(list)).toBe(true)
     expect(list.length).toBeGreaterThanOrEqual(12)
     expect(list[0]).toHaveProperty('id')
     expect(list[0].id).toMatch(/^DE-\d{3}$/)
+  })
+
+  it('resolveIssueRepositoryForMode uses in-memory repository by default', async () => {
+    const repo = resolveIssueRepositoryForMode('FAKE-OLD')
+    const list = await repo.getIssues()
+    expect(Array.isArray(list)).toBe(true)
+    expect(list.length).toBeGreaterThanOrEqual(12)
+  })
+
+  it('resolveIssueRepositoryForMode throws in GFL-DRIVEN without base URL', () => {
+    expect(() => resolveIssueRepositoryForMode('GFL-DRIVEN', '')).toThrow('VITE_GATEWAY_BASE_URL is required')
   })
 })

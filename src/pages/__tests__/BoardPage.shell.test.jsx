@@ -49,6 +49,7 @@ describe('BoardPage shell visual parity scaffold', () => {
     )
 
     expect(html).toContain('board-filters-row')
+    expect(html).toContain('board-search-input')
     expect(html).toContain('board-filter-trigger')
     expect(html).toContain('Reset Filters')
     expect(html).toContain('Status')

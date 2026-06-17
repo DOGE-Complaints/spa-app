@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery } from '../boardQuery.js'
+import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery, serializeServerBoardQuery } from '../boardQuery.js'
 
 describe('boardQuery helpers', () => {
   it('parses supported keys and ignores unknown params', () => {
@@ -26,5 +26,21 @@ describe('boardQuery helpers', () => {
 
   it('normalizes unknown query keys away', () => {
     expect(normalizeBoardSearch('?status=NEW&foo=bar&search=test')).toBe('?status=NEW&search=test')
+  })
+
+  it('serializeServerBoardQuery ignores search-only URL changes', () => {
+    const withFoo = serializeServerBoardQuery('?status=NEW&search=foo')
+    const withBar = serializeServerBoardQuery('?status=NEW&search=bar')
+    const withoutSearch = serializeServerBoardQuery('?status=NEW')
+
+    expect(withFoo).toBe(withBar)
+    expect(withFoo).toBe(withoutSearch)
+  })
+
+  it('serializeServerBoardQuery changes when server filters change', () => {
+    const statusNew = serializeServerBoardQuery('?status=NEW&search=bridge')
+    const statusVerified = serializeServerBoardQuery('?status=VERIFIED&search=bridge')
+
+    expect(statusNew).not.toBe(statusVerified)
   })
 })

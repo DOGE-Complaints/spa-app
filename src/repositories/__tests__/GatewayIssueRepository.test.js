@@ -10,6 +10,19 @@ describe('GatewayIssueRepository', () => {
     expect(() => createGatewayIssueRepository('')).toThrow('VITE_GATEWAY_BASE_URL is required')
   })
 
+  it('trims trailing whitespace from baseUrl', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ data: { issues: [] } }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    const repo = createGatewayIssueRepository('http://localhost:8000 ')
+
+    await repo.getIssues()
+
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/issues')
+  })
+
   it('maps filters to query parameters in getIssues', async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
