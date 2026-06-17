@@ -12,7 +12,7 @@
 - локализованный UI (`et`, `ru`, `en`);
 - локализованный контент issue без runtime-перевода;
 - предсказуемый fallback и отсутствие смешивания языков в одной issue;
-- zero-tracking подход (без аналитики/cookies).
+- zero-tracking по умолчанию (без cookies/идентификаторов); опциональная анонимная телеметрия пропусков словаря меток — см. §11.
 
 ---
 
@@ -243,9 +243,11 @@ export function resolveLocalizedText(field, locale) {
 
 ## 11) Security/Privacy
 
-- No cookies.
-- No analytics.
-- No runtime translation services.
+- **Cookies:** не используются для i18n или телеметрии.
+- **PII:** телеметрия пропусков словаря меток не передаёт идентификаторы пользователя, сессии или issue.
+- **Label-miss telemetry (D11, L10N-04):** опциональный анонимный канал `POST {VITE_GATEWAY_BASE_URL}/telemetry/label-misses` с телом `{ label_key, locale }`. Включается только при `VITE_TELEMETRY_ENABLED=true`; по умолчанию выключена. Эмит только на humanize-miss. Дедупликация в памяти вкладки на пару `(label_key, locale)`; при недоступности sink — тихий no-op.
+- **Реализация:** `src/i18n/labelMissTelemetry.js`, вызов из `formatLabelKeyWithMeta` в `src/i18n/labelDisplay.js`.
+- **Runtime translation services:** не используются (контент issue приходит готовым с бэка).
 - Хранится только `locale` в `localStorage`.
 
 ---
