@@ -20,8 +20,7 @@
 
 > **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G9 закрыт документально — CTA всегда активная ссылка на GPT URL (hardcoded в `BoardPage.jsx`).
 
-> **Статус реализации (2026-06-12):** не выполнено — gap G3 (SearchInput в тулбаре).  
-> Backlog: [STORY-SPA-G3-search-input-toolbar](../tasks/backlog-stories/STORY-SPA-G3-search-input-toolbar.md)
+> **Статус реализации (2026-06-16):** соответствует коду — SearchInput в тулбаре доски ([`SearchInput.jsx`](../../src/components/Filters/SearchInput.jsx), STORY-SPA-G3 Done).
 
 ---
 

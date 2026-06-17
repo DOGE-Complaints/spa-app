@@ -5,10 +5,9 @@
 **Status:** active SSOT for Board default layout  
 **Related epic:** `docs/epics/EPIC-03-issue-board-mvp.md`
 
-> **Статус реализации (2026-06-12):** не выполнено — gap G3 (SearchInput в toolbar).  
-> Backlog: [STORY-SPA-G3-search-input-toolbar](../../tasks/backlog-stories/STORY-SPA-G3-search-input-toolbar.md)
-
 > **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G9 — CTA всегда активная ссылка на GPT.
+
+> **Статус реализации (2026-06-16):** соответствует коду — `SearchInput` в toolbar ([`SearchInput.jsx`](../../src/components/Filters/SearchInput.jsx), STORY-SPA-G3 Done).
 
 ---
 
