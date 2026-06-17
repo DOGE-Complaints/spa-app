@@ -144,7 +144,7 @@ export function IssuePage() {
                 <span className="issue-details-metadata-value">
                   {issue.labels.map((l) => {
                     const key = String(l)
-                    const formatted = formatLabelKeyWithMeta(t, key)
+                    const formatted = formatLabelKeyWithMeta(t, key, locale)
                     return (
                       <span key={l} className="issue-details-chip">
                         {formatted.text}

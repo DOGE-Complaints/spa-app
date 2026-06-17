@@ -3,9 +3,9 @@ import { formatLabelKey } from '../../i18n/labelDisplay.js'
 import './Filters.css'
 
 /**
- * @param {{ labels: string[], availableLabels: string[], onChange: (labels: string[]) => void, t: (k: string) => string }} props
+ * @param {{ labels: string[], availableLabels: string[], onChange: (labels: string[]) => void, t: (k: string) => string, locale: string }} props
  */
-export function LabelsFilter({ labels, availableLabels, onChange, t }) {
+export function LabelsFilter({ labels, availableLabels, onChange, t, locale }) {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const hasAvailableLabels = availableLabels.length > 0
@@ -16,7 +16,7 @@ export function LabelsFilter({ labels, availableLabels, onChange, t }) {
     return availableLabels.filter((l) => String(l).toLowerCase().includes(q))
   }, [availableLabels, search])
 
-  const formatLabel = (key) => formatLabelKey(t, key)
+  const formatLabel = (key) => formatLabelKey(t, key, locale)
 
   const label =
     labels.length === 0
@@ -71,7 +71,7 @@ export function LabelsFilter({ labels, availableLabels, onChange, t }) {
                 className={`board-filter-option ${labels.includes(l) ? 'board-filter-option-selected' : ''}`}
                 onClick={() => toggle(l)}
               >
-                {formatLabelKey(t, l)}
+                {formatLabelKey(t, l, locale)}
               </button>
             ))}
             {labels.length > 0 ? (

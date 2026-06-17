@@ -54,7 +54,7 @@ export function IssueCard({
   const typeDisplay = String(issue.type ?? '').toUpperCase()
   const labelChips = (issue.labels ?? []).map((l) => {
     const key = String(l)
-    const formatted = formatLabelKeyWithMeta(t, key)
+    const formatted = formatLabelKeyWithMeta(t, key, locale)
     return {
       key,
       text: formatted.text,

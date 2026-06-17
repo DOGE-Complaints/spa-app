@@ -185,6 +185,7 @@ export function BoardPage() {
                 availableLabels={availableLabels}
                 onChange={(labels) => applyFilters({ ...boardFilters, labels })}
                 t={t}
+                locale={locale}
               />
               <ResetFiltersControl
                 hasActiveFilters={hasActiveFilters}

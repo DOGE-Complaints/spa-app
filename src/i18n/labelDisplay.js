@@ -1,3 +1,5 @@
+import { reportLabelMiss } from './labelMissTelemetry.js'
+
 /**
  * Humanize canonical slug when dictionary miss (approved fallback policy).
  * @param {string} key
@@ -14,13 +16,17 @@ export function humanizeLabelSlug(key) {
 /**
  * @param {(k: string) => string} t
  * @param {string} key
+ * @param {string} [locale] — active UI locale; when set, humanize-miss may emit telemetry
  * @returns {{ text: string, usedHumanize: boolean }}
  */
-export function formatLabelKeyWithMeta(t, key) {
+export function formatLabelKeyWithMeta(t, key, locale) {
   const dictKey = `labels.${key}`
   const translated = t(dictKey)
   if (translated !== dictKey) {
     return { text: translated, usedHumanize: false }
+  }
+  if (locale) {
+    reportLabelMiss({ label_key: key, locale })
   }
   return { text: humanizeLabelSlug(key), usedHumanize: true }
 }
@@ -28,8 +34,9 @@ export function formatLabelKeyWithMeta(t, key) {
 /**
  * @param {(k: string) => string} t
  * @param {string} key
+ * @param {string} [locale]
  * @returns {string}
  */
-export function formatLabelKey(t, key) {
-  return formatLabelKeyWithMeta(t, key).text
+export function formatLabelKey(t, key, locale) {
+  return formatLabelKeyWithMeta(t, key, locale).text
 }
