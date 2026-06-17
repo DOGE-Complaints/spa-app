@@ -8,9 +8,9 @@ import { formatLabelKeyWithMeta } from '../labelDisplay.js'
 
 function makeT(locale) {
   const dict = {
-    en: { labels: { bureaucracy: 'Bureaucracy' } },
-    et: { labels: { bureaucracy: 'Bürokraatia' } },
-    ru: { labels: { bureaucracy: 'Бюрократия' } },
+    en: { labels: { waste: 'Waste' } },
+    et: { labels: { waste: 'Jäätmed' } },
+    ru: { labels: { waste: 'Отходы' } },
   }[locale] ?? { labels: {} }
   return (key) => {
     const parts = String(key).split('.')
@@ -62,7 +62,7 @@ describe('labelMissTelemetry', () => {
   })
 
   it('does not emit on dictionary hit via formatLabelKeyWithMeta', () => {
-    formatLabelKeyWithMeta(makeT('en'), 'bureaucracy', 'en')
+    formatLabelKeyWithMeta(makeT('en'), 'waste', 'en')
     expect(fetchMock).not.toHaveBeenCalled()
   })
 

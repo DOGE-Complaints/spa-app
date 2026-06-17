@@ -3,12 +3,12 @@ import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery, serializeSe
 
 describe('boardQuery helpers', () => {
   it('parses supported keys and ignores unknown params', () => {
-    const parsed = parseBoardQuery('?status=NEW,VERIFIED,INVALID&type=complaint&labels=bureaucracy,infrastructure&search=bridge&foo=bar')
+    const parsed = parseBoardQuery('?status=NEW,PUBLISHED,INVALID&type=INCIDENT&labels=waste,infrastructure&search=bridge&foo=bar')
 
     expect(parsed).toEqual({
-      status: ['NEW', 'VERIFIED'],
-      type: 'complaint',
-      labels: ['bureaucracy', 'infrastructure'],
+      status: ['NEW', 'PUBLISHED'],
+      type: 'INCIDENT',
+      labels: ['waste', 'infrastructure'],
       search: 'bridge',
     })
   })
@@ -16,12 +16,12 @@ describe('boardQuery helpers', () => {
   it('serializes parsed contract to stable query', () => {
     const query = serializeBoardQuery({
       status: ['NEW', 'IN_REVIEW'],
-      type: 'observation',
-      labels: ['bureaucracy', 'infrastructure'],
+      type: 'IMPROVEMENT',
+      labels: ['waste', 'infrastructure'],
       search: 'road',
     })
 
-    expect(query).toBe('?status=NEW%2CIN_REVIEW&type=observation&labels=bureaucracy%2Cinfrastructure&search=road')
+    expect(query).toBe('?status=NEW%2CIN_REVIEW&type=IMPROVEMENT&labels=waste%2Cinfrastructure&search=road')
   })
 
   it('normalizes unknown query keys away', () => {
@@ -39,8 +39,8 @@ describe('boardQuery helpers', () => {
 
   it('serializeServerBoardQuery changes when server filters change', () => {
     const statusNew = serializeServerBoardQuery('?status=NEW&search=bridge')
-    const statusVerified = serializeServerBoardQuery('?status=VERIFIED&search=bridge')
+    const statusPublished = serializeServerBoardQuery('?status=PUBLISHED&search=bridge')
 
-    expect(statusNew).not.toBe(statusVerified)
+    expect(statusNew).not.toBe(statusPublished)
   })
 })

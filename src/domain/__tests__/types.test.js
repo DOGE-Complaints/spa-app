@@ -20,7 +20,7 @@ describe('domain types: Issue', () => {
   it('accepts valid Issue shape', () => {
     const issue = {
       id: 'DE-0001',
-      type: ISSUE_TYPE.COMPLAINT,
+      type: ISSUE_TYPE.INCIDENT,
       title: 'Road lights broken',
       status: ISSUE_STATUS.NEW,
       labels: ['infrastructure'],
@@ -51,11 +51,11 @@ describe('domain types: Issue', () => {
   it('accepts Issue with i18n title and description', () => {
     const issue = {
       id: 'DE-042',
-      type: ISSUE_TYPE.COMPLAINT,
+      type: ISSUE_TYPE.INCIDENT,
       title: { et: 'Silla remondi viivitus', ru: 'Задержка ремонта моста', en: 'Bridge repair delay' },
       description: { et: 'Objektil puudub liikumine.', ru: 'На объекте нет движения.', en: 'No activity on site.' },
       status: ISSUE_STATUS.NEW,
-      labels: ['bureaucracy', 'infrastructure'],
+      labels: ['waste', 'infrastructure'],
     }
 
     expect(isIssue(issue)).toBe(true)
@@ -65,13 +65,13 @@ describe('domain types: Issue', () => {
   it('accepts Issue with optional summary and institution (i18n)', () => {
     const issue = {
       id: 'DE-001',
-      type: ISSUE_TYPE.COMPLAINT,
+      type: ISSUE_TYPE.INCIDENT,
       title: { et: 'Pensionide indekseerimine', ru: 'Пенсионная индексация', en: 'Pension indexation' },
       summary: { et: 'Pension tõusis, kuid kulud tõusid.', ru: 'Пенсия выросла, но расходы выросли.', en: 'Pension increased but costs rose.' },
       description: { et: 'Pikk tekst.', ru: 'Полный текст.', en: 'Full text.' },
       institution: { et: 'Sotsiaalkindlustusamet', ru: 'Sotsiaalkindlustusamet', en: 'Social Insurance Board' },
-      status: ISSUE_STATUS.VERIFIED,
-      labels: ['pensions', 'social'],
+      status: ISSUE_STATUS.PUBLISHED,
+      labels: ['district', 'safety'],
       created_at: '2025-01-15T10:00:00Z',
     }
 
@@ -82,10 +82,10 @@ describe('domain types: Issue', () => {
   it('accepts optional original_locale from backend projection', () => {
     const issue = {
       id: 'DE-002',
-      type: ISSUE_TYPE.COMPLAINT,
+      type: ISSUE_TYPE.INCIDENT,
       title: { en: 'Title' },
       status: ISSUE_STATUS.NEW,
-      labels: ['education'],
+      labels: ['district'],
       original_locale: ['ru'],
     }
 
@@ -162,7 +162,7 @@ describe('domain types: CreateIssueCommand', () => {
     const command = {
       title: 'Water supply delay',
       description: 'District has no water for 8 hours',
-      type: ISSUE_TYPE.COMPLAINT,
+      type: ISSUE_TYPE.INCIDENT,
       labels: ['utilities', 'city'],
       image: { kind: 'url', value: 'https://example.com/image.png' },
       intake_payload: {

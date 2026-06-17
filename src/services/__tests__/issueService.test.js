@@ -5,7 +5,7 @@ import { createIssueService, resolveIssueRepositoryForMode } from '../issueServi
 function makeIssue(overrides = {}) {
   return {
     id: 'DE-100',
-    type: ISSUE_TYPE.COMPLAINT,
+    type: ISSUE_TYPE.INCIDENT,
     title: 'Bridge maintenance delay',
     status: ISSUE_STATUS.NEW,
     labels: ['infrastructure'],

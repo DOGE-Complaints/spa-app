@@ -6,7 +6,7 @@ import { createInMemoryIssueRepository } from '../InMemoryIssueRepository.js'
 function makeIssue(overrides = {}) {
   return {
     id: 'DE-001',
-    type: ISSUE_TYPE.COMPLAINT,
+    type: ISSUE_TYPE.INCIDENT,
     title: 'Street light failure',
     status: ISSUE_STATUS.NEW,
     labels: ['infrastructure'],
@@ -44,12 +44,12 @@ describe('InMemoryIssueRepository (read-side)', () => {
   it('filters by options.status array (multi-select OR)', async () => {
     const issues = [
       makeIssue({ id: 'A', status: ISSUE_STATUS.NEW }),
-      makeIssue({ id: 'B', status: ISSUE_STATUS.VERIFIED }),
+      makeIssue({ id: 'B', status: ISSUE_STATUS.PUBLISHED }),
       makeIssue({ id: 'C', status: ISSUE_STATUS.IN_REVIEW }),
     ]
     const repo = createInMemoryIssueRepository(issues)
 
-    const result = await repo.getIssues({ status: [ISSUE_STATUS.NEW, ISSUE_STATUS.VERIFIED] })
+    const result = await repo.getIssues({ status: [ISSUE_STATUS.NEW, ISSUE_STATUS.PUBLISHED] })
 
     expect(result).toHaveLength(2)
     expect(result.map((r) => r.id)).toEqual(['A', 'B'])
@@ -58,12 +58,12 @@ describe('InMemoryIssueRepository (read-side)', () => {
   it('filters by options.labels (OR: issue has at least one label)', async () => {
     const issues = [
       makeIssue({ id: 'A', labels: ['infrastructure'] }),
-      makeIssue({ id: 'B', labels: ['bureaucracy'] }),
-      makeIssue({ id: 'C', labels: ['healthcare'] }),
+      makeIssue({ id: 'B', labels: ['waste'] }),
+      makeIssue({ id: 'C', labels: ['safety'] }),
     ]
     const repo = createInMemoryIssueRepository(issues)
 
-    const result = await repo.getIssues({ labels: ['bureaucracy', 'healthcare'] })
+    const result = await repo.getIssues({ labels: ['waste', 'safety'] })
 
     expect(result).toHaveLength(2)
     expect(result.map((r) => r.id)).toEqual(['B', 'C'])
@@ -71,12 +71,12 @@ describe('InMemoryIssueRepository (read-side)', () => {
 
   it('filters by labels outside curated core keys', async () => {
     const issues = [
-      makeIssue({ id: 'A', labels: ['cluster_transport'] }),
-      makeIssue({ id: 'B', labels: ['bureaucracy'] }),
+      makeIssue({ id: 'A', labels: ['road_safety'] }),
+      makeIssue({ id: 'B', labels: ['waste'] }),
     ]
     const repo = createInMemoryIssueRepository(issues)
 
-    const result = await repo.getIssues({ labels: ['cluster_transport'] })
+    const result = await repo.getIssues({ labels: ['road_safety'] })
 
     expect(result).toHaveLength(1)
     expect(result[0].id).toBe('A')

@@ -22,7 +22,7 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).toContain('class="board-footer"')
   })
 
-  it('renders four status columns in board scaffold', () => {
+  it('renders three status columns in board scaffold', () => {
     const html = renderToStaticMarkup(
       <I18nProvider>
         <MemoryRouter>
@@ -32,11 +32,10 @@ describe('BoardPage shell visual parity scaffold', () => {
     )
     const columnMatches = html.match(/class="board-column"/g) ?? []
 
-    expect(columnMatches).toHaveLength(4)
+    expect(columnMatches).toHaveLength(3)
     expect(html).toContain('Status NEW column')
-    expect(html).toContain('Status VERIFIED column')
     expect(html).toContain('Status IN REVIEW column')
-    expect(html).toContain('Status ARCHIVED column')
+    expect(html).toContain('Status PUBLISHED column')
   })
 
   it('renders filter controls and reset in toolbar', () => {

@@ -7,7 +7,8 @@ describe('ROUTING_DEMO_ISSUES seed', () => {
   it('includes at least one label outside curated AVAILABLE_LABELS core', () => {
     const core = new Set(AVAILABLE_LABELS)
     const outsideCore = ROUTING_DEMO_ISSUES.flatMap((issue) => issue.labels).filter((label) => !core.has(label))
-    expect(outsideCore).toContain('cluster_transport')
+    expect(outsideCore.length).toBe(0)
+    expect(ROUTING_DEMO_ISSUES.every((issue) => issue.labels.every((label) => core.has(label)))).toBe(true)
   })
 
   it('includes DE-013 with empty-locale title for fallback-marker demo', () => {

@@ -8,9 +8,7 @@ const t = (key) => {
     filterAny: 'Any',
     clear: 'Clear',
     'status.NEW': 'NEW',
-    'status.VERIFIED': 'VERIFIED',
-    'status.IN_REVIEW': 'IN REVIEW',
-    'status.ARCHIVED': 'ARCHIVED',
+    'status.PUBLISHED': 'PUBLISHED',
   }
   return map[key] ?? key
 }

@@ -19,15 +19,15 @@ describe('LabelsFilter', () => {
   it('shows localized label in trigger when one label selected', () => {
     const html = renderToStaticMarkup(
       <LabelsFilter
-        labels={['bureaucracy']}
-        availableLabels={['bureaucracy', 'healthcare']}
+        labels={['waste']}
+        availableLabels={['waste', 'safety']}
         onChange={() => {}}
         t={makeT('en')}
         locale="en"
       />,
     )
-    expect(html).toContain('Bureaucracy')
-    expect(html).not.toContain('BUREAUCRACY')
+    expect(html).toContain('Waste')
+    expect(html).not.toContain('WASTE')
   })
 
   it('keeps trigger disabled when there are no available labels', () => {

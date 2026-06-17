@@ -32,19 +32,19 @@ describe('GatewayIssueRepository', () => {
     const repo = createGatewayIssueRepository('http://localhost:8000/')
 
     const items = await repo.getIssues({
-      status: ['NEW', 'VERIFIED'],
-      type: 'complaint',
-      labels: ['bureaucracy', 'social'],
+      status: ['NEW', 'PUBLISHED'],
+      type: 'INCIDENT',
+      labels: ['waste', 'safety'],
     })
 
     expect(items).toEqual([{ id: '1' }])
     const requestUrl = fetchMock.mock.calls[0][0]
     expect(requestUrl).toContain('http://localhost:8000/tallinn/issues?')
     expect(requestUrl).toContain('status=NEW')
-    expect(requestUrl).toContain('status=VERIFIED')
-    expect(requestUrl).toContain('type=complaint')
-    expect(requestUrl).toContain('labels=bureaucracy')
-    expect(requestUrl).toContain('labels=social')
+    expect(requestUrl).toContain('status=PUBLISHED')
+    expect(requestUrl).toContain('type=INCIDENT')
+    expect(requestUrl).toContain('labels=waste')
+    expect(requestUrl).toContain('labels=safety')
   })
 
   it('returns null for 404 on getIssue', async () => {

@@ -27,10 +27,10 @@ function resolveLocalizedText(field, locale = 'en') {
 
 const minimalIssue = {
   id: 'DE-042',
-  type: ISSUE_TYPE.COMPLAINT,
+  type: ISSUE_TYPE.INCIDENT,
   status: ISSUE_STATUS.NEW,
   title: { et: 'Silla remondi viivitus', ru: 'Задержка ремонта моста', en: 'Bridge repair delay' },
-  labels: ['bureaucracy', 'infrastructure'],
+  labels: ['waste', 'infrastructure'],
 }
 
 const localeStorage = new Map()
@@ -68,10 +68,10 @@ describe('IssueCard', () => {
     expect(html).toContain('Bridge repair delay')
     expect(html).toContain('NEW')
     expect(html).toContain('status-badge')
-    expect(html).toContain('COMPLAINT')
-    expect(html).toContain('Bureaucracy')
+    expect(html).toContain('INCIDENT')
+    expect(html).toContain('Waste')
     expect(html).toContain('Infrastructure')
-    expect(html).not.toContain('BUREAUCRACY')
+    expect(html).not.toContain('WASTE')
     expect(html).toContain('Footer')
   })
 
@@ -223,7 +223,7 @@ describe('IssueCard', () => {
   it('renders untranslated label marker for humanized label keys', () => {
     const issueWithOutsideLabel = {
       ...minimalIssue,
-      labels: ['cluster_transport'],
+      labels: ['road_safety'],
     }
     const html = renderIssueCard(
       <IssueCard

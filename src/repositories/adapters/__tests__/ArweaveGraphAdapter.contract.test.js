@@ -10,7 +10,7 @@ import {
 function makeIssue(overrides = {}) {
   return {
     id: 'DE-100',
-    type: ISSUE_TYPE.COMPLAINT,
+    type: ISSUE_TYPE.INCIDENT,
     title: 'Road damage',
     status: ISSUE_STATUS.NEW,
     labels: ['roads'],

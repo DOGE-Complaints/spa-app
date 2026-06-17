@@ -21,9 +21,9 @@ describe('labelDisplay', () => {
   })
 
   it('resolves labels.* from dictionary for et/ru/en', () => {
-    expect(formatLabelKey(makeT('et'), 'bureaucracy')).toBe('Bürokraatia')
-    expect(formatLabelKey(makeT('ru'), 'bureaucracy')).toBe('Бюрократия')
-    expect(formatLabelKey(makeT('en'), 'bureaucracy')).toBe('Bureaucracy')
+    expect(formatLabelKey(makeT('et'), 'waste')).toBe('Jäätmed')
+    expect(formatLabelKey(makeT('ru'), 'waste')).toBe('Отходы')
+    expect(formatLabelKey(makeT('en'), 'waste')).toBe('Waste')
   })
 
   it('falls back to humanize when dictionary miss', () => {
@@ -32,8 +32,8 @@ describe('labelDisplay', () => {
       text: 'Road Safety',
       usedHumanize: true,
     })
-    expect(formatLabelKeyWithMeta(makeT('en'), 'bureaucracy')).toEqual({
-      text: 'Bureaucracy',
+    expect(formatLabelKeyWithMeta(makeT('en'), 'waste')).toEqual({
+      text: 'Waste',
       usedHumanize: false,
     })
   })

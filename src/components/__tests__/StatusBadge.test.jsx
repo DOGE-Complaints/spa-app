@@ -36,11 +36,11 @@ describe('StatusBadge', () => {
     expect(html).toContain('status-badge-in-review')
   })
 
-  it('renders VERIFIED status label with icon', () => {
-    const html = renderBadge(ISSUE_STATUS.VERIFIED)
-    expect(html).toContain('VERIFIED')
-    expect(html).toContain('status-badge-icon')
-    expect(html).toContain('icons/verified.svg')
+  it('renders PUBLISHED status label', () => {
+    const html = renderBadge(ISSUE_STATUS.PUBLISHED)
+    expect(html).toContain('PUBLISHED')
+    expect(html).toContain('status-badge-published')
+    expect(html).not.toContain('status-badge-icon')
   })
 
   it('falls back to UNKNOWN variant for unexpected value', () => {
