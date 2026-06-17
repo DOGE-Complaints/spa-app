@@ -23,6 +23,7 @@ describe('LabelsFilter', () => {
         availableLabels={['bureaucracy', 'healthcare']}
         onChange={() => {}}
         t={makeT('en')}
+        locale="en"
       />,
     )
     expect(html).toContain('Bureaucracy')
@@ -36,6 +37,7 @@ describe('LabelsFilter', () => {
         availableLabels={[]}
         onChange={() => {}}
         t={makeT('en')}
+        locale="en"
       />,
     )
     expect(html).toContain('disabled')
