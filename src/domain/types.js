@@ -2,16 +2,14 @@ import { LOCALE_CODES } from '../i18n/core.js'
 
 export const ISSUE_STATUS = Object.freeze({
   NEW: 'NEW',
-  VERIFIED: 'VERIFIED',
   IN_REVIEW: 'IN_REVIEW',
-  ARCHIVED: 'ARCHIVED',
+  PUBLISHED: 'PUBLISHED',
 })
 
 export const ISSUE_TYPE = Object.freeze({
-  COMPLAINT: 'complaint',
-  OBSERVATION: 'observation',
-  ABSURDITY: 'absurdity',
-  SYSTEM_BUG: 'system_bug',
+  IMPROVEMENT: 'IMPROVEMENT',
+  SERVICE_REQUEST: 'SERVICE_REQUEST',
+  INCIDENT: 'INCIDENT',
 })
 
 export const ISSUE_TIME_TYPE = Object.freeze({
@@ -50,8 +48,8 @@ export const PROBLEM_STATUS = Object.freeze({
 })
 
 /**
- * @typedef {'NEW'|'VERIFIED'|'IN_REVIEW'|'ARCHIVED'} IssueStatus
- * @typedef {'complaint'|'observation'|'absurdity'|'system_bug'} IssueType
+ * @typedef {'NEW'|'IN_REVIEW'|'PUBLISHED'} IssueStatus
+ * @typedef {'IMPROVEMENT'|'SERVICE_REQUEST'|'INCIDENT'} IssueType
  * @typedef {'exact'|'date'|'date_range'|'time_interval'|'datetime_range'|'approx_period'} IssueTimeType
  *
  * @typedef {Object} Issue

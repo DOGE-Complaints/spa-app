@@ -267,32 +267,6 @@ export function BoardPage() {
               </div>
             </section>
 
-            <section className="board-column" aria-label="Status VERIFIED column">
-              <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.VERIFIED} />
-                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.VERIFIED).length}</span>
-              </header>
-              <div className="board-column-divider" />
-              <div className="board-column-placeholder">
-                {loading ? (
-                  <BoardColumnPlaceholder />
-                ) : (
-                  filteredIssues
-                    .filter((item) => item.status === ISSUE_STATUS.VERIFIED)
-                    .map((item) => (
-                    <IssueCard
-                      key={item.id}
-                      issue={item}
-                      locale={locale}
-                      resolveLocalizedText={resolveLocalizedText}
-                      t={t}
-                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                    />
-                  ))
-                )}
-              </div>
-            </section>
-
             <section className="board-column" aria-label="Status IN REVIEW column">
               <header className="board-column-header">
                 <StatusBadge status={ISSUE_STATUS.IN_REVIEW} />
@@ -319,10 +293,10 @@ export function BoardPage() {
               </div>
             </section>
 
-            <section className="board-column" aria-label="Status ARCHIVED column">
+            <section className="board-column" aria-label="Status PUBLISHED column">
               <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.ARCHIVED} />
-                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.ARCHIVED).length}</span>
+                <StatusBadge status={ISSUE_STATUS.PUBLISHED} />
+                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.PUBLISHED).length}</span>
               </header>
               <div className="board-column-divider" />
               <div className="board-column-placeholder">
@@ -330,7 +304,7 @@ export function BoardPage() {
                   <BoardColumnPlaceholder />
                 ) : (
                   filteredIssues
-                    .filter((item) => item.status === ISSUE_STATUS.ARCHIVED)
+                    .filter((item) => item.status === ISSUE_STATUS.PUBLISHED)
                     .map((item) => (
                     <IssueCard
                       key={item.id}

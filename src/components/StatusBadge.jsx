@@ -4,9 +4,8 @@ import './StatusBadge.css'
 
 const STATUS_CLASS = Object.freeze({
   [ISSUE_STATUS.NEW]: 'status-badge-new',
-  [ISSUE_STATUS.VERIFIED]: 'status-badge-verified',
   [ISSUE_STATUS.IN_REVIEW]: 'status-badge-in-review',
-  [ISSUE_STATUS.ARCHIVED]: 'status-badge-archived',
+  [ISSUE_STATUS.PUBLISHED]: 'status-badge-published',
   UNKNOWN: 'status-badge-unknown',
 })
 
@@ -29,9 +28,6 @@ export function StatusBadge({ status, className = '' }) {
 
   return (
     <span className={classes} data-status={normalizedStatus} aria-label={`Status: ${label}`}>
-      {normalizedStatus === ISSUE_STATUS.VERIFIED && (
-        <img src="/icons/verified.svg" alt="" className="status-badge-icon" aria-hidden />
-      )}
       <span className="status-badge-label">{label}</span>
     </span>
   )

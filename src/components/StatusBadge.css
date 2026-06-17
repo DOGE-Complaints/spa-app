@@ -20,26 +20,15 @@
   color: #edf0f7;
 }
 
-.status-badge-verified {
+.status-badge-published {
   background: #2a271f;
   border-color: rgba(179, 139, 71, 0.45);
   color: #c5a162;
 }
 
-.status-badge-icon {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-}
-
 .status-badge-in-review {
   background: #242831;
   color: #aab0bc;
-}
-
-.status-badge-archived {
-  background: #23272f;
-  color: #9ea4b0;
 }
 
 .status-badge-unknown {
