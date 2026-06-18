@@ -10,6 +10,7 @@ describe('SearchInput', () => {
         onChange={() => {}}
         placeholder="Search issues…"
         ariaLabel="Search issues"
+        clearAriaLabel="Clear search"
       />,
     )
 
@@ -20,6 +21,21 @@ describe('SearchInput', () => {
     expect(html).toContain('value="bridge"')
     expect(html).toContain('placeholder="Search issues…"')
     expect(html).toContain('aria-label="Search issues"')
+    expect(html).toContain('class="board-search-clear"')
+    expect(html).toContain('aria-label="Clear search"')
+  })
+
+  it('hides clear button when value is empty', () => {
+    const html = renderToStaticMarkup(
+      <SearchInput
+        value=""
+        onChange={() => {}}
+        placeholder="Search"
+        ariaLabel="Search"
+        clearAriaLabel="Clear"
+      />,
+    )
+    expect(html).not.toContain('class="board-search-clear"')
   })
 
   it('invokes onChange with next value', () => {
@@ -30,7 +46,13 @@ describe('SearchInput', () => {
     onChange('pension')
     expect(next).toBe('pension')
     renderToStaticMarkup(
-      <SearchInput value="" onChange={onChange} placeholder="Search" ariaLabel="Search" />,
+      <SearchInput
+        value=""
+        onChange={onChange}
+        placeholder="Search"
+        ariaLabel="Search"
+        clearAriaLabel="Clear"
+      />,
     )
   })
 })
