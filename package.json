@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "start": "vite preview --host 0.0.0.0 --port ${PORT:-4173}",
     "test": "vitest",
     "test:run": "vitest run --passWithNoTests",
     "test:ui:board-shell": "node ./tests/puppeteer/board-shell-smoke.mjs",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "arkb": "^1.1.61",
+    "jsdom": "^28.1.0",
     "puppeteer": "^24.22.3",
     "vite": "^6.0.1",
     "vitest": "^4.0.18"
