@@ -99,7 +99,7 @@
 | `Filter*Control` | status/type/labels in `FilterPanel` (batch apply) | SEARCH-02 |
 | `FilterPanel` | collapsible panel + extension slots (`institution`/`date`/`geo`) | [`FilterPanel.jsx`](../../src/components/Filters/FilterPanel.jsx) |
 | `ActiveFilterChips` | applied filter chips with immediate remove | [`ActiveFilterChips.jsx`](../../src/components/Filters/ActiveFilterChips.jsx) |
-| `SearchInput` | board toolbar text search (`?search=` immediate) | [STORY-SPA-G3](../../tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/STORY-SPA-G3-search-input-toolbar.md) |
+| `SearchInput` | board toolbar text search (`?search=` debounced); cross-locale match; clear button | [`SearchInput.jsx`](../../src/components/Filters/SearchInput.jsx) — [SEARCH-03](../../tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/STORY-SPA-SEARCH-03-cross-language-search-input.md) |
 | `ResetFiltersControl` | global clear (toolbar + panel footer + no-results) | SEARCH-02 |
 | `IssueDetailsView` | read-only details screen | `S03-4` |
 | `IssueMetadataBlock` | metadata variants full/partial/minimal | `S03-4` |

@@ -591,3 +591,17 @@ UI в `EPIC-03` рендерит `Issue`:
   - полный keyboard/accessibility contract;
   - motion preferences;
   - расширение locale list beyond MVP.
+
+---
+
+## 24) Search and filters — SEARCH-03 extensions
+
+### 24.2 SearchInput (кросс-язычный, debounce, clear)
+
+> **Статус реализации (2026-06-18):** соответствует коду — [`SearchInput.jsx`](../../src/components/Filters/SearchInput.jsx) в toolbar; client-side match по всем локалям `title`/`description` ([`issueSearchMatch.js`](../../src/router/issueSearchMatch.js)); debounce 300ms → `?search=` ([`useDebouncedBoardSearch.js`](../../src/hooks/useDebouncedBoardSearch.js)); кнопка `.board-search-clear`; STORY-SPA-SEARCH-03 Done (pkg-000010).
+
+- **Размещение:** toolbar `.board-filters-row` (слева от `FilterPanel`), не внутри панели batch-фильтров.
+- **Поведение:** ввод → локальный draft → debounced URL `search`; F5/Back синхронизируют draft сразу; Reset очищает search (SEARCH-02).
+- **Кросс-язычный матч (D-S1):** UI locale не ограничивает поиск; матч по `et`+`ru`+`en` полям загруженного issue.
+- **Вне scope:** server full-text; поиск по `summary`/`labels`/`institution`; IssuePage search.
+- **Mockup delta:** extends [mockup-01](mockups/initiation/mockup-01-dashboard-main-spec.md) §Toolbar — states empty/focused/with-text/clear-visible.
