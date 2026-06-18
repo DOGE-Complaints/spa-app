@@ -16,7 +16,7 @@
 
 Этим документом фиксируется целевая компонентная архитектура как SSOT.
 
-**Фактический MVP (2026-06-17):** L3 `StatusBadge`, `StatusFilter`/`TypeFilter`/`LabelsFilter`, `FilterPanel`, `ActiveFilterChips`, `ResetFiltersControl`, `SearchInput`; hook `useBoardFilterDraft` ([`src/hooks/useBoardFilterDraft.js`](../../src/hooks/useBoardFilterDraft.js)); state SSOT [`boardFilterState.js`](../../src/router/boardFilterState.js) + [`boardQuery.js`](../../src/router/boardQuery.js). L2 `IssueCard`, L4 `EmptyState`; `AppShell` — inline в `BoardPage`/`IssuePage` (G8 backlog).
+**Фактический MVP (2026-06-17):** L3 `StatusBadge`, `StatusFilter`/`TypeFilter`/`LabelsFilter`, `InstitutionFilter`/`DateRangeFilter`, `FilterPanel`, `ActiveFilterChips`, `ResetFiltersControl`, `SearchInput`; hook `useBoardFilterDraft` ([`src/hooks/useBoardFilterDraft.js`](../../src/hooks/useBoardFilterDraft.js)); state SSOT [`boardFilterState.js`](../../src/router/boardFilterState.js) + [`boardQuery.js`](../../src/router/boardQuery.js). L2 `IssueCard`, L4 `EmptyState`; `AppShell` — inline в `BoardPage`/`IssuePage` (G8 backlog).
 
 > **Статус реализации (2026-06-12):** не выполнено — gap G8 (AppShell refactor).  
 > Backlog: [STORY-SPA-G8-app-shell-refactor](../tasks/backlog-stories/STORY-SPA-G8-app-shell-refactor.md)
@@ -96,9 +96,11 @@
 | `BoardColumns` | 4-column structure | `S03-1A` |
 | `StatusBadge` | status enum -> display + style | `S03-1B` |
 | `IssueCard` | card content + interaction states | `S03-2` |
-| `Filter*Control` | status/type/labels in `FilterPanel` (batch apply) | SEARCH-02 |
+| `Filter*Control` | status/type/labels/institution/date in `FilterPanel` (batch apply) | SEARCH-02, SEARCH-04 |
 | `FilterPanel` | collapsible panel + extension slots (`institution`/`date`/`geo`) | [`FilterPanel.jsx`](../../src/components/Filters/FilterPanel.jsx) |
 | `ActiveFilterChips` | applied filter chips with immediate remove | [`ActiveFilterChips.jsx`](../../src/components/Filters/ActiveFilterChips.jsx) |
+| `InstitutionFilter` | single-select institution from loaded issues (D-S8); `?institution=` | [`InstitutionFilter.jsx`](../../src/components/Filters/InstitutionFilter.jsx) — [SEARCH-04](../../tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/STORY-SPA-SEARCH-04-institution-date-filters.md) |
+| `DateRangeFilter` | created_at from/to (`?created_after=` / `?created_before=`) | [`DateRangeFilter.jsx`](../../src/components/Filters/DateRangeFilter.jsx) — SEARCH-04 |
 | `SearchInput` | board toolbar text search (`?search=` debounced); cross-locale match; clear button | [`SearchInput.jsx`](../../src/components/Filters/SearchInput.jsx) — [SEARCH-03](../../tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/STORY-SPA-SEARCH-03-cross-language-search-input.md) |
 | `ResetFiltersControl` | global clear (toolbar + panel footer + no-results) | SEARCH-02 |
 | `IssueDetailsView` | read-only details screen | `S03-4` |
