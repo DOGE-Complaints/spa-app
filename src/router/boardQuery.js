@@ -1,5 +1,16 @@
 import { ISSUE_STATUS, ISSUE_TYPE } from '../domain/types.js'
 
+/**
+ * Board URL query SSOT (CSV in single keys).
+ *
+ * SEARCH-02 scope: status, type, labels, search.
+ * Future keys (parse/serialize no-op until SEARCH-04/05):
+ * - institution (scalar)
+ * - created_after, created_before (ISO strings)
+ * - geo_district, geo_settlement, geo_region, geo_country, geo_postal_code (CSV each)
+ * - geo_lat_min, geo_lat_max, geo_lon_min, geo_lon_max (bbox)
+ */
+
 const ALLOWED_STATUS = new Set(Object.values(ISSUE_STATUS))
 const ALLOWED_TYPE = new Set(Object.values(ISSUE_TYPE))
 

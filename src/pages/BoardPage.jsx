@@ -2,16 +2,21 @@ import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ISSUE_STATUS } from '../domain/types.js'
 import {
+  ActiveFilterChips,
+  FilterPanel,
   StatusFilter,
   TypeFilter,
   LabelsFilter,
   ResetFiltersControl,
   SearchInput,
+  buildChipDescriptors,
 } from '../components/Filters/index.js'
 import { EmptyState } from '../components/EmptyState/index.js'
 import { IssueCard } from '../components/IssueCard/index.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
+import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
+import { hasActiveBoardFilters } from '../router/boardFilterState.js'
 import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery, serializeServerBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
 import { collectLabelKeysFromIssues } from '../i18n/collectLabelKeysFromIssues.js'
@@ -44,6 +49,21 @@ export function BoardPage() {
     () => serializeServerBoardQuery(boardFilters),
     [boardFilters.status.join(','), boardFilters.type, boardFilters.labels.join(',')],
   )
+
+  const {
+    pending,
+    setPending,
+    isPanelOpen,
+    togglePanel,
+    isDirty,
+    hasActiveFilters,
+    apply,
+    reset,
+    removeChip,
+  } = useBoardFilterDraft({
+    applied: boardFilters,
+    navigate,
+  })
 
   function fetchIssues() {
     setLoading(true)
@@ -83,22 +103,22 @@ export function BoardPage() {
     () => collectLabelKeysFromIssues(issues, { includeCore: false }),
     [issues],
   )
+  const activeFilterChips = useMemo(
+    () => buildChipDescriptors(boardFilters, t, locale),
+    [boardFilters, t, locale],
+  )
 
   function handleLocaleSelect(nextLocale) {
     setLocale(nextLocale)
     setIsLocaleMenuOpen(false)
   }
 
-  const hasActiveFilters =
-    boardFilters.status.length > 0 ||
-    !!boardFilters.type ||
-    boardFilters.labels.length > 0 ||
-    !!(boardFilters.search && boardFilters.search.trim())
-
   function applyFilters(next) {
     const q = serializeBoardQuery(next)
     navigate({ pathname: '/board', search: q }, { replace: true })
   }
+
+  const showEmptyBoard = !loading && !hasActiveBoardFilters(boardFilters) && issues.length === 0
 
   return (
     <main className="board-shell" aria-label="Issue Board">
@@ -174,36 +194,63 @@ export function BoardPage() {
                 </p>
               </div>
               <div className="board-filters-row">
-              <SearchInput
-                value={boardFilters.search}
-                onChange={(search) => applyFilters({ ...boardFilters, search })}
-                placeholder={t('searchPlaceholder')}
-                ariaLabel={t('searchPlaceholder')}
-              />
-              <StatusFilter
-                status={boardFilters.status}
-                onChange={(status) => applyFilters({ ...boardFilters, status })}
-                locale={locale}
-                t={t}
-              />
-              <TypeFilter
-                type={boardFilters.type}
-                onChange={(type) => applyFilters({ ...boardFilters, type })}
-                t={t}
-              />
-              <LabelsFilter
-                labels={boardFilters.labels}
-                availableLabels={availableLabels}
-                onChange={(labels) => applyFilters({ ...boardFilters, labels })}
-                t={t}
-                locale={locale}
-              />
-              <ResetFiltersControl
-                hasActiveFilters={hasActiveFilters}
-                onReset={() => applyFilters({ status: [], type: '', labels: [], search: '' })}
-                t={t}
-              />
-            </div>
+                <SearchInput
+                  value={boardFilters.search}
+                  onChange={(search) => applyFilters({ ...boardFilters, search })}
+                  placeholder={t('searchPlaceholder')}
+                  ariaLabel={t('searchPlaceholder')}
+                />
+                <FilterPanel
+                  open={isPanelOpen}
+                  onToggle={togglePanel}
+                  title={t('openFilters')}
+                  footer={
+                    <>
+                      <button
+                        type="button"
+                        className="board-filter-apply"
+                        disabled={!isDirty}
+                        onClick={apply}
+                      >
+                        {t('filterApply')}
+                      </button>
+                      <ResetFiltersControl
+                        hasActiveFilters={hasActiveFilters}
+                        onReset={reset}
+                        t={t}
+                      />
+                    </>
+                  }
+                >
+                  <StatusFilter
+                    status={pending.status}
+                    onChange={(status) => setPending((current) => ({ ...current, status }))}
+                    locale={locale}
+                    t={t}
+                    variant="panel"
+                  />
+                  <TypeFilter
+                    type={pending.type}
+                    onChange={(type) => setPending((current) => ({ ...current, type }))}
+                    t={t}
+                    variant="panel"
+                  />
+                  <LabelsFilter
+                    labels={pending.labels}
+                    availableLabels={availableLabels}
+                    onChange={(labels) => setPending((current) => ({ ...current, labels }))}
+                    t={t}
+                    locale={locale}
+                    variant="panel"
+                  />
+                </FilterPanel>
+                <ResetFiltersControl
+                  hasActiveFilters={hasActiveFilters}
+                  onReset={reset}
+                  t={t}
+                />
+              </div>
+              <ActiveFilterChips chips={activeFilterChips} onRemove={removeChip} />
             </div>
             <a
               href="https://chatgpt.com/g/g-RkVU9xLWN-dogestonia"
@@ -223,7 +270,7 @@ export function BoardPage() {
                 {t('retry')}
               </button>
             </div>
-          ) : !loading && !hasActiveFilters && issues.length === 0 ? (
+          ) : showEmptyBoard ? (
             <div className="board-no-issues">
               <EmptyState message={t('noIssuesRecorded')} />
             </div>
@@ -233,7 +280,7 @@ export function BoardPage() {
               <div className="board-no-results-actions">
                 <ResetFiltersControl
                   hasActiveFilters={true}
-                  onReset={() => applyFilters({ status: [], type: '', labels: [], search: '' })}
+                  onReset={reset}
                   t={t}
                 />
               </div>

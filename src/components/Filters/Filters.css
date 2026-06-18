@@ -194,3 +194,150 @@
 .board-no-results-actions {
   margin-top: 12px;
 }
+
+/* Filter panel — SEARCH-02 */
+
+.board-filter-panel {
+  position: relative;
+}
+
+.board-filter-panel-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: #1f2024;
+  color: #ececf0;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.board-filter-panel-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.board-filter-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.board-filter-panel-body {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 20;
+  min-width: min(100%, 420px);
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: #1b1c1f;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.board-filter-panel-primary {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.board-filter-panel-extension {
+  display: none;
+}
+
+.board-filter-panel-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.board-filter-apply {
+  padding: 6px 12px;
+  border: 1px solid rgba(199, 166, 70, 0.45);
+  border-radius: 8px;
+  background: rgba(199, 166, 70, 0.18);
+  color: #d9c481;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.board-filter-apply:hover:not(:disabled) {
+  background: rgba(199, 166, 70, 0.28);
+}
+
+.board-filter-apply:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.board-filter-wrap-panel .board-filter-dropdown {
+  position: static;
+  margin-top: 6px;
+  max-height: 200px;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.board-active-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.board-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: #25262c;
+  color: #ececf0;
+  font-size: 0.78rem;
+}
+
+.board-filter-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #9a9da6;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.board-filter-chip-remove:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ececf0;
+}
+
+@media (max-width: 768px) {
+  .board-filter-panel-body {
+    position: fixed;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-width: 0;
+    max-height: min(70vh, 520px);
+    overflow-y: auto;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .board-filter-panel-primary {
+    gap: 12px;
+  }
+}

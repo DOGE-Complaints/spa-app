@@ -5,9 +5,9 @@ import './Filters.css'
 const STATUS_LIST = Object.values(ISSUE_STATUS)
 
 /**
- * @param {{ status: string[], onChange: (status: string[]) => void, locale: string, t: (k: string) => string }} props
+ * @param {{ status: string[], onChange: (status: string[]) => void, locale: string, t: (k: string) => string, variant?: 'inline' | 'panel' }} props
  */
-export function StatusFilter({ status, onChange, locale, t }) {
+export function StatusFilter({ status, onChange, locale, t, variant = 'inline' }) {
   const [open, setOpen] = useState(false)
 
   const toggle = (s) => {
@@ -21,7 +21,7 @@ export function StatusFilter({ status, onChange, locale, t }) {
   const label = status.length === 0 ? t('filterAny') : status.map((s) => t(`status.${s}`)).join(', ')
 
   return (
-    <div className="board-filter-wrap" data-open={open ? 'yes' : 'no'}>
+    <div className={`board-filter-wrap ${variant === 'panel' ? 'board-filter-wrap-panel' : ''}`} data-open={open ? 'yes' : 'no'}>
       <button
         type="button"
         className="board-filter-trigger"
@@ -35,7 +35,9 @@ export function StatusFilter({ status, onChange, locale, t }) {
       </button>
       {open ? (
         <>
-          <div className="board-filter-backdrop" aria-hidden="true" onClick={() => setOpen(false)} />
+          {variant === 'inline' ? (
+            <div className="board-filter-backdrop" aria-hidden="true" onClick={() => setOpen(false)} />
+          ) : null}
           <div className="board-filter-dropdown" role="listbox">
             {STATUS_LIST.map((s) => (
               <button

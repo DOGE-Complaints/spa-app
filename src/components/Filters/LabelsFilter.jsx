@@ -3,9 +3,9 @@ import { formatLabelKey } from '../../i18n/labelDisplay.js'
 import './Filters.css'
 
 /**
- * @param {{ labels: string[], availableLabels: string[], onChange: (labels: string[]) => void, t: (k: string) => string, locale: string }} props
+ * @param {{ labels: string[], availableLabels: string[], onChange: (labels: string[]) => void, t: (k: string) => string, locale: string, variant?: 'inline' | 'panel' }} props
  */
-export function LabelsFilter({ labels, availableLabels, onChange, t, locale }) {
+export function LabelsFilter({ labels, availableLabels, onChange, t, locale, variant = 'inline' }) {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const hasAvailableLabels = availableLabels.length > 0
@@ -34,7 +34,7 @@ export function LabelsFilter({ labels, availableLabels, onChange, t, locale }) {
   }
 
   return (
-    <div className="board-filter-wrap" data-open={open ? 'yes' : 'no'}>
+    <div className={`board-filter-wrap ${variant === 'panel' ? 'board-filter-wrap-panel' : ''}`} data-open={open ? 'yes' : 'no'}>
       <button
         type="button"
         className="board-filter-trigger"
@@ -52,7 +52,9 @@ export function LabelsFilter({ labels, availableLabels, onChange, t, locale }) {
       </button>
       {open ? (
         <>
-          <div className="board-filter-backdrop" aria-hidden="true" onClick={() => setOpen(false)} />
+          {variant === 'inline' ? (
+            <div className="board-filter-backdrop" aria-hidden="true" onClick={() => setOpen(false)} />
+          ) : null}
           <div className="board-filter-dropdown board-filter-dropdown-labels">
             <input
               type="text"
