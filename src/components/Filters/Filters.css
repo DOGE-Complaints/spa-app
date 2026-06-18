@@ -51,6 +51,33 @@
   appearance: none;
 }
 
+.board-search-clear {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #9a9da6;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.board-search-clear:hover {
+  color: #ececf0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.board-search-clear:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 1px;
+}
+
 .board-filter-wrap {
   position: relative;
 }

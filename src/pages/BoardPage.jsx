@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ISSUE_STATUS } from '../domain/types.js'
 import {
@@ -16,7 +16,9 @@ import { IssueCard } from '../components/IssueCard/index.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
+import { useDebouncedBoardSearch } from '../hooks/useDebouncedBoardSearch.js'
 import { hasActiveBoardFilters } from '../router/boardFilterState.js'
+import { issueMatchesSearchQuery } from '../router/issueSearchMatch.js'
 import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery, serializeServerBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
 import { collectLabelKeysFromIssues } from '../i18n/collectLabelKeysFromIssues.js'
@@ -91,14 +93,24 @@ export function BoardPage() {
     fetchIssues()
   }, [serverFilterKey])
 
-  const filteredIssues = (() => {
+  function applyFilters(next) {
+    const q = serializeBoardQuery(next)
+    navigate({ pathname: '/board', search: q }, { replace: true })
+  }
+
+  const commitSearch = useCallback(
+    (search) => {
+      applyFilters({ ...boardFilters, search })
+    },
+    [boardFilters, navigate],
+  )
+
+  const { searchDraft, setSearchDraft } = useDebouncedBoardSearch(boardFilters.search, commitSearch)
+
+  const filteredIssues = useMemo(() => {
     if (!boardFilters.search || !boardFilters.search.trim()) return issues
-    const q = boardFilters.search.toLowerCase().trim()
-    return issues.filter((issue) => {
-      const text = `${resolveLocalizedText(issue.title)} ${resolveLocalizedText(issue.description)}`.toLowerCase()
-      return text.includes(q)
-    })
-  })()
+    return issues.filter((issue) => issueMatchesSearchQuery(issue, boardFilters.search))
+  }, [issues, boardFilters.search])
   const availableLabels = useMemo(
     () => collectLabelKeysFromIssues(issues, { includeCore: false }),
     [issues],
@@ -111,11 +123,6 @@ export function BoardPage() {
   function handleLocaleSelect(nextLocale) {
     setLocale(nextLocale)
     setIsLocaleMenuOpen(false)
-  }
-
-  function applyFilters(next) {
-    const q = serializeBoardQuery(next)
-    navigate({ pathname: '/board', search: q }, { replace: true })
   }
 
   const showEmptyBoard = !loading && !hasActiveBoardFilters(boardFilters) && issues.length === 0
@@ -195,10 +202,11 @@ export function BoardPage() {
               </div>
               <div className="board-filters-row">
                 <SearchInput
-                  value={boardFilters.search}
-                  onChange={(search) => applyFilters({ ...boardFilters, search })}
+                  value={searchDraft}
+                  onChange={setSearchDraft}
                   placeholder={t('searchPlaceholder')}
                   ariaLabel={t('searchPlaceholder')}
+                  clearAriaLabel={t('clear')}
                 />
                 <FilterPanel
                   open={isPanelOpen}
