@@ -1,20 +1,20 @@
 /**
- * Board filter state shape (applied = pending for SEARCH-02 scope).
+ * Board filter state shape (applied = pending for SEARCH-02+04 scope).
  *
  * @typedef {Object} BoardFilterState
  * @property {string[]} status
  * @property {string} type
  * @property {string[]} labels
  * @property {string} search
+ * @property {string} institution
+ * @property {string} created_after
+ * @property {string} created_before
  */
 
 /**
- * Future URL/repo keys (SEARCH-04/05) — documented only, no runtime in SEARCH-02.
+ * Future URL/repo keys (SEARCH-05) — documented only.
  *
  * @typedef {Object} FutureBoardFilterFields
- * @property {string} [institution]
- * @property {string} [created_after]
- * @property {string} [created_before]
  * @property {string[]} [geo_district]
  * @property {string[]} [geo_settlement]
  * @property {string[]} [geo_region]
@@ -28,6 +28,9 @@ export const EMPTY_BOARD_FILTERS = Object.freeze({
   type: '',
   labels: [],
   search: '',
+  institution: '',
+  created_after: '',
+  created_before: '',
 })
 
 /**
@@ -41,6 +44,9 @@ export function createBoardFilterState(overrides = undefined) {
     type: typeof source.type === 'string' ? source.type : '',
     labels: Array.isArray(source.labels) ? [...source.labels] : [],
     search: typeof source.search === 'string' ? source.search : '',
+    institution: typeof source.institution === 'string' ? source.institution : '',
+    created_after: typeof source.created_after === 'string' ? source.created_after : '',
+    created_before: typeof source.created_before === 'string' ? source.created_before : '',
   }
 }
 
@@ -58,7 +64,14 @@ export function areServerFiltersEqual(a, b) {
   const right = createBoardFilterState(b)
   const statusEqual = normalizeList(left.status).join('|') === normalizeList(right.status).join('|')
   const labelsEqual = normalizeList(left.labels).join('|') === normalizeList(right.labels).join('|')
-  return statusEqual && left.type === right.type && labelsEqual
+  return (
+    statusEqual &&
+    left.type === right.type &&
+    labelsEqual &&
+    left.institution.trim() === right.institution.trim() &&
+    left.created_after.trim() === right.created_after.trim() &&
+    left.created_before.trim() === right.created_before.trim()
+  )
 }
 
 /**
@@ -82,6 +95,9 @@ export function hasActiveBoardFilters(filters) {
     state.status.length > 0 ||
     !!state.type ||
     state.labels.length > 0 ||
-    !!state.search.trim()
+    !!state.search.trim() ||
+    !!state.institution.trim() ||
+    !!state.created_after.trim() ||
+    !!state.created_before.trim()
   )
 }

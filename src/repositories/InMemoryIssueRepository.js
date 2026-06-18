@@ -1,5 +1,9 @@
 import { assertIssueRepository } from '../domain/IssueRepository.js'
 import { assertIssue } from '../domain/types.js'
+import {
+  createdAtMatchesBounds,
+  institutionPayloadMatches,
+} from './issueReadFilters.js'
 
 function normalizeSeed(issues) {
   if (!Array.isArray(issues)) return []
@@ -25,6 +29,20 @@ function applyReadFilters(items, options) {
   if (Array.isArray(options.labels) && options.labels.length > 0) {
     result = result.filter((item) =>
       options.labels.some((label) => item.labels && item.labels.includes(label)),
+    )
+  }
+
+  if (typeof options.institution === 'string' && options.institution.trim()) {
+    const filterValue = options.institution.trim()
+    result = result.filter((item) => institutionPayloadMatches(item.institution, filterValue))
+  }
+
+  if (
+    (typeof options.created_after === 'string' && options.created_after.trim()) ||
+    (typeof options.created_before === 'string' && options.created_before.trim())
+  ) {
+    result = result.filter((item) =>
+      createdAtMatchesBounds(item.created_at, options.created_after, options.created_before),
     )
   }
 

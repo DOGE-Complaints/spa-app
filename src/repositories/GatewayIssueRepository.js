@@ -1,4 +1,8 @@
 import { assertIssueRepository } from '../domain/IssueRepository.js'
+import {
+  normalizeCreatedAfterParam,
+  normalizeCreatedBeforeParam,
+} from './issueReadFilters.js'
 
 function assertBaseUrl(baseUrl) {
   const trimmed = typeof baseUrl === 'string' ? baseUrl.trim() : ''
@@ -32,6 +36,21 @@ function buildIssuesQuery(options = undefined) {
   }
 
   appendArrayParams(params, 'labels', options.labels)
+
+  if (typeof options.institution === 'string' && options.institution.trim()) {
+    params.set('institution', options.institution.trim())
+  }
+
+  if (typeof options.created_after === 'string' && options.created_after.trim()) {
+    const normalized = normalizeCreatedAfterParam(options.created_after)
+    if (normalized) params.set('created_after', normalized)
+  }
+
+  if (typeof options.created_before === 'string' && options.created_before.trim()) {
+    const normalized = normalizeCreatedBeforeParam(options.created_before)
+    if (normalized) params.set('created_before', normalized)
+  }
+
   return params
 }
 

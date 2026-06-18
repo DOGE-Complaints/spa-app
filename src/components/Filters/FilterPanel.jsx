@@ -7,10 +7,21 @@ import './Filters.css'
  *   title: string,
  *   children: import('react').ReactNode,
  *   footer?: import('react').ReactNode,
+ *   institutionSlot?: import('react').ReactNode,
+ *   dateSlot?: import('react').ReactNode,
  *   extensionSlot?: import('react').ReactNode,
  * }} props
  */
-export function FilterPanel({ open, onToggle, title, children, footer, extensionSlot }) {
+export function FilterPanel({
+  open,
+  onToggle,
+  title,
+  children,
+  footer,
+  institutionSlot,
+  dateSlot,
+  extensionSlot,
+}) {
   return (
     <div className="board-filter-panel" data-open={open ? 'yes' : 'no'}>
       <button
@@ -37,8 +48,12 @@ export function FilterPanel({ open, onToggle, title, children, footer, extension
             aria-label={title}
           >
             <div className="board-filter-panel-primary">{children}</div>
-            <div className="board-filter-panel-extension" data-slot="institution" />
-            <div className="board-filter-panel-extension" data-slot="date" />
+            <div className="board-filter-panel-extension" data-slot="institution">
+              {institutionSlot}
+            </div>
+            <div className="board-filter-panel-extension" data-slot="date">
+              {dateSlot}
+            </div>
             <div className="board-filter-panel-extension" data-slot="geo">
               {extensionSlot}
             </div>

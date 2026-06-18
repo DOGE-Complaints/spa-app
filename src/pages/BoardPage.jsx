@@ -3,7 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { ISSUE_STATUS } from '../domain/types.js'
 import {
   ActiveFilterChips,
+  DateRangeFilter,
   FilterPanel,
+  InstitutionFilter,
   StatusFilter,
   TypeFilter,
   LabelsFilter,
@@ -22,6 +24,10 @@ import { issueMatchesSearchQuery } from '../router/issueSearchMatch.js'
 import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery, serializeServerBoardQuery } from '../router/boardQuery.js'
 import { issueService } from '../services/issueService.js'
 import { collectLabelKeysFromIssues } from '../i18n/collectLabelKeysFromIssues.js'
+import {
+  collectInstitutionsFromIssues,
+  institutionFilterValue,
+} from '../i18n/collectInstitutionsFromIssues.js'
 import { LOCALE_SELECTOR_OPTIONS } from '../i18n/core.js'
 
 function BoardColumnPlaceholder({ count = 3 }) {
@@ -49,7 +55,14 @@ export function BoardPage() {
   const boardUrlForBack = `/board${normalizedSearch}`
   const serverFilterKey = useMemo(
     () => serializeServerBoardQuery(boardFilters),
-    [boardFilters.status.join(','), boardFilters.type, boardFilters.labels.join(',')],
+    [
+      boardFilters.status.join(','),
+      boardFilters.type,
+      boardFilters.labels.join(','),
+      boardFilters.institution,
+      boardFilters.created_after,
+      boardFilters.created_before,
+    ],
   )
 
   const {
@@ -74,6 +87,9 @@ export function BoardPage() {
       status: boardFilters.status.length > 0 ? boardFilters.status : undefined,
       type: boardFilters.type || undefined,
       labels: boardFilters.labels.length > 0 ? boardFilters.labels : undefined,
+      institution: boardFilters.institution || undefined,
+      created_after: boardFilters.created_after || undefined,
+      created_before: boardFilters.created_before || undefined,
     }
     issueService
       .getIssues(options)
@@ -115,9 +131,21 @@ export function BoardPage() {
     () => collectLabelKeysFromIssues(issues, { includeCore: false }),
     [issues],
   )
+  const availableInstitutions = useMemo(
+    () => collectInstitutionsFromIssues(issues),
+    [issues],
+  )
+  const formatInstitution = useCallback(
+    (value) => {
+      const match = issues.find((issue) => institutionFilterValue(issue.institution) === value)
+      if (match?.institution) return resolveLocalizedText(match.institution)
+      return value
+    },
+    [issues, resolveLocalizedText],
+  )
   const activeFilterChips = useMemo(
-    () => buildChipDescriptors(boardFilters, t, locale),
-    [boardFilters, t, locale],
+    () => buildChipDescriptors(boardFilters, t, locale, formatInstitution),
+    [boardFilters, t, locale, formatInstitution],
   )
 
   function handleLocaleSelect(nextLocale) {
@@ -212,6 +240,27 @@ export function BoardPage() {
                   open={isPanelOpen}
                   onToggle={togglePanel}
                   title={t('openFilters')}
+                  institutionSlot={
+                    <InstitutionFilter
+                      institution={pending.institution}
+                      availableInstitutions={availableInstitutions}
+                      onChange={(institution) => setPending((current) => ({ ...current, institution }))}
+                      formatInstitution={formatInstitution}
+                      t={t}
+                      variant="panel"
+                    />
+                  }
+                  dateSlot={
+                    <DateRangeFilter
+                      createdAfter={pending.created_after}
+                      createdBefore={pending.created_before}
+                      onChangeAfter={(created_after) => setPending((current) => ({ ...current, created_after }))}
+                      onChangeBefore={(created_before) => setPending((current) => ({ ...current, created_before }))}
+                      t={t}
+                      locale={locale}
+                      variant="panel"
+                    />
+                  }
                   footer={
                     <>
                       <button

@@ -26,9 +26,20 @@ export function useBoardFilterDraft({ applied, navigate, pathname = '/board' }) 
         applied.status.join(','),
         applied.type,
         applied.labels.join(','),
+        applied.institution.trim(),
+        applied.created_after.trim(),
+        applied.created_before.trim(),
         applied.search.trim(),
       ].join('::'),
-    [applied.status.join(','), applied.type, applied.labels.join(','), applied.search],
+    [
+      applied.status.join(','),
+      applied.type,
+      applied.labels.join(','),
+      applied.institution,
+      applied.created_after,
+      applied.created_before,
+      applied.search,
+    ],
   )
 
   useEffect(() => {
@@ -105,6 +116,12 @@ export function useBoardFilterDraft({ applied, navigate, pathname = '/board' }) 
           ...current,
           labels: current.labels.filter((item) => item !== value),
         })
+      } else if (field === 'institution') {
+        next = createBoardFilterState({ ...current, institution: '' })
+      } else if (field === 'created_after') {
+        next = createBoardFilterState({ ...current, created_after: '' })
+      } else if (field === 'created_before') {
+        next = createBoardFilterState({ ...current, created_before: '' })
       } else if (field === 'search') {
         next = createBoardFilterState({ ...current, search: '' })
       }

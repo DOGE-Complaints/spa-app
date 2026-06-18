@@ -1,6 +1,8 @@
 export { StatusFilter } from './StatusFilter.jsx'
 export { TypeFilter } from './TypeFilter.jsx'
 export { LabelsFilter } from './LabelsFilter.jsx'
+export { InstitutionFilter } from './InstitutionFilter.jsx'
+export { DateRangeFilter } from './DateRangeFilter.jsx'
 export { ResetFiltersControl } from './ResetFiltersControl.jsx'
 export { SearchInput } from './SearchInput.jsx'
 export { FilterPanel } from './FilterPanel.jsx'

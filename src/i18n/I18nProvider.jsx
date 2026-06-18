@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { UI_DICTIONARY } from './dictionaries.js'
 import {
   DEFAULT_LOCALE,
@@ -40,11 +40,27 @@ function persistLocale(locale) {
   }
 }
 
+/** @param {string} locale */
+export function syncDocumentElementLang(locale) {
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = locale
+  }
+}
+
 export function I18nProvider({ children }) {
-  const [locale, setLocaleState] = useState(() => detectInitialLocale())
+  const [locale, setLocaleState] = useState(() => {
+    const initial = detectInitialLocale()
+    syncDocumentElementLang(initial)
+    return initial
+  })
+
+  useEffect(() => {
+    syncDocumentElementLang(locale)
+  }, [locale])
 
   const setLocale = useCallback((nextLocale) => {
     const normalized = resolveLanguage([nextLocale])
+    syncDocumentElementLang(normalized)
     setLocaleState(normalized)
     persistLocale(normalized)
   }, [])

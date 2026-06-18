@@ -3,16 +3,15 @@ import { ISSUE_STATUS, ISSUE_TYPE } from '../domain/types.js'
 /**
  * Board URL query SSOT (CSV in single keys).
  *
- * SEARCH-02 scope: status, type, labels, search.
- * Future keys (parse/serialize no-op until SEARCH-04/05):
- * - institution (scalar)
- * - created_after, created_before (ISO strings)
+ * SEARCH-02/04 scope: status, type, labels, search, institution, created_after, created_before.
+ * Future keys (parse/serialize no-op until SEARCH-05):
  * - geo_district, geo_settlement, geo_region, geo_country, geo_postal_code (CSV each)
  * - geo_lat_min, geo_lat_max, geo_lon_min, geo_lon_max (bbox)
  */
 
 const ALLOWED_STATUS = new Set(Object.values(ISSUE_STATUS))
 const ALLOWED_TYPE = new Set(Object.values(ISSUE_TYPE))
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 
 function toSearchParams(input) {
   if (input instanceof URLSearchParams) return input
@@ -32,18 +31,36 @@ function unique(items) {
   return [...new Set(items)]
 }
 
+function trimParam(value) {
+  return typeof value === 'string' ? value.trim() : ''
+}
+
+function parseDateParam(value) {
+  const trimmed = trimParam(value)
+  if (!trimmed) return ''
+  if (ISO_DATE_RE.test(trimmed)) return trimmed
+  const datePrefix = trimmed.slice(0, 10)
+  return ISO_DATE_RE.test(datePrefix) ? datePrefix : ''
+}
+
 export function parseBoardQuery(input) {
   const params = toSearchParams(input)
   const status = unique(parseCsv(params.get('status')).filter((item) => ALLOWED_STATUS.has(item)))
   const labels = unique(parseCsv(params.get('labels')))
   const type = ALLOWED_TYPE.has(params.get('type')) ? params.get('type') : ''
-  const search = (params.get('search') || '').trim()
+  const search = trimParam(params.get('search'))
+  const institution = trimParam(params.get('institution'))
+  const created_after = parseDateParam(params.get('created_after'))
+  const created_before = parseDateParam(params.get('created_before'))
 
   return {
     status,
     type,
     labels,
     search,
+    institution,
+    created_after,
+    created_before,
   }
 }
 
@@ -68,6 +85,20 @@ export function serializeBoardQuery(filters) {
     params.set('search', filters.search.trim())
   }
 
+  if (typeof filters?.institution === 'string' && filters.institution.trim()) {
+    params.set('institution', filters.institution.trim())
+  }
+
+  if (typeof filters?.created_after === 'string' && filters.created_after.trim()) {
+    const date = parseDateParam(filters.created_after)
+    if (date) params.set('created_after', date)
+  }
+
+  if (typeof filters?.created_before === 'string' && filters.created_before.trim()) {
+    const date = parseDateParam(filters.created_before)
+    if (date) params.set('created_before', date)
+  }
+
   const query = params.toString()
   return query ? `?${query}` : ''
 }
@@ -81,6 +112,9 @@ export function serializeServerBoardQuery(input) {
     type: filters?.type ?? '',
     labels: filters?.labels ?? [],
     search: '',
+    institution: filters?.institution ?? '',
+    created_after: filters?.created_after ?? '',
+    created_before: filters?.created_before ?? '',
   })
 }
 
