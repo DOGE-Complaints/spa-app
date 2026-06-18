@@ -22,8 +22,24 @@ describe('boardFilterState', () => {
     expect(areBoardFiltersEqual(a, b)).toBe(false)
   })
 
-  it('hasActiveBoardFilters detects search-only', () => {
+  it('areServerFiltersEqual compares institution and dates', () => {
+    const base = createBoardFilterState({
+      status: ['NEW'],
+      institution: 'Haigekassa',
+      created_after: '2025-01-01',
+      created_before: '2025-02-01',
+    })
+    const same = createBoardFilterState({ ...base })
+    const different = createBoardFilterState({ ...base, institution: 'Other' })
+
+    expect(areServerFiltersEqual(base, same)).toBe(true)
+    expect(areServerFiltersEqual(base, different)).toBe(false)
+  })
+
+  it('hasActiveBoardFilters detects search-only and institution/date', () => {
     expect(hasActiveBoardFilters(EMPTY_BOARD_FILTERS)).toBe(false)
     expect(hasActiveBoardFilters({ ...EMPTY_BOARD_FILTERS, search: 'road' })).toBe(true)
+    expect(hasActiveBoardFilters({ ...EMPTY_BOARD_FILTERS, institution: 'Haigekassa' })).toBe(true)
+    expect(hasActiveBoardFilters({ ...EMPTY_BOARD_FILTERS, created_after: '2025-01-01' })).toBe(true)
   })
 })

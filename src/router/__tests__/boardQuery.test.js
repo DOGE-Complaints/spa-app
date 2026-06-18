@@ -3,13 +3,18 @@ import { normalizeBoardSearch, parseBoardQuery, serializeBoardQuery, serializeSe
 
 describe('boardQuery helpers', () => {
   it('parses supported keys and ignores unknown params', () => {
-    const parsed = parseBoardQuery('?status=NEW,PUBLISHED,INVALID&type=INCIDENT&labels=waste,infrastructure&search=bridge&foo=bar')
+    const parsed = parseBoardQuery(
+      '?status=NEW,PUBLISHED,INVALID&type=INCIDENT&labels=waste,infrastructure&search=bridge&institution=Haigekassa&created_after=2025-01-01&created_before=2025-02-01&foo=bar',
+    )
 
     expect(parsed).toEqual({
       status: ['NEW', 'PUBLISHED'],
       type: 'INCIDENT',
       labels: ['waste', 'infrastructure'],
       search: 'bridge',
+      institution: 'Haigekassa',
+      created_after: '2025-01-01',
+      created_before: '2025-02-01',
     })
   })
 
@@ -19,9 +24,14 @@ describe('boardQuery helpers', () => {
       type: 'IMPROVEMENT',
       labels: ['waste', 'infrastructure'],
       search: 'road',
+      institution: 'Haigekassa',
+      created_after: '2025-01-15',
+      created_before: '2025-02-01',
     })
 
-    expect(query).toBe('?status=NEW%2CIN_REVIEW&type=IMPROVEMENT&labels=waste%2Cinfrastructure&search=road')
+    expect(query).toBe(
+      '?status=NEW%2CIN_REVIEW&type=IMPROVEMENT&labels=waste%2Cinfrastructure&search=road&institution=Haigekassa&created_after=2025-01-15&created_before=2025-02-01',
+    )
   })
 
   it('normalizes unknown query keys away', () => {
@@ -40,7 +50,16 @@ describe('boardQuery helpers', () => {
   it('serializeServerBoardQuery changes when server filters change', () => {
     const statusNew = serializeServerBoardQuery('?status=NEW&search=bridge')
     const statusPublished = serializeServerBoardQuery('?status=PUBLISHED&search=bridge')
+    const withInstitution = serializeServerBoardQuery('?status=NEW&institution=Haigekassa')
+    const withDate = serializeServerBoardQuery('?status=NEW&created_after=2025-01-01')
 
     expect(statusNew).not.toBe(statusPublished)
+    expect(statusNew).not.toBe(withInstitution)
+    expect(statusNew).not.toBe(withDate)
+  })
+
+  it('round-trips institution and date bounds', () => {
+    const input = '?institution=Sotsiaalkindlustusamet&created_after=2025-01-15&created_before=2025-02-08'
+    expect(serializeBoardQuery(parseBoardQuery(input))).toBe(input)
   })
 })

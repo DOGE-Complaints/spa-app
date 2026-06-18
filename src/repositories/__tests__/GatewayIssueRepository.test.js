@@ -35,6 +35,9 @@ describe('GatewayIssueRepository', () => {
       status: ['NEW', 'PUBLISHED'],
       type: 'INCIDENT',
       labels: ['waste', 'safety'],
+      institution: 'Haigekassa',
+      created_after: '2025-01-01',
+      created_before: '2025-02-01',
     })
 
     expect(items).toEqual([{ id: '1' }])
@@ -45,6 +48,9 @@ describe('GatewayIssueRepository', () => {
     expect(requestUrl).toContain('type=INCIDENT')
     expect(requestUrl).toContain('labels=waste')
     expect(requestUrl).toContain('labels=safety')
+    expect(requestUrl).toContain('institution=Haigekassa')
+    expect(requestUrl).toContain('created_after=2025-01-01T00%3A00%3A00Z')
+    expect(requestUrl).toContain('created_before=2025-02-01T23%3A59%3A59Z')
   })
 
   it('returns null for 404 on getIssue', async () => {

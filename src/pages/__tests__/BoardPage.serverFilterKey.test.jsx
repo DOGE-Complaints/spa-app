@@ -16,4 +16,15 @@ describe('BoardPage serverFilterKey regression', () => {
     expect(withSearchB).toBe(withSearchA)
     expect(withoutSearch).toBe(withSearchA)
   })
+
+  it('server query key changes when institution or date bounds change', () => {
+    const base = serializeServerBoardQuery('?status=NEW')
+    const withInstitution = serializeServerBoardQuery('?status=NEW&institution=Haigekassa')
+    const withDate = serializeServerBoardQuery('?status=NEW&created_after=2025-01-01')
+
+    expect(withInstitution).not.toBe(base)
+    expect(withDate).not.toBe(base)
+    expect(withInstitution).toBe('?status=NEW&institution=Haigekassa')
+    expect(withDate).toBe('?status=NEW&created_after=2025-01-01')
+  })
 })

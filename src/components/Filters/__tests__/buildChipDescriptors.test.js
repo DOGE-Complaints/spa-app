@@ -7,6 +7,9 @@ const t = (key) => {
     filterStatus: 'Status',
     filterType: 'Type',
     filterLabels: 'Labels',
+    filterInstitution: 'Institution',
+    filterDateFrom: 'From',
+    filterDateTo: 'To',
     searchPlaceholder: 'Search issues…',
     clear: 'Clear',
     'status.NEW': 'NEW',
@@ -54,5 +57,30 @@ describe('buildChipDescriptors', () => {
     )
 
     expect(chips[0]).toMatchObject({ field: 'search', value: 'road' })
+  })
+
+  it('includes institution and date chips', () => {
+    const chips = buildChipDescriptors(
+      createBoardFilterState({
+        status: [],
+        type: '',
+        labels: [],
+        search: '',
+        institution: 'Haigekassa',
+        created_after: '2025-01-01',
+        created_before: '2025-02-01',
+      }),
+      t,
+      'en',
+      (value) => `Inst:${value}`,
+    )
+
+    expect(chips).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ field: 'institution', value: 'Haigekassa', label: 'Institution: Inst:Haigekassa' }),
+        expect.objectContaining({ field: 'created_after', value: '2025-01-01' }),
+        expect.objectContaining({ field: 'created_before', value: '2025-02-01' }),
+      ]),
+    )
   })
 })

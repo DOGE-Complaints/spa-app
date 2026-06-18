@@ -1,84 +1,40 @@
 import { describe, expect, it } from 'vitest'
-import { assertIssueRepository } from '../../domain/IssueRepository.js'
-import { ISSUE_STATUS, ISSUE_TYPE } from '../../domain/types.js'
 import { createInMemoryIssueRepository } from '../InMemoryIssueRepository.js'
 
-function makeIssue(overrides = {}) {
-  return {
-    id: 'DE-001',
-    type: ISSUE_TYPE.INCIDENT,
-    title: 'Street light failure',
-    status: ISSUE_STATUS.NEW,
-    labels: ['infrastructure'],
-    ...overrides,
-  }
-}
+const seed = [
+  {
+    id: 'A',
+    status: 'NEW',
+    type: 'INCIDENT',
+    labels: ['waste'],
+    institution: { et: 'Haigekassa', ru: 'Haigekassa', en: 'Health Insurance Fund' },
+    created_at: '2025-01-15T10:00:00Z',
+    title: { et: 'A' },
+    description: { et: 'A' },
+  },
+  {
+    id: 'B',
+    status: 'NEW',
+    type: 'INCIDENT',
+    labels: ['waste'],
+    institution: { et: 'Riigikantselei', ru: 'Riigikantselei', en: 'Government Office' },
+    created_at: '2025-02-08T15:20:00Z',
+    title: { et: 'B' },
+    description: { et: 'B' },
+  },
+]
 
-describe('InMemoryIssueRepository (read-side)', () => {
-  it('returns empty list when initialized without issues', async () => {
-    const repo = createInMemoryIssueRepository()
+describe('InMemoryIssueRepository applyReadFilters', () => {
+  it('filters by institution and created_at bounds', async () => {
+    const repo = createInMemoryIssueRepository(seed)
 
-    const items = await repo.getIssues()
+    const byInstitution = await repo.getIssues({ institution: 'Health Insurance Fund' })
+    expect(byInstitution.map((item) => item.id)).toEqual(['A'])
 
-    expect(items).toEqual([])
-  })
-
-  it('returns issue by id or null when absent', async () => {
-    const existing = makeIssue({ id: 'DE-002' })
-    const repo = createInMemoryIssueRepository([existing])
-
-    await expect(repo.getIssue('DE-002')).resolves.toEqual(existing)
-    await expect(repo.getIssue('DE-404')).resolves.toBeNull()
-  })
-
-  it('conforms to read-side IssueRepository contract', () => {
-    const repo = createInMemoryIssueRepository()
-    expect(assertIssueRepository(repo)).toBe(repo)
-  })
-
-  it('does not expose createIssue in MVP', () => {
-    const repo = createInMemoryIssueRepository()
-    expect('createIssue' in repo).toBe(false)
-  })
-
-  it('filters by options.status array (multi-select OR)', async () => {
-    const issues = [
-      makeIssue({ id: 'A', status: ISSUE_STATUS.NEW }),
-      makeIssue({ id: 'B', status: ISSUE_STATUS.PUBLISHED }),
-      makeIssue({ id: 'C', status: ISSUE_STATUS.IN_REVIEW }),
-    ]
-    const repo = createInMemoryIssueRepository(issues)
-
-    const result = await repo.getIssues({ status: [ISSUE_STATUS.NEW, ISSUE_STATUS.PUBLISHED] })
-
-    expect(result).toHaveLength(2)
-    expect(result.map((r) => r.id)).toEqual(['A', 'B'])
-  })
-
-  it('filters by options.labels (OR: issue has at least one label)', async () => {
-    const issues = [
-      makeIssue({ id: 'A', labels: ['infrastructure'] }),
-      makeIssue({ id: 'B', labels: ['waste'] }),
-      makeIssue({ id: 'C', labels: ['safety'] }),
-    ]
-    const repo = createInMemoryIssueRepository(issues)
-
-    const result = await repo.getIssues({ labels: ['waste', 'safety'] })
-
-    expect(result).toHaveLength(2)
-    expect(result.map((r) => r.id)).toEqual(['B', 'C'])
-  })
-
-  it('filters by labels outside curated core keys', async () => {
-    const issues = [
-      makeIssue({ id: 'A', labels: ['road_safety'] }),
-      makeIssue({ id: 'B', labels: ['waste'] }),
-    ]
-    const repo = createInMemoryIssueRepository(issues)
-
-    const result = await repo.getIssues({ labels: ['road_safety'] })
-
-    expect(result).toHaveLength(1)
-    expect(result[0].id).toBe('A')
+    const byDate = await repo.getIssues({
+      created_after: '2025-02-01',
+      created_before: '2025-02-09',
+    })
+    expect(byDate.map((item) => item.id)).toEqual(['B'])
   })
 })

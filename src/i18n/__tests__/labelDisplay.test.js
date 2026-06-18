@@ -49,4 +49,10 @@ describe('labelDisplay', () => {
       }
     }
   })
+
+  it('exposes localized date placeholder in et/ru/en', () => {
+    expect(makeT('et')('filterDatePlaceholder')).toBe('pp.kk.aaaa')
+    expect(makeT('ru')('filterDatePlaceholder')).toBe('дд.мм.гггг')
+    expect(makeT('en')('filterDatePlaceholder')).toBe('dd.mm.yyyy')
+  })
 })

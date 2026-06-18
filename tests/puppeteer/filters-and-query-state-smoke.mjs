@@ -84,6 +84,7 @@ async function run() {
 
     // 2) Panel open — no applied filters yet
     await openFilterPanel(page)
+    await page.waitForSelector('.board-filter-date-display')
     await screenshot(page, path.join(UI_BASELINE_DIR, '02-panel-open.png'))
 
     // 3) Pending status selection → Apply → URL update (batch)

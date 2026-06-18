@@ -101,4 +101,29 @@ describe('useBoardFilterDraft', () => {
     )
     hook.unmount()
   })
+
+  it('removeChip clears institution and date bounds', () => {
+    const navigate = vi.fn()
+    const applied = createBoardFilterState({
+      status: [],
+      type: '',
+      labels: [],
+      search: '',
+      institution: 'Haigekassa',
+      created_after: '2025-01-01',
+      created_before: '2025-02-01',
+    })
+
+    const hook = mountHook(applied, navigate)
+
+    act(() => {
+      hook.current.removeChip('institution', 'Haigekassa')
+    })
+
+    expect(navigate).toHaveBeenCalledWith(
+      { pathname: '/board', search: '?created_after=2025-01-01&created_before=2025-02-01' },
+      { replace: true },
+    )
+    hook.unmount()
+  })
 })
