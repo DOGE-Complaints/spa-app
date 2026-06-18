@@ -16,7 +16,7 @@
 
 Этим документом фиксируется целевая компонентная архитектура как SSOT.
 
-**Фактический MVP (2026-06-16):** реализованы L3 `StatusBadge`, `Filter*Control`, `ResetFiltersControl`, `SearchInput` ([`src/components/Filters/SearchInput.jsx`](../../src/components/Filters/SearchInput.jsx)), L2 `IssueCard`, L4 `EmptyState`; `AppShell`, отдельные `Board*State` — inline в `BoardPage`/`IssuePage` или отсутствуют.
+**Фактический MVP (2026-06-17):** L3 `StatusBadge`, `StatusFilter`/`TypeFilter`/`LabelsFilter`, `FilterPanel`, `ActiveFilterChips`, `ResetFiltersControl`, `SearchInput`; hook `useBoardFilterDraft` ([`src/hooks/useBoardFilterDraft.js`](../../src/hooks/useBoardFilterDraft.js)); state SSOT [`boardFilterState.js`](../../src/router/boardFilterState.js) + [`boardQuery.js`](../../src/router/boardQuery.js). L2 `IssueCard`, L4 `EmptyState`; `AppShell` — inline в `BoardPage`/`IssuePage` (G8 backlog).
 
 > **Статус реализации (2026-06-12):** не выполнено — gap G8 (AppShell refactor).  
 > Backlog: [STORY-SPA-G8-app-shell-refactor](../tasks/backlog-stories/STORY-SPA-G8-app-shell-refactor.md)
@@ -96,9 +96,11 @@
 | `BoardColumns` | 4-column structure | `S03-1A` |
 | `StatusBadge` | status enum -> display + style | `S03-1B` |
 | `IssueCard` | card content + interaction states | `S03-2` |
-| `Filter*Control` | status/type/labels controls | `S03-3` |
-| `SearchInput` | board toolbar text search (`?search=` via `applyFilters`) | [STORY-SPA-G3](../../tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/STORY-SPA-G3-search-input-toolbar.md) |
-| `ResetFiltersControl` | global clear action | `S03-3` |
+| `Filter*Control` | status/type/labels in `FilterPanel` (batch apply) | SEARCH-02 |
+| `FilterPanel` | collapsible panel + extension slots (`institution`/`date`/`geo`) | [`FilterPanel.jsx`](../../src/components/Filters/FilterPanel.jsx) |
+| `ActiveFilterChips` | applied filter chips with immediate remove | [`ActiveFilterChips.jsx`](../../src/components/Filters/ActiveFilterChips.jsx) |
+| `SearchInput` | board toolbar text search (`?search=` immediate) | [STORY-SPA-G3](../../tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/STORY-SPA-G3-search-input-toolbar.md) |
+| `ResetFiltersControl` | global clear (toolbar + panel footer + no-results) | SEARCH-02 |
 | `IssueDetailsView` | read-only details screen | `S03-4` |
 | `IssueMetadataBlock` | metadata variants full/partial/minimal | `S03-4` |
 | `*State` components | all loading/empty/error variants | `S03-6` |
