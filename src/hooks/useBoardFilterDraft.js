@@ -6,6 +6,7 @@ import {
   hasActiveBoardFilters,
 } from '../router/boardFilterState.js'
 import { serializeBoardQuery } from '../router/boardQuery.js'
+import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 
 /**
  * Pending vs applied filter draft for batch panel apply (D-S4).
@@ -29,6 +30,7 @@ export function useBoardFilterDraft({ applied, navigate, pathname = '/board' }) 
         applied.institution.trim(),
         applied.created_after.trim(),
         applied.created_before.trim(),
+        ...GEO_ADMIN_FILTER_KEYS.map((key) => (applied[key] ?? []).join(',')),
         applied.search.trim(),
       ].join('::'),
     [
@@ -38,6 +40,7 @@ export function useBoardFilterDraft({ applied, navigate, pathname = '/board' }) 
       applied.institution,
       applied.created_after,
       applied.created_before,
+      ...GEO_ADMIN_FILTER_KEYS.map((key) => (applied[key] ?? []).join(',')),
       applied.search,
     ],
   )
@@ -124,6 +127,11 @@ export function useBoardFilterDraft({ applied, navigate, pathname = '/board' }) 
         next = createBoardFilterState({ ...current, created_before: '' })
       } else if (field === 'search') {
         next = createBoardFilterState({ ...current, search: '' })
+      } else if (GEO_ADMIN_FILTER_KEYS.includes(field)) {
+        next = createBoardFilterState({
+          ...current,
+          [field]: current[field].filter((item) => item !== value),
+        })
       }
 
       setPending(next)

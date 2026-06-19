@@ -406,6 +406,18 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.board-geo-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.board-geo-filter-empty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
 .board-active-filter-chips {
   display: flex;
   flex-wrap: wrap;

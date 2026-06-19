@@ -1,12 +1,12 @@
 import { ISSUE_STATUS, ISSUE_TYPE } from '../domain/types.js'
+import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 
 /**
  * Board URL query SSOT (CSV in single keys).
  *
- * SEARCH-02/04 scope: status, type, labels, search, institution, created_after, created_before.
- * Future keys (parse/serialize no-op until SEARCH-05):
- * - geo_district, geo_settlement, geo_region, geo_country, geo_postal_code (CSV each)
- * - geo_lat_min, geo_lat_max, geo_lon_min, geo_lon_max (bbox)
+ * SEARCH-02/04/05 scope: status, type, labels, search, institution, created_after,
+ * created_before, geo_district/settlement/region/country/postal_code (CSV each).
+ * Future bbox keys (out of SEARCH-05 scope): geo_lat_min/max, geo_lon_min/max.
  */
 
 const ALLOWED_STATUS = new Set(Object.values(ISSUE_STATUS))
@@ -43,6 +43,23 @@ function parseDateParam(value) {
   return ISO_DATE_RE.test(datePrefix) ? datePrefix : ''
 }
 
+function parseGeoCsvLists(params) {
+  /** @type {Record<string, string[]>} */
+  const geo = {}
+  for (const key of GEO_ADMIN_FILTER_KEYS) {
+    geo[key] = unique(parseCsv(params.get(key)))
+  }
+  return geo
+}
+
+function appendGeoCsvParams(params, filters) {
+  for (const key of GEO_ADMIN_FILTER_KEYS) {
+    const values = Array.isArray(filters?.[key]) ? filters[key] : []
+    const safe = unique(values.map((item) => String(item).trim()).filter(Boolean))
+    if (safe.length > 0) params.set(key, safe.join(','))
+  }
+}
+
 export function parseBoardQuery(input) {
   const params = toSearchParams(input)
   const status = unique(parseCsv(params.get('status')).filter((item) => ALLOWED_STATUS.has(item)))
@@ -52,6 +69,7 @@ export function parseBoardQuery(input) {
   const institution = trimParam(params.get('institution'))
   const created_after = parseDateParam(params.get('created_after'))
   const created_before = parseDateParam(params.get('created_before'))
+  const geoLists = parseGeoCsvLists(params)
 
   return {
     status,
@@ -61,6 +79,7 @@ export function parseBoardQuery(input) {
     institution,
     created_after,
     created_before,
+    ...geoLists,
   }
 }
 
@@ -99,6 +118,8 @@ export function serializeBoardQuery(filters) {
     if (date) params.set('created_before', date)
   }
 
+  appendGeoCsvParams(params, filters)
+
   const query = params.toString()
   return query ? `?${query}` : ''
 }
@@ -115,6 +136,11 @@ export function serializeServerBoardQuery(input) {
     institution: filters?.institution ?? '',
     created_after: filters?.created_after ?? '',
     created_before: filters?.created_before ?? '',
+    geo_district: filters?.geo_district ?? [],
+    geo_settlement: filters?.geo_settlement ?? [],
+    geo_region: filters?.geo_region ?? [],
+    geo_country: filters?.geo_country ?? [],
+    geo_postal_code: filters?.geo_postal_code ?? [],
   })
 }
 

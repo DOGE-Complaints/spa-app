@@ -2,6 +2,7 @@ import { assertIssueRepository } from '../domain/IssueRepository.js'
 import { assertIssue } from '../domain/types.js'
 import {
   createdAtMatchesBounds,
+  geoAdminPayloadMatches,
   institutionPayloadMatches,
 } from './issueReadFilters.js'
 
@@ -45,6 +46,8 @@ function applyReadFilters(items, options) {
       createdAtMatchesBounds(item.created_at, options.created_after, options.created_before),
     )
   }
+
+  result = result.filter((item) => geoAdminPayloadMatches(item.geo, options))
 
   return result
 }

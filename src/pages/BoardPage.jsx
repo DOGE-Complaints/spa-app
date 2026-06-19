@@ -5,6 +5,7 @@ import {
   ActiveFilterChips,
   DateRangeFilter,
   FilterPanel,
+  GeoFilter,
   InstitutionFilter,
   StatusFilter,
   TypeFilter,
@@ -28,6 +29,8 @@ import {
   collectInstitutionsFromIssues,
   institutionFilterValue,
 } from '../i18n/collectInstitutionsFromIssues.js'
+import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
+import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { LOCALE_SELECTOR_OPTIONS } from '../i18n/core.js'
 
 function BoardColumnPlaceholder({ count = 3 }) {
@@ -62,6 +65,7 @@ export function BoardPage() {
       boardFilters.institution,
       boardFilters.created_after,
       boardFilters.created_before,
+      ...GEO_ADMIN_FILTER_KEYS.map((key) => boardFilters[key].join(',')),
     ],
   )
 
@@ -90,6 +94,9 @@ export function BoardPage() {
       institution: boardFilters.institution || undefined,
       created_after: boardFilters.created_after || undefined,
       created_before: boardFilters.created_before || undefined,
+    }
+    for (const key of GEO_ADMIN_FILTER_KEYS) {
+      if (boardFilters[key].length > 0) options[key] = boardFilters[key]
     }
     issueService
       .getIssues(options)
@@ -133,6 +140,10 @@ export function BoardPage() {
   )
   const availableInstitutions = useMemo(
     () => collectInstitutionsFromIssues(issues),
+    [issues],
+  )
+  const availableGeoOptions = useMemo(
+    () => collectGeoAdminOptionsFromIssues(issues),
     [issues],
   )
   const formatInstitution = useCallback(
@@ -258,6 +269,21 @@ export function BoardPage() {
                       onChangeBefore={(created_before) => setPending((current) => ({ ...current, created_before }))}
                       t={t}
                       locale={locale}
+                      variant="panel"
+                    />
+                  }
+                  geoSlot={
+                    <GeoFilter
+                      geo={{
+                        geo_district: pending.geo_district,
+                        geo_settlement: pending.geo_settlement,
+                        geo_region: pending.geo_region,
+                        geo_country: pending.geo_country,
+                        geo_postal_code: pending.geo_postal_code,
+                      }}
+                      availableOptions={availableGeoOptions}
+                      onChange={(field, values) => setPending((current) => ({ ...current, [field]: values }))}
+                      t={t}
                       variant="panel"
                     />
                   }

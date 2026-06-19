@@ -9,6 +9,7 @@ import './Filters.css'
  *   footer?: import('react').ReactNode,
  *   institutionSlot?: import('react').ReactNode,
  *   dateSlot?: import('react').ReactNode,
+ *   geoSlot?: import('react').ReactNode,
  *   extensionSlot?: import('react').ReactNode,
  * }} props
  */
@@ -20,6 +21,7 @@ export function FilterPanel({
   footer,
   institutionSlot,
   dateSlot,
+  geoSlot,
   extensionSlot,
 }) {
   return (
@@ -55,7 +57,7 @@ export function FilterPanel({
               {dateSlot}
             </div>
             <div className="board-filter-panel-extension" data-slot="geo">
-              {extensionSlot}
+              {geoSlot ?? extensionSlot}
             </div>
             {footer ? <div className="board-filter-panel-footer">{footer}</div> : null}
           </div>

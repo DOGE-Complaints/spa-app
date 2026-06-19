@@ -16,6 +16,15 @@ export const ROUTING_DEMO_ISSUES = Object.freeze([
     description: { et: 'Sain teate pensioni tõusust, kuid samas tõusid kommunaalmaksud ja ravimite hind. Ametlikes teadetes räägitakse pensionäride heaolu kasvust, kuid minu puhul on tegelik ostujõud langenud. Palun selgitada, kas indekseerimise arvutuses arvestatakse põhiteenuste tegelikke kulusid.', ru: 'Я получила уведомление о повышении пенсии, но при этом выросли коммунальные платежи и стоимость лекарств. В официальных сообщениях говорится о росте благосостояния пенсионеров, но в моём случае фактическая покупательная способность снизилась. Прошу разъяснить, учитываются ли реальные расходы на базовые услуги при расчёте индексации.', en: 'I received notice of a pension increase, but utility bills and medicine costs also rose. Official statements speak of pensioners\' improved welfare, yet my actual purchasing power has decreased. Please clarify whether real expenses on basic services are taken into account when calculating indexation.' },
     institution: { et: 'Sotsiaalkindlustusamet', ru: 'Sotsiaalkindlustusamet', en: 'Social Insurance Board' },
     created_at: '2025-01-15T10:00:00Z',
+    geo: {
+      district: 'Kesklinn',
+      settlement: 'Tallinn',
+      region: 'Harju maakond',
+      country: 'Eesti',
+      postal_code: '10111',
+      lat: 59.437,
+      lon: 24.753,
+    },
   },
   {
     id: 'DE-002',
@@ -39,6 +48,14 @@ export const ROUTING_DEMO_ISSUES = Object.freeze([
     description: { et: 'Keele-reformi raames peame õpetama ainet eesti keeles, kuid valmis kohandatud õpikuid pole piisavalt. Palun anda tsentraliseeritud materjale või rahastus metoodikate väljatöötamiseks, kuna õpetajate koormus ületab normatiivi.', ru: 'В рамках языковой реформы мы обязаны преподавать предмет на эстонском, но готовых адаптированных учебников недостаточно. Прошу предоставить централизованные материалы или финансирование на разработку методик, поскольку нагрузка на учителей превышает норматив.', en: 'Under the language reform we must teach the subject in Estonian, but there are not enough adapted textbooks. Please provide centralised materials or funding for methodology development, as teacher workload exceeds the norm.' },
     institution: { et: 'Kohalik omavalitsus', ru: 'Местное самоуправление', en: 'Local government' },
     created_at: '2025-01-20T09:00:00Z',
+    geo: {
+      district: 'Põhja-Tallinn',
+      settlement: 'Tallinn',
+      region: 'Harju maakond',
+      country: 'Eesti',
+      lat: 59.45,
+      lon: 24.7,
+    },
   },
   {
     id: 'DE-004',
@@ -61,6 +78,15 @@ export const ROUTING_DEMO_ISSUES = Object.freeze([
     description: { et: 'Uute digitaalsete aruandlusvormide kasutuselevõtt suurendas medpersonalile administratiivset koormust. Palun hinnata digitaalsete süsteemide mõju tegelikule patsientidega töötamise ajale.', ru: 'Внедрение новых цифровых форм отчётности увеличило административную нагрузку на медицинский персонал. Прошу оценить влияние цифровых систем на фактическое время работы с пациентами.', en: 'The introduction of new digital reporting forms increased the administrative burden on medical staff. Please assess the impact of digital systems on actual time spent with patients.' },
     institution: { et: 'Haigekassa', ru: 'Haigekassa', en: 'Health Insurance Fund' },
     created_at: '2025-01-25T16:45:00Z',
+    geo: {
+      district: 'Lasnamäe',
+      settlement: 'Tallinn',
+      region: 'Harju maakond',
+      country: 'Eesti',
+      postal_code: '13619',
+      lat: 59.43,
+      lon: 24.85,
+    },
   },
   {
     id: 'DE-006',

@@ -1,5 +1,7 @@
+import { GEO_ADMIN_FILTER_KEYS, createEmptyGeoAdminFilters } from '../i18n/geoAdminFilterKeys.js'
+
 /**
- * Board filter state shape (applied = pending for SEARCH-02+04 scope).
+ * Board filter state shape (applied = pending for SEARCH-02+05 scope).
  *
  * @typedef {Object} BoardFilterState
  * @property {string[]} status
@@ -9,18 +11,14 @@
  * @property {string} institution
  * @property {string} created_after
  * @property {string} created_before
+ * @property {string[]} geo_district
+ * @property {string[]} geo_settlement
+ * @property {string[]} geo_region
+ * @property {string[]} geo_country
+ * @property {string[]} geo_postal_code
  */
 
-/**
- * Future URL/repo keys (SEARCH-05) — documented only.
- *
- * @typedef {Object} FutureBoardFilterFields
- * @property {string[]} [geo_district]
- * @property {string[]} [geo_settlement]
- * @property {string[]} [geo_region]
- * @property {string[]} [geo_country]
- * @property {string[]} [geo_postal_code]
- */
+const EMPTY_GEO = createEmptyGeoAdminFilters()
 
 /** @type {BoardFilterState} */
 export const EMPTY_BOARD_FILTERS = Object.freeze({
@@ -31,6 +29,7 @@ export const EMPTY_BOARD_FILTERS = Object.freeze({
   institution: '',
   created_after: '',
   created_before: '',
+  ...EMPTY_GEO,
 })
 
 /**
@@ -39,6 +38,11 @@ export const EMPTY_BOARD_FILTERS = Object.freeze({
  */
 export function createBoardFilterState(overrides = undefined) {
   const source = overrides && typeof overrides === 'object' ? overrides : {}
+  const geo = createEmptyGeoAdminFilters()
+  for (const key of GEO_ADMIN_FILTER_KEYS) {
+    geo[key] = Array.isArray(source[key]) ? [...source[key]] : []
+  }
+
   return {
     status: Array.isArray(source.status) ? [...source.status] : [],
     type: typeof source.type === 'string' ? source.type : '',
@@ -47,11 +51,18 @@ export function createBoardFilterState(overrides = undefined) {
     institution: typeof source.institution === 'string' ? source.institution : '',
     created_after: typeof source.created_after === 'string' ? source.created_after : '',
     created_before: typeof source.created_before === 'string' ? source.created_before : '',
+    ...geo,
   }
 }
 
 function normalizeList(values) {
   return [...new Set((Array.isArray(values) ? values : []).map((item) => String(item)))].sort()
+}
+
+function geoListsEqual(a, b) {
+  return GEO_ADMIN_FILTER_KEYS.every(
+    (key) => normalizeList(a[key]).join('|') === normalizeList(b[key]).join('|'),
+  )
 }
 
 /**
@@ -70,7 +81,8 @@ export function areServerFiltersEqual(a, b) {
     labelsEqual &&
     left.institution.trim() === right.institution.trim() &&
     left.created_after.trim() === right.created_after.trim() &&
-    left.created_before.trim() === right.created_before.trim()
+    left.created_before.trim() === right.created_before.trim() &&
+    geoListsEqual(left, right)
   )
 }
 
@@ -91,6 +103,7 @@ export function areBoardFiltersEqual(a, b) {
  */
 export function hasActiveBoardFilters(filters) {
   const state = createBoardFilterState(filters)
+  const hasGeo = GEO_ADMIN_FILTER_KEYS.some((key) => state[key].length > 0)
   return (
     state.status.length > 0 ||
     !!state.type ||
@@ -98,6 +111,7 @@ export function hasActiveBoardFilters(filters) {
     !!state.search.trim() ||
     !!state.institution.trim() ||
     !!state.created_after.trim() ||
-    !!state.created_before.trim()
+    !!state.created_before.trim() ||
+    hasGeo
   )
 }

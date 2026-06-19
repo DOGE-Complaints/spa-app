@@ -1,4 +1,5 @@
 import { assertIssueRepository } from '../domain/IssueRepository.js'
+import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import {
   normalizeCreatedAfterParam,
   normalizeCreatedBeforeParam,
@@ -49,6 +50,10 @@ function buildIssuesQuery(options = undefined) {
   if (typeof options.created_before === 'string' && options.created_before.trim()) {
     const normalized = normalizeCreatedBeforeParam(options.created_before)
     if (normalized) params.set('created_before', normalized)
+  }
+
+  for (const key of GEO_ADMIN_FILTER_KEYS) {
+    appendArrayParams(params, key, options[key])
   }
 
   return params

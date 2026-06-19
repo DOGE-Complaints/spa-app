@@ -1,4 +1,9 @@
 import { LOCALE_CODES } from '../i18n/core.js'
+import {
+  GEO_ADMIN_FILTER_KEYS,
+  GEO_ADMIN_PAYLOAD_KEYS,
+} from '../i18n/geoAdminFilterKeys.js'
+import { normalizeGeoToken } from '../i18n/normalizeGeoToken.js'
 
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 
@@ -55,5 +60,42 @@ export function createdAtMatchesBounds(createdAt, createdAfter, createdBefore) {
   const before = normalizeCreatedBeforeParam(createdBefore)
   if (after && createdAt < after) return false
   if (before && createdAt > before) return false
+  return true
+}
+
+/**
+ * @param {Record<string, unknown> | undefined} options
+ * @returns {boolean}
+ */
+export function anyGeoAdminFilterActive(options) {
+  if (!options || typeof options !== 'object') return false
+  return GEO_ADMIN_FILTER_KEYS.some(
+    (key) => Array.isArray(options[key]) && options[key].length > 0,
+  )
+}
+
+/**
+ * Gateway-aligned admin geo match with drop-without-geo semantics.
+ *
+ * @param {Record<string, unknown> | null | undefined} issueGeo
+ * @param {Record<string, unknown> | undefined} options
+ * @returns {boolean}
+ */
+export function geoAdminPayloadMatches(issueGeo, options) {
+  if (!anyGeoAdminFilterActive(options)) return true
+  if (!issueGeo || typeof issueGeo !== 'object') return false
+
+  for (const filterKey of GEO_ADMIN_FILTER_KEYS) {
+    const filterValues = options[filterKey]
+    if (!Array.isArray(filterValues) || filterValues.length === 0) continue
+
+    const payloadKey = GEO_ADMIN_PAYLOAD_KEYS[filterKey]
+    const token = normalizeGeoToken(String(issueGeo[payloadKey] ?? ''))
+    if (!token) return false
+
+    const matched = filterValues.some((value) => normalizeGeoToken(String(value)) === token)
+    if (!matched) return false
+  }
+
   return true
 }

@@ -1,7 +1,8 @@
 import { formatLabelKey } from '../../i18n/labelDisplay.js'
+import { GEO_ADMIN_FILTER_KEYS, GEO_ADMIN_LABEL_KEYS } from '../../i18n/geoAdminFilterKeys.js'
 
 /**
- * @typedef {'status' | 'type' | 'labels' | 'search' | 'institution' | 'created_after' | 'created_before'} ChipField
+ * @typedef {'status' | 'type' | 'labels' | 'search' | 'institution' | 'created_after' | 'created_before' | import('../../i18n/geoAdminFilterKeys.js').GeoAdminFilterKey} ChipField
  */
 
 /**
@@ -86,6 +87,20 @@ export function buildChipDescriptors(applied, t, locale, formatInstitution = (va
       label: `${t('filterDateTo')}: ${applied.created_before}`,
       removeAriaLabel: `${t('clear')} ${t('filterDateTo')}`,
     })
+  }
+
+  for (const geoKey of GEO_ADMIN_FILTER_KEYS) {
+    const values = applied[geoKey] ?? []
+    const dimensionLabel = t(GEO_ADMIN_LABEL_KEYS[geoKey])
+    for (const value of values) {
+      chips.push({
+        id: `${geoKey}:${value}`,
+        field: geoKey,
+        value,
+        label: `${dimensionLabel}: ${value}`,
+        removeAriaLabel: `${t('clear')} ${dimensionLabel} ${value}`,
+      })
+    }
   }
 
   const search = applied.search.trim()
