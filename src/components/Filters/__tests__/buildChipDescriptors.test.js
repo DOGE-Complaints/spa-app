@@ -10,6 +10,8 @@ const t = (key) => {
     filterInstitution: 'Institution',
     filterDateFrom: 'From',
     filterDateTo: 'To',
+    filterGeoDistrict: 'District',
+    filterGeoCountry: 'Country',
     searchPlaceholder: 'Search issues…',
     clear: 'Clear',
     'status.NEW': 'NEW',
@@ -80,6 +82,28 @@ describe('buildChipDescriptors', () => {
         expect.objectContaining({ field: 'institution', value: 'Haigekassa', label: 'Institution: Inst:Haigekassa' }),
         expect.objectContaining({ field: 'created_after', value: '2025-01-01' }),
         expect.objectContaining({ field: 'created_before', value: '2025-02-01' }),
+      ]),
+    )
+  })
+
+  it('includes geo admin chips per selected value', () => {
+    const chips = buildChipDescriptors(
+      createBoardFilterState({
+        status: [],
+        type: '',
+        labels: [],
+        search: '',
+        geo_district: ['Kesklinn'],
+        geo_country: ['Eesti'],
+      }),
+      t,
+      'en',
+    )
+
+    expect(chips).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ field: 'geo_district', value: 'Kesklinn', label: 'District: Kesklinn' }),
+        expect.objectContaining({ field: 'geo_country', value: 'Eesti', label: 'Country: Eesti' }),
       ]),
     )
   })

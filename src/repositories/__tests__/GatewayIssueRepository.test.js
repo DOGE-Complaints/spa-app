@@ -53,6 +53,28 @@ describe('GatewayIssueRepository', () => {
     expect(requestUrl).toContain('created_before=2025-02-01T23%3A59%3A59Z')
   })
 
+  it('maps geo admin filters to repeated query parameters', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ data: { issues: [] } }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    const repo = createGatewayIssueRepository('http://localhost:8000/')
+
+    await repo.getIssues({
+      geo_district: ['Kesklinn', 'Põhja-Tallinn'],
+      geo_settlement: ['Tallinn'],
+      geo_country: ['Eesti'],
+    })
+
+    const requestUrl = fetchMock.mock.calls[0][0]
+    expect(requestUrl).toContain('geo_district=Kesklinn')
+    expect(requestUrl).toContain('geo_district=P%C3%B5hja-Tallinn')
+    expect(requestUrl).toContain('geo_settlement=Tallinn')
+    expect(requestUrl).toContain('geo_country=Eesti')
+    expect(requestUrl).not.toContain('geo_lat')
+  })
+
   it('returns null for 404 on getIssue', async () => {
     const fetchMock = vi.fn().mockResolvedValue({ status: 404, ok: false })
     vi.stubGlobal('fetch', fetchMock)

@@ -15,6 +15,11 @@ describe('boardQuery helpers', () => {
       institution: 'Haigekassa',
       created_after: '2025-01-01',
       created_before: '2025-02-01',
+      geo_district: [],
+      geo_settlement: [],
+      geo_region: [],
+      geo_country: [],
+      geo_postal_code: [],
     })
   })
 
@@ -61,5 +66,20 @@ describe('boardQuery helpers', () => {
   it('round-trips institution and date bounds', () => {
     const input = '?institution=Sotsiaalkindlustusamet&created_after=2025-01-15&created_before=2025-02-08'
     expect(serializeBoardQuery(parseBoardQuery(input))).toBe(input)
+  })
+
+  it('round-trips geo admin CSV params', () => {
+    const input = '?geo_district=Kesklinn,Põhja-Tallinn&geo_settlement=Tallinn&geo_country=Eesti'
+    const parsed = parseBoardQuery(input)
+    expect(parsed.geo_district).toEqual(['Kesklinn', 'Põhja-Tallinn'])
+    expect(parsed.geo_settlement).toEqual(['Tallinn'])
+    expect(parsed.geo_country).toEqual(['Eesti'])
+    expect(parseBoardQuery(serializeBoardQuery(parsed))).toEqual(parsed)
+  })
+
+  it('serializeServerBoardQuery changes when geo filters change', () => {
+    const base = serializeServerBoardQuery('?status=NEW')
+    const withGeo = serializeServerBoardQuery('?status=NEW&geo_district=Kesklinn')
+    expect(base).not.toBe(withGeo)
   })
 })

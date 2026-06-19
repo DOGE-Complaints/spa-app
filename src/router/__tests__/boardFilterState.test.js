@@ -41,5 +41,14 @@ describe('boardFilterState', () => {
     expect(hasActiveBoardFilters({ ...EMPTY_BOARD_FILTERS, search: 'road' })).toBe(true)
     expect(hasActiveBoardFilters({ ...EMPTY_BOARD_FILTERS, institution: 'Haigekassa' })).toBe(true)
     expect(hasActiveBoardFilters({ ...EMPTY_BOARD_FILTERS, created_after: '2025-01-01' })).toBe(true)
+    expect(hasActiveBoardFilters({ ...EMPTY_BOARD_FILTERS, geo_district: ['Kesklinn'] })).toBe(true)
+  })
+
+  it('areServerFiltersEqual compares geo dimensions', () => {
+    const base = createBoardFilterState({ geo_district: ['Kesklinn'] })
+    const same = createBoardFilterState({ geo_district: ['Kesklinn'] })
+    const different = createBoardFilterState({ geo_district: ['Lasnamäe'] })
+    expect(areServerFiltersEqual(base, same)).toBe(true)
+    expect(areServerFiltersEqual(base, different)).toBe(false)
   })
 })
