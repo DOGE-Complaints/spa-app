@@ -56,7 +56,7 @@ export function LoginPage() {
   const completeAuthSuccess = useCallback(async () => {
     try {
       await identityService.fetchMe()
-    } catch {
+    } catch (identityError) {
       // Profile load may fail in mock/dev; auth session still valid.
     }
     setPageState(AUTH_PAGE_STATES.AUTH_SUCCESS)

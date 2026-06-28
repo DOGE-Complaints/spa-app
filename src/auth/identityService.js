@@ -57,7 +57,7 @@ async function identityFetch(path, { token, ...options } = {}) {
       ...options,
       headers,
     })
-  } catch {
+  } catch (fetchError) {
     throw new IdentityApiError('network_error', 0, {})
   }
 
