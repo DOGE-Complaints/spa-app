@@ -24,6 +24,8 @@
     "test:ui:details": "node ./tests/puppeteer/issue-details-smoke.mjs",
     "test:ui:epic03": "node ./tests/puppeteer/epic03-mockup-validation.mjs",
     "test:ui:auth-login": "node ./tests/puppeteer/auth-login-smoke.mjs",
+    "test:ui:verify-host": "node ./tests/puppeteer/verify-page-host-smoke.mjs",
+    "test:ui:verify-host:live": "VERIFY_HOST_URL=http://localhost:5173 node ./tests/puppeteer/verify-page-host-smoke.mjs",
     "deploy": "node ./scripts/deploy-arweave.mjs"
   },
   "dependencies": {
