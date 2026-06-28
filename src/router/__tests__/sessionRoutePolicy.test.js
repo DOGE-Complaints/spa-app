@@ -8,7 +8,8 @@ describe('sessionRoutePolicy', () => {
     expect(isPublicPath('/login')).toBe(true)
   })
 
-  it('treats profile verify compose as protected', () => {
+  it('treats dashboard profile verify compose as protected', () => {
+    expect(isProtectedPath('/dashboard')).toBe(true)
     expect(isProtectedPath('/profile')).toBe(true)
     expect(isProtectedPath('/verify')).toBe(true)
     expect(isProtectedPath('/story/compose')).toBe(true)
