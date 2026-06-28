@@ -7,6 +7,8 @@
 
 > **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G9 — CTA всегда активная ссылка на GPT.
 
+> **Статус реализации (2026-06-17):** toolbar = `SearchInput` + кнопка «Filters» (`FilterPanel`) + `ResetFiltersControl`; применённые фильтры — `ActiveFilterChips`; server-фильтры batch через «Apply» ([SEARCH-02](../../tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-02-filter-panel-shell/STORY-SPA-SEARCH-02-filter-panel-shell.md) Done).
+
 > **Статус реализации (2026-06-16):** соответствует коду — `SearchInput` в toolbar ([`SearchInput.jsx`](../../src/components/Filters/SearchInput.jsx), STORY-SPA-G3 Done).
 
 ---
