@@ -3,12 +3,12 @@ import {
   AppShellLayout,
   ProtectedProfilePage,
   ProtectedStoryComposePage,
-  ProtectedVerifyPage,
 } from './layout/AppShellLayout.jsx'
 import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
+import { VerifyPage } from './pages/VerifyPage.jsx'
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="/issue/:id" element={<IssuePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/profile" element={<ProtectedProfilePage />} />
-        <Route path="/verify" element={<ProtectedVerifyPage />} />
+        <Route path="/verify" element={<VerifyPage />} />
         <Route path="/story/compose" element={<ProtectedStoryComposePage />} />
         <Route path="*" element={<Navigate to="/board" replace />} />
       </Route>

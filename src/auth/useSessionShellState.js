@@ -45,8 +45,9 @@ export function useSessionShellState() {
       })
       .catch((error) => {
         if (cancelled) return
+        const nextState = mapIdentityErrorToShellState(error, Boolean(accessToken))
         setProfile(null)
-        setShellState(mapIdentityErrorToShellState(error, Boolean(accessToken)))
+        setShellState(nextState)
       })
 
     return () => {

@@ -45,10 +45,6 @@ export function ProtectedProfilePage() {
   return <ProtectedPlaceholder title="Profile" />
 }
 
-export function ProtectedVerifyPage() {
-  return <ProtectedPlaceholder title="Verify" />
-}
-
 export function ProtectedStoryComposePage() {
   return <ProtectedPlaceholder title="Story Compose" />
 }
