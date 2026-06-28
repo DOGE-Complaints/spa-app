@@ -22,7 +22,7 @@
 | `VITE_IDENTITY_SERVICE_URL` | No | `http://localhost:8100` | Base URL для doge-identity-service. Production: `https://identity.dogestonia.ee` |
 | `VITE_SUPABASE_URL` | Yes (prod) | — | Supabase project URL. Dashboard → Settings → API → Project URL |
 | `VITE_SUPABASE_ANON_KEY` | Yes (prod) | — | Supabase anon/public key. Безопасно включать в frontend — RLS защищает данные. |
-| `VITE_IDENTITY_MOCK_MODE` | No | `false` | `true` — mock identity responses (для dev без backend). |
+| `VITE_IDENTITY_MOCK_MODE` | No | `false` | `true` — mock identity in browser (режим A); `false` — HTTP к identity (режим B, file sink). |
 
 **Примечание по `VITE_SUPABASE_ANON_KEY`:** Supabase anon key — публичный ключ, предназначен для браузера. RLS (Row Level Security) на стороне Supabase обеспечивает защиту. Это не секрет — его можно коммитить в `.env` (не `.env.local`).
 
@@ -42,7 +42,7 @@ VITE_IDENTITY_SERVICE_URL=http://localhost:8100
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 
-# Mock mode (для разработки без backend)
+# Mock mode: true = UI-only без HTTP phone API; false = file E2E через identity
 VITE_IDENTITY_MOCK_MODE=false
 
 # Существующие (не трогать)
@@ -81,7 +81,12 @@ const IDENTITY_MOCK_MODE = import.meta.env.VITE_IDENTITY_MOCK_MODE === 'true'
 
 ---
 
-## Mock mode (VITE_IDENTITY_MOCK_MODE=true)
+## Mock mode (VITE_IDENTITY_MOCK_MODE)
+
+| Значение | Режим | Phone API |
+|----------|-------|-----------|
+| `true` | A — UI-only | mock в браузере, HTTP не идёт (`skippedHttp: true` в Console) |
+| `false` | B — file E2E | `POST` на `VITE_IDENTITY_SERVICE_URL/auth/phone/*` |
 
 При `VITE_IDENTITY_MOCK_MODE=true` identity service вызовы возвращают mock данные:
 
@@ -107,7 +112,7 @@ const MOCK_ME_UNVERIFIED = {
 }
 ```
 
-Переключение: `VITE_IDENTITY_MOCK_MODE=true` + `VITE_SUPABASE_URL=` (пусто).
+Переключение режима A: `VITE_IDENTITY_MOCK_MODE=true` (+ опционально пустой Supabase для полностью offline dev).
 
 ---
 
