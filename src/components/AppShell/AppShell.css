@@ -1,0 +1,31 @@
+.app-shell-pass-through {
+  min-height: 100vh;
+  position: relative;
+}
+
+.app-shell-pass-through .session-shell-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.app-shell-protected-placeholder {
+  padding: 32px;
+}
+
+.app-shell-protected-placeholder h2 {
+  margin: 0 0 8px;
+}
+
+
+.app-shell__body {
+  flex: 1;
+}
+
+.app-shell__main {
+  position: relative;
+}
+
+.app-shell__footer {
+  margin-top: auto;
+}

@@ -1,0 +1,167 @@
+.session-shell-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(20, 20, 23, 0.72);
+  backdrop-filter: blur(2px);
+}
+
+.session-shell-overlay--restoring {
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+  background: rgba(20, 20, 23, 0.35);
+}
+
+.session-shell-panel,
+.session-shell-restoring {
+  width: min(100%, 520px);
+  padding: 28px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(27, 28, 31, 0.96);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.session-shell-restoring {
+  width: 100%;
+  max-width: none;
+  min-height: 100%;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.session-shell-panel__title {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.session-shell-panel__message,
+.session-shell-panel__status {
+  margin: 0 0 12px;
+  color: rgba(242, 242, 242, 0.78);
+}
+
+.session-shell-panel__code {
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+  color: rgba(242, 242, 242, 0.55);
+}
+
+.session-shell-panel__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.session-shell-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.session-shell-button--primary {
+  background: #f5c518;
+  color: #141417;
+  font-weight: 600;
+}
+
+.session-shell-button--secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f2f2f2;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.session-shell-link {
+  color: rgba(242, 242, 242, 0.82);
+  text-align: center;
+  text-decoration: underline;
+}
+
+.session-shell-context-block {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-shell-context-block__label {
+  font-size: 0.8rem;
+  color: rgba(242, 242, 242, 0.55);
+}
+
+.session-shell-skeleton {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.session-shell-skeleton__sidebar,
+.session-shell-skeleton__header,
+.session-shell-skeleton__card {
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: session-shell-shimmer 1.4s ease-in-out infinite;
+}
+
+.session-shell-skeleton__sidebar {
+  min-height: 280px;
+}
+
+.session-shell-skeleton__main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.session-shell-skeleton__header {
+  height: 72px;
+}
+
+.session-shell-skeleton__card {
+  height: 120px;
+}
+
+@keyframes session-shell-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .session-shell-skeleton {
+    grid-template-columns: 1fr;
+  }
+}

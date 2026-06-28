@@ -1,4 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import {
+  AppShellLayout,
+  ProtectedProfilePage,
+  ProtectedStoryComposePage,
+  ProtectedVerifyPage,
+} from './layout/AppShellLayout.jsx'
 import { BoardPage } from './pages/BoardPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
@@ -6,11 +12,16 @@ import { LoginPage } from './pages/LoginPage.jsx'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/board" replace />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/board" element={<BoardPage />} />
-      <Route path="/issue/:id" element={<IssuePage />} />
-      <Route path="*" element={<Navigate to="/board" replace />} />
+      <Route element={<AppShellLayout />}>
+        <Route path="/" element={<Navigate to="/board" replace />} />
+        <Route path="/board" element={<BoardPage />} />
+        <Route path="/issue/:id" element={<IssuePage />} />
+        <Route path="/profile" element={<ProtectedProfilePage />} />
+        <Route path="/verify" element={<ProtectedVerifyPage />} />
+        <Route path="/story/compose" element={<ProtectedStoryComposePage />} />
+        <Route path="*" element={<Navigate to="/board" replace />} />
+      </Route>
     </Routes>
   )
 }
