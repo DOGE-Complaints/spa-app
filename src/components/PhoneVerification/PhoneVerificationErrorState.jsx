@@ -1,5 +1,7 @@
 import './PhoneVerificationErrorState.css'
 import { formatCooldownTimer } from '../../auth/verificationErrorMapping.js'
+import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 
 /**
  * @typedef {import('../../auth/verificationErrorMapping.js').ResolvedVerificationError} ResolvedVerificationError
@@ -14,10 +16,11 @@ import { formatCooldownTimer } from '../../auth/verificationErrorMapping.js'
  * }} props
  */
 export function PhoneVerificationErrorState({ resolved, onPrimaryAction, onSecondaryAction }) {
+  const { t } = useI18n()
   const {
     errorKind,
-    title,
-    message,
+    titleKey,
+    messageKey,
     primaryAction,
     secondaryAction,
     cooldownSecondsRemaining,
@@ -32,18 +35,20 @@ export function PhoneVerificationErrorState({ resolved, onPrimaryAction, onSecon
       data-testid={`phone-verification-error-${errorKind}`}
       data-phone-verification-error-kind={errorKind}
     >
-      <h2 className="phone-verification-error__title">{title}</h2>
-      <p className="phone-verification-error__message">{message}</p>
+      <h2 className="phone-verification-error__title">{t(titleKey)}</h2>
+      <p className="phone-verification-error__message">{t(messageKey)}</p>
 
       {cooldownSecondsRemaining != null && cooldownSecondsRemaining > 0 ? (
         <p className="phone-verification-error__meta" data-testid="phone-verification-error-cooldown">
-          Cooldown timer: {formatCooldownTimer(cooldownSecondsRemaining)}
+          {formatI18nMessage(t('phoneError.meta.cooldown'), {
+            timer: formatCooldownTimer(cooldownSecondsRemaining),
+          })}
         </p>
       ) : null}
 
       {attemptsRemaining != null ? (
         <p className="phone-verification-error__meta" data-testid="phone-verification-error-attempts">
-          Attempts remaining: {attemptsRemaining}
+          {formatI18nMessage(t('phoneError.meta.attempts'), { n: attemptsRemaining })}
         </p>
       ) : null}
 
@@ -55,7 +60,7 @@ export function PhoneVerificationErrorState({ resolved, onPrimaryAction, onSecon
           disabled={Boolean(primaryAction.disabled)}
           onClick={() => onPrimaryAction(primaryAction.id)}
         >
-          {primaryAction.label}
+          {t(primaryAction.labelKey)}
         </button>
         {secondaryAction ? (
           <button
@@ -65,7 +70,7 @@ export function PhoneVerificationErrorState({ resolved, onPrimaryAction, onSecon
             disabled={Boolean(secondaryAction.disabled)}
             onClick={() => onSecondaryAction?.(secondaryAction.id)}
           >
-            {secondaryAction.label}
+            {t(secondaryAction.labelKey)}
           </button>
         ) : null}
       </div>

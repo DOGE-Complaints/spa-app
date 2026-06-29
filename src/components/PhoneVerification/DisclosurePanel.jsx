@@ -1,13 +1,15 @@
-import { PHONE_VERIFICATION_DISCLOSURE } from './phoneVerificationLabels.js'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 
 export function DisclosurePanel({ onSendCode, onNotNow }) {
+  const { t } = useI18n()
+
   return (
     <section
       className="phone-verification-panel phone-verification-panel--disclosure"
       data-testid="phone-verification-disclosure"
     >
-      <h2 className="phone-verification-panel__title">{PHONE_VERIFICATION_DISCLOSURE.title}</h2>
-      <p className="phone-verification-panel__description">{PHONE_VERIFICATION_DISCLOSURE.body}</p>
+      <h2 className="phone-verification-panel__title">{t('phone.disclosure.title')}</h2>
+      <p className="phone-verification-panel__description">{t('phone.disclosure.body')}</p>
       <div className="phone-verification-panel__actions">
         <button
           type="button"
@@ -15,7 +17,7 @@ export function DisclosurePanel({ onSendCode, onNotNow }) {
           data-testid="phone-verification-disclosure-send"
           onClick={onSendCode}
         >
-          {PHONE_VERIFICATION_DISCLOSURE.primaryCta}
+          {t('phone.disclosure.sendCode')}
         </button>
         <button
           type="button"
@@ -23,7 +25,7 @@ export function DisclosurePanel({ onSendCode, onNotNow }) {
           data-testid="phone-verification-disclosure-not-now"
           onClick={onNotNow}
         >
-          {PHONE_VERIFICATION_DISCLOSURE.secondaryCta}
+          {t('phone.disclosure.notNow')}
         </button>
       </div>
     </section>

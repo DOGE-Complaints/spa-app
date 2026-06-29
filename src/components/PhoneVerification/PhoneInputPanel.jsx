@@ -1,6 +1,8 @@
 import { PHONE_VERIFICATION_RULES, validateEstonianPhone } from '../../auth/verificationFlowState.js'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 
-export function PhoneInputPanel({ localDigits, validationHint, onLocalDigitsChange, onSubmit, onBack }) {
+export function PhoneInputPanel({ localDigits, validationHintKey, onLocalDigitsChange, onSubmit, onBack }) {
+  const { t } = useI18n()
   const previewPhone = localDigits
     ? `${PHONE_VERIFICATION_RULES.DIAL_PREFIX}${localDigits.replace(/\D/g, '')}`
     : PHONE_VERIFICATION_RULES.DIAL_PREFIX
@@ -11,25 +13,23 @@ export function PhoneInputPanel({ localDigits, validationHint, onLocalDigitsChan
       className="phone-verification-panel phone-verification-panel--phone"
       data-testid="phone-verification-phone-input"
     >
-      <h2 className="phone-verification-panel__title">Enter Your Phone Number</h2>
-      <p className="phone-verification-panel__description">
-        We will send a one-time code by SMS to confirm it is really you.
-      </p>
+      <h2 className="phone-verification-panel__title">{t('phone.input.title')}</h2>
+      <p className="phone-verification-panel__description">{t('phone.input.desc')}</p>
       <div className="phone-verification-panel__field">
         <label className="phone-verification-panel__label" htmlFor="phone-verification-country">
-          Country
+          {t('phone.input.country')}
         </label>
         <input
           id="phone-verification-country"
           className="phone-verification-panel__input"
-          value="Estonia (+372)"
+          value={t('phone.input.countryValue')}
           readOnly
           data-testid="phone-verification-country"
         />
       </div>
       <div className="phone-verification-panel__field">
         <label className="phone-verification-panel__label" htmlFor="phone-verification-local">
-          Phone Number
+          {t('phone.input.phoneNumber')}
         </label>
         <div className="phone-verification-panel__phone-row">
           <span className="phone-verification-panel__dial-prefix" aria-hidden="true">
@@ -40,15 +40,15 @@ export function PhoneInputPanel({ localDigits, validationHint, onLocalDigitsChan
             className="phone-verification-panel__input phone-verification-panel__input--local"
             inputMode="numeric"
             autoComplete="tel-national"
-            placeholder="5555 5555"
+            placeholder={t('phone.input.placeholder')}
             value={localDigits}
             onChange={(event) => onLocalDigitsChange(event.target.value)}
             data-testid="phone-verification-local-input"
           />
         </div>
-        {validationHint ? (
+        {validationHintKey ? (
           <p className="phone-verification-panel__hint" data-testid="phone-verification-phone-hint">
-            {validationHint}
+            {t(validationHintKey)}
           </p>
         ) : null}
       </div>
@@ -60,7 +60,7 @@ export function PhoneInputPanel({ localDigits, validationHint, onLocalDigitsChan
           data-testid="phone-verification-send-code"
           onClick={onSubmit}
         >
-          Send Verification Code
+          {t('phone.input.send')}
         </button>
         <button
           type="button"
@@ -68,7 +68,7 @@ export function PhoneInputPanel({ localDigits, validationHint, onLocalDigitsChan
           data-testid="phone-verification-phone-back"
           onClick={onBack}
         >
-          Back
+          {t('phone.cta.back')}
         </button>
       </div>
     </section>

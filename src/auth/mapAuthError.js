@@ -1,12 +1,12 @@
 /** @typedef {'invalid_credentials' | 'network_error' | 'rate_limited' | 'magic_link_expired' | 'account_not_found'} AuthErrorCode */
 
-const AUTH_ERROR_MESSAGES = {
-  invalid_credentials: 'Incorrect email or password.',
-  network_error: 'Unable to contact DOGEstonia services.',
-  rate_limited: 'Too many attempts. Please try again later.',
-  magic_link_expired: 'This sign-in link has expired.',
-  account_not_found: 'No account exists for this email address.',
-}
+export const AUTH_ERROR_I18N_KEYS = Object.freeze({
+  invalid_credentials: 'auth.errcode.invalid_credentials',
+  network_error: 'auth.errcode.network_error',
+  rate_limited: 'auth.errcode.rate_limited',
+  magic_link_expired: 'auth.errcode.magic_link_expired',
+  account_not_found: 'auth.errcode.account_not_found',
+})
 
 /**
  * @param {unknown} error
@@ -49,9 +49,20 @@ export function mapAuthError(error) {
 
 /**
  * @param {AuthErrorCode} code
+ * @returns {string} i18n key
+ */
+export function getAuthErrorMessageKey(code) {
+  return AUTH_ERROR_I18N_KEYS[code] ?? AUTH_ERROR_I18N_KEYS.invalid_credentials
+}
+
+/**
+ * @deprecated Use getAuthErrorMessageKey + t()
+ * @param {AuthErrorCode} code
  */
 export function getAuthErrorMessage(code) {
-  return AUTH_ERROR_MESSAGES[code] ?? AUTH_ERROR_MESSAGES.invalid_credentials
+  const keys = AUTH_ERROR_I18N_KEYS
+  const key = keys[code] ?? keys.invalid_credentials
+  return key
 }
 
 /**

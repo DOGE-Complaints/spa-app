@@ -1,3 +1,11 @@
+.app-shell__header-default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+}
+
 .app-shell-pass-through {
   min-height: 100vh;
   position: relative;

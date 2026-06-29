@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import { SESSION_SHELL_STATES } from '../../auth/sessionShellState.js'
+import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 import './SessionShellState.css'
 
 function ShellStatePanel({ title, message, code, children, state }) {
+  const { t } = useI18n()
+
   return (
     <div
       className="session-shell-panel"
@@ -14,7 +18,7 @@ function ShellStatePanel({ title, message, code, children, state }) {
       <p className="session-shell-panel__message">{message}</p>
       {code ? (
         <p className="session-shell-panel__code" data-testid="session-shell-code">
-          Code: {code}
+          {formatI18nMessage(t('session.shell.code'), { code })}
         </p>
       ) : null}
       <div className="session-shell-panel__actions">{children}</div>
@@ -23,6 +27,8 @@ function ShellStatePanel({ title, message, code, children, state }) {
 }
 
 export function RestoringSessionPanel() {
+  const { t } = useI18n()
+
   return (
     <div
       className="session-shell-restoring"
@@ -31,9 +37,9 @@ export function RestoringSessionPanel() {
       role="status"
       aria-live="polite"
     >
-      <h2 className="session-shell-panel__title">Restoring Session</h2>
-      <p className="session-shell-panel__message">DOGEstonia is checking your secure session.</p>
-      <p className="session-shell-panel__status">Checking session</p>
+      <h2 className="session-shell-panel__title">{t('session.restoring.title')}</h2>
+      <p className="session-shell-panel__message">{t('session.restoring.desc')}</p>
+      <p className="session-shell-panel__status">{t('session.restoring.status')}</p>
       <div className="session-shell-skeleton" aria-hidden="true">
         <div className="session-shell-skeleton__sidebar" />
         <div className="session-shell-skeleton__main">
@@ -47,74 +53,82 @@ export function RestoringSessionPanel() {
 }
 
 export function LoggedOutPanel() {
+  const { t } = useI18n()
+
   return (
     <ShellStatePanel
       state={SESSION_SHELL_STATES.LOGGED_OUT}
-      title="Sign In Required"
-      message="Please sign in to access DOGEstonia."
+      title={t('session.loggedOut.title')}
+      message={t('session.loggedOut.desc')}
     >
       <Link to="/login" className="session-shell-button session-shell-button--primary">
-        Sign In
+        {t('session.cta.signIn')}
       </Link>
       <Link to="/login" className="session-shell-button session-shell-button--secondary">
-        Create Account
+        {t('session.cta.createAccount')}
       </Link>
       <Link to="/board" className="session-shell-link">
-        Continue to public board
+        {t('session.continuePublic')}
       </Link>
     </ShellStatePanel>
   )
 }
 
 export function SessionExpiredPanel() {
+  const { t } = useI18n()
+
   return (
     <ShellStatePanel
       state={SESSION_SHELL_STATES.SESSION_EXPIRED}
-      title="Session Expired"
-      message="Your session has expired. Please sign in again to continue."
+      title={t('session.expired.title')}
+      message={t('session.expired.desc')}
     >
       <div className="session-shell-context-block">
-        <span className="session-shell-context-block__label">Previous Action</span>
-        <span className="session-shell-context-block__value">Status: Waiting</span>
+        <span className="session-shell-context-block__label">{t('session.expired.prevAction')}</span>
+        <span className="session-shell-context-block__value">{t('session.expired.waiting')}</span>
       </div>
       <Link to="/login" className="session-shell-button session-shell-button--primary">
-        Sign In Again
+        {t('session.expired.signInAgain')}
       </Link>
       <Link to="/board" className="session-shell-button session-shell-button--secondary">
-        Return To Public Board
+        {t('session.expired.returnPublic')}
       </Link>
     </ShellStatePanel>
   )
 }
 
 export function BackendUnavailablePanel({ onRetry, onViewStatus }) {
+  const { t } = useI18n()
+
   return (
     <ShellStatePanel
       state={SESSION_SHELL_STATES.BACKEND_UNAVAILABLE}
-      title="DOGEstonia Services Temporarily Unavailable"
-      message="We could not load DOGEstonia services right now. Please try again shortly."
+      title={t('session.backend.title')}
+      message={t('session.backend.desc')}
       code="BACKEND_UNAVAILABLE"
     >
       <button type="button" className="session-shell-button session-shell-button--primary" onClick={onRetry}>
-        Retry
+        {t('session.cta.retry')}
       </button>
       <button type="button" className="session-shell-button session-shell-button--secondary" onClick={onViewStatus}>
-        View System Status
+        {t('session.viewStatus')}
       </button>
     </ShellStatePanel>
   )
 }
 
 export function NetworkErrorPanel({ onRetry }) {
+  const { t } = useI18n()
+
   return (
     <ShellStatePanel
       state={SESSION_SHELL_STATES.NETWORK_ERROR}
-      title="Connection Problem"
-      message="We could not reach DOGEstonia. Check your connection and try again."
+      title={t('session.network.title')}
+      message={t('session.network.desc')}
       code="NETWORK_ERROR"
     >
       <button type="button" className="session-shell-button session-shell-button--primary" onClick={onRetry}>
-        Retry
+        {t('session.cta.retry')}
       </button>
     </ShellStatePanel>
   )

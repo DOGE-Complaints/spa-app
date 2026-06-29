@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../../auth/AuthSessionContext.jsx'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { identityService } from '../../auth/identityService.js'
 import {
   extractVerificationApiError,
@@ -41,6 +42,7 @@ export function PhoneVerificationFlow({
 }) {
   const navigate = useNavigate()
   const { session } = useAuth()
+  const { t } = useI18n()
   const accessToken = session?.access_token ?? null
 
   const [phase, setPhase] = useState(VERIFICATION_FLOW_PHASES.DISCLOSURE)
@@ -48,7 +50,7 @@ export function PhoneVerificationFlow({
   const [localDigits, setLocalDigits] = useState('')
   const [phone, setPhone] = useState('')
   const [otpCode, setOtpCode] = useState('')
-  const [validationHint, setValidationHint] = useState(null)
+  const [validationHintKey, setValidationHintKey] = useState(null)
   const [requestSentAtMs, setRequestSentAtMs] = useState(null)
   const [resendTick, setResendTick] = useState(0)
   const [mismatchCount, setMismatchCount] = useState(0)
@@ -209,15 +211,15 @@ export function PhoneVerificationFlow({
   )
 
   const handleSendCodeFromDisclosure = () => {
-    setValidationHint(null)
+    setValidationHintKey(null)
     setPhase(VERIFICATION_FLOW_PHASES.PHONE)
   }
 
   const handlePhoneSubmit = () => {
     const nextPhone = formatEstonianPhone(localDigits)
-    const { valid, hint } = validateEstonianPhone(nextPhone ?? '')
+    const { valid, hintKey } = validateEstonianPhone(nextPhone ?? '')
     if (!valid) {
-      setValidationHint(hint)
+      setValidationHintKey(hintKey)
       return
     }
     void submitPhoneRequest(nextPhone)
@@ -249,7 +251,7 @@ export function PhoneVerificationFlow({
       panel = (
         <PhoneInputPanel
           localDigits={localDigits}
-          validationHint={validationHint}
+          validationHintKey={validationHintKey}
           onLocalDigitsChange={setLocalDigits}
           onSubmit={handlePhoneSubmit}
           onBack={() => setPhase(VERIFICATION_FLOW_PHASES.DISCLOSURE)}
@@ -287,10 +289,8 @@ export function PhoneVerificationFlow({
             className="phone-verification-panel phone-verification-panel--failed"
             data-testid="phone-verification-failed"
           >
-            <h2 className="phone-verification-panel__title">Verification Failed</h2>
-            <p className="phone-verification-panel__description">
-              We could not complete verification. Please try again.
-            </p>
+            <h2 className="phone-verification-panel__title">{t('phone.failed.title')}</h2>
+            <p className="phone-verification-panel__description">{t('phone.failed.desc')}</p>
             <div className="phone-verification-panel__actions">
               <button
                 type="button"
@@ -298,7 +298,7 @@ export function PhoneVerificationFlow({
                 data-testid="phone-verification-retry"
                 onClick={() => setPhase(VERIFICATION_FLOW_PHASES.DISCLOSURE)}
               >
-                Try again
+                {t('phone.failed.tryAgain')}
               </button>
             </div>
           </section>
@@ -315,7 +315,7 @@ export function PhoneVerificationFlow({
       data-phone-verification-phase={phase}
     >
       <header className="phone-verification-flow__header">
-        <h1 className="phone-verification-flow__heading">Verify Your Civic Account</h1>
+        <h1 className="phone-verification-flow__heading">{t('phone.flow.heading')}</h1>
       </header>
       <div className="phone-verification-flow__panel-slot" data-testid="phone-verification-panel-slot">
         {panel}

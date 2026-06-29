@@ -1,4 +1,6 @@
 import { PHONE_VERIFICATION_RULES, isValidOtpCode } from '../../auth/verificationFlowState.js'
+import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 
 export function OtpPanel({
   code,
@@ -8,6 +10,7 @@ export function OtpPanel({
   onResend,
   onChangeNumber,
 }) {
+  const { t } = useI18n()
   const canResend = resendSecondsRemaining <= 0
   const valid = isValidOtpCode(code)
 
@@ -16,13 +19,15 @@ export function OtpPanel({
       className="phone-verification-panel phone-verification-panel--otp"
       data-testid="phone-verification-otp"
     >
-      <h2 className="phone-verification-panel__title">Enter Verification Code</h2>
+      <h2 className="phone-verification-panel__title">{t('phone.otp.title')}</h2>
       <p className="phone-verification-panel__description">
-        Enter the {PHONE_VERIFICATION_RULES.CODE_LENGTH}-digit code we sent to your phone.
+        {formatI18nMessage(t('phone.otp.desc'), {
+          n: PHONE_VERIFICATION_RULES.CODE_LENGTH,
+        })}
       </p>
       <div className="phone-verification-panel__field">
         <label className="phone-verification-panel__label" htmlFor="phone-verification-otp">
-          Verification code
+          {t('phone.otp.label')}
         </label>
         <input
           id="phone-verification-otp"
@@ -43,7 +48,9 @@ export function OtpPanel({
           data-testid="phone-verification-resend"
           onClick={onResend}
         >
-          {canResend ? 'Resend code' : `Resend code (${resendSecondsRemaining}s)`}
+          {canResend
+            ? t('phone.otp.resend')
+            : formatI18nMessage(t('phone.otp.resendIn'), { seconds: resendSecondsRemaining })}
         </button>
         <button
           type="button"
@@ -51,7 +58,7 @@ export function OtpPanel({
           data-testid="phone-verification-change-number"
           onClick={onChangeNumber}
         >
-          Change number
+          {t('phone.otp.changeNumber')}
         </button>
       </div>
       <div className="phone-verification-panel__actions">
@@ -62,7 +69,7 @@ export function OtpPanel({
           data-testid="phone-verification-verify"
           onClick={onVerify}
         >
-          Verify
+          {t('phone.otp.verify')}
         </button>
       </div>
     </section>

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { SESSION_SHELL_STATES } from '../../auth/sessionShellState.js'
 import { fetchIdentityReady } from '../../auth/identityReadyClient.js'
+import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 import {
   BackendUnavailablePanel,
   LoggedOutPanel,
@@ -14,14 +16,15 @@ import './SessionShellState.css'
  * @param {{ shellState: string, onRetry: () => void }} props
  */
 export function SessionShellOverlay({ shellState, onRetry }) {
+  const { t } = useI18n()
   const [statusMessage, setStatusMessage] = useState('')
 
   async function handleViewStatus() {
     try {
       const ready = await fetchIdentityReady()
-      setStatusMessage(`System status: ${ready.status ?? 'ready'}`)
+      setStatusMessage(formatI18nMessage(t('session.statusReady'), { status: ready.status ?? 'ready' }))
     } catch {
-      setStatusMessage('System status unavailable right now.')
+      setStatusMessage(t('session.statusUnavailable'))
     }
   }
 

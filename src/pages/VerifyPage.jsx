@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { CivicStatusCard } from '../components/CivicStatus/index.js'
 import { PhoneVerificationFlow } from '../components/PhoneVerification/index.js'
+import { useI18n } from '../i18n/I18nProvider.jsx'
 import './VerifyPage.css'
 
 export function VerifyPage() {
+  const { t } = useI18n()
   const { profile, retry } = useSessionShell()
   const navigate = useNavigate()
 
@@ -33,8 +35,8 @@ export function VerifyPage() {
       data-verify-host={verifyHost}
     >
       <header className="verify-page__header">
-        <h1>Phone Verification</h1>
-        <p>Verify your civic account to participate in protected actions.</p>
+        <h1>{t('verifyPage.title')}</h1>
+        <p>{t('verifyPage.subtitle')}</p>
       </header>
 
       {phoneVerified ? (
@@ -47,7 +49,7 @@ export function VerifyPage() {
             />
           </div>
           <p className="verify-page__already-verified" data-testid="verify-page-already-verified">
-            Your phone is already verified. You can return to your dashboard.
+            {t('verifyPage.alreadyVerified')}
           </p>
         </>
       ) : (

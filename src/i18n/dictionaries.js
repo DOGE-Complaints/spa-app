@@ -1,3 +1,9 @@
+import {
+  IDENTITY_DICTIONARY_EN,
+  IDENTITY_DICTIONARY_ET,
+  IDENTITY_DICTIONARY_RU,
+} from './identityDictionary.js'
+
 export const UI_DICTIONARY = Object.freeze({
   et: {
     board: 'Töölaud',
@@ -65,6 +71,7 @@ export const UI_DICTIONARY = Object.freeze({
       shownInPrefix: 'Kuvatud keeles',
       untranslatedLabel: 'Tõlkimata',
     },
+    ...IDENTITY_DICTIONARY_ET,
   },
   ru: {
     board: 'Доска',
@@ -132,6 +139,7 @@ export const UI_DICTIONARY = Object.freeze({
       shownInPrefix: 'Показано на',
       untranslatedLabel: 'Без перевода',
     },
+    ...IDENTITY_DICTIONARY_RU,
   },
   en: {
     board: 'Board',
@@ -199,5 +207,6 @@ export const UI_DICTIONARY = Object.freeze({
       shownInPrefix: 'Shown in',
       untranslatedLabel: 'No translation',
     },
+    ...IDENTITY_DICTIONARY_EN,
   },
 })

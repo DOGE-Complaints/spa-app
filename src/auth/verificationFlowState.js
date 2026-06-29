@@ -23,6 +23,12 @@ export const PHONE_VERIFICATION_RULES = Object.freeze({
 
 const ESTONIAN_PHONE_PATTERN = /^\+372\d{7,8}$/
 
+export const PHONE_VALIDATION_HINT_KEYS = Object.freeze({
+  empty: 'phone.hint.empty',
+  prefix: 'phone.hint.prefix',
+  digits: 'phone.hint.digits',
+})
+
 /**
  * Normalize local digits to E.164 (+372…).
  * @param {string} localDigits
@@ -37,19 +43,19 @@ export function formatEstonianPhone(localDigits) {
 
 /**
  * @param {string} phone
- * @returns {{ valid: boolean, hint: string|null }}
+ * @returns {{ valid: boolean, hintKey: string|null }}
  */
 export function validateEstonianPhone(phone) {
   if (!phone) {
-    return { valid: false, hint: 'Enter your Estonian mobile number.' }
+    return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.empty }
   }
   if (!phone.startsWith(PHONE_VERIFICATION_RULES.DIAL_PREFIX)) {
-    return { valid: false, hint: 'Only Estonian numbers (+372) are supported.' }
+    return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.prefix }
   }
   if (!ESTONIAN_PHONE_PATTERN.test(phone)) {
-    return { valid: false, hint: 'Enter 7–8 digits after +372.' }
+    return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.digits }
   }
-  return { valid: true, hint: null }
+  return { valid: true, hintKey: null }
 }
 
 /**

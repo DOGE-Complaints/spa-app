@@ -3,11 +3,15 @@ import {
   resendCooldownRemainingSeconds,
 } from './verificationFlowState.js'
 import {
-  VERIFICATION_ERROR_ACTION_LABELS,
-  VERIFICATION_ERROR_COPY,
+  VERIFICATION_ERROR_ACTION_LABEL_KEYS,
+  VERIFICATION_ERROR_COPY_KEYS,
   VERIFICATION_ERROR_KINDS,
 } from '../components/PhoneVerification/phoneVerificationErrorLabels.js'
-import { findForbiddenVerificationTerm } from '../components/PhoneVerification/phoneVerificationLabels.js'
+import {
+  findForbiddenVerificationTerm,
+  scanIdentityDictionaryForbiddenTerms,
+} from '../i18n/forbiddenVerificationTerms.js'
+import { UI_DICTIONARY } from '../i18n/dictionaries.js'
 
 /** @typedef {import('../components/PhoneVerification/phoneVerificationErrorLabels.js').VerificationErrorActionId} VerificationErrorActionId */
 
@@ -16,15 +20,15 @@ import { findForbiddenVerificationTerm } from '../components/PhoneVerification/p
 /**
  * @typedef {object} VerificationErrorAction
  * @property {VerificationErrorActionId} id
- * @property {string} label
+ * @property {string} labelKey
  * @property {boolean} [disabled]
  */
 
 /**
  * @typedef {object} ResolvedVerificationError
  * @property {VerificationErrorKind} errorKind
- * @property {string} title
- * @property {string} message
+ * @property {string} titleKey
+ * @property {string} messageKey
  * @property {VerificationErrorAction} primaryAction
  * @property {VerificationErrorAction | null} secondaryAction
  * @property {number | null} cooldownSecondsRemaining
@@ -87,6 +91,26 @@ export function formatCooldownTimer(seconds) {
 }
 
 /**
+ * @param {string} locale
+ * @param {string} key
+ * @returns {string|undefined}
+ */
+function resolveDictionaryKey(locale, key) {
+  const parts = String(key).split('.')
+  const chain = [locale, 'en', 'et']
+  for (const code of chain) {
+    let current = UI_DICTIONARY[code]
+    for (const part of parts) {
+      current = current?.[part]
+    }
+    if (typeof current === 'string') {
+      return current
+    }
+  }
+  return undefined
+}
+
+/**
  * @param {VerificationErrorActionId} actionId
  * @param {{ disabled?: boolean }} [options]
  * @returns {VerificationErrorAction}
@@ -94,7 +118,7 @@ export function formatCooldownTimer(seconds) {
 function buildAction(actionId, { disabled = false } = {}) {
   return {
     id: actionId,
-    label: VERIFICATION_ERROR_ACTION_LABELS[actionId],
+    labelKey: VERIFICATION_ERROR_ACTION_LABEL_KEYS[actionId],
     disabled,
   }
 }
@@ -113,7 +137,7 @@ export function resolveVerificationError(apiCode, context = {}) {
   const errorKind = mapApiCodeToErrorKind(apiCode)
   if (!errorKind) return null
 
-  const copy = VERIFICATION_ERROR_COPY[errorKind]
+  const copy = VERIFICATION_ERROR_COPY_KEYS[errorKind]
   if (!copy) return null
 
   const mismatchCount = context.mismatchCount ?? 0
@@ -141,8 +165,8 @@ export function resolveVerificationError(apiCode, context = {}) {
 
   return {
     errorKind,
-    title: copy.title,
-    message: copy.message,
+    titleKey: copy.titleKey,
+    messageKey: copy.messageKey,
     primaryAction,
     secondaryAction,
     cooldownSecondsRemaining,
@@ -180,21 +204,37 @@ export function extractVerificationApiError(error) {
 }
 
 /**
- * Validate label SSOT has no forbidden terms (story AC #5).
- * @returns {string[]} offending kinds
+ * Validate phoneError label keys resolve without forbidden terms (story AC #5).
+ * @returns {string[]} offending entries
  */
 export function findForbiddenTermsInErrorLabels() {
-  const offenders = []
-  for (const [kind, copy] of Object.entries(VERIFICATION_ERROR_COPY)) {
-    const blob = `${copy.title} ${copy.message}`
-    if (findForbiddenVerificationTerm(blob)) {
-      offenders.push(kind)
+  const offenders = new Set()
+
+  for (const hit of scanIdentityDictionaryForbiddenTerms()) {
+    offenders.add(`${hit.locale}:${hit.term}`)
+  }
+
+  for (const [kind, copy] of Object.entries(VERIFICATION_ERROR_COPY_KEYS)) {
+    for (const locale of ['en', 'et', 'ru']) {
+      const title = resolveDictionaryKey(locale, copy.titleKey)
+      const message = resolveDictionaryKey(locale, copy.messageKey)
+      const blob = `${title ?? ''} ${message ?? ''}`
+      const term = findForbiddenVerificationTerm(blob)
+      if (term) {
+        offenders.add(kind)
+      }
     }
   }
-  for (const label of Object.values(VERIFICATION_ERROR_ACTION_LABELS)) {
-    if (findForbiddenVerificationTerm(label)) {
-      offenders.push(`action:${label}`)
+
+  for (const labelKey of Object.values(VERIFICATION_ERROR_ACTION_LABEL_KEYS)) {
+    for (const locale of ['en', 'et', 'ru']) {
+      const label = resolveDictionaryKey(locale, labelKey)
+      const term = findForbiddenVerificationTerm(label ?? '')
+      if (term) {
+        offenders.add(`action:${labelKey}`)
+      }
     }
   }
-  return offenders
+
+  return [...offenders]
 }

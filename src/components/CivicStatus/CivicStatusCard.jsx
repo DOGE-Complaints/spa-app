@@ -3,10 +3,12 @@ import {
   CIVIC_VERIFICATION_CONTEXT,
   deriveCivicStatusState,
 } from '../../auth/civicStatusState.js'
+import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
+import { useI18n } from '../../i18n/I18nProvider.jsx'
 import {
-  CIVIC_STATUS_LABEL_NOT_VERIFIED,
-  CIVIC_STATUS_LABEL_VERIFIED,
-  CIVIC_STATUS_LABEL_WALLET_NOT_LINKED,
+  CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY,
+  CIVIC_STATUS_LABEL_VERIFIED_KEY,
+  CIVIC_STATUS_LABEL_WALLET_NOT_LINKED_KEY,
 } from './civicStatusLabels.js'
 import './CivicStatus.css'
 
@@ -83,28 +85,37 @@ export function CivicStatusCard({
   onRetry,
   onContactSupport,
 }) {
+  const { t } = useI18n()
   const state = deriveCivicStatusState(phoneVerified, flowPhase, {
     verificationContext,
     errorCode,
   })
 
   const verifiedAtLabel = formatVerifiedAt(phoneVerifiedAt)
-  const dialPrefixLabel = phoneDialPrefix ? `Dial Prefix: ${phoneDialPrefix}` : null
+  const dialPrefixLabel = phoneDialPrefix
+    ? formatI18nMessage(t('civic.verified.dialPrefix'), { prefix: phoneDialPrefix })
+    : null
 
   if (state === 'verified') {
-    const metadataParts = ['Phone Confirmed', verifiedAtLabel, dialPrefixLabel].filter(Boolean)
+    const metadataParts = [
+      t('civic.verified.phoneConfirmed'),
+      verifiedAtLabel,
+      dialPrefixLabel,
+    ].filter(Boolean)
     return (
       <CivicStatusPanel
         state={state}
         icon="✓"
-        statusLabel={CIVIC_STATUS_LABEL_VERIFIED}
-        title="Verified Civic Account"
-        description="Your account is verified and eligible for civic participation."
+        statusLabel={t(CIVIC_STATUS_LABEL_VERIFIED_KEY)}
+        title={t('civic.verified.title')}
+        description={t('civic.verified.desc')}
         metadata={metadataParts.join(' · ')}
         walletInfo={
           <div className="civic-status-card__wallet-info" data-testid="civic-status-wallet-info">
-            <p className="civic-status-card__wallet-info-label">Wallet (future)</p>
-            <p className="civic-status-card__wallet-info-value">{CIVIC_STATUS_LABEL_WALLET_NOT_LINKED}</p>
+            <p className="civic-status-card__wallet-info-label">{t('civic.wallet.future')}</p>
+            <p className="civic-status-card__wallet-info-value">
+              {t(CIVIC_STATUS_LABEL_WALLET_NOT_LINKED_KEY)}
+            </p>
           </div>
         }
       />
@@ -116,17 +127,17 @@ export function CivicStatusCard({
       <CivicStatusPanel
         state={state}
         icon="!"
-        statusLabel={CIVIC_STATUS_LABEL_NOT_VERIFIED}
-        title="Verification Required"
-        description="This action requires a verified civic account."
-        contextBlock={protectedActionLabel ?? 'Protected Action'}
+        statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
+        title={t('civic.available.title')}
+        description={t('civic.available.desc')}
+        contextBlock={protectedActionLabel ?? t('civic.available.protectedAction')}
         primaryAction={
           <button
             type="button"
             className="civic-status-card__button civic-status-card__button--primary"
             onClick={onVerify}
           >
-            Verify &amp; Continue
+            {t('civic.available.verifyContinue')}
           </button>
         }
         secondaryAction={
@@ -135,7 +146,7 @@ export function CivicStatusCard({
             className="civic-status-card__button civic-status-card__button--secondary"
             onClick={onCancel}
           >
-            Cancel
+            {t('civic.cta.cancel')}
           </button>
         }
       />
@@ -147,17 +158,17 @@ export function CivicStatusCard({
       <CivicStatusPanel
         state={state}
         icon="…"
-        statusLabel={CIVIC_STATUS_LABEL_NOT_VERIFIED}
-        title="Verification In Progress"
-        description="Complete the verification process to activate your civic account."
-        metadata="Waiting for confirmation"
+        statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
+        title={t('civic.inProgress.title')}
+        description={t('civic.inProgress.desc')}
+        metadata={t('civic.inProgress.waiting')}
         primaryAction={
           <button
             type="button"
             className="civic-status-card__button civic-status-card__button--primary"
             disabled
           >
-            Continue
+            {t('civic.cta.continue')}
           </button>
         }
       />
@@ -169,9 +180,9 @@ export function CivicStatusCard({
       <CivicStatusPanel
         state={state}
         icon="!"
-        statusLabel={CIVIC_STATUS_LABEL_NOT_VERIFIED}
-        title="Verification Failed"
-        description="We could not complete account verification. Please try again."
+        statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
+        title={t('civic.failed.title')}
+        description={t('civic.failed.desc')}
         errorCode={errorCode ?? 'VERIFICATION_FAILED'}
         primaryAction={
           <button
@@ -179,7 +190,7 @@ export function CivicStatusCard({
             className="civic-status-card__button civic-status-card__button--primary"
             onClick={onRetry ?? onVerify}
           >
-            Retry Verification
+            {t('civic.failed.retry')}
           </button>
         }
         secondaryAction={
@@ -188,7 +199,7 @@ export function CivicStatusCard({
             className="civic-status-card__button civic-status-card__button--secondary"
             onClick={onContactSupport}
           >
-            Contact Support
+            {t('civic.failed.contactSupport')}
           </button>
         }
       />
@@ -199,17 +210,17 @@ export function CivicStatusCard({
     <CivicStatusPanel
       state={state}
       icon="○"
-      statusLabel={CIVIC_STATUS_LABEL_NOT_VERIFIED}
-      title="Account Verification Required"
-      description="Verify your phone number to participate in civic actions and submit stories."
-      metadata="Verification takes less than one minute."
+      statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
+      title={t('civic.unverified.title')}
+      description={t('civic.unverified.desc')}
+      metadata={t('civic.unverified.takesMinute')}
       primaryAction={
         <button
           type="button"
           className="civic-status-card__button civic-status-card__button--primary"
           onClick={onVerify}
         >
-          Verify Account
+          {t('civic.unverified.cta')}
         </button>
       }
     />
