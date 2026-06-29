@@ -45,10 +45,6 @@ export function ProtectedProfilePage() {
   return <ProtectedPlaceholder title="Profile" />
 }
 
-export function ProtectedStoryComposePage() {
-  return <ProtectedPlaceholder title="Story Compose" />
-}
-
 export function ProtectedRouteRedirect() {
   return <Navigate to="/profile" replace />
 }

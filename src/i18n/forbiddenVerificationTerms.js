@@ -18,6 +18,7 @@ const IDENTITY_NAMESPACE_PREFIXES = Object.freeze([
   'phoneError.',
   'verifyPage.',
   'dashboard.',
+  'storyGate.',
 ])
 
 /**
