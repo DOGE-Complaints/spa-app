@@ -69,7 +69,8 @@ tail -f var/sms-outbox/+37255551234.log   # подставьте свой ном
 |------|----------|-----------|
 | Email/пароль | валидные в Supabase | логин |
 | Телефон (локальные цифры) | `55551234` | → `+37255551234` (7–8 цифр после +372) |
-| OTP (режим A) | `123456` | любой 6-значный |
+| OTP (режим A) | `123456` | happy-path mock confirm |
+| OTP (режим A, errors) | см. §4.1 | фикстуры ID-05 mock error kinds |
 | OTP (режим B) | из outbox-файла | см. `tail -f var/sms-outbox/...` |
 
 ---
@@ -85,7 +86,31 @@ tail -f var/sms-outbox/+37255551234.log   # подставьте свой ном
 
 ---
 
-## 4. Быстрые негативные/граничные проверки
+---
+
+## 4.1 Error states (режим A — mock fixtures, ID-05)
+
+`VITE_IDENTITY_MOCK_MODE=true`. После disclosure → Send code → ввод номера → **Send Verification Code** (или OTP → **Verify**).
+
+| M37 kind | Действие | Ожидание UI |
+|----------|----------|-------------|
+| Wrong Code | номер `55555555` → OTP **`999999`** | «Incorrect verification code» + Attempts remaining |
+| Code Expired | номер `55555555` → OTP **`888888`** | «Verification code expired» |
+| Too Many Attempts | номер `55555555` → OTP **`777777`** | «Too many attempts» |
+| Sign In Required | номер `55555555` → OTP **`666666`** | «Sign in required» |
+| Session Expired | номер `55555555` → OTP **`555555`** | «Sign in required» (session_expired) |
+| Country Not Allowed | локальные **`88888888`** → Send | «Estonian numbers only»; Join Waitlist → стаб ID-07 |
+| Rate Limited | локальные **`77777777`** → Send | cooldown timer + disabled Resend |
+| SMS Unavailable (send failed) | локальные **`66666666`** → Send | «SMS service unavailable» |
+| Phone Conflict | локальные **`55555556`** → Send | «This number is already used» |
+| Provider Unavailable | локальные **`44444444`** → Send | «SMS service unavailable» |
+| Connection Problem | локальные **`33333333`** → Send | «Connection problem» |
+
+Happy-path (без ошибки): номер `55555555` / `55551234` + OTP `123456`.
+
+---
+
+## 4.2 Быстрые негативные/граничные проверки (happy-path UI)
 
 | Проверка | Действие | Ожидание |
 |----------|----------|----------|
@@ -108,7 +133,7 @@ tail -f var/sms-outbox/+37255551234.log   # подставьте свой ном
 ## 6. Автоматический аналог
 
 - Vitest: `npm run test:run -- src/pages/__tests__/VerifyPage.test.jsx`
-- Puppeteer (режим A, свой vite `:4173`): `npm run test:ui:verify-host`
+- Puppeteer error (CODE_MISMATCH): `npm run test:ui:verify-error`
 - Puppeteer live (`:5173`, режим A + mock auth seed): `npm run test:ui:verify-host:live`
 - Полный набор: `npm run test:run`
 
