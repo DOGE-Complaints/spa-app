@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { CivicStatusCard } from '../components/CivicStatus/index.js'
@@ -11,6 +11,7 @@ export function VerifyPage() {
 
   const phoneVerified = Boolean(profile?.phone_verified)
   const verifyHost = phoneVerified ? 'verified-summary' : 'flow-only'
+  const [waitlistHandoff, setWaitlistHandoff] = useState(false)
 
   const handleComplete = useCallback(() => {
     retry()
@@ -20,6 +21,10 @@ export function VerifyPage() {
   const handleDismiss = useCallback(() => {
     navigate('/dashboard', { replace: true })
   }, [navigate])
+
+  const handleJoinWaitlist = useCallback(() => {
+    setWaitlistHandoff(true)
+  }, [])
 
   return (
     <div
@@ -50,8 +55,14 @@ export function VerifyPage() {
           host="inline"
           onDismiss={handleDismiss}
           onComplete={handleComplete}
+          onJoinWaitlist={handleJoinWaitlist}
         />
       )}
+      {waitlistHandoff ? (
+        <p className="verify-page__waitlist-handoff" data-testid="verify-waitlist-handoff-stub">
+          Waitlist handoff (ID-07)
+        </p>
+      ) : null}
     </div>
   )
 }

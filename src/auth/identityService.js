@@ -44,6 +44,33 @@ export class IdentityApiError extends Error {
   }
 }
 
+/** @type {Record<string, { code: string, status: number, traceId?: string }>} */
+const MOCK_REQUEST_PHONE_ERRORS = Object.freeze({
+  '+37288888888': { code: 'COUNTRY_NOT_ALLOWED', status: 400, traceId: 'mock-country-not-allowed' },
+  '+37277777777': { code: 'RATE_LIMITED', status: 400, traceId: 'mock-rate-limited' },
+  '+37266666666': { code: 'SEND_FAILED', status: 503, traceId: 'mock-send-failed' },
+  '+37255555556': { code: 'profile_conflict', status: 409, traceId: 'mock-profile-conflict' },
+  '+37244444444': { code: 'PROVIDER_UNAVAILABLE', status: 503, traceId: 'mock-provider-unavailable' },
+  '+37233333333': { code: 'network_error', status: 0, traceId: 'mock-network-error' },
+})
+
+/** @type {Record<string, { code: string, status: number, traceId?: string }>} */
+const MOCK_CONFIRM_OTP_ERRORS = Object.freeze({
+  '999999': { code: 'CODE_MISMATCH', status: 400, traceId: 'puppeteer-smoke-trace' },
+  '888888': { code: 'CODE_EXPIRED', status: 400, traceId: 'mock-code-expired' },
+  '777777': { code: 'TOO_MANY_ATTEMPTS', status: 400, traceId: 'mock-too-many-attempts' },
+  '666666': { code: 'AUTHENTICATION_REQUIRED', status: 401, traceId: 'mock-auth-required' },
+  '555555': { code: 'session_expired', status: 401, traceId: 'mock-session-expired' },
+})
+
+/**
+ * @param {{ code: string, status: number, traceId?: string }} spec
+ */
+function throwMockIdentityApiError(spec) {
+  const body = spec.traceId ? { error: { trace_id: spec.traceId } } : {}
+  throw new IdentityApiError(spec.code, spec.status, body)
+}
+
 async function getAccessToken(explicitToken) {
   if (explicitToken) {
     return explicitToken
@@ -106,6 +133,10 @@ export function createIdentityService(baseUrl = IDENTITY_SERVICE_URL, mockMode =
      */
     async requestPhoneVerification(phone, token) {
       if (mockMode) {
+        const requestError = MOCK_REQUEST_PHONE_ERRORS[phone]
+        if (requestError) {
+          throwMockIdentityApiError(requestError)
+        }
         const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString()
         return { sent: true, expires_at: expiresAt }
       }
@@ -127,6 +158,10 @@ export function createIdentityService(baseUrl = IDENTITY_SERVICE_URL, mockMode =
       if (mockMode) {
         if (!/^\d{6}$/.test(code)) {
           throw new IdentityApiError('invalid_code', 400, {})
+        }
+        const confirmError = MOCK_CONFIRM_OTP_ERRORS[code]
+        if (confirmError) {
+          throwMockIdentityApiError(confirmError)
         }
         mockProfileState = {
           ...mockProfileState,

@@ -1,0 +1,62 @@
+.phone-verification-error {
+  padding: 0.25rem 0;
+}
+
+.phone-verification-error__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #f5f7fa;
+}
+
+.phone-verification-error__message {
+  margin: 0 0 0.75rem;
+  color: rgba(245, 247, 250, 0.72);
+  line-height: 1.5;
+}
+
+.phone-verification-error__meta {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: rgba(245, 247, 250, 0.85);
+}
+
+.phone-verification-error__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.phone-verification-error__button {
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  padding: 0.65rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.phone-verification-error__button--primary {
+  background: #f5c542;
+  color: #12161e;
+}
+
+.phone-verification-error__button--primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.phone-verification-error__button--secondary {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.18);
+  color: inherit;
+}
+
+.phone-verification-error__technical {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(245, 247, 250, 0.45);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
