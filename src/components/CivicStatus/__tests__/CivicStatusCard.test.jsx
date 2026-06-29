@@ -1,16 +1,25 @@
 /**
  * @vitest-environment jsdom
  */
-import { describe, expect, it, vi, afterEach } from 'vitest'
+import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import { CIVIC_FLOW_PHASES, CIVIC_VERIFICATION_CONTEXT } from '../../../auth/civicStatusState.js'
-import {
-  CIVIC_STATUS_LABEL_NOT_VERIFIED,
-  CIVIC_STATUS_LABEL_VERIFIED,
-  CIVIC_STATUS_LABEL_WALLET_NOT_LINKED,
-} from '../civicStatusLabels.js'
+import { LOCALE_STORAGE_KEY } from '../../../i18n/core.js'
+import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
+import { IDENTITY_DICTIONARY_EN } from '../../../i18n/identityDictionary.js'
 import { CivicStatusCard } from '../CivicStatusCard.jsx'
 import '../CivicStatus.css'
+
+const civicEn = IDENTITY_DICTIONARY_EN.civic
+
+function renderCard(props = {}) {
+  localStorage.setItem(LOCALE_STORAGE_KEY, 'en')
+  return render(
+    <I18nProvider>
+      <CivicStatusCard {...props} />
+    </I18nProvider>,
+  )
+}
 
 afterEach(cleanup)
 
@@ -19,16 +28,20 @@ function getCard(container) {
 }
 
 describe('CivicStatusCard', () => {
+  beforeEach(() => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, 'en')
+  })
+
   it('renders unverified state A with canonical label', () => {
-    const { container } = render(<CivicStatusCard phoneVerified={false} flowPhase={CIVIC_FLOW_PHASES.IDLE} />)
+    const { container } = renderCard({ phoneVerified: false, flowPhase: CIVIC_FLOW_PHASES.IDLE })
     const card = getCard(container)
     expect(card.getAttribute('data-civic-status-state')).toBe('unverified')
-    expect(screen.getByText(CIVIC_STATUS_LABEL_NOT_VERIFIED)).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'Verify Account' })).toBeTruthy()
+    expect(screen.getByText(civicEn.label.notVerified)).toBeTruthy()
+    expect(screen.getByRole('button', { name: civicEn.unverified.cta })).toBeTruthy()
   })
 
   it('state A renders primary action before secondary metadata (M28 §4)', () => {
-    const { container } = render(<CivicStatusCard phoneVerified={false} flowPhase={CIVIC_FLOW_PHASES.IDLE} />)
+    const { container } = renderCard({ phoneVerified: false, flowPhase: CIVIC_FLOW_PHASES.IDLE })
     const card = getCard(container)
     const actions = card.querySelector('.civic-status-card__actions')
     const metadata = card.querySelector('.civic-status-card__metadata')
@@ -37,69 +50,64 @@ describe('CivicStatusCard', () => {
     expect(
       actions.compareDocumentPosition(metadata) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy()
-    expect(metadata.textContent).toBe('Verification takes less than one minute.')
+    expect(metadata.textContent).toBe(civicEn.unverified.takesMinute)
   })
 
   it('renders verification available state B', () => {
-    const { container } = render(
-      <CivicStatusCard
-        phoneVerified={false}
-        flowPhase={CIVIC_FLOW_PHASES.IDLE}
-        verificationContext={CIVIC_VERIFICATION_CONTEXT.PROTECTED_ACTION}
-        protectedActionLabel="Submit Story"
-      />,
-    )
+    const { container } = renderCard({
+      phoneVerified: false,
+      flowPhase: CIVIC_FLOW_PHASES.IDLE,
+      verificationContext: CIVIC_VERIFICATION_CONTEXT.PROTECTED_ACTION,
+      protectedActionLabel: 'Submit Story',
+    })
     expect(getCard(container).getAttribute('data-civic-status-state')).toBe(
       'verification_available',
     )
-    expect(screen.getByText('Verify & Continue')).toBeTruthy()
+    expect(screen.getByText(civicEn.available.verifyContinue)).toBeTruthy()
     expect(screen.getByText('Submit Story')).toBeTruthy()
   })
 
   it('renders verification in progress state C with disabled CTA', () => {
-    const { container } = render(
-      <CivicStatusCard phoneVerified={false} flowPhase={CIVIC_FLOW_PHASES.CODE_ENTRY} />,
-    )
+    const { container } = renderCard({
+      phoneVerified: false,
+      flowPhase: CIVIC_FLOW_PHASES.CODE_ENTRY,
+    })
     expect(getCard(container).getAttribute('data-civic-status-state')).toBe(
       'verification_in_progress',
     )
-    expect(screen.getByRole('button', { name: 'Continue' }).disabled).toBe(true)
+    expect(screen.getByRole('button', { name: civicEn.cta.continue }).disabled).toBe(true)
   })
 
   it('renders verified state D with wallet placeholder', () => {
-    const { container } = render(
-      <CivicStatusCard
-        phoneVerified
-        phoneDialPrefix="+372"
-        phoneVerifiedAt="2026-06-12T10:00:00+00:00"
-      />,
-    )
+    const { container } = renderCard({
+      phoneVerified: true,
+      phoneDialPrefix: '+372',
+      phoneVerifiedAt: '2026-06-12T10:00:00+00:00',
+    })
     expect(getCard(container).getAttribute('data-civic-status-state')).toBe('verified')
-    expect(screen.getByText(CIVIC_STATUS_LABEL_VERIFIED)).toBeTruthy()
+    expect(screen.getByText(civicEn.label.verified)).toBeTruthy()
     expect(screen.getByTestId('civic-status-wallet-info')).toBeTruthy()
-    expect(screen.getByText(CIVIC_STATUS_LABEL_WALLET_NOT_LINKED)).toBeTruthy()
+    expect(screen.getByText(civicEn.label.walletNotLinked)).toBeTruthy()
   })
 
   it('renders verification failed state E with retry callback', () => {
     const onRetry = vi.fn()
-    const { container } = render(
-      <CivicStatusCard
-        phoneVerified={false}
-        flowPhase={CIVIC_FLOW_PHASES.FAILED}
-        errorCode="CODE_MISMATCH"
-        onRetry={onRetry}
-      />,
-    )
+    const { container } = renderCard({
+      phoneVerified: false,
+      flowPhase: CIVIC_FLOW_PHASES.FAILED,
+      errorCode: 'CODE_MISMATCH',
+      onRetry,
+    })
     expect(getCard(container).getAttribute('data-civic-status-state')).toBe(
       'verification_failed',
     )
     expect(screen.getByText('Code: CODE_MISMATCH')).toBeTruthy()
-    screen.getByRole('button', { name: 'Retry Verification' }).click()
+    screen.getByRole('button', { name: civicEn.failed.retry }).click()
     expect(onRetry).toHaveBeenCalledOnce()
   })
 
   it('exposes data-civic-status-card root hook', () => {
-    const { container } = render(<CivicStatusCard phoneVerified={false} />)
+    const { container } = renderCard({ phoneVerified: false })
     expect(getCard(container)).toBeTruthy()
   })
 })

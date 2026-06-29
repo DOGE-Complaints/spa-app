@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getAuthErrorMessage, mapAuthError, resolvePostAuthRedirect } from '../mapAuthError.js'
+import { AUTH_ERROR_I18N_KEYS, getAuthErrorMessageKey, mapAuthError, resolvePostAuthRedirect } from '../mapAuthError.js'
 
 describe('mapAuthError', () => {
   it('maps invalid login credentials', () => {
@@ -22,7 +22,7 @@ describe('mapAuthError', () => {
     expect(mapAuthError(new Error('fetch failed'))).toBe('network_error')
   })
 
-  it('returns distinct messages for all five codes', () => {
+  it('returns distinct i18n keys for all five codes', () => {
     const codes = [
       'invalid_credentials',
       'network_error',
@@ -30,8 +30,15 @@ describe('mapAuthError', () => {
       'magic_link_expired',
       'account_not_found',
     ]
-    const messages = codes.map((code) => getAuthErrorMessage(code))
-    expect(new Set(messages).size).toBe(5)
+    const keys = codes.map((code) => getAuthErrorMessageKey(code))
+    expect(new Set(keys).size).toBe(5)
+    for (const code of codes) {
+      expect(getAuthErrorMessageKey(code)).toBe(AUTH_ERROR_I18N_KEYS[code])
+    }
+  })
+
+  it('falls back to invalid_credentials key for unknown codes', () => {
+    expect(getAuthErrorMessageKey('unknown_code')).toBe(AUTH_ERROR_I18N_KEYS.invalid_credentials)
   })
 })
 

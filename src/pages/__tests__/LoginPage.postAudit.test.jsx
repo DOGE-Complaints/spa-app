@@ -4,6 +4,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { LoginPage } from '../LoginPage.jsx'
 
 const mockSignUp = vi.fn()
@@ -25,6 +26,16 @@ vi.mock('../../auth/identityService.js', () => ({
   },
 }))
 
+function renderLoginPage(initialEntries) {
+  return render(
+    <I18nProvider>
+      <MemoryRouter initialEntries={initialEntries}>
+        <LoginPage />
+      </MemoryRouter>
+    </I18nProvider>,
+  )
+}
+
 describe('LoginPage post-audit fixes', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -35,11 +46,7 @@ describe('LoginPage post-audit fixes', () => {
   })
 
   it('auth-success shows only Board destination link (no misleading labels)', () => {
-    render(
-      <MemoryRouter initialEntries={['/?dev_auth_state=auth-success']}>
-        <LoginPage />
-      </MemoryRouter>,
-    )
+    renderLoginPage(['/?dev_auth_state=auth-success'])
 
     expect(screen.getByText('Board')).toBeTruthy()
     expect(screen.queryByText('Issues')).toBeNull()
@@ -47,11 +54,7 @@ describe('LoginPage post-audit fixes', () => {
   })
 
   it('signup password mismatch shows inline message and skips signUp', () => {
-    render(
-      <MemoryRouter initialEntries={['/?dev_auth_state=signup']}>
-        <LoginPage />
-      </MemoryRouter>,
-    )
+    renderLoginPage(['/?dev_auth_state=signup'])
 
     fireEvent.change(screen.getByTestId('auth-email'), { target: { value: 'user@example.com' } })
     fireEvent.change(screen.getByTestId('auth-password'), { target: { value: 'secret-one' } })

@@ -4,6 +4,7 @@
 import { describe, expect, it, vi, afterEach } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { VerifyPage } from '../VerifyPage.jsx'
 
 const mockUseSessionShell = vi.fn()
@@ -31,6 +32,16 @@ vi.mock('../../components/PhoneVerification/index.js', () => ({
 
 afterEach(cleanup)
 
+function renderVerifyPage() {
+  return render(
+    <I18nProvider>
+      <MemoryRouter>
+        <VerifyPage />
+      </MemoryRouter>
+    </I18nProvider>,
+  )
+}
+
 describe('VerifyPage', () => {
   it('skips flow when phone_verified=true (FR-04.8 / AC #5)', () => {
     mockUseSessionShell.mockReturnValue({
@@ -38,11 +49,7 @@ describe('VerifyPage', () => {
       retry: vi.fn(),
     })
 
-    render(
-      <MemoryRouter>
-        <VerifyPage />
-      </MemoryRouter>,
-    )
+    renderVerifyPage()
 
     expect(screen.getByTestId('verify-page-already-verified')).toBeTruthy()
     expect(screen.queryByTestId('mock-flow-complete')).toBeNull()
@@ -54,11 +61,7 @@ describe('VerifyPage', () => {
       retry: vi.fn(),
     })
 
-    render(
-      <MemoryRouter>
-        <VerifyPage />
-      </MemoryRouter>,
-    )
+    renderVerifyPage()
 
     expect(screen.getByTestId('verify-page').getAttribute('data-verify-host')).toBe('flow-only')
     expect(screen.getByTestId('mock-flow-complete')).toBeTruthy()
@@ -72,11 +75,7 @@ describe('VerifyPage', () => {
       retry: vi.fn(),
     })
 
-    render(
-      <MemoryRouter>
-        <VerifyPage />
-      </MemoryRouter>,
-    )
+    renderVerifyPage()
 
     expect(document.querySelector('[data-civic-status-card]')).toBeTruthy()
   })
@@ -88,11 +87,7 @@ describe('VerifyPage', () => {
       retry,
     })
 
-    render(
-      <MemoryRouter>
-        <VerifyPage />
-      </MemoryRouter>,
-    )
+    renderVerifyPage()
 
     screen.getByTestId('mock-flow-complete').click()
     expect(retry).toHaveBeenCalled()

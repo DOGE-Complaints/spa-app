@@ -4,6 +4,7 @@ import {
   formatEstonianPhone,
   isValidOtpCode,
   mapVerificationPhaseToCivicFlowPhase,
+  PHONE_VALIDATION_HINT_KEYS,
   resendCooldownRemainingSeconds,
   validateEstonianPhone,
   VERIFICATION_FLOW_PHASES,
@@ -26,7 +27,9 @@ describe('verificationFlowState', () => {
   it('validates +372 phone hints', () => {
     expect(validateEstonianPhone('+37255555555').valid).toBe(true)
     expect(validateEstonianPhone('+37155555555').valid).toBe(false)
-    expect(validateEstonianPhone('').hint).toMatch(/Enter your Estonian/)
+    expect(validateEstonianPhone('').hintKey).toBe(PHONE_VALIDATION_HINT_KEYS.empty)
+    expect(validateEstonianPhone('+37155555555').hintKey).toBe(PHONE_VALIDATION_HINT_KEYS.prefix)
+    expect(validateEstonianPhone('+372123').hintKey).toBe(PHONE_VALIDATION_HINT_KEYS.digits)
   })
 
   it('validates OTP length', () => {

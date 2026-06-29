@@ -4,6 +4,9 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { LOCALE_STORAGE_KEY } from '../../../i18n/core.js'
+import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
+import { IDENTITY_DICTIONARY_EN } from '../../../i18n/identityDictionary.js'
 
 const mockUseAuth = vi.hoisted(() => vi.fn())
 const mockNavigate = vi.hoisted(() => vi.fn())
@@ -33,16 +36,16 @@ import { PhoneVerificationFlow } from '../PhoneVerificationFlow.jsx'
 import '../PhoneVerificationFlow.css'
 import '../PhoneVerificationErrorState.css'
 import { identityService, IdentityApiError } from '../../../auth/identityService.js'
-import {
-  findForbiddenVerificationTerm,
-  PHONE_VERIFICATION_DISCLOSURE,
-} from '../phoneVerificationLabels.js'
+import { findForbiddenVerificationTerm } from '../phoneVerificationLabels.js'
 
 function renderFlow(props = {}) {
+  localStorage.setItem(LOCALE_STORAGE_KEY, 'en')
   return render(
-    <MemoryRouter>
-      <PhoneVerificationFlow {...props} />
-    </MemoryRouter>,
+    <I18nProvider>
+      <MemoryRouter>
+        <PhoneVerificationFlow {...props} />
+      </MemoryRouter>
+    </I18nProvider>,
   )
 }
 
@@ -64,18 +67,19 @@ describe('PhoneVerificationFlow', () => {
     mockUseAuth.mockReturnValue({ session: { access_token: 'mock-token' } })
     mockNavigate.mockReset()
     identityService._resetMockProfile?.()
+    localStorage.setItem(LOCALE_STORAGE_KEY, 'en')
   })
 
   it('starts on disclosure panel before phone input (AC #1)', () => {
     renderFlow()
     expect(screen.getByTestId('phone-verification-disclosure')).toBeTruthy()
     expect(screen.queryByTestId('phone-verification-phone-input')).toBeNull()
-    expect(screen.getByText(PHONE_VERIFICATION_DISCLOSURE.primaryCta)).toBeTruthy()
+    expect(screen.getByText(IDENTITY_DICTIONARY_EN.phone.disclosure.sendCode)).toBeTruthy()
   })
 
   it('disclosure copy avoids forbidden terms (FR-04.7)', () => {
-    const visible = `${PHONE_VERIFICATION_DISCLOSURE.title} ${PHONE_VERIFICATION_DISCLOSURE.body}`
-    expect(findForbiddenVerificationTerm(visible)).toBeNull()
+    const { title, body } = IDENTITY_DICTIONARY_EN.phone.disclosure
+    expect(findForbiddenVerificationTerm(`${title} ${body}`)).toBeNull()
   })
 
   it('happy path: disclosure → phone → otp → success', async () => {
