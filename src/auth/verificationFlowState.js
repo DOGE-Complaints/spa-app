@@ -1,3 +1,10 @@
+import { getDefaultCountry } from '../utils/countriesDataset.js'
+import {
+  formatPhoneForCountry,
+  getPhoneFormatForCountry,
+  PHONE_FORMAT_BY_COUNTRY,
+  validatePhoneForCountry,
+} from './phoneFormats.js'
 import { CIVIC_FLOW_PHASES } from './civicStatusState.js'
 
 /** @typedef {'disclosure'|'phone'|'otp'|'processing'|'success'|'failed'} VerificationFlowPhase */
@@ -21,13 +28,18 @@ export const PHONE_VERIFICATION_RULES = Object.freeze({
   DIAL_PREFIX: '+372',
 })
 
-const ESTONIAN_PHONE_PATTERN = /^\+372\d{7,8}$/
-
 export const PHONE_VALIDATION_HINT_KEYS = Object.freeze({
   empty: 'phone.hint.empty',
   prefix: 'phone.hint.prefix',
   digits: 'phone.hint.digits',
 })
+
+export {
+  formatPhoneForCountry,
+  getPhoneFormatForCountry,
+  PHONE_FORMAT_BY_COUNTRY,
+  validatePhoneForCountry,
+}
 
 /**
  * Normalize local digits to E.164 (+372…).
@@ -35,10 +47,7 @@ export const PHONE_VALIDATION_HINT_KEYS = Object.freeze({
  * @returns {string|null}
  */
 export function formatEstonianPhone(localDigits) {
-  const digits = String(localDigits ?? '').replace(/\D/g, '')
-  if (!digits) return null
-  const e164 = `${PHONE_VERIFICATION_RULES.DIAL_PREFIX}${digits}`
-  return ESTONIAN_PHONE_PATTERN.test(e164) ? e164 : null
+  return formatPhoneForCountry(getDefaultCountry(), localDigits)
 }
 
 /**
@@ -49,13 +58,19 @@ export function validateEstonianPhone(phone) {
   if (!phone) {
     return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.empty }
   }
-  if (!phone.startsWith(PHONE_VERIFICATION_RULES.DIAL_PREFIX)) {
+  const country = getDefaultCountry()
+  if (!phone.startsWith(country.dialPrefix)) {
     return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.prefix }
   }
-  if (!ESTONIAN_PHONE_PATTERN.test(phone)) {
-    return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.digits }
+  const nationalDigits = phone.slice(country.dialPrefix.length)
+  const result = validatePhoneForCountry(country, nationalDigits)
+  if (result.valid) {
+    return { valid: true, hintKey: null }
   }
-  return { valid: true, hintKey: null }
+  if (result.hintKey === 'phone.format.hint.empty') {
+    return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.empty }
+  }
+  return { valid: false, hintKey: PHONE_VALIDATION_HINT_KEYS.digits }
 }
 
 /**

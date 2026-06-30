@@ -166,6 +166,20 @@ export const IDENTITY_DICTIONARY_EN = Object.freeze({
       empty: 'Enter your Estonian mobile number.',
       prefix: 'Only Estonian numbers (+372) are supported.',
     },
+    format: {
+      phoneLabel: 'Phone Number',
+      helper: 'Enter your {country} phone number.',
+      hint: {
+        empty: 'Enter your phone number.',
+        invalid: 'Enter a valid {country} phone number.',
+        length: '{country} phone numbers have {lengths} digits after {prefix}.',
+      },
+      example: 'Example: {example}',
+      status: {
+        valid: 'Valid',
+        needsCorrection: 'Needs correction',
+      },
+    },
     input: {
       country: 'Country',
       countryValue: 'Estonia (+372)',
@@ -546,6 +560,20 @@ export const IDENTITY_DICTIONARY_ET = Object.freeze({
       digits: 'Sisesta +372 järele 7–8 numbrit.',
       empty: 'Sisesta oma Eesti mobiilinumber.',
       prefix: 'Toetatud on ainult Eesti numbrid (+372).',
+    },
+    format: {
+      phoneLabel: 'Telefoninumber',
+      helper: 'Sisesta oma telefoninumber ({country}).',
+      hint: {
+        empty: 'Sisesta oma telefoninumber.',
+        invalid: 'Sisesta korrektne telefoninumber ({country}).',
+        length: 'Telefoninumbritel ({country}) on {prefix} järel {lengths} numbrit.',
+      },
+      example: 'Näide: {example}',
+      status: {
+        valid: 'Korrektne',
+        needsCorrection: 'Vajab parandust',
+      },
     },
     input: {
       country: 'Riik',
@@ -928,6 +956,20 @@ export const IDENTITY_DICTIONARY_RU = Object.freeze({
       empty: 'Введите ваш эстонский мобильный номер.',
       prefix: 'Поддерживаются только эстонские номера (+372).',
     },
+    format: {
+      phoneLabel: 'Номер телефона',
+      helper: 'Введите номер телефона ({country}).',
+      hint: {
+        empty: 'Введите номер телефона.',
+        invalid: 'Введите корректный номер телефона ({country}).',
+        length: 'У телефонных номеров ({country}) после {prefix} — {lengths} цифр.',
+      },
+      example: 'Пример: {example}',
+      status: {
+        valid: 'Корректно',
+        needsCorrection: 'Требует исправления',
+      },
+    },
     input: {
       country: 'Страна',
       countryValue: 'Эстония (+372)',
@@ -1254,6 +1296,14 @@ export const IDENTITY_FLAT_KEYS = Object.freeze([
   'phone.hint.digits',
   'phone.hint.empty',
   'phone.hint.prefix',
+  'phone.format.phoneLabel',
+  'phone.format.helper',
+  'phone.format.hint.empty',
+  'phone.format.hint.invalid',
+  'phone.format.hint.length',
+  'phone.format.example',
+  'phone.format.status.valid',
+  'phone.format.status.needsCorrection',
   'phone.input.country',
   'phone.input.countryValue',
   'phone.input.desc',

@@ -1,6 +1,6 @@
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
-import { PHONE_VERIFICATION_RULES, validateEstonianPhone } from '../../auth/verificationFlowState.js'
+import { getPhoneFormatForCountry, validatePhoneForCountry } from '../../auth/verificationFlowState.js'
 import { getCountryLabel, isSupportedDialPrefix } from '../../utils/countriesDataset.js'
 import { CountrySelector } from './CountrySelector.jsx'
 
@@ -10,6 +10,7 @@ import { CountrySelector } from './CountrySelector.jsx'
  *   onCountryChange: (country: import('../../utils/countriesDataset.js').CountryRecord) => void,
  *   localDigits: string,
  *   validationHintKey: string | null,
+ *   validationHintParams?: Record<string, string> | null,
  *   onLocalDigitsChange: (value: string) => void,
  *   onSubmit: () => void,
  *   onJoinWaitlist: () => void,
@@ -21,6 +22,7 @@ export function PhoneInputPanel({
   onCountryChange,
   localDigits,
   validationHintKey,
+  validationHintParams = null,
   onLocalDigitsChange,
   onSubmit,
   onJoinWaitlist,
@@ -29,10 +31,25 @@ export function PhoneInputPanel({
   const { t, locale } = useI18n()
   const supported = isSupportedDialPrefix(selectedCountry.dialPrefix)
   const countryLabel = getCountryLabel(selectedCountry, locale)
-  const previewPhone = localDigits
-    ? `${selectedCountry.dialPrefix}${localDigits.replace(/\D/g, '')}`
-    : selectedCountry.dialPrefix
-  const { valid } = supported ? validateEstonianPhone(previewPhone) : { valid: true }
+  const format = getPhoneFormatForCountry(selectedCountry)
+  const nationalDigits = String(localDigits ?? '').replace(/\D/g, '')
+  const countryValidation = supported
+    ? validatePhoneForCountry(selectedCountry, localDigits, locale)
+    : { valid: true, hintKey: null, hintParams: null }
+  const valid = supported ? countryValidation.valid : true
+
+  const activeHintKey =
+    validationHintKey ?? (nationalDigits.length > 0 ? countryValidation.hintKey : null)
+  const activeHintParams = validationHintKey
+    ? (validationHintParams ?? {})
+    : (countryValidation.hintParams ?? {})
+
+  const showFormatHints = supported
+  const showDiagnosticHint = supported && nationalDigits.length > 0 && !countryValidation.valid
+  const showStatus = supported && nationalDigits.length > 0
+  const statusKey = countryValidation.valid
+    ? 'phone.format.status.valid'
+    : 'phone.format.status.needsCorrection'
 
   return (
     <section
@@ -66,28 +83,58 @@ export function PhoneInputPanel({
 
       <div className="phone-verification-panel__field">
         <label className="phone-verification-panel__label" htmlFor="phone-verification-local">
-          {supported ? t('phone.input.phoneNumber') : t('phone.country.phoneOptional')}
+          {supported ? t('phone.format.phoneLabel') : t('phone.country.phoneOptional')}
         </label>
         <div className="phone-verification-panel__phone-row">
           <span className="phone-verification-panel__dial-prefix" aria-hidden="true">
-            {supported ? PHONE_VERIFICATION_RULES.DIAL_PREFIX : selectedCountry.dialPrefix}
+            {selectedCountry.dialPrefix}
           </span>
           <input
             id="phone-verification-local"
             className={`phone-verification-panel__input phone-verification-panel__input--local${
               supported ? '' : ' phone-verification-panel__input--optional'
-            }`}
+            }${showStatus && !countryValidation.valid ? ' phone-verification-panel__input--needs-correction' : ''}`}
             inputMode="numeric"
             autoComplete="tel-national"
-            placeholder={supported ? t('phone.input.placeholder') : ''}
+            placeholder={format.examplePlaceholder}
             value={localDigits}
             onChange={(event) => onLocalDigitsChange(event.target.value)}
             data-testid="phone-verification-local-input"
           />
         </div>
-        {validationHintKey ? (
+
+        {showFormatHints ? (
+          <p className="phone-format-helper" data-testid="phone-format-helper">
+            {formatI18nMessage(t('phone.format.helper'), { country: countryLabel })}
+          </p>
+        ) : null}
+
+        {showFormatHints ? (
+          <p className="phone-format-example" data-testid="phone-format-example">
+            {formatI18nMessage(t('phone.format.example'), { example: format.examplePlaceholder })}
+          </p>
+        ) : null}
+
+        {activeHintKey ? (
           <p className="phone-verification-panel__hint" data-testid="phone-verification-phone-hint">
-            {t(validationHintKey)}
+            {formatI18nMessage(t(activeHintKey), activeHintParams)}
+          </p>
+        ) : null}
+
+        {showDiagnosticHint ? (
+          <p className="phone-format-diagnostic-hint" data-testid="phone-format-diagnostic-hint">
+            {formatI18nMessage(t('phone.format.hint.invalid'), { country: countryLabel })}
+          </p>
+        ) : null}
+
+        {showStatus ? (
+          <p
+            className={`phone-format-status phone-format-status--${
+              countryValidation.valid ? 'valid' : 'needs-correction'
+            }`}
+            data-testid={`phone-format-status-${countryValidation.valid ? 'valid' : 'needs-correction'}`}
+          >
+            {t(statusKey)}
           </p>
         ) : null}
       </div>

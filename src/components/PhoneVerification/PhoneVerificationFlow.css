@@ -80,6 +80,39 @@
   color: #f5c542;
 }
 
+.phone-format-helper,
+.phone-format-example {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  color: rgba(245, 247, 250, 0.72);
+  line-height: 1.4;
+}
+
+.phone-format-diagnostic-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  color: rgba(245, 247, 250, 0.72);
+  line-height: 1.4;
+}
+
+.phone-format-status {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.phone-format-status--valid {
+  color: rgba(245, 247, 250, 0.65);
+}
+
+.phone-format-status--needs-correction {
+  color: rgba(245, 247, 250, 0.72);
+}
+
+.phone-verification-panel__input--needs-correction {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
 .phone-verification-panel__links {
   display: flex;
   gap: 1rem;

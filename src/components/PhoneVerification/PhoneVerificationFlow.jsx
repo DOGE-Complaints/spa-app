@@ -8,10 +8,10 @@ import {
   resolveVerificationError,
 } from '../../auth/verificationErrorMapping.js'
 import {
-  formatEstonianPhone,
+  formatPhoneForCountry,
   mapVerificationPhaseToCivicFlowPhase,
   resendCooldownRemainingSeconds,
-  validateEstonianPhone,
+  validatePhoneForCountry,
   VERIFICATION_FLOW_PHASES,
 } from '../../auth/verificationFlowState.js'
 import {
@@ -62,6 +62,7 @@ export function PhoneVerificationFlow({
   const [phone, setPhone] = useState('')
   const [otpCode, setOtpCode] = useState('')
   const [validationHintKey, setValidationHintKey] = useState(null)
+  const [validationHintParams, setValidationHintParams] = useState(null)
   const [requestSentAtMs, setRequestSentAtMs] = useState(null)
   const [resendTick, setResendTick] = useState(0)
   const [mismatchCount, setMismatchCount] = useState(0)
@@ -237,8 +238,15 @@ export function PhoneVerificationFlow({
     })
   }, [locale, onJoinWaitlist, selectedCountry])
 
+  const handleCountryChange = useCallback((country) => {
+    setSelectedCountry(country)
+    setValidationHintKey(null)
+    setValidationHintParams(null)
+  }, [])
+
   const handleSendCodeFromDisclosure = () => {
     setValidationHintKey(null)
+    setValidationHintParams(null)
     setPhase(VERIFICATION_FLOW_PHASES.PHONE)
   }
 
@@ -246,10 +254,11 @@ export function PhoneVerificationFlow({
     if (!isSupportedDialPrefix(selectedCountry.dialPrefix)) {
       return
     }
-    const nextPhone = formatEstonianPhone(localDigits)
-    const { valid, hintKey } = validateEstonianPhone(nextPhone ?? '')
+    const nextPhone = formatPhoneForCountry(selectedCountry, localDigits)
+    const { valid, hintKey, hintParams } = validatePhoneForCountry(selectedCountry, localDigits, locale)
     if (!valid) {
       setValidationHintKey(hintKey)
+      setValidationHintParams(hintParams)
       return
     }
     void submitPhoneRequest(nextPhone)
@@ -281,9 +290,10 @@ export function PhoneVerificationFlow({
       panel = (
         <PhoneInputPanel
           selectedCountry={selectedCountry}
-          onCountryChange={setSelectedCountry}
+          onCountryChange={handleCountryChange}
           localDigits={localDigits}
           validationHintKey={validationHintKey}
+          validationHintParams={validationHintParams}
           onLocalDigitsChange={setLocalDigits}
           onSubmit={handlePhoneSubmit}
           onJoinWaitlist={handleUnsupportedJoinWaitlist}
