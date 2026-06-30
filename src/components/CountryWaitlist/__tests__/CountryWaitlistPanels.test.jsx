@@ -51,6 +51,31 @@ describe('WaitlistFormPanel', () => {
       organization: '',
     })
   })
+
+  it('submits stable country code when initialCountryCode is provided', () => {
+    const onSubmit = vi.fn()
+    renderWithI18n(
+      <WaitlistFormPanel
+        initialCountry="Germany"
+        initialCountryCode="DE"
+        onSubmit={onSubmit}
+        onBack={vi.fn()}
+      />,
+    )
+
+    expect(screen.getByTestId('waitlist-form-country').value).toBe('Germany')
+    expect(screen.getByTestId('waitlist-form-country').readOnly).toBe(true)
+    fireEvent.change(screen.getByTestId('waitlist-form-email'), {
+      target: { value: 'user@example.com' },
+    })
+    fireEvent.click(screen.getByTestId('waitlist-form-submit'))
+
+    expect(onSubmit).toHaveBeenCalledWith({
+      email: 'user@example.com',
+      country: 'DE',
+      organization: '',
+    })
+  })
 })
 
 describe('WaitlistJoinedPanel', () => {

@@ -6,6 +6,7 @@ describe('dialPrefixToCountry', () => {
     expect(dialPrefixToCountry('+37288888888', 'en')).toEqual({
       dialPrefix: '+372',
       countryName: 'Estonia',
+      countryCode: 'EE',
     })
   })
 
@@ -13,6 +14,7 @@ describe('dialPrefixToCountry', () => {
     expect(dialPrefixToCountry('+491701234567', 'ru')).toEqual({
       dialPrefix: '+49',
       countryName: 'Германия',
+      countryCode: 'DE',
     })
   })
 

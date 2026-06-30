@@ -172,6 +172,27 @@ describe('PhoneVerificationFlow', () => {
     })
   })
 
+  it('unsupported country does not call requestPhoneVerification (AC #4)', async () => {
+    const requestSpy = vi.spyOn(identityService, 'requestPhoneVerification').mockClear()
+    const onJoinWaitlist = vi.fn()
+    renderFlow({ onJoinWaitlist })
+
+    fireEvent.click(screen.getByTestId('phone-verification-disclosure-send'))
+    fireEvent.click(screen.getByTestId('phone-country-selector-trigger'))
+    fireEvent.click(screen.getByTestId('phone-country-option-DE'))
+    await waitFor(() => {
+      expect(screen.getByTestId('phone-country-join-waitlist')).toBeTruthy()
+    })
+    fireEvent.click(screen.getByTestId('phone-country-join-waitlist'))
+
+    expect(requestSpy).not.toHaveBeenCalled()
+    expect(onJoinWaitlist).toHaveBeenCalledWith({
+      country: 'DE',
+      countryName: 'Germany',
+      fromClientShortCircuit: true,
+    })
+  })
+
   it('maps COUNTRY_NOT_ALLOWED to waitlist handoff callback', async () => {
     const onJoinWaitlist = vi.fn()
     vi.spyOn(identityService, 'requestPhoneVerification').mockRejectedValue(
@@ -189,7 +210,11 @@ describe('PhoneVerificationFlow', () => {
       expect(screen.getByTestId('phone-verification-error-country-not-allowed')).toBeTruthy()
     })
     fireEvent.click(screen.getByTestId('phone-verification-error-primary'))
-    expect(onJoinWaitlist).toHaveBeenCalledWith({ phone: '+37255555555' })
+    expect(onJoinWaitlist).toHaveBeenCalledWith({
+      phone: '+37255555555',
+      country: 'EE',
+      countryName: 'Estonia',
+    })
   })
 
   it('maps network_error to connection problem panel', async () => {
