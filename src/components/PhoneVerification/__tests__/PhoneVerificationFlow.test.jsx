@@ -189,7 +189,7 @@ describe('PhoneVerificationFlow', () => {
       expect(screen.getByTestId('phone-verification-error-country-not-allowed')).toBeTruthy()
     })
     fireEvent.click(screen.getByTestId('phone-verification-error-primary'))
-    expect(onJoinWaitlist).toHaveBeenCalled()
+    expect(onJoinWaitlist).toHaveBeenCalledWith({ phone: '+37255555555' })
   })
 
   it('maps network_error to connection problem panel', async () => {

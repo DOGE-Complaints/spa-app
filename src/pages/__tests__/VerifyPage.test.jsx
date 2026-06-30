@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { describe, expect, it, vi, afterEach } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { VerifyPage } from '../VerifyPage.jsx'
@@ -23,10 +23,19 @@ vi.mock('react-router-dom', async (importOriginal) => {
 })
 
 vi.mock('../../components/PhoneVerification/index.js', () => ({
-  PhoneVerificationFlow: ({ onComplete }) => (
-    <button type="button" data-testid="mock-flow-complete" onClick={onComplete}>
-      complete
-    </button>
+  PhoneVerificationFlow: ({ onComplete, onJoinWaitlist }) => (
+    <div>
+      <button type="button" data-testid="mock-flow-complete" onClick={onComplete}>
+        complete
+      </button>
+      <button
+        type="button"
+        data-testid="mock-flow-join-waitlist"
+        onClick={() => onJoinWaitlist?.({ phone: '+37288888888' })}
+      >
+        join waitlist
+      </button>
+    </div>
   ),
 }))
 
@@ -92,5 +101,29 @@ describe('VerifyPage', () => {
     screen.getByTestId('mock-flow-complete').click()
     expect(retry).toHaveBeenCalled()
     expect(mockNavigate).toHaveBeenCalledWith('/dashboard', { replace: true })
+  })
+
+  it('enters M123 waitlist flow from COUNTRY_NOT_ALLOWED handoff with country pre-fill', async () => {
+    mockUseSessionShell.mockReturnValue({
+      profile: { phone_verified: false },
+      retry: vi.fn(),
+    })
+
+    renderVerifyPage()
+
+    fireEvent.click(screen.getByTestId('mock-flow-join-waitlist'))
+
+    await waitFor(() => {
+      expect(screen.getByTestId('verify-waitlist-flow')).toBeTruthy()
+    })
+    expect(screen.getByTestId('waitlist-not-supported-panel')).toBeTruthy()
+    expect(screen.getByTestId('waitlist-country-name').textContent).toBe('Estonia')
+    expect(screen.getByTestId('verify-waitlist-phone').textContent).toBe('+37288888888')
+
+    fireEvent.click(screen.getByTestId('waitlist-join-cta'))
+    await waitFor(() => {
+      expect(screen.getByTestId('waitlist-form-panel')).toBeTruthy()
+    })
+    expect(screen.getByTestId('waitlist-form-country').value).toBe('Estonia')
   })
 })
