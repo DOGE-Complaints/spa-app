@@ -14,6 +14,11 @@ import {
   validateEstonianPhone,
   VERIFICATION_FLOW_PHASES,
 } from '../../auth/verificationFlowState.js'
+import {
+  getCountryLabel,
+  getDefaultCountry,
+  isSupportedDialPrefix,
+} from '../../utils/countriesDataset.js'
 import { VERIFICATION_ERROR_ACTIONS } from './phoneVerificationErrorLabels.js'
 import { DisclosurePanel } from './DisclosurePanel.jsx'
 import { OtpPanel } from './OtpPanel.jsx'
@@ -29,7 +34,12 @@ import './PhoneVerificationFlow.css'
  *   host?: 'inline'|'modal',
  *   onDismiss?: () => void,
  *   onComplete?: () => void,
- *   onJoinWaitlist?: (context: { phone: string }) => void,
+ *   onJoinWaitlist?: (context: {
+ *     phone?: string,
+ *     country?: string,
+ *     countryName?: string,
+ *     fromClientShortCircuit?: boolean,
+ *   }) => void,
  *   onFlowPhaseChange?: (phase: import('../../auth/civicStatusState.js').CivicFlowPhase) => void,
  * }} props
  */
@@ -42,11 +52,12 @@ export function PhoneVerificationFlow({
 }) {
   const navigate = useNavigate()
   const { session } = useAuth()
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
   const accessToken = session?.access_token ?? null
 
   const [phase, setPhase] = useState(VERIFICATION_FLOW_PHASES.DISCLOSURE)
   const [processingKind, setProcessingKind] = useState(null)
+  const [selectedCountry, setSelectedCountry] = useState(() => getDefaultCountry())
   const [localDigits, setLocalDigits] = useState('')
   const [phone, setPhone] = useState('')
   const [otpCode, setOtpCode] = useState('')
@@ -162,6 +173,7 @@ export function PhoneVerificationFlow({
           clearActiveError()
           setOtpCode('')
           setLocalDigits('')
+          setSelectedCountry(getDefaultCountry())
           setPhase(VERIFICATION_FLOW_PHASES.PHONE)
           break
         case VERIFICATION_ERROR_ACTIONS.START_AGAIN:
@@ -169,6 +181,7 @@ export function PhoneVerificationFlow({
           setOtpCode('')
           setLocalDigits('')
           setPhone('')
+          setSelectedCountry(getDefaultCountry())
           setMismatchCount(0)
           setRequestSentAtMs(null)
           setPhase(VERIFICATION_FLOW_PHASES.DISCLOSURE)
@@ -188,7 +201,11 @@ export function PhoneVerificationFlow({
           navigate('/login')
           break
         case VERIFICATION_ERROR_ACTIONS.JOIN_WAITLIST:
-          onJoinWaitlist?.({ phone })
+          onJoinWaitlist?.({
+            phone,
+            country: selectedCountry.code,
+            countryName: getCountryLabel(selectedCountry, locale),
+          })
           break
         case VERIFICATION_ERROR_ACTIONS.CANCEL:
           clearActiveError()
@@ -205,10 +222,20 @@ export function PhoneVerificationFlow({
       onJoinWaitlist,
       otpCode,
       phone,
+      selectedCountry,
+      locale,
       submitOtpConfirm,
       submitPhoneRequest,
     ],
   )
+
+  const handleUnsupportedJoinWaitlist = useCallback(() => {
+    onJoinWaitlist?.({
+      country: selectedCountry.code,
+      countryName: getCountryLabel(selectedCountry, locale),
+      fromClientShortCircuit: true,
+    })
+  }, [locale, onJoinWaitlist, selectedCountry])
 
   const handleSendCodeFromDisclosure = () => {
     setValidationHintKey(null)
@@ -216,6 +243,9 @@ export function PhoneVerificationFlow({
   }
 
   const handlePhoneSubmit = () => {
+    if (!isSupportedDialPrefix(selectedCountry.dialPrefix)) {
+      return
+    }
     const nextPhone = formatEstonianPhone(localDigits)
     const { valid, hintKey } = validateEstonianPhone(nextPhone ?? '')
     if (!valid) {
@@ -250,10 +280,13 @@ export function PhoneVerificationFlow({
     case VERIFICATION_FLOW_PHASES.PHONE:
       panel = (
         <PhoneInputPanel
+          selectedCountry={selectedCountry}
+          onCountryChange={setSelectedCountry}
           localDigits={localDigits}
           validationHintKey={validationHintKey}
           onLocalDigitsChange={setLocalDigits}
           onSubmit={handlePhoneSubmit}
+          onJoinWaitlist={handleUnsupportedJoinWaitlist}
           onBack={() => setPhase(VERIFICATION_FLOW_PHASES.DISCLOSURE)}
         />
       )

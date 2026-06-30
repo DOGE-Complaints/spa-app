@@ -5,6 +5,7 @@ import { useI18n } from '../../i18n/I18nProvider.jsx'
  * M123 state B — Waitlist Form.
  * @param {{
  *   initialCountry: string,
+ *   initialCountryCode?: string,
  *   submitting?: boolean,
  *   onSubmit: (payload: { email: string, country: string, organization: string }) => void,
  *   onBack: () => void,
@@ -12,18 +13,25 @@ import { useI18n } from '../../i18n/I18nProvider.jsx'
  */
 export function WaitlistFormPanel({
   initialCountry,
+  initialCountryCode,
   submitting = false,
   onSubmit,
   onBack,
 }) {
   const { t } = useI18n()
   const [email, setEmail] = useState('')
-  const [country, setCountry] = useState(initialCountry)
+  const [countryDisplay, setCountryDisplay] = useState(initialCountry)
+  const [countryCode] = useState(initialCountryCode ?? initialCountry)
   const [organization, setOrganization] = useState('')
+  const countryFieldReadOnly = Boolean(initialCountryCode)
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    onSubmit({ email, country, organization })
+    onSubmit({
+      email,
+      country: countryFieldReadOnly ? countryCode : countryDisplay,
+      organization,
+    })
   }
 
   return (
@@ -55,9 +63,10 @@ export function WaitlistFormPanel({
             className="waitlist-panel__input"
             type="text"
             required
+            readOnly={countryFieldReadOnly}
             data-testid="waitlist-form-country"
-            value={country}
-            onChange={(event) => setCountry(event.target.value)}
+            value={countryDisplay}
+            onChange={(event) => setCountryDisplay(event.target.value)}
           />
         </div>
         <div className="waitlist-panel__field">

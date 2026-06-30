@@ -130,6 +130,20 @@ export const IDENTITY_DICTIONARY_EN = Object.freeze({
     title: 'Civic Dashboard',
   },
   phone: {
+    country: {
+      badgeAvailableSoon: 'Available Soon',
+      badgeSupported: 'Supported',
+      chooseTitle: 'Choose Country',
+      joinWaitlist: 'Join Waitlist',
+      phoneOptional: 'Phone Number (optional)',
+      search: 'Search country',
+      unsupportedHint: "Join the waitlist and we'll let you know when it becomes available.",
+      unsupportedNotice: "DOGEstonia isn't available in {country} yet.",
+      unsupportedTitle: "DOGEstonia Isn't Available In {country} Yet",
+      verifyMessage:
+        'Choose your country and enter your phone number to receive a verification code.',
+      verifyTitle: 'Verify Your Phone',
+    },
     cta: {
       back: 'Back',
     },
@@ -497,6 +511,20 @@ export const IDENTITY_DICTIONARY_ET = Object.freeze({
     title: 'Kodaniku töölaud',
   },
   phone: {
+    country: {
+      badgeAvailableSoon: 'Tulekul',
+      badgeSupported: 'Toetatud',
+      chooseTitle: 'Vali riik',
+      joinWaitlist: 'Liitu ootelistiga',
+      phoneOptional: 'Telefoninumber (valikuline)',
+      search: 'Otsi riiki',
+      unsupportedHint: 'Liitu ootelistiga ja anname teada, kui see muutub kättesaadavaks.',
+      unsupportedNotice: 'DOGEstonia pole veel saadaval sinu riigis ({country}).',
+      unsupportedTitle: 'DOGEstonia pole veel saadaval sinu riigis ({country})',
+      verifyMessage:
+        'Vali oma riik ja sisesta telefoninumber, et saada kinnituskood.',
+      verifyTitle: 'Kinnita oma telefon',
+    },
     cta: {
       back: 'Tagasi',
     },
@@ -864,6 +892,20 @@ export const IDENTITY_DICTIONARY_RU = Object.freeze({
     title: 'Гражданская панель',
   },
   phone: {
+    country: {
+      badgeAvailableSoon: 'Скоро',
+      badgeSupported: 'Поддерживается',
+      chooseTitle: 'Выберите страну',
+      joinWaitlist: 'В лист ожидания',
+      phoneOptional: 'Номер телефона (необязательно)',
+      search: 'Поиск страны',
+      unsupportedHint: 'Запишитесь в лист ожидания — сообщим, когда станет доступна.',
+      unsupportedNotice: 'DOGEstonia пока недоступна в вашей стране ({country}).',
+      unsupportedTitle: 'DOGEstonia пока недоступна в вашей стране ({country})',
+      verifyMessage:
+        'Выберите страну и введите номер телефона, чтобы получить код подтверждения.',
+      verifyTitle: 'Подтвердите телефон',
+    },
     cta: {
       back: 'Назад',
     },
@@ -1190,6 +1232,17 @@ export const IDENTITY_FLAT_KEYS = Object.freeze([
   'dashboard.subtitle',
   'dashboard.title',
   'phone.cta.back',
+  'phone.country.badgeAvailableSoon',
+  'phone.country.badgeSupported',
+  'phone.country.chooseTitle',
+  'phone.country.joinWaitlist',
+  'phone.country.phoneOptional',
+  'phone.country.search',
+  'phone.country.unsupportedHint',
+  'phone.country.unsupportedNotice',
+  'phone.country.unsupportedTitle',
+  'phone.country.verifyMessage',
+  'phone.country.verifyTitle',
   'phone.disclosure.body',
   'phone.disclosure.notNow',
   'phone.disclosure.sendCode',

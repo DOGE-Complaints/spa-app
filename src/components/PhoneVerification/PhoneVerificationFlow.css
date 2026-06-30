@@ -154,3 +154,163 @@
     transform: translateX(220%);
   }
 }
+
+.phone-country-selector {
+  position: relative;
+}
+
+.phone-country-selector__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.phone-country-selector__flag {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.phone-country-selector__label {
+  flex: 1;
+}
+
+.phone-country-selector__dial {
+  color: rgba(245, 247, 250, 0.72);
+}
+
+.phone-country-selector__chevron {
+  color: rgba(245, 247, 250, 0.55);
+}
+
+.phone-country-selector__dropdown {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  right: 0;
+  max-height: 18rem;
+  overflow: auto;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #1a1f28;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.35);
+  padding: 0.5rem;
+}
+
+.phone-country-selector__search-wrap {
+  margin-bottom: 0.5rem;
+}
+
+.phone-country-selector__search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+  font: inherit;
+}
+
+.phone-country-selector__dropdown-title {
+  margin: 0 0 0.35rem;
+  padding: 0 0.25rem;
+  font-size: 0.8125rem;
+  color: rgba(245, 247, 250, 0.65);
+}
+
+.phone-country-selector__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.phone-country-selector__option {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.5rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.phone-country-selector__option--active,
+.phone-country-selector__option:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.phone-country-selector__option--selected {
+  outline: 1px solid rgba(245, 197, 66, 0.35);
+}
+
+.phone-country-selector__option-label {
+  min-width: 0;
+}
+
+.phone-country-selector__option-dial {
+  color: rgba(245, 247, 250, 0.65);
+  font-size: 0.875rem;
+}
+
+.phone-country-selector__badge {
+  font-size: 0.6875rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.phone-country-selector__badge--supported {
+  color: #7dcea0;
+  background: rgba(125, 206, 160, 0.12);
+}
+
+.phone-country-selector__badge--soon {
+  color: #f5c542;
+  background: rgba(245, 197, 66, 0.12);
+}
+
+.phone-country-unsupported {
+  margin-bottom: 1rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(245, 197, 66, 0.35);
+  background: rgba(245, 197, 66, 0.08);
+}
+
+.phone-country-unsupported__title {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+}
+
+.phone-country-unsupported__notice,
+.phone-country-unsupported__hint {
+  margin: 0 0 0.35rem;
+  color: rgba(245, 247, 250, 0.82);
+  line-height: 1.45;
+}
+
+.phone-country-unsupported__hint:last-child {
+  margin-bottom: 0;
+}
+
+.phone-verification-panel__input--optional {
+  opacity: 0.72;
+}

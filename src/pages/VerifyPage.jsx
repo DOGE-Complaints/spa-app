@@ -12,7 +12,7 @@ import {
 import { PhoneVerificationFlow } from '../components/PhoneVerification/index.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { waitlistService, WaitlistApiError } from '../services/waitlistService.js'
-import { dialPrefixToCountry } from '../utils/dialPrefixToCountry.js'
+import { dialPrefixToCountry } from '../utils/countriesDataset.js'
 import './VerifyPage.css'
 
 const LEARN_MORE_URL = 'https://dogestonia.org'
@@ -27,7 +27,8 @@ export function VerifyPage() {
 
   const [waitlistPhase, setWaitlistPhase] = useState(null)
   const [waitlistPhone, setWaitlistPhone] = useState('')
-  const [waitlistCountry, setWaitlistCountry] = useState('')
+  const [waitlistCountryDisplay, setWaitlistCountryDisplay] = useState('')
+  const [waitlistCountryCode, setWaitlistCountryCode] = useState('')
   const [joinedCountry, setJoinedCountry] = useState('')
   const [waitlistErrorKind, setWaitlistErrorKind] = useState(null)
   const [waitlistSubmitting, setWaitlistSubmitting] = useState(false)
@@ -42,13 +43,20 @@ export function VerifyPage() {
   }, [navigate])
 
   const handleJoinWaitlist = useCallback(
-    ({ phone } = {}) => {
-      const { countryName } = dialPrefixToCountry(phone, locale)
-      setWaitlistPhone(phone ?? '')
-      setWaitlistCountry(countryName)
+    ({ phone, country, countryName, fromClientShortCircuit } = {}) => {
+      const dialResolved = phone ? dialPrefixToCountry(phone, locale) : null
+      const resolvedDisplay =
+        countryName ?? dialResolved?.countryName ?? ''
+      const resolvedCode =
+        country ?? dialResolved?.countryCode ?? resolvedDisplay
+      setWaitlistPhone(fromClientShortCircuit ? '' : (phone ?? ''))
+      setWaitlistCountryDisplay(resolvedDisplay)
+      setWaitlistCountryCode(resolvedCode)
       setJoinedCountry('')
       setWaitlistErrorKind(null)
-      setWaitlistPhase(WAITLIST_PHASES.NOT_SUPPORTED)
+      setWaitlistPhase(
+        fromClientShortCircuit ? WAITLIST_PHASES.FORM : WAITLIST_PHASES.NOT_SUPPORTED,
+      )
     },
     [locale],
   )
@@ -111,14 +119,15 @@ export function VerifyPage() {
         <div className="verify-page__waitlist" data-testid="verify-waitlist-flow">
           {waitlistPhase === WAITLIST_PHASES.NOT_SUPPORTED ? (
             <CountryNotSupportedPanel
-              countryName={waitlistCountry}
+              countryName={waitlistCountryDisplay}
               onJoinWaitlist={() => setWaitlistPhase(WAITLIST_PHASES.FORM)}
               onLearnMore={handleLearnMore}
             />
           ) : null}
           {waitlistPhase === WAITLIST_PHASES.FORM ? (
             <WaitlistFormPanel
-              initialCountry={waitlistCountry}
+              initialCountry={waitlistCountryDisplay}
+              initialCountryCode={waitlistCountryCode}
               submitting={waitlistSubmitting}
               onSubmit={handleWaitlistFormSubmit}
               onBack={() => setWaitlistPhase(WAITLIST_PHASES.NOT_SUPPORTED)}
