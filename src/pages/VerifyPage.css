@@ -21,3 +21,11 @@
   margin: 0;
   color: rgba(242, 242, 242, 0.8);
 }
+
+.verify-page__waitlist {
+  margin-top: 0.5rem;
+}
+
+.verify-page__waitlist-phone {
+  display: none;
+}

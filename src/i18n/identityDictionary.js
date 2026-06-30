@@ -324,6 +324,42 @@ export const IDENTITY_DICTIONARY_EN = Object.freeze({
       submitAnother: 'Submit Another Story',
     },
   },
+  waitlist: {
+    notSupported: {
+      title: 'DOGEstonia is currently available in Estonia',
+      message:
+        'We\'re gradually expanding access. At the moment, DOGEstonia supports civic participation within Estonia only.',
+      countryLabel: 'Country (from your number)',
+      joinWaitlist: 'Join Waitlist',
+      learnMore: 'Learn More',
+    },
+    form: {
+      title: 'Join the Waitlist',
+      message: 'We\'ll let you know when DOGEstonia becomes available in your country.',
+      field: {
+        email: 'Email',
+        country: 'Country',
+        organization: 'Organization (optional)',
+      },
+      submit: 'Join Waitlist',
+      back: 'Back',
+    },
+    joined: {
+      title: 'You\'re on the waitlist',
+      message: 'Thank you. We\'ll notify you when DOGEstonia becomes available in your region.',
+      countrySaved: 'Country saved',
+      returnHome: 'Return to Home',
+    },
+    error: {
+      title: 'Unable to join the waitlist',
+      network_error: 'Unable to contact DOGEstonia services.',
+      service_unavailable: 'Please try again later.',
+      duplicate_request: 'You already joined the waitlist.',
+      validation_error: 'Please check the email address.',
+      tryAgain: 'Try Again',
+      back: 'Back',
+    },
+  },
   verifyPage: {
     alreadyVerified: 'Your phone is already verified. You can return to your dashboard.',
     subtitle: 'Verify your civic account to participate in protected actions.',
@@ -653,6 +689,42 @@ export const IDENTITY_DICTIONARY_ET = Object.freeze({
       statusUnderReview: 'Läbivaatamisel',
       viewActivity: 'Vaata tegevust',
       submitAnother: 'Esita uus lugu',
+    },
+  },
+  waitlist: {
+    notSupported: {
+      title: 'DOGEstonia on praegu saadaval Eestis',
+      message:
+        'Laiendame ligipääsu järk-järgult. Praegu toetab DOGEstonia kodanikuosalust ainult Eestis.',
+      countryLabel: 'Riik (sinu numbri järgi)',
+      joinWaitlist: 'Liitu ootelistiga',
+      learnMore: 'Loe lähemalt',
+    },
+    form: {
+      title: 'Liitu ootelistiga',
+      message: 'Anname teada, kui DOGEstonia muutub sinu riigis kättesaadavaks.',
+      field: {
+        email: 'E-post',
+        country: 'Riik',
+        organization: 'Organisatsioon (valikuline)',
+      },
+      submit: 'Liitu ootelistiga',
+      back: 'Tagasi',
+    },
+    joined: {
+      title: 'Oled ootelistis',
+      message: 'Aitäh. Teavitame, kui DOGEstonia muutub sinu piirkonnas kättesaadavaks.',
+      countrySaved: 'Riik salvestatud',
+      returnHome: 'Tagasi avalehele',
+    },
+    error: {
+      title: 'Ootelistiga liitumine ebaõnnestus',
+      network_error: 'DOGEstonia teenustega ei õnnestu ühendust luua.',
+      service_unavailable: 'Palun proovi hiljem uuesti.',
+      duplicate_request: 'Oled ootelistiga juba liitunud.',
+      validation_error: 'Palun kontrolli e-posti aadressi.',
+      tryAgain: 'Proovi uuesti',
+      back: 'Tagasi',
     },
   },
   verifyPage: {
@@ -986,6 +1058,42 @@ export const IDENTITY_DICTIONARY_RU = Object.freeze({
       submitAnother: 'Отправить ещё историю',
     },
   },
+  waitlist: {
+    notSupported: {
+      title: 'DOGEstonia сейчас доступна в Эстонии',
+      message:
+        'Мы постепенно расширяем доступ. Сейчас DOGEstonia поддерживает гражданское участие только в Эстонии.',
+      countryLabel: 'Страна (по вашему номеру)',
+      joinWaitlist: 'В лист ожидания',
+      learnMore: 'Подробнее',
+    },
+    form: {
+      title: 'Запись в лист ожидания',
+      message: 'Мы сообщим, когда DOGEstonia станет доступна в вашей стране.',
+      field: {
+        email: 'Эл. почта',
+        country: 'Страна',
+        organization: 'Организация (необязательно)',
+      },
+      submit: 'Записаться',
+      back: 'Назад',
+    },
+    joined: {
+      title: 'Вы в листе ожидания',
+      message: 'Спасибо. Мы уведомим вас, когда DOGEstonia станет доступна в вашем регионе.',
+      countrySaved: 'Страна сохранена',
+      returnHome: 'Вернуться на главную',
+    },
+    error: {
+      title: 'Не удалось записаться в лист ожидания',
+      network_error: 'Не удаётся связаться с сервисами DOGEstonia.',
+      service_unavailable: 'Пожалуйста, попробуйте позже.',
+      duplicate_request: 'Вы уже записаны в лист ожидания.',
+      validation_error: 'Пожалуйста, проверьте адрес эл. почты.',
+      tryAgain: 'Попробовать снова',
+      back: 'Назад',
+    },
+  },
   verifyPage: {
     alreadyVerified: 'Ваш телефон уже подтверждён. Можете вернуться на панель.',
     subtitle: 'Подтвердите гражданский аккаунт, чтобы участвовать в защищённых действиях.',
@@ -1200,5 +1308,28 @@ export const IDENTITY_FLAT_KEYS = Object.freeze([
   'storyGate.success.idLabel',
   'storyGate.success.statusUnderReview',
   'storyGate.success.viewActivity',
-  'storyGate.success.submitAnother'
+  'storyGate.success.submitAnother',
+  'waitlist.notSupported.title',
+  'waitlist.notSupported.message',
+  'waitlist.notSupported.countryLabel',
+  'waitlist.notSupported.joinWaitlist',
+  'waitlist.notSupported.learnMore',
+  'waitlist.form.title',
+  'waitlist.form.message',
+  'waitlist.form.field.email',
+  'waitlist.form.field.country',
+  'waitlist.form.field.organization',
+  'waitlist.form.submit',
+  'waitlist.form.back',
+  'waitlist.joined.title',
+  'waitlist.joined.message',
+  'waitlist.joined.countrySaved',
+  'waitlist.joined.returnHome',
+  'waitlist.error.title',
+  'waitlist.error.network_error',
+  'waitlist.error.service_unavailable',
+  'waitlist.error.duplicate_request',
+  'waitlist.error.validation_error',
+  'waitlist.error.tryAgain',
+  'waitlist.error.back'
 ])

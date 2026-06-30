@@ -1,0 +1,40 @@
+import { useI18n } from '../../i18n/I18nProvider.jsx'
+
+/**
+ * M123 state D — Submission Error.
+ * @param {{
+ *   errorKind: string,
+ *   onRetry: () => void,
+ *   onBack: () => void,
+ * }} props
+ */
+export function WaitlistErrorPanel({ errorKind, onRetry, onBack }) {
+  const { t } = useI18n()
+  const messageKey = `waitlist.error.${errorKind}`
+
+  return (
+    <section
+      className="waitlist-panel waitlist-panel--error"
+      data-testid="waitlist-error-panel"
+      data-waitlist-error-kind={errorKind}
+    >
+      <h2>{t('waitlist.error.title')}</h2>
+      <p className="waitlist-panel__message" data-testid={`waitlist-error-message-${errorKind}`}>
+        {t(messageKey)}
+      </p>
+      <div className="waitlist-panel__actions">
+        <button
+          type="button"
+          data-variant="primary"
+          data-testid="waitlist-error-retry"
+          onClick={onRetry}
+        >
+          {t('waitlist.error.tryAgain')}
+        </button>
+        <button type="button" data-testid="waitlist-error-back" onClick={onBack}>
+          {t('waitlist.error.back')}
+        </button>
+      </div>
+    </section>
+  )
+}

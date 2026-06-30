@@ -29,7 +29,7 @@ import './PhoneVerificationFlow.css'
  *   host?: 'inline'|'modal',
  *   onDismiss?: () => void,
  *   onComplete?: () => void,
- *   onJoinWaitlist?: () => void,
+ *   onJoinWaitlist?: (context: { phone: string }) => void,
  *   onFlowPhaseChange?: (phase: import('../../auth/civicStatusState.js').CivicFlowPhase) => void,
  * }} props
  */
@@ -112,12 +112,12 @@ export function PhoneVerificationFlow({
 
   const submitPhoneRequest = useCallback(
     async (nextPhone) => {
+      setPhone(nextPhone)
       setProcessingKind('request')
       setPhase(VERIFICATION_FLOW_PHASES.PROCESSING)
       clearActiveError()
       try {
         await identityService.requestPhoneVerification(nextPhone, accessToken)
-        setPhone(nextPhone)
         setOtpCode('')
         setMismatchCount(0)
         setRequestSentAtMs(Date.now())
@@ -188,7 +188,7 @@ export function PhoneVerificationFlow({
           navigate('/login')
           break
         case VERIFICATION_ERROR_ACTIONS.JOIN_WAITLIST:
-          onJoinWaitlist?.()
+          onJoinWaitlist?.({ phone })
           break
         case VERIFICATION_ERROR_ACTIONS.CANCEL:
           clearActiveError()

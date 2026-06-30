@@ -1,0 +1,75 @@
+.waitlist-panel {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: rgba(18, 22, 30, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f5f7fa;
+}
+
+.waitlist-panel h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+}
+
+.waitlist-panel__message {
+  margin: 0 0 1rem;
+  color: rgba(245, 247, 250, 0.72);
+  line-height: 1.5;
+}
+
+.waitlist-panel__meta {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: rgba(245, 247, 250, 0.8);
+}
+
+.waitlist-panel__field {
+  margin-bottom: 1rem;
+}
+
+.waitlist-panel__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  color: rgba(245, 247, 250, 0.8);
+}
+
+.waitlist-panel__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+}
+
+.waitlist-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.waitlist-panel__actions button {
+  font: inherit;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+  color: inherit;
+  cursor: pointer;
+}
+
+.waitlist-panel__actions button[data-variant='primary'] {
+  border-color: rgba(255, 214, 0, 0.45);
+  background: rgba(255, 214, 0, 0.12);
+}
+
+.waitlist-panel__status {
+  margin: 0.75rem 0 0;
+  font-weight: 600;
+  color: rgba(255, 214, 0, 0.9);
+}

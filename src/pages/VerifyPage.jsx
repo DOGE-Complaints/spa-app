@@ -1,19 +1,36 @@
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
+import { WAITLIST_PHASES } from '../auth/waitlistFlowState.js'
 import { CivicStatusCard } from '../components/CivicStatus/index.js'
+import {
+  CountryNotSupportedPanel,
+  WaitlistErrorPanel,
+  WaitlistFormPanel,
+  WaitlistJoinedPanel,
+} from '../components/CountryWaitlist/index.js'
 import { PhoneVerificationFlow } from '../components/PhoneVerification/index.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
+import { waitlistService, WaitlistApiError } from '../services/waitlistService.js'
+import { dialPrefixToCountry } from '../utils/dialPrefixToCountry.js'
 import './VerifyPage.css'
 
+const LEARN_MORE_URL = 'https://dogestonia.org'
+
 export function VerifyPage() {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
   const { profile, retry } = useSessionShell()
   const navigate = useNavigate()
 
   const phoneVerified = Boolean(profile?.phone_verified)
   const verifyHost = phoneVerified ? 'verified-summary' : 'flow-only'
-  const [waitlistHandoff, setWaitlistHandoff] = useState(false)
+
+  const [waitlistPhase, setWaitlistPhase] = useState(null)
+  const [waitlistPhone, setWaitlistPhone] = useState('')
+  const [waitlistCountry, setWaitlistCountry] = useState('')
+  const [joinedCountry, setJoinedCountry] = useState('')
+  const [waitlistErrorKind, setWaitlistErrorKind] = useState(null)
+  const [waitlistSubmitting, setWaitlistSubmitting] = useState(false)
 
   const handleComplete = useCallback(() => {
     retry()
@@ -24,15 +41,53 @@ export function VerifyPage() {
     navigate('/dashboard', { replace: true })
   }, [navigate])
 
-  const handleJoinWaitlist = useCallback(() => {
-    setWaitlistHandoff(true)
+  const handleJoinWaitlist = useCallback(
+    ({ phone } = {}) => {
+      const { countryName } = dialPrefixToCountry(phone, locale)
+      setWaitlistPhone(phone ?? '')
+      setWaitlistCountry(countryName)
+      setJoinedCountry('')
+      setWaitlistErrorKind(null)
+      setWaitlistPhase(WAITLIST_PHASES.NOT_SUPPORTED)
+    },
+    [locale],
+  )
+
+  const handleLearnMore = useCallback(() => {
+    window.open(LEARN_MORE_URL, '_blank', 'noopener,noreferrer')
   }, [])
+
+  const handleWaitlistFormSubmit = useCallback(
+    async ({ email, country, organization }) => {
+      setWaitlistSubmitting(true)
+      try {
+        const result = await waitlistService.joinWaitlist({ email, country, organization })
+        setJoinedCountry(result.country)
+        setWaitlistErrorKind(null)
+        setWaitlistPhase(WAITLIST_PHASES.JOINED)
+      } catch (error) {
+        const kind = error instanceof WaitlistApiError ? error.kind : 'network_error'
+        setWaitlistErrorKind(kind)
+        setWaitlistPhase(WAITLIST_PHASES.ERROR)
+      } finally {
+        setWaitlistSubmitting(false)
+      }
+    },
+    [],
+  )
+
+  const handleReturnHome = useCallback(() => {
+    navigate('/board', { replace: true })
+  }, [navigate])
+
+  const showWaitlist = Boolean(waitlistPhase)
 
   return (
     <div
       className="verify-page"
       data-testid="verify-page"
       data-verify-host={verifyHost}
+      data-waitlist-phase={waitlistPhase ?? 'none'}
     >
       <header className="verify-page__header">
         <h1>{t('verifyPage.title')}</h1>
@@ -52,6 +107,34 @@ export function VerifyPage() {
             {t('verifyPage.alreadyVerified')}
           </p>
         </>
+      ) : showWaitlist ? (
+        <div className="verify-page__waitlist" data-testid="verify-waitlist-flow">
+          {waitlistPhase === WAITLIST_PHASES.NOT_SUPPORTED ? (
+            <CountryNotSupportedPanel
+              countryName={waitlistCountry}
+              onJoinWaitlist={() => setWaitlistPhase(WAITLIST_PHASES.FORM)}
+              onLearnMore={handleLearnMore}
+            />
+          ) : null}
+          {waitlistPhase === WAITLIST_PHASES.FORM ? (
+            <WaitlistFormPanel
+              initialCountry={waitlistCountry}
+              submitting={waitlistSubmitting}
+              onSubmit={handleWaitlistFormSubmit}
+              onBack={() => setWaitlistPhase(WAITLIST_PHASES.NOT_SUPPORTED)}
+            />
+          ) : null}
+          {waitlistPhase === WAITLIST_PHASES.JOINED ? (
+            <WaitlistJoinedPanel countryName={joinedCountry} onReturnHome={handleReturnHome} />
+          ) : null}
+          {waitlistPhase === WAITLIST_PHASES.ERROR ? (
+            <WaitlistErrorPanel
+              errorKind={waitlistErrorKind ?? 'network_error'}
+              onRetry={() => setWaitlistPhase(WAITLIST_PHASES.FORM)}
+              onBack={() => setWaitlistPhase(WAITLIST_PHASES.NOT_SUPPORTED)}
+            />
+          ) : null}
+        </div>
       ) : (
         <PhoneVerificationFlow
           host="inline"
@@ -60,10 +143,10 @@ export function VerifyPage() {
           onJoinWaitlist={handleJoinWaitlist}
         />
       )}
-      {waitlistHandoff ? (
-        <p className="verify-page__waitlist-handoff" data-testid="verify-waitlist-handoff-stub">
-          Waitlist handoff (ID-07)
-        </p>
+      {waitlistPhone ? (
+        <span className="verify-page__waitlist-phone" data-testid="verify-waitlist-phone" hidden>
+          {waitlistPhone}
+        </span>
       ) : null}
     </div>
   )
