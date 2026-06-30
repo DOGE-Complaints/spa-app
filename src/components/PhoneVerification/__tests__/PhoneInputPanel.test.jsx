@@ -116,4 +116,57 @@ describe('PhoneInputPanel country selector', () => {
     fireEvent.change(input, { target: { value: '1701234567' } })
     expect(input.value).toBe('1701234567')
   })
+
+  it('shows country-specific placeholder and enables send for valid EE digits (M127 A)', () => {
+    function PanelWithState() {
+      const [localDigits, setLocalDigits] = useState('55555555')
+      return (
+        <PhoneInputPanel
+          selectedCountry={getDefaultCountry()}
+          onCountryChange={vi.fn()}
+          localDigits={localDigits}
+          validationHintKey={null}
+          onLocalDigitsChange={setLocalDigits}
+          onSubmit={vi.fn()}
+          onJoinWaitlist={vi.fn()}
+          onBack={vi.fn()}
+        />
+      )
+    }
+    render(
+      <I18nProvider>
+        <MemoryRouter>
+          <PanelWithState />
+        </MemoryRouter>
+      </I18nProvider>,
+    )
+    expect(screen.getByTestId('phone-verification-local-input').getAttribute('placeholder')).toBe(
+      '5555 5555',
+    )
+    expect(screen.getByTestId('phone-format-status-valid')).toBeTruthy()
+    expect(screen.getByTestId('phone-verification-send-code').disabled).toBe(false)
+  })
+
+  it('disables send for invalid EE format and shows needs-correction status (M127 B)', () => {
+    renderPanel({ localDigits: '55555' })
+    expect(screen.getByTestId('phone-format-status-needs-correction')).toBeTruthy()
+    expect(screen.getByTestId('phone-format-diagnostic-hint').textContent).toContain('Estonia')
+    expect(screen.getByTestId('phone-verification-send-code').disabled).toBe(true)
+  })
+
+  it('hides format helper and example for unsupported country (post-audit F2)', () => {
+    const germany = {
+      code: 'DE',
+      dialPrefix: '+49',
+      flag: '🇩🇪',
+      name: { en: 'Germany', et: 'Saksamaa', ru: 'Германия' },
+    }
+    renderPanel({ selectedCountry: germany })
+    expect(screen.getByTestId('phone-verification-local-input').getAttribute('placeholder')).toBe(
+      '1512 3456789',
+    )
+    expect(screen.queryByTestId('phone-format-helper')).toBeNull()
+    expect(screen.queryByTestId('phone-format-example')).toBeNull()
+    expect(screen.getByTestId('phone-country-join-waitlist')).toBeTruthy()
+  })
 })

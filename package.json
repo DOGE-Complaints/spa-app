@@ -27,6 +27,7 @@
     "test:ui:verify-host": "node ./tests/puppeteer/verify-page-host-smoke.mjs",
     "test:ui:verify-host:live": "VERIFY_HOST_URL=http://localhost:5173 node ./tests/puppeteer/verify-page-host-smoke.mjs",
     "test:ui:verify-error": "node ./tests/puppeteer/verify-page-error-smoke.mjs",
+    "test:ui:country-format-m127": "node ./tests/puppeteer/country-format-m127-screenshot.mjs",
     "deploy": "node ./scripts/deploy-arweave.mjs"
   },
   "dependencies": {
