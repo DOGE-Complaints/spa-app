@@ -2,9 +2,23 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { AUTH_PAGE_STATES, parseDevAuthState } from '../auth/authPageState.js'
 import { getAuthErrorMessageKey, mapAuthError, resolvePostAuthRedirect } from '../auth/mapAuthError.js'
+import {
+  GPT_BRIDGE_PHASES,
+  hasOAuthRequestId,
+  parseVerifyUrl,
+  persistOAuthRequestId,
+  readOAuthRequestId,
+} from '../auth/gptBridgeFlowState.js'
 import { identityService } from '../auth/identityService.js'
+import { OAuthVerificationRequiredError, oauthService } from '../auth/oauthService.js'
 import { supabase } from '../auth/supabaseClient.js'
 import { readRememberMePreference, writeRememberMePreference } from '../auth/rememberMeStorage.js'
+import {
+  GptBridgeAlreadyVerifiedPanel,
+  GptBridgeLoginContext,
+  GptBridgeResolvingPanel,
+  GptBridgeSuccessPanel,
+} from '../components/GptBridge/index.js'
 import { LocaleSelector } from '../components/LocaleSelector/LocaleSelector.jsx'
 import { formatI18nMessage } from '../i18n/formatI18nMessage.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
@@ -18,9 +32,26 @@ export function LoginPage() {
   const [searchParams] = useSearchParams()
   const devState = searchParams.get('dev_auth_state')
   const devErrorCode = searchParams.get('dev_error_code')
+  const devGptPhase = searchParams.get('dev_gpt_phase')
+  const oauthRequestIdParam = searchParams.get('oauth_request_id')
   const redirectTarget = resolvePostAuthRedirect(searchParams.get('redirect'))
 
+  const oauthRequestId = oauthRequestIdParam ?? readOAuthRequestId()
+  const isGptBridgeEntry = hasOAuthRequestId(oauthRequestId)
+
   const [pageState, setPageState] = useState(() => parseDevAuthState(devState))
+  const [gptBridgePhase, setGptBridgePhase] = useState(() => {
+    if (devGptPhase === GPT_BRIDGE_PHASES.RESOLVING) return GPT_BRIDGE_PHASES.RESOLVING
+    if (devGptPhase === GPT_BRIDGE_PHASES.LOGIN_REQUIRED) return GPT_BRIDGE_PHASES.LOGIN_REQUIRED
+    if (devGptPhase === GPT_BRIDGE_PHASES.SUCCESS) return GPT_BRIDGE_PHASES.SUCCESS
+    if (devGptPhase === GPT_BRIDGE_PHASES.ALREADY_VERIFIED) return GPT_BRIDGE_PHASES.ALREADY_VERIFIED
+    return isGptBridgeEntry ? GPT_BRIDGE_PHASES.RESOLVING : null
+  })
+  const [chatgptRedirectUrl, setChatgptRedirectUrl] = useState(
+    devGptPhase === GPT_BRIDGE_PHASES.SUCCESS || devGptPhase === GPT_BRIDGE_PHASES.ALREADY_VERIFIED
+      ? 'https://chatgpt.com/mock-oauth-callback?code=mock&state=mock'
+      : null,
+  )
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -42,15 +73,73 @@ export function LoginPage() {
     }
   }, [devState, devErrorCode])
 
-  const magicLinkExpiryLabel = useMemo(() => {
-    if (!magicLinkSentAt) {
-      return formatI18nMessage(t('auth.magicSent.minutesRemaining'), { n: MAGIC_LINK_EXPIRY_MINUTES })
+  useEffect(() => {
+    if (oauthRequestIdParam) {
+      persistOAuthRequestId(oauthRequestIdParam)
     }
-    const expiresAt = magicLinkSentAt + MAGIC_LINK_EXPIRY_MINUTES * 60 * 1000
-    const remainingMs = Math.max(0, expiresAt - Date.now())
-    const minutes = Math.ceil(remainingMs / 60000)
-    return formatI18nMessage(t('auth.magicSent.minutesRemaining'), { n: minutes })
-  }, [magicLinkSentAt, t])
+  }, [oauthRequestIdParam])
+
+  const runOAuthComplete = useCallback(
+    async (requestId) => {
+      const activeRequestId = requestId ?? readOAuthRequestId()
+      if (!activeRequestId) {
+        return false
+      }
+      setGptBridgePhase(GPT_BRIDGE_PHASES.RESOLVING)
+      try {
+        const profile = await identityService.fetchMe()
+        const result = await oauthService.completeOAuthAuthorize(activeRequestId)
+        if (result.kind === 'redirect') {
+          setChatgptRedirectUrl(result.location)
+          if (profile?.phone_verified) {
+            setGptBridgePhase(GPT_BRIDGE_PHASES.ALREADY_VERIFIED)
+          } else {
+            setGptBridgePhase(GPT_BRIDGE_PHASES.SUCCESS)
+          }
+          setPageState(AUTH_PAGE_STATES.AUTH_SUCCESS)
+          return true
+        }
+      } catch (error) {
+        if (error instanceof OAuthVerificationRequiredError) {
+          const { pathname, search } = parseVerifyUrl(error.verify_url)
+          setGptBridgePhase(GPT_BRIDGE_PHASES.VERIFY_REQUIRED)
+          navigate(`${pathname}${search}`, { replace: true })
+          return true
+        }
+        throw error
+      }
+      return false
+    },
+    [navigate],
+  )
+
+  useEffect(() => {
+    if (!isGptBridgeEntry || devGptPhase) {
+      return
+    }
+    let cancelled = false
+    ;(async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      if (!session || cancelled) {
+        if (!cancelled) {
+          setGptBridgePhase(GPT_BRIDGE_PHASES.LOGIN_REQUIRED)
+        }
+        return
+      }
+      try {
+        await runOAuthComplete(oauthRequestId)
+      } catch {
+        if (!cancelled) {
+          setGptBridgePhase(GPT_BRIDGE_PHASES.LOGIN_REQUIRED)
+        }
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [devGptPhase, isGptBridgeEntry, oauthRequestId, runOAuthComplete])
 
   const showError = useCallback((error) => {
     setErrorCode(mapAuthError(error))
@@ -63,8 +152,29 @@ export function LoginPage() {
     } catch (identityError) {
       // Profile load may fail in mock/dev; auth session still valid.
     }
+    if (isGptBridgeEntry) {
+      try {
+        const completed = await runOAuthComplete(oauthRequestId)
+        if (completed) {
+          return
+        }
+      } catch (error) {
+        showError(error)
+        return
+      }
+    }
     setPageState(AUTH_PAGE_STATES.AUTH_SUCCESS)
-  }, [])
+  }, [isGptBridgeEntry, oauthRequestId, runOAuthComplete, showError])
+
+  const magicLinkExpiryLabel = useMemo(() => {
+    if (!magicLinkSentAt) {
+      return formatI18nMessage(t('auth.magicSent.minutesRemaining'), { n: MAGIC_LINK_EXPIRY_MINUTES })
+    }
+    const expiresAt = magicLinkSentAt + MAGIC_LINK_EXPIRY_MINUTES * 60 * 1000
+    const remainingMs = Math.max(0, expiresAt - Date.now())
+    const minutes = Math.ceil(remainingMs / 60000)
+    return formatI18nMessage(t('auth.magicSent.minutesRemaining'), { n: minutes })
+  }, [magicLinkSentAt, t])
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -164,10 +274,19 @@ export function LoginPage() {
           <span className="auth-card__brand-text">{t('auth.brand.name')}</span>
         </div>
 
+        {isGptBridgeEntry && gptBridgePhase === GPT_BRIDGE_PHASES.RESOLVING ? (
+          <GptBridgeResolvingPanel />
+        ) : null}
+
         {pageState === AUTH_PAGE_STATES.LOGIN && (
           <>
-            <h1 className="auth-card__title">{t('auth.signIn.title')}</h1>
-            <p className="auth-card__description">{t('auth.signIn.desc')}</p>
+            {isGptBridgeEntry ? <GptBridgeLoginContext mode="login" /> : null}
+            {!isGptBridgeEntry ? (
+              <>
+                <h1 className="auth-card__title">{t('auth.signIn.title')}</h1>
+                <p className="auth-card__description">{t('auth.signIn.desc')}</p>
+              </>
+            ) : null}
             {resetLinkSent ? <p className="auth-card__status">{t('auth.resetLinkSent')}</p> : null}
             <form className="auth-form" onSubmit={handleLogin}>
               <label className="auth-field">
@@ -227,8 +346,13 @@ export function LoginPage() {
 
         {pageState === AUTH_PAGE_STATES.SIGNUP && (
           <>
-            <h1 className="auth-card__title">{t('auth.cta.createAccount')}</h1>
-            <p className="auth-card__description">{t('auth.signup.desc')}</p>
+            {isGptBridgeEntry ? <GptBridgeLoginContext mode="signup" /> : null}
+            {!isGptBridgeEntry ? (
+              <>
+                <h1 className="auth-card__title">{t('auth.cta.createAccount')}</h1>
+                <p className="auth-card__description">{t('auth.signup.desc')}</p>
+              </>
+            ) : null}
             <form className="auth-form" onSubmit={handleSignup}>
               <label className="auth-field">
                 <span>{t('auth.field.email')}</span>
@@ -331,7 +455,15 @@ export function LoginPage() {
           </>
         )}
 
-        {pageState === AUTH_PAGE_STATES.AUTH_SUCCESS && (
+        {pageState === AUTH_PAGE_STATES.AUTH_SUCCESS && isGptBridgeEntry ? (
+          gptBridgePhase === GPT_BRIDGE_PHASES.ALREADY_VERIFIED ? (
+            <GptBridgeAlreadyVerifiedPanel redirectUrl={chatgptRedirectUrl} />
+          ) : (
+            <GptBridgeSuccessPanel redirectUrl={chatgptRedirectUrl} />
+          )
+        ) : null}
+
+        {pageState === AUTH_PAGE_STATES.AUTH_SUCCESS && !isGptBridgeEntry ? (
           <>
             <div className="auth-icon auth-icon--success" aria-hidden="true">
               ✓
@@ -352,7 +484,7 @@ export function LoginPage() {
               </div>
             </div>
           </>
-        )}
+        ) : null}
 
         <p className="auth-card__footnote">
           {t('auth.footnote')}

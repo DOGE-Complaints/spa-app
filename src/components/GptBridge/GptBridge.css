@@ -1,0 +1,104 @@
+.gpt-bridge-draft-banner {
+  margin-bottom: 1.25rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.gpt-bridge-draft-banner__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a0a3ac;
+}
+
+.gpt-bridge-draft-banner__status {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f2f2f2;
+}
+
+.gpt-bridge-draft-banner__source {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: #8e9097;
+}
+
+.gpt-bridge-panel {
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(20, 20, 23, 0.72);
+}
+
+.gpt-bridge-panel__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  color: #f2f2f2;
+}
+
+.gpt-bridge-panel__message,
+.gpt-bridge-panel__context,
+.gpt-bridge-panel__meta,
+.gpt-bridge-login-context__message,
+.gpt-bridge-login-context__note {
+  margin: 0.35rem 0;
+  color: #a0a3ac;
+  line-height: 1.45;
+}
+
+.gpt-bridge-panel__progress {
+  margin-top: 1rem;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(199, 166, 70, 0.2), rgba(199, 166, 70, 0.85), rgba(199, 166, 70, 0.2));
+  animation: gpt-bridge-progress 1.4s ease-in-out infinite;
+}
+
+@keyframes gpt-bridge-progress {
+  0% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.45;
+  }
+}
+
+.gpt-bridge-panel__cta {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #c7a646;
+  color: #141417;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.gpt-bridge-panel__secondary {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: #c7a646;
+  text-decoration: none;
+}
+
+.gpt-bridge-login-context {
+  margin-bottom: 1rem;
+}
+
+.gpt-bridge-login-context__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: #f2f2f2;
+}
+
+.verify-page__gpt-bridge {
+  margin-bottom: 1.25rem;
+}

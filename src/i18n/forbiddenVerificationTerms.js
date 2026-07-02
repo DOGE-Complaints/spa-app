@@ -19,6 +19,7 @@ const IDENTITY_NAMESPACE_PREFIXES = Object.freeze([
   'verifyPage.',
   'dashboard.',
   'storyGate.',
+  'gptBridge.',
   'waitlist.',
 ])
 

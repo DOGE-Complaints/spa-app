@@ -352,6 +352,48 @@ export const IDENTITY_DICTIONARY_EN = Object.freeze({
       submitAnother: 'Submit Another Story',
     },
   },
+  gptBridge: {
+    ready: {
+      title: 'Story Ready in GPT',
+      message:
+        'Your story is ready. DOGEstonia needs a verified civic account before submission.',
+      continue: 'Continue to DOGEstonia',
+    },
+    draft: {
+      label: 'Story Draft',
+      statusPrepared: 'Status: Prepared',
+      statusSaved: 'Status: Saved',
+      statusReady: 'Status: Ready',
+      sourceGpt: 'Source: Custom GPT',
+    },
+    resolving: {
+      title: 'Checking your session',
+      message: 'DOGEstonia is preparing your verification flow.',
+      context: 'Context: Custom GPT',
+      draftPreserved: 'Story Draft: Preserved',
+    },
+    login: {
+      title: 'Sign in to continue',
+      message: 'Your story is saved. Sign in to continue verification.',
+    },
+    signup: {
+      title: 'Create DOGEstonia account',
+      message: 'Create an account to continue your story submission.',
+      phoneNote: 'Phone verification happens after account creation.',
+    },
+    success: {
+      title: 'Verified civic participant',
+      message:
+        'Your civic account is verified. Return to ChatGPT to continue your story submission.',
+      returnToChatgpt: 'Return to ChatGPT',
+      openProfile: 'Open Profile',
+    },
+    alreadyVerified: {
+      title: "You're ready",
+      message: 'Your account is already verified. Return to ChatGPT to continue.',
+      context: 'Verification: Already Complete',
+    },
+  },
   waitlist: {
     notSupported: {
       title: 'DOGEstonia is currently available in Estonia',
@@ -745,6 +787,48 @@ export const IDENTITY_DICTIONARY_ET = Object.freeze({
       statusUnderReview: 'Läbivaatamisel',
       viewActivity: 'Vaata tegevust',
       submitAnother: 'Esita uus lugu',
+    },
+  },
+  gptBridge: {
+    ready: {
+      title: 'Lugu valmis GPT-s',
+      message:
+        'Sinu lugu on valmis. Enne esitamist vajab DOGEstonia kinnitatud kodanikukontot.',
+      continue: 'Jätka DOGEstoniasse',
+    },
+    draft: {
+      label: 'Loo mustand',
+      statusPrepared: 'Olek: ette valmistatud',
+      statusSaved: 'Olek: salvestatud',
+      statusReady: 'Olek: valmis',
+      sourceGpt: 'Allikas: Custom GPT',
+    },
+    resolving: {
+      title: 'Kontrollime sinu sessiooni',
+      message: 'DOGEstonia valmistab ette sinu kinnitamise voogu.',
+      context: 'Kontekst: Custom GPT',
+      draftPreserved: 'Loo mustand: säilitatud',
+    },
+    login: {
+      title: 'Logi sisse, et jätkata',
+      message: 'Sinu lugu on salvestatud. Logi sisse, et jätkata kinnitamist.',
+    },
+    signup: {
+      title: 'Loo DOGEstonia konto',
+      message: 'Loo konto, et jätkata loo esitamist.',
+      phoneNote: 'Telefoni kinnitamine toimub pärast konto loomist.',
+    },
+    success: {
+      title: 'Kinnitatud kodanik',
+      message:
+        'Sinu kodanikukonto on kinnitatud. Naase ChatGPT-sse, et jätkata loo esitamist.',
+      returnToChatgpt: 'Naase ChatGPT-sse',
+      openProfile: 'Ava profiil',
+    },
+    alreadyVerified: {
+      title: 'Oled valmis',
+      message: 'Sinu konto on juba kinnitatud. Naase ChatGPT-sse, et jätkata.',
+      context: 'Kinnitamine: juba tehtud',
     },
   },
   waitlist: {
@@ -1142,6 +1226,48 @@ export const IDENTITY_DICTIONARY_RU = Object.freeze({
       submitAnother: 'Отправить ещё историю',
     },
   },
+  gptBridge: {
+    ready: {
+      title: 'История готова в GPT',
+      message:
+        'Ваша история готова. Перед отправкой DOGEstonia нужен подтверждённый гражданский аккаунт.',
+      continue: 'Перейти в DOGEstonia',
+    },
+    draft: {
+      label: 'Черновик истории',
+      statusPrepared: 'Статус: подготовлено',
+      statusSaved: 'Статус: сохранено',
+      statusReady: 'Статус: готово',
+      sourceGpt: 'Источник: Custom GPT',
+    },
+    resolving: {
+      title: 'Проверяем вашу сессию',
+      message: 'DOGEstonia готовит процесс подтверждения.',
+      context: 'Контекст: Custom GPT',
+      draftPreserved: 'Черновик истории: сохранён',
+    },
+    login: {
+      title: 'Войдите, чтобы продолжить',
+      message: 'Ваша история сохранена. Войдите, чтобы продолжить подтверждение.',
+    },
+    signup: {
+      title: 'Создать аккаунт DOGEstonia',
+      message: 'Создайте аккаунт, чтобы продолжить отправку истории.',
+      phoneNote: 'Подтверждение телефона произойдёт после создания аккаунта.',
+    },
+    success: {
+      title: 'Подтверждённый гражданский участник',
+      message:
+        'Ваш гражданский аккаунт подтверждён. Вернитесь в ChatGPT, чтобы продолжить отправку истории.',
+      returnToChatgpt: 'Вернуться в ChatGPT',
+      openProfile: 'Открыть профиль',
+    },
+    alreadyVerified: {
+      title: 'Всё готово',
+      message: 'Ваш аккаунт уже подтверждён. Вернитесь в ChatGPT, чтобы продолжить.',
+      context: 'Подтверждение: уже выполнено',
+    },
+  },
   waitlist: {
     notSupported: {
       title: 'DOGEstonia сейчас доступна в Эстонии',
@@ -1412,6 +1538,30 @@ export const IDENTITY_FLAT_KEYS = Object.freeze([
   'storyGate.success.statusUnderReview',
   'storyGate.success.viewActivity',
   'storyGate.success.submitAnother',
+  'gptBridge.ready.title',
+  'gptBridge.ready.message',
+  'gptBridge.ready.continue',
+  'gptBridge.draft.label',
+  'gptBridge.draft.statusPrepared',
+  'gptBridge.draft.statusSaved',
+  'gptBridge.draft.statusReady',
+  'gptBridge.draft.sourceGpt',
+  'gptBridge.resolving.title',
+  'gptBridge.resolving.message',
+  'gptBridge.resolving.context',
+  'gptBridge.resolving.draftPreserved',
+  'gptBridge.login.title',
+  'gptBridge.login.message',
+  'gptBridge.signup.title',
+  'gptBridge.signup.message',
+  'gptBridge.signup.phoneNote',
+  'gptBridge.success.title',
+  'gptBridge.success.message',
+  'gptBridge.success.returnToChatgpt',
+  'gptBridge.success.openProfile',
+  'gptBridge.alreadyVerified.title',
+  'gptBridge.alreadyVerified.message',
+  'gptBridge.alreadyVerified.context',
   'waitlist.notSupported.title',
   'waitlist.notSupported.message',
   'waitlist.notSupported.countryLabel',
