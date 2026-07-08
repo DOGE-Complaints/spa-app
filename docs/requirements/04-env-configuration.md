@@ -1,6 +1,6 @@
 # 04. Environment Configuration
 
-> **Статус:** НЕ реализовано. Spec для `.env.local` и Vite env vars.
+> **Статус:** Реализовано. SSOT: [`.env.example`](../../.env.example), [railway-git-deploy-manual.md](../../railway-git-deploy-manual.md).
 > **Текущий паттерн (верифицировано):** `issueService.js:30-31` — `import.meta.env.VITE_*` с `?? 'default'`.
 > **Связь:** Используется в файлах 05 (Supabase Client), 07 (API Client).
 
@@ -23,6 +23,9 @@
 | `VITE_SUPABASE_URL` | Yes (prod) | — | Supabase project URL. Dashboard → Settings → API → Project URL |
 | `VITE_SUPABASE_ANON_KEY` | Yes (prod) | — | Supabase anon/public key. Безопасно включать в frontend — RLS защищает данные. |
 | `VITE_IDENTITY_MOCK_MODE` | No | `false` | `true` — mock identity in browser (режим A); `false` — HTTP к identity (режим B, file sink). |
+| `VITE_STORY_GPT_URL` | No | — | Custom GPT URL для web-entry «создать историю» ([`StorySubmitPage.jsx:29`](../../src/pages/StorySubmitPage.jsx)). Railway: build-time only. |
+| `VITE_GATEWAY_BASE_URL` | Yes (GFL-DRIVEN) | — | Gateway base URL. Railway: публичный URL, не localhost. |
+| `VITE_LIFE_REALITY_MODE` | No | `FAKE-OLD` | `GFL-DRIVEN` для real gateway на railway. |
 
 **Примечание по `VITE_SUPABASE_ANON_KEY`:** Supabase anon key — публичный ключ, предназначен для браузера. RLS (Row Level Security) на стороне Supabase обеспечивает защиту. Это не секрет — его можно коммитить в `.env` (не `.env.local`).
 
@@ -48,6 +51,9 @@ VITE_IDENTITY_MOCK_MODE=false
 # Существующие (не трогать)
 VITE_LIFE_REALITY_MODE=FAKE-OLD
 VITE_GATEWAY_BASE_URL=
+
+# Custom GPT (M-3 web-entry)
+# VITE_STORY_GPT_URL=https://chatgpt.com/g/your-custom-gpt
 ```
 
 ## `.env.local` (локальный, в .gitignore)

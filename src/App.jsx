@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import {
   AppShellLayout,
   ProtectedProfilePage,
@@ -7,8 +7,13 @@ import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
-import { StoryComposePage } from './pages/StoryComposePage.jsx'
+import { StorySubmitPage } from './pages/StorySubmitPage.jsx'
 import { VerifyPage } from './pages/VerifyPage.jsx'
+
+function StoryComposeRedirect() {
+  const { search } = useLocation()
+  return <Navigate to={`/story/submit${search}`} replace />
+}
 
 function App() {
   return (
@@ -21,7 +26,8 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/profile" element={<ProtectedProfilePage />} />
         <Route path="/verify" element={<VerifyPage />} />
-        <Route path="/story/compose" element={<StoryComposePage />} />
+        <Route path="/story/submit" element={<StorySubmitPage />} />
+        <Route path="/story/compose" element={<StoryComposeRedirect />} />
         <Route path="*" element={<Navigate to="/board" replace />} />
       </Route>
     </Routes>

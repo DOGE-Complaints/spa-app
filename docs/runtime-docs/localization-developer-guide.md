@@ -34,28 +34,32 @@ Endonym'ы (Eesti/Русский/English) и флаги **не переводя�
 
 ## 3. ⭐ Где какие строки лежат (модульность)
 
-`UI_DICTIONARY` физически собран из **двух источников** — это важно знать, чтобы не искать ключи не в том файле:
+`UI_DICTIONARY` физически собран из **трёх модулей** — это важно знать, чтобы не искать ключи не в том файле:
 
 | Набор строк | Файл | Как попадает в `UI_DICTIONARY` |
 |-------------|------|--------------------------------|
 | **Board / Issue / общие** (`board`, `filterStatus`, `clear`, `searchPlaceholder`…) | [`dictionaries.js`](../../src/i18n/dictionaries.js) — напрямую в блоках `et/ru/en` | уже там |
 | **Identity** (`auth.*`, `session.*`, `civic.*`, `phone.*`, `phoneError.*`, `verifyPage.*`, `dashboard.*`, `appShell.*`) | [`identityDictionary.js`](../../src/i18n/identityDictionary.js) — экспорты `IDENTITY_DICTIONARY_{EN,ET,RU}` | `dictionaries.js` делает `...IDENTITY_DICTIONARY_ET` (spread) в каждую локаль |
+| **User Cabinet** (`cabinet.*`) | [`cabinetDictionary.js`](../../src/i18n/cabinetDictionary.js) — `CABINET_DICTIONARY_{EN,ET,RU}` | `dictionaries.js` делает `...CABINET_DICTIONARY_ET` (spread) в каждую локаль |
 
 ```js
 // dictionaries.js (сокращённо)
 import { IDENTITY_DICTIONARY_EN, IDENTITY_DICTIONARY_ET, IDENTITY_DICTIONARY_RU } from './identityDictionary.js'
+import { CABINET_DICTIONARY_EN, CABINET_DICTIONARY_ET, CABINET_DICTIONARY_RU } from './cabinetDictionary.js'
 export const UI_DICTIONARY = Object.freeze({
-  et: { board: 'Töölaud', /* … */ ...IDENTITY_DICTIONARY_ET },
-  ru: { /* … */ ...IDENTITY_DICTIONARY_RU },
-  en: { /* … */ ...IDENTITY_DICTIONARY_EN },
+  et: { board: 'Töölaud', /* … */ ...IDENTITY_DICTIONARY_ET, ...CABINET_DICTIONARY_ET },
+  ru: { /* … */ ...IDENTITY_DICTIONARY_RU, ...CABINET_DICTIONARY_RU },
+  en: { /* … */ ...IDENTITY_DICTIONARY_EN, ...CABINET_DICTIONARY_EN },
 })
 ```
 
-**Правило:** identity-строку **добавляй в `identityDictionary.js`** (НЕ в `dictionaries.js`). Board/Issue-строку — в `dictionaries.js`. В рантайме это один словарь и один `t()` — фрагментации нет, просто большой identity-набор вынесен в свой модуль.
+**Правило:** identity-строку **добавляй в `identityDictionary.js`** (НЕ в `dictionaries.js`). Cabinet/User Profile — в **`cabinetDictionary.js`**. Board/Issue-строку — в `dictionaries.js`. В рантайме это один словарь и один `t()` — фрагментации нет.
 
 `identityDictionary.js` также экспортирует:
 - `IDENTITY_DICTIONARY_BY_LOCALE` — для forbidden-сканера;
 - **`IDENTITY_FLAT_KEYS`** — плоский список всех identity-ключей; используется parity-тестом (см. §6). **Новый ключ нужно туда добавить.**
+
+`cabinetDictionary.js` экспортирует **`CABINET_FLAT_KEYS`** — parity для cabinet-ключей (см. §6).
 
 ---
 
@@ -84,6 +88,12 @@ formatI18nMessage(t('phone.otp.resendIn'), { seconds: 42 })  // "Resend code (42
 
 ### Board/Issue/общая строка
 То же, но ключ кладёшь прямо в блоки `et/ru/en` в [`dictionaries.js`](../../src/i18n/dictionaries.js) (без `IDENTITY_FLAT_KEYS`).
+
+### Cabinet / User Profile строка (`cabinet.*`)
+1. Перевод на 3 языка — в `CABINET_DICTIONARY_EN/ET/RU` в [`cabinetDictionary.js`](../../src/i18n/cabinetDictionary.js).
+2. Зарегистрируй ключ в `CABINET_FLAT_KEYS`.
+3. SSOT переводов в backlog — §«Тексты и переводы» в [CAB-стори](../tasks/backlog-stories/cabinet/README.md); EN = мокапы `user profile/`.
+4. Reuse `civic.*` / `storyHandoff.*` где указано в story — не дублировать.
 
 ### Анти-паттерны (так НЕ делать)
 - ❌ Английский литерал в JSX (`<h1>Sign In</h1>`) — только `t('auth.signIn.title')`.
@@ -124,7 +134,7 @@ formatI18nMessage(t('phone.otp.resendIn'), { seconds: 42 })  // "Resend code (42
 ## 9. Definition of Done по локализации (для любой UI-стори)
 
 - [ ] Нет английских литералов в JSX/компонентах — всё через `t()`.
-- [ ] Ключи добавлены на **3 языка** (identity → `identityDictionary.js` + `IDENTITY_FLAT_KEYS`; общие → `dictionaries.js`).
+- [ ] Ключи добавлены на **3 языка** (identity → `identityDictionary.js` + `IDENTITY_FLAT_KEYS`; cabinet → `cabinetDictionary.js` + `CABINET_FLAT_KEYS`; общие → `dictionaries.js`).
 - [ ] Интерполяция через `formatI18nMessage`, без склейки строк.
 - [ ] Запрещённые термины отсутствуют во всех языках.
 - [ ] `npx vitest run` зелёный (parity + forbidden + hardcode-guard).

@@ -1,6 +1,6 @@
 const PUBLIC_PATHS = new Set(['/', '/board', '/login'])
 
-const PROTECTED_PREFIXES = ['/dashboard', '/profile', '/story/compose', '/verify']
+const PROTECTED_PREFIXES = ['/dashboard', '/profile', '/story/submit', '/story/compose', '/verify']
 
 /**
  * @param {string} pathname

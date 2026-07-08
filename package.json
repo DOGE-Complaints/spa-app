@@ -12,6 +12,9 @@
     "test:run": "vitest run --passWithNoTests",
     "test:guard:bundle": "node ./scripts/verify-bundle-no-service-role.mjs",
     "verify:bundle:no-service-role": "vite build && node ./scripts/verify-bundle-no-service-role.mjs",
+    "verify:build:env-bake": "node ./scripts/verify-build-env-bake.mjs",
+    "verify:railway:live": "node ./scripts/verify-railway-live-smoke.mjs",
+    "verify:cors:preflight": "node ./scripts/verify-cors-preflight.mjs",
     "verify:security": "vitest run && npm run verify:bundle:no-service-role",
     "test:contract:live": "RUN_LIVE_GATEWAY_CONTRACT=1 vitest run src/repositories/__tests__/GatewayIssueRepository.contract.test.js",
     "test:ui:board-shell": "node ./tests/puppeteer/board-shell-smoke.mjs",
@@ -29,6 +32,8 @@
     "test:ui:verify-error": "node ./tests/puppeteer/verify-page-error-smoke.mjs",
     "test:ui:country-format-m127": "node ./tests/puppeteer/country-format-m127-screenshot.mjs",
     "test:ui:gpt-bridge-m120": "node ./tests/puppeteer/gpt-bridge-m120-screenshot.mjs",
+    "test:ui:story-handoff-m128": "node ./tests/puppeteer/story-handoff-m128-screenshot.mjs",
+    "test:ui:story-handoff-m128-live": "node ./tests/puppeteer/story-handoff-m128-live.mjs",
     "deploy": "node ./scripts/deploy-arweave.mjs"
   },
   "dependencies": {

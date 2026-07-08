@@ -9,6 +9,7 @@ import {
   persistOAuthRequestId,
   readOAuthRequestId,
 } from '../auth/gptBridgeFlowState.js'
+import { resolveHandoffReturnPath } from '../auth/storyHandoffFlowState.js'
 import { identityService } from '../auth/identityService.js'
 import { OAuthVerificationRequiredError, oauthService } from '../auth/oauthService.js'
 import { supabase } from '../auth/supabaseClient.js'
@@ -34,7 +35,10 @@ export function LoginPage() {
   const devErrorCode = searchParams.get('dev_error_code')
   const devGptPhase = searchParams.get('dev_gpt_phase')
   const oauthRequestIdParam = searchParams.get('oauth_request_id')
-  const redirectTarget = resolvePostAuthRedirect(searchParams.get('redirect'))
+  const redirectTarget = resolveHandoffReturnPath(
+    searchParams.get('next'),
+    searchParams.get('redirect') ?? resolvePostAuthRedirect(searchParams.get('redirect')),
+  )
 
   const oauthRequestId = oauthRequestIdParam ?? readOAuthRequestId()
   const isGptBridgeEntry = hasOAuthRequestId(oauthRequestId)

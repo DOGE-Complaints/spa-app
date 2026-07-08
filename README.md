@@ -19,4 +19,4 @@ npm run deploy # Deploy dist/ to Arweave (requires ARWEAVE_WALLET_PATH)
 
 См. `docs/technical-architecture.md` для архитектуры и `docs/requirements/README-index.md` для planned identity-расширения.
 Контракт домена и фасада: `docs/domain-facade-contract.md`.
-Инструкция деплоя: `docs/deploy-arweave.md`.
+Инструкция деплоя: `docs/deploy-arweave.md`. Railway (Git): `docs/railway-git-deploy-manual.md`.

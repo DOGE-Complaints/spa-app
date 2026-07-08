@@ -1,0 +1,11 @@
+# spa-app — Railway deploy (monorepo: set Root Directory = spa-app in Railway UI)
+# SSOT: package.json scripts + docs/deploy-guide.md §3
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
