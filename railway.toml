@@ -1,5 +1,6 @@
 # spa-app — Railway deploy (monorepo: set Root Directory = spa-app in Railway UI)
 # SSOT: package.json scripts + docs/deploy-guide.md §3
+# Start: npm start → serve -s dist (static production serve; not vite preview)
 
 [build]
 builder = "nixpacks"

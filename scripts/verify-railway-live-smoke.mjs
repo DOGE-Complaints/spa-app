@@ -28,7 +28,7 @@ async function verifyShell() {
   const html = await response.text()
   if (html.includes('Blocked request. This host') && html.includes('preview.allowedHosts')) {
     fail(
-      'vite preview blocked Host — add Railway domain to preview.allowedHosts in vite.config.js',
+      'response looks like vite preview Host block — production should use static serve (npm start → serve -s dist)',
     )
   }
   if (!html.includes('id="root"')) {

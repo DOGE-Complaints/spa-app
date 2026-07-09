@@ -91,7 +91,7 @@ Railway обнаруживает `package.json` и `railway.toml` в корне 
 | Этап | Команда | SSOT |
 |------|---------|------|
 | **Build** | `npm run build` | `railway.toml` → `[build] buildCommand`, `package.json` |
-| **Start** | `npm start` → `vite preview --host 0.0.0.0 --port $PORT` | `railway.toml` → `[deploy] startCommand`, `package.json:10` |
+| **Start** | `npm start` → `serve -s dist -l tcp://0.0.0.0:$PORT` | `railway.toml` → `[deploy] startCommand`, `package.json` |
 
 `$PORT` — переменная, которую Railway инжектирует автоматически. Менять не нужно.
 
@@ -132,7 +132,7 @@ VITE_STORY_GPT_URL=https://chatgpt.com/g/your-custom-gpt
 
 5. Нажми **Deploy** (или пуш в ветку запустит автодеплой).
 
-> **Домен SPA не в `.env`:** публичный URL (`https://….up.railway.app`) назначает Railway. В `.env` / Railway Variables нужны только `VITE_*` (build-time). Для `vite preview` на Railway см. `preview.allowedHosts` в [`vite.config.js`](../vite.config.js).
+> **Домен SPA не в `.env`:** публичный URL (`https://….up.railway.app`) назначает Railway. В `.env` / Railway Variables нужны только `VITE_*` (build-time). Production serve — static `dist/` через [`serve`](https://www.npmjs.com/package/serve) (`npm start`); локальная проверка бандла — `npm run preview` (Vite).
 
 ### Post-deploy smoke (M-5)
 
@@ -142,7 +142,7 @@ VITE_STORY_GPT_URL=https://chatgpt.com/g/your-custom-gpt
 SPA_BASE_URL=https://<your-spa>.railway.app npm run verify:railway:live
 ```
 
-Локальная проверка скрипта (preview, не production):
+Локальная проверка скрипта (static serve, как на Railway):
 
 ```bash
 cd spa-app && npm run build && PORT=4173 npm start
@@ -221,8 +221,8 @@ npm run deploy
 |--------|-----------|--------|
 | `npm run dev` | Vite dev server, hot-reload | localhost:5173 |
 | `npm run build` | собирает `dist/` | подготовка к любому деплою |
-| `npm run preview` | Vite preview server | localhost:4173 (тест бандла) |
-| `npm start` | `vite preview --host 0.0.0.0 --port $PORT` | Railway (запускается платформой) |
+| `npm run preview` | Vite preview server | localhost:4173 (локальная проверка бандла) |
+| `npm start` | `serve -s dist -l tcp://0.0.0.0:$PORT` | Railway (static production serve) |
 | `npm run deploy` | деплой `dist/` на Arweave через `arkb` | Arweave |
 | `npm run verify:bundle:no-service-role` | build + scan dist на `service_role` | pre-deploy guard (SEC-01) |
 | `npm run verify:build:env-bake` | build с `VITE_*` + scan dist (gateway, identity, Supabase, GPT) | pre-deploy guard (DEPLOY-01) |
@@ -241,8 +241,8 @@ npm run deploy
 - Проверь что `npm start` в Deploy Logs запустился и слушает PORT
 
 **Текст «Blocked request. This host is not allowed»**
-- Vite `preview` блокирует Host, который не в `preview.allowedHosts` ([`vite.config.js`](../vite.config.js))
-- Для `*.up.railway.app` должен быть `.up.railway.app` в `allowedHosts`; после правки — redeploy
+- Устаревший деплой на `vite preview` — production должен использовать `npm start` → `serve -s dist` (см. [`package.json`](../package.json))
+- Если ошибка сохраняется после redeploy — проверь Deploy Logs: процесс должен быть `serve`, не `vite preview`
 
 **Issues не загружаются (GFL-DRIVEN режим)**
 - Убедись что `VITE_GATEWAY_BASE_URL` задан и доступен из браузера

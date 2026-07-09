@@ -13,7 +13,7 @@ Railway подхватит [`railway.toml`](../railway.toml):
 | Этап | Команда |
 |------|---------|
 | Build | `npm run build` |
-| Start | `npm start` (`vite preview --host 0.0.0.0 --port $PORT`) |
+| Start | `npm start` (`serve -s dist -l tcp://0.0.0.0:$PORT`) |
 
 `$PORT` задаёт Railway автоматически — не трогать.
 
