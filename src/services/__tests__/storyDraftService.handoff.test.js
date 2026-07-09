@@ -11,6 +11,7 @@ vi.mock('../../auth/supabaseClient.js', () => ({
 import {
   createStoryDraftService,
   createMockDraftPayload,
+  normalizeSubmitResult,
   VerificationRequiredError,
   StoryDraftApiError,
 } from '../storyDraftService.js'
@@ -45,6 +46,17 @@ describe('storyDraftService handoff (mock mode)', () => {
     const result = await service.submitStoryDraft(draftId, 'token')
     expect(result.submission_id).toBe(`mock-submission-${draftId}`)
     expect(result.status).toBe('under_review')
+  })
+
+  it('normalizeSubmitResult maps gateway story_id to submission_id', () => {
+    const result = normalizeSubmitResult({
+      schema_version: 'm2.story_intake_response.v1',
+      story_id: 'a2e35351-4fc6-4ed7-a601-dae7a18e0d12',
+      status: 'ready_for_profile',
+    })
+    expect(result.submission_id).toBe('a2e35351-4fc6-4ed7-a601-dae7a18e0d12')
+    expect(result.story_id).toBe('a2e35351-4fc6-4ed7-a601-dae7a18e0d12')
+    expect(result.status).toBe('ready_for_profile')
   })
 
   it('submitStoryDraft throws VerificationRequiredError when mock gate forced', async () => {

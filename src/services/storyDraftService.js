@@ -89,6 +89,20 @@ async function gatewayFetch(baseUrl, path, { token, method = 'GET', body, ...opt
   return responseBody?.data ?? responseBody
 }
 
+/**
+ * Gateway returns StoryIntakeResponse (`story_id`); SPA handoff UI uses `submission_id`.
+ * @param {Record<string, unknown>} data
+ * @returns {{ submission_id: string, story_id: string, status: string }}
+ */
+export function normalizeSubmitResult(data) {
+  const storyId = String(data.story_id ?? data.submission_id ?? '').trim()
+  if (!storyId) {
+    throw new StoryDraftApiError('invalid_submit_response', 0, data)
+  }
+  const status = String(data.status ?? 'under_review')
+  return { submission_id: storyId, story_id: storyId, status }
+}
+
 /** Default mock payload for handoff preview tests. */
 export function createMockDraftPayload(overrides = {}) {
   return {
@@ -166,14 +180,16 @@ export function createStoryDraftService(
           status: 'under_review',
         }
       }
-      return gatewayFetch(
-        baseUrl,
-        `/story-drafts/${encodeURIComponent(draftId)}/submit`,
-        {
-          method: 'POST',
-          token,
-          body: JSON.stringify({}),
-        },
+      return normalizeSubmitResult(
+        await gatewayFetch(
+          baseUrl,
+          `/story-drafts/${encodeURIComponent(draftId)}/submit`,
+          {
+            method: 'POST',
+            token,
+            body: JSON.stringify({}),
+          },
+        ),
       )
     },
 

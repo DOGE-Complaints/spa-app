@@ -14,6 +14,7 @@
     "verify:bundle:no-service-role": "vite build && node ./scripts/verify-bundle-no-service-role.mjs",
     "verify:build:env-bake": "node ./scripts/verify-build-env-bake.mjs",
     "verify:railway:live": "node ./scripts/verify-railway-live-smoke.mjs",
+    "verify:railway:story-submit": "node ./scripts/verify-railway-story-submit-smoke.mjs",
     "verify:cors:preflight": "node ./scripts/verify-cors-preflight.mjs",
     "verify:security": "vitest run && npm run verify:bundle:no-service-role",
     "test:contract:live": "RUN_LIVE_GATEWAY_CONTRACT=1 vitest run src/repositories/__tests__/GatewayIssueRepository.contract.test.js",

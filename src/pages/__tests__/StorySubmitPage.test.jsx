@@ -176,7 +176,7 @@ describe('StorySubmitPage', () => {
     vi.unstubAllEnvs()
   })
 
-  it('submits draft and shows success on 202', async () => {
+  it('submits draft and redirects to profile on 202', async () => {
     const draftId = storyDraftService._createMockDraftId?.()
     storyDraftService._seedMockDraft?.(draftId)
     renderPage(`/story/submit?draft_id=${draftId}`)
@@ -185,14 +185,11 @@ describe('StorySubmitPage', () => {
     fireEvent.click(screen.getByTestId('story-handoff-submit'))
 
     await waitFor(() => {
-      expect(screen.getByTestId('story-handoff-success')).toBeTruthy()
+      expect(mockNavigate).toHaveBeenCalledWith('/profile', {
+        replace: true,
+        state: { submittedStoryId: `mock-submission-${draftId}` },
+      })
     })
-    expect(screen.getByTestId('story-handoff-submission-id').textContent).toMatch(
-      /^mock-submission-/,
-    )
-    expect(screen.getByTestId('story-handoff-my-stories')).toBeTruthy()
-    fireEvent.click(screen.getByTestId('story-handoff-my-stories'))
-    expect(mockNavigate).toHaveBeenCalledWith('/board')
   })
 
   it('submit another assigns VITE_STORY_GPT_URL on success panel', async () => {
@@ -205,12 +202,7 @@ describe('StorySubmitPage', () => {
       value: { ...originalLocation, assign: assignMock },
     })
 
-    const draftId = storyDraftService._createMockDraftId?.()
-    storyDraftService._seedMockDraft?.(draftId)
-    await renderFreshPage(`/story/submit?draft_id=${draftId}`)
-
-    await waitFor(() => screen.getByTestId('story-handoff-preview'))
-    fireEvent.click(screen.getByTestId('story-handoff-submit'))
+    await renderFreshPage('/story/submit?dev_handoff_phase=submitted')
 
     await waitFor(() => screen.getByTestId('story-handoff-success'))
     fireEvent.click(screen.getByTestId('story-handoff-submit-another'))
@@ -223,7 +215,7 @@ describe('StorySubmitPage', () => {
     vi.unstubAllEnvs()
   })
 
-  it('shows verify interpose on submit 403 and auto-resubmits after verify', async () => {
+  it('shows verify interpose on submit 403 and redirects to profile after verify', async () => {
     const draftId = storyDraftService._createMockDraftId?.()
     storyDraftService._seedMockDraft?.(draftId)
     storyDraftService._setMockForceVerificationRequired?.(true)
@@ -240,7 +232,10 @@ describe('StorySubmitPage', () => {
     fireEvent.click(screen.getByTestId('mock-verify-complete'))
 
     await waitFor(() => {
-      expect(screen.getByTestId('story-handoff-success')).toBeTruthy()
+      expect(mockNavigate).toHaveBeenCalledWith('/profile', {
+        replace: true,
+        state: { submittedStoryId: `mock-submission-${draftId}` },
+      })
     })
     expect(mockRetry).toHaveBeenCalled()
   })

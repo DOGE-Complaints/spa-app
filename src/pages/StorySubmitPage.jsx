@@ -113,9 +113,12 @@ export function StorySubmitPage() {
       setBusy(true)
       try {
         const result = await storyDraftService.submitStoryDraft(activeId, accessToken)
-        setSubmissionId(result.submission_id)
         clearDraftId()
-        setPhase(STORY_HANDOFF_PHASES.SUBMITTED)
+        navigate('/profile', {
+          replace: true,
+          state: { submittedStoryId: result.submission_id },
+        })
+        return
       } catch (error) {
         if (error instanceof StoryDraftApiError && error.status === 401) {
           redirectToLogin(activeId)
@@ -126,7 +129,7 @@ export function StorySubmitPage() {
         setBusy(false)
       }
     },
-    [accessToken, draftId, redirectToLogin],
+    [accessToken, draftId, navigate, redirectToLogin],
   )
 
   useEffect(() => {
@@ -255,7 +258,7 @@ export function StorySubmitPage() {
         <StoryHandoffSuccessPanel
           submissionId={submissionId}
           onGoToBoard={() => navigate('/board')}
-          onMyStories={() => navigate('/board')}
+          onMyStories={() => navigate('/profile')}
           onSubmitAnother={() => {
             if (STORY_GPT_URL) {
               window.location.assign(STORY_GPT_URL)
