@@ -3,6 +3,7 @@ import { shouldShowSessionShellOverlay } from '../auth/sessionShellState.js'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { AppShell } from '../components/AppShell/index.js'
 import { SessionShellOverlay } from '../components/SessionShellState/index.js'
+import { UserCabinetPage } from '../pages/UserCabinetPage.jsx'
 import {
   isLoginPath,
   isProtectedPath,
@@ -42,7 +43,7 @@ export function AppShellLayout() {
 }
 
 export function ProtectedProfilePage() {
-  return <ProtectedPlaceholder title="Profile" />
+  return <UserCabinetPage />
 }
 
 export function ProtectedRouteRedirect() {

@@ -23,7 +23,18 @@ function resetMockProfile() {
 }
 
 function getMockProfile() {
-  return { ...mockProfileState }
+  let merged = { ...mockProfileState }
+  if (typeof sessionStorage !== 'undefined') {
+    const overrideRaw = sessionStorage.getItem('doge.mock-profile')
+    if (overrideRaw) {
+      try {
+        merged = { ...merged, ...JSON.parse(overrideRaw) }
+      } catch {
+        // ignore invalid override
+      }
+    }
+  }
+  return merged
 }
 
 export class AuthenticationRequiredError extends Error {

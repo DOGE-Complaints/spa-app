@@ -3,6 +3,11 @@ import {
   IDENTITY_DICTIONARY_ET,
   IDENTITY_DICTIONARY_RU,
 } from './identityDictionary.js'
+import {
+  CABINET_DICTIONARY_EN,
+  CABINET_DICTIONARY_ET,
+  CABINET_DICTIONARY_RU,
+} from './cabinetDictionary.js'
 
 export const UI_DICTIONARY = Object.freeze({
   et: {
@@ -72,6 +77,7 @@ export const UI_DICTIONARY = Object.freeze({
       untranslatedLabel: 'Tõlkimata',
     },
     ...IDENTITY_DICTIONARY_ET,
+    ...CABINET_DICTIONARY_ET,
   },
   ru: {
     board: 'Доска',
@@ -140,6 +146,7 @@ export const UI_DICTIONARY = Object.freeze({
       untranslatedLabel: 'Без перевода',
     },
     ...IDENTITY_DICTIONARY_RU,
+    ...CABINET_DICTIONARY_RU,
   },
   en: {
     board: 'Board',
@@ -208,5 +215,6 @@ export const UI_DICTIONARY = Object.freeze({
       untranslatedLabel: 'No translation',
     },
     ...IDENTITY_DICTIONARY_EN,
+    ...CABINET_DICTIONARY_EN,
   },
 })
