@@ -19,6 +19,19 @@ describe('identityService.fetchMe', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     vi.stubGlobal('fetch', vi.fn())
+    const store = new Map()
+    vi.stubGlobal('sessionStorage', {
+      getItem: (key) => (store.has(key) ? store.get(key) : null),
+      setItem: (key, value) => {
+        store.set(key, String(value))
+      },
+      removeItem: (key) => {
+        store.delete(key)
+      },
+      clear: () => {
+        store.clear()
+      },
+    })
   })
 
   it('returns mock profile when mock mode enabled', async () => {
@@ -26,6 +39,32 @@ describe('identityService.fetchMe', () => {
     const profile = await service.fetchMe()
     expect(profile.supabase_user_id).toBe('mock-user-unverified')
     expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('throws expected errors for doge.mock-me-error flags', async () => {
+    const service = createIdentityService('http://localhost:8100', true)
+    const cases = [
+      ['session_expired', AuthenticationRequiredError],
+      ['backend_unavailable', IdentityApiError],
+      ['network_error', IdentityApiError],
+    ]
+    for (const [flag, ErrorType] of cases) {
+      sessionStorage.setItem('doge.mock-me-error', flag)
+      await expect(service.fetchMe()).rejects.toBeInstanceOf(ErrorType)
+      sessionStorage.removeItem('doge.mock-me-error')
+    }
+  })
+
+  it('delays then returns profile for doge.mock-me-error=restoring', async () => {
+    vi.useFakeTimers()
+    const service = createIdentityService('http://localhost:8100', true)
+    sessionStorage.setItem('doge.mock-me-error', 'restoring')
+    const pending = service.fetchMe()
+    await vi.advanceTimersByTimeAsync(2500)
+    const profile = await pending
+    expect(profile.supabase_user_id).toBe('mock-user-unverified')
+    sessionStorage.removeItem('doge.mock-me-error')
+    vi.useRealTimers()
   })
 
   it('throws AuthenticationRequiredError on 401 envelope', async () => {
