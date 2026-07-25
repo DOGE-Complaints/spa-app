@@ -1,11 +1,12 @@
 .user-cabinet-page {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 2rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 1.25rem 1.25rem 2rem;
 }
 
 .user-cabinet-page__header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .user-cabinet-page__title {
@@ -16,10 +17,140 @@
 }
 
 .user-cabinet-page__loading {
-  margin: 0;
+  margin: 0.75rem 0 0;
   color: var(--color-text-muted, rgba(245, 247, 250, 0.65));
 }
 
+/* M99: 12-column desktop grid — hierarchy Civic > Story > Contribution > Account > Wallet */
+.user-cabinet-page__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.user-cabinet-page__slot {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(34, 35, 40, 0.72);
+  backdrop-filter: blur(8px);
+  padding: 1rem 1.1rem 1.15rem;
+  min-height: 7.5rem;
+}
+
+.user-cabinet-page__slot-header {
+  margin-bottom: 0.75rem;
+}
+
+.user-cabinet-page__slot-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(245, 247, 250, 0.92);
+}
+
+.user-cabinet-page__slot-body {
+  min-height: 3rem;
+}
+
+.user-cabinet-page__slot-placeholder {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-muted, rgba(245, 247, 250, 0.55));
+}
+
+/* Desktop placement (M99) — Account needs ≥~320px for field rows */
+.user-cabinet-page__slot--civic {
+  grid-column: 5 / span 5;
+  grid-row: 1;
+  min-height: 14rem;
+}
+
 .user-cabinet-page__slot--account {
-  max-width: 32rem;
+  grid-column: 1 / span 4;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.user-cabinet-page__slot--wallet {
+  grid-column: 10 / span 3;
+  grid-row: 1;
+}
+
+.user-cabinet-page__slot--story {
+  grid-column: 5 / span 5;
+  grid-row: 2;
+  min-height: 11rem;
+}
+
+.user-cabinet-page__slot--contribution {
+  grid-column: 1 / span 12;
+  grid-row: 3;
+  min-height: 9rem;
+}
+
+.user-cabinet-page__slot--account .account-summary {
+  max-width: none;
+}
+
+/* Skeleton (M22) — same grid, muted blocks, no spinner */
+.user-cabinet-page__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.user-cabinet-page__slot--skeleton {
+  border-style: dashed;
+  background: rgba(34, 35, 40, 0.45);
+}
+
+.user-cabinet-page__skeleton-block {
+  height: 4.5rem;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: cabinet-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.user-cabinet-page__slot--civic .user-cabinet-page__skeleton-block {
+  height: 10rem;
+}
+
+.user-cabinet-page__slot--story .user-cabinet-page__skeleton-block {
+  height: 7rem;
+}
+
+.user-cabinet-page__slot--contribution .user-cabinet-page__skeleton-block {
+  height: 5.5rem;
+}
+
+@keyframes cabinet-skeleton-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .user-cabinet-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-cabinet-page__slot--civic,
+  .user-cabinet-page__slot--account,
+  .user-cabinet-page__slot--wallet,
+  .user-cabinet-page__slot--story,
+  .user-cabinet-page__slot--contribution {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }

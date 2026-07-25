@@ -16,6 +16,7 @@ export const CABINET_DICTIONARY_EN = Object.freeze({
     common: {
       notAvailable: 'Not Available',
       comingLater: 'Coming Later',
+      comingSoon: 'This feature is coming soon',
       retry: 'Retry',
       codeLabel: 'Code: {code}',
       discardDraft: 'Discard Draft',
@@ -62,6 +63,7 @@ export const CABINET_DICTIONARY_ET = Object.freeze({
     common: {
       notAvailable: 'Pole saadaval',
       comingLater: 'Tulekul',
+      comingSoon: 'See funktsioon on peagi saadaval',
       retry: 'Proovi uuesti',
       codeLabel: 'Kood: {code}',
       discardDraft: 'Loobu mustandist',
@@ -108,6 +110,7 @@ export const CABINET_DICTIONARY_RU = Object.freeze({
     common: {
       notAvailable: 'Недоступно',
       comingLater: 'Скоро',
+      comingSoon: 'Эта функция скоро появится',
       retry: 'Повторить',
       codeLabel: 'Код: {code}',
       discardDraft: 'Отменить черновик',
@@ -152,6 +155,7 @@ export const CABINET_FLAT_KEYS = Object.freeze([
   'cabinet.section.contribution',
   'cabinet.common.notAvailable',
   'cabinet.common.comingLater',
+  'cabinet.common.comingSoon',
   'cabinet.common.retry',
   'cabinet.common.codeLabel',
   'cabinet.common.discardDraft',

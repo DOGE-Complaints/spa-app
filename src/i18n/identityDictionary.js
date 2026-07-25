@@ -12,6 +12,7 @@ export const IDENTITY_DICTIONARY_EN = Object.freeze({
     nav: {
       board: 'Board',
       workspace: 'Workspace',
+      profile: 'Profile',
     },
   },
   auth: {
@@ -512,6 +513,7 @@ export const IDENTITY_DICTIONARY_ET = Object.freeze({
     nav: {
       board: 'Töölaud',
       workspace: 'Tööruum',
+      profile: 'Profiil',
     },
   },
   auth: {
@@ -1011,6 +1013,7 @@ export const IDENTITY_DICTIONARY_RU = Object.freeze({
     nav: {
       board: 'Доска',
       workspace: 'Рабочее пространство',
+      profile: 'Профиль',
     },
   },
   auth: {
@@ -1514,6 +1517,7 @@ export const IDENTITY_FLAT_KEYS = Object.freeze([
   'appShell.footer',
   'appShell.nav.board',
   'appShell.nav.workspace',
+  'appShell.nav.profile',
   'auth.brand.logoAlt',
   'auth.brand.mark',
   'auth.brand.name',

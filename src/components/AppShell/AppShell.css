@@ -37,3 +37,14 @@
 .app-shell__footer {
   margin-top: auto;
 }
+
+.app-shell .board-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.app-shell .board-nav-item {
+  display: block;
+  text-decoration: none;
+}

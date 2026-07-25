@@ -55,6 +55,38 @@ export class IdentityApiError extends Error {
   }
 }
 
+/**
+ * Puppeteer / DEV mock: sessionStorage['doge.mock-me-error'] =
+ *   'session_expired' | 'backend_unavailable' | 'network_error' | 'restoring'
+ * Mirrors doge.mock-profile injection pattern (CAB-01 screenshot coverage).
+ * @returns {Promise<'ok'|'delayed'>}
+ */
+async function applyMockMeErrorHook() {
+  if (typeof sessionStorage === 'undefined') {
+    return 'ok'
+  }
+  const flag = sessionStorage.getItem('doge.mock-me-error')
+  if (!flag) {
+    return 'ok'
+  }
+  if (flag === 'restoring') {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2500)
+    })
+    return 'delayed'
+  }
+  if (flag === 'session_expired') {
+    throw new AuthenticationRequiredError('AUTHENTICATION_REQUIRED')
+  }
+  if (flag === 'backend_unavailable') {
+    throw new IdentityApiError('BACKEND_UNAVAILABLE', 503, {})
+  }
+  if (flag === 'network_error') {
+    throw new IdentityApiError('network_error', 0, {})
+  }
+  return 'ok'
+}
+
 /** @type {Record<string, { code: string, status: number, traceId?: string }>} */
 const MOCK_REQUEST_PHONE_ERRORS = Object.freeze({
   '+37288888888': { code: 'COUNTRY_NOT_ALLOWED', status: 400, traceId: 'mock-country-not-allowed' },
@@ -131,6 +163,7 @@ export function createIdentityService(baseUrl = IDENTITY_SERVICE_URL, mockMode =
      */
     async fetchMe(token) {
       if (mockMode) {
+        await applyMockMeErrorHook()
         return getMockProfile()
       }
       return identityFetch('/me', { token })

@@ -1,6 +1,11 @@
+import { NavLink } from 'react-router-dom'
 import { LocaleSelector } from '../LocaleSelector/LocaleSelector.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import './AppShell.css'
+
+function navItemClassName({ isActive }) {
+  return `board-nav-item${isActive ? ' board-nav-item-active' : ''}`
+}
 
 /**
  * Shared DOGEstonia app shell (M124 §6): logo, sidebar, header, footer slots.
@@ -34,7 +39,12 @@ export function AppShell({ header, sidebar, footer, children, className = '' }) 
             <>
               <p className="board-sidebar-workspace">{t('appShell.nav.workspace')}</p>
               <nav className="board-nav" aria-label={t('appShell.aria.primaryNav')}>
-                <span className="board-nav-item board-nav-item-active">{t('appShell.nav.board')}</span>
+                <NavLink to="/board" className={navItemClassName} data-testid="app-shell-nav-board" end>
+                  {t('appShell.nav.board')}
+                </NavLink>
+                <NavLink to="/profile" className={navItemClassName} data-testid="app-shell-nav-profile">
+                  {t('appShell.nav.profile')}
+                </NavLink>
               </nav>
             </>
           )}
