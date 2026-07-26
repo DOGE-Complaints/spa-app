@@ -61,6 +61,11 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     expect(storySlot.querySelector('[data-story-activity-card]')).toBeTruthy()
     expect(storySlot.textContent).not.toContain(CABINET_DICTIONARY_EN.cabinet.common.comingLater)
     expect(storySlot.querySelector('.user-cabinet-page__slot-title')).toBeNull()
+    const walletSlot = screen.getByTestId('cabinet-slot-wallet')
+    expect(walletSlot.querySelector('[data-wallet-status-card]')).toBeTruthy()
+    expect(walletSlot.querySelector('.user-cabinet-page__slot-placeholder')).toBeNull()
+    expect(walletSlot.querySelector('.user-cabinet-page__slot-title')).toBeNull()
+    expect(walletSlot.querySelector('[data-wallet-status-state="unlinked"]')).toBeTruthy()
   })
 
   it('wires Verify CTA to /verify and shows verified without re-prompt', () => {
