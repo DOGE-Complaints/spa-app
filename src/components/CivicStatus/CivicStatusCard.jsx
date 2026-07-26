@@ -12,6 +12,30 @@ import {
 } from './civicStatusLabels.js'
 import './CivicStatus.css'
 
+const CIVIC_ICON_SRC = Object.freeze({
+  unverified: '/icons/user-cabinet/ic-civic-unverified.png',
+  verification_available: '/icons/user-cabinet/ic-civic-verify-required.png',
+  verification_in_progress: '/icons/user-cabinet/ic-civic-in-progress.png',
+  verified: '/icons/user-cabinet/ic-civic-verified.png',
+  verification_failed: '/icons/user-cabinet/ic-civic-failed.png',
+})
+
+function CivicStatusIcon({ state }) {
+  const src = CIVIC_ICON_SRC[state]
+  if (!src) return null
+  return (
+    <img
+      className="civic-status-card__icon-img"
+      src={src}
+      alt=""
+      width={24}
+      height={24}
+      data-testid="civic-status-icon"
+      data-civic-icon-state={state}
+    />
+  )
+}
+
 function formatVerifiedAt(iso) {
   if (!iso) return null
   try {
@@ -26,7 +50,6 @@ function formatVerifiedAt(iso) {
 
 function CivicStatusPanel({
   state,
-  icon,
   statusLabel,
   title,
   description,
@@ -46,7 +69,7 @@ function CivicStatusPanel({
       aria-live="polite"
     >
       <div className="civic-status-card__icon" aria-hidden="true">
-        {icon}
+        <CivicStatusIcon state={state} />
       </div>
       {statusLabel ? <p className="civic-status-card__status-label">{statusLabel}</p> : null}
       <h2 className="civic-status-card__title">{title}</h2>
@@ -105,7 +128,6 @@ export function CivicStatusCard({
     return (
       <CivicStatusPanel
         state={state}
-        icon="✓"
         statusLabel={t(CIVIC_STATUS_LABEL_VERIFIED_KEY)}
         title={t('civic.verified.title')}
         description={t('civic.verified.desc')}
@@ -126,7 +148,6 @@ export function CivicStatusCard({
     return (
       <CivicStatusPanel
         state={state}
-        icon="!"
         statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
         title={t('civic.available.title')}
         description={t('civic.available.desc')}
@@ -157,7 +178,6 @@ export function CivicStatusCard({
     return (
       <CivicStatusPanel
         state={state}
-        icon="…"
         statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
         title={t('civic.inProgress.title')}
         description={t('civic.inProgress.desc')}
@@ -179,7 +199,6 @@ export function CivicStatusCard({
     return (
       <CivicStatusPanel
         state={state}
-        icon="!"
         statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
         title={t('civic.failed.title')}
         description={t('civic.failed.desc')}
@@ -209,7 +228,6 @@ export function CivicStatusCard({
   return (
     <CivicStatusPanel
       state={state}
-      icon="○"
       statusLabel={t(CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY)}
       title={t('civic.unverified.title')}
       description={t('civic.unverified.desc')}

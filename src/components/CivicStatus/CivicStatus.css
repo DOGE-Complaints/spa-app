@@ -27,6 +27,13 @@
   font-weight: 600;
 }
 
+.civic-status-card__icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
 .civic-status-card--verified .civic-status-card__icon {
   background: rgba(245, 197, 24, 0.14);
   color: #f5c518;

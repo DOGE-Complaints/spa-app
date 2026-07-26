@@ -1,6 +1,12 @@
+import { useNavigate } from 'react-router-dom'
+import {
+  CIVIC_FLOW_PHASES,
+  CIVIC_VERIFICATION_CONTEXT,
+} from '../auth/civicStatusState.js'
 import { SESSION_SHELL_STATES } from '../auth/sessionShellState.js'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { AccountSummary } from '../components/AccountSummary/index.js'
+import { CivicStatusCard } from '../components/CivicStatus/index.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import './UserCabinetPage.css'
 
@@ -11,6 +17,47 @@ const SECTION_SLOTS = [
   { id: 'account', testId: 'cabinet-slot-account', labelKey: 'cabinet.section.account' },
   { id: 'wallet', testId: 'cabinet-slot-wallet', labelKey: 'cabinet.section.wallet' },
 ]
+
+/**
+ * DEV-only screenshot / preview hook: sessionStorage['doge.civic-preview']
+ * = unverified | available | in_progress | verified | failed
+ */
+function readCivicPreviewOverrides() {
+  if (!import.meta.env.DEV || typeof sessionStorage === 'undefined') {
+    return null
+  }
+  const flag = sessionStorage.getItem('doge.civic-preview')
+  if (!flag) return null
+  if (flag === 'available') {
+    return {
+      flowPhase: CIVIC_FLOW_PHASES.IDLE,
+      verificationContext: CIVIC_VERIFICATION_CONTEXT.PROTECTED_ACTION,
+      errorCode: null,
+    }
+  }
+  if (flag === 'in_progress') {
+    return {
+      flowPhase: CIVIC_FLOW_PHASES.CODE_ENTRY,
+      verificationContext: CIVIC_VERIFICATION_CONTEXT.DEFAULT,
+      errorCode: null,
+    }
+  }
+  if (flag === 'failed') {
+    return {
+      flowPhase: CIVIC_FLOW_PHASES.FAILED,
+      verificationContext: CIVIC_VERIFICATION_CONTEXT.DEFAULT,
+      errorCode: 'VERIFICATION_FAILED',
+    }
+  }
+  if (flag === 'verified' || flag === 'unverified') {
+    return {
+      flowPhase: CIVIC_FLOW_PHASES.IDLE,
+      verificationContext: CIVIC_VERIFICATION_CONTEXT.DEFAULT,
+      errorCode: null,
+    }
+  }
+  return null
+}
 
 function CabinetShellSkeleton({ t }) {
   return (
@@ -56,12 +103,14 @@ function CabinetSectionSlot({ slot, t, children }) {
 
 export function UserCabinetPage() {
   const { t } = useI18n()
+  const navigate = useNavigate()
   const { profile, shellState } = useSessionShell()
   const forceLoading =
     import.meta.env.DEV &&
     typeof sessionStorage !== 'undefined' &&
     sessionStorage.getItem('doge.force-cabinet-loading') === '1'
   const isLoading = forceLoading || shellState === SESSION_SHELL_STATES.RESTORING
+  const preview = readCivicPreviewOverrides()
 
   return (
     <div className="user-cabinet-page" data-testid="user-cabinet-page">
@@ -83,6 +132,29 @@ export function UserCabinetPage() {
                   aria-label={t(slot.labelKey)}
                 >
                   <AccountSummary profile={profile} />
+                </section>
+              )
+            }
+            if (slot.id === 'civic') {
+              // No slot-header: CivicStatusCard carries its own title (M28 / Dashboard parity; audit G2)
+              return (
+                <section
+                  key={slot.id}
+                  className={`user-cabinet-page__slot user-cabinet-page__slot--${slot.id}`}
+                  data-testid={slot.testId}
+                  aria-label={t(slot.labelKey)}
+                >
+                  <CivicStatusCard
+                    phoneVerified={Boolean(profile?.phone_verified)}
+                    phoneDialPrefix={profile?.phone_dial_prefix ?? null}
+                    phoneVerifiedAt={profile?.phone_verified_at ?? null}
+                    flowPhase={preview?.flowPhase ?? CIVIC_FLOW_PHASES.IDLE}
+                    verificationContext={
+                      preview?.verificationContext ?? CIVIC_VERIFICATION_CONTEXT.DEFAULT
+                    }
+                    errorCode={preview?.errorCode ?? null}
+                    onVerify={() => navigate('/verify')}
+                  />
                 </section>
               )
             }
