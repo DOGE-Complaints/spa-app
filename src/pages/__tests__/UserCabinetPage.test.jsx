@@ -57,6 +57,10 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     // G2: no duplicate slot-header — card title only (M28 / Dashboard parity)
     expect(civicSlot.querySelector('.user-cabinet-page__slot-title')).toBeNull()
     expect(civicSlot.querySelector('.civic-status-card__title')).toBeTruthy()
+    const storySlot = screen.getByTestId('cabinet-slot-story')
+    expect(storySlot.querySelector('[data-story-activity-card]')).toBeTruthy()
+    expect(storySlot.textContent).not.toContain(CABINET_DICTIONARY_EN.cabinet.common.comingLater)
+    expect(storySlot.querySelector('.user-cabinet-page__slot-title')).toBeNull()
   })
 
   it('wires Verify CTA to /verify and shows verified without re-prompt', () => {
