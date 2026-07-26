@@ -8,6 +8,7 @@ import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { AccountSummary } from '../components/AccountSummary/index.js'
 import { CivicStatusCard } from '../components/CivicStatus/index.js'
 import { StoryActivityCard } from '../components/StoryActivity/index.js'
+import { WalletStatusCard } from '../components/WalletStatus/index.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import './UserCabinetPage.css'
 
@@ -18,6 +19,17 @@ const SECTION_SLOTS = [
   { id: 'account', testId: 'cabinet-slot-account', labelKey: 'cabinet.section.account' },
   { id: 'wallet', testId: 'cabinet-slot-wallet', labelKey: 'cabinet.section.wallet' },
 ]
+
+/**
+ * DEV-only: sessionStorage['doge.wallet-preview']
+ * = unlinked | linked | connect
+ */
+function readWalletPreviewFlag() {
+  if (!import.meta.env.DEV || typeof sessionStorage === 'undefined') {
+    return null
+  }
+  return sessionStorage.getItem('doge.wallet-preview')
+}
 
 /**
  * DEV-only: sessionStorage['doge.story-activity-preview']
@@ -124,6 +136,7 @@ export function UserCabinetPage() {
   const isLoading = forceLoading || shellState === SESSION_SHELL_STATES.RESTORING
   const preview = readCivicPreviewOverrides()
   const storyPreviewFlag = readStoryActivityPreviewFlag()
+  const walletPreviewFlag = readWalletPreviewFlag()
 
   return (
     <div className="user-cabinet-page" data-testid="user-cabinet-page">
@@ -185,6 +198,19 @@ export function UserCabinetPage() {
                     onVerify={() => navigate('/verify')}
                     onGoToBoard={() => navigate('/board')}
                   />
+                </section>
+              )
+            }
+            if (slot.id === 'wallet') {
+              // No slot-header: WalletStatusCard owns title (M50)
+              return (
+                <section
+                  key={slot.id}
+                  className={`user-cabinet-page__slot user-cabinet-page__slot--${slot.id}`}
+                  data-testid={slot.testId}
+                  aria-label={t(slot.labelKey)}
+                >
+                  <WalletStatusCard previewFlag={walletPreviewFlag} />
                 </section>
               )
             }

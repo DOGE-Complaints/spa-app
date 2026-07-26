@@ -77,6 +77,26 @@ export const CABINET_DICTIONARY_EN = Object.freeze({
         description: 'We could not load your story activity.',
       },
     },
+    wallet: {
+      stateA: {
+        title: 'Wallet not linked',
+        description: 'Wallet signatures will be available later for proving authorship.',
+      },
+      stateB: {
+        title: 'Wallet linked',
+        field: {
+          address: 'Address',
+          linkedOn: 'Linked on',
+        },
+        manage: 'Manage Wallet',
+      },
+      stateC: {
+        title: 'Connect wallet',
+        description: 'Connect a Dogecoin address to prepare for future authorship proofs.',
+        connect: 'Connect Wallet',
+        optional: 'Wallet connection is optional.',
+      },
+    },
   },
 })
 
@@ -157,6 +177,26 @@ export const CABINET_DICTIONARY_ET = Object.freeze({
       unavailable: {
         title: 'Tegevus pole saadaval',
         description: 'Lugude tegevust ei õnnestunud laadida.',
+      },
+    },
+    wallet: {
+      stateA: {
+        title: 'Rahakott pole ühendatud',
+        description: 'Rahakoti allkirjad on tulevikus autorluse tõendamiseks.',
+      },
+      stateB: {
+        title: 'Rahakott ühendatud',
+        field: {
+          address: 'Aadress',
+          linkedOn: 'Ühendatud',
+        },
+        manage: 'Halda rahakotti',
+      },
+      stateC: {
+        title: 'Ühenda rahakott',
+        description: 'Ühenda Dogecoini aadress tulevaste autorluse tõendite jaoks.',
+        connect: 'Ühenda rahakott',
+        optional: 'Rahakoti ühendamine on valikuline.',
       },
     },
   },
@@ -241,6 +281,26 @@ export const CABINET_DICTIONARY_RU = Object.freeze({
         description: 'Не удалось загрузить активность историй.',
       },
     },
+    wallet: {
+      stateA: {
+        title: 'Кошелёк не привязан',
+        description: 'Подписи кошелька позже позволят подтверждать авторство.',
+      },
+      stateB: {
+        title: 'Кошелёк привязан',
+        field: {
+          address: 'Адрес',
+          linkedOn: 'Привязан',
+        },
+        manage: 'Управление кошельком',
+      },
+      stateC: {
+        title: 'Подключить кошелёк',
+        description: 'Подключите адрес Dogecoin для будущих доказательств авторства.',
+        connect: 'Подключить кошелёк',
+        optional: 'Подключение кошелька необязательно.',
+      },
+    },
   },
 })
 
@@ -296,4 +356,14 @@ export const CABINET_FLAT_KEYS = Object.freeze([
   'cabinet.story.verifyRequired.description',
   'cabinet.story.unavailable.title',
   'cabinet.story.unavailable.description',
+  'cabinet.wallet.stateA.title',
+  'cabinet.wallet.stateA.description',
+  'cabinet.wallet.stateB.title',
+  'cabinet.wallet.stateB.field.address',
+  'cabinet.wallet.stateB.field.linkedOn',
+  'cabinet.wallet.stateB.manage',
+  'cabinet.wallet.stateC.title',
+  'cabinet.wallet.stateC.description',
+  'cabinet.wallet.stateC.connect',
+  'cabinet.wallet.stateC.optional',
 ])
