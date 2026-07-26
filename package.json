@@ -22,6 +22,7 @@
     "test:ui:account-summary-cab02": "node ./tests/puppeteer/account-summary-cab02-screenshot.mjs",
     "test:ui:cabinet-shell-cab01": "CAB01_PHASE=post-implement node ./tests/puppeteer/cabinet-shell-cab01-screenshot.mjs",
     "test:ui:cabinet-shell-cab01-full": "node ./tests/puppeteer/cabinet-shell-cab01-full-cycle.mjs",
+    "test:ui:cabinet-civic-cab03-full": "node ./tests/puppeteer/cabinet-civic-cab03-full-cycle.mjs",
     "test:ui:status-badge": "node ./tests/puppeteer/status-badge-smoke.mjs",
     "test:ui:i18n": "node ./tests/puppeteer/i18n-switcher-smoke.mjs",
     "test:ui:routing": "node ./tests/puppeteer/routing-behavior-smoke.mjs",

@@ -38,7 +38,7 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
   it('renders cabinet with M99 section slots and AccountSummary (not placeholder)', () => {
     mockUseSessionShell.mockReturnValue({
       shellState: SESSION_SHELL_STATES.AUTHENTICATED,
-      profile: { display_name: 'Demo User', role: 'citizen' },
+      profile: { display_name: 'Demo User', role: 'citizen', phone_verified: false },
       retry: vi.fn(),
     })
     renderProfileInShell()
@@ -51,6 +51,57 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     expect(screen.getByTestId('cabinet-slot-wallet')).toBeTruthy()
     expect(screen.getByTestId('account-summary')).toBeTruthy()
     expect(screen.queryByTestId('protected-route-placeholder')).toBeNull()
+    const civicSlot = screen.getByTestId('cabinet-slot-civic')
+    expect(civicSlot.querySelector('[data-civic-status-card]')).toBeTruthy()
+    expect(civicSlot.textContent).not.toContain(CABINET_DICTIONARY_EN.cabinet.common.comingLater)
+    // G2: no duplicate slot-header — card title only (M28 / Dashboard parity)
+    expect(civicSlot.querySelector('.user-cabinet-page__slot-title')).toBeNull()
+    expect(civicSlot.querySelector('.civic-status-card__title')).toBeTruthy()
+  })
+
+  it('wires Verify CTA to /verify and shows verified without re-prompt', () => {
+    mockUseSessionShell.mockReturnValue({
+      shellState: SESSION_SHELL_STATES.AUTHENTICATED,
+      profile: {
+        display_name: 'Demo User',
+        role: 'citizen',
+        phone_verified: false,
+      },
+      retry: vi.fn(),
+    })
+    renderProfileInShell()
+    expect(
+      screen.getByRole('button', { name: IDENTITY_DICTIONARY_EN.civic.unverified.cta }),
+    ).toBeTruthy()
+
+    mockUseSessionShell.mockReturnValue({
+      shellState: SESSION_SHELL_STATES.AUTHENTICATED,
+      profile: {
+        display_name: 'Demo User',
+        role: 'citizen',
+        phone_verified: true,
+        phone_verified_at: '2026-06-01T12:00:00Z',
+        phone_dial_prefix: '+372',
+      },
+      retry: vi.fn(),
+    })
+    cleanup()
+    renderProfileInShell()
+    expect(screen.getByText(IDENTITY_DICTIONARY_EN.civic.label.verified)).toBeTruthy()
+    expect(
+      screen.queryByRole('button', { name: IDENTITY_DICTIONARY_EN.civic.unverified.cta }),
+    ).toBeNull()
+  })
+
+  it('keeps Dashboard CivicStatusCard render path intact', () => {
+    mockUseSessionShell.mockReturnValue({
+      shellState: SESSION_SHELL_STATES.AUTHENTICATED,
+      profile: { display_name: 'Demo User', role: 'citizen', phone_verified: false },
+      retry: vi.fn(),
+    })
+    renderProfileInShell('/dashboard')
+    expect(screen.getByTestId('dashboard-page')).toBeTruthy()
+    expect(screen.getByTestId('dashboard-page').querySelector('[data-civic-status-card]')).toBeTruthy()
   })
 
   it('marks Profile nav active on /profile', () => {
