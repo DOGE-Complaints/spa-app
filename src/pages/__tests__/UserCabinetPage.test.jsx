@@ -66,6 +66,13 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     expect(walletSlot.querySelector('.user-cabinet-page__slot-placeholder')).toBeNull()
     expect(walletSlot.querySelector('.user-cabinet-page__slot-title')).toBeNull()
     expect(walletSlot.querySelector('[data-wallet-status-state="unlinked"]')).toBeTruthy()
+    const contribSlot = screen.getByTestId('cabinet-slot-contribution')
+    expect(contribSlot.querySelector('[data-contribution-layer]')).toBeTruthy()
+    expect(contribSlot.querySelector('.user-cabinet-page__slot-placeholder')).toBeNull()
+    expect(contribSlot.querySelector('.user-cabinet-page__slot-title')).toBeNull()
+    expect(contribSlot.querySelector('[data-contrib-receipts-state="empty"]')).toBeTruthy()
+    expect(contribSlot.querySelector('[data-contrib-reputation-state="later"]')).toBeTruthy()
+    expect(contribSlot.textContent).not.toMatch(/Submit Story/i)
   })
 
   it('wires Verify CTA to /verify and shows verified without re-prompt', () => {
