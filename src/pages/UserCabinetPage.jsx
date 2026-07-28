@@ -3,9 +3,14 @@ import {
   CIVIC_FLOW_PHASES,
   CIVIC_VERIFICATION_CONTEXT,
 } from '../auth/civicStatusState.js'
-import { SESSION_SHELL_STATES } from '../auth/sessionShellState.js'
+import {
+  SESSION_SHELL_STATES,
+  isCabinetProfileLoadErrorState,
+  resolveProfileLoadErrorCode,
+} from '../auth/sessionShellState.js'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { AccountSummary } from '../components/AccountSummary/index.js'
+import { AppErrorState } from '../components/AppErrorState/index.js'
 import { CivicStatusCard } from '../components/CivicStatus/index.js'
 import { StoryActivityCard } from '../components/StoryActivity/index.js'
 import { ContributionLayer } from '../components/ContributionLayer/index.js'
@@ -139,19 +144,40 @@ function CabinetSectionSlot({ slot, t, children }) {
   )
 }
 
+/**
+ * DEV-only: sessionStorage['doge.cabinet-preview'] = new-user
+ * Forces M23 composite empty defaults (clear module previews; civic unverified via profile).
+ */
+function readCabinetPreviewFlag() {
+  if (!import.meta.env.DEV || typeof sessionStorage === 'undefined') {
+    return null
+  }
+  return sessionStorage.getItem('doge.cabinet-preview')
+}
+
 export function UserCabinetPage() {
   const { t } = useI18n()
   const navigate = useNavigate()
-  const { profile, shellState } = useSessionShell()
+  const { profile, shellState, profileErrorCode, retry } = useSessionShell()
   const forceLoading =
     import.meta.env.DEV &&
     typeof sessionStorage !== 'undefined' &&
     sessionStorage.getItem('doge.force-cabinet-loading') === '1'
   const isLoading = forceLoading || shellState === SESSION_SHELL_STATES.RESTORING
-  const preview = readCivicPreviewOverrides()
-  const storyPreviewFlag = readStoryActivityPreviewFlag()
-  const walletPreviewFlag = readWalletPreviewFlag()
-  const contribPreviewFlag = readContribPreviewFlag()
+  const isProfileLoadError = isCabinetProfileLoadErrorState(shellState)
+  const cabinetPreview = readCabinetPreviewFlag()
+  const isNewUserPreview = cabinetPreview === 'new-user'
+  const preview = isNewUserPreview
+    ? {
+        flowPhase: CIVIC_FLOW_PHASES.IDLE,
+        verificationContext: CIVIC_VERIFICATION_CONTEXT.DEFAULT,
+        errorCode: null,
+      }
+    : readCivicPreviewOverrides()
+  const storyPreviewFlag = isNewUserPreview ? 'empty' : readStoryActivityPreviewFlag()
+  const walletPreviewFlag = isNewUserPreview ? 'unlinked' : readWalletPreviewFlag()
+  const contribPreviewFlag = isNewUserPreview ? null : readContribPreviewFlag()
+  const phoneVerified = isNewUserPreview ? false : Boolean(profile?.phone_verified)
 
   return (
     <div className="user-cabinet-page" data-testid="user-cabinet-page">
@@ -161,6 +187,12 @@ export function UserCabinetPage() {
 
       {isLoading ? (
         <CabinetShellSkeleton t={t} />
+      ) : isProfileLoadError ? (
+        <AppErrorState
+          code={resolveProfileLoadErrorCode(shellState, profileErrorCode)}
+          onRetry={retry}
+          onBackToBoard={() => navigate('/board')}
+        />
       ) : (
         <div className="user-cabinet-page__grid" data-testid="cabinet-grid">
           {SECTION_SLOTS.map((slot) => {
@@ -186,9 +218,9 @@ export function UserCabinetPage() {
                   aria-label={t(slot.labelKey)}
                 >
                   <CivicStatusCard
-                    phoneVerified={Boolean(profile?.phone_verified)}
-                    phoneDialPrefix={profile?.phone_dial_prefix ?? null}
-                    phoneVerifiedAt={profile?.phone_verified_at ?? null}
+                    phoneVerified={phoneVerified}
+                    phoneDialPrefix={isNewUserPreview ? null : (profile?.phone_dial_prefix ?? null)}
+                    phoneVerifiedAt={isNewUserPreview ? null : (profile?.phone_verified_at ?? null)}
                     flowPhase={preview?.flowPhase ?? CIVIC_FLOW_PHASES.IDLE}
                     verificationContext={
                       preview?.verificationContext ?? CIVIC_VERIFICATION_CONTEXT.DEFAULT

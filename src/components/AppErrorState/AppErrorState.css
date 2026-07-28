@@ -1,0 +1,85 @@
+.app-error-state {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 36rem;
+  margin: 1.5rem auto 2rem;
+  padding: 1.35rem 1.5rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-subtle, rgba(245, 247, 250, 0.12));
+  background: var(--color-surface-elevated, #1a1f2e);
+  color: var(--color-text-primary, #f5f7fa);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.app-error-state__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app-error-state__icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.app-error-state__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.app-error-state__message,
+.app-error-state__details,
+.app-error-state__code {
+  margin: 0;
+  color: var(--color-text-muted, rgba(245, 247, 250, 0.72));
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.app-error-state__code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.app-error-state__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+.app-error-state__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.app-error-state__button--primary {
+  background: var(--color-accent, #3d7eff);
+  color: #fff;
+}
+
+.app-error-state__button--secondary {
+  background: transparent;
+  border-color: var(--color-border-subtle, rgba(245, 247, 250, 0.2));
+  color: var(--color-text-primary, #f5f7fa);
+}
+
+.app-error-state__button-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  object-fit: contain;
+}

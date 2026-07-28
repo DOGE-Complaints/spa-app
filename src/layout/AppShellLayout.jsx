@@ -1,5 +1,8 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { shouldShowSessionShellOverlay } from '../auth/sessionShellState.js'
+import {
+  isCabinetProfileLoadErrorState,
+  shouldShowSessionShellOverlay,
+} from '../auth/sessionShellState.js'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { AppShell } from '../components/AppShell/index.js'
 import { SessionShellOverlay } from '../components/SessionShellState/index.js'
@@ -26,7 +29,11 @@ export function AppShellLayout() {
   const loginRoute = isLoginPath(location.pathname)
   const useFullShell = protectedRoute || !isPublicPath(location.pathname)
 
-  const showOverlay = shouldShowSessionShellOverlay(shellState, protectedRoute, loginRoute)
+  const cabinetInPageProfileError =
+    location.pathname === '/profile' && isCabinetProfileLoadErrorState(shellState)
+  const showOverlay = shouldShowSessionShellOverlay(shellState, protectedRoute, loginRoute, {
+    cabinetInPageProfileError,
+  })
 
   const content = (
     <>

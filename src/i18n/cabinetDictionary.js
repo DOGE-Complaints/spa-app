@@ -21,6 +21,14 @@ export const CABINET_DICTIONARY_EN = Object.freeze({
       codeLabel: 'Code: {code}',
       discardDraft: 'Discard Draft',
     },
+    error: {
+      profileLoad: {
+        title: 'Unable to load account data',
+        message:
+          'We could not retrieve your profile information at this time. Please try again.',
+        details: 'Profile aggregate endpoint returned an unexpected response.',
+      },
+    },
     account: {
       title: 'Account',
       field: {
@@ -152,6 +160,14 @@ export const CABINET_DICTIONARY_ET = Object.freeze({
       retry: 'Proovi uuesti',
       codeLabel: 'Kood: {code}',
       discardDraft: 'Loobu mustandist',
+    },
+    error: {
+      profileLoad: {
+        title: 'Konto andmeid ei õnnestunud laadida',
+        message:
+          'Profiili andmeid praegu ei õnnestunud laadida. Palun proovi uuesti.',
+        details: 'Profiili koondpäring tagastas ootamatu vastuse.',
+      },
     },
     account: {
       title: 'Konto',
@@ -285,6 +301,13 @@ export const CABINET_DICTIONARY_RU = Object.freeze({
       codeLabel: 'Код: {code}',
       discardDraft: 'Отменить черновик',
     },
+    error: {
+      profileLoad: {
+        title: 'Не удалось загрузить данные аккаунта',
+        message: 'Не удалось получить данные профиля. Попробуйте снова.',
+        details: 'Сводный запрос профиля вернул неожиданный ответ.',
+      },
+    },
     account: {
       title: 'Аккаунт',
       field: {
@@ -414,6 +437,9 @@ export const CABINET_FLAT_KEYS = Object.freeze([
   'cabinet.common.retry',
   'cabinet.common.codeLabel',
   'cabinet.common.discardDraft',
+  'cabinet.error.profileLoad.title',
+  'cabinet.error.profileLoad.message',
+  'cabinet.error.profileLoad.details',
   'cabinet.account.title',
   'cabinet.account.field.email',
   'cabinet.account.field.created',

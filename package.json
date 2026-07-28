@@ -29,6 +29,8 @@
     "test:ui:cabinet-wallet-cab05-full": "node ./tests/puppeteer/cabinet-wallet-cab05-full-cycle.mjs",
     "test:ui:cabinet-contrib-cab06": "CAB06_PHASE=post-implement node ./tests/puppeteer/cabinet-contrib-cab06-screenshot.mjs",
     "test:ui:cabinet-contrib-cab06-full": "node ./tests/puppeteer/cabinet-contrib-cab06-full-cycle.mjs",
+    "test:ui:cabinet-page-states-cab07": "CAB07_PHASE=post-implement node ./tests/puppeteer/cabinet-page-states-cab07-screenshot.mjs",
+    "test:ui:cabinet-page-states-cab07-full": "node ./tests/puppeteer/cabinet-page-states-cab07-full-cycle.mjs",
     "test:ui:status-badge": "node ./tests/puppeteer/status-badge-smoke.mjs",
     "test:ui:i18n": "node ./tests/puppeteer/i18n-switcher-smoke.mjs",
     "test:ui:routing": "node ./tests/puppeteer/routing-behavior-smoke.mjs",

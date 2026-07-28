@@ -57,7 +57,7 @@ export class IdentityApiError extends Error {
 
 /**
  * Puppeteer / DEV mock: sessionStorage['doge.mock-me-error'] =
- *   'session_expired' | 'backend_unavailable' | 'network_error' | 'restoring'
+ *   'session_expired' | 'backend_unavailable' | 'network_error' | 'profile_load_failed' | 'restoring'
  * Mirrors doge.mock-profile injection pattern (CAB-01 screenshot coverage).
  * @returns {Promise<'ok'|'delayed'>}
  */
@@ -80,6 +80,9 @@ async function applyMockMeErrorHook() {
   }
   if (flag === 'backend_unavailable') {
     throw new IdentityApiError('BACKEND_UNAVAILABLE', 503, {})
+  }
+  if (flag === 'profile_load_failed') {
+    throw new IdentityApiError('PROFILE_LOAD_FAILED', 500, {})
   }
   if (flag === 'network_error') {
     throw new IdentityApiError('network_error', 0, {})
