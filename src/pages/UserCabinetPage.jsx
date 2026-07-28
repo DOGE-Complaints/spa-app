@@ -8,6 +8,7 @@ import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import { AccountSummary } from '../components/AccountSummary/index.js'
 import { CivicStatusCard } from '../components/CivicStatus/index.js'
 import { StoryActivityCard } from '../components/StoryActivity/index.js'
+import { ContributionLayer } from '../components/ContributionLayer/index.js'
 import { WalletStatusCard } from '../components/WalletStatus/index.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import './UserCabinetPage.css'
@@ -29,6 +30,19 @@ function readWalletPreviewFlag() {
     return null
   }
   return sessionStorage.getItem('doge.wallet-preview')
+}
+
+/**
+ * DEV-only: sessionStorage['doge.contrib-preview']
+ * = receipts-empty|receipts-populated|receipts-unavailable|
+ *   records-empty|records-populated|records-unavailable|
+ *   reputation-later|reputation-available|reputation-unavailable
+ */
+function readContribPreviewFlag() {
+  if (!import.meta.env.DEV || typeof sessionStorage === 'undefined') {
+    return null
+  }
+  return sessionStorage.getItem('doge.contrib-preview')
 }
 
 /**
@@ -137,6 +151,7 @@ export function UserCabinetPage() {
   const preview = readCivicPreviewOverrides()
   const storyPreviewFlag = readStoryActivityPreviewFlag()
   const walletPreviewFlag = readWalletPreviewFlag()
+  const contribPreviewFlag = readContribPreviewFlag()
 
   return (
     <div className="user-cabinet-page" data-testid="user-cabinet-page">
@@ -211,6 +226,19 @@ export function UserCabinetPage() {
                   aria-label={t(slot.labelKey)}
                 >
                   <WalletStatusCard previewFlag={walletPreviewFlag} />
+                </section>
+              )
+            }
+            if (slot.id === 'contribution') {
+              // No slot-header: ContributionLayer owns title (M53)
+              return (
+                <section
+                  key={slot.id}
+                  className={`user-cabinet-page__slot user-cabinet-page__slot--${slot.id}`}
+                  data-testid={slot.testId}
+                  aria-label={t(slot.labelKey)}
+                >
+                  <ContributionLayer previewFlag={contribPreviewFlag} />
                 </section>
               )
             }

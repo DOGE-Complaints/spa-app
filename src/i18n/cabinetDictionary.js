@@ -97,6 +97,36 @@ export const CABINET_DICTIONARY_EN = Object.freeze({
         optional: 'Wallet connection is optional.',
       },
     },
+    contrib: {
+      layerTitle: 'Contribution Layer',
+      receipts: {
+        title: 'Story Receipts',
+        empty: 'No story receipts recorded yet.',
+        metric: 'Receipts: {count}',
+        unavailable: 'Receipt data temporarily unavailable.',
+      },
+      records: {
+        title: 'Contribution Records',
+        empty: 'No contribution records yet.',
+        metric: 'Contribution Events: {count}',
+        unavailable: 'Contribution history unavailable.',
+        event: {
+          storySubmitted: 'Story Submitted',
+          storyUpdated: 'Story Updated',
+          issueParticipated: 'Issue Participated',
+        },
+      },
+      reputation: {
+        title: 'Reputation',
+        comingLater: 'Reputation features will become available in a future release.',
+        metric: {
+          consistency: 'Participation Consistency',
+          verified: 'Verified Contributions',
+          trust: 'Community Trust Signals',
+        },
+        unavailable: 'Reputation data unavailable.',
+      },
+    },
   },
 })
 
@@ -197,6 +227,36 @@ export const CABINET_DICTIONARY_ET = Object.freeze({
         description: 'Ühenda Dogecoini aadress tulevaste autorluse tõendite jaoks.',
         connect: 'Ühenda rahakott',
         optional: 'Rahakoti ühendamine on valikuline.',
+      },
+    },
+    contrib: {
+      layerTitle: 'Panustamise kiht',
+      receipts: {
+        title: 'Lugude kviitungid',
+        empty: 'Ühtegi loo kviitungit pole veel salvestatud.',
+        metric: 'Kviitungid: {count}',
+        unavailable: 'Kviitungi andmed on ajutiselt kättesaamatud.',
+      },
+      records: {
+        title: 'Panustamise kirjed',
+        empty: 'Panustamise kirjeid pole veel.',
+        metric: 'Panustamise sündmused: {count}',
+        unavailable: 'Panustamise ajalugu pole saadaval.',
+        event: {
+          storySubmitted: 'Lugu esitatud',
+          storyUpdated: 'Lugu uuendatud',
+          issueParticipated: 'Probleemis osaletud',
+        },
+      },
+      reputation: {
+        title: 'Maine',
+        comingLater: 'Mainefunktsioonid on tulevases versioonis.',
+        metric: {
+          consistency: 'Osalemise järjepidevus',
+          verified: 'Kinnitatud panused',
+          trust: 'Kogukonna usaldusmärgid',
+        },
+        unavailable: 'Maine andmed pole saadaval.',
       },
     },
   },
@@ -301,6 +361,36 @@ export const CABINET_DICTIONARY_RU = Object.freeze({
         optional: 'Подключение кошелька необязательно.',
       },
     },
+    contrib: {
+      layerTitle: 'Слой вклада',
+      receipts: {
+        title: 'Квитанции историй',
+        empty: 'Квитанции историй ещё не записаны.',
+        metric: 'Квитанции: {count}',
+        unavailable: 'Данные квитанций временно недоступны.',
+      },
+      records: {
+        title: 'Записи вклада',
+        empty: 'Записей вклада пока нет.',
+        metric: 'События вклада: {count}',
+        unavailable: 'История вклада недоступна.',
+        event: {
+          storySubmitted: 'История отправлена',
+          storyUpdated: 'История обновлена',
+          issueParticipated: 'Участие в обращении',
+        },
+      },
+      reputation: {
+        title: 'Репутация',
+        comingLater: 'Функции репутации появятся в будущем релизе.',
+        metric: {
+          consistency: 'Последовательность участия',
+          verified: 'Подтверждённые вклады',
+          trust: 'Сигналы доверия сообщества',
+        },
+        unavailable: 'Данные репутации недоступны.',
+      },
+    },
   },
 })
 
@@ -366,4 +456,22 @@ export const CABINET_FLAT_KEYS = Object.freeze([
   'cabinet.wallet.stateC.description',
   'cabinet.wallet.stateC.connect',
   'cabinet.wallet.stateC.optional',
+  'cabinet.contrib.layerTitle',
+  'cabinet.contrib.receipts.title',
+  'cabinet.contrib.receipts.empty',
+  'cabinet.contrib.receipts.metric',
+  'cabinet.contrib.receipts.unavailable',
+  'cabinet.contrib.records.title',
+  'cabinet.contrib.records.empty',
+  'cabinet.contrib.records.metric',
+  'cabinet.contrib.records.unavailable',
+  'cabinet.contrib.records.event.storySubmitted',
+  'cabinet.contrib.records.event.storyUpdated',
+  'cabinet.contrib.records.event.issueParticipated',
+  'cabinet.contrib.reputation.title',
+  'cabinet.contrib.reputation.comingLater',
+  'cabinet.contrib.reputation.metric.consistency',
+  'cabinet.contrib.reputation.metric.verified',
+  'cabinet.contrib.reputation.metric.trust',
+  'cabinet.contrib.reputation.unavailable',
 ])
