@@ -15,7 +15,9 @@ import {
 } from '../identityService.js'
 import {
   SESSION_SHELL_STATES,
+  isCabinetProfileLoadErrorState,
   mapIdentityErrorToShellState,
+  resolveProfileLoadErrorCode,
   shouldShowSessionShellOverlay,
 } from '../sessionShellState.js'
 
@@ -84,5 +86,41 @@ describe('sessionShellState', () => {
     expect(
       shouldShowSessionShellOverlay(SESSION_SHELL_STATES.AUTHENTICATED, true, false),
     ).toBe(false)
+  })
+
+  it('suppresses backend/network overlay when cabinetInPageProfileError', () => {
+    expect(
+      shouldShowSessionShellOverlay(SESSION_SHELL_STATES.BACKEND_UNAVAILABLE, true, false, {
+        cabinetInPageProfileError: true,
+      }),
+    ).toBe(false)
+    expect(
+      shouldShowSessionShellOverlay(SESSION_SHELL_STATES.NETWORK_ERROR, true, false, {
+        cabinetInPageProfileError: true,
+      }),
+    ).toBe(false)
+    expect(
+      shouldShowSessionShellOverlay(SESSION_SHELL_STATES.SESSION_EXPIRED, true, false, {
+        cabinetInPageProfileError: true,
+      }),
+    ).toBe(true)
+  })
+
+  it('detects cabinet profile-load error shell states', () => {
+    expect(isCabinetProfileLoadErrorState(SESSION_SHELL_STATES.BACKEND_UNAVAILABLE)).toBe(true)
+    expect(isCabinetProfileLoadErrorState(SESSION_SHELL_STATES.NETWORK_ERROR)).toBe(true)
+    expect(isCabinetProfileLoadErrorState(SESSION_SHELL_STATES.SESSION_EXPIRED)).toBe(false)
+  })
+
+  it('resolves M22 display codes', () => {
+    expect(
+      resolveProfileLoadErrorCode(SESSION_SHELL_STATES.BACKEND_UNAVAILABLE, 'PROFILE_LOAD_FAILED'),
+    ).toBe('PROFILE_LOAD_FAILED')
+    expect(resolveProfileLoadErrorCode(SESSION_SHELL_STATES.NETWORK_ERROR, 'network_error')).toBe(
+      'NETWORK_ERROR',
+    )
+    expect(resolveProfileLoadErrorCode(SESSION_SHELL_STATES.BACKEND_UNAVAILABLE, null)).toBe(
+      'PROFILE_LOAD_FAILED',
+    )
   })
 })

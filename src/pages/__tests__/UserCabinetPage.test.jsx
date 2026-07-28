@@ -150,16 +150,53 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     mockUseSessionShell.mockReturnValue({
       shellState: SESSION_SHELL_STATES.LOGGED_OUT,
       profile: null,
+      profileErrorCode: null,
       retry: vi.fn(),
     })
     renderProfileInShell()
     expect(screen.getByTestId('session-shell-overlay')).toBeTruthy()
   })
 
+  it('shows M22 in-page ErrorPanel on profile load failure without overlay', () => {
+    const retry = vi.fn()
+    mockUseSessionShell.mockReturnValue({
+      shellState: SESSION_SHELL_STATES.BACKEND_UNAVAILABLE,
+      profile: null,
+      profileErrorCode: 'PROFILE_LOAD_FAILED',
+      retry,
+    })
+    renderProfileInShell()
+    expect(screen.queryByTestId('session-shell-overlay')).toBeNull()
+    expect(screen.getByTestId('app-shell-nav-profile')).toBeTruthy()
+    const panel = screen.getByTestId('cabinet-profile-error')
+    expect(panel).toBeTruthy()
+    expect(panel.textContent).toContain(CABINET_DICTIONARY_EN.cabinet.error.profileLoad.title)
+    expect(screen.getByTestId('cabinet-profile-error-code').textContent).toContain(
+      'PROFILE_LOAD_FAILED',
+    )
+    expect(screen.getByTestId('cabinet-profile-error-retry')).toBeTruthy()
+    expect(screen.getByTestId('cabinet-profile-error-back')).toBeTruthy()
+    expect(screen.queryByTestId('cabinet-grid')).toBeNull()
+  })
+
+  it('Retry on M22 calls session shell retry', async () => {
+    const retry = vi.fn()
+    mockUseSessionShell.mockReturnValue({
+      shellState: SESSION_SHELL_STATES.NETWORK_ERROR,
+      profile: null,
+      profileErrorCode: 'network_error',
+      retry,
+    })
+    renderProfileInShell()
+    screen.getByTestId('cabinet-profile-error-retry').click()
+    expect(retry).toHaveBeenCalledTimes(1)
+  })
+
   it('does not alter /dashboard route element when cabinet shell loads', () => {
     mockUseSessionShell.mockReturnValue({
       shellState: SESSION_SHELL_STATES.AUTHENTICATED,
       profile: { display_name: 'Demo User', role: 'citizen', phone_verified: false },
+      profileErrorCode: null,
       retry: vi.fn(),
     })
     renderProfileInShell('/dashboard')
