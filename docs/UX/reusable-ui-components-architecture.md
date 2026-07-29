@@ -19,10 +19,13 @@
 **Фактический MVP (2026-06-17):** L3 `StatusBadge`, `StatusFilter`/`TypeFilter`/`LabelsFilter`, `InstitutionFilter`/`DateRangeFilter`/`GeoFilter`, `FilterPanel`, `ActiveFilterChips`, `ResetFiltersControl`, `SearchInput`; hook `useBoardFilterDraft` ([`src/hooks/useBoardFilterDraft.js`](../../src/hooks/useBoardFilterDraft.js)); state SSOT [`boardFilterState.js`](../../src/router/boardFilterState.js) + [`boardQuery.js`](../../src/router/boardQuery.js). L2 `IssueCard`, L4 `EmptyState`; `AppShell` — inline в `BoardPage`/`IssuePage` (G8 backlog).
 
 > **Статус реализации (2026-06-12):** не выполнено — gap G8 (AppShell refactor).  
-> Backlog: [STORY-SPA-G8-app-shell-refactor](../tasks/backlog-stories/STORY-SPA-G8-app-shell-refactor.md)
+> Backlog: [STORY-SPA-G8-app-shell-refactor](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md)
 
-> **Статус реализации (2026-06-12):** не выполнено — gap G4 (design tokens L0).  
-> Backlog: [STORY-SPA-G4-design-tokens-foundation](../tasks/backlog-stories/STORY-SPA-G4-design-tokens-foundation.md)
+> **Статус реализации (2026-07-28):** Done — gap G4 closed (`pkg-000038`). L0 tokens: [`src/styles/tokens.css`](../../src/styles/tokens.css).  
+> Backlog: [STORY-SPA-G4-design-tokens-foundation](../tasks/backlog-stories/design-foundation/STORY-SPA-G4-design-tokens-foundation.md) · [pipeline](../tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G4-design-tokens-foundation/STORY-SPA-G4-design-tokens-foundation.md)
+
+> **Статус реализации (2026-07-28):** Done — gap G7 closed (`pkg-000039`). L0 fonts self-hosted: [`public/fonts/`](../../public/fonts/) + [`src/styles/fonts.css`](../../src/styles/fonts.css).  
+> Backlog: [STORY-SPA-G7-self-hosted-fonts](../tasks/backlog-stories/design-foundation/STORY-SPA-G7-self-hosted-fonts.md) · [pipeline](../tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G7-self-hosted-fonts/STORY-SPA-G7-self-hosted-fonts.md)
 
 ---
 
@@ -41,6 +44,7 @@
 ### L0 — Foundations
 
 - Токены, цвета, spacing, typography.
+- Self-hosted fonts (`public/fonts/` + `@font-face`).
 - Глобальные utility classes.
 - Иконки/ассеты (`Logo-Big.png`, verified marker).
 
