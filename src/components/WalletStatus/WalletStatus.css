@@ -5,9 +5,9 @@
   min-width: 0;
   padding: 1rem 1.1rem;
   border-radius: 8px;
-  border: 1px solid var(--color-border-subtle, rgba(245, 247, 250, 0.08));
-  background: var(--color-surface-elevated, #1a1f2e);
-  color: var(--color-text-primary, #f5f7fa);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -38,7 +38,7 @@
 .wallet-status-card__field-label,
 .wallet-status-card__field-value {
   margin: 0;
-  color: var(--color-text-muted, rgba(245, 247, 250, 0.72));
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -48,7 +48,7 @@
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
   background: rgba(245, 197, 24, 0.12);
-  color: #f5c518;
+  color: var(--color-accent-primary);
 }
 
 .wallet-status-card__fields {
@@ -69,8 +69,8 @@
 }
 
 .wallet-status-card__field-value {
-  color: var(--color-text-primary, #f5f7fa);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-mono);
   font-size: 0.875rem;
 }
 
@@ -85,7 +85,7 @@
   appearance: none;
   border: 1px solid rgba(245, 197, 24, 0.45);
   background: transparent;
-  color: #f5c518;
+  color: var(--color-accent-primary);
   border-radius: 6px;
   padding: 0.5rem 0.9rem;
   font-size: 0.875rem;
@@ -101,7 +101,7 @@
   opacity: 0.45;
   cursor: not-allowed;
   border-color: rgba(245, 247, 250, 0.2);
-  color: var(--color-text-muted, rgba(245, 247, 250, 0.55));
+  color: var(--color-text-muted);
 }
 
 .wallet-status-card__btn--primary {

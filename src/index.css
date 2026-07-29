@@ -1,14 +1,19 @@
 :root {
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
   line-height: 1.5;
-  color: #f2f2f2;
-  background: #141417;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
 }
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top right, #1f2024 0%, #17181c 45%, #141417 100%);
-  color: #f2f2f2;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  background: radial-gradient(circle at top right, var(--color-bg-secondary) 0%, var(--color-bg-primary) 45%, var(--color-bg-primary) 100%);
+  color: var(--color-text-primary);
 }
 
 #root {
@@ -25,7 +30,7 @@ body {
 .header-strip {
   height: 72px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.11);
-  background: #1b1c1f;
+  background: var(--color-bg-secondary);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,15 +65,15 @@ body {
   border-radius: 999px;
   padding: 5px 10px;
   font-size: 0.74rem;
-  color: #c9cbd2;
+  color: var(--color-text-secondary);
   letter-spacing: 0.04em;
 }
 
 .header-locale-trigger {
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 8px;
-  background: #232428;
-  color: #f2f2f2;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   font-size: 0.8rem;
   padding: 6px 10px;
   display: inline-flex;
@@ -91,7 +96,7 @@ body {
   min-width: 136px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
-  background: #1f2024;
+  background: var(--color-bg-secondary);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
   z-index: 30;
 }
@@ -104,7 +109,7 @@ body {
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
-  color: #e8e9ed;
+  color: var(--color-text-primary);
   text-align: left;
   padding: 7px 8px;
   font-size: 0.8rem;
@@ -142,7 +147,7 @@ body {
 
 .board-sidebar {
   border-right: 1px solid rgba(255, 255, 255, 0.1);
-  background: #1b1c1f;
+  background: var(--color-bg-secondary);
   padding: 20px 16px 16px;
   display: flex;
   flex-direction: column;
@@ -151,7 +156,7 @@ body {
 
 .board-sidebar-workspace {
   margin: 0;
-  color: #a0a3ac;
+  color: var(--color-text-secondary);
   font-size: 0.79rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -165,8 +170,8 @@ body {
 
 .board-nav-item {
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #222328;
-  color: #f2f2f2;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   border-radius: 8px;
   padding: 9px 11px;
   text-align: left;
@@ -178,8 +183,8 @@ body {
 }
 
 .board-nav-item-active {
-  border-color: #c7a646;
-  background: #2d291c;
+  border-color: var(--color-accent-active);
+  background: var(--color-bg-secondary);
 }
 
 .board-nav-item:disabled {
@@ -200,7 +205,7 @@ body {
   min-height: 64px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  background: #1b1c1f;
+  background: var(--color-bg-secondary);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -222,7 +227,7 @@ body {
 
 .board-routing-query {
   margin: 3px 0 0;
-  color: #9ca0ab;
+  color: var(--color-text-secondary);
   font-size: 0.72rem;
 }
 
@@ -235,15 +240,15 @@ body {
 
 .board-toolbar p {
   margin: 1px 0 0;
-  color: #9ca0ab;
+  color: var(--color-text-secondary);
   font-size: 0.76rem;
   line-height: 1.15;
 }
 
 .board-cta {
-  border: 1px solid #7d6a2a;
-  background: #2f2918;
-  color: #d9c481;
+  border: 1px solid var(--color-accent-active);
+  background: var(--color-bg-secondary);
+  color: var(--color-accent-active);
   border-radius: 8px;
   padding: 9px 14px;
   font-weight: 600;
@@ -263,7 +268,7 @@ body {
 .board-column {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  background: #1b1c1f;
+  background: var(--color-bg-secondary);
   padding: 10px 10px 12px;
   min-height: 340px;
   display: flex;
@@ -282,18 +287,18 @@ body {
   margin: 0;
   font-size: 0.79rem;
   letter-spacing: 0.04em;
-  color: #f2f2f2;
+  color: var(--color-text-primary);
 }
 
 .board-column-header span {
   font-size: 0.75rem;
-  color: #a0a3ac;
+  color: var(--color-text-secondary);
 }
 
 .board-column-divider {
   height: 2px;
   border-radius: 999px;
-  background: #c7a646;
+  background: var(--color-accent-active);
 }
 
 .board-column-placeholder {
@@ -302,7 +307,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 10px;
-  color: #8f939f;
+  color: var(--color-text-secondary);
   font-size: 0.82rem;
   padding: 10px 0;
 }
@@ -329,7 +334,7 @@ body {
 .board-no-issues {
   padding: 24px;
   text-align: center;
-  color: #9a9da6;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
 
@@ -337,7 +342,7 @@ body {
 .board-no-issues h3 {
   margin: 0 0 8px;
   font-size: 1rem;
-  color: #ececf0;
+  color: var(--color-text-primary);
 }
 
 .board-load-error p,
@@ -348,8 +353,8 @@ body {
 .board-retry-button {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  background: #25262c;
-  color: #ececf0;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   padding: 8px 16px;
   font-size: 0.85rem;
   cursor: pointer;
@@ -373,15 +378,15 @@ body {
 .issue-retry-button {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  background: #232428;
-  color: #f2f2f2;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   padding: 8px 12px;
 }
 
 .issue-details-state {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  background: #1b1c1f;
+  background: var(--color-bg-secondary);
   padding: 16px;
 }
 
@@ -399,20 +404,20 @@ body {
 
 .issue-details-id {
   font-weight: 600;
-  color: #f2f2f2;
+  color: var(--color-text-primary);
 }
 
 .issue-details-type {
   font-size: 0.85rem;
   text-transform: uppercase;
-  color: #8f939f;
+  color: var(--color-text-secondary);
 }
 
 .issue-details-title {
   flex-basis: 100%;
   margin: 0;
   font-size: 1.25rem;
-  color: #f2f2f2;
+  color: var(--color-text-primary);
 }
 
 .issue-details-body {
@@ -421,7 +426,7 @@ body {
 
 .issue-details-body p {
   margin: 0 0 8px;
-  color: #c8c9cc;
+  color: var(--color-text-secondary);
   line-height: 1.5;
 }
 
@@ -441,22 +446,22 @@ body {
 }
 
 .issue-details-metadata-label {
-  color: #8f939f;
+  color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 
 .issue-details-metadata-value {
-  color: #c8c9cc;
+  color: var(--color-text-secondary);
 }
 
 .issue-details-metadata-monospace {
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-family-mono);
   font-size: 0.85rem;
   word-break: break-all;
 }
 
 .issue-details-metadata-secondary {
-  color: #8f939f;
+  color: var(--color-text-secondary);
   font-size: 0.85rem;
 }
 
@@ -468,14 +473,14 @@ body {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   font-size: 0.8rem;
-  color: #c8c9cc;
+  color: var(--color-text-secondary);
 }
 
 .board-footer {
   margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 12px;
-  color: #8f939f;
+  color: var(--color-text-secondary);
   font-size: 0.8rem;
 }
 

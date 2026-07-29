@@ -1,11 +1,8 @@
 .story-handoff {
-  --story-handoff-accent: #f5c542;
-  --story-handoff-fg: #f5f7fa;
-  --story-handoff-muted: #9aa3b2;
   max-width: 720px;
   margin: 0 auto;
   padding: 2rem 1.5rem 3rem;
-  color: var(--story-handoff-fg);
+  color: var(--color-text-primary);
 }
 
 .story-handoff__panel {
@@ -28,7 +25,7 @@
 }
 
 .story-handoff__message {
-  color: var(--story-handoff-muted);
+  color: var(--color-text-secondary);
   margin: 0 0 1.25rem;
   line-height: 1.5;
 }
@@ -45,7 +42,7 @@
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   border: 1px solid rgba(245, 197, 66, 0.35);
-  color: var(--story-handoff-accent);
+  color: var(--color-accent-primary);
 }
 
 .story-handoff__language-badge {
@@ -56,7 +53,7 @@
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
   background: rgba(245, 197, 66, 0.15);
-  color: var(--story-handoff-accent);
+  color: var(--color-accent-primary);
   margin-bottom: 1rem;
 }
 
@@ -83,7 +80,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--story-handoff-muted);
+  color: var(--color-text-secondary);
   margin-bottom: 0.25rem;
 }
 
@@ -95,7 +92,7 @@
 
 .story-handoff__helper {
   font-size: 0.875rem;
-  color: var(--story-handoff-muted);
+  color: var(--color-text-secondary);
   margin: 0 0 1.25rem;
 }
 
@@ -115,19 +112,19 @@
 }
 
 .story-handoff__btn--primary {
-  background: var(--story-handoff-accent);
-  color: #12161e;
+  background: var(--color-accent-primary);
+  color: var(--color-bg-primary);
 }
 
 .story-handoff__btn--secondary {
   background: transparent;
   border: 1px solid rgba(245, 247, 250, 0.25);
-  color: var(--story-handoff-fg);
+  color: var(--color-text-primary);
 }
 
 .story-handoff__btn--link {
   background: transparent;
-  color: var(--story-handoff-accent);
+  color: var(--color-accent-primary);
   text-decoration: underline;
   padding-left: 0;
   padding-right: 0;
@@ -149,7 +146,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-family-mono);
   margin: 0.5rem 0 1rem;
 }
 

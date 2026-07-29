@@ -5,9 +5,9 @@
   margin: 1.5rem auto 2rem;
   padding: 1.35rem 1.5rem 1.5rem;
   border-radius: 8px;
-  border: 1px solid var(--color-border-subtle, rgba(245, 247, 250, 0.12));
-  background: var(--color-surface-elevated, #1a1f2e);
-  color: var(--color-text-primary, #f5f7fa);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -37,13 +37,13 @@
 .app-error-state__details,
 .app-error-state__code {
   margin: 0;
-  color: var(--color-text-muted, rgba(245, 247, 250, 0.72));
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   line-height: 1.45;
 }
 
 .app-error-state__code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-family-mono);
   font-size: 0.82rem;
   letter-spacing: 0.02em;
 }
@@ -68,14 +68,14 @@
 }
 
 .app-error-state__button--primary {
-  background: var(--color-accent, #3d7eff);
-  color: #fff;
+  background: var(--color-accent-primary);
+  color: var(--color-text-primary);
 }
 
 .app-error-state__button--secondary {
   background: transparent;
-  border-color: var(--color-border-subtle, rgba(245, 247, 250, 0.2));
-  color: var(--color-text-primary, #f5f7fa);
+  border-color: var(--color-border-subtle);
+  color: var(--color-text-primary);
 }
 
 .app-error-state__button-icon {
