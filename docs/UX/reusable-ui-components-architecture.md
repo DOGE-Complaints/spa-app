@@ -16,10 +16,10 @@
 
 Этим документом фиксируется целевая компонентная архитектура как SSOT.
 
-**Фактический MVP (2026-06-17):** L3 `StatusBadge`, `StatusFilter`/`TypeFilter`/`LabelsFilter`, `InstitutionFilter`/`DateRangeFilter`/`GeoFilter`, `FilterPanel`, `ActiveFilterChips`, `ResetFiltersControl`, `SearchInput`; hook `useBoardFilterDraft` ([`src/hooks/useBoardFilterDraft.js`](../../src/hooks/useBoardFilterDraft.js)); state SSOT [`boardFilterState.js`](../../src/router/boardFilterState.js) + [`boardQuery.js`](../../src/router/boardQuery.js). L2 `IssueCard`, L4 `EmptyState`; `AppShell` — inline в `BoardPage`/`IssuePage` (G8 backlog).
+**Фактический MVP (2026-07-29):** L3 `StatusBadge`, `StatusFilter`/`TypeFilter`/`LabelsFilter`, `InstitutionFilter`/`DateRangeFilter`/`GeoFilter`, `FilterPanel`, `ActiveFilterChips`, `ResetFiltersControl`, `SearchInput`; hook `useBoardFilterDraft` ([`src/hooks/useBoardFilterDraft.js`](../../src/hooks/useBoardFilterDraft.js)); state SSOT [`boardFilterState.js`](../../src/router/boardFilterState.js) + [`boardQuery.js`](../../src/router/boardQuery.js). L2 `IssueCard`, L4 `EmptyState`; L0/L1 shell: [`AppShell`](../../src/components/AppShell/AppShell.jsx) + [`Header`](../../src/components/AppShell/Header.jsx) / [`Sidebar`](../../src/components/AppShell/Sidebar.jsx) / [`LanguageSelector`](../../src/components/AppShell/LanguageSelector.jsx) on Board/Issue (`pkg-000040`).
 
-> **Статус реализации (2026-06-12):** не выполнено — gap G8 (AppShell refactor).  
-> Backlog: [STORY-SPA-G8-app-shell-refactor](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md)
+> **Статус реализации (2026-07-29):** Done — gap G8 closed (`pkg-000040`). AppShell board chrome extracted.  
+> Backlog: [STORY-SPA-G8-app-shell-refactor](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md) · [pipeline](../tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G8-app-shell-refactor/STORY-SPA-G8-app-shell-refactor.md)
 
 > **Статус реализации (2026-07-28):** Done — gap G4 closed (`pkg-000038`). L0 tokens: [`src/styles/tokens.css`](../../src/styles/tokens.css).  
 > Backlog: [STORY-SPA-G4-design-tokens-foundation](../tasks/backlog-stories/design-foundation/STORY-SPA-G4-design-tokens-foundation.md) · [pipeline](../tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G4-design-tokens-foundation/STORY-SPA-G4-design-tokens-foundation.md)

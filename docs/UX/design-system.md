@@ -121,7 +121,7 @@ Design System состоит из 4 слоёв:
 - баннеры
 - сообщения пользователю
 
-**Компонент (target):** `src/components/AppShell/Header.jsx` — сейчас inline в `BoardPage`/`IssuePage` ([STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md)).
+**Компонент:** [`src/components/AppShell/Header.jsx`](../../src/components/AppShell/Header.jsx) — Done ([STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md), `pkg-000040`).
 
 ### 4.2 Sidebar
 
@@ -134,7 +134,7 @@ Design System состоит из 4 слоёв:
 - always visible
 - no collapse (в MVP)
 
-**Компонент (target):** `src/components/AppShell/Sidebar.jsx` — сейчас inline в `BoardPage`/`IssuePage` ([STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md)).
+**Компонент:** [`src/components/AppShell/Sidebar.jsx`](../../src/components/AppShell/Sidebar.jsx) — Done ([STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md), `pkg-000040`).
 
 ### 4.3 Issue List Item
 
@@ -228,7 +228,7 @@ Design System состоит из 4 слоёв:
 
 ## Техническая карта (spa-app)
 
-**Фактический MVP (2026-06-12):** токены и self-hosted шрифты ещё не внедрены; header/sidebar inline в `BoardPage.jsx` / `IssuePage.jsx`; отдельные `Header/`, `Sidebar/` каталогов нет.
+**Фактический MVP (2026-07-29):** tokens + self-hosted fonts Done; board/issue shell via `AppShell` + `Header` / `Sidebar` / `LanguageSelector` ([STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md)).
 
 | Артефакт | Путь (target) | Факт / назначение |
 |----------|---------------|-------------------|
@@ -236,10 +236,10 @@ Design System состоит из 4 слоёв:
 | Глобальные стили | `src/index.css` | base styles; typography via `--font-*` tokens |
 | Шрифты | `public/fonts/` + `src/styles/fonts.css` | **Done** — Inter 400/500/600 + JetBrains Mono 400 woff2 — [STORY-SPA-G7](../tasks/backlog-stories/design-foundation/STORY-SPA-G7-self-hosted-fonts.md) (`pkg-000039`) |
 | Иконки | `public/icons/`, `public/assets/` | verified marker, флаги локалей |
-| Shell | `src/components/AppShell/` | **planned** — сейчас inline в pages → [STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md) |
+| Shell | `src/components/AppShell/` | **Done** — `AppShell.jsx`, `Header.jsx`, `Sidebar.jsx`, `LanguageSelector.jsx` — [STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md) (`pkg-000040`) |
 | Компоненты | `src/components/` | StatusBadge, IssueCard, EmptyState, Filters (факт) |
 
-> **Статус реализации (2026-07-28):** G4 Done (`pkg-000038`, tokens.css); G7 Done (`pkg-000039`, self-hosted fonts); open gap G8. Backlog stories выше.
+> **Статус реализации (2026-07-29):** G4 Done (`pkg-000038`); G7 Done (`pkg-000039`); G8 Done (`pkg-000040`, AppShell Header/Sidebar/LanguageSelector). Backlog stories выше.
 
 ---
 
