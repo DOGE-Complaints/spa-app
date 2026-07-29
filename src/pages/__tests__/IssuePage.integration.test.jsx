@@ -29,6 +29,8 @@ describe('IssuePage integration', () => {
     expect(html).toContain('header-strip')
     expect(html).toContain('board-sidebar')
     expect(html).toContain('board-footer')
+    expect(html).toContain('data-testid="app-shell"')
+    expect(html).toContain('header-locale')
   })
 
   it('renders not-found state for unknown id', () => {

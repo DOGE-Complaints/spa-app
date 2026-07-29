@@ -61,9 +61,10 @@ async function run() {
       }
     }
 
+    // BoardPage.jsx scaffold: NEW / IN_REVIEW / PUBLISHED (3) — see BoardPage.shell.test.jsx
     const columnsCount = await page.$$eval('.board-column', (nodes) => nodes.length)
-    if (columnsCount !== 4) {
-      throw new Error(`Expected 4 board columns, received ${columnsCount}`)
+    if (columnsCount !== 3) {
+      throw new Error(`Expected 3 board columns, received ${columnsCount}`)
     }
 
     await browser.close()

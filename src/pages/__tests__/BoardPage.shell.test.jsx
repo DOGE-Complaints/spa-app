@@ -15,11 +15,14 @@ describe('BoardPage shell visual parity scaffold', () => {
     )
 
     expect(html).toContain('class="board-shell"')
-    expect(html).toContain('class="header-strip"')
-    expect(html).toContain('class="board-main"')
-    expect(html).toContain('class="board-sidebar"')
-    expect(html).toContain('class="board-workspace"')
-    expect(html).toContain('class="board-footer"')
+    expect(html).toContain('header-strip')
+    expect(html).toContain('board-main')
+    expect(html).toContain('board-sidebar')
+    expect(html).toContain('board-workspace')
+    expect(html).toContain('board-footer')
+    expect(html).toContain('data-testid="app-shell"')
+    expect(html).toContain('header-locale')
+    expect(html).toContain('header-status')
   })
 
   it('renders three status columns in board scaffold', () => {
