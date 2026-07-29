@@ -10,7 +10,14 @@ function navItemClassName({ isActive }) {
 /**
  * Shared DOGEstonia app shell (M124 §6): logo, sidebar, header, footer slots.
  */
-export function AppShell({ header, sidebar, footer, children, className = '' }) {
+export function AppShell({
+  header,
+  sidebar,
+  footer,
+  showFooter = true,
+  children,
+  className = '',
+}) {
   const { t } = useI18n()
 
   return (
@@ -53,9 +60,11 @@ export function AppShell({ header, sidebar, footer, children, className = '' }) 
         <section className="app-shell__main board-workspace">{children}</section>
       </div>
 
-      <footer className="app-shell__footer board-footer" aria-label={t('appShell.aria.systemStatus')}>
-        {footer ?? <span>{t('appShell.footer')}</span>}
-      </footer>
+      {showFooter ? (
+        <footer className="app-shell__footer board-footer" aria-label={t('appShell.aria.systemStatus')}>
+          {footer ?? <span>{t('appShell.footer')}</span>}
+        </footer>
+      ) : null}
     </div>
   )
 }
