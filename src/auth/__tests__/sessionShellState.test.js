@@ -20,6 +20,7 @@ import {
   resolveProfileLoadErrorCode,
   shouldShowSessionShellOverlay,
 } from '../sessionShellState.js'
+import { isProtectedPath } from '../../router/sessionRoutePolicy.js'
 
 describe('sessionShellState', () => {
   it('maps AUTHENTICATION_REQUIRED with token to session_expired', () => {
@@ -53,6 +54,27 @@ describe('sessionShellState', () => {
     expect(
       shouldShowSessionShellOverlay(SESSION_SHELL_STATES.LOGGED_OUT, false, false),
     ).toBe(false)
+  })
+
+  it('bridges public route policy to logged_out overlay false (ID-13)', () => {
+    const boardProtected = isProtectedPath('/board')
+    const profileProtected = isProtectedPath('/profile')
+    expect(boardProtected).toBe(false)
+    expect(profileProtected).toBe(true)
+    expect(
+      shouldShowSessionShellOverlay(
+        SESSION_SHELL_STATES.LOGGED_OUT,
+        boardProtected,
+        false,
+      ),
+    ).toBe(false)
+    expect(
+      shouldShowSessionShellOverlay(
+        SESSION_SHELL_STATES.LOGGED_OUT,
+        profileProtected,
+        false,
+      ),
+    ).toBe(true)
   })
 
   it.each([

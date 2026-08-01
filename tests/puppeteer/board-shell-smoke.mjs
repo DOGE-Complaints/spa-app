@@ -43,6 +43,11 @@ async function run() {
     await page.setViewport({ width: 1536, height: 1024 })
     await page.goto(BASE_URL, { waitUntil: 'networkidle0' })
 
+    const pageUrl = page.url()
+    if (pageUrl.includes('/login')) {
+      throw new Error(`Board shell redirected to login; url=${pageUrl}`)
+    }
+
     const requiredSelectors = [
       '.board-shell',
       '.header-strip',

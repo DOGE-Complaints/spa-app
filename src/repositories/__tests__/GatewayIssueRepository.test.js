@@ -92,4 +92,38 @@ describe('GatewayIssueRepository', () => {
 
     await expect(repo.getIssue('X')).rejects.toThrow('Gateway error: 500')
   })
+
+  it('calls fetch with a single URL argument for getIssues (no Authorization)', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ data: { issues: [] } }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    const repo = createGatewayIssueRepository('http://localhost:8000')
+
+    await repo.getIssues()
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock.mock.calls[0]).toHaveLength(1)
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/issues')
+    const init = fetchMock.mock.calls[0][1]
+    expect(init).toBeUndefined()
+  })
+
+  it('calls fetch with a single URL argument for getIssue (no Authorization)', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ data: { issue: { id: '1' } } }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    const repo = createGatewayIssueRepository('http://localhost:8000')
+
+    await repo.getIssue('1')
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock.mock.calls[0]).toHaveLength(1)
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/issues/1')
+    const init = fetchMock.mock.calls[0][1]
+    expect(init).toBeUndefined()
+  })
 })
