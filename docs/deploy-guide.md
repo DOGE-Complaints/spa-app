@@ -136,6 +136,9 @@ VITE_STORY_GPT_URL=https://chatgpt.com/g/your-custom-gpt
 
 ### Post-deploy smoke (M-5)
 
+> **Story Done (SPA-ID-13):** локальный gate — `npm run test:ui:board-shell` (без Railway URL).  
+> `verify:railway:live` — **post-deploy pointer only**, не AC Done для ID-13.
+
 После первого деплоя:
 
 ```bash
