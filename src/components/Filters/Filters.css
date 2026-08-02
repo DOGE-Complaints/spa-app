@@ -18,8 +18,8 @@
   padding: 6px 10px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
-  background: #1f2024;
-  color: #9a9da6;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
 }
 
 .board-search-input-wrap:focus-within {
@@ -29,7 +29,7 @@
 .board-search-icon {
   display: inline-flex;
   flex-shrink: 0;
-  color: #6b6e78;
+  color: var(--color-border-muted);
 }
 
 .board-search-input {
@@ -37,13 +37,13 @@
   min-width: 0;
   border: none;
   background: transparent;
-  color: #ececf0;
+  color: var(--color-text-primary);
   font-size: 0.8rem;
   outline: none;
 }
 
 .board-search-input::placeholder {
-  color: #6b6e78;
+  color: var(--color-border-muted);
 }
 
 .board-search-input::-webkit-search-cancel-button {
@@ -62,14 +62,14 @@
   border: none;
   border-radius: 4px;
   background: transparent;
-  color: #9a9da6;
+  color: var(--color-text-secondary);
   font-size: 1rem;
   line-height: 1;
   cursor: pointer;
 }
 
 .board-search-clear:hover {
-  color: #ececf0;
+  color: var(--color-text-primary);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -89,8 +89,8 @@
   padding: 6px 10px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
-  background: #1f2024;
-  color: #ececf0;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   font-size: 0.8rem;
   cursor: pointer;
 }
@@ -100,7 +100,7 @@
 }
 
 .board-filter-label {
-  color: #9a9da6;
+  color: var(--color-text-secondary);
 }
 
 .board-filter-value {
@@ -125,7 +125,7 @@
   padding: 6px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
-  background: #1b1c1f;
+  background: var(--color-bg-secondary);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   z-index: 20;
   max-height: 280px;
@@ -143,7 +143,7 @@
   border: none;
   border-radius: 6px;
   background: transparent;
-  color: #ececf0;
+  color: var(--color-text-primary);
   font-size: 0.8rem;
   text-align: left;
   cursor: pointer;
@@ -155,7 +155,7 @@
 
 .board-filter-option-selected {
   background: rgba(199, 166, 70, 0.2);
-  color: #d9c481;
+  color: var(--color-accent-active);
 }
 
 .board-filter-clear {
@@ -166,14 +166,14 @@
   border: none;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.06);
-  color: #9a9da6;
+  color: var(--color-text-secondary);
   font-size: 0.78rem;
   cursor: pointer;
 }
 
 .board-filter-clear:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #ececf0;
+  color: var(--color-text-primary);
 }
 
 .board-filter-search {
@@ -182,28 +182,28 @@
   padding: 6px 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
-  background: #25262c;
-  color: #ececf0;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   font-size: 0.8rem;
 }
 
 .board-filter-search::placeholder {
-  color: #6b6e78;
+  color: var(--color-border-muted);
 }
 
 .board-filter-reset {
   padding: 6px 12px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
-  background: #25262c;
-  color: #9a9da6;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
   font-size: 0.8rem;
   cursor: pointer;
 }
 
 .board-filter-reset:hover:not(:disabled) {
   border-color: rgba(255, 255, 255, 0.22);
-  color: #ececf0;
+  color: var(--color-text-primary);
 }
 
 .board-filter-reset:disabled {
@@ -214,7 +214,7 @@
 .board-no-results {
   padding: 24px;
   text-align: center;
-  color: #9a9da6;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
 
@@ -235,8 +235,8 @@
   padding: 6px 12px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
-  background: #1f2024;
-  color: #ececf0;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   font-size: 0.8rem;
   cursor: pointer;
 }
@@ -261,7 +261,7 @@
   padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
-  background: #1b1c1f;
+  background: var(--color-bg-secondary);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 }
 
@@ -306,7 +306,7 @@
 
 .board-filter-date-field-label {
   font-size: 0.75rem;
-  color: #9a9da6;
+  color: var(--color-text-secondary);
 }
 
 .board-filter-date-input-wrap {
@@ -323,13 +323,13 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.2);
-  color: #ececf0;
+  color: var(--color-text-primary);
   font: inherit;
   cursor: pointer;
 }
 
 .board-filter-date-display::placeholder {
-  color: #9a9da6;
+  color: var(--color-text-secondary);
 }
 
 .board-filter-date-display:focus {
@@ -384,7 +384,7 @@
   border: 1px solid rgba(199, 166, 70, 0.45);
   border-radius: 8px;
   background: rgba(199, 166, 70, 0.18);
-  color: #d9c481;
+  color: var(--color-accent-active);
   font-size: 0.8rem;
   cursor: pointer;
 }
@@ -432,8 +432,8 @@
   padding: 4px 8px 4px 10px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
-  background: #25262c;
-  color: #ececf0;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   font-size: 0.78rem;
 }
 
@@ -447,7 +447,7 @@
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
-  color: #9a9da6;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
   line-height: 1;
   cursor: pointer;
@@ -455,7 +455,7 @@
 
 .board-filter-chip-remove:hover {
   background: rgba(255, 255, 255, 0.16);
-  color: #ececf0;
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 768px) {

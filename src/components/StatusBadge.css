@@ -7,7 +7,7 @@
   padding: 3px 11px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: #252932;
-  color: #e6e8ef;
+  color: var(--color-text-primary);
   font-size: 0.73rem;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -17,21 +17,21 @@
 
 .status-badge-new {
   background: #262a33;
-  color: #edf0f7;
+  color: var(--color-text-primary);
 }
 
 .status-badge-published {
   background: #2a271f;
   border-color: rgba(179, 139, 71, 0.45);
-  color: #c5a162;
+  color: var(--color-accent-active);
 }
 
 .status-badge-in-review {
   background: #242831;
-  color: #aab0bc;
+  color: var(--color-text-secondary);
 }
 
 .status-badge-unknown {
   background: #2a2a2a;
-  color: #b8bcc7;
+  color: var(--color-text-secondary);
 }
