@@ -38,20 +38,24 @@ Design System состоит из 4 слоёв:
 
 ### 2.1 Color Tokens (канон)
 
-| Token | Значение | CSS-переменная |
-|-------|----------|----------------|
-| `color.background.primary` | Black-900 | `--color-bg-primary` |
-| `color.background.secondary` | Black-800 | `--color-bg-secondary` |
-| `color.text.primary` | White-900 | `--color-text-primary` |
-| `color.text.secondary` | White-700 | `--color-text-secondary` |
-| `color.accent.primary` | Yellow-500 | `--color-accent-primary` |
-| `color.accent.active` | Yellow-600 | `--color-accent-active` |
-| `color.border.default` | Gray-700 | `--color-border-default` |
-| `color.border.muted` | Gray-600 | `--color-border-muted` |
+Brand hex SSOT: [DOGEstonia Color Palette v1.0](../tasks/backlog-stories/design-foundation/DOGEstonia_Color_Palette_v1.0_RU.md) (`--doge-*`). Consumer CSS API остаётся `--color-*` (G4 infra); G9 cutover — [STORY-SPA-G9](../tasks/backlog-stories/design-foundation/STORY-SPA-G9-brand-color-palette-tokens.md).
 
-**Правило:** Цвет никогда не несёт смысл в одиночку — только вместе с формой/иконкой.
+| Token | Значение | Hex | CSS-переменная |
+|-------|----------|-----|----------------|
+| `color.background.primary` | DOGE Night | `#0B1320` | `--color-bg-primary` → `--doge-bg` |
+| `color.background.secondary` | Surface 1 | `#111C2B` | `--color-bg-secondary` → `--doge-surface-1` |
+| `color.text.primary` | Pure White | `#FFFFFF` | `--color-text-primary` → `--doge-text` |
+| `color.text.secondary` | Text secondary | `#B8C2CF` | `--color-text-secondary` → `--doge-text-2` |
+| `color.text.warm` | Text warm / Cream | `#FFF4DE` | `--color-text-warm` → `--doge-text-warm` |
+| `color.accent.primary` | Signal Orange | `#F5A623` | `--color-accent-primary` → `--doge-accent` |
+| `color.accent.hover` | Action hover | `#FFB544` | `--color-accent-hover` → `--doge-accent-hover` |
+| `color.accent.active` | Action active | `#D98F17` | `--color-accent-active` → `--doge-accent-active` |
+| `color.border.default` | Border | `#2B3A4D` | `--color-border-default` → `--doge-border` |
+| `color.border.muted` | Muted | `#7D8999` | `--color-border-muted` → `--doge-muted` |
 
-**Техническая адаптация:** ТЗ §8 — чёрный фон, жёлтые акценты, белый текст. Реализовано: [`src/styles/tokens.css`](../../src/styles/tokens.css) (`:root` color + typography + spacing; hex SSOT D-G4-1) — [STORY-SPA-G4](../tasks/backlog-stories/design-foundation/STORY-SPA-G4-design-tokens-foundation.md) Done (`pkg-000038`).
+**Правило:** Цвет никогда не несёт смысл в одиночку — только вместе с формой/иконкой. На CTA с Signal Orange текст = `#0B1320` / `#111111` (не белый).
+
+**Техническая адаптация:** Night System + Orange Signal. Реализовано: [`src/styles/tokens.css`](../../src/styles/tokens.css) (`--doge-*` brand + `--color-*` consumer; G4 infra retained) — G4 Done (`pkg-000038`); brand hex G9 (`pkg-000042`).
 
 ### 2.2 Typography Tokens
 
@@ -108,6 +112,13 @@ Design System состоит из 4 слоёв:
 ---
 
 ## 4. Components (канон)
+
+### 4.0 Buttons (DS-BTN)
+
+- **SSOT contract:** [design-system-buttons-spec.md](design-system-buttons-spec.md) · artboard [design-system-buttons-spec.png](design-system-buttons-spec.png)
+- **Day-to-day guide:** [button-system-developer-guide.md](../runtime-docs/button-system-developer-guide.md)
+- **Backlog:** [STORY-SPA-G10](../tasks/backlog-stories/design-foundation/STORY-SPA-G10-button-system-ds-btn.md) (Todo) — shared `Button` / migrate legacy `<button>`
+- **Colors:** G9 brand tokens (`--color-accent-primary` = Signal Orange); primary label = ink/bg for contrast
 
 ### 4.1 Header
 

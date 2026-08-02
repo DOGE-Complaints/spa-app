@@ -69,7 +69,7 @@
 
 .app-error-state__button--primary {
   background: var(--color-accent-primary);
-  color: var(--color-text-primary);
+  color: var(--doge-bg);
 }
 
 .app-error-state__button--secondary {

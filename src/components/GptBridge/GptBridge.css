@@ -10,20 +10,20 @@
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #a0a3ac;
+  color: var(--color-text-secondary);
 }
 
 .gpt-bridge-draft-banner__status {
   margin-top: 0.35rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #f2f2f2;
+  color: var(--color-text-primary);
 }
 
 .gpt-bridge-draft-banner__source {
   margin-top: 0.35rem;
   font-size: 0.8rem;
-  color: #8e9097;
+  color: var(--color-text-secondary);
 }
 
 .gpt-bridge-panel {
@@ -37,7 +37,7 @@
 .gpt-bridge-panel__title {
   margin: 0 0 0.5rem;
   font-size: 1.15rem;
-  color: #f2f2f2;
+  color: var(--color-text-primary);
 }
 
 .gpt-bridge-panel__message,
@@ -46,7 +46,7 @@
 .gpt-bridge-login-context__message,
 .gpt-bridge-login-context__note {
   margin: 0.35rem 0;
-  color: #a0a3ac;
+  color: var(--color-text-secondary);
   line-height: 1.45;
 }
 
@@ -76,8 +76,8 @@
   padding: 0.75rem 1rem;
   border: none;
   border-radius: 8px;
-  background: #c7a646;
-  color: #141417;
+  background: var(--color-accent-active);
+  color: var(--color-bg-primary);
   font-weight: 600;
   cursor: pointer;
 }
@@ -85,7 +85,7 @@
 .gpt-bridge-panel__secondary {
   display: inline-block;
   margin-top: 0.75rem;
-  color: #c7a646;
+  color: var(--color-accent-active);
   text-decoration: none;
 }
 
@@ -96,7 +96,7 @@
 .gpt-bridge-login-context__title {
   margin: 0 0 0.35rem;
   font-size: 1.05rem;
-  color: #f2f2f2;
+  color: var(--color-text-primary);
 }
 
 .verify-page__gpt-bridge {

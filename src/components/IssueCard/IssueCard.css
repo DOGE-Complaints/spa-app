@@ -5,17 +5,17 @@
   flex-direction: column;
   gap: 10px;
   padding: 20px;
-  background: #1f2024;
+  background: var(--color-bg-secondary);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 14px;
-  color: #ececf0;
+  color: var(--color-text-primary);
   text-decoration: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .issue-card:hover {
   border-color: rgba(255, 255, 255, 0.22);
-  background: #25262c;
+  background: var(--color-bg-secondary);
 }
 
 .issue-card:focus-visible {
@@ -25,7 +25,7 @@
 
 .issue-card-selected,
 .issue-card[data-selected='true'] {
-  border-left: 3px solid #bb944a;
+  border-left: 3px solid var(--color-accent-active);
   padding-left: 17px;
 }
 
@@ -44,13 +44,13 @@
 
 .issue-card-id {
   font-size: 0.8rem;
-  color: #9a9da6;
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
 .issue-card-overflow {
   margin-left: auto;
-  color: #6b6e78;
+  color: var(--color-border-muted);
   font-size: 1rem;
   cursor: default;
 }
@@ -78,12 +78,12 @@
   padding: 4px 8px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.08);
-  color: #b8bbc4;
+  color: var(--color-text-secondary);
 }
 
 .issue-card-chip-type {
   background: rgba(190, 160, 86, 0.2);
-  color: #bea056;
+  color: var(--color-accent-active);
 }
 
 .issue-card-date {
@@ -91,11 +91,11 @@
   align-items: center;
   gap: 6px;
   font-size: 0.78rem;
-  color: #9a9da6;
+  color: var(--color-text-secondary);
 }
 
 .issue-card-date-bullet {
-  color: #6b6e78;
+  color: var(--color-border-muted);
 }
 
 .issue-card-footer {
@@ -103,5 +103,5 @@
   padding-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.72rem;
-  color: #6b6e78;
+  color: var(--color-border-muted);
 }

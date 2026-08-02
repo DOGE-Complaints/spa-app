@@ -5,7 +5,7 @@
   border-radius: 0.75rem;
   background: rgba(18, 22, 30, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #f5f7fa;
+  color: var(--color-text-primary);
 }
 
 .waitlist-panel h2 {

@@ -78,14 +78,14 @@
 }
 
 .session-shell-button--primary {
-  background: #f5c518;
-  color: #141417;
+  background: var(--color-accent-primary);
+  color: var(--color-bg-primary);
   font-weight: 600;
 }
 
 .session-shell-button--secondary {
   background: rgba(255, 255, 255, 0.06);
-  color: #f2f2f2;
+  color: var(--color-text-primary);
   border-color: rgba(255, 255, 255, 0.14);
 }
 

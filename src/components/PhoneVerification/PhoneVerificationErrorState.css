@@ -6,7 +6,7 @@
   margin: 0 0 0.5rem;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #f5f7fa;
+  color: var(--color-text-primary);
 }
 
 .phone-verification-error__message {
@@ -37,8 +37,8 @@
 }
 
 .phone-verification-error__button--primary {
-  background: #f5c542;
-  color: #12161e;
+  background: var(--color-accent-primary);
+  color: var(--color-bg-primary);
 }
 
 .phone-verification-error__button--primary:disabled {

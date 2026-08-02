@@ -15,12 +15,12 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--color-text-primary, #f5f7fa);
+  color: var(--color-text-primary);
 }
 
 .user-cabinet-page__loading {
   margin: 0.75rem 0 0;
-  color: var(--color-text-muted, rgba(245, 247, 250, 0.65));
+  color: var(--color-text-muted);
 }
 
 /* M99: 12-column desktop grid — hierarchy Civic > Story > Contribution > Account > Wallet */
@@ -64,7 +64,7 @@
 .user-cabinet-page__slot-placeholder {
   margin: 0;
   font-size: 0.875rem;
-  color: var(--color-text-muted, rgba(245, 247, 250, 0.55));
+  color: var(--color-text-muted);
 }
 
 /* Desktop placement (M99) — Account needs ≥~320px for field rows */

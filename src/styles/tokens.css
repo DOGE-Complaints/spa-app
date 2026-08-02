@@ -1,29 +1,52 @@
 /**
- * L0 Design tokens — SSOT: docs/UX/design-system.md §2
- * Hex values: D-G4-1 / D-G4-5 reconciliation (see task-spa-g4-t02 TOKEN-HEX-MAP.md)
+ * L0 Design tokens — consumer API: docs/UX/design-system.md §2 (`--color-*`)
+ * Brand hex SSOT: docs/tasks/backlog-stories/design-foundation/DOGEstonia_Color_Palette_v1.0_RU.md §6 (`--doge-*`)
+ * G9: G4 hex superseded by brand palette cutover; G4 infra (`var(--color-*)`) retained.
  * G7 Done: @font-face + font files in fonts.css / public/fonts/; G4 defines --font-* variables.
  */
 :root {
-  /* §2.1 Color */
-  --color-bg-primary: #141417;
-  --color-bg-secondary: #1b1c1f;
-  --color-text-primary: #f2f2f2;
-  --color-text-secondary: #9a9da6;
-  --color-accent-primary: #f5c518;
-  --color-accent-active: #c7a646;
-  --color-border-default: #8f939f;
-  --color-border-muted: #6b6e78;
+  /* Brand primitives (Color Palette v1.0 §6) — D-G9-1 */
+  --doge-bg: #0B1320;
+  --doge-accent: #F5A623;
+  --doge-cream: #FFF4DE;
+  --doge-white: #FFFFFF;
+  --doge-ink: #111111;
 
-  /* D-G4-5 status */
+  --doge-surface-1: #111C2B;
+  --doge-surface-2: #172538;
+  --doge-border: #2B3A4D;
+
+  --doge-text: #FFFFFF;
+  --doge-text-warm: #FFF4DE;
+  --doge-text-2: #B8C2CF;
+  --doge-muted: #7D8999;
+
+  --doge-accent-hover: #FFB544;
+  --doge-accent-active: #D98F17;
+  --doge-accent-soft: rgba(245, 166, 35, 0.14);
+
+  /* §2.1 Color — consumer API (D-G9-2); danger/success unchanged (D-G9-3) */
+  --color-bg-primary: var(--doge-bg);
+  --color-bg-secondary: var(--doge-surface-1);
+  --color-text-primary: var(--doge-text);
+  --color-text-secondary: var(--doge-text-2);
+  --color-text-warm: var(--doge-text-warm);
+  --color-accent-primary: var(--doge-accent);
+  --color-accent-hover: var(--doge-accent-hover);
+  --color-accent-active: var(--doge-accent-active);
+  --color-border-default: var(--doge-border);
+  --color-border-muted: var(--doge-muted);
+
+  /* D-G4-5 status — unchanged by G9 */
   --color-danger: #ff7b7b;
   --color-success: #9be28d;
 
-  /* Compatibility aliases (pre-G4 local var names → §2 tokens) */
-  --color-surface-elevated: var(--color-bg-secondary);
-  --color-surface: var(--color-bg-secondary);
-  --color-text-muted: var(--color-text-secondary);
-  --color-border-subtle: rgba(245, 247, 250, 0.08);
-  --color-border: var(--color-border-default);
+  /* Compatibility aliases (pre-G4 local var names → brand via doge) */
+  --color-surface-elevated: var(--doge-surface-2);
+  --color-surface: var(--doge-surface-1);
+  --color-text-muted: var(--doge-muted);
+  --color-border-subtle: rgba(43, 58, 77, 0.55);
+  --color-border: var(--doge-border);
 
   /* §2.2 Typography */
   --font-family-base: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;

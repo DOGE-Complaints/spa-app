@@ -38,7 +38,11 @@ async function run() {
   try {
     await waitForServer('http://127.0.0.1:4173')
 
-    const browser = await puppeteer.launch({ headless: true })
+    const launchOpts = { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }
+    if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+      launchOpts.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH
+    }
+    const browser = await puppeteer.launch(launchOpts)
     const page = await browser.newPage()
     await page.setViewport({ width: 1536, height: 1024 })
     await page.goto(BASE_URL, { waitUntil: 'networkidle0' })
