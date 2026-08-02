@@ -20,7 +20,7 @@
   margin: 0;
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
-  background: rgba(245, 197, 24, 0.12);
+  background: var(--color-accent-soft);
   color: var(--color-accent-primary);
   font-size: 0.9rem;
 }
@@ -152,7 +152,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  border: 1px solid rgba(245, 197, 24, 0.45);
+  border: 1px solid color-mix(in srgb, var(--doge-accent) 45%, transparent);
   background: transparent;
   color: var(--color-accent-primary);
   border-radius: 6px;
@@ -163,7 +163,7 @@
 }
 
 .contrib-card__btn:hover {
-  background: rgba(245, 197, 24, 0.12);
+  background: var(--color-accent-soft);
 }
 
 .contrib-card__btn-icon {

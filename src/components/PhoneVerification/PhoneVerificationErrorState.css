@@ -41,6 +41,13 @@
   color: var(--color-bg-primary);
 }
 
+.phone-verification-error__button--primary:hover,
+.phone-verification-error__button--primary:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-bg-primary);
+}
+
+
 .phone-verification-error__button--primary:disabled {
   opacity: 0.45;
   cursor: not-allowed;

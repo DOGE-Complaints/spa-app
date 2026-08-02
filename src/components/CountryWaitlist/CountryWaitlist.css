@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 1.5rem;
   border-radius: 0.75rem;
-  background: rgba(18, 22, 30, 0.72);
+  background: color-mix(in srgb, var(--doge-bg) 72%, transparent);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--color-text-primary);
 }
@@ -64,12 +64,12 @@
 }
 
 .waitlist-panel__actions button[data-variant='primary'] {
-  border-color: rgba(255, 214, 0, 0.45);
-  background: rgba(255, 214, 0, 0.12);
+  border-color: color-mix(in srgb, var(--doge-accent) 45%, transparent);
+  background: var(--color-accent-soft);
 }
 
 .waitlist-panel__status {
   margin: 0.75rem 0 0;
   font-weight: 600;
-  color: rgba(255, 214, 0, 0.9);
+  color: var(--color-text-warm);
 }

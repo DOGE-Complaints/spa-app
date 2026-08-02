@@ -34,6 +34,7 @@
   --color-accent-primary: var(--doge-accent);
   --color-accent-hover: var(--doge-accent-hover);
   --color-accent-active: var(--doge-accent-active);
+  --color-accent-soft: var(--doge-accent-soft);
   --color-border-default: var(--doge-border);
   --color-border-muted: var(--doge-muted);
 

@@ -5,8 +5,8 @@
   min-height: 26px;
   border-radius: 9px;
   padding: 3px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #252932;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface);
   color: var(--color-text-primary);
   font-size: 0.73rem;
   font-weight: 600;
@@ -16,22 +16,22 @@
 }
 
 .status-badge-new {
-  background: #262a33;
+  background: var(--color-surface-elevated);
   color: var(--color-text-primary);
 }
 
 .status-badge-published {
-  background: #2a271f;
-  border-color: rgba(179, 139, 71, 0.45);
+  background: var(--color-accent-soft);
+  border-color: color-mix(in srgb, var(--doge-accent) 45%, transparent);
   color: var(--color-accent-active);
 }
 
 .status-badge-in-review {
-  background: #242831;
+  background: var(--color-surface);
   color: var(--color-text-secondary);
 }
 
 .status-badge-unknown {
-  background: #2a2a2a;
+  background: var(--color-surface-elevated);
   color: var(--color-text-secondary);
 }

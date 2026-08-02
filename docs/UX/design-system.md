@@ -50,12 +50,19 @@ Brand hex SSOT: [DOGEstonia Color Palette v1.0](../tasks/backlog-stories/design-
 | `color.accent.primary` | Signal Orange | `#F5A623` | `--color-accent-primary` → `--doge-accent` |
 | `color.accent.hover` | Action hover | `#FFB544` | `--color-accent-hover` → `--doge-accent-hover` |
 | `color.accent.active` | Action active | `#D98F17` | `--color-accent-active` → `--doge-accent-active` |
+| `color.accent.soft` | Soft accent fill | `rgba(245,166,35,0.14)` | `--color-accent-soft` → `--doge-accent-soft` |
 | `color.border.default` | Border | `#2B3A4D` | `--color-border-default` → `--doge-border` |
 | `color.border.muted` | Muted | `#7D8999` | `--color-border-muted` → `--doge-muted` |
 
 **Правило:** Цвет никогда не несёт смысл в одиночку — только вместе с формой/иконкой. На CTA с Signal Orange текст = `#0B1320` / `#111111` (не белый).
 
-**Техническая адаптация:** Night System + Orange Signal. Реализовано: [`src/styles/tokens.css`](../../src/styles/tokens.css) (`--doge-*` brand + `--color-*` consumer; G4 infra retained) — G4 Done (`pkg-000038`); brand hex G9 (`pkg-000042`).
+**Техническая адаптация:** Night System + Orange Signal. Реализовано: [`src/styles/tokens.css`](../../src/styles/tokens.css) (`--doge-*` brand + `--color-*` consumer; G4 infra retained) — G4 Done (`pkg-000038`); brand hex G9 (`pkg-000042`); adoption glue G11 (`pkg-000043`).
+**G11 CTA / semantic glue (D-G11-2 / FR-G11.2–5):**
+- Primary CTA on accent: label = `var(--color-bg-primary)` (unified; equivalent Night via `--doge-bg`). Do **not** use `--color-text-primary` (white) on Signal Orange.
+- Primary CTA `:hover` / `:focus-visible`: `background: var(--color-accent-hover)`.
+- Soft accent fills: `var(--color-accent-soft)` → `--doge-accent-soft` (not legacy yellow rgba).
+- `--color-text-warm`: **Do** use for cream/warm secondary copy accents; **Don't** replace all `--color-text-secondary`.
+
 
 ### 2.2 Typography Tokens
 

@@ -39,10 +39,14 @@
   font-size: 0.9rem;
 }
 
+.story-activity-card__message {
+  color: var(--color-text-warm);
+}
+
 .story-activity-card__notice {
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
-  background: rgba(245, 197, 24, 0.12);
+  background: var(--color-accent-soft);
   color: var(--color-accent-primary);
 }
 
@@ -111,9 +115,16 @@
 
 .story-activity-card__button--primary {
   background: var(--color-accent-primary);
-  color: var(--doge-bg);
+  color: var(--color-bg-primary);
   font-weight: 600;
 }
+
+.story-activity-card__button--primary:hover,
+.story-activity-card__button--primary:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-bg-primary);
+}
+
 
 .story-activity-card__button--secondary {
   background: transparent;

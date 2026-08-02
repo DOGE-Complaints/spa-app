@@ -31,7 +31,7 @@
   padding: 1rem 1.125rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  background: rgba(20, 20, 23, 0.72);
+  background: color-mix(in srgb, var(--doge-bg) 72%, transparent);
 }
 
 .gpt-bridge-panel__title {
@@ -54,7 +54,7 @@
   margin-top: 1rem;
   height: 4px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(199, 166, 70, 0.2), rgba(199, 166, 70, 0.85), rgba(199, 166, 70, 0.2));
+  background: linear-gradient(90deg, color-mix(in srgb, var(--doge-accent) 20%, transparent), color-mix(in srgb, var(--doge-accent) 85%, transparent), color-mix(in srgb, var(--doge-accent) 20%, transparent));
   animation: gpt-bridge-progress 1.4s ease-in-out infinite;
 }
 

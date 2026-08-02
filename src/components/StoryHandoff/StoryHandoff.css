@@ -6,8 +6,8 @@
 }
 
 .story-handoff__panel {
-  background: rgba(18, 22, 30, 0.92);
-  border: 1px solid rgba(245, 197, 66, 0.18);
+  background: color-mix(in srgb, var(--doge-bg) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--doge-accent) 18%, transparent);
   border-radius: 16px;
   padding: 1.75rem;
 }
@@ -41,7 +41,7 @@
   font-size: 0.75rem;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  border: 1px solid rgba(245, 197, 66, 0.35);
+  border: 1px solid color-mix(in srgb, var(--doge-accent) 35%, transparent);
   color: var(--color-accent-primary);
 }
 
@@ -52,7 +52,7 @@
   letter-spacing: 0.04em;
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
-  background: rgba(245, 197, 66, 0.15);
+  background: var(--color-accent-soft);
   color: var(--color-accent-primary);
   margin-bottom: 1rem;
 }
@@ -115,6 +115,13 @@
   background: var(--color-accent-primary);
   color: var(--color-bg-primary);
 }
+
+.story-handoff__btn--primary:hover,
+.story-handoff__btn--primary:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-bg-primary);
+}
+
 
 .story-handoff__btn--secondary {
   background: transparent;

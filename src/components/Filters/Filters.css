@@ -154,7 +154,7 @@
 }
 
 .board-filter-option-selected {
-  background: rgba(199, 166, 70, 0.2);
+  background: color-mix(in srgb, var(--doge-accent) 20%, transparent);
   color: var(--color-accent-active);
 }
 
@@ -381,16 +381,16 @@
 
 .board-filter-apply {
   padding: 6px 12px;
-  border: 1px solid rgba(199, 166, 70, 0.45);
+  border: 1px solid color-mix(in srgb, var(--doge-accent) 45%, transparent);
   border-radius: 8px;
-  background: rgba(199, 166, 70, 0.18);
+  background: color-mix(in srgb, var(--doge-accent) 18%, transparent);
   color: var(--color-accent-active);
   font-size: 0.8rem;
   cursor: pointer;
 }
 
 .board-filter-apply:hover:not(:disabled) {
-  background: rgba(199, 166, 70, 0.28);
+  background: color-mix(in srgb, var(--doge-accent) 28%, transparent);
 }
 
 .board-filter-apply:disabled {

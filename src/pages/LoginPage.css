@@ -10,7 +10,7 @@
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at top right, rgba(255, 214, 0, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--doge-accent) 8%, transparent) 0%, transparent 45%),
     radial-gradient(circle at top left, var(--color-bg-secondary) 0%, var(--color-bg-primary) 45%, var(--color-bg-primary) 100%);
   z-index: -1;
 }
@@ -19,7 +19,7 @@
   width: min(100%, 440px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  background: rgba(27, 28, 31, 0.92);
+  background: color-mix(in srgb, var(--doge-surface-1) 92%, transparent);
   backdrop-filter: blur(12px);
   padding: 28px 24px 22px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
@@ -97,8 +97,8 @@
 }
 
 .auth-field input:focus {
-  outline: 2px solid rgba(255, 214, 0, 0.45);
-  border-color: rgba(255, 214, 0, 0.65);
+  outline: 2px solid color-mix(in srgb, var(--doge-accent) 45%, transparent);
+  border-color: color-mix(in srgb, var(--doge-accent) 65%, transparent);
 }
 
 .auth-form__row {
@@ -146,6 +146,13 @@
   background: var(--color-accent-primary);
   color: var(--color-bg-primary);
 }
+
+.auth-button--primary:hover,
+.auth-button--primary:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-bg-primary);
+}
+
 
 .auth-button--secondary {
   margin-top: 10px;
@@ -196,7 +203,7 @@
 }
 
 .auth-icon--mail {
-  background: rgba(255, 214, 0, 0.12);
+  background: var(--color-accent-soft);
   color: var(--color-accent-primary);
 }
 

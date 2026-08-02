@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(20, 20, 23, 0.72);
+  background: color-mix(in srgb, var(--doge-bg) 72%, transparent);
   backdrop-filter: blur(2px);
 }
 
@@ -14,7 +14,7 @@
   align-items: stretch;
   justify-content: stretch;
   padding: 0;
-  background: rgba(20, 20, 23, 0.35);
+  background: color-mix(in srgb, var(--doge-bg) 35%, transparent);
 }
 
 .session-shell-panel,
@@ -23,7 +23,7 @@
   padding: 28px 24px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(27, 28, 31, 0.96);
+  background: color-mix(in srgb, var(--doge-surface-1) 96%, transparent);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
 }
 
@@ -82,6 +82,13 @@
   color: var(--color-bg-primary);
   font-weight: 600;
 }
+
+.session-shell-button--primary:hover,
+.session-shell-button--primary:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-bg-primary);
+}
+
 
 .session-shell-button--secondary {
   background: rgba(255, 255, 255, 0.06);

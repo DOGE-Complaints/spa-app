@@ -3,7 +3,7 @@
   padding: 28px 24px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(27, 28, 31, 0.96);
+  background: color-mix(in srgb, var(--doge-surface-1) 96%, transparent);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
 }
 
 .civic-status-card--verified {
-  border-color: rgba(245, 197, 24, 0.35);
+  border-color: color-mix(in srgb, var(--doge-accent) 35%, transparent);
 }
 
 .civic-status-card__icon {
@@ -35,7 +35,7 @@
 }
 
 .civic-status-card--verified .civic-status-card__icon {
-  background: rgba(245, 197, 24, 0.14);
+  background: var(--color-accent-soft);
   color: var(--color-accent-primary);
 }
 
@@ -89,6 +89,13 @@
   color: var(--color-bg-primary);
   font-weight: 600;
 }
+
+.civic-status-card__button--primary:hover,
+.civic-status-card__button--primary:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-bg-primary);
+}
+
 
 .civic-status-card__button--secondary {
   background: rgba(255, 255, 255, 0.06);

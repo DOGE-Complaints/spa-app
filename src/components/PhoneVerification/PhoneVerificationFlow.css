@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 1.5rem;
   border-radius: 0.75rem;
-  background: rgba(18, 22, 30, 0.72);
+  background: color-mix(in srgb, var(--doge-bg) 72%, transparent);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--color-text-primary);
 }
@@ -152,6 +152,13 @@
   color: var(--color-bg-primary);
 }
 
+.phone-verification-panel__button--primary:hover,
+.phone-verification-panel__button--primary:focus-visible {
+  background: var(--color-accent-hover);
+  color: var(--color-bg-primary);
+}
+
+
 .phone-verification-panel__button--primary:disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -291,7 +298,7 @@
 }
 
 .phone-country-selector__option--selected {
-  outline: 1px solid rgba(245, 197, 66, 0.35);
+  outline: 1px solid color-mix(in srgb, var(--doge-accent) 35%, transparent);
 }
 
 .phone-country-selector__option-label {
@@ -317,15 +324,15 @@
 
 .phone-country-selector__badge--soon {
   color: var(--color-accent-primary);
-  background: rgba(245, 197, 66, 0.12);
+  background: var(--color-accent-soft);
 }
 
 .phone-country-unsupported {
   margin-bottom: 1rem;
   padding: 0.75rem 0.85rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(245, 197, 66, 0.35);
-  background: rgba(245, 197, 66, 0.08);
+  border: 1px solid color-mix(in srgb, var(--doge-accent) 35%, transparent);
+  background: color-mix(in srgb, var(--doge-accent) 8%, transparent);
 }
 
 .phone-country-unsupported__title {
