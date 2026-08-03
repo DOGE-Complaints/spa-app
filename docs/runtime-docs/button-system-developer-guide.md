@@ -24,6 +24,8 @@ import { Button, IconButton, ButtonGroup, MenuAction } from '../components/Butto
 
 Пакет: [`src/components/Button/`](../../src/components/Button/) (G10 Done). Не добавляйте новые page-local `*-btn` CSS классы.
 
+**Definition-ready (SPA-G10-T15 / audit F5):** `IconButton` и `ButtonGroup` **shipped** (package + Vitest) и входят в публичный API выше. Product consumers вне `src/components/Button/` и тестов сейчас **0 by design** — не блокер ship G10. Подключайте на будущих экранах (icon actions, segmented controls), когда UX потребует; до этого для product CTA предпочитайте `Button` / `MenuAction`.
+
 ---
 
 ## 2. Hierarchy (визуальный вес)
