@@ -1,3 +1,4 @@
+import { Button } from '../Button'
 import './Filters.css'
 
 /**
@@ -5,14 +6,15 @@ import './Filters.css'
  */
 export function ResetFiltersControl({ hasActiveFilters, onReset, t }) {
   return (
-    <button
+    <Button
       type="button"
-      className="board-filter-reset"
+      hierarchy="link"
+      intent="reset"
       disabled={!hasActiveFilters}
       onClick={onReset}
-      aria-label={t('resetFilters')}
+      ariaLabel={t('resetFilters')}
     >
       {t('resetFilters')}
-    </button>
+    </Button>
   )
 }

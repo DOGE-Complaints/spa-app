@@ -1,6 +1,7 @@
 import { PHONE_VERIFICATION_RULES, isValidOtpCode } from '../../auth/verificationFlowState.js'
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 export function OtpPanel({
   code,
@@ -41,9 +42,9 @@ export function OtpPanel({
         />
       </div>
       <div className="phone-verification-panel__links">
-        <button
+        <Button
           type="button"
-          className="phone-verification-panel__link"
+          hierarchy="link"
           disabled={!canResend}
           data-testid="phone-verification-resend"
           onClick={onResend}
@@ -51,26 +52,27 @@ export function OtpPanel({
           {canResend
             ? t('phone.otp.resend')
             : formatI18nMessage(t('phone.otp.resendIn'), { seconds: resendSecondsRemaining })}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="phone-verification-panel__link"
+          hierarchy="link"
           data-testid="phone-verification-change-number"
           onClick={onChangeNumber}
         >
           {t('phone.otp.changeNumber')}
-        </button>
+        </Button>
       </div>
       <div className="phone-verification-panel__actions">
-        <button
+        <Button
           type="button"
-          className="phone-verification-panel__button phone-verification-panel__button--primary"
+          hierarchy="primary"
+          fullWidth
           disabled={!valid}
           data-testid="phone-verification-verify"
           onClick={onVerify}
         >
           {t('phone.otp.verify')}
-        </button>
+        </Button>
       </div>
     </section>
   )

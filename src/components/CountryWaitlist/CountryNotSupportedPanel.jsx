@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * M123 state A — Country Not Supported.
@@ -24,17 +25,18 @@ export function CountryNotSupportedPanel({ countryName, onJoinWaitlist, onLearnM
         <span data-testid="waitlist-country-name">{countryName}</span>
       </div>
       <div className="waitlist-panel__actions">
-        <button
+        <Button
           type="button"
-          data-variant="primary"
+          hierarchy="primary"
+          fullWidth
           data-testid="waitlist-join-cta"
           onClick={onJoinWaitlist}
         >
           {t('waitlist.notSupported.joinWaitlist')}
-        </button>
-        <button type="button" data-testid="waitlist-learn-more" onClick={onLearnMore}>
+        </Button>
+        <Button type="button" hierarchy="secondary" fullWidth data-testid="waitlist-learn-more" onClick={onLearnMore}>
           {t('waitlist.notSupported.learnMore')}
-        </button>
+        </Button>
       </div>
     </section>
   )

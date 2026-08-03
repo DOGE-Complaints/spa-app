@@ -28,37 +28,6 @@
   margin-bottom: 0.75rem;
 }
 
-.phone-verification-error__button {
-  border-radius: 0.5rem;
-  border: 1px solid transparent;
-  padding: 0.65rem 1rem;
-  font: inherit;
-  cursor: pointer;
-}
-
-.phone-verification-error__button--primary {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
-}
-
-.phone-verification-error__button--primary:hover,
-.phone-verification-error__button--primary:focus-visible {
-  background: var(--color-accent-hover);
-  color: var(--color-bg-primary);
-}
-
-
-.phone-verification-error__button--primary:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.phone-verification-error__button--secondary {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.18);
-  color: inherit;
-}
-
 .phone-verification-error__technical {
   margin: 0;
   font-size: 0.75rem;

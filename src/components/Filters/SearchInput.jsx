@@ -29,6 +29,7 @@ export function SearchInput({ value, onChange, placeholder, ariaLabel, clearAria
         aria-label={ariaLabel}
       />
       {showClear ? (
+        // DS-BTN: filter chip toggle exception (G10 T10)
         <button
           type="button"
           className="board-search-clear"

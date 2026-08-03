@@ -1,5 +1,6 @@
 import { GptDraftBanner } from '../GptBridge/GptDraftBanner.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import './StoryHandoff.css'
 
 /**
@@ -125,23 +126,25 @@ export function StoryHandoffPreviewPanel({ preview, onSubmit, onBack, busy = fal
       </div>
       <p className="story-handoff__helper">{t('storyHandoff.preview.helper')}</p>
       <div className="story-handoff__actions">
-        <button
+        <Button
           type="button"
-          className="story-handoff__btn story-handoff__btn--primary"
+          hierarchy="primary"
+          fullWidth
           data-testid="story-handoff-submit"
-          disabled={busy}
+          loading={busy}
           onClick={onSubmit}
         >
           {t('storyHandoff.preview.submit')}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="story-handoff__btn story-handoff__btn--secondary"
+          hierarchy="secondary"
+          fullWidth
           data-testid="story-handoff-back-board"
           onClick={onBack}
         >
           {t('storyHandoff.cta.backToBoard')}
-        </button>
+        </Button>
       </div>
     </section>
   )
@@ -177,30 +180,33 @@ export function StoryHandoffSuccessPanel({ submissionId, onGoToBoard, onMyStorie
         <p className="story-handoff__field-value">{t('storyHandoff.success.statusUnderReview')}</p>
       </div>
       <div className="story-handoff__actions">
-        <button
+        <Button
           type="button"
-          className="story-handoff__btn story-handoff__btn--primary"
+          hierarchy="primary"
+          fullWidth
           data-testid="story-handoff-go-board"
           onClick={onGoToBoard}
         >
           {t('storyHandoff.cta.goToBoard')}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="story-handoff__btn story-handoff__btn--secondary"
+          hierarchy="secondary"
+          fullWidth
           data-testid="story-handoff-my-stories"
           onClick={onMyStories}
         >
           {t('storyHandoff.cta.myStories')}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="story-handoff__btn story-handoff__btn--secondary"
+          hierarchy="secondary"
+          fullWidth
           data-testid="story-handoff-submit-another"
           onClick={onSubmitAnother}
         >
           {t('storyHandoff.success.submitAnother')}
-        </button>
+        </Button>
       </div>
     </section>
   )

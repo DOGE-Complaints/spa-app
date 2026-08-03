@@ -5,6 +5,7 @@ import {
 } from '../../auth/civicStatusState.js'
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import {
   CIVIC_STATUS_LABEL_NOT_VERIFIED_KEY,
   CIVIC_STATUS_LABEL_VERIFIED_KEY,
@@ -153,22 +154,14 @@ export function CivicStatusCard({
         description={t('civic.available.desc')}
         contextBlock={protectedActionLabel ?? t('civic.available.protectedAction')}
         primaryAction={
-          <button
-            type="button"
-            className="civic-status-card__button civic-status-card__button--primary"
-            onClick={onVerify}
-          >
+          <Button type="button" hierarchy="primary" fullWidth onClick={onVerify}>
             {t('civic.available.verifyContinue')}
-          </button>
+          </Button>
         }
         secondaryAction={
-          <button
-            type="button"
-            className="civic-status-card__button civic-status-card__button--secondary"
-            onClick={onCancel}
-          >
+          <Button type="button" hierarchy="secondary" fullWidth onClick={onCancel}>
             {t('civic.cta.cancel')}
-          </button>
+          </Button>
         }
       />
     )
@@ -183,13 +176,9 @@ export function CivicStatusCard({
         description={t('civic.inProgress.desc')}
         metadata={t('civic.inProgress.waiting')}
         primaryAction={
-          <button
-            type="button"
-            className="civic-status-card__button civic-status-card__button--primary"
-            disabled
-          >
+          <Button type="button" hierarchy="primary" fullWidth disabled>
             {t('civic.cta.continue')}
-          </button>
+          </Button>
         }
       />
     )
@@ -204,22 +193,14 @@ export function CivicStatusCard({
         description={t('civic.failed.desc')}
         errorCode={errorCode ?? 'VERIFICATION_FAILED'}
         primaryAction={
-          <button
-            type="button"
-            className="civic-status-card__button civic-status-card__button--primary"
-            onClick={onRetry ?? onVerify}
-          >
+          <Button type="button" hierarchy="primary" fullWidth onClick={onRetry ?? onVerify}>
             {t('civic.failed.retry')}
-          </button>
+          </Button>
         }
         secondaryAction={
-          <button
-            type="button"
-            className="civic-status-card__button civic-status-card__button--secondary"
-            onClick={onContactSupport}
-          >
+          <Button type="button" hierarchy="secondary" fullWidth onClick={onContactSupport}>
             {t('civic.failed.contactSupport')}
-          </button>
+          </Button>
         }
       />
     )
@@ -233,13 +214,9 @@ export function CivicStatusCard({
       description={t('civic.unverified.desc')}
       metadata={t('civic.unverified.takesMinute')}
       primaryAction={
-        <button
-          type="button"
-          className="civic-status-card__button civic-status-card__button--primary"
-          onClick={onVerify}
-        >
+        <Button type="button" hierarchy="primary" fullWidth onClick={onVerify}>
           {t('civic.unverified.cta')}
-        </button>
+        </Button>
       }
     />
   )

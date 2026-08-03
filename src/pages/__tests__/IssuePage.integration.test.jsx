@@ -25,7 +25,8 @@ describe('IssuePage integration', () => {
         </MemoryRouter>
       </I18nProvider>,
     )
-    expect(html).toContain('issue-back-button')
+    expect(html).toContain('issue-page-header')
+    expect(html).toContain('ds-btn')
     expect(html).toContain('header-strip')
     expect(html).toContain('board-sidebar')
     expect(html).toContain('board-footer')

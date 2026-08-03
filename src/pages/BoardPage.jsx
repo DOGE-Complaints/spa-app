@@ -14,6 +14,7 @@ import {
   SearchInput,
   buildChipDescriptors,
 } from '../components/Filters/index.js'
+import { Button } from '../components/Button'
 import { EmptyState } from '../components/EmptyState/index.js'
 import { IssueCard } from '../components/IssueCard/index.js'
 import { StatusBadge } from '../components/StatusBadge.jsx'
@@ -223,14 +224,14 @@ export function BoardPage() {
                   }
                   footer={
                     <>
-                      <button
+                      <Button
                         type="button"
-                        className="board-filter-apply"
+                        hierarchy="primary"
                         disabled={!isDirty}
                         onClick={apply}
                       >
                         {t('filterApply')}
-                      </button>
+                      </Button>
                       <ResetFiltersControl
                         hasActiveFilters={hasActiveFilters}
                         onReset={reset}
@@ -283,9 +284,9 @@ export function BoardPage() {
             <div className="board-load-error">
               <h3>{t('loadErrorTitle')}</h3>
               <p>{t('loadErrorSubtitle')}</p>
-              <button type="button" className="board-retry-button" onClick={fetchIssues}>
+              <Button type="button" hierarchy="primary" intent="retry" onClick={fetchIssues}>
                 {t('retry')}
-              </button>
+              </Button>
             </div>
           ) : showEmptyBoard ? (
             <div className="board-no-issues">

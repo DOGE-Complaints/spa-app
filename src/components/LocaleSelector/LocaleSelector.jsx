@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { LOCALE_SELECTOR_OPTIONS } from '../../i18n/core.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button, MenuAction } from '../Button'
 import './LocaleSelector.css'
 
 const LOCALE_SELECTOR_VARIANTS = {
@@ -38,29 +39,30 @@ export function LocaleSelector({ className = '', variant = 'default' }) {
 
   return (
     <div className={`${classes.root} ${className}`.trim()} data-open={isOpen ? 'yes' : 'no'}>
-      <button
+      <Button
         type="button"
+        hierarchy="tertiary"
         className={classes.trigger}
-        aria-label="Language selector"
+        ariaLabel="Language selector"
         aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)}
+        leadingIcon={<img src={selected.flagSrc} alt="" className={classes.flag} />}
+        trailingIcon={<span aria-hidden="true">{isOpen ? '^' : 'v'}</span>}
       >
-        <img src={selected.flagSrc} alt="" className={classes.flag} />
-        <span className={classes.text}>{selected.nativeLabel}</span>
-        <span aria-hidden="true">{isOpen ? '^' : 'v'}</span>
-      </button>
+        {selected.nativeLabel}
+      </Button>
       {isOpen ? (
         <ul className={classes.menu} role="listbox" aria-label="Locale options">
           {LOCALE_SELECTOR_OPTIONS.map((option) => (
             <li key={option.value}>
-              <button
-                type="button"
+              <MenuAction
+                intent="action"
                 className={`${classes.option} ${locale === option.value ? classes.optionActive : ''}`}
-                onClick={() => handleSelect(option.value)}
+                onSelect={() => handleSelect(option.value)}
+                icon={<img src={option.flagSrc} alt="" className={classes.flag} />}
               >
-                <img src={option.flagSrc} alt="" className={classes.flag} />
-                <span className={classes.text}>{option.nativeLabel}</span>
-              </button>
+                {option.nativeLabel}
+              </MenuAction>
             </li>
           ))}
         </ul>

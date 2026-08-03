@@ -33,10 +33,11 @@ describe('BoardPage search URL sync', () => {
 
   it('enables Reset Filters when only search is active', () => {
     const html = renderBoardAt('/board?search=road')
-    const resetButtons = html.match(/class="board-filter-reset"/g) ?? []
+    const resetButtons = html.match(/data-hierarchy="link"/g) ?? []
 
     expect(resetButtons.length).toBeGreaterThan(0)
-    expect(html).not.toMatch(/class="board-filter-reset"[^>]*disabled/)
+    expect(html).toContain('Reset Filters')
+    expect(html).not.toMatch(/aria-disabled="true"[^>]*Reset Filters|Reset Filters[^>]*aria-disabled="true"/)
   })
 
   it('renders empty search input when query has no search param', () => {

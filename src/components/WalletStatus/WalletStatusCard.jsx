@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import {
   WALLET_STATUS_DEMO_LINKED,
   WALLET_STATUS_STATES,
@@ -83,14 +84,9 @@ export function WalletStatusCard({
             {t('cabinet.wallet.stateA.description')}
           </p>
           <div className="wallet-status-card__actions">
-            <button
-              type="button"
-              className="wallet-status-card__btn"
-              disabled
-              data-testid="wallet-status-coming-later"
-            >
+            <Button type="button" hierarchy="secondary" disabled data-testid="wallet-status-coming-later">
               {t('cabinet.common.comingLater')}
-            </button>
+            </Button>
           </div>
         </>
       ) : null}
@@ -116,14 +112,14 @@ export function WalletStatusCard({
             </div>
           </div>
           <div className="wallet-status-card__actions">
-            <button
+            <Button
               type="button"
-              className="wallet-status-card__btn"
+              hierarchy="secondary"
               data-testid="wallet-status-manage"
               onClick={showComingSoon}
             >
               {t('cabinet.wallet.stateB.manage')}
-            </button>
+            </Button>
           </div>
         </>
       ) : null}
@@ -134,14 +130,14 @@ export function WalletStatusCard({
             {t('cabinet.wallet.stateC.description')}
           </p>
           <div className="wallet-status-card__actions">
-            <button
+            <Button
               type="button"
-              className="wallet-status-card__btn wallet-status-card__btn--primary"
+              hierarchy="primary"
               data-testid="wallet-status-connect"
               onClick={showComingSoon}
             >
               {t('cabinet.wallet.stateC.connect')}
-            </button>
+            </Button>
           </div>
           <p className="wallet-status-card__optional" data-testid="wallet-status-optional">
             {t('cabinet.wallet.stateC.optional')}

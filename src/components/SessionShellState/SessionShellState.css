@@ -64,44 +64,6 @@
   gap: 10px;
 }
 
-.session-shell-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  padding: 0 16px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  font: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.session-shell-button--primary {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
-  font-weight: 600;
-}
-
-.session-shell-button--primary:hover,
-.session-shell-button--primary:focus-visible {
-  background: var(--color-accent-hover);
-  color: var(--color-bg-primary);
-}
-
-
-.session-shell-button--secondary {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-text-primary);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.session-shell-link {
-  color: rgba(242, 242, 242, 0.82);
-  text-align: center;
-  text-decoration: underline;
-}
-
 .session-shell-context-block {
   margin-bottom: 16px;
   padding: 12px 14px;

@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * M123 state C — Waitlist Joined.
@@ -20,14 +21,15 @@ export function WaitlistJoinedPanel({ countryName, onReturnHome }) {
         <span data-testid="waitlist-joined-country-name">{countryName}</span>
       </p>
       <div className="waitlist-panel__actions">
-        <button
+        <Button
           type="button"
-          data-variant="primary"
+          hierarchy="primary"
+          fullWidth
           data-testid="waitlist-return-home"
           onClick={onReturnHome}
         >
           {t('waitlist.joined.returnHome')}
-        </button>
+        </Button>
       </div>
     </section>
   )

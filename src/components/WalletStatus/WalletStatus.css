@@ -81,33 +81,6 @@
   align-items: center;
 }
 
-.wallet-status-card__btn {
-  appearance: none;
-  border: 1px solid color-mix(in srgb, var(--doge-accent) 45%, transparent);
-  background: transparent;
-  color: var(--color-accent-primary);
-  border-radius: 6px;
-  padding: 0.5rem 0.9rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.wallet-status-card__btn:hover:not(:disabled) {
-  background: var(--color-accent-soft);
-}
-
-.wallet-status-card__btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  border-color: rgba(245, 247, 250, 0.2);
-  color: var(--color-text-muted);
-}
-
-.wallet-status-card__btn--primary {
-  background: var(--color-accent-soft);
-}
-
 .wallet-status-card__optional {
   font-size: 0.8rem;
 }

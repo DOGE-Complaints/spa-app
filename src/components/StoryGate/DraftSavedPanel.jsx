@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * @param {{
@@ -34,16 +35,18 @@ export function DraftSavedPanel({
         </div>
       </dl>
       <div className="story-gate-panel__actions">
-        <button
+        <Button
           type="button"
+          hierarchy="primary"
+          fullWidth
           data-testid="story-gate-continue-verification"
           onClick={onContinueVerification}
         >
           {t('storyGate.draftSaved.continueVerification')}
-        </button>
-        <button type="button" data-testid="story-gate-return-to-story" onClick={onReturnToStory}>
+        </Button>
+        <Button type="button" hierarchy="secondary" fullWidth data-testid="story-gate-return-to-story" onClick={onReturnToStory}>
           {t('storyGate.draftSaved.returnToStory')}
-        </button>
+        </Button>
       </div>
     </section>
   )

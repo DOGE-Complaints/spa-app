@@ -1,0 +1,52 @@
+.ds-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.ds-btn-group--horizontal {
+  flex-direction: row;
+}
+
+.ds-btn-group--vertical {
+  flex-direction: column;
+}
+
+.ds-btn-group--align-start {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.ds-btn-group--align-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.ds-btn-group--align-end {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.ds-btn-group--align-stretch {
+  align-items: stretch;
+}
+
+.ds-btn-group--align-stretch > * {
+  width: 100%;
+}
+
+.ds-btn-group--vertical.ds-btn-group--align-stretch > .ds-btn,
+.ds-btn-group--mobile-stack.ds-btn-group--align-stretch > .ds-btn {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .ds-btn-group--mobile-stack {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ds-btn-group--mobile-stack > .ds-btn {
+    width: 100%;
+  }
+}

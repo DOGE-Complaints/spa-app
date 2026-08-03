@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * @param {{
@@ -24,12 +25,12 @@ export function VerificationCompletePanel({ draftId, onSubmit, onReview }) {
         {draftId}
       </p>
       <div className="story-gate-panel__actions">
-        <button type="button" data-testid="story-gate-submit-story" onClick={onSubmit}>
+        <Button type="button" hierarchy="primary" fullWidth data-testid="story-gate-submit-story" onClick={onSubmit}>
           {t('storyGate.complete.submit')}
-        </button>
-        <button type="button" data-testid="story-gate-review-story" onClick={onReview}>
+        </Button>
+        <Button type="button" hierarchy="secondary" fullWidth data-testid="story-gate-review-story" onClick={onReview}>
           {t('storyGate.complete.review')}
-        </button>
+        </Button>
       </div>
     </section>
   )

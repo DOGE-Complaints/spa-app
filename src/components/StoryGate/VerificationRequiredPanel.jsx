@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * @param {{
@@ -34,15 +35,15 @@ export function VerificationRequiredPanel({
         </div>
       ) : null}
       <div className="story-gate-panel__actions">
-        <button type="button" data-testid="story-gate-verify-continue" onClick={onVerifyContinue}>
+        <Button type="button" hierarchy="primary" fullWidth data-testid="story-gate-verify-continue" onClick={onVerifyContinue}>
           {t('storyGate.required.verifyContinue')}
-        </button>
-        <button type="button" data-testid="story-gate-save-draft" onClick={onSaveDraft}>
+        </Button>
+        <Button type="button" hierarchy="secondary" fullWidth data-testid="story-gate-save-draft" onClick={onSaveDraft}>
           {t('storyGate.required.saveDraft')}
-        </button>
-        <button type="button" data-testid="story-gate-cancel" onClick={onCancel}>
+        </Button>
+        <Button type="button" hierarchy="tertiary" fullWidth data-testid="story-gate-cancel" onClick={onCancel}>
           {t('storyGate.required.cancel')}
-        </button>
+        </Button>
       </div>
     </section>
   )

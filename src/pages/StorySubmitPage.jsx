@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthSessionContext.jsx'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
 import {
@@ -10,6 +10,7 @@ import {
   STORY_HANDOFF_PHASES,
   isDevHandoffPhase,
 } from '../auth/storyHandoffFlowState.js'
+import { Button } from '../components/Button'
 import { PhoneVerificationFlow } from '../components/PhoneVerification/index.js'
 import {
   StoryHandoffDraftChips,
@@ -201,13 +202,15 @@ export function StorySubmitPage() {
         >
           <StoryHandoffDraftChips />
           <div className="story-handoff__actions">
-            <Link
-              className="story-handoff__btn story-handoff__btn--primary"
-              to={buildHandoffLoginPath(draftId)}
+            <Button
+              href={buildHandoffLoginPath(draftId)}
+              hierarchy="primary"
+              fullWidth
+              intent="navigate"
               data-testid="story-handoff-sign-in"
             >
               {t('auth.signIn.title')}
-            </Link>
+            </Button>
           </div>
         </StoryHandoffStatePanel>
       ) : null}
@@ -275,13 +278,15 @@ export function StorySubmitPage() {
           iconSrc="/icons/story-handoff/ic-clock-expired.png"
         >
           <div className="story-handoff__actions">
-            <a
-              className="story-handoff__btn story-handoff__btn--primary"
+            <Button
               href={openGptUrl}
+              external
+              hierarchy="primary"
+              fullWidth
               data-testid="story-handoff-create-new"
             >
               {t('storyHandoff.expired.createNew')}
-            </a>
+            </Button>
           </div>
         </StoryHandoffStatePanel>
       ) : null}
@@ -294,14 +299,16 @@ export function StorySubmitPage() {
           iconSrc="/icons/story-handoff/ic-cloud-error.png"
         >
           <div className="story-handoff__actions">
-            <button
+            <Button
               type="button"
-              className="story-handoff__btn story-handoff__btn--primary"
+              hierarchy="primary"
+              fullWidth
+              intent="retry"
               data-testid="story-handoff-retry"
               onClick={() => void (preview ? submitDraft(draftId) : loadDraft(draftId))}
             >
               {t('storyHandoff.serviceDown.tryAgain')}
-            </button>
+            </Button>
           </div>
         </StoryHandoffStatePanel>
       ) : null}
@@ -314,20 +321,18 @@ export function StorySubmitPage() {
           iconSrc="/icons/story-handoff/ic-doc-new.png"
         >
           <div className="story-handoff__actions">
-            <a
-              className="story-handoff__btn story-handoff__btn--primary"
+            <Button
               href={openGptUrl}
+              external
+              hierarchy="primary"
+              fullWidth
               data-testid="story-handoff-open-gpt"
             >
               {t('storyHandoff.empty.openGpt')}
-            </a>
-            <button
-              type="button"
-              className="story-handoff__btn story-handoff__btn--secondary"
-              onClick={() => navigate('/board')}
-            >
+            </Button>
+            <Button type="button" hierarchy="secondary" fullWidth onClick={() => navigate('/board')}>
               {t('storyHandoff.cta.backToBoard')}
-            </button>
+            </Button>
           </div>
         </StoryHandoffStatePanel>
       ) : null}

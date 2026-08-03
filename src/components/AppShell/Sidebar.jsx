@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { MenuAction } from '../Button'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 
 /**
@@ -17,20 +17,20 @@ export function Sidebar({ activeNav = 'board', boardTo }) {
       <p className="board-sidebar-workspace">{t('workspace')}</p>
       <nav className="board-nav" aria-label="Board navigation">
         {boardTo ? (
-          <Link to={boardTo} className={boardClass}>
+          <MenuAction href={boardTo} intent="navigate" className={boardClass}>
             {t('board')}
-          </Link>
+          </MenuAction>
         ) : (
-          <button type="button" className={boardClass}>
+          <MenuAction intent="navigate" className={boardClass}>
             {t('board')}
-          </button>
+          </MenuAction>
         )}
-        <button type="button" className="board-nav-item" disabled>
+        <MenuAction intent="navigate" className="board-nav-item" disabled>
           {t('issues')}
-        </button>
-        <button type="button" className="board-nav-item" disabled>
+        </MenuAction>
+        <MenuAction intent="navigate" className="board-nav-item" disabled>
           {t('settings')}
-        </button>
+        </MenuAction>
       </nav>
     </>
   )

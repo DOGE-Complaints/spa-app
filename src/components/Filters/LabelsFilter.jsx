@@ -35,6 +35,7 @@ export function LabelsFilter({ labels, availableLabels, onChange, t, locale, var
 
   return (
     <div className={`board-filter-wrap ${variant === 'panel' ? 'board-filter-wrap-panel' : ''}`} data-open={open ? 'yes' : 'no'}>
+      {/* DS-BTN: filter chip toggle exception (G10 T10) */}
       <button
         type="button"
         className="board-filter-trigger"

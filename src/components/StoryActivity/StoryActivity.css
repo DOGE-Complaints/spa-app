@@ -99,35 +99,3 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-
-.story-activity-card__button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  min-height: 42px;
-  padding: 0 16px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  font: inherit;
-  cursor: pointer;
-}
-
-.story-activity-card__button--primary {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
-  font-weight: 600;
-}
-
-.story-activity-card__button--primary:hover,
-.story-activity-card__button--primary:focus-visible {
-  background: var(--color-accent-hover);
-  color: var(--color-bg-primary);
-}
-
-
-.story-activity-card__button--secondary {
-  background: transparent;
-  border-color: rgba(245, 247, 250, 0.2);
-  color: var(--color-text-primary);
-}

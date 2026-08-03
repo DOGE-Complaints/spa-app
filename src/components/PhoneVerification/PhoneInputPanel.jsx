@@ -2,6 +2,7 @@ import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { getPhoneFormatForCountry, validatePhoneForCountry } from '../../auth/verificationFlowState.js'
 import { getCountryLabel, isSupportedDialPrefix } from '../../utils/countriesDataset.js'
+import { Button } from '../Button'
 import { CountrySelector } from './CountrySelector.jsx'
 
 /**
@@ -141,33 +142,36 @@ export function PhoneInputPanel({
 
       <div className="phone-verification-panel__actions">
         {supported ? (
-          <button
+          <Button
             type="button"
-            className="phone-verification-panel__button phone-verification-panel__button--primary"
+            hierarchy="primary"
+            fullWidth
             disabled={!valid}
             data-testid="phone-verification-send-code"
             onClick={onSubmit}
           >
             {t('phone.input.send')}
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
             type="button"
-            className="phone-verification-panel__button phone-verification-panel__button--primary"
+            hierarchy="primary"
+            fullWidth
             data-testid="phone-country-join-waitlist"
             onClick={onJoinWaitlist}
           >
             {t('phone.country.joinWaitlist')}
-          </button>
+          </Button>
         )}
-        <button
+        <Button
           type="button"
-          className="phone-verification-panel__button phone-verification-panel__button--secondary"
+          hierarchy="secondary"
+          fullWidth
           data-testid="phone-verification-phone-back"
           onClick={onBack}
         >
           {t('phone.cta.back')}
-        </button>
+        </Button>
       </div>
     </section>
   )

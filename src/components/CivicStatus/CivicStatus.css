@@ -71,43 +71,6 @@
   margin-top: 4px;
 }
 
-.civic-status-card__button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  padding: 0 16px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  font: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.civic-status-card__button--primary {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
-  font-weight: 600;
-}
-
-.civic-status-card__button--primary:hover,
-.civic-status-card__button--primary:focus-visible {
-  background: var(--color-accent-hover);
-  color: var(--color-bg-primary);
-}
-
-
-.civic-status-card__button--secondary {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-text-primary);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.civic-status-card__button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
 .civic-status-card__context-block {
   padding: 12px 14px;
   border-radius: 10px;

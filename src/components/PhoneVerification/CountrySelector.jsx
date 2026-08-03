@@ -8,6 +8,7 @@ import { COUNTRIES, getCountryLabel, isSupportedDialPrefix } from '../../utils/c
  *   onSelect: (country: import('../../utils/countriesDataset.js').CountryRecord) => void,
  * }} props
  */
+/** DS-BTN: combobox/listbox exception (G10 T11) — not product CTA; keep native buttons. */
 export function CountrySelector({ selectedCountry, onSelect }) {
   const { t, locale } = useI18n()
   const listboxId = useId()

@@ -14,6 +14,7 @@ export function ActiveFilterChips({ chips, onRemove }) {
       {chips.map((chip) => (
         <span key={chip.id} className="board-filter-chip" role="listitem">
           <span className="board-filter-chip-label">{chip.label}</span>
+          {/* DS-BTN: filter chip toggle exception (G10 T10) */}
           <button
             type="button"
             className="board-filter-chip-remove"

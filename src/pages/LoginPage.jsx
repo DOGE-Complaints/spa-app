@@ -20,6 +20,7 @@ import {
   GptBridgeResolvingPanel,
   GptBridgeSuccessPanel,
 } from '../components/GptBridge/index.js'
+import { Button } from '../components/Button'
 import { LocaleSelector } from '../components/LocaleSelector/LocaleSelector.jsx'
 import { formatI18nMessage } from '../i18n/formatI18nMessage.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
@@ -326,25 +327,27 @@ export function LoginPage() {
                   />
                   {t('auth.rememberMe')}
                 </label>
-                <button
+                <Button
                   type="button"
-                  className="auth-link"
+                  hierarchy="link"
                   onClick={() => setPageState(AUTH_PAGE_STATES.FORGOT_PASSWORD)}
                 >
                   {t('auth.forgotPassword')}
-                </button>
+                </Button>
               </div>
-              <button data-testid="auth-submit" type="submit" className="auth-button auth-button--primary" disabled={busy}>
+              <Button data-testid="auth-submit" type="submit" hierarchy="primary" fullWidth loading={busy}>
                 {t('auth.signIn.title')}
-              </button>
+              </Button>
             </form>
-            <button type="button" className="auth-button auth-button--secondary" onClick={() => setPageState(AUTH_PAGE_STATES.SIGNUP)}>
-              {t('auth.cta.createAccount')}
-            </button>
+            <div className="auth-card__actions">
+              <Button type="button" hierarchy="secondary" fullWidth onClick={() => setPageState(AUTH_PAGE_STATES.SIGNUP)}>
+                {t('auth.cta.createAccount')}
+              </Button>
+            </div>
             <div className="auth-divider">{t('auth.or')}</div>
-            <button type="button" className="auth-button auth-button--ghost" onClick={handleMagicLinkRequest} disabled={busy}>
+            <Button type="button" hierarchy="tertiary" fullWidth onClick={handleMagicLinkRequest} loading={busy}>
               {t('auth.magicLink')}
-            </button>
+            </Button>
           </>
         )}
 
@@ -382,13 +385,23 @@ export function LoginPage() {
                   {t('auth.signup.passwordMismatch')}
                 </p>
               ) : null}
-              <button data-testid="auth-submit" type="submit" className="auth-button auth-button--primary" disabled={busy}>
+              <Button data-testid="auth-submit" type="submit" hierarchy="primary" fullWidth loading={busy}>
                 {t('auth.cta.createAccount')}
-              </button>
+              </Button>
             </form>
-            <button type="button" className="auth-button auth-button--secondary" onClick={() => { setSignupPasswordMismatch(false); setPageState(AUTH_PAGE_STATES.LOGIN) }}>
-              {t('auth.signup.signInInstead')}
-            </button>
+            <div className="auth-card__actions">
+              <Button
+                type="button"
+                hierarchy="secondary"
+                fullWidth
+                onClick={() => {
+                  setSignupPasswordMismatch(false)
+                  setPageState(AUTH_PAGE_STATES.LOGIN)
+                }}
+              >
+                {t('auth.signup.signInInstead')}
+              </Button>
+            </div>
           </>
         )}
 
@@ -409,12 +422,12 @@ export function LoginPage() {
                 <span className="auth-meta__value">{magicLinkExpiryLabel}</span>
               </div>
             </div>
-            <button type="button" className="auth-button auth-button--primary" onClick={handleMagicLinkRequest} disabled={busy}>
+            <Button type="button" hierarchy="primary" fullWidth onClick={handleMagicLinkRequest} loading={busy}>
               {t('auth.magicSent.resend')}
-            </button>
-            <button type="button" className="auth-link auth-link--block" onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
+            </Button>
+            <Button type="button" hierarchy="link" fullWidth onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
               {t('auth.magicSent.usePassword')}
-            </button>
+            </Button>
           </>
         )}
 
@@ -427,13 +440,15 @@ export function LoginPage() {
                 <span>{t('auth.field.email')}</span>
                 <input data-testid="auth-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
               </label>
-              <button data-testid="auth-submit" type="submit" className="auth-button auth-button--primary" disabled={busy}>
+              <Button data-testid="auth-submit" type="submit" hierarchy="primary" fullWidth loading={busy}>
                 {t('auth.forgot.send')}
-              </button>
+              </Button>
             </form>
-            <button type="button" className="auth-button auth-button--secondary" onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
-              {t('auth.forgot.backToLogin')}
-            </button>
+            <div className="auth-card__actions">
+              <Button type="button" hierarchy="secondary" fullWidth onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
+                {t('auth.forgot.backToLogin')}
+              </Button>
+            </div>
             <p className="auth-support">{t('auth.forgot.neverAsk')}</p>
           </>
         )}
@@ -450,12 +465,14 @@ export function LoginPage() {
                 <strong>{errorCode}</strong>: {t(getAuthErrorMessageKey(errorCode))}
               </p>
             </div>
-            <button type="button" className="auth-button auth-button--primary" onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
-              {t('auth.cta.tryAgain')}
-            </button>
-            <button type="button" className="auth-button auth-button--secondary" onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
-              {t('auth.forgot.backToLogin')}
-            </button>
+            <div className="auth-card__actions">
+              <Button type="button" hierarchy="primary" fullWidth onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
+                {t('auth.cta.tryAgain')}
+              </Button>
+              <Button type="button" hierarchy="secondary" fullWidth onClick={() => setPageState(AUTH_PAGE_STATES.LOGIN)}>
+                {t('auth.forgot.backToLogin')}
+              </Button>
+            </div>
           </>
         )}
 
@@ -478,9 +495,9 @@ export function LoginPage() {
               <li>{t('auth.success.sessionCreated')}</li>
               <li>{t('auth.success.accountActive')}</li>
             </ul>
-            <button data-testid="auth-submit" type="button" className="auth-button auth-button--primary" onClick={handleContinue}>
+            <Button data-testid="auth-submit" type="button" hierarchy="primary" fullWidth onClick={handleContinue}>
               {t('auth.cta.continue')}
-            </button>
+            </Button>
             <div className="auth-destinations">
               <span>{t('auth.success.whereTo')}</span>
               <div className="auth-destinations__links">

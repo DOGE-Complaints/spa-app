@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * M123 state D — Submission Error.
@@ -23,17 +24,18 @@ export function WaitlistErrorPanel({ errorKind, onRetry, onBack }) {
         {t(messageKey)}
       </p>
       <div className="waitlist-panel__actions">
-        <button
+        <Button
           type="button"
-          data-variant="primary"
+          hierarchy="primary"
+          fullWidth
           data-testid="waitlist-error-retry"
           onClick={onRetry}
         >
           {t('waitlist.error.tryAgain')}
-        </button>
-        <button type="button" data-testid="waitlist-error-back" onClick={onBack}>
+        </Button>
+        <Button type="button" hierarchy="secondary" fullWidth data-testid="waitlist-error-back" onClick={onBack}>
           {t('waitlist.error.back')}
-        </button>
+        </Button>
       </div>
     </section>
   )

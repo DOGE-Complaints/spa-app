@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * @param {{
@@ -29,12 +30,12 @@ export function SubmissionSuccessPanel({ submissionId, onSubmitAnother }) {
         </div>
       </dl>
       <div className="story-gate-panel__actions">
-        <button type="button" data-testid="story-gate-view-activity" disabled>
+        <Button type="button" hierarchy="secondary" fullWidth data-testid="story-gate-view-activity" disabled>
           {t('storyGate.success.viewActivity')}
-        </button>
-        <button type="button" data-testid="story-gate-submit-another" onClick={onSubmitAnother}>
+        </Button>
+        <Button type="button" hierarchy="primary" fullWidth data-testid="story-gate-submit-another" onClick={onSubmitAnother}>
           {t('storyGate.success.submitAnother')}
-        </button>
+        </Button>
       </div>
     </section>
   )

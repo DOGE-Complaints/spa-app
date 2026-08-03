@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import { SESSION_SHELL_STATES } from '../../auth/sessionShellState.js'
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import './SessionShellState.css'
 
 function ShellStatePanel({ title, message, code, children, state }) {
@@ -61,15 +61,15 @@ export function LoggedOutPanel() {
       title={t('session.loggedOut.title')}
       message={t('session.loggedOut.desc')}
     >
-      <Link to="/login" className="session-shell-button session-shell-button--primary">
+      <Button href="/login" hierarchy="primary" fullWidth intent="navigate">
         {t('session.cta.signIn')}
-      </Link>
-      <Link to="/login" className="session-shell-button session-shell-button--secondary">
+      </Button>
+      <Button href="/login" hierarchy="secondary" fullWidth intent="navigate">
         {t('session.cta.createAccount')}
-      </Link>
-      <Link to="/board" className="session-shell-link">
+      </Button>
+      <Button href="/board" hierarchy="link" intent="navigate">
         {t('session.continuePublic')}
-      </Link>
+      </Button>
     </ShellStatePanel>
   )
 }
@@ -87,12 +87,12 @@ export function SessionExpiredPanel() {
         <span className="session-shell-context-block__label">{t('session.expired.prevAction')}</span>
         <span className="session-shell-context-block__value">{t('session.expired.waiting')}</span>
       </div>
-      <Link to="/login" className="session-shell-button session-shell-button--primary">
+      <Button href="/login" hierarchy="primary" fullWidth intent="navigate">
         {t('session.expired.signInAgain')}
-      </Link>
-      <Link to="/board" className="session-shell-button session-shell-button--secondary">
+      </Button>
+      <Button href="/board" hierarchy="secondary" fullWidth intent="navigate">
         {t('session.expired.returnPublic')}
-      </Link>
+      </Button>
     </ShellStatePanel>
   )
 }
@@ -107,12 +107,12 @@ export function BackendUnavailablePanel({ onRetry, onViewStatus }) {
       message={t('session.backend.desc')}
       code="BACKEND_UNAVAILABLE"
     >
-      <button type="button" className="session-shell-button session-shell-button--primary" onClick={onRetry}>
+      <Button type="button" hierarchy="primary" fullWidth intent="retry" onClick={onRetry}>
         {t('session.cta.retry')}
-      </button>
-      <button type="button" className="session-shell-button session-shell-button--secondary" onClick={onViewStatus}>
+      </Button>
+      <Button type="button" hierarchy="secondary" fullWidth onClick={onViewStatus}>
         {t('session.viewStatus')}
-      </button>
+      </Button>
     </ShellStatePanel>
   )
 }
@@ -127,9 +127,9 @@ export function NetworkErrorPanel({ onRetry }) {
       message={t('session.network.desc')}
       code="NETWORK_ERROR"
     >
-      <button type="button" className="session-shell-button session-shell-button--primary" onClick={onRetry}>
+      <Button type="button" hierarchy="primary" fullWidth intent="retry" onClick={onRetry}>
         {t('session.cta.retry')}
-      </button>
+      </Button>
     </ShellStatePanel>
   )
 }

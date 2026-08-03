@@ -23,6 +23,7 @@ import { VERIFICATION_ERROR_ACTIONS } from './phoneVerificationErrorLabels.js'
 import { DisclosurePanel } from './DisclosurePanel.jsx'
 import { OtpPanel } from './OtpPanel.jsx'
 import { PhoneInputPanel } from './PhoneInputPanel.jsx'
+import { Button } from '../Button'
 import { PhoneVerificationErrorState } from './PhoneVerificationErrorState.jsx'
 import { ProcessingPanel } from './ProcessingPanel.jsx'
 import { SuccessPanel } from './SuccessPanel.jsx'
@@ -335,14 +336,15 @@ export function PhoneVerificationFlow({
             <h2 className="phone-verification-panel__title">{t('phone.failed.title')}</h2>
             <p className="phone-verification-panel__description">{t('phone.failed.desc')}</p>
             <div className="phone-verification-panel__actions">
-              <button
+              <Button
                 type="button"
-                className="phone-verification-panel__button phone-verification-panel__button--primary"
+                hierarchy="primary"
+                fullWidth
                 data-testid="phone-verification-retry"
                 onClick={() => setPhase(VERIFICATION_FLOW_PHASES.DISCLOSURE)}
               >
                 {t('phone.failed.tryAgain')}
-              </button>
+              </Button>
             </div>
           </section>
         )

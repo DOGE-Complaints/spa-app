@@ -122,10 +122,10 @@ Brand hex SSOT: [DOGEstonia Color Palette v1.0](../tasks/backlog-stories/design-
 
 ### 4.0 Buttons (DS-BTN)
 
+- **Component:** [`src/components/Button/`](../../src/components/Button/) — `Button`, `IconButton`, `ButtonGroup`, `MenuAction` ([STORY-SPA-G10](../tasks/backlog-stories/design-foundation/STORY-SPA-G10-button-system-ds-btn.md), `pkg-000044`)
 - **SSOT contract:** [design-system-buttons-spec.md](design-system-buttons-spec.md) · artboard [design-system-buttons-spec.png](design-system-buttons-spec.png)
 - **Day-to-day guide:** [button-system-developer-guide.md](../runtime-docs/button-system-developer-guide.md)
-- **Backlog:** [STORY-SPA-G10](../tasks/backlog-stories/design-foundation/STORY-SPA-G10-button-system-ds-btn.md) (Todo) — shared `Button` / migrate legacy `<button>`
-- **Colors:** G9 brand tokens (`--color-accent-primary` = Signal Orange); primary label = ink/bg for contrast
+- **Colors:** G9 brand tokens (`--color-accent-primary` = Signal Orange); primary label = `--button-primary-text` / `--doge-ink` (not white)
 
 ### 4.1 Header
 
@@ -255,9 +255,10 @@ Brand hex SSOT: [DOGEstonia Color Palette v1.0](../tasks/backlog-stories/design-
 | Шрифты | `public/fonts/` + `src/styles/fonts.css` | **Done** — Inter 400/500/600 + JetBrains Mono 400 woff2 — [STORY-SPA-G7](../tasks/backlog-stories/design-foundation/STORY-SPA-G7-self-hosted-fonts.md) (`pkg-000039`) |
 | Иконки | `public/icons/`, `public/assets/` | verified marker, флаги локалей |
 | Shell | `src/components/AppShell/` | **Done** — `AppShell.jsx`, `Header.jsx`, `Sidebar.jsx`, `LanguageSelector.jsx` — [STORY-SPA-G8](../tasks/backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md) (`pkg-000040`) |
-| Компоненты | `src/components/` | StatusBadge, IssueCard, EmptyState, Filters (факт) |
+| Buttons (DS-BTN) | `src/components/Button/` | **Done** — `Button` / `IconButton` / `ButtonGroup` / `MenuAction` — [STORY-SPA-G10](../tasks/backlog-stories/design-foundation/STORY-SPA-G10-button-system-ds-btn.md) (`pkg-000044`) |
+| Компоненты | `src/components/` | StatusBadge, IssueCard, EmptyState, Filters, Button (факт) |
 
-> **Статус реализации (2026-07-29):** G4 Done (`pkg-000038`); G7 Done (`pkg-000039`); G8 Done (`pkg-000040`, AppShell Header/Sidebar/LanguageSelector). Backlog stories выше.
+> **Статус реализации (2026-08-02):** G4/G7/G8/G9/G10/G11 Done. Buttons §4.0 → [`Button/`](../../src/components/Button/) + [guide](../runtime-docs/button-system-developer-guide.md).
 
 ---
 

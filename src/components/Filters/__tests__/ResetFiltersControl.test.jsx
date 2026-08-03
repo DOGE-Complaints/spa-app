@@ -10,7 +10,7 @@ describe('ResetFiltersControl', () => {
       <ResetFiltersControl hasActiveFilters={false} onReset={() => {}} t={t} />,
     )
     expect(html).toContain('Reset Filters')
-    expect(html).toContain('board-filter-reset')
+    expect(html).toContain('ds-btn--link')
   })
 
   it('includes disabled attribute when no active filters', () => {

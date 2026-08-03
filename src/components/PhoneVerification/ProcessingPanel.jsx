@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 export function ProcessingPanel() {
   const { t } = useI18n()
@@ -15,14 +16,15 @@ export function ProcessingPanel() {
         <span className="phone-verification-panel__progress-bar" />
       </div>
       <div className="phone-verification-panel__actions">
-        <button
+        <Button
           type="button"
-          className="phone-verification-panel__button phone-verification-panel__button--primary"
-          disabled
+          hierarchy="primary"
+          fullWidth
+          loading
           data-testid="phone-verification-processing-cta"
         >
           {t('phone.otp.verify')}
-        </button>
+        </Button>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import { GptDraftBanner } from './GptDraftBanner.jsx'
 import './GptBridge.css'
 
@@ -27,14 +28,16 @@ export function GptBridgeAlreadyVerifiedPanel({ redirectUrl, onReturn }) {
       <h2 className="gpt-bridge-panel__title">{t('gptBridge.alreadyVerified.title')}</h2>
       <p className="gpt-bridge-panel__message">{t('gptBridge.alreadyVerified.message')}</p>
       <p className="gpt-bridge-panel__context">{t('gptBridge.alreadyVerified.context')}</p>
-      <button
+      <Button
         type="button"
-        className="gpt-bridge-panel__cta"
+        hierarchy="primary"
+        fullWidth
+        intent="external"
         data-testid="gpt-bridge-return-chatgpt"
         onClick={handleReturn}
       >
         {t('gptBridge.success.returnToChatgpt')}
-      </button>
+      </Button>
     </section>
   )
 }

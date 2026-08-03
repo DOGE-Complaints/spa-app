@@ -1,5 +1,6 @@
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import './AppErrorState.css'
 
 const WARNING_ICON = '/icons/story-handoff/ic-warning-triangle.png'
@@ -56,25 +57,28 @@ export function AppErrorState({
       ) : null}
       <div className="app-error-state__actions">
         {typeof onRetry === 'function' ? (
-          <button
+          <Button
             type="button"
-            className="app-error-state__button app-error-state__button--primary"
+            hierarchy="primary"
+            intent="retry"
             onClick={onRetry}
             data-testid="cabinet-profile-error-retry"
+            leadingIcon={
+              <img src={RETRY_ICON} alt="" width={18} height={18} />
+            }
           >
-            <img className="app-error-state__button-icon" src={RETRY_ICON} alt="" width={18} height={18} />
             {resolvedRetry}
-          </button>
+          </Button>
         ) : null}
         {typeof onBackToBoard === 'function' ? (
-          <button
+          <Button
             type="button"
-            className="app-error-state__button app-error-state__button--secondary"
+            hierarchy="secondary"
             onClick={onBackToBoard}
             data-testid="cabinet-profile-error-back"
           >
             {resolvedBack}
-          </button>
+          </Button>
         ) : null}
       </div>
     </div>

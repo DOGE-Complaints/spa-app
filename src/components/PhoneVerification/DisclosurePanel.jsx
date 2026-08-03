@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 export function DisclosurePanel({ onSendCode, onNotNow }) {
   const { t } = useI18n()
@@ -11,22 +12,24 @@ export function DisclosurePanel({ onSendCode, onNotNow }) {
       <h2 className="phone-verification-panel__title">{t('phone.disclosure.title')}</h2>
       <p className="phone-verification-panel__description">{t('phone.disclosure.body')}</p>
       <div className="phone-verification-panel__actions">
-        <button
+        <Button
           type="button"
-          className="phone-verification-panel__button phone-verification-panel__button--primary"
+          hierarchy="primary"
+          fullWidth
           data-testid="phone-verification-disclosure-send"
           onClick={onSendCode}
         >
           {t('phone.disclosure.sendCode')}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="phone-verification-panel__button phone-verification-panel__button--secondary"
+          hierarchy="secondary"
+          fullWidth
           data-testid="phone-verification-disclosure-not-now"
           onClick={onNotNow}
         >
           {t('phone.disclosure.notNow')}
-        </button>
+        </Button>
       </div>
     </section>
   )

@@ -103,40 +103,6 @@
   margin-top: 1.25rem;
 }
 
-.story-handoff__btn {
-  border: none;
-  border-radius: 10px;
-  padding: 0.65rem 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.story-handoff__btn--primary {
-  background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
-}
-
-.story-handoff__btn--primary:hover,
-.story-handoff__btn--primary:focus-visible {
-  background: var(--color-accent-hover);
-  color: var(--color-bg-primary);
-}
-
-
-.story-handoff__btn--secondary {
-  background: transparent;
-  border: 1px solid rgba(245, 247, 250, 0.25);
-  color: var(--color-text-primary);
-}
-
-.story-handoff__btn--link {
-  background: transparent;
-  color: var(--color-accent-primary);
-  text-decoration: underline;
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .story-handoff__spinner {
   width: 40px;
   height: 40px;

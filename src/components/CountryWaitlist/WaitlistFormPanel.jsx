@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * M123 state B — Waitlist Form.
@@ -83,17 +84,18 @@ export function WaitlistFormPanel({
           />
         </div>
         <div className="waitlist-panel__actions">
-          <button
+          <Button
             type="submit"
-            data-variant="primary"
+            hierarchy="primary"
+            fullWidth
             data-testid="waitlist-form-submit"
-            disabled={submitting}
+            loading={submitting}
           >
             {t('waitlist.form.submit')}
-          </button>
-          <button type="button" data-testid="waitlist-form-back" onClick={onBack}>
+          </Button>
+          <Button type="button" hierarchy="secondary" fullWidth data-testid="waitlist-form-back" onClick={onBack}>
             {t('waitlist.form.back')}
-          </button>
+          </Button>
         </div>
       </form>
     </section>

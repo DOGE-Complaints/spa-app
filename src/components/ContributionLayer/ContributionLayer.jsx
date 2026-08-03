@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
+import { Button } from '../Button'
 import {
   CONTRIB_DEMO_RECEIPTS,
   CONTRIB_DEMO_RECORDS,
@@ -271,15 +272,16 @@ function UnavailableBody({ message, code, onRetry, testIdPrefix }) {
         </div>
       </div>
       <div className="contrib-card__actions">
-        <button
+        <Button
           type="button"
-          className="contrib-card__btn"
+          hierarchy="secondary"
+          intent="retry"
           data-testid={`${testIdPrefix}-retry`}
           onClick={onRetry}
+          leadingIcon={<img src={ICONS.retry} alt="" width={16} height={16} />}
         >
-          <img className="contrib-card__btn-icon" src={ICONS.retry} alt="" width={16} height={16} />
           {t('cabinet.common.retry')}
-        </button>
+        </Button>
       </div>
     </>
   )

@@ -53,21 +53,6 @@
   margin-top: 1rem;
 }
 
-.waitlist-panel__actions button {
-  font: inherit;
-  padding: 0.55rem 0.9rem;
-  border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.25);
-  color: inherit;
-  cursor: pointer;
-}
-
-.waitlist-panel__actions button[data-variant='primary'] {
-  border-color: color-mix(in srgb, var(--doge-accent) 45%, transparent);
-  background: var(--color-accent-soft);
-}
-
 .waitlist-panel__status {
   margin: 0.75rem 0 0;
   font-weight: 600;

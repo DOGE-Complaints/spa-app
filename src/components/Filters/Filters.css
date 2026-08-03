@@ -191,26 +191,6 @@
   color: var(--color-border-muted);
 }
 
-.board-filter-reset {
-  padding: 6px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-secondary);
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
-.board-filter-reset:hover:not(:disabled) {
-  border-color: rgba(255, 255, 255, 0.22);
-  color: var(--color-text-primary);
-}
-
-.board-filter-reset:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-
 .board-no-results {
   padding: 24px;
   text-align: center;

@@ -26,6 +26,7 @@ export function FilterPanel({
 }) {
   return (
     <div className="board-filter-panel" data-open={open ? 'yes' : 'no'}>
+      {/* DS-BTN: filter chip toggle exception (G10 T10) */}
       <button
         type="button"
         className="board-filter-panel-toggle"

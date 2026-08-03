@@ -83,6 +83,7 @@ function GeoDimensionFilter({ field, labelKey, values, options, onChange, t, var
       data-open={open ? 'yes' : 'no'}
       data-geo-dimension={field}
     >
+      {/* DS-BTN: filter chip toggle exception (G10 T10) */}
       <button
         type="button"
         className="board-filter-trigger"

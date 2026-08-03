@@ -27,7 +27,7 @@ describe('FilterPanel', () => {
 
     expect(html).toContain('board-filter-apply')
     expect(html).toContain('Apply')
-    expect(html).toContain('board-filter-reset')
+    expect(html).toContain('ds-btn--link')
     expect(html).toContain('data-slot="institution"')
     expect(html).toContain('data-slot="date"')
     expect(html).toContain('data-slot="geo"')

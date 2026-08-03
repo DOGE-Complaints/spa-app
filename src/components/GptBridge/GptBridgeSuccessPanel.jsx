@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import { GptDraftBanner } from './GptDraftBanner.jsx'
 import './GptBridge.css'
 
@@ -24,17 +25,19 @@ export function GptBridgeSuccessPanel({ redirectUrl, onReturn }) {
       <GptDraftBanner statusKey="gptBridge.draft.statusReady" />
       <h2 className="gpt-bridge-panel__title">{t('gptBridge.success.title')}</h2>
       <p className="gpt-bridge-panel__message">{t('gptBridge.success.message')}</p>
-      <button
+      <Button
         type="button"
-        className="gpt-bridge-panel__cta"
+        hierarchy="primary"
+        fullWidth
+        intent="external"
         data-testid="gpt-bridge-return-chatgpt"
         onClick={handleReturn}
       >
         {t('gptBridge.success.returnToChatgpt')}
-      </button>
-      <Link to="/profile" className="gpt-bridge-panel__secondary" data-testid="gpt-bridge-open-profile">
+      </Button>
+      <Button href="/profile" hierarchy="link" intent="navigate" data-testid="gpt-bridge-open-profile">
         {t('gptBridge.success.openProfile')}
-      </Link>
+      </Button>
     </section>
   )
 }

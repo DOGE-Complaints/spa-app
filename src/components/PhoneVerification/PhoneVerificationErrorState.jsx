@@ -2,6 +2,7 @@ import './PhoneVerificationErrorState.css'
 import { formatCooldownTimer } from '../../auth/verificationErrorMapping.js'
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 
 /**
  * @typedef {import('../../auth/verificationErrorMapping.js').ResolvedVerificationError} ResolvedVerificationError
@@ -53,25 +54,27 @@ export function PhoneVerificationErrorState({ resolved, onPrimaryAction, onSecon
       ) : null}
 
       <div className="phone-verification-error__actions">
-        <button
+        <Button
           type="button"
-          className="phone-verification-error__button phone-verification-error__button--primary"
+          hierarchy="primary"
+          fullWidth
           data-testid="phone-verification-error-primary"
           disabled={Boolean(primaryAction.disabled)}
           onClick={() => onPrimaryAction(primaryAction.id)}
         >
           {t(primaryAction.labelKey)}
-        </button>
+        </Button>
         {secondaryAction ? (
-          <button
+          <Button
             type="button"
-            className="phone-verification-error__button phone-verification-error__button--secondary"
+            hierarchy="secondary"
+            fullWidth
             data-testid="phone-verification-error-secondary"
             disabled={Boolean(secondaryAction.disabled)}
             onClick={() => onSecondaryAction?.(secondaryAction.id)}
           >
             {t(secondaryAction.labelKey)}
-          </button>
+          </Button>
         ) : null}
       </div>
 

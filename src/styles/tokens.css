@@ -66,4 +66,58 @@
   --space-md: 12px;
   --space-lg: 16px;
   --space-xl: 24px;
+
+  /* §2.4 Motion / radius / focus / breakpoint (G10 DS-BTN) */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --motion-fast: 150ms;
+  --breakpoint-md: 768px;
+  --focus-ring-color: var(--color-accent-primary);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* DS-BTN semantic button tokens (spec §36; colors alias G9 — no new brand hex) */
+  --button-primary-bg: var(--color-accent-primary);
+  --button-primary-bg-hover: var(--color-accent-hover);
+  --button-primary-bg-active: var(--color-accent-active);
+  /* Primary label: ink for contrast on #F5A623 (not white; FR-G10.7 / D-G9) */
+  --button-primary-text: var(--doge-ink);
+  --color-btn-on-primary: var(--button-primary-text);
+
+  --button-secondary-bg: transparent;
+  --button-secondary-bg-hover: var(--color-bg-secondary);
+  --button-secondary-border: var(--color-border-default);
+  --button-secondary-text: var(--color-text-primary);
+
+  --button-tertiary-text: var(--color-text-primary);
+  --button-tertiary-text-muted: var(--color-text-secondary);
+
+  --button-link-text: var(--color-accent-primary);
+  --button-link-text-active: var(--color-accent-hover);
+
+  --button-disabled-bg: var(--color-bg-secondary);
+  --button-disabled-text: var(--color-text-secondary);
+  --button-disabled-opacity: 0.55;
+
+  --button-destructive-text: var(--color-danger);
+  --button-destructive-border: var(--color-danger);
+  --button-destructive-bg-hover: rgba(255, 123, 123, 0.12);
+
+  --button-focus-color: var(--focus-ring-color);
+  --button-focus-width: var(--focus-ring-width);
+  --button-focus-offset: var(--focus-ring-offset);
+
+  --button-height-small: 32px;
+  --button-height-medium: 40px;
+  --button-height-large: 48px;
+  --control-height-sm: var(--button-height-small);
+  --control-height-md: var(--button-height-medium);
+  --control-height-lg: var(--button-height-large);
+
+  --button-radius: var(--radius-sm);
+  --button-padding-inline-small: 10px;
+  --button-padding-inline-medium: 14px;
+  --button-padding-inline-large: 18px;
+  --button-icon-gap: var(--space-sm);
+  --button-transition-duration: var(--motion-fast);
 }

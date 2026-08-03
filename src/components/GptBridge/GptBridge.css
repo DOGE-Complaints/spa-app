@@ -70,25 +70,6 @@
   }
 }
 
-.gpt-bridge-panel__cta {
-  margin-top: 1rem;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: none;
-  border-radius: 8px;
-  background: var(--color-accent-active);
-  color: var(--color-bg-primary);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.gpt-bridge-panel__secondary {
-  display: inline-block;
-  margin-top: 0.75rem;
-  color: var(--color-accent-active);
-  text-decoration: none;
-}
-
 .gpt-bridge-login-context {
   margin-bottom: 1rem;
 }

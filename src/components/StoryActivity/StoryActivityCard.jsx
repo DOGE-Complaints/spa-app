@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { formatI18nMessage } from '../../i18n/formatI18nMessage.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { Button } from '../Button'
 import {
   STORY_ACTIVITY_DEMO_METRICS,
   STORY_ACTIVITY_DEMO_ROWS,
@@ -159,14 +160,14 @@ export function StoryActivityCard({
             {t('cabinet.story.empty.message')}
           </p>
           <p className="story-activity-card__description">{t('cabinet.story.empty.description')}</p>
-          <button
+          <Button
             type="button"
-            className="story-activity-card__button story-activity-card__button--primary"
+            hierarchy="primary"
             data-testid="story-activity-go-to-board"
             onClick={() => onGoToBoard?.()}
           >
             {t('storyHandoff.cta.goToBoard')}
-          </button>
+          </Button>
         </>
       ) : null}
 
@@ -177,22 +178,22 @@ export function StoryActivityCard({
             {t('cabinet.story.draft.lastEdited')} {draftLastEdited}
           </p>
           <div className="story-activity-card__actions">
-            <button
+            <Button
               type="button"
-              className="story-activity-card__button story-activity-card__button--primary"
+              hierarchy="primary"
               data-testid="story-activity-resume-draft"
               onClick={showComingSoon}
             >
               {t('cabinet.story.draft.resume')}
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
-              className="story-activity-card__button story-activity-card__button--secondary"
+              hierarchy="secondary"
               data-testid="story-activity-discard-draft"
               onClick={showComingSoon}
             >
               {t('cabinet.common.discardDraft')}
-            </button>
+            </Button>
           </div>
         </>
       ) : null}
@@ -202,14 +203,14 @@ export function StoryActivityCard({
           <p className="story-activity-card__description">
             {t('cabinet.story.verifyRequired.description')}
           </p>
-          <button
+          <Button
             type="button"
-            className="story-activity-card__button story-activity-card__button--primary"
+            hierarchy="primary"
             data-testid="story-activity-verify"
             onClick={() => onVerify?.()}
           >
             {t('civic.unverified.cta')}
-          </button>
+          </Button>
         </>
       ) : null}
 
@@ -221,15 +222,16 @@ export function StoryActivityCard({
           <p className="story-activity-card__error-code" data-testid="story-activity-error-code">
             {formatI18nMessage(t('cabinet.common.codeLabel'), { code: errorCode })}
           </p>
-          <button
+          <Button
             type="button"
-            className="story-activity-card__button story-activity-card__button--primary"
+            hierarchy="primary"
+            intent="retry"
             data-testid="story-activity-retry"
             onClick={showComingSoon}
+            leadingIcon={<img src={ICONS.retry} alt="" width={16} height={16} />}
           >
-            <img src={ICONS.retry} alt="" width={16} height={16} />
             {t('cabinet.common.retry')}
-          </button>
+          </Button>
         </>
       ) : null}
     </article>

@@ -350,21 +350,6 @@ body {
   margin: 0 0 12px;
 }
 
-.board-retry-button {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.board-retry-button:hover {
-  border-color: color-mix(in srgb, var(--doge-accent) 60%, transparent);
-  background: var(--color-accent-soft);
-}
-
 .issue-page-shell {
   min-height: 100vh;
   padding: 16px 20px;
@@ -372,15 +357,6 @@ body {
 
 .issue-page-header {
   margin-bottom: 16px;
-}
-
-.issue-back-button,
-.issue-retry-button {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-  padding: 8px 12px;
 }
 
 .issue-details-state {

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Button } from '../components/Button'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { TranslationMarker } from '../components/TranslationMarker/TranslationMarker.jsx'
 import { AppShell, Header, Sidebar } from '../components/AppShell/index.js'
@@ -76,9 +77,9 @@ export function IssuePage() {
         <section className="issue-details-state issue-details-state-load-error">
           <h1>{t('loadErrorTitle')}</h1>
           <p>{id}</p>
-          <button type="button" className="issue-retry-button" onClick={fetchIssue}>
+          <Button type="button" hierarchy="primary" intent="retry" onClick={fetchIssue}>
             {t('retry')}
-          </button>
+          </Button>
         </section>
       ) : issue ? (
         (() => {
@@ -209,9 +210,9 @@ export function IssuePage() {
         showFooter={false}
       >
           <header className="issue-page-header">
-            <button type="button" className="issue-back-button" onClick={() => navigate(boardBackUrl)}>
+            <Button type="button" hierarchy="secondary" onClick={() => navigate(boardBackUrl)}>
               {t('backToBoard')}
-            </button>
+            </Button>
           </header>
           {content}
           <footer className="board-footer">
