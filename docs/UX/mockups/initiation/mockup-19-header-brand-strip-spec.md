@@ -1,9 +1,11 @@
 # Mockup 19 Spec — Header Brand Strip
 
+> **Superseded for public header chrome (ADMIN-PH-02):** `SYNCED` as a primary header label and the M19 strip contract are superseded by [M129 Public Header Chrome](../home/mockup-129-public-header-chrome-state-sheet-spec.md) where they conflict. Keep this file for historical reference; do not reintroduce SYNCED into the new public header.
+
 **Mockup source:** `docs/UX/mockups/DOGEstonia-Mockup-header.png`  
 **Logo asset:** `dist/assets/Logo-Big.png`  
 **Version:** v1.0  
-**Status:** active SSOT for header strip baseline  
+**Status:** active SSOT for header strip baseline *(SYNCED-in-header superseded by M129)*  
 **Related epic:** `docs/epics/EPIC-03-issue-board-mvp.md`
 
 ---
