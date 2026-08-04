@@ -28,6 +28,7 @@ describe('publicHome dictionary SSOT', () => {
       'publicHome.board.error.message',
       'publicHome.board.error.retry',
       'publicHome.board.loading.accessible',
+      'publicHome.board.openIssue',
     ])
   })
 

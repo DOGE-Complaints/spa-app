@@ -38,6 +38,7 @@ export const PUBLIC_HOME_DICTIONARY_EN = Object.freeze({
       loading: {
         accessible: 'Loading board…',
       },
+      openIssue: 'Open issue →',
     },
   },
 })
@@ -82,6 +83,7 @@ export const PUBLIC_HOME_DICTIONARY_ET = Object.freeze({
       loading: {
         accessible: 'Juhtpaneeli laadimine…',
       },
+      openIssue: 'Ava teema →',
     },
   },
 })
@@ -126,6 +128,7 @@ export const PUBLIC_HOME_DICTIONARY_RU = Object.freeze({
       loading: {
         accessible: 'Загрузка доски…',
       },
+      openIssue: 'Открыть тему →',
     },
   },
 })
@@ -160,4 +163,5 @@ export const PUBLIC_HOME_FLAT_KEYS = Object.freeze([
   'publicHome.board.error.message',
   'publicHome.board.error.retry',
   'publicHome.board.loading.accessible',
+  'publicHome.board.openIssue',
 ])

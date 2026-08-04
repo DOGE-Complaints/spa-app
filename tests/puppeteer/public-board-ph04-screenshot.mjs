@@ -15,7 +15,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SPA_ROOT = path.resolve(__dirname, '../..')
 const UI_BASELINE = path.resolve(
   SPA_ROOT,
-  'docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-04-board-feed-home/task-spa-ph-04-t01-remove-columns-single-feed/ui-baseline',
+  process.env.PH04_UI_BASELINE ??
+    'docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-04-board-feed-home/task-spa-ph-04-t01-remove-columns-single-feed/ui-baseline',
 )
 
 const BASE = process.env.PUBLIC_BOARD_URL ?? process.env.PUBLIC_HEADER_URL ?? 'http://127.0.0.1:4173'

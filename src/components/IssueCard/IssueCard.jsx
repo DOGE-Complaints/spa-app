@@ -68,9 +68,11 @@ export function IssueCard({
       <div className="issue-card-meta">
         <span className="issue-card-id">{issue.id}</span>
         <StatusBadge status={issue.status} />
-        <span className="issue-card-overflow" aria-hidden="true">
-          …
-        </span>
+        {!showOpenAffordance ? (
+          <span className="issue-card-overflow" aria-hidden="true">
+            …
+          </span>
+        ) : null}
       </div>
       <h3 className="issue-card-title">
         {cardText}
@@ -109,12 +111,16 @@ export function IssueCard({
         <footer className="issue-card-footer">{footerText}</footer>
       ) : null}
       {showOpenAffordance ? (
-        <img
-          className="issue-card-chevron"
-          src="/icons/public-home/ic-chevron-right.png"
-          alt=""
-          aria-hidden="true"
-        />
+        <div className="issue-card-open-affordance" aria-hidden="true">
+          <span className="issue-card-open-label">
+            {t('publicHome.board.openIssue')}
+          </span>
+          <img
+            className="issue-card-chevron"
+            src="/icons/public-home/ic-chevron-right.png"
+            alt=""
+          />
+        </div>
       ) : null}
     </>
   )
@@ -122,6 +128,7 @@ export function IssueCard({
   const classes = [
     'issue-card',
     selected ? 'issue-card-selected' : '',
+    showOpenAffordance ? 'issue-card-openable' : '',
     className,
   ]
     .filter(Boolean)

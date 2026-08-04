@@ -55,7 +55,7 @@ describe('BoardPage PH-04 single feed', () => {
     expect(boardPageSource).toContain("t('publicHome.board.empty.title')")
     expect(boardPageSource).toContain("t('publicHome.board.error.retry')")
     expect(boardPageSource).not.toMatch(/Oops/i)
-    expect(PUBLIC_HOME_FLAT_KEYS.filter((k) => k.startsWith('publicHome.board.'))).toHaveLength(9)
+    expect(PUBLIC_HOME_FLAT_KEYS.filter((k) => k.startsWith('publicHome.board.'))).toHaveLength(10)
   })
 
   it('uses catalog icon paths for empty and error', () => {

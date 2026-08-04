@@ -224,7 +224,7 @@ async function run() {
       )
       await assertNoColumns(page)
       liveOk = true
-      written.push(await shot(page, '01-happy-live-board-feed-1536x1024.png'))
+      written.push(await shot(page, '01-live-load-error-board-1536x1024.png'))
     } catch (error) {
       console.error('live auth/board feed path failed', error)
       written.push(await shot(page, '00-login-or-board-error-1536x1024.png'))

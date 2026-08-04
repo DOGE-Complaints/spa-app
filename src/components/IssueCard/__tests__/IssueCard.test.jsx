@@ -176,6 +176,26 @@ describe('IssueCard', () => {
     expect(html).toContain('href="/issue/DE-042"')
   })
 
+  it('shows Open issue affordance without ellipsis when showOpenAffordance', () => {
+    const html = renderIssueCard(
+      <MemoryRouter>
+        <IssueCard
+          issue={minimalIssue}
+          locale="en"
+          resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+          t={makeT('en')}
+          footerText="Footer"
+          to="/issue/DE-042"
+          showOpenAffordance
+        />
+      </MemoryRouter>,
+    )
+    expect(html).toContain('issue-card-open-affordance')
+    expect(html).toContain('Open issue →')
+    expect(html).toContain('ic-chevron-right.png')
+    expect(html).not.toContain('issue-card-overflow')
+  })
+
   it('renders as article when to not provided', () => {
     const html = renderIssueCard(
       <IssueCard
