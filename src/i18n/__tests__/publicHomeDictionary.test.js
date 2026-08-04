@@ -3,7 +3,7 @@ import { findMissingPublicHomeDictionaryKeys } from '../forbiddenVerificationTer
 import { PUBLIC_HOME_FLAT_KEYS } from '../publicHomeDictionary.js'
 
 describe('publicHome dictionary SSOT', () => {
-  it('lists PUBLIC_HOME_FLAT_KEYS for nav + account labels', () => {
+  it('lists PUBLIC_HOME_FLAT_KEYS for nav + account + footer labels', () => {
     expect(PUBLIC_HOME_FLAT_KEYS).toEqual([
       'publicHome.nav.dashboard',
       'publicHome.nav.howItWorks',
@@ -14,6 +14,11 @@ describe('publicHome dictionary SSOT', () => {
       'publicHome.account.profile',
       'publicHome.account.logOut',
       'publicHome.account.openMenu',
+      'publicHome.footer.brand',
+      'publicHome.footer.tagline',
+      'publicHome.footer.about',
+      'publicHome.footer.privacy',
+      'publicHome.footer.contact',
     ])
   })
 

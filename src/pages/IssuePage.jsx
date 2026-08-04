@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { TranslationMarker } from '../components/TranslationMarker/TranslationMarker.jsx'
-import { AppShell, Header, Sidebar } from '../components/AppShell/index.js'
+import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { resolveLocalizedTextWithMeta } from '../i18n/core.js'
 import { formatLabelKeyWithMeta } from '../i18n/labelDisplay.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
@@ -207,7 +207,7 @@ export function IssuePage() {
       <AppShell
         header={<Header />}
         sidebar={<Sidebar activeNav="board" boardTo={boardBackUrl} />}
-        showFooter={false}
+        footer={<PublicFooter />}
       >
           <header className="issue-page-header">
             <Button type="button" hierarchy="secondary" onClick={() => navigate(boardBackUrl)}>
@@ -215,9 +215,6 @@ export function IssuePage() {
             </Button>
           </header>
           {content}
-          <footer className="board-footer">
-            {t('footer')}
-          </footer>
       </AppShell>
     </main>
   )

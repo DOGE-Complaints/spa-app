@@ -13,6 +13,13 @@ export const PUBLIC_HOME_DICTIONARY_EN = Object.freeze({
       logOut: 'Log out',
       openMenu: 'Open account menu',
     },
+    footer: {
+      brand: 'DOGEstonia',
+      tagline: '[TAGLINE_TBD]',
+      about: 'About',
+      privacy: 'Privacy',
+      contact: 'Contact',
+    },
   },
 })
 
@@ -31,6 +38,13 @@ export const PUBLIC_HOME_DICTIONARY_ET = Object.freeze({
       logOut: 'Logi välja',
       openMenu: 'Ava konto menüü',
     },
+    footer: {
+      brand: 'DOGEstonia',
+      tagline: '[TAGLINE_TBD]',
+      about: 'Meist',
+      privacy: 'Privaatsus',
+      contact: 'Kontakt',
+    },
   },
 })
 
@@ -48,6 +62,13 @@ export const PUBLIC_HOME_DICTIONARY_RU = Object.freeze({
       profile: 'Профиль',
       logOut: 'Выйти',
       openMenu: 'Открыть меню аккаунта',
+    },
+    footer: {
+      brand: 'DOGEstonia',
+      tagline: '[TAGLINE_TBD]',
+      about: 'О проекте',
+      privacy: 'Конфиденциальность',
+      contact: 'Контакты',
     },
   },
 })
@@ -68,4 +89,9 @@ export const PUBLIC_HOME_FLAT_KEYS = Object.freeze([
   'publicHome.account.profile',
   'publicHome.account.logOut',
   'publicHome.account.openMenu',
+  'publicHome.footer.brand',
+  'publicHome.footer.tagline',
+  'publicHome.footer.about',
+  'publicHome.footer.privacy',
+  'publicHome.footer.contact',
 ])

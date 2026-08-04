@@ -32,7 +32,7 @@ import {
 } from '../i18n/collectInstitutionsFromIssues.js'
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
-import { AppShell, Header, Sidebar } from '../components/AppShell/index.js'
+import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 
 function BoardColumnPlaceholder({ count = 3 }) {
   return (
@@ -164,7 +164,7 @@ export function BoardPage() {
       <AppShell
         header={<Header />}
         sidebar={<Sidebar activeNav="board" />}
-        showFooter={false}
+        footer={<PublicFooter />}
       >
           <header className="board-toolbar">
             <div className="board-toolbar-left">
@@ -385,9 +385,6 @@ export function BoardPage() {
             </section>
           </section>
 
-          <footer className="board-footer">
-            {t('footer')}
-          </footer>
       </AppShell>
     </main>
   )

@@ -61,9 +61,13 @@ export function AppShell({
       </div>
 
       {showFooter ? (
-        <footer className="app-shell__footer board-footer" aria-label={t('appShell.aria.systemStatus')}>
-          {footer ?? <span>{t('appShell.footer')}</span>}
-        </footer>
+        footer !== undefined && footer !== null ? (
+          footer
+        ) : (
+          <footer className="app-shell__footer board-footer" aria-label={t('appShell.aria.systemStatus')}>
+            <span>{t('appShell.footer')}</span>
+          </footer>
+        )
       ) : null}
     </div>
   )

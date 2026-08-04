@@ -20,6 +20,7 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).toContain('board-sidebar')
     expect(html).toContain('board-workspace')
     expect(html).toContain('board-footer')
+    expect(html).toContain('data-testid="public-footer"')
     expect(html).toContain('data-testid="app-shell"')
     expect(html).toContain('header-locale')
     expect(html).toContain('public-header')
