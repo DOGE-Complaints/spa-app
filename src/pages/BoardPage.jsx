@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ISSUE_STATUS } from '../domain/types.js'
 import {
   ActiveFilterChips,
   DateRangeFilter,
@@ -15,9 +14,7 @@ import {
   buildChipDescriptors,
 } from '../components/Filters/index.js'
 import { Button } from '../components/Button'
-import { EmptyState } from '../components/EmptyState/index.js'
 import { IssueCard } from '../components/IssueCard/index.js'
-import { StatusBadge } from '../components/StatusBadge.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
 import { useDebouncedBoardSearch } from '../hooks/useDebouncedBoardSearch.js'
@@ -34,7 +31,7 @@ import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptions
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 
-function BoardColumnPlaceholder({ count = 3 }) {
+function BoardFeedSkeleton({ count = 4 }) {
   return (
     <>
       {Array.from({ length: count }, (_, i) => (
@@ -157,7 +154,10 @@ export function BoardPage() {
     [boardFilters, t, locale, formatInstitution],
   )
 
-  const showEmptyBoard = !loading && !hasActiveBoardFilters(boardFilters) && issues.length === 0
+  const showEmptyBoard = !loading && !error && !hasActiveBoardFilters(boardFilters) && issues.length === 0
+  const showFilteredEmpty =
+    !loading && !error && hasActiveBoardFilters(boardFilters) && filteredIssues.length === 0
+  const showResults = !loading && !error && filteredIssues.length > 0
 
   return (
     <main className="board-shell" aria-label="Issue Board">
@@ -281,109 +281,72 @@ export function BoardPage() {
           </header>
 
           {error ? (
-            <div className="board-load-error">
-              <h3>{t('loadErrorTitle')}</h3>
-              <p>{t('loadErrorSubtitle')}</p>
+            <div className="board-feed-state board-load-error" data-testid="board-load-error" role="alert">
+              <img
+                className="board-feed-state-icon"
+                src="/icons/story-handoff/ic-cloud-error.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <h3>{t('publicHome.board.error.title')}</h3>
+              <p>{t('publicHome.board.error.message')}</p>
               <Button type="button" hierarchy="primary" intent="retry" onClick={fetchIssues}>
-                {t('retry')}
+                {t('publicHome.board.error.retry')}
               </Button>
             </div>
-          ) : showEmptyBoard ? (
-            <div className="board-no-issues">
-              <EmptyState message={t('noIssuesRecorded')} />
+          ) : null}
+
+          {loading ? (
+            <section
+              className="board-feed"
+              data-testid="board-feed"
+              aria-busy="true"
+              aria-label={t('publicHome.board.loading.accessible')}
+            >
+              <BoardFeedSkeleton />
+            </section>
+          ) : null}
+
+          {!loading && showEmptyBoard ? (
+            <div className="board-feed-state board-no-issues" data-testid="board-empty" role="status">
+              <img
+                className="board-feed-state-icon"
+                src="/icons/public-home/ic-empty-board.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <h3>{t('publicHome.board.empty.title')}</h3>
+              <p>{t('publicHome.board.empty.message')}</p>
             </div>
-          ) : hasActiveFilters && filteredIssues.length === 0 ? (
-            <div className="board-no-results">
-              <p>{t('noResultsMatch')}</p>
+          ) : null}
+
+          {!loading && showFilteredEmpty ? (
+            <div className="board-feed-state board-no-results" data-testid="board-filtered-empty" role="status">
+              <h3>{t('publicHome.board.filteredEmpty.title')}</h3>
+              <p>{t('publicHome.board.filteredEmpty.message')}</p>
               <div className="board-no-results-actions">
-                <ResetFiltersControl
-                  hasActiveFilters={true}
-                  onReset={reset}
-                  t={t}
-                />
+                <Button type="button" hierarchy="secondary" onClick={reset}>
+                  {t('publicHome.board.filteredEmpty.reset')}
+                </Button>
               </div>
             </div>
           ) : null}
 
-          <section className="board-columns" aria-label="Board columns scaffold">
-            <section className="board-column" aria-label="Status NEW column">
-              <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.NEW} />
-                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.NEW).length}</span>
-              </header>
-              <div className="board-column-divider" />
-              <div className="board-column-placeholder">
-                {loading ? (
-                  <BoardColumnPlaceholder />
-                ) : (
-                  filteredIssues
-                    .filter((item) => item.status === ISSUE_STATUS.NEW)
-                    .map((item) => (
-                    <IssueCard
-                      key={item.id}
-                      issue={item}
-                      locale={locale}
-                      resolveLocalizedText={resolveLocalizedText}
-                      t={t}
-                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                    />
-                  ))
-                )}
-              </div>
+          {showResults ? (
+            <section className="board-feed" data-testid="board-feed" aria-label="Issue feed">
+              {filteredIssues.map((item) => (
+                <IssueCard
+                  key={item.id}
+                  issue={item}
+                  locale={locale}
+                  resolveLocalizedText={resolveLocalizedText}
+                  t={t}
+                  showOpenAffordance
+                  to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                />
+              ))}
             </section>
-
-            <section className="board-column" aria-label="Status IN REVIEW column">
-              <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.IN_REVIEW} />
-                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.IN_REVIEW).length}</span>
-              </header>
-              <div className="board-column-divider" />
-              <div className="board-column-placeholder">
-                {loading ? (
-                  <BoardColumnPlaceholder />
-                ) : (
-                  filteredIssues
-                    .filter((item) => item.status === ISSUE_STATUS.IN_REVIEW)
-                    .map((item) => (
-                    <IssueCard
-                      key={item.id}
-                      issue={item}
-                      locale={locale}
-                      resolveLocalizedText={resolveLocalizedText}
-                      t={t}
-                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                    />
-                  ))
-                )}
-              </div>
-            </section>
-
-            <section className="board-column" aria-label="Status PUBLISHED column">
-              <header className="board-column-header">
-                <StatusBadge status={ISSUE_STATUS.PUBLISHED} />
-                <span>{filteredIssues.filter((item) => item.status === ISSUE_STATUS.PUBLISHED).length}</span>
-              </header>
-              <div className="board-column-divider" />
-              <div className="board-column-placeholder">
-                {loading ? (
-                  <BoardColumnPlaceholder />
-                ) : (
-                  filteredIssues
-                    .filter((item) => item.status === ISSUE_STATUS.PUBLISHED)
-                    .map((item) => (
-                    <IssueCard
-                      key={item.id}
-                      issue={item}
-                      locale={locale}
-                      resolveLocalizedText={resolveLocalizedText}
-                      t={t}
-                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                    />
-                  ))
-                )}
-              </div>
-            </section>
-          </section>
+          ) : null}
 
       </AppShell>
     </main>

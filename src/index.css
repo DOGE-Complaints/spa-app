@@ -260,9 +260,49 @@ body {
 }
 
 .board-columns {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: none; /* PH-04: columns removed — kept only to avoid stale class flashes */
+}
+
+.board-feed {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
+  width: 100%;
+  max-width: 920px;
+}
+
+.board-feed[aria-busy='true'] {
+  min-height: 240px;
+}
+
+.board-feed-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.board-feed-state-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.board-feed-state h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+}
+
+.board-feed-state p {
+  margin: 0;
+  line-height: 1.45;
 }
 
 .board-column {
@@ -331,23 +371,9 @@ body {
 }
 
 .board-load-error,
-.board-no-issues {
-  padding: 24px;
-  text-align: center;
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-}
-
-.board-load-error h3,
-.board-no-issues h3 {
-  margin: 0 0 8px;
-  font-size: 1rem;
-  color: var(--color-text-primary);
-}
-
-.board-load-error p,
-.board-no-issues p {
-  margin: 0 0 12px;
+.board-no-issues,
+.board-no-results {
+  /* state layout via .board-feed-state */
 }
 
 .issue-page-shell {

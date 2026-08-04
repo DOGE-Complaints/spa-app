@@ -43,6 +43,7 @@ export function IssueCard({
   footerText,
   selected = false,
   to,
+  showOpenAffordance = false,
   className = '',
 }) {
   const contentField = issue.summary ?? issue.title
@@ -106,6 +107,14 @@ export function IssueCard({
       ) : null}
       {footerText ? (
         <footer className="issue-card-footer">{footerText}</footer>
+      ) : null}
+      {showOpenAffordance ? (
+        <img
+          className="issue-card-chevron"
+          src="/icons/public-home/ic-chevron-right.png"
+          alt=""
+          aria-hidden="true"
+        />
       ) : null}
     </>
   )

@@ -19,7 +19,20 @@ describe('publicHome dictionary SSOT', () => {
       'publicHome.footer.about',
       'publicHome.footer.privacy',
       'publicHome.footer.contact',
+      'publicHome.board.empty.title',
+      'publicHome.board.empty.message',
+      'publicHome.board.filteredEmpty.title',
+      'publicHome.board.filteredEmpty.message',
+      'publicHome.board.filteredEmpty.reset',
+      'publicHome.board.error.title',
+      'publicHome.board.error.message',
+      'publicHome.board.error.retry',
+      'publicHome.board.loading.accessible',
     ])
+  })
+
+  it('lists PUBLIC_HOME_FLAT_KEYS including board chrome', () => {
+    expect(PUBLIC_HOME_FLAT_KEYS.some((k) => k.startsWith('publicHome.board.'))).toBe(true)
   })
 
   it('has all PUBLIC_HOME_FLAT_KEYS in et/ru/en', () => {

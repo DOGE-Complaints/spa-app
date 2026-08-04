@@ -25,6 +25,8 @@
     "test:ui:public-header-ph02-full": "node ./tests/puppeteer/public-header-ph02-full-cycle.mjs",
     "test:ui:public-footer-ph03": "PH03_PHASE=post-implement node ./tests/puppeteer/public-footer-ph03-screenshot.mjs",
     "test:ui:public-footer-ph03-full": "node ./tests/puppeteer/public-footer-ph03-full-cycle.mjs",
+    "test:ui:board-feed-ph04": "PH04_PHASE=post-implement node ./tests/puppeteer/public-board-ph04-screenshot.mjs",
+    "test:ui:board-feed-ph04-full": "node ./tests/puppeteer/public-board-ph04-full-cycle.mjs",
     "test:ui:account-summary-cab02": "node ./tests/puppeteer/account-summary-cab02-screenshot.mjs",
     "test:ui:cabinet-shell-cab01": "CAB01_PHASE=post-implement node ./tests/puppeteer/cabinet-shell-cab01-screenshot.mjs",
     "test:ui:cabinet-shell-cab01-full": "node ./tests/puppeteer/cabinet-shell-cab01-full-cycle.mjs",

@@ -27,7 +27,7 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).not.toContain('header-status')
   })
 
-  it('renders three status columns in board scaffold', () => {
+  it('renders a single board feed without status columns', () => {
     const html = renderToStaticMarkup(
       <I18nProvider>
         <MemoryRouter>
@@ -37,10 +37,11 @@ describe('BoardPage shell visual parity scaffold', () => {
     )
     const columnMatches = html.match(/class="board-column"/g) ?? []
 
-    expect(columnMatches).toHaveLength(3)
-    expect(html).toContain('Status NEW column')
-    expect(html).toContain('Status IN REVIEW column')
-    expect(html).toContain('Status PUBLISHED column')
+    expect(columnMatches).toHaveLength(0)
+    expect(html).not.toContain('Status NEW column')
+    expect(html).not.toContain('board-columns')
+    expect(html).toContain('board-feed')
+    expect(html).toContain('data-testid="board-feed"')
   })
 
   it('renders filter panel toggle and search in toolbar', () => {

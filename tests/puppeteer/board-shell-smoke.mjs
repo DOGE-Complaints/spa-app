@@ -58,8 +58,7 @@ async function run() {
       '.board-main',
       '.board-sidebar',
       '.board-toolbar',
-      '.board-columns',
-      '.board-column',
+      '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"]',
       '.board-footer',
     ]
 
@@ -70,10 +69,17 @@ async function run() {
       }
     }
 
-    // BoardPage.jsx scaffold: NEW / IN_REVIEW / PUBLISHED (3) — see BoardPage.shell.test.jsx
+    // PH-04: single feed — no status/kanban columns
     const columnsCount = await page.$$eval('.board-column', (nodes) => nodes.length)
-    if (columnsCount !== 3) {
-      throw new Error(`Expected 3 board columns, received ${columnsCount}`)
+    if (columnsCount !== 0) {
+      throw new Error(`Expected 0 board columns after PH-04, received ${columnsCount}`)
+    }
+
+    const hasFeedOrState = await page.$(
+      '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"]',
+    )
+    if (!hasFeedOrState) {
+      throw new Error('Expected board feed or empty/error state region')
     }
 
     await browser.close()
