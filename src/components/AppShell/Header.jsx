@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { AccountControlSlot } from '../AccountControl/AccountControlSlot.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { LanguageSelector } from './LanguageSelector.jsx'
 import './Header.css'
@@ -12,9 +13,9 @@ function primaryNavClassName({ isActive }) {
 
 /**
  * Public header chrome (M129): Brand | Primary nav | Session & locale.
- * Account slot host only — content = PH-02.
+ * Account slot host — default content = PH-02 AccountControl (override via accountSlot).
  */
-export function Header({ className = '', accountSlot = null }) {
+export function Header({ className = '', accountSlot }) {
   const { t } = useI18n()
   const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
   const [menuOpen, setMenuOpen] = useState(false)
@@ -101,7 +102,7 @@ export function Header({ className = '', accountSlot = null }) {
 
       <div className="header-controls">
         <div className="header-account-slot" data-testid="header-account-slot">
-          {accountSlot}
+          {accountSlot !== undefined ? accountSlot : <AccountControlSlot />}
         </div>
         <LanguageSelector />
         <button

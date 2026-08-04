@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 import { useSessionShellState } from './useSessionShellState.js'
 
-const SessionShellContext = createContext(null)
+export const SessionShellContext = createContext(null)
 
 export function SessionShellProvider({ children }) {
   const value = useSessionShellState()

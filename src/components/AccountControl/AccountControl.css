@@ -1,0 +1,87 @@
+.account-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+}
+
+.account-control--restoring {
+  min-width: 32px;
+}
+
+.account-control-guest,
+.account-control-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: var(--color-bg-secondary, transparent);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.account-control-guest:hover,
+.account-control-trigger:hover {
+  border-color: color-mix(in srgb, var(--doge-accent, #7dd3a0) 60%, transparent);
+}
+
+.account-control-icon,
+.account-control-avatar {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.account-control-avatar {
+  border-radius: 50%;
+}
+
+.account-control-chevron {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.account-control-label,
+.account-control-name {
+  white-space: nowrap;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-control-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 30;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  min-width: 10.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: var(--color-bg-secondary, #1a1f2a);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.account-control-menu-item {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .account-control-label,
+  .account-control-name {
+    display: none;
+  }
+}

@@ -13,7 +13,7 @@ function renderHeader(initialPath = '/board') {
     <I18nProvider>
       <MemoryRouter initialEntries={[initialPath]}>
         <Routes>
-          <Route path="*" element={<Header />} />
+          <Route path="*" element={<Header accountSlot={null} />} />
         </Routes>
       </MemoryRouter>
     </I18nProvider>,
