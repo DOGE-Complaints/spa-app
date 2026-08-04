@@ -19,6 +19,8 @@
     "verify:security": "vitest run && npm run verify:bundle:no-service-role",
     "test:contract:live": "RUN_LIVE_GATEWAY_CONTRACT=1 vitest run src/repositories/__tests__/GatewayIssueRepository.contract.test.js",
     "test:ui:board-shell": "node ./tests/puppeteer/board-shell-smoke.mjs",
+    "test:ui:public-header-ph01": "PH01_PHASE=post-implement node ./tests/puppeteer/public-header-ph01-screenshot.mjs",
+    "test:ui:public-header-ph01-full": "node ./tests/puppeteer/public-header-ph01-full-cycle.mjs",
     "test:ui:account-summary-cab02": "node ./tests/puppeteer/account-summary-cab02-screenshot.mjs",
     "test:ui:cabinet-shell-cab01": "CAB01_PHASE=post-implement node ./tests/puppeteer/cabinet-shell-cab01-screenshot.mjs",
     "test:ui:cabinet-shell-cab01-full": "node ./tests/puppeteer/cabinet-shell-cab01-full-cycle.mjs",
