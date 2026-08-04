@@ -8,6 +8,11 @@ import {
   CABINET_DICTIONARY_ET,
   CABINET_DICTIONARY_RU,
 } from './cabinetDictionary.js'
+import {
+  PUBLIC_HOME_DICTIONARY_EN,
+  PUBLIC_HOME_DICTIONARY_ET,
+  PUBLIC_HOME_DICTIONARY_RU,
+} from './publicHomeDictionary.js'
 
 export const UI_DICTIONARY = Object.freeze({
   et: {
@@ -78,6 +83,7 @@ export const UI_DICTIONARY = Object.freeze({
     },
     ...IDENTITY_DICTIONARY_ET,
     ...CABINET_DICTIONARY_ET,
+    ...PUBLIC_HOME_DICTIONARY_ET,
   },
   ru: {
     board: 'Доска',
@@ -147,6 +153,7 @@ export const UI_DICTIONARY = Object.freeze({
     },
     ...IDENTITY_DICTIONARY_RU,
     ...CABINET_DICTIONARY_RU,
+    ...PUBLIC_HOME_DICTIONARY_RU,
   },
   en: {
     board: 'Board',
@@ -216,5 +223,6 @@ export const UI_DICTIONARY = Object.freeze({
     },
     ...IDENTITY_DICTIONARY_EN,
     ...CABINET_DICTIONARY_EN,
+    ...PUBLIC_HOME_DICTIONARY_EN,
   },
 })

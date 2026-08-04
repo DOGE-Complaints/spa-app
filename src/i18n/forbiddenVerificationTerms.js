@@ -2,6 +2,7 @@ import { UI_DICTIONARY } from './dictionaries.js'
 import { SUPPORTED_LOCALES } from './core.js'
 import { IDENTITY_FLAT_KEYS, IDENTITY_DICTIONARY_BY_LOCALE } from './identityDictionary.js'
 import { CABINET_FLAT_KEYS } from './cabinetDictionary.js'
+import { PUBLIC_HOME_FLAT_KEYS } from './publicHomeDictionary.js'
 
 export const VERIFICATION_FORBIDDEN_TERMS = Object.freeze([
   'KYC',
@@ -117,6 +118,22 @@ export function findMissingCabinetDictionaryKeys() {
   const missing = []
   for (const locale of SUPPORTED_LOCALES) {
     for (const key of CABINET_FLAT_KEYS) {
+      if (typeof resolveDictionaryKey(locale, key) !== 'string') {
+        missing.push(`${locale}:${key}`)
+      }
+    }
+  }
+  return missing
+}
+
+/**
+ * Ensure public-home SSOT keys resolve in every locale dictionary.
+ * @returns {string[]} missing `locale:key` entries
+ */
+export function findMissingPublicHomeDictionaryKeys() {
+  const missing = []
+  for (const locale of SUPPORTED_LOCALES) {
+    for (const key of PUBLIC_HOME_FLAT_KEYS) {
       if (typeof resolveDictionaryKey(locale, key) !== 'string') {
         missing.push(`${locale}:${key}`)
       }

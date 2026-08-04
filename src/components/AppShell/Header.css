@@ -1,0 +1,138 @@
+.public-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.public-header .header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}
+
+.public-header .header-brand-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.header-primary-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.header-nav-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+}
+
+.header-nav-item:hover {
+  color: var(--color-text-primary);
+}
+
+.header-nav-item-active {
+  color: var(--color-accent-active);
+  border-bottom-color: var(--color-accent-active);
+  font-weight: 600;
+}
+
+.header-nav-item--submit {
+  color: var(--color-text-primary);
+  border-bottom-color: transparent;
+  font-weight: 500;
+}
+
+.header-nav-item--submit:hover {
+  border-color: color-mix(in srgb, var(--doge-accent) 40%, transparent);
+}
+
+.public-header .header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.header-account-slot {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  min-width: 0;
+}
+
+.header-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: var(--color-bg-secondary);
+  cursor: pointer;
+}
+
+.header-menu-toggle:hover {
+  border-color: color-mix(in srgb, var(--doge-accent) 60%, transparent);
+}
+
+.header-menu-toggle-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.header-mobile-nav {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .header-primary-nav {
+    display: none;
+  }
+
+  .header-menu-toggle {
+    display: inline-flex;
+  }
+
+  .header-mobile-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    width: 100%;
+    order: 4;
+    padding: 8px 0 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .header-mobile-nav .header-nav-item {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .public-header .header-brand-name {
+    font-size: 0.95rem;
+  }
+}
