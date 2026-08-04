@@ -86,4 +86,25 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  /* M131 State B alternate: stacked utility links, min touch 44px (audit F2) */
+  .public-footer__links {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+  }
+
+  .public-footer__sep {
+    display: none;
+  }
+
+  .public-footer__link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
