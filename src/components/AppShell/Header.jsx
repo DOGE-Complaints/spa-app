@@ -14,7 +14,7 @@ function primaryNavClassName({ isActive }) {
  * Public header chrome (M129): Brand | Primary nav | Session & locale.
  * Account slot host only — content = PH-02.
  */
-export function Header({ syncLabel, className = '', accountSlot = null }) {
+export function Header({ className = '', accountSlot = null }) {
   const { t } = useI18n()
   const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
   const [menuOpen, setMenuOpen] = useState(false)
@@ -103,9 +103,6 @@ export function Header({ syncLabel, className = '', accountSlot = null }) {
         <div className="header-account-slot" data-testid="header-account-slot">
           {accountSlot}
         </div>
-        <span className="header-status" aria-label="Sync status">
-          {syncLabel ?? t('synced')}
-        </span>
         <LanguageSelector />
         <button
           type="button"

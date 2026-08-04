@@ -22,7 +22,8 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).toContain('board-footer')
     expect(html).toContain('data-testid="app-shell"')
     expect(html).toContain('header-locale')
-    expect(html).toContain('header-status')
+    expect(html).toContain('public-header')
+    expect(html).not.toContain('header-status')
   })
 
   it('renders three status columns in board scaffold', () => {
