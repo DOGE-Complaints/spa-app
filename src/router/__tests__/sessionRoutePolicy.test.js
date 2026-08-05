@@ -4,6 +4,7 @@ import { isProtectedPath, isPublicPath, isLoginPath } from '../sessionRoutePolic
 describe('sessionRoutePolicy', () => {
   it('treats board and issue detail as public', () => {
     expect(isPublicPath('/board')).toBe(true)
+    expect(isPublicPath('/how-it-works')).toBe(true)
     expect(isPublicPath('/issue/demo-1')).toBe(true)
     expect(isPublicPath('/issue/a/b')).toBe(true)
     expect(isPublicPath('/login')).toBe(true)
@@ -25,6 +26,8 @@ describe('sessionRoutePolicy', () => {
   it('public board and issue paths are not protected', () => {
     expect(isProtectedPath('/board')).toBe(false)
     expect(isPublicPath('/board')).toBe(true)
+    expect(isProtectedPath('/how-it-works')).toBe(false)
+    expect(isPublicPath('/how-it-works')).toBe(true)
     expect(isProtectedPath('/')).toBe(false)
     expect(isPublicPath('/')).toBe(true)
     expect(isProtectedPath('/login')).toBe(false)
