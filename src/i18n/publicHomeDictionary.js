@@ -1,3 +1,10 @@
+import {
+  HOW_IT_WORKS_EN,
+  HOW_IT_WORKS_ET,
+  HOW_IT_WORKS_RU,
+  HOW_IT_WORKS_FLAT_KEYS,
+} from './howItWorksDictionary.js'
+
 export const PUBLIC_HOME_DICTIONARY_EN = Object.freeze({
   publicHome: {
     nav: {
@@ -41,6 +48,7 @@ export const PUBLIC_HOME_DICTIONARY_EN = Object.freeze({
       openIssue: 'Open issue →',
     },
   },
+  howItWorks: HOW_IT_WORKS_EN,
 })
 
 export const PUBLIC_HOME_DICTIONARY_ET = Object.freeze({
@@ -86,6 +94,7 @@ export const PUBLIC_HOME_DICTIONARY_ET = Object.freeze({
       openIssue: 'Ava teema →',
     },
   },
+  howItWorks: HOW_IT_WORKS_ET,
 })
 
 export const PUBLIC_HOME_DICTIONARY_RU = Object.freeze({
@@ -131,6 +140,7 @@ export const PUBLIC_HOME_DICTIONARY_RU = Object.freeze({
       openIssue: 'Открыть тему →',
     },
   },
+  howItWorks: HOW_IT_WORKS_RU,
 })
 
 export const PUBLIC_HOME_DICTIONARY_BY_LOCALE = Object.freeze({
@@ -164,4 +174,5 @@ export const PUBLIC_HOME_FLAT_KEYS = Object.freeze([
   'publicHome.board.error.retry',
   'publicHome.board.loading.accessible',
   'publicHome.board.openIssue',
+  ...HOW_IT_WORKS_FLAT_KEYS,
 ])
