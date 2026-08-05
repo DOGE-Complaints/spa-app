@@ -151,14 +151,20 @@ async function main() {
 
     await page.goto(`${BASE}/#/how-it-works`, { waitUntil: 'domcontentloaded', timeout: 90000 })
     await page.waitForSelector('[data-testid="how-it-works-page"]', { timeout: 30000 })
+    await page.waitForSelector('[data-testid="how-it-works-cta-row"]', { timeout: 10000 })
+    await page.$eval('[data-testid="how-it-works-cta-row"]', (el) => {
+      el.scrollIntoView({ block: 'end', behavior: 'instant' })
+    })
     await sleep(600)
+    // fullPage so steps 03–04 + CTA row are evidenced (F3); width stays 1536
     written.push(
       await page.screenshot({
-        path: path.join(OUT_DIR, '01-happy-live-how-it-works-1536x1024.png'),
+        path: path.join(OUT_DIR, '01-happy-live-how-it-works-full-1536.png'),
+        fullPage: true,
       }),
     )
 
-    // Deterministic mock State A (same static page; clear auth for guest chrome)
+    // Deterministic mock State A — guest chrome after clearing session
     await page.evaluate(() => {
       try {
         localStorage.clear()
@@ -169,12 +175,17 @@ async function main() {
     })
     await page.goto(`${BASE}/#/how-it-works`, { waitUntil: 'domcontentloaded', timeout: 90000 })
     await page.waitForSelector('[data-testid="how-it-works-page"]', { timeout: 20000 })
+    await page.waitForSelector('[data-testid="how-it-works-cta-row"]', { timeout: 10000 })
     const steps = await page.$$('[data-testid="how-it-works-step"]')
     if (steps.length !== 4) throw new Error(`mock expected 4 steps, got ${steps.length}`)
+    await page.$eval('[data-testid="how-it-works-cta-row"]', (el) => {
+      el.scrollIntoView({ block: 'end', behavior: 'instant' })
+    })
     await sleep(400)
     written.push(
       await page.screenshot({
-        path: path.join(OUT_DIR, '02-happy-mock-default-tutorial-1536x1024.png'),
+        path: path.join(OUT_DIR, '02-happy-mock-default-tutorial-full-1536.png'),
+        fullPage: true,
       }),
     )
 
