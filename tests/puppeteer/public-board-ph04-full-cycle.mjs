@@ -14,6 +14,10 @@ import { spawn } from 'node:child_process'
 import process from 'node:process'
 import { setTimeout as sleep } from 'node:timers/promises'
 import puppeteer from 'puppeteer'
+import {
+  DEFAULT_MOCK_ISSUES,
+  installBoardFeedBackdrop,
+} from './lib/boardFeedBackdrop.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SPA_ROOT = path.resolve(__dirname, '../..')
@@ -34,17 +38,7 @@ const BASE = process.env.PUBLIC_BOARD_URL ?? process.env.PUBLIC_HEADER_URL ?? 'h
 const USE_EXISTING = Boolean(process.env.PUBLIC_BOARD_URL || process.env.PUBLIC_HEADER_URL)
 const VIEWPORT = { width: 1536, height: 1024 }
 
-const MOCK_ISSUES = [
-  {
-    id: 'ISSUE-PH04-1',
-    status: 'NEW',
-    type: 'complaint',
-    title: { en: 'Mock feed item one', et: 'Mock üks', ru: 'Мок один' },
-    summary: { en: 'Mock feed item one', et: 'Mock üks', ru: 'Мок один' },
-    labels: ['roads'],
-    created_at: '2026-08-01T10:00:00Z',
-  },
-]
+const MOCK_ISSUES = DEFAULT_MOCK_ISSUES
 
 async function loadDotEnv(filePath) {
   const text = await readFile(filePath, 'utf8')
@@ -127,39 +121,6 @@ async function clearAuth(page) {
   })
 }
 
-async function installIssuesRoute(page, route) {
-  await page.setRequestInterception(true)
-  page.removeAllListeners('request')
-  page.on('request', async (req) => {
-    const url = req.url()
-    if (req.method() === 'GET' && /\/tallinn\/issues(\?|$)/.test(url) && !/\/tallinn\/issues\/[^/?\s]+/.test(url)) {
-      const mode = typeof route === 'string' ? route : route.mode
-      try {
-        if (mode === 'error') {
-          await req.respond({
-            status: 500,
-            contentType: 'application/json',
-            headers: { 'Access-Control-Allow-Origin': '*' },
-            body: JSON.stringify({ error: 'fail' }),
-          })
-          return
-        }
-        const issues = mode === 'empty' ? [] : MOCK_ISSUES
-        await req.respond({
-          status: 200,
-          contentType: 'application/json',
-          headers: { 'Access-Control-Allow-Origin': '*' },
-          body: JSON.stringify({ data: { issues } }),
-        })
-        return
-      } catch {
-        return
-      }
-    }
-    await req.continue().catch(() => {})
-  })
-}
-
 async function assertNoColumns(page) {
   const columnsCount = await page.$$eval('.board-column', (nodes) => nodes.length)
   if (columnsCount !== 0) {
@@ -233,7 +194,7 @@ async function run() {
     await clearAuth(page)
 
     const route = { mode: 'results' }
-    await installIssuesRoute(page, route)
+    await installBoardFeedBackdrop(page, route, { issues: MOCK_ISSUES })
     await page.goto(`${BASE}/#/how-it-works`, { waitUntil: 'domcontentloaded', timeout: 60000 })
     await page.goto(`${BASE}/#/board`, { waitUntil: 'domcontentloaded', timeout: 90000 })
     await page.waitForSelector('.issue-card', { timeout: 20000 })

@@ -2,26 +2,37 @@
  * PH-06 Submit GPT CTA full-cycle → story-root screenshots/full-cycle/
  *
  * Live: USER_EMAIL / USER_PASSWORD → /#/board with nav + board Submit CTAs.
+ * Board feed backdrop: intentional results via PH-07 helper (not gateway health).
  * Mock (VITE_IDENTITY_MOCK_MODE=true): board Submit, how-it-works Submit.
- * Exit 0 only if live happy PNG captured.
+ * Exit 0 only if live happy PNG captured + no accidental board-load-error.
  *
  * Usage: cd spa-app && npm run test:ui:submit-ph06-full
  */
-import { mkdir, readFile } from 'node:fs/promises'
+import { mkdir, readFile, copyFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import process from 'node:process'
 import { setTimeout as sleep } from 'node:timers/promises'
 import puppeteer from 'puppeteer'
+import {
+  assertBoardMockResults,
+  assertNoBoardLoadError,
+  installBoardFeedBackdrop,
+} from './lib/boardFeedBackdrop.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const SPA_ROOT = path.resolve(__dirname, '../..')
-const SCREENSHOTS_ROOT = path.resolve(
+const PH06_SCREENSHOTS = path.resolve(
   SPA_ROOT,
   'docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-06-submit-story-gpt-cta/screenshots',
 )
-const OUT_DIR = path.join(SCREENSHOTS_ROOT, 'full-cycle')
+const PH07_SCREENSHOTS = path.resolve(
+  SPA_ROOT,
+  'docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/screenshots',
+)
+const OUT_DIR = path.join(PH06_SCREENSHOTS, 'full-cycle')
+const PH07_OUT = path.join(PH07_SCREENSHOTS, 'full-cycle')
 const ENV_PATH = path.join(SPA_ROOT, '.env')
 
 const BASE = process.env.PUBLIC_SUBMIT_URL ?? 'http://127.0.0.1:4173'
@@ -83,15 +94,22 @@ async function stopServer(devServer) {
   await sleep(800)
 }
 
-async function shot(page, filename, { fullPage = false } = {}) {
+async function shot(page, filename, { fullPage = false, alsoPh07 = false } = {}) {
   const outPath = path.join(OUT_DIR, filename)
   await mkdir(path.dirname(outPath), { recursive: true })
   await page.screenshot({ path: outPath, fullPage })
   console.log('wrote', outPath)
+  if (alsoPh07) {
+    await mkdir(PH07_OUT, { recursive: true })
+    const ph07Name = filename.replace('happy-live-board-submit-ctas', 'chrome-live-board-results-backdrop')
+      .replace('happy-mock-board-submit-ctas', 'chrome-mock-board-results-backdrop')
+    const ph07Path = path.join(PH07_OUT, ph07Name)
+    await copyFile(outPath, ph07Path)
+    console.log('wrote', ph07Path)
+  }
   return outPath
 }
 
-/** Ensure selector is in viewport before capture (H3 CTA was below fold with fullPage:false). */
 async function shotInView(page, selector, filename) {
   await page.waitForSelector(selector, { timeout: 15000 })
   await page.$eval(selector, (el) => {
@@ -121,6 +139,22 @@ async function clearAuth(page) {
   })
 }
 
+/**
+ * Intentional results backdrop + chrome CTAs.
+ * Remount board after install (PH-04 pattern): same-hash goto after clearAuth/login
+ * leaves live React state and never re-fetches under intercept.
+ */
+async function captureBoardChrome(page, filename) {
+  await installBoardFeedBackdrop(page, 'results')
+  await page.goto(`${BASE}/#/how-it-works`, { waitUntil: 'domcontentloaded', timeout: 60000 })
+  await page.goto(`${BASE}/#/board`, { waitUntil: 'networkidle0', timeout: 60000 })
+  await page.waitForSelector('[data-testid="public-nav-submit"]', { timeout: 15000 })
+  await page.waitForSelector('[data-testid="board-submit-cta"]', { timeout: 15000 })
+  await assertBoardMockResults(page)
+  await assertNoBoardLoadError(page)
+  return shot(page, filename, { alsoPh07: true })
+}
+
 async function run() {
   const env = await loadDotEnv(ENV_PATH)
   const email = env.USER_EMAIL || process.env.USER_EMAIL
@@ -130,6 +164,7 @@ async function run() {
   }
 
   await mkdir(OUT_DIR, { recursive: true })
+  await mkdir(PH07_OUT, { recursive: true })
   const written = []
   let liveOk = false
   let devServer = USE_EXISTING ? null : startViteDevServer()
@@ -143,7 +178,6 @@ async function run() {
     const page = await browser.newPage()
     await page.setViewport(VIEWPORT)
 
-    // Live happy: login → board with Submit CTAs
     await clearAuth(page)
     await page.goto(`${BASE}/#/login?redirect=/board`, {
       waitUntil: 'domcontentloaded',
@@ -163,10 +197,7 @@ async function run() {
       )
       if (continueBtn) await continueBtn.click()
       await page.waitForSelector('[data-testid="public-header"]', { timeout: 60000 })
-      await page.goto(`${BASE}/#/board`, { waitUntil: 'networkidle0', timeout: 60000 })
-      await page.waitForSelector('[data-testid="public-nav-submit"]', { timeout: 15000 })
-      await page.waitForSelector('[data-testid="board-submit-cta"]', { timeout: 15000 })
-      written.push(await shot(page, '01-happy-live-board-submit-ctas-1536x1024.png'))
+      written.push(await captureBoardChrome(page, '01-happy-live-board-submit-ctas-1536x1024.png'))
       liveOk = true
       await browser.close()
     } catch (err) {
@@ -195,10 +226,7 @@ async function run() {
     await page2.setViewport(VIEWPORT)
     await clearAuth(page2)
 
-    await page2.goto(`${BASE}/#/board`, { waitUntil: 'networkidle0', timeout: 60000 })
-    await page2.waitForSelector('[data-testid="public-nav-submit"]', { timeout: 15000 })
-    await page2.waitForSelector('[data-testid="board-submit-cta"]', { timeout: 15000 })
-    written.push(await shot(page2, '02-happy-mock-board-submit-ctas-1536x1024.png'))
+    written.push(await captureBoardChrome(page2, '02-happy-mock-board-submit-ctas-1536x1024.png'))
 
     await page2.goto(`${BASE}/#/how-it-works`, { waitUntil: 'networkidle0', timeout: 60000 })
     written.push(
@@ -209,12 +237,21 @@ async function run() {
       ),
     )
 
+    // PH-07 labeled load-error path (M132 error goal)
+    await installBoardFeedBackdrop(page2, 'error')
+    await page2.goto(`${BASE}/#/board`, { waitUntil: 'networkidle0', timeout: 60000 })
+    await page2.waitForSelector('[data-testid="board-load-error"]', { timeout: 20000 })
+    const errPath = path.join(PH07_OUT, '03-edge-mock-load-error-labeled-1536x1024.png')
+    await page2.screenshot({ path: errPath, fullPage: false })
+    console.log('wrote', errPath)
+    written.push(errPath)
+
     await browser2.close()
 
     if (!liveOk) {
       throw new Error('Live happy screenshot missing')
     }
-    console.log('PH-06 full-cycle PASS', written.length, 'files')
+    console.log('PH-06/PH-07 full-cycle PASS', written.length, 'files')
     for (const file of written) console.log(file)
   } finally {
     await stopServer(devServer)
