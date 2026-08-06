@@ -32,6 +32,7 @@
     "test:ui:how-it-works-ph05-full": "node ./tests/puppeteer/how-it-works-ph05-full-cycle.mjs",
     "test:ui:submit-ph06": "PH06_PHASE=post-implement node ./tests/puppeteer/public-submit-ph06-screenshot.mjs",
     "test:ui:submit-ph06-full": "node ./tests/puppeteer/public-submit-ph06-full-cycle.mjs",
+    "test:ui:operator-validation-ph-cab": "node ./docs/analysis/operator-validation-2026-08-06/harness/operator-validation.mjs",
     "test:ui:account-summary-cab02": "node ./tests/puppeteer/account-summary-cab02-screenshot.mjs",
     "test:ui:cabinet-shell-cab01": "CAB01_PHASE=post-implement node ./tests/puppeteer/cabinet-shell-cab01-screenshot.mjs",
     "test:ui:cabinet-shell-cab01-full": "node ./tests/puppeteer/cabinet-shell-cab01-full-cycle.mjs",
@@ -60,7 +61,12 @@
     "test:ui:gpt-bridge-m120": "node ./tests/puppeteer/gpt-bridge-m120-screenshot.mjs",
     "test:ui:story-handoff-m128": "node ./tests/puppeteer/story-handoff-m128-screenshot.mjs",
     "test:ui:story-handoff-m128-live": "node ./tests/puppeteer/story-handoff-m128-live.mjs",
-    "deploy": "node ./scripts/deploy-arweave.mjs"
+    "deploy": "node ./scripts/deploy-arweave.mjs",
+    "icons:generate": "python3 scripts/generate-icons-from-lucide.py --catalog all",
+    "icons:generate:stubs": "python3 scripts/generate-icons-from-lucide.py --catalog all --only-stubs",
+    "icons:validate": "python3 scripts/icons/validate-icons.py --catalog all",
+    "icons:contact-sheet": "python3 scripts/icons/validate-icons.py --catalog all --contact-sheet docs/tasks/backlog-stories/icons/icon-contact-sheet.png",
+    "icons:etm": "python3 scripts/generate-etm-from-refs.py --contact-sheet"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2",
@@ -70,11 +76,13 @@
     "serve": "14.2.4"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^4.3.4",
     "arkb": "^1.1.61",
     "jsdom": "^28.1.0",
+    "lucide-static": "^1.28.0",
     "puppeteer": "^24.22.3",
     "vite": "^6.0.1",
     "vitest": "^4.0.18"

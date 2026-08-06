@@ -1,0 +1,304 @@
+# Executable SSOT for Lucide → PNG generation.
+# Markdown catalogs remain documentation; do not generate etm-* here.
+defaults:
+  size: 256
+  padding: 0.15
+  stroke_width: 2
+
+colors:
+  neutral: "#f5f7fa"
+  accent: "#f5c542"
+  success: "#4ade80"
+  error: "#f87171"
+  amber: "#fbbf24"
+
+# catalog: handoff | cab | identity | ph
+icons:
+  # --- STORY-SPA-ID-12 → public/icons/story-handoff/ ---
+  - catalog: handoff
+    file: ic-spinner.png
+    out_dir: story-handoff
+    lucide_id: loader-circle
+    color: accent
+  - catalog: handoff
+    file: ic-info.png
+    out_dir: story-handoff
+    lucide_id: info
+    color: neutral
+  - catalog: handoff
+    file: ic-lock.png
+    out_dir: story-handoff
+    lucide_id: lock
+    color: accent
+  - catalog: handoff
+    file: ic-field-title.png
+    out_dir: story-handoff
+    lucide_id: type
+    color: neutral
+  - catalog: handoff
+    file: ic-field-summary.png
+    out_dir: story-handoff
+    lucide_id: align-left
+    color: neutral
+  - catalog: handoff
+    file: ic-field-description.png
+    out_dir: story-handoff
+    lucide_id: file-text
+    color: neutral
+  - catalog: handoff
+    file: ic-field-category.png
+    out_dir: story-handoff
+    lucide_id: tag
+    color: neutral
+  - catalog: handoff
+    file: ic-field-labels.png
+    out_dir: story-handoff
+    lucide_id: tags
+    color: neutral
+  - catalog: handoff
+    file: ic-field-institution.png
+    out_dir: story-handoff
+    lucide_id: building-2
+    color: neutral
+  - catalog: handoff
+    file: ic-field-location.png
+    out_dir: story-handoff
+    lucide_id: map-pin
+    color: neutral
+  - catalog: handoff
+    file: ic-verify-shield.png
+    out_dir: story-handoff
+    lucide_id: shield-check
+    color: accent
+  - catalog: handoff
+    file: ic-phone.png
+    out_dir: story-handoff
+    lucide_id: smartphone
+    color: neutral
+  - catalog: handoff
+    file: ic-auto-resubmit.png
+    out_dir: story-handoff
+    lucide_id: refresh-cw
+    color: neutral
+  - catalog: handoff
+    file: ic-success-check.png
+    out_dir: story-handoff
+    lucide_id: circle-check
+    color: success
+  - catalog: handoff
+    file: ic-copy.png
+    out_dir: story-handoff
+    lucide_id: copy
+    color: neutral
+  - catalog: handoff
+    file: ic-doc-new.png
+    out_dir: story-handoff
+    lucide_id: file-plus
+    color: neutral
+  - catalog: handoff
+    file: ic-clock-expired.png
+    out_dir: story-handoff
+    lucide_id: clock
+    color: neutral
+  - catalog: handoff
+    file: ic-cloud-error.png
+    out_dir: story-handoff
+    lucide_id: cloud-off
+    color: error
+  - catalog: handoff
+    file: ic-warning-triangle.png
+    out_dir: story-handoff
+    lucide_id: triangle-alert
+    color: amber
+
+  # --- STORY-SPA-CAB → public/icons/user-cabinet/ ---
+  - catalog: cab
+    file: ic-field-email.png
+    out_dir: user-cabinet
+    lucide_id: mail
+    color: neutral
+  - catalog: cab
+    file: ic-field-created.png
+    out_dir: user-cabinet
+    lucide_id: calendar
+    color: neutral
+  - catalog: cab
+    file: ic-field-role.png
+    out_dir: user-cabinet
+    lucide_id: user
+    color: neutral
+  - catalog: cab
+    file: ic-field-status.png
+    out_dir: user-cabinet
+    lucide_id: circle-minus
+    color: neutral
+  - catalog: cab
+    file: ic-civic-unverified.png
+    out_dir: user-cabinet
+    lucide_id: circle
+    color: neutral
+  - catalog: cab
+    file: ic-civic-verify-required.png
+    out_dir: user-cabinet
+    lucide_id: shield-alert
+    color: accent
+  - catalog: cab
+    file: ic-civic-in-progress.png
+    out_dir: user-cabinet
+    lucide_id: ellipsis
+    color: neutral
+  - catalog: cab
+    file: ic-civic-verified.png
+    out_dir: user-cabinet
+    lucide_id: shield-check
+    color: accent
+  - catalog: cab
+    file: ic-civic-failed.png
+    out_dir: user-cabinet
+    lucide_id: shield-x
+    color: neutral
+  - catalog: cab
+    file: ic-story-activity.png
+    out_dir: user-cabinet
+    lucide_id: clipboard-list
+    color: neutral
+  - catalog: cab
+    file: ic-story-empty.png
+    out_dir: user-cabinet
+    lucide_id: inbox
+    color: neutral
+  - catalog: cab
+    file: ic-story-draft.png
+    out_dir: user-cabinet
+    lucide_id: file-pen-line
+    color: neutral
+  - catalog: cab
+    file: ic-story-id.png
+    out_dir: user-cabinet
+    lucide_id: hash
+    color: neutral
+  - catalog: cab
+    file: ic-status-published.png
+    out_dir: user-cabinet
+    lucide_id: circle-check
+    color: neutral
+  - catalog: cab
+    file: ic-status-under-review.png
+    out_dir: user-cabinet
+    lucide_id: eye
+    color: neutral
+  - catalog: cab
+    file: ic-wallet-unlinked.png
+    out_dir: user-cabinet
+    lucide_id: link-2-off
+    color: neutral
+  - catalog: cab
+    file: ic-wallet-linked.png
+    out_dir: user-cabinet
+    lucide_id: link-2
+    color: neutral
+  - catalog: cab
+    file: ic-wallet-connect.png
+    out_dir: user-cabinet
+    lucide_id: wallet
+    color: accent
+  - catalog: cab
+    file: ic-contrib-receipts.png
+    out_dir: user-cabinet
+    lucide_id: receipt
+    color: neutral
+  - catalog: cab
+    file: ic-contrib-records.png
+    out_dir: user-cabinet
+    lucide_id: layers
+    color: neutral
+  - catalog: cab
+    file: ic-contrib-reputation.png
+    out_dir: user-cabinet
+    lucide_id: badge-check
+    color: neutral
+
+  # --- EPIC-SPA-04 NEW → public/icons/identity/ ---
+  - catalog: identity
+    file: ic-email.png
+    out_dir: identity
+    lucide_id: mail
+    color: neutral
+  - catalog: identity
+    file: ic-mail-sent.png
+    out_dir: identity
+    lucide_id: mail-check
+    color: accent
+  - catalog: identity
+    file: ic-key.png
+    out_dir: identity
+    lucide_id: key
+    color: neutral
+  - catalog: identity
+    file: ic-eye.png
+    out_dir: identity
+    lucide_id: eye
+    color: neutral
+  - catalog: identity
+    file: ic-eye-off.png
+    out_dir: identity
+    lucide_id: eye-off
+    color: neutral
+  - catalog: identity
+    file: ic-globe.png
+    out_dir: identity
+    lucide_id: globe
+    color: neutral
+  - catalog: identity
+    file: ic-clock.png
+    out_dir: identity
+    lucide_id: clock
+    color: neutral
+  - catalog: identity
+    file: ic-code-mismatch.png
+    out_dir: identity
+    lucide_id: circle-x
+    color: neutral
+  - catalog: identity
+    file: ic-profile-conflict.png
+    out_dir: identity
+    lucide_id: users
+    color: neutral
+  - catalog: identity
+    file: ic-otp-code.png
+    out_dir: identity
+    lucide_id: message-square-code
+    color: neutral
+  - catalog: identity
+    file: ic-chevron-down.png
+    out_dir: identity
+    lucide_id: chevron-down
+    color: neutral
+  - catalog: identity
+    file: ic-search.png
+    out_dir: identity
+    lucide_id: search
+    color: neutral
+
+  # --- STORY-SPA-PH functional → public/icons/public-home/ ---
+  # etm-* intentionally omitted (needs operator folk refs)
+  - catalog: ph
+    file: ic-nav-menu.png
+    out_dir: public-home
+    lucide_id: menu
+    color: neutral
+  - catalog: ph
+    file: ic-empty-board.png
+    out_dir: public-home
+    lucide_id: frame
+    color: neutral
+  - catalog: ph
+    file: ic-external-link.png
+    out_dir: public-home
+    lucide_id: external-link
+    color: neutral
+  - catalog: ph
+    file: ic-chevron-right.png
+    out_dir: public-home
+    lucide_id: chevron-right
+    color: neutral
