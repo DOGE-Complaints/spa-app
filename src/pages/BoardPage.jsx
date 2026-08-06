@@ -30,6 +30,7 @@ import {
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
+import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 
 function BoardFeedSkeleton({ count = 4 }) {
   return (
@@ -48,6 +49,8 @@ export function BoardPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { locale, t, resolveLocalizedText } = useI18n()
+  const submitHref = getStoryGptHref()
+  const submitExternal = hasStoryGptUrl()
   const boardFilters = parseBoardQuery(location.search)
   const normalizedSearch = normalizeBoardSearch(location.search)
   const boardUrlForBack = `/board${normalizedSearch}`
@@ -271,12 +274,22 @@ export function BoardPage() {
               <ActiveFilterChips chips={activeFilterChips} onRemove={removeChip} />
             </div>
             <a
-              href="https://chatgpt.com/g/g-RkVU9xLWN-dogestonia"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={submitHref}
+              target={submitExternal ? '_blank' : undefined}
+              rel={submitExternal ? 'noopener noreferrer' : undefined}
               className="board-cta"
+              data-testid="board-submit-cta"
+              aria-label={t('howItWorks.cta.submitAccessibleLabel')}
             >
-              {t('createIssue')}
+              <span>{t('publicHome.nav.submitStory')}</span>
+              {submitExternal ? (
+                <img
+                  className="board-cta-external-icon"
+                  src="/icons/public-home/ic-external-link.png"
+                  alt=""
+                  aria-hidden="true"
+                />
+              ) : null}
             </a>
           </header>
 

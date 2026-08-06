@@ -59,6 +59,14 @@
   color: var(--color-text-primary);
   border-bottom-color: transparent;
   font-weight: 500;
+  gap: 6px;
+}
+
+.header-nav-external-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .header-nav-item--submit:hover {

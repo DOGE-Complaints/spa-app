@@ -1,9 +1,8 @@
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { Button } from '../components/Button/Button.jsx'
+import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 import './HowItWorksPage.css'
-
-const STORY_GPT_URL = String(import.meta.env.VITE_STORY_GPT_URL ?? '').trim()
 
 const STEPS = [
   {
@@ -36,8 +35,8 @@ const STEPS = [
  */
 export function HowItWorksPage() {
   const { t } = useI18n()
-  const submitHref = STORY_GPT_URL || '#'
-  const submitExternal = Boolean(STORY_GPT_URL)
+  const submitHref = getStoryGptHref()
+  const submitExternal = hasStoryGptUrl()
 
   return (
     <div className="board-shell">

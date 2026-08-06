@@ -26,8 +26,7 @@ import {
   StoryDraftApiError,
   VerificationRequiredError,
 } from '../services/storyDraftService.js'
-
-const STORY_GPT_URL = String(import.meta.env.VITE_STORY_GPT_URL ?? '').trim()
+import { getStoryGptHref, getStoryGptUrl } from '../config/storyGptUrl.js'
 
 /**
  * @param {unknown} error
@@ -168,7 +167,8 @@ export function StorySubmitPage() {
     }
   }, [draftId, retry, submitDraft])
 
-  const openGptUrl = STORY_GPT_URL || '#'
+  const openGptUrl = getStoryGptHref()
+  const storyGptUrl = getStoryGptUrl()
 
   return (
     <div
@@ -263,8 +263,8 @@ export function StorySubmitPage() {
           onGoToBoard={() => navigate('/board')}
           onMyStories={() => navigate('/profile')}
           onSubmitAnother={() => {
-            if (STORY_GPT_URL) {
-              window.location.assign(STORY_GPT_URL)
+            if (storyGptUrl) {
+              window.location.assign(storyGptUrl)
             }
           }}
         />

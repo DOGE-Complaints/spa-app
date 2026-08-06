@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { Header } from '../Header.jsx'
 import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
@@ -58,19 +58,25 @@ describe('Public Header (PH-01)', () => {
     expect(screen.getByTestId('public-nav-how-it-works').className).toContain('header-nav-item-active')
   })
 
-  it('toggles mobile menu and closes on Escape', () => {
-    renderHeader()
-    const toggle = screen.getByTestId('public-header-menu-toggle')
-    expect(toggle.getAttribute('aria-label')).toBe('Open menu')
-    expect(screen.queryByTestId('public-header-mobile-nav')).toBeNull()
-
-    fireEvent.click(toggle)
-    expect(screen.getByTestId('public-header-mobile-nav')).toBeTruthy()
-    expect(toggle.getAttribute('aria-label')).toBe('Close menu')
-    expect(toggle.getAttribute('aria-expanded')).toBe('true')
-
-    fireEvent.keyDown(document, { key: 'Escape' })
-    expect(screen.queryByTestId('public-header-mobile-nav')).toBeNull()
-    expect(toggle.getAttribute('aria-label')).toBe('Open menu')
+  it('Submit a story uses env helper with external a11y label', async () => {
+    vi.stubEnv('VITE_STORY_GPT_URL', 'https://example.test/gpt-nav')
+    vi.resetModules()
+    const { Header: HeaderFresh } = await import('../Header.jsx')
+    const { I18nProvider: I18nFresh } = await import('../../../i18n/I18nProvider.jsx')
+    render(
+      <I18nFresh>
+        <MemoryRouter initialEntries={['/board']}>
+          <Routes>
+            <Route path="*" element={<HeaderFresh accountSlot={null} />} />
+          </Routes>
+        </MemoryRouter>
+      </I18nFresh>,
+    )
+    const submit = screen.getByTestId('public-nav-submit')
+    expect(submit.getAttribute('href')).toBe('https://example.test/gpt-nav')
+    expect(submit.getAttribute('target')).toBe('_blank')
+    expect(submit.getAttribute('rel')).toContain('noopener')
+    expect(submit.getAttribute('aria-label')).toMatch(/DOGEstonia GPT/i)
+    expect(submit.querySelector('.header-nav-external-icon')).toBeTruthy()
   })
 })

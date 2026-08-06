@@ -2,10 +2,9 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AccountControlSlot } from '../AccountControl/AccountControlSlot.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { getStoryGptHref, hasStoryGptUrl } from '../../config/storyGptUrl.js'
 import { LanguageSelector } from './LanguageSelector.jsx'
 import './Header.css'
-
-const STORY_GPT_URL = String(import.meta.env.VITE_STORY_GPT_URL ?? '').trim()
 
 function primaryNavClassName({ isActive }) {
   return `header-nav-item${isActive ? ' header-nav-item-active' : ''}`
@@ -21,6 +20,8 @@ export function Header({ className = '', accountSlot }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const rootRef = useRef(null)
   const menuId = useId()
+  const submitHref = getStoryGptHref()
+  const submitExternal = hasStoryGptUrl()
 
   useEffect(() => {
     if (!menuOpen) return undefined
@@ -67,14 +68,23 @@ export function Header({ className = '', accountSlot }) {
         {t('publicHome.nav.howItWorks')}
       </NavLink>
       <a
-        href={STORY_GPT_URL || '#'}
+        href={submitHref}
         className="header-nav-item header-nav-item--submit"
         data-testid="public-nav-submit"
-        rel={STORY_GPT_URL ? 'noopener noreferrer' : undefined}
-        target={STORY_GPT_URL ? '_blank' : undefined}
+        aria-label={t('howItWorks.cta.submitAccessibleLabel')}
+        rel={submitExternal ? 'noopener noreferrer' : undefined}
+        target={submitExternal ? '_blank' : undefined}
         onClick={closeMenu}
       >
-        {t('publicHome.nav.submitStory')}
+        <span>{t('publicHome.nav.submitStory')}</span>
+        {submitExternal ? (
+          <img
+            className="header-nav-external-icon"
+            src="/icons/public-home/ic-external-link.png"
+            alt=""
+            aria-hidden="true"
+          />
+        ) : null}
       </a>
     </>
   )

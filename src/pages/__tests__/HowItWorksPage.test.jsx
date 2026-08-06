@@ -50,10 +50,11 @@ describe('HowItWorksPage PH-05', () => {
     expect(html).toContain('Understand Civic Issues')
   })
 
-  it('wires dashboard CTAs to /board and submit to env GPT pattern', () => {
+  it('wires dashboard CTAs to /board and submit to env GPT helper', () => {
     expect(pageSource).toContain("href=\"/board\"")
-    expect(pageSource).toContain('VITE_STORY_GPT_URL')
+    expect(pageSource).toContain('getStoryGptHref')
     expect(pageSource).toContain('howItWorks.cta.submitAccessibleLabel')
+    expect(pageSource).toContain('ic-external-link.png')
     expect(pageSource).not.toMatch(/chatgpt\.com\/g\/g-RkVU9xLWN/i)
     const html = renderPage()
     expect(html).toContain('data-testid="how-it-works-cta-dashboard"')

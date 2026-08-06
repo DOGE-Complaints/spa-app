@@ -30,6 +30,8 @@
     "test:ui:how-it-works": "node ./tests/puppeteer/how-it-works-smoke.mjs",
     "test:ui:how-it-works-ph05": "PH05_PHASE=post-implement node ./tests/puppeteer/how-it-works-ph05-screenshot.mjs",
     "test:ui:how-it-works-ph05-full": "node ./tests/puppeteer/how-it-works-ph05-full-cycle.mjs",
+    "test:ui:submit-ph06": "PH06_PHASE=post-implement node ./tests/puppeteer/public-submit-ph06-screenshot.mjs",
+    "test:ui:submit-ph06-full": "node ./tests/puppeteer/public-submit-ph06-full-cycle.mjs",
     "test:ui:account-summary-cab02": "node ./tests/puppeteer/account-summary-cab02-screenshot.mjs",
     "test:ui:cabinet-shell-cab01": "CAB01_PHASE=post-implement node ./tests/puppeteer/cabinet-shell-cab01-screenshot.mjs",
     "test:ui:cabinet-shell-cab01-full": "node ./tests/puppeteer/cabinet-shell-cab01-full-cycle.mjs",
