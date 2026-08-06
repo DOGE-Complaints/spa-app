@@ -83,12 +83,22 @@ async function stopServer(devServer) {
   await sleep(800)
 }
 
-async function shot(page, filename) {
+async function shot(page, filename, { fullPage = false } = {}) {
   const outPath = path.join(OUT_DIR, filename)
   await mkdir(path.dirname(outPath), { recursive: true })
-  await page.screenshot({ path: outPath, fullPage: false })
+  await page.screenshot({ path: outPath, fullPage })
   console.log('wrote', outPath)
   return outPath
+}
+
+/** Ensure selector is in viewport before capture (H3 CTA was below fold with fullPage:false). */
+async function shotInView(page, selector, filename) {
+  await page.waitForSelector(selector, { timeout: 15000 })
+  await page.$eval(selector, (el) => {
+    el.scrollIntoView({ block: 'center', inline: 'nearest' })
+  })
+  await sleep(350)
+  return shot(page, filename, { fullPage: false })
 }
 
 async function clearAuth(page) {
@@ -191,8 +201,13 @@ async function run() {
     written.push(await shot(page2, '02-happy-mock-board-submit-ctas-1536x1024.png'))
 
     await page2.goto(`${BASE}/#/how-it-works`, { waitUntil: 'networkidle0', timeout: 60000 })
-    await page2.waitForSelector('[data-testid="how-it-works-cta-submit"]', { timeout: 15000 })
-    written.push(await shot(page2, '03-happy-mock-how-it-works-submit-cta-1536x1024.png'))
+    written.push(
+      await shotInView(
+        page2,
+        '[data-testid="how-it-works-cta-submit"]',
+        '03-happy-mock-how-it-works-submit-cta-1536x1024.png',
+      ),
+    )
 
     await browser2.close()
 
