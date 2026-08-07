@@ -114,11 +114,14 @@ export function StorySubmitPage() {
       try {
         const result = await storyDraftService.submitStoryDraft(activeId, accessToken)
         clearDraftId()
-        navigate('/profile', {
-          replace: true,
-          state: { submittedStoryId: result.submission_id },
-        })
-        return
+        const nextSubmissionId = String(result?.submission_id ?? '').trim()
+        if (!nextSubmissionId) {
+          setSubmissionId(null)
+          setPhase(STORY_HANDOFF_PHASES.SERVICE_DOWN)
+          return
+        }
+        setSubmissionId(nextSubmissionId)
+        setPhase(STORY_HANDOFF_PHASES.SUBMITTED)
       } catch (error) {
         if (error instanceof StoryDraftApiError && error.status === 401) {
           redirectToLogin(activeId)
@@ -129,7 +132,7 @@ export function StorySubmitPage() {
         setBusy(false)
       }
     },
-    [accessToken, draftId, navigate, redirectToLogin],
+    [accessToken, draftId, redirectToLogin],
   )
 
   useEffect(() => {

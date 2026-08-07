@@ -110,6 +110,17 @@ icons:
     out_dir: story-handoff
     lucide_id: triangle-alert
     color: amber
+  # --- STORY-SPA-ID-14 (M135) CTA leading ---
+  - catalog: handoff
+    file: ic-go-to-board.png
+    out_dir: story-handoff
+    lucide_id: layout-grid
+    color: neutral
+  - catalog: handoff
+    file: ic-my-stories.png
+    out_dir: story-handoff
+    lucide_id: circle-user
+    color: neutral
 
   # --- STORY-SPA-CAB → public/icons/user-cabinet/ ---
   - catalog: cab

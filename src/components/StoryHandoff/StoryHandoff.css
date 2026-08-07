@@ -123,6 +123,91 @@
   margin: 0.5rem 0 1rem;
 }
 
+.story-handoff__copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.story-handoff__copy-btn:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+.story-handoff__copied {
+  margin: -0.5rem 0 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.story-handoff__rule {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  border-left: 2px solid color-mix(in srgb, var(--doge-accent) 55%, transparent);
+  padding-left: 0.75rem;
+}
+
+.story-handoff__actions--stack {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.story-handoff__actions--success {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.story-handoff__cta-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .story-handoff__cta-row {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .story-handoff__cta-row > .ds-btn.ds-btn--full-width {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+}
+
+.story-handoff__tertiary {
+  display: grid;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.story-handoff__hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.story-handoff__panel--success .story-handoff__actions {
+  margin-top: 1.5rem;
+}
+
 .story-handoff__labels {
   display: flex;
   flex-wrap: wrap;

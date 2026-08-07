@@ -61,6 +61,8 @@
     "test:ui:gpt-bridge-m120": "node ./tests/puppeteer/gpt-bridge-m120-screenshot.mjs",
     "test:ui:story-handoff-m128": "node ./tests/puppeteer/story-handoff-m128-screenshot.mjs",
     "test:ui:story-handoff-m128-live": "node ./tests/puppeteer/story-handoff-m128-live.mjs",
+    "test:ui:story-submit-m135": "PHASE=post-implement node ./tests/puppeteer/story-submit-m135-screenshot.mjs",
+    "test:ui:story-submit-m135-full": "node ./tests/puppeteer/story-submit-m135-full-cycle.mjs",
     "deploy": "node ./scripts/deploy-arweave.mjs",
     "icons:generate": "python3 scripts/generate-icons-from-lucide.py --catalog all",
     "icons:generate:stubs": "python3 scripts/generate-icons-from-lucide.py --catalog all --only-stubs",

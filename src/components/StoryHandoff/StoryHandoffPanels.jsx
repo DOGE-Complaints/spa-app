@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { GptDraftBanner } from '../GptBridge/GptDraftBanner.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { Button } from '../Button'
@@ -155,8 +156,20 @@ export function StoryHandoffPreviewPanel({ preview, onSubmit, onBack, busy = fal
  */
 export function StoryHandoffSuccessPanel({ submissionId, onGoToBoard, onMyStories, onSubmitAnother }) {
   const { t } = useI18n()
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(submissionId)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
+  }
+
   return (
-    <section className="story-handoff__panel" data-testid="story-handoff-success">
+    <section className="story-handoff__panel story-handoff__panel--success" data-testid="story-handoff-success">
       <StoryHandoffIcon
         src="/icons/story-handoff/ic-success-check.png"
         decorative={false}
@@ -164,49 +177,84 @@ export function StoryHandoffSuccessPanel({ submissionId, onGoToBoard, onMyStorie
       />
       <h1 className="story-handoff__title">{t('storyHandoff.success.title')}</h1>
       <p className="story-handoff__message">{t('storyHandoff.success.message')}</p>
+      <p className="story-handoff__rule" data-testid="story-handoff-no-auto-redirect">
+        {t('storyHandoff.success.noAutoRedirect')}
+      </p>
       <div>
         <div className="story-handoff__field-label">{t('storyHandoff.success.submissionIdLabel')}</div>
         <div className="story-handoff__submission-id" data-testid="story-handoff-submission-id">
           <span>{submissionId}</span>
-          <img
-            src="/icons/story-handoff/ic-copy.png"
-            alt=""
-            aria-hidden="true"
-            width={16}
-            height={16}
-          />
+          <button
+            type="button"
+            className="story-handoff__copy-btn"
+            data-testid="story-handoff-copy-submission-id"
+            aria-label={t('storyHandoff.success.copySubmissionId')}
+            onClick={() => void handleCopy()}
+          >
+            <img
+              src="/icons/story-handoff/ic-copy.png"
+              alt=""
+              aria-hidden="true"
+              width={16}
+              height={16}
+            />
+          </button>
         </div>
+        {copied ? (
+          <p className="story-handoff__copied" role="status" data-testid="story-handoff-copied">
+            {t('storyHandoff.success.copied')}
+          </p>
+        ) : null}
         <div className="story-handoff__field-label">{t('storyHandoff.success.statusLabel')}</div>
         <p className="story-handoff__field-value">{t('storyHandoff.success.statusUnderReview')}</p>
       </div>
-      <div className="story-handoff__actions">
-        <Button
-          type="button"
-          hierarchy="primary"
-          fullWidth
-          data-testid="story-handoff-go-board"
-          onClick={onGoToBoard}
-        >
-          {t('storyHandoff.cta.goToBoard')}
-        </Button>
-        <Button
-          type="button"
-          hierarchy="secondary"
-          fullWidth
-          data-testid="story-handoff-my-stories"
-          onClick={onMyStories}
-        >
-          {t('storyHandoff.cta.myStories')}
-        </Button>
-        <Button
-          type="button"
-          hierarchy="secondary"
-          fullWidth
-          data-testid="story-handoff-submit-another"
-          onClick={onSubmitAnother}
-        >
-          {t('storyHandoff.success.submitAnother')}
-        </Button>
+      <div className="story-handoff__actions story-handoff__actions--success">
+        <div className="story-handoff__cta-row" data-testid="story-handoff-cta-row">
+          <Button
+            type="button"
+            hierarchy="primary"
+            fullWidth
+            intent="navigate"
+            data-testid="story-handoff-go-board"
+            onClick={onGoToBoard}
+            leadingIcon={
+              <img src="/icons/story-handoff/ic-go-to-board.png" alt="" width={18} height={18} />
+            }
+          >
+            {t('storyHandoff.cta.goToBoard')}
+          </Button>
+          <Button
+            type="button"
+            hierarchy="secondary"
+            fullWidth
+            intent="navigate"
+            data-testid="story-handoff-my-stories"
+            onClick={onMyStories}
+            leadingIcon={
+              <img src="/icons/story-handoff/ic-my-stories.png" alt="" width={18} height={18} />
+            }
+          >
+            {t('storyHandoff.cta.myStories')}
+          </Button>
+        </div>
+        <div className="story-handoff__tertiary">
+          <Button
+            type="button"
+            hierarchy="tertiary"
+            fullWidth
+            intent="external"
+            data-testid="story-handoff-submit-another"
+            onClick={onSubmitAnother}
+            trailingIcon={
+              <img src="/icons/public-home/ic-external-link.png" alt="" width={16} height={16} />
+            }
+          >
+            {t('storyHandoff.success.submitAnother')}
+          </Button>
+          <p className="story-handoff__hint" data-testid="story-handoff-submit-another-hint">
+            {t('storyHandoff.success.submitAnotherHint')}
+          </p>
+        </div>
       </div>
     </section>
   )
