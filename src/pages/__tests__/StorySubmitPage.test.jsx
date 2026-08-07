@@ -176,7 +176,7 @@ describe('StorySubmitPage', () => {
     vi.unstubAllEnvs()
   })
 
-  it('submits draft and redirects to profile on 202', async () => {
+  it('submits draft and shows success panel without profile navigate on 202', async () => {
     const draftId = storyDraftService._createMockDraftId?.()
     storyDraftService._seedMockDraft?.(draftId)
     renderPage(`/story/submit?draft_id=${draftId}`)
@@ -185,11 +185,34 @@ describe('StorySubmitPage', () => {
     fireEvent.click(screen.getByTestId('story-handoff-submit'))
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/profile', {
-        replace: true,
-        state: { submittedStoryId: `mock-submission-${draftId}` },
-      })
+      expect(screen.getByTestId('story-handoff-success')).toBeTruthy()
     })
+    expect(screen.getByTestId('story-submit-page').getAttribute('data-story-handoff-phase')).toBe(
+      STORY_HANDOFF_PHASES.SUBMITTED,
+    )
+    expect(screen.getByTestId('story-handoff-submission-id').textContent).toContain(
+      `mock-submission-${draftId}`,
+    )
+    expect(mockNavigate).not.toHaveBeenCalledWith('/profile', {
+      replace: true,
+      state: { submittedStoryId: `mock-submission-${draftId}` },
+    })
+  })
+
+  it('success CTA destinations stay user-driven after live submit', async () => {
+    const draftId = storyDraftService._createMockDraftId?.()
+    storyDraftService._seedMockDraft?.(draftId)
+    renderPage(`/story/submit?draft_id=${draftId}`)
+
+    await waitFor(() => screen.getByTestId('story-handoff-preview'))
+    fireEvent.click(screen.getByTestId('story-handoff-submit'))
+    await waitFor(() => screen.getByTestId('story-handoff-success'))
+
+    fireEvent.click(screen.getByTestId('story-handoff-go-board'))
+    expect(mockNavigate).toHaveBeenCalledWith('/board')
+
+    fireEvent.click(screen.getByTestId('story-handoff-my-stories'))
+    expect(mockNavigate).toHaveBeenCalledWith('/profile')
   })
 
   it('submit another assigns VITE_STORY_GPT_URL on success panel', async () => {
@@ -215,7 +238,7 @@ describe('StorySubmitPage', () => {
     vi.unstubAllEnvs()
   })
 
-  it('shows verify interpose on submit 403 and redirects to profile after verify', async () => {
+  it('shows verify interpose on submit 403 and success panel after verify', async () => {
     const draftId = storyDraftService._createMockDraftId?.()
     storyDraftService._seedMockDraft?.(draftId)
     storyDraftService._setMockForceVerificationRequired?.(true)
@@ -232,10 +255,11 @@ describe('StorySubmitPage', () => {
     fireEvent.click(screen.getByTestId('mock-verify-complete'))
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/profile', {
-        replace: true,
-        state: { submittedStoryId: `mock-submission-${draftId}` },
-      })
+      expect(screen.getByTestId('story-handoff-success')).toBeTruthy()
+    })
+    expect(mockNavigate).not.toHaveBeenCalledWith('/profile', {
+      replace: true,
+      state: { submittedStoryId: `mock-submission-${draftId}` },
     })
     expect(mockRetry).toHaveBeenCalled()
   })
