@@ -9,16 +9,25 @@ function navItemClassName({ isActive }) {
 
 /**
  * Shared DOGEstonia app shell (M124 §6): logo, sidebar, header, footer slots.
+ * @param {{ showSidebar?: boolean }} props — when false, aside is not rendered (PH-09).
  */
 export function AppShell({
   header,
   sidebar,
   footer,
   showFooter = true,
+  showSidebar = true,
   children,
   className = '',
 }) {
   const { t } = useI18n()
+  const bodyClassName = [
+    'app-shell__body',
+    'board-main',
+    showSidebar ? null : 'board-main--no-sidebar',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <div className={`app-shell ${className}`.trim()} data-testid="app-shell">
@@ -40,22 +49,24 @@ export function AppShell({
         )}
       </header>
 
-      <div className="app-shell__body board-main">
-        <aside className="app-shell__sidebar board-sidebar" aria-label={t('appShell.aria.sidebar')}>
-          {sidebar ?? (
-            <>
-              <p className="board-sidebar-workspace">{t('appShell.nav.workspace')}</p>
-              <nav className="board-nav" aria-label={t('appShell.aria.primaryNav')}>
-                <NavLink to="/board" className={navItemClassName} data-testid="app-shell-nav-board" end>
-                  {t('appShell.nav.board')}
-                </NavLink>
-                <NavLink to="/profile" className={navItemClassName} data-testid="app-shell-nav-profile">
-                  {t('appShell.nav.profile')}
-                </NavLink>
-              </nav>
-            </>
-          )}
-        </aside>
+      <div className={bodyClassName} data-show-sidebar={showSidebar ? 'yes' : 'no'}>
+        {showSidebar ? (
+          <aside className="app-shell__sidebar board-sidebar" aria-label={t('appShell.aria.sidebar')}>
+            {sidebar ?? (
+              <>
+                <p className="board-sidebar-workspace">{t('appShell.nav.workspace')}</p>
+                <nav className="board-nav" aria-label={t('appShell.aria.primaryNav')}>
+                  <NavLink to="/board" className={navItemClassName} data-testid="app-shell-nav-board" end>
+                    {t('appShell.nav.board')}
+                  </NavLink>
+                  <NavLink to="/profile" className={navItemClassName} data-testid="app-shell-nav-profile">
+                    {t('appShell.nav.profile')}
+                  </NavLink>
+                </nav>
+              </>
+            )}
+          </aside>
+        ) : null}
 
         <section className="app-shell__main board-workspace">{children}</section>
       </div>

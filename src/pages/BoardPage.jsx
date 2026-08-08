@@ -30,6 +30,7 @@ import {
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
+import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 
 function BoardFeedSkeleton({ count = 4 }) {
@@ -167,6 +168,7 @@ export function BoardPage() {
       <AppShell
         header={<Header />}
         sidebar={<Sidebar activeNav="board" />}
+        showSidebar={PUBLIC_SHELL_SHOW_SIDEBAR}
         footer={<PublicFooter />}
       >
           <header className="board-toolbar">

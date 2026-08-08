@@ -1,6 +1,7 @@
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { Button } from '../components/Button/Button.jsx'
+import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 import './HowItWorksPage.css'
 
@@ -40,7 +41,12 @@ export function HowItWorksPage() {
 
   return (
     <div className="board-shell">
-      <AppShell header={<Header />} sidebar={<Sidebar />} footer={<PublicFooter />}>
+      <AppShell
+        header={<Header />}
+        sidebar={<Sidebar />}
+        showSidebar={PUBLIC_SHELL_SHOW_SIDEBAR}
+        footer={<PublicFooter />}
+      >
         <div className="how-it-works" data-testid="how-it-works-page">
           <header className="how-it-works-intro">
             <p className="how-it-works-eyebrow">{t('howItWorks.eyebrow')}</p>

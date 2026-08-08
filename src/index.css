@@ -145,6 +145,10 @@ body {
   grid-template-columns: 272px 1fr;
 }
 
+.board-main--no-sidebar {
+  grid-template-columns: 1fr;
+}
+
 .board-sidebar {
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--color-bg-secondary);

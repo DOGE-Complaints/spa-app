@@ -4,6 +4,7 @@ import { Button } from '../components/Button'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { TranslationMarker } from '../components/TranslationMarker/TranslationMarker.jsx'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
+import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { resolveLocalizedTextWithMeta } from '../i18n/core.js'
 import { formatLabelKeyWithMeta } from '../i18n/labelDisplay.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
@@ -207,6 +208,7 @@ export function IssuePage() {
       <AppShell
         header={<Header />}
         sidebar={<Sidebar activeNav="board" boardTo={boardBackUrl} />}
+        showSidebar={PUBLIC_SHELL_SHOW_SIDEBAR}
         footer={<PublicFooter />}
       >
           <header className="issue-page-header">
