@@ -56,7 +56,7 @@ async function run() {
       '.board-shell',
       '.header-strip',
       '.board-main',
-      '.board-sidebar',
+      '.board-main--no-sidebar',
       '.board-toolbar',
       '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"]',
       '.board-footer',
@@ -67,6 +67,12 @@ async function run() {
       if (!element) {
         throw new Error(`Missing required selector on board shell: ${selector}`)
       }
+    }
+
+    // PH-09: public board must not keep WORKSPACE sidebar column
+    const sidebar = await page.$('.board-sidebar')
+    if (sidebar) {
+      throw new Error('Expected no .board-sidebar on public board (PH-09 display mode off)')
     }
 
     // PH-04: single feed — no status/kanban columns

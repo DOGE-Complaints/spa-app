@@ -17,7 +17,8 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).toContain('class="board-shell"')
     expect(html).toContain('header-strip')
     expect(html).toContain('board-main')
-    expect(html).toContain('board-sidebar')
+    expect(html).toContain('board-main--no-sidebar')
+    expect(html).not.toContain('board-sidebar')
     expect(html).toContain('board-workspace')
     expect(html).toContain('board-footer')
     expect(html).toContain('data-testid="public-footer"')
@@ -25,6 +26,18 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).toContain('header-locale')
     expect(html).toContain('public-header')
     expect(html).not.toContain('header-status')
+  })
+
+  it('keeps public header nav without WORKSPACE column (PH-09)', () => {
+    const html = renderToStaticMarkup(
+      <I18nProvider>
+        <MemoryRouter>
+          <BoardPage />
+        </MemoryRouter>
+      </I18nProvider>,
+    )
+    expect(html).toContain('data-testid="public-header-nav"')
+    expect(html).toContain('data-show-sidebar="no"')
   })
 
   it('renders a single board feed without status columns', () => {

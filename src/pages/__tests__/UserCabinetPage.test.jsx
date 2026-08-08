@@ -73,6 +73,9 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     expect(contribSlot.querySelector('[data-contrib-receipts-state="empty"]')).toBeTruthy()
     expect(contribSlot.querySelector('[data-contrib-reputation-state="later"]')).toBeTruthy()
     expect(contribSlot.textContent).not.toMatch(/Submit Story/i)
+    // PH-09: protected AppShellLayout keeps default sidebar
+    expect(document.querySelector('.board-sidebar')).toBeTruthy()
+    expect(document.querySelector('.board-main--no-sidebar')).toBeNull()
   })
 
   it('wires Verify CTA to /verify and shows verified without re-prompt', () => {

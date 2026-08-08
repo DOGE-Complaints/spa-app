@@ -17,7 +17,7 @@ describe('IssuePage integration', () => {
     expect(html).toMatch(/issue-details-state-loading|issue-details-state-default/)
   })
 
-  it('shell includes header strip, sidebar, back affordance, footer', () => {
+  it('shell includes header strip, no WORKSPACE sidebar, back affordance, footer (PH-09)', () => {
     const html = renderToStaticMarkup(
       <I18nProvider>
         <MemoryRouter initialEntries={['/issue/DE-001']}>
@@ -28,7 +28,8 @@ describe('IssuePage integration', () => {
     expect(html).toContain('issue-page-header')
     expect(html).toContain('ds-btn')
     expect(html).toContain('header-strip')
-    expect(html).toContain('board-sidebar')
+    expect(html).not.toContain('board-sidebar')
+    expect(html).toContain('board-main--no-sidebar')
     expect(html).toContain('board-footer')
     expect(html).toContain('data-testid="app-shell"')
     expect(html).toContain('header-locale')
