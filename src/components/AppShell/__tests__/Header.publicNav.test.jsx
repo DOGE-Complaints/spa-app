@@ -30,12 +30,26 @@ describe('Public Header (PH-01)', () => {
     window.localStorage.removeItem(LOCALE_STORAGE_KEY)
   })
 
-  it('renders brand home link with DOGEstonia wordmark', () => {
+  it('renders brand home link with horizontal logo and no visible text name', () => {
     renderHeader()
     const brand = screen.getByTestId('public-header-brand')
     expect(brand.getAttribute('href')).toBe('/board')
-    expect(brand.textContent).toContain('DOGEstonia')
+    const logo = brand.querySelector('img.header-brand-logo')
+    expect(logo).toBeTruthy()
+    expect(logo.getAttribute('src')).toBe('/assets/DOGEstonia-logo-horizontal.png')
+    expect(logo.getAttribute('alt')).toMatch(/DOGEstonia/i)
+    expect(brand.querySelector('.header-brand-name')).toBeNull()
+    expect(brand.textContent.trim()).toBe('')
     expect(screen.getByTestId('header-account-slot')).toBeTruthy()
+  })
+
+  it('index.html wires favicon.png icon link', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { resolve } = await import('node:path')
+    const html = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8')
+    expect(html).toMatch(/rel=["']icon["']/)
+    expect(html).toMatch(/href=["']\.\/favicon\.png["']/)
+    expect(html).toMatch(/type=["']image\/png["']/)
   })
 
   it('renders nav order Dashboard · How it works · Submit a story', () => {
