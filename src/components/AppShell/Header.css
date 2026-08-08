@@ -17,13 +17,6 @@
   flex-shrink: 0;
 }
 
-.public-header .header-brand-name {
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
 .header-primary-nav {
   display: flex;
   align-items: center;
@@ -140,7 +133,4 @@
     justify-content: flex-start;
   }
 
-  .public-header .header-brand-name {
-    font-size: 0.95rem;
-  }
 }

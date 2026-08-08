@@ -16,7 +16,7 @@ function primaryNavClassName({ isActive }) {
  */
 export function Header({ className = '', accountSlot }) {
   const { t } = useI18n()
-  const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-big.png')
+  const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-horizontal.png')
   const [menuOpen, setMenuOpen] = useState(false)
   const rootRef = useRef(null)
   const menuId = useId()
@@ -103,7 +103,6 @@ export function Header({ className = '', accountSlot }) {
           className="header-brand-logo"
           onError={() => setLogoSrc('/assets/DOGEstonia-logo-fallback.svg')}
         />
-        <span className="header-brand-name">DOGEstonia</span>
       </Link>
 
       <nav className="header-primary-nav" aria-label={t('appShell.aria.primaryNav')} data-testid="public-header-nav">

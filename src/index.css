@@ -46,7 +46,7 @@ body {
 .header-brand-logo {
   width: auto;
   height: 44px;
-  max-width: 320px;
+  max-width: min(320px, 55vw);
   object-fit: contain;
 }
 
