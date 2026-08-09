@@ -228,11 +228,48 @@ npm run deploy
 | `npm start` | `serve -s dist -l tcp://0.0.0.0:$PORT` | Railway (static production serve) |
 | `npm run deploy` | деплой `dist/` на Arweave через `arkb` | Arweave |
 | `npm run verify:bundle:no-service-role` | build + scan dist на `service_role` | pre-deploy guard (SEC-01) |
-| `npm run verify:build:env-bake` | build с `VITE_*` + scan dist (gateway, identity, Supabase, GPT) | pre-deploy guard (DEPLOY-01) |
+| `npm run verify:build:env-bake` | build с public `VITE_*` + scan dist (gateway, identity, Supabase, GPT); **падает** на localhost needles | **Обязательный** pre-**release** gate (HL-02 / DEPLOY-01) |
 | `npm run verify:railway:live` | HTTP shell + puppeteer `/#/board` без login (M-5) | post-deploy smoke (DEPLOY-01) |
 | `npm run verify:cors:preflight` | OPTIONS preflight к gateway `/tallinn/issues` и identity `/me` | post-deploy CORS (DEPLOY-01 AC #4) |
 
 `npm run deploy` требует `ARWEAVE_WALLET_PATH` — без него завершается ошибкой. Случайно задеплоить на Arweave нельзя.
+
+---
+
+## Release checklist — env-bake (HL-02)
+
+**Local smoke dist ≠ shippable release.**
+
+| Dist kind | How built | May contain `127.0.0.1:8000` / `:8100`? | Ship to Railway / Arweave? |
+|-----------|-----------|------------------------------------------|----------------------------|
+| Local smoke | `npm run build` / `verify:security` with local `.env` | Yes (expected) | **No** — not a release artifact |
+| Release | `npm run verify:build:env-bake` with **public** `VITE_*` | Must be **absent** | Only after gate exit 0 |
+
+### Mandatory before any production release
+
+1. Set **public** (non-localhost) values for:
+   - `VITE_GATEWAY_BASE_URL`
+   - `VITE_IDENTITY_SERVICE_URL`
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_STORY_GPT_URL`
+   - (recommended) `VITE_LIFE_REALITY_MODE=GFL-DRIVEN`
+2. Run from `spa-app/`:
+
+```bash
+VITE_GATEWAY_BASE_URL=https://… \
+VITE_IDENTITY_SERVICE_URL=https://… \
+VITE_SUPABASE_URL=https://… \
+VITE_SUPABASE_ANON_KEY=eyJ… \
+VITE_STORY_GPT_URL=https://… \
+VITE_LIFE_REALITY_MODE=GFL-DRIVEN \
+npm run verify:build:env-bake
+```
+
+3. Gate **must** exit 0. Without these env vars, or if any service base is `localhost` / `127.0.0.1`, the script **fails** (by design).
+4. Do **not** deploy a `dist/` that was baked from local `.env` with `127.0.0.1` service bases — that artifact is **not** a release.
+
+Script entrypoint: [`package.json`](../package.json) → `verify:build:env-bake` → [`scripts/verify-build-env-bake.mjs`](../scripts/verify-build-env-bake.mjs).
 
 ---
 
@@ -252,7 +289,7 @@ npm run deploy
 - Gateway: CORS `allow_origins=["*"]` в коде ([`asgi_app.py`](../../doge-complaints-gateway/src/core/api/asgi_app.py))
 - Identity: на Railway задай `CORS_ALLOWED_ORIGINS` = origin spa (см. [railway-git-deploy-manual.md](./railway-git-deploy-manual.md) §4)
 - В консоли браузера: `import.meta.env.VITE_LIFE_REALITY_MODE` — должно быть `GFL-DRIVEN`
-- Pre-deploy: `VITE_GATEWAY_BASE_URL=https://… VITE_IDENTITY_SERVICE_URL=https://… VITE_SUPABASE_URL=https://… VITE_SUPABASE_ANON_KEY=eyJ… VITE_STORY_GPT_URL=https://… VITE_LIFE_REALITY_MODE=GFL-DRIVEN npm run verify:build:env-bake`
+- Pre-deploy (**required for release**, HL-02): same command as [Release checklist — env-bake](#release-checklist--env-bake-hl-02). Dist with `127.0.0.1` service bases is **not** release.
 
 **Роуты открываются только с `#`-префиксом**
 - Это ожидаемое поведение (`HashRouter`). URL вида `https://app.railway.app/#/board` — корректны.

@@ -12,14 +12,16 @@ Railway подхватит [`railway.toml`](../railway.toml):
 
 | Этап | Команда |
 |------|---------|
-| Build | `npm run build` |
+| Build | `npm run verify:build:env-bake` |
 | Start | `npm start` (`serve -s dist -l tcp://0.0.0.0:$PORT`) |
 
 `$PORT` задаёт Railway автоматически — не трогать.
 
+**Build = env-bake gate (HL-02):** `buildCommand` в `railway.toml` вызывает `verify:build:env-bake`, не голый `npm run build`. Без публичных `VITE_*` в **Variables** (ниже) сборка **падает** — это ожидаемо. Local smoke `npm run build` ≠ Railway release path. Полный чеклист: [deploy-guide.md § Release checklist — env-bake (HL-02)](./deploy-guide.md#release-checklist--env-bake-hl-02).
+
 ## 2. Variables (build-time)
 
-Все `VITE_*` встраиваются в бандл **только при сборке**. После изменения переменной Railway пересобирает проект.
+Все `VITE_*` встраиваются в бандл **только при сборке**. После изменения переменной Railway пересобирает проект. **Обязательны** для зелёного bake на Railway (иначе `verify:build:env-bake` exit ≠ 0).
 
 | Variable | Значение (Tallinn demo) |
 |----------|-------------------------|
