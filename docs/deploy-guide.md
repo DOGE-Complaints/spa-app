@@ -110,7 +110,10 @@ Railway обнаруживает `package.json` и `railway.toml` в корне 
 |------------|----------------|------------------|
 | `VITE_LIFE_REALITY_MODE` | Да (prod) | `GFL-DRIVEN` |
 | `VITE_GATEWAY_BASE_URL` | Да при GFL-DRIVEN | `https://your-gateway.railway.app` |
-| `VITE_IDENTITY_SERVICE_URL` | Да (auth) | `https://your-identity.railway.app` |
+| `VITE_IDENTITY_SERVICE_URL` | Да (auth / **prod required**) | `https://your-identity.railway.app` |
+
+> **HL-04 fail-fast:** In a production build (`import.meta.env.PROD`), missing or blank `VITE_IDENTITY_SERVICE_URL` throws at module load (`resolveIdentityServiceUrl`) — the SPA will **not** silently call `http://localhost:8100`. Local/dev may omit the var and use the localhost fallback. See [Release checklist — env-bake](#release-checklist--env-bake-hl-02) for build-time public URL checks (HL-02).
+
 | `VITE_SUPABASE_URL` | Да (prod) | `https://<project>.supabase.co` |
 | `VITE_SUPABASE_ANON_KEY` | Да (prod) | `eyJ...` (anon, не service_role) |
 | `VITE_IDENTITY_MOCK_MODE` | Да (prod) | `false` |

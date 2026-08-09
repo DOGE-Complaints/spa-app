@@ -80,8 +80,11 @@ VITE_GATEWAY_BASE_URL=http://localhost:8000
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL ?? ''
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY ?? ''
 
-// src/services/identityService.js
-const IDENTITY_SERVICE_URL = import.meta.env.VITE_IDENTITY_SERVICE_URL ?? 'http://localhost:8100'
+// src/auth/resolveIdentityServiceUrl.js (+ wired from identityService / oauthService / identityReadyClient)
+import { resolveIdentityServiceUrl } from './resolveIdentityServiceUrl.js'
+const IDENTITY_SERVICE_URL = resolveIdentityServiceUrl()
+// PROD (import.meta.env.PROD): missing/blank VITE_IDENTITY_SERVICE_URL → throw (HL-04; no silent localhost)
+// non-PROD: missing/blank → http://localhost:8100
 const IDENTITY_MOCK_MODE = import.meta.env.VITE_IDENTITY_MOCK_MODE === 'true'
 ```
 
