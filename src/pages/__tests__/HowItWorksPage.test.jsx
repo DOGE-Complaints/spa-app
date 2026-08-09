@@ -27,7 +27,7 @@ function renderPage(initialPath = '/how-it-works') {
   )
 }
 
-describe('HowItWorksPage PH-05', () => {
+describe('HowItWorksPage PH-05/PH-08', () => {
   beforeEach(() => {
     localeStorage.clear()
     vi.stubGlobal('localStorage', {
@@ -70,5 +70,24 @@ describe('HowItWorksPage PH-05', () => {
   it('lists howItWorks.* flat keys for parity', () => {
     expect(HOW_IT_WORKS_FLAT_KEYS.length).toBeGreaterThan(30)
     expect(HOW_IT_WORKS_FLAT_KEYS).toContain('howItWorks.cta.submitAccessibleLabel')
+  })
+
+  it('PH-08 first-class shell classes; keeps public sidebar constant wire', () => {
+    const html = renderPage()
+    expect(html).toContain('how-it-works-shell')
+    expect(html).toContain('how-it-works-route')
+    expect(pageSource).toContain('PUBLIC_SHELL_SHOW_SIDEBAR')
+    expect(html).toContain('data-testid="how-it-works-cta-dashboard"')
+    expect(html).toContain('data-testid="how-it-works-cta-submit"')
+  })
+
+  it('PH-08 step CSS is not filled marketing cards', () => {
+    const css = readFileSync(
+      path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../HowItWorksPage.css'),
+      'utf8',
+    )
+    expect(css).toMatch(/\.how-it-works-step\s*\{[^}]*background:\s*transparent/s)
+    expect(css).toMatch(/\.how-it-works-step\s*\{[^}]*border-bottom:/s)
+    expect(css).not.toMatch(/\.how-it-works-step\s*\{[^}]*border-radius:\s*14px/s)
   })
 })
