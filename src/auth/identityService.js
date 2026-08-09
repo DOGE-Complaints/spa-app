@@ -1,7 +1,7 @@
 import { supabase } from './supabaseClient.js'
+import { resolveIdentityServiceUrl } from './resolveIdentityServiceUrl.js'
 
-const IDENTITY_SERVICE_URL =
-  import.meta.env.VITE_IDENTITY_SERVICE_URL ?? 'http://localhost:8100'
+const IDENTITY_SERVICE_URL = resolveIdentityServiceUrl()
 const IDENTITY_MOCK_MODE = import.meta.env.VITE_IDENTITY_MOCK_MODE === 'true'
 
 const MOCK_ME_BASE = Object.freeze({

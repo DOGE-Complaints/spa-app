@@ -1,5 +1,6 @@
-const IDENTITY_SERVICE_URL =
-  import.meta.env.VITE_IDENTITY_SERVICE_URL ?? 'http://localhost:8100'
+import { resolveIdentityServiceUrl } from './resolveIdentityServiceUrl.js'
+
+const IDENTITY_SERVICE_URL = resolveIdentityServiceUrl()
 
 /**
  * GET /ready — optional for «View System Status» (FR-02.4).

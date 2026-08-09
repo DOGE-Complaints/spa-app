@@ -1,9 +1,9 @@
 import { supabase } from './supabaseClient.js'
 import { GPT_BRIDGE_CONTEXT } from './gptBridgeFlowState.js'
 import { identityService } from './identityService.js'
+import { resolveIdentityServiceUrl } from './resolveIdentityServiceUrl.js'
 
-const IDENTITY_SERVICE_URL =
-  import.meta.env.VITE_IDENTITY_SERVICE_URL ?? 'http://localhost:8100'
+const IDENTITY_SERVICE_URL = resolveIdentityServiceUrl()
 const IDENTITY_MOCK_MODE = import.meta.env.VITE_IDENTITY_MOCK_MODE === 'true'
 
 const MOCK_CHATGPT_REDIRECT =
