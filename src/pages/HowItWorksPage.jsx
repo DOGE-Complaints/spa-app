@@ -40,8 +40,9 @@ export function HowItWorksPage() {
   const submitExternal = hasStoryGptUrl()
 
   return (
-    <div className="board-shell">
+    <div className="board-shell how-it-works-route">
       <AppShell
+        className="how-it-works-shell"
         header={<Header />}
         sidebar={<Sidebar />}
         showSidebar={PUBLIC_SHELL_SHOW_SIDEBAR}
