@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import {
   isCabinetProfileLoadErrorState,
   shouldShowSessionShellOverlay,
@@ -51,8 +51,4 @@ export function AppShellLayout() {
 
 export function ProtectedProfilePage() {
   return <UserCabinetPage />
-}
-
-export function ProtectedRouteRedirect() {
-  return <Navigate to="/profile" replace />
 }
