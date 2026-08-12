@@ -1,0 +1,33 @@
+{
+  "boardFonts": {
+    "bodyFam": "Inter, system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "checkInter": true,
+    "checkJbm": true,
+    "loaded": [
+      "Inter:400",
+      "Inter:500",
+      "Inter:600",
+      "JetBrains Mono:400"
+    ]
+  },
+  "issueState": {
+    "placeholder": false,
+    "hasDefault": false,
+    "mono": 0,
+    "meta": false
+  },
+  "issueFonts": {
+    "monoCount": 1,
+    "probeInjected": true,
+    "fontFamily": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    "checkJbm": true,
+    "used": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+  },
+  "fontReqs": [
+    "http://127.0.0.1:4173/fonts/inter/Inter-Regular.woff2",
+    "http://127.0.0.1:4173/fonts/inter/Inter-SemiBold.woff2",
+    "http://127.0.0.1:4173/fonts/inter/Inter-Medium.woff2",
+    "http://127.0.0.1:4173/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2"
+  ],
+  "cdnHits": []
+}

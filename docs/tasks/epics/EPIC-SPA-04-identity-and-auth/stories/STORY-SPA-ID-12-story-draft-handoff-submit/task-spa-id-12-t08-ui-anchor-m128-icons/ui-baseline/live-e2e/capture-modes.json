@@ -1,0 +1,11 @@
+{
+  "b-login-m128": "live",
+  "a-resolving-m128": "hybrid",
+  "c-preview-m128": "hybrid",
+  "d-verify-m128": "hybrid",
+  "e-submitting-m128": "hybrid",
+  "f-submitted-m128": "hybrid",
+  "g-expired-m128": "dev_handoff",
+  "h-service-down-m128": "dev_handoff",
+  "e0-empty-m128": "dev_handoff"
+}
