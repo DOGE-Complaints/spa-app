@@ -1,5 +1,11 @@
-/** Dev/test fallback when VITE_IDENTITY_SERVICE_URL is unset (FR-HL-04.3). */
-export const IDENTITY_SERVICE_DEV_FALLBACK = 'http://localhost:8100'
+/**
+ * Dev/test fallback when VITE_IDENTITY_SERVICE_URL is unset (FR-HL-04.3).
+ * Prod Vite builds fold `import.meta.env.PROD` → true so the localhost
+ * literal is DCE'd (BUG-05 / HL-02 bake). Vitest keeps PROD false.
+ */
+export const IDENTITY_SERVICE_DEV_FALLBACK = import.meta.env.PROD
+  ? ''
+  : 'http://localhost:8100'
 
 /**
  * Resolve identity service base URL (HL-04 / F8).
