@@ -21,6 +21,7 @@ export const EARLY_SIGNAL_DICTIONARY_EN = Object.freeze({
     },
     forming: {
       title: 'The Picture Is Forming',
+      message: 'Different Stories are beginning to reveal relationships across shared experiences.',
     },
     emerging: {
       title: 'Emerging Signals',
@@ -32,9 +33,17 @@ export const EARLY_SIGNAL_DICTIONARY_EN = Object.freeze({
     },
     missing: {
       title: "What's Missing",
+      intro: 'Some parts of the picture are still uncertain.',
+      areas: 'Areas',
+      languages: 'Languages',
+      groups: 'Groups',
+      themes: 'Themes',
     },
     help: {
       title: 'Help Complete the Picture',
+      message: 'Share a civic Story to strengthen what the network can see.',
+      submit: 'Submit a story',
+      submitAccessible: 'Submit a story. Opens DOGEstonia GPT in an external service.',
     },
   },
 })
@@ -60,6 +69,7 @@ export const EARLY_SIGNAL_DICTIONARY_ET = Object.freeze({
     },
     forming: {
       title: 'Pilt kujuneb',
+      message: 'Erinevad lood hakkavad paljastama seoseid ühiste kogemuste vahel.',
     },
     emerging: {
       title: 'Ilmnevad signaalid',
@@ -71,9 +81,17 @@ export const EARLY_SIGNAL_DICTIONARY_ET = Object.freeze({
     },
     missing: {
       title: 'Mis puudub',
+      intro: 'Mõned osa pildist on endiselt ebaselged.',
+      areas: 'Piirkonnad',
+      languages: 'Keeled',
+      groups: 'Rühmad',
+      themes: 'Teemad',
     },
     help: {
       title: 'Aita pilti täiendada',
+      message: 'Jaga kodanikulugu, et tugevdada seda, mida võrk näeb.',
+      submit: 'Esita lugu',
+      submitAccessible: 'Esita lugu. Avab DOGEstonia GPT välises teenuses.',
     },
   },
 })
@@ -99,6 +117,7 @@ export const EARLY_SIGNAL_DICTIONARY_RU = Object.freeze({
     },
     forming: {
       title: 'Картина формируется',
+      message: 'Разные истории начинают выявлять связи между общим опытом.',
     },
     emerging: {
       title: 'Формирующиеся сигналы',
@@ -110,9 +129,17 @@ export const EARLY_SIGNAL_DICTIONARY_RU = Object.freeze({
     },
     missing: {
       title: 'Чего не хватает',
+      intro: 'Некоторые части картины ещё неясны.',
+      areas: 'Районы',
+      languages: 'Языки',
+      groups: 'Группы',
+      themes: 'Темы',
     },
     help: {
       title: 'Помогите дополнить картину',
+      message: 'Поделитесь гражданской историей, чтобы усилить то, что видит сеть.',
+      submit: 'Подать историю',
+      submitAccessible: 'Подать историю. Открывает DOGEstonia GPT во внешнем сервисе.',
     },
   },
 })
@@ -136,6 +163,7 @@ export const EARLY_SIGNAL_FLAT_KEYS = Object.freeze([
   'earlySignal.pulse.areasHonesty',
   'earlySignal.pulse.listening',
   'earlySignal.forming.title',
+  'earlySignal.forming.message',
   'earlySignal.emerging.title',
   'earlySignal.emerging.provisionalBadge',
   'earlySignal.emerging.cardHelper',
@@ -143,5 +171,13 @@ export const EARLY_SIGNAL_FLAT_KEYS = Object.freeze([
   'earlySignal.emerging.storyCount',
   'earlySignal.emerging.weaken',
   'earlySignal.missing.title',
+  'earlySignal.missing.intro',
+  'earlySignal.missing.areas',
+  'earlySignal.missing.languages',
+  'earlySignal.missing.groups',
+  'earlySignal.missing.themes',
   'earlySignal.help.title',
+  'earlySignal.help.message',
+  'earlySignal.help.submit',
+  'earlySignal.help.submitAccessible',
 ])

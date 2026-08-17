@@ -1,3 +1,6 @@
 export { EarlySignalDiscovery } from './EarlySignalDiscovery.jsx'
 export { NetworkPulseBlock } from './NetworkPulseBlock.jsx'
 export { EmergingSignalsBlock } from './EmergingSignalsBlock.jsx'
+export { PictureFormingBlock } from './PictureFormingBlock.jsx'
+export { WhatsMissingBlock } from './WhatsMissingBlock.jsx'
+export { HelpCompleteBlock } from './HelpCompleteBlock.jsx'

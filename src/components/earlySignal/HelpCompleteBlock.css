@@ -1,0 +1,51 @@
+.help-complete-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.help-complete-block__chrome {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.help-complete-block__mascot {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.help-complete-block__marks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+}
+
+.help-complete-block__message {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.help-complete-block [data-testid='help-complete-cta'] {
+  min-height: 44px;
+}
+
+.help-complete-block__cta-icon,
+.help-complete-block__chevron {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 720px) {
+  .help-complete-block [data-testid='help-complete-cta'] {
+    width: 100%;
+  }
+}
