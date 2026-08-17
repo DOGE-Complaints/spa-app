@@ -257,4 +257,18 @@ describe('IssueCard', () => {
     expect(html).toContain('translation-marker-untranslated-label')
     expect(html).toContain('No translation')
   })
+
+  it('adds catalog topic icon only for mapped labels (waste), not invented taxonomy', () => {
+    const html = renderIssueCard(
+      <IssueCard
+        issue={minimalIssue}
+        locale="en"
+        resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
+      />,
+    )
+    expect(html).toContain('/icons/early-signal-dashboard/ic-issue-topic-waste.png')
+    expect(html).not.toContain('ic-issue-topic-infrastructure')
+    expect(html).not.toContain('ic-field-category')
+  })
 })

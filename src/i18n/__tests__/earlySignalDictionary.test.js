@@ -27,7 +27,7 @@ function collectStrings(value, acc = []) {
 }
 
 describe('earlySignal dictionary SSOT', () => {
-  it('lists ES-01…ES-04 discovery / pulse / emerging / coverage keys', () => {
+  it('lists ES-01…ES-05 discovery / pulse / emerging / coverage / continuum keys', () => {
     expect(EARLY_SIGNAL_FLAT_KEYS).toEqual([
       'earlySignal.discovery.rootLabel',
       'earlySignal.discovery.intro',
@@ -58,6 +58,10 @@ describe('earlySignal dictionary SSOT', () => {
       'earlySignal.help.message',
       'earlySignal.help.submit',
       'earlySignal.help.submitAccessible',
+      'earlySignal.continuum.title',
+      'earlySignal.continuum.message',
+      'earlySignal.continuum.residualHint',
+      'earlySignal.continuum.viewIssues',
     ])
   })
 
