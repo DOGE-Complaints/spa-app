@@ -1,0 +1,77 @@
+.early-signal-discovery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 920px;
+}
+
+.early-signal-discovery__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.early-signal-discovery__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.early-signal-discovery__lede {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  max-width: 52rem;
+}
+
+.early-signal-slots {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.early-signal-slot {
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 10px;
+  background: var(--color-bg-secondary);
+  min-height: 72px;
+}
+
+.early-signal-slot--pulse,
+.early-signal-slot--forming,
+.early-signal-slot--help {
+  grid-column: 1 / -1;
+}
+
+.early-signal-slot--forming {
+  min-height: 168px;
+}
+
+.early-signal-slot__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 720px) {
+  .early-signal-slots {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .early-signal-slot--pulse,
+  .early-signal-slot--forming,
+  .early-signal-slot--emerging,
+  .early-signal-slot--missing,
+  .early-signal-slot--help {
+    grid-column: 1;
+  }
+
+  .early-signal-slot--forming {
+    min-height: 120px;
+  }
+}

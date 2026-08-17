@@ -29,6 +29,7 @@ import {
 } from '../i18n/collectInstitutionsFromIssues.js'
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
+import { EarlySignalDiscovery } from '../components/earlySignal/index.js'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
@@ -322,18 +323,7 @@ export function BoardPage() {
             </section>
           ) : null}
 
-          {!loading && showEmptyBoard ? (
-            <div className="board-feed-state board-no-issues" data-testid="board-empty" role="status">
-              <img
-                className="board-feed-state-icon"
-                src="/icons/public-home/ic-empty-board.png"
-                alt=""
-                aria-hidden="true"
-              />
-              <h3>{t('publicHome.board.empty.title')}</h3>
-              <p>{t('publicHome.board.empty.message')}</p>
-            </div>
-          ) : null}
+          {!loading && showEmptyBoard ? <EarlySignalDiscovery /> : null}
 
           {!loading && showFilteredEmpty ? (
             <div className="board-feed-state board-no-results" data-testid="board-filtered-empty" role="status">
