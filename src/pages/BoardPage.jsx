@@ -29,7 +29,7 @@ import {
 } from '../i18n/collectInstitutionsFromIssues.js'
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
-import { EarlySignalDiscovery } from '../components/earlySignal/index.js'
+import { ContinuumResidual, EarlySignalDiscovery } from '../components/earlySignal/index.js'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
@@ -338,19 +338,27 @@ export function BoardPage() {
           ) : null}
 
           {showResults ? (
-            <section className="board-feed" data-testid="board-feed" aria-label="Issue feed">
-              {filteredIssues.map((item) => (
-                <IssueCard
-                  key={item.id}
-                  issue={item}
-                  locale={locale}
-                  resolveLocalizedText={resolveLocalizedText}
-                  t={t}
-                  showOpenAffordance
-                  to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                />
-              ))}
-            </section>
+            <div className="board-continuum" data-testid="board-continuum">
+              <section
+                className="board-feed"
+                id="issue-feed"
+                data-testid="board-feed"
+                aria-label="Issue feed"
+              >
+                {filteredIssues.map((item) => (
+                  <IssueCard
+                    key={item.id}
+                    issue={item}
+                    locale={locale}
+                    resolveLocalizedText={resolveLocalizedText}
+                    t={t}
+                    showOpenAffordance
+                    to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                  />
+                ))}
+              </section>
+              <ContinuumResidual />
+            </div>
           ) : null}
 
       </AppShell>

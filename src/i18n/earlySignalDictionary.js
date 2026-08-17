@@ -45,6 +45,12 @@ export const EARLY_SIGNAL_DICTIONARY_EN = Object.freeze({
       submit: 'Submit a story',
       submitAccessible: 'Submit a story. Opens DOGEstonia GPT in an external service.',
     },
+    continuum: {
+      title: 'Issues and discovery',
+      message: 'Discovery continues for other Stories still taking shape.',
+      residualHint: 'Some civic material is still forming alongside confirmed Issues.',
+      viewIssues: 'View Issues',
+    },
   },
 })
 
@@ -92,6 +98,12 @@ export const EARLY_SIGNAL_DICTIONARY_ET = Object.freeze({
       message: 'Jaga kodanikulugu, et tugevdada seda, mida võrk näeb.',
       submit: 'Esita lugu',
       submitAccessible: 'Esita lugu. Avab DOGEstonia GPT välises teenuses.',
+    },
+    continuum: {
+      title: 'Teemad ja avastus',
+      message: 'Avastus jätkub teiste lugude jaoks, mis alles kujunevad.',
+      residualHint: 'Osa kodanikuteemadest alles kujuneb kinnitatud teemade kõrval.',
+      viewIssues: 'Vaata teemasid',
     },
   },
 })
@@ -141,6 +153,12 @@ export const EARLY_SIGNAL_DICTIONARY_RU = Object.freeze({
       submit: 'Подать историю',
       submitAccessible: 'Подать историю. Открывает DOGEstonia GPT во внешнем сервисе.',
     },
+    continuum: {
+      title: 'Темы и обнаружение',
+      message: 'Обнаружение продолжается для других историй, которые ещё формируются.',
+      residualHint: 'Часть гражданских материалов ещё формируется рядом с подтверждёнными темами.',
+      viewIssues: 'Смотреть темы',
+    },
   },
 })
 
@@ -180,4 +198,8 @@ export const EARLY_SIGNAL_FLAT_KEYS = Object.freeze([
   'earlySignal.help.message',
   'earlySignal.help.submit',
   'earlySignal.help.submitAccessible',
+  'earlySignal.continuum.title',
+  'earlySignal.continuum.message',
+  'earlySignal.continuum.residualHint',
+  'earlySignal.continuum.viewIssues',
 ])

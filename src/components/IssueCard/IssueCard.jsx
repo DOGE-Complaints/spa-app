@@ -7,6 +7,7 @@ import {
 } from '../../i18n/translationMarkers.js'
 import { TranslationMarker } from '../TranslationMarker/TranslationMarker.jsx'
 import { StatusBadge } from '../StatusBadge.jsx'
+import { topicIconForLabel } from '../../i18n/issueTopicIcons.js'
 import './IssueCard.css'
 
 /**
@@ -90,14 +91,26 @@ export function IssueCard({
       </h3>
       <div className="issue-card-labels">
         <span className="issue-card-chip issue-card-chip-type">{typeDisplay}</span>
-        {labelChips.map((chip) => (
-          <span key={chip.key} className="issue-card-chip">
-            {chip.text}
-            {chip.usedHumanize ? (
-              <TranslationMarker kind="untranslated-label" locale={locale} t={t} />
-            ) : null}
-          </span>
-        ))}
+        {labelChips.map((chip) => {
+          const topicSrc = topicIconForLabel(chip.key)
+          return (
+            <span key={chip.key} className="issue-card-chip">
+              {topicSrc ? (
+                <img
+                  src={topicSrc}
+                  alt=""
+                  className="issue-card-chip-topic"
+                  width={12}
+                  height={12}
+                />
+              ) : null}
+              {chip.text}
+              {chip.usedHumanize ? (
+                <TranslationMarker kind="untranslated-label" locale={locale} t={t} />
+              ) : null}
+            </span>
+          )
+        })}
       </div>
       {dateText ? (
         <div className="issue-card-date">

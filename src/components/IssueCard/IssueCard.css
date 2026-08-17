@@ -105,12 +105,23 @@
 }
 
 .issue-card-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.7rem;
   letter-spacing: 0.04em;
   padding: 4px 8px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--color-text-secondary);
+}
+
+.issue-card-chip-topic {
+  display: block;
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .issue-card-chip-type {

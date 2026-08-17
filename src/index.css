@@ -278,12 +278,39 @@ body {
   display: none; /* PH-04: columns removed — kept only to avoid stale class flashes */
 }
 
+.board-continuum {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.board-continuum .board-feed {
+  max-width: none;
+}
+
 .board-feed {
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
   max-width: 920px;
+}
+
+@media (max-width: 900px) {
+  .board-continuum {
+    grid-template-columns: 1fr;
+  }
+
+  .board-continuum .board-feed {
+    order: 1;
+  }
+
+  .board-continuum .continuum-residual {
+    order: 2;
+  }
 }
 
 .board-feed[aria-busy='true'] {
