@@ -1,4 +1,4 @@
-/** Early Signal discovery chrome — STORY-SPA-ES-01 L10N table (en canon M136). */
+/** Early Signal discovery + Pulse L10N (en canon M136/M137). */
 
 export const EARLY_SIGNAL_DICTIONARY_EN = Object.freeze({
   earlySignal: {
@@ -8,6 +8,16 @@ export const EARLY_SIGNAL_DICTIONARY_EN = Object.freeze({
     },
     pulse: {
       title: 'Network Pulse',
+      omitMessage: 'Stories are already shaping a collective picture.',
+      metric: {
+        stories: 'Stories',
+        areas: 'Areas',
+        languages: 'Languages',
+        topics: 'Topics',
+        activity: 'Recent activity',
+      },
+      areasHonesty: 'A small sample of areas is not city-wide coverage.',
+      listening: 'The network is listening for civic Stories.',
     },
     forming: {
       title: 'The Picture Is Forming',
@@ -32,6 +42,16 @@ export const EARLY_SIGNAL_DICTIONARY_ET = Object.freeze({
     },
     pulse: {
       title: 'Võrgu pulss',
+      omitMessage: 'Lood kujundavad juba ühist pilti.',
+      metric: {
+        stories: 'Lood',
+        areas: 'Piirkonnad',
+        languages: 'Keeled',
+        topics: 'Teemad',
+        activity: 'Hiljutine aktiivsus',
+      },
+      areasHonesty: 'Väike piirkondade valim ei ole linna katvus.',
+      listening: 'Võrk kuulab kodanike lugusid.',
     },
     forming: {
       title: 'Pilt kujuneb',
@@ -56,6 +76,16 @@ export const EARLY_SIGNAL_DICTIONARY_RU = Object.freeze({
     },
     pulse: {
       title: 'Пульс сети',
+      omitMessage: 'Истории уже формируют общую картину.',
+      metric: {
+        stories: 'Истории',
+        areas: 'Районы',
+        languages: 'Языки',
+        topics: 'Темы',
+        activity: 'Недавняя активность',
+      },
+      areasHonesty: 'Небольшая выборка районов — не покрытие всего города.',
+      listening: 'Сеть принимает гражданские истории.',
     },
     forming: {
       title: 'Картина формируется',
@@ -82,6 +112,14 @@ export const EARLY_SIGNAL_FLAT_KEYS = Object.freeze([
   'earlySignal.discovery.rootLabel',
   'earlySignal.discovery.intro',
   'earlySignal.pulse.title',
+  'earlySignal.pulse.omitMessage',
+  'earlySignal.pulse.metric.stories',
+  'earlySignal.pulse.metric.areas',
+  'earlySignal.pulse.metric.languages',
+  'earlySignal.pulse.metric.topics',
+  'earlySignal.pulse.metric.activity',
+  'earlySignal.pulse.areasHonesty',
+  'earlySignal.pulse.listening',
   'earlySignal.forming.title',
   'earlySignal.emerging.title',
   'earlySignal.missing.title',

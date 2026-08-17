@@ -1,0 +1,130 @@
+.network-pulse-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.network-pulse-block__chrome {
+  display: flex;
+  align-items: center;
+}
+
+.network-pulse-block__mark {
+  display: block;
+  opacity: 0.9;
+}
+
+.network-pulse-density {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 18px;
+}
+
+.network-pulse-density span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent, #f5a623);
+  opacity: 0.28;
+  animation: network-pulse-dot 2.4s ease-in-out infinite;
+}
+
+.network-pulse-density span:nth-child(2) {
+  animation-delay: 0.2s;
+  opacity: 0.4;
+}
+.network-pulse-density span:nth-child(3) {
+  animation-delay: 0.4s;
+  width: 8px;
+  height: 8px;
+  opacity: 0.55;
+}
+.network-pulse-density span:nth-child(4) {
+  animation-delay: 0.6s;
+  opacity: 0.35;
+}
+.network-pulse-density span:nth-child(5) {
+  animation-delay: 0.8s;
+  opacity: 0.22;
+}
+
+@keyframes network-pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.22;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .network-pulse-density span {
+    animation: none;
+  }
+}
+
+.network-pulse-omit-copy,
+.network-pulse-honesty,
+.network-pulse-listening {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.network-pulse-listening {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.network-pulse-listening__icon {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.network-pulse-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.network-pulse-metric {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.network-pulse-metric__icon {
+  display: block;
+}
+
+.network-pulse-metric__label {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+}
+
+.network-pulse-metric__value {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 720px) {
+  .network-pulse-metrics {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
