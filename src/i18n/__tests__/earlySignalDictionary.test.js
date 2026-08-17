@@ -25,7 +25,7 @@ function collectStrings(value, acc = []) {
 }
 
 describe('earlySignal dictionary SSOT', () => {
-  it('lists ES-01 discovery + ES-02 pulse keys', () => {
+  it('lists ES-01 discovery + ES-02 pulse + ES-03 emerging keys', () => {
     expect(EARLY_SIGNAL_FLAT_KEYS).toEqual([
       'earlySignal.discovery.rootLabel',
       'earlySignal.discovery.intro',
@@ -40,6 +40,11 @@ describe('earlySignal dictionary SSOT', () => {
       'earlySignal.pulse.listening',
       'earlySignal.forming.title',
       'earlySignal.emerging.title',
+      'earlySignal.emerging.provisionalBadge',
+      'earlySignal.emerging.cardHelper',
+      'earlySignal.emerging.empty',
+      'earlySignal.emerging.storyCount',
+      'earlySignal.emerging.weaken',
       'earlySignal.missing.title',
       'earlySignal.help.title',
     ])

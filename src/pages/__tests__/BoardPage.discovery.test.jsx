@@ -10,6 +10,7 @@ import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { LOCALE_STORAGE_KEY } from '../../i18n/core.js'
 import { issueService } from '../../services/issueService.js'
 import { getNetworkPulse } from '../../services/networkPulseService.js'
+import { getEmergingSignals } from '../../services/emergingSignalsService.js'
 
 vi.mock('../../services/issueService.js', () => ({
   issueService: {
@@ -20,6 +21,10 @@ vi.mock('../../services/issueService.js', () => ({
 
 vi.mock('../../services/networkPulseService.js', () => ({
   getNetworkPulse: vi.fn(),
+}))
+
+vi.mock('../../services/emergingSignalsService.js', () => ({
+  getEmergingSignals: vi.fn(),
 }))
 
 function renderBoard(pathName = '/board') {
@@ -42,6 +47,8 @@ describe('BoardPage ES-01 discovery empty', () => {
     issueService.getIssues.mockReset()
     getNetworkPulse.mockReset()
     getNetworkPulse.mockResolvedValue({ status: 'omit', slots: [] })
+    getEmergingSignals.mockReset()
+    getEmergingSignals.mockResolvedValue({ status: 'empty', cards: [] })
   })
 
   it('renders discovery root when unfiltered issues list is empty', async () => {
