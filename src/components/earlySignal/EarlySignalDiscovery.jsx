@@ -1,5 +1,6 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { NetworkPulseBlock } from './NetworkPulseBlock.jsx'
+import { EmergingSignalsBlock } from './EmergingSignalsBlock.jsx'
 import './EarlySignalDiscovery.css'
 
 const DISCOVERY_SLOTS = Object.freeze([
@@ -12,7 +13,7 @@ const DISCOVERY_SLOTS = Object.freeze([
 
 /**
  * Pre-cluster discovery composition (M136 / ES-01).
- * Pulse HTTP/bind-or-omit: ES-02. Emerging/Help remain titled placeholders until ES-03/04.
+ * Pulse HTTP/bind-or-omit: ES-02. Emerging HTTP/cards-or-empty: ES-03. Help remains titled placeholder until ES-04.
  */
 export function EarlySignalDiscovery() {
   const { t } = useI18n()
@@ -40,6 +41,7 @@ export function EarlySignalDiscovery() {
               {t(slot.titleKey)}
             </h3>
             {slot.id === 'pulse' ? <NetworkPulseBlock /> : null}
+            {slot.id === 'emerging' ? <EmergingSignalsBlock /> : null}
           </section>
         ))}
       </div>

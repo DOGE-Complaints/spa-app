@@ -1,0 +1,139 @@
+.emerging-signals-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.emerging-signals-block--empty {
+  align-items: flex-start;
+}
+
+.emerging-signals-block__empty-icon {
+  display: block;
+  opacity: 0.75;
+}
+
+.emerging-signals-empty-copy {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.emerging-signals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.emerging-signal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.emerging-signal-card__chrome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emerging-signal-card__marker {
+  display: block;
+  opacity: 0.9;
+}
+
+.emerging-signal-card__badge {
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.emerging-signal-card__label {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.emerging-signal-card__axis,
+.emerging-signal-card__helper,
+.emerging-signal-card__count {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.emerging-signal-card__count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.emerging-signal-card__count-icon {
+  display: block;
+}
+
+.emerging-signals-density {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 12px;
+}
+
+.emerging-signals-density span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent, #f5a623);
+  opacity: 0.22;
+  animation: emerging-density-dot 2.6s ease-in-out infinite;
+}
+
+.emerging-signals-density span:nth-child(2) {
+  animation-delay: 0.25s;
+  opacity: 0.38;
+}
+
+.emerging-signals-density span:nth-child(3) {
+  animation-delay: 0.5s;
+  opacity: 0.28;
+}
+
+.emerging-signals-density--empty span {
+  opacity: 0.16;
+}
+
+@keyframes emerging-density-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.16;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emerging-signals-density span {
+    animation: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .emerging-signal-card {
+    width: 100%;
+  }
+}

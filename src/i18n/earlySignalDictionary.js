@@ -24,6 +24,11 @@ export const EARLY_SIGNAL_DICTIONARY_EN = Object.freeze({
     },
     emerging: {
       title: 'Emerging Signals',
+      provisionalBadge: 'Provisional',
+      cardHelper: 'A provisional relationship is beginning to appear across submitted Stories.',
+      empty: 'No provisional patterns to show yet.',
+      storyCount: '{count} Stories',
+      weaken: 'This pattern is becoming less clear as new Stories arrive.',
     },
     missing: {
       title: "What's Missing",
@@ -58,6 +63,11 @@ export const EARLY_SIGNAL_DICTIONARY_ET = Object.freeze({
     },
     emerging: {
       title: 'Ilmnevad signaalid',
+      provisionalBadge: 'Esialgne',
+      cardHelper: 'Esialgne seos hakkab ilmnema esitatud lugude vahel.',
+      empty: 'Esialgseid mustreid pole veel näidata.',
+      storyCount: '{count} lugu',
+      weaken: 'See muster muutub uute lugudega ebaselgemaks.',
     },
     missing: {
       title: 'Mis puudub',
@@ -92,6 +102,11 @@ export const EARLY_SIGNAL_DICTIONARY_RU = Object.freeze({
     },
     emerging: {
       title: 'Формирующиеся сигналы',
+      provisionalBadge: 'Предварительно',
+      cardHelper: 'Между поданными историями начинает проявляться предварительная связь.',
+      empty: 'Пока нет предварительных паттернов для показа.',
+      storyCount: '{count} историй',
+      weaken: 'Этот паттерн становится менее ясным по мере новых историй.',
     },
     missing: {
       title: 'Чего не хватает',
@@ -122,6 +137,11 @@ export const EARLY_SIGNAL_FLAT_KEYS = Object.freeze([
   'earlySignal.pulse.listening',
   'earlySignal.forming.title',
   'earlySignal.emerging.title',
+  'earlySignal.emerging.provisionalBadge',
+  'earlySignal.emerging.cardHelper',
+  'earlySignal.emerging.empty',
+  'earlySignal.emerging.storyCount',
+  'earlySignal.emerging.weaken',
   'earlySignal.missing.title',
   'earlySignal.help.title',
 ])
