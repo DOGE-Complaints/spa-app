@@ -9,12 +9,17 @@ import { BoardPage } from '../BoardPage.jsx'
 import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { LOCALE_STORAGE_KEY } from '../../i18n/core.js'
 import { issueService } from '../../services/issueService.js'
+import { getNetworkPulse } from '../../services/networkPulseService.js'
 
 vi.mock('../../services/issueService.js', () => ({
   issueService: {
     getIssues: vi.fn(),
     getIssue: vi.fn(),
   },
+}))
+
+vi.mock('../../services/networkPulseService.js', () => ({
+  getNetworkPulse: vi.fn(),
 }))
 
 function renderBoard(pathName = '/board') {
@@ -35,6 +40,8 @@ describe('BoardPage ES-01 discovery empty', () => {
   beforeEach(() => {
     localStorage.setItem(LOCALE_STORAGE_KEY, 'en')
     issueService.getIssues.mockReset()
+    getNetworkPulse.mockReset()
+    getNetworkPulse.mockResolvedValue({ status: 'omit', slots: [] })
   })
 
   it('renders discovery root when unfiltered issues list is empty', async () => {
