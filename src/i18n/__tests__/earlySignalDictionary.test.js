@@ -11,6 +11,8 @@ const ES01_FORBIDDEN = [
   /\btrending\b/i,
   /\bmajority\b/i,
   /\bconsensus\b/i,
+  /coverage \d+%/i,
+  /3 more Stories needed/i,
 ]
 
 function collectStrings(value, acc = []) {
@@ -25,7 +27,7 @@ function collectStrings(value, acc = []) {
 }
 
 describe('earlySignal dictionary SSOT', () => {
-  it('lists ES-01 discovery + ES-02 pulse + ES-03 emerging keys', () => {
+  it('lists ES-01…ES-04 discovery / pulse / emerging / coverage keys', () => {
     expect(EARLY_SIGNAL_FLAT_KEYS).toEqual([
       'earlySignal.discovery.rootLabel',
       'earlySignal.discovery.intro',
@@ -39,6 +41,7 @@ describe('earlySignal dictionary SSOT', () => {
       'earlySignal.pulse.areasHonesty',
       'earlySignal.pulse.listening',
       'earlySignal.forming.title',
+      'earlySignal.forming.message',
       'earlySignal.emerging.title',
       'earlySignal.emerging.provisionalBadge',
       'earlySignal.emerging.cardHelper',
@@ -46,7 +49,15 @@ describe('earlySignal dictionary SSOT', () => {
       'earlySignal.emerging.storyCount',
       'earlySignal.emerging.weaken',
       'earlySignal.missing.title',
+      'earlySignal.missing.intro',
+      'earlySignal.missing.areas',
+      'earlySignal.missing.languages',
+      'earlySignal.missing.groups',
+      'earlySignal.missing.themes',
       'earlySignal.help.title',
+      'earlySignal.help.message',
+      'earlySignal.help.submit',
+      'earlySignal.help.submitAccessible',
     ])
   })
 
