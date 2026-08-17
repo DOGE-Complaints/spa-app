@@ -51,15 +51,18 @@ describe('BoardPage PH-04 single feed', () => {
     expect(boardPageSource).not.toContain('board-columns')
   })
 
-  it('uses publicHome.board chrome keys (not Oops)', () => {
-    expect(boardPageSource).toContain("t('publicHome.board.empty.title')")
+  it('uses publicHome.board chrome keys for error/filtered (not Oops)', () => {
     expect(boardPageSource).toContain("t('publicHome.board.error.retry')")
+    expect(boardPageSource).toContain("t('publicHome.board.filteredEmpty.title')")
+    expect(boardPageSource).not.toContain("t('publicHome.board.empty.title')")
     expect(boardPageSource).not.toMatch(/Oops/i)
     expect(PUBLIC_HOME_FLAT_KEYS.filter((k) => k.startsWith('publicHome.board.'))).toHaveLength(10)
   })
 
-  it('uses catalog icon paths for empty and error', () => {
-    expect(boardPageSource).toContain('/icons/public-home/ic-empty-board.png')
+  it('uses catalog icon path for load error; unfiltered empty is discovery', () => {
     expect(boardPageSource).toContain('/icons/story-handoff/ic-cloud-error.png')
+    expect(boardPageSource).toContain('EarlySignalDiscovery')
+    expect(boardPageSource).not.toContain('/icons/public-home/ic-empty-board.png')
+    expect(boardPageSource).not.toContain('data-testid="board-empty"')
   })
 })

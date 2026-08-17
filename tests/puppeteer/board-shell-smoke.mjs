@@ -58,7 +58,7 @@ async function run() {
       '.board-main',
       '.board-main--no-sidebar',
       '.board-toolbar',
-      '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"]',
+      '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"], [data-testid="board-early-signal-discovery"]',
       '.board-footer',
     ]
 
@@ -82,7 +82,7 @@ async function run() {
     }
 
     const hasFeedOrState = await page.$(
-      '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"]',
+      '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"], [data-testid="board-early-signal-discovery"]',
     )
     if (!hasFeedOrState) {
       throw new Error('Expected board feed or empty/error state region')
