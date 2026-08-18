@@ -4,9 +4,10 @@
  */
 import { describe, expect, it } from 'vitest'
 import { ISSUE_STATUS, ISSUE_TYPE } from '../../domain/types.js'
+import { getVitePublicString, getVitePublicUrl } from '../../config/publicEnv.js'
 
-const GATEWAY_BASE_URL = (import.meta.env.VITE_GATEWAY_BASE_URL ?? '').trim().replace(/\/+$/, '')
-const REALITY_MODE = import.meta.env.VITE_LIFE_REALITY_MODE ?? 'FAKE-OLD'
+const GATEWAY_BASE_URL = getVitePublicUrl('VITE_GATEWAY_BASE_URL')
+const REALITY_MODE = getVitePublicString('VITE_LIFE_REALITY_MODE') || 'FAKE-OLD'
 
 const REQUIRED_ISSUE_KEYS = ['id', 'status', 'type', 'labels', 'title', 'summary', 'description']
 const ALLOWED_STATUS = new Set(Object.values(ISSUE_STATUS))
