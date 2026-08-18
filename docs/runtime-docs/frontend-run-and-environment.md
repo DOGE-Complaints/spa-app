@@ -2,7 +2,7 @@
 
 > **Тип:** runtime-docs / operator manual
 > **Метод:** `.cursor/rules/analysis.mdc` — всё сверено с фактическим кодом; указаны `file:line`.
-> **Дата сверки:** 2026-06-17.
+> **Дата сверки:** 2026-08-18 (BUG-07 · package.json `start` = `node scripts/start-spa.mjs`).
 > **SSOT по переменным:** [`.env.example`](../../.env.example). Этот мануал — пошаговый разбор поверх него.
 
 ---
@@ -36,14 +36,16 @@ npm install            # установка зависимостей
 
 | Команда | Что делает |
 |---------|-----------|
-| `npm run dev` | dev-сервер Vite (HMR). По умолчанию `http://localhost:5173`. |
-| `npm run build` | прод-сборка статики в `dist/`. |
-| `npm run preview` | локальный предпросмотр прод-сборки (Vite preview). |
-| `npm run start` | прод-превью для хостинга: `vite preview --host 0.0.0.0 --port ${PORT:-4173}`. |
+| `npm run dev` | dev-сервер Vite (HMR). Читает `.env`. По умолчанию `http://localhost:5173`. **Lane A** (local backends). |
+| `npm run build` | прод-сборка статики в `dist/` + `write-bake-meta.mjs`. |
+| `npm run preview` | локальный предпросмотр **этого** `dist` (Vite preview). Отдельный скрипт, не `start`. |
+| `npm start` | `node scripts/start-spa.mjs`: после allow спавнит `serve -s dist` на `0.0.0.0:${PORT:-4173}`. **Не** читает `.env`. Не `vite preview`. |
 | `npm test` | юнит-тесты в watch-режиме (Vitest). |
 | `npm run test:run` | юнит-тесты один прогон (`--passWithNoTests`). |
 | `npm run test:ui:*` | puppeteer smoke-тесты (board-shell, status-badge, i18n, routing, filters, details, epic03). |
 | `npm run deploy` | деплой `dist/` на Arweave (нужны `ARWEAVE_*`, см. §6). |
+
+**Три полосы (не четвёртый runbook):** Lane A `npm run dev`. Lane B `npm run build` затем `npm start` **или** `npm run preview`. Lane C после `npm run verify:build:env-bake` **не** `npm start` против localhost gateway/identity. Railway SSOT: [`deploy-guide.md`](../deploy-guide.md).
 
 **Минимальный запуск (моки, без бэка):**
 ```bash
@@ -129,7 +131,8 @@ POST {VITE_GATEWAY_BASE_URL}/telemetry/label-misses   body { label_key, locale }
 ## 7. Хостинг (Railway / статик-превью)
 
 - `npm run build` → статика в `dist/` (с `base: './'` — работает из любого подкаталога).
-- `npm run start` поднимает прод-превью на `0.0.0.0:${PORT:-4173}`; платформы вроде Railway сами выставляют `PORT`.
+- `npm start` → `scripts/start-spa.mjs` (после allow — `serve -s dist` на `0.0.0.0:${PORT:-4173}`). Railway выставляет `PORT`. Не путать с `npm run preview`.
+- После `npm run verify:build:env-bake` не используйте `npm start` против localhost gateway/identity.
 - Все `VITE_*` фиксируются **на этапе build** — на хостинге задавайте их **до** сборки (build-time env), не как рантайм-переменные контейнера.
 
 ---
