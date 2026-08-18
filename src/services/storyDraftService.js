@@ -1,8 +1,9 @@
 import { supabase } from '../auth/supabaseClient.js'
+import { getVitePublicString, getVitePublicUrl } from '../config/publicEnv.js'
 
-const GATEWAY_BASE_URL = String(import.meta.env.VITE_GATEWAY_BASE_URL ?? '').trim().replace(/\/+$/, '')
+const GATEWAY_BASE_URL = getVitePublicUrl('VITE_GATEWAY_BASE_URL')
 const STORY_DRAFT_MOCK_MODE =
-  import.meta.env.VITE_STORY_DRAFT_MOCK_MODE === 'true' || GATEWAY_BASE_URL.length === 0
+  getVitePublicString('VITE_STORY_DRAFT_MOCK_MODE') === 'true' || GATEWAY_BASE_URL.length === 0
 
 /** @type {Map<string, Record<string, unknown>>} */
 const mockDraftStore = new Map()

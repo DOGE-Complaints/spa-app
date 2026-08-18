@@ -1,16 +1,17 @@
 import { assertIssueRepository } from '../domain/IssueRepository.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
+import { normalizePublicBaseUrl } from '../config/publicEnv.js'
 import {
   normalizeCreatedAfterParam,
   normalizeCreatedBeforeParam,
 } from './issueReadFilters.js'
 
 function assertBaseUrl(baseUrl) {
-  const trimmed = typeof baseUrl === 'string' ? baseUrl.trim() : ''
+  const trimmed = normalizePublicBaseUrl(baseUrl)
   if (!trimmed) {
     throw new Error('GatewayIssueRepository: VITE_GATEWAY_BASE_URL is required in GFL-DRIVEN mode')
   }
-  return trimmed.replace(/\/+$/, '')
+  return trimmed
 }
 
 function appendArrayParams(params, key, values) {

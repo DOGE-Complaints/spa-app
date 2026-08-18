@@ -1,10 +1,19 @@
 import { createClient } from '@supabase/supabase-js'
 import { rememberMeAuthStorage } from './rememberMeStorage.js'
+import { getVitePublicString, getVitePublicUrl } from '../config/publicEnv.js'
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL ?? ''
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY ?? ''
+/**
+ * @param {Record<string, unknown>} [env]
+ * @returns {{ url: string, anonKey: string, ready: boolean }}
+ */
+export function resolveSupabasePublicConfig(env = import.meta.env) {
+  const url = getVitePublicUrl('VITE_SUPABASE_URL', env)
+  const anonKey = getVitePublicString('VITE_SUPABASE_ANON_KEY', env)
+  return { url, anonKey, ready: Boolean(url && anonKey) }
+}
 
-const hasSupabaseConfig = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY)
+const { url: SUPABASE_URL, anonKey: SUPABASE_ANON_KEY, ready: hasSupabaseConfig } =
+  resolveSupabasePublicConfig()
 
 if (!hasSupabaseConfig) {
   console.warn('[supabase] VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY not set. Auth will not work.')

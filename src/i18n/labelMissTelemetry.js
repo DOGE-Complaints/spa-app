@@ -1,18 +1,19 @@
 import { LOCALE_CODES } from './core.js'
+import { getVitePublicString, getVitePublicUrl } from '../config/publicEnv.js'
 
 /** @type {Set<string>} */
 const reportedInSession = new Set()
 
 /** @returns {boolean} */
 function isTelemetryEnabled() {
-  return String(import.meta.env.VITE_TELEMETRY_ENABLED ?? '').toLowerCase() === 'true'
+  return getVitePublicString('VITE_TELEMETRY_ENABLED').toLowerCase() === 'true'
 }
 
 /**
  * @returns {string} Empty when gateway base URL is not configured.
  */
 export function resolveLabelMissSinkUrl() {
-  const base = String(import.meta.env.VITE_GATEWAY_BASE_URL ?? '').trim().replace(/\/$/, '')
+  const base = getVitePublicUrl('VITE_GATEWAY_BASE_URL')
   if (!base) return ''
   return `${base}/telemetry/label-misses`
 }

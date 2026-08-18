@@ -1,7 +1,8 @@
 import { WAITLIST_ERROR_KINDS } from '../auth/waitlistFlowState.js'
+import { getVitePublicString, getVitePublicUrl } from '../config/publicEnv.js'
 
-const WAITLIST_API_URL = String(import.meta.env.VITE_WAITLIST_API_URL ?? '').trim().replace(/\/+$/, '')
-const WAITLIST_API_ENABLED = import.meta.env.VITE_WAITLIST_API_ENABLED === 'true'
+const WAITLIST_API_URL = getVitePublicUrl('VITE_WAITLIST_API_URL')
+const WAITLIST_API_ENABLED = getVitePublicString('VITE_WAITLIST_API_ENABLED') === 'true'
 const WAITLIST_MOCK_MODE = !WAITLIST_API_ENABLED || WAITLIST_API_URL.length === 0
 
 /** @type {Set<string>} */

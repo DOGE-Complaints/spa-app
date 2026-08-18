@@ -2,6 +2,7 @@ import { assertIssueRepository } from '../domain/IssueRepository.js'
 import { createInMemoryIssueRepository } from '../repositories/InMemoryIssueRepository.js'
 import { createGatewayIssueRepository } from '../repositories/GatewayIssueRepository.js'
 import { ROUTING_DEMO_ISSUES } from '../router/mockIssues.js'
+import { getVitePublicString, getVitePublicUrl } from '../config/publicEnv.js'
 
 /**
  * @typedef {Object} IssueService
@@ -27,8 +28,8 @@ export function createIssueService(repository) {
   }
 }
 
-const REALITY_MODE = import.meta.env.VITE_LIFE_REALITY_MODE ?? 'FAKE-OLD'
-const GATEWAY_BASE_URL = import.meta.env.VITE_GATEWAY_BASE_URL ?? ''
+const REALITY_MODE = getVitePublicString('VITE_LIFE_REALITY_MODE') || 'FAKE-OLD'
+const GATEWAY_BASE_URL = getVitePublicUrl('VITE_GATEWAY_BASE_URL')
 
 export function resolveIssueRepositoryForMode(mode, gatewayBaseUrl = '') {
   if (mode === 'GFL-DRIVEN') {

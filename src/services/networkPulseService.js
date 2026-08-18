@@ -1,8 +1,9 @@
 import { createGatewayNetworkPulseRepository } from '../repositories/GatewayNetworkPulseRepository.js'
 import { bindNetworkPulse } from '../domain/bindNetworkPulse.js'
+import { getVitePublicString, getVitePublicUrl } from '../config/publicEnv.js'
 
-const REALITY_MODE = import.meta.env.VITE_LIFE_REALITY_MODE ?? 'FAKE-OLD'
-const GATEWAY_BASE_URL = import.meta.env.VITE_GATEWAY_BASE_URL ?? ''
+const REALITY_MODE = getVitePublicString('VITE_LIFE_REALITY_MODE') || 'FAKE-OLD'
+const GATEWAY_BASE_URL = getVitePublicUrl('VITE_GATEWAY_BASE_URL')
 
 export function resolveNetworkPulseRepositoryForMode(mode, gatewayBaseUrl = '') {
   const url = typeof gatewayBaseUrl === 'string' ? gatewayBaseUrl.trim() : ''

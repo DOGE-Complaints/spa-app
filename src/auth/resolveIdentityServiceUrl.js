@@ -1,3 +1,5 @@
+import { getVitePublicString } from '../config/publicEnv.js'
+
 /**
  * Dev/test fallback when VITE_IDENTITY_SERVICE_URL is unset (FR-HL-04.3).
  * Prod Vite builds fold `import.meta.env.PROD` → true so the localhost
@@ -17,8 +19,7 @@ export const IDENTITY_SERVICE_DEV_FALLBACK = import.meta.env.PROD
  * @returns {string}
  */
 export function resolveIdentityServiceUrl(env = import.meta.env) {
-  const raw = env?.VITE_IDENTITY_SERVICE_URL
-  const trimmed = typeof raw === 'string' ? raw.trim() : ''
+  const trimmed = getVitePublicString('VITE_IDENTITY_SERVICE_URL', env)
   if (trimmed) {
     return trimmed
   }
