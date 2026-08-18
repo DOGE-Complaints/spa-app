@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/write-bake-meta.mjs",
     "preview": "vite preview",
-    "start": "serve -s dist -l tcp://0.0.0.0:${PORT:-4173}",
+    "start": "node scripts/start-spa.mjs",
     "test": "vitest",
     "test:run": "vitest run --passWithNoTests",
     "test:guard:bundle": "node ./scripts/verify-bundle-no-service-role.mjs",
