@@ -7,6 +7,7 @@ import {
 } from '../../i18n/translationMarkers.js'
 import { TranslationMarker } from '../TranslationMarker/TranslationMarker.jsx'
 import { StatusBadge } from '../StatusBadge.jsx'
+import { SchemaCardOverlay } from '../SchemaCardOverlay/SchemaCardOverlay.jsx'
 import { topicIconForLabel } from '../../i18n/issueTopicIcons.js'
 import './IssueCard.css'
 
@@ -123,6 +124,7 @@ export function IssueCard({
       {footerText ? (
         <footer className="issue-card-footer">{footerText}</footer>
       ) : null}
+      <SchemaCardOverlay schemaCard={issue.schema_card} t={t} density="compact" />
       {showOpenAffordance ? (
         <div className="issue-card-open-affordance" aria-hidden="true">
           <span className="issue-card-open-label">

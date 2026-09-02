@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { StatusBadge } from '../components/StatusBadge.jsx'
+import { SchemaCardOverlay } from '../components/SchemaCardOverlay/SchemaCardOverlay.jsx'
 import { TranslationMarker } from '../components/TranslationMarker/TranslationMarker.jsx'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
@@ -132,6 +133,7 @@ export function IssuePage() {
               </p>
             </section>
           ) : null}
+          <SchemaCardOverlay schemaCard={issue.schema_card} t={t} density="detail" />
           <section className="issue-details-metadata">
             {issue.labels?.length > 0 ? (
               <div className="issue-details-metadata-row">
