@@ -258,8 +258,25 @@ describe('IssueCard', () => {
     expect(html).toContain('No translation')
   })
 
-  it('adds catalog topic icon only for mapped labels (waste), not invented taxonomy', () => {
-    const html = renderIssueCard(
+  it('shows schema overlay when schema_card non-empty; none when absent', () => {
+    const withCard = {
+      ...minimalIssue,
+      schema_card: {
+        'signals.desired_outcome': 'fix lighting',
+      },
+    }
+    const htmlOverlay = renderIssueCard(
+      <IssueCard
+        issue={withCard}
+        locale="en"
+        resolveLocalizedText={(f) => resolveLocalizedText(f, 'en')}
+        t={makeT('en')}
+      />,
+    )
+    expect(htmlOverlay).toContain('schema-card-overlay')
+    expect(htmlOverlay).toContain('Desired outcome')
+
+    const htmlCivic = renderIssueCard(
       <IssueCard
         issue={minimalIssue}
         locale="en"
@@ -267,8 +284,6 @@ describe('IssueCard', () => {
         t={makeT('en')}
       />,
     )
-    expect(html).toContain('/icons/early-signal-dashboard/ic-issue-topic-waste.png')
-    expect(html).not.toContain('ic-issue-topic-infrastructure')
-    expect(html).not.toContain('ic-field-category')
+    expect(htmlCivic).not.toContain('schema-card-overlay')
   })
 })
