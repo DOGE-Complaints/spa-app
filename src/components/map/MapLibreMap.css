@@ -1,0 +1,15 @@
+.maplibre-map-root {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b121e;
+}
+
+.maplibre-map-canvas {
+  width: 100%;
+  height: min(62vh, 560px);
+  min-height: 420px;
+}

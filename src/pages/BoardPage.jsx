@@ -31,6 +31,8 @@ import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptions
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { ContinuumResidual, EarlySignalDiscovery } from '../components/earlySignal/index.js'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
+import { ListMapToggle, BoardIssuesMap } from '../components/map/index.js'
+import { isMapEligible } from '../map/issueGeo.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 
@@ -50,6 +52,7 @@ export function BoardPage() {
   const [issues, setIssues] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [boardView, setBoardView] = useState('list')
   const { locale, t, resolveLocalizedText } = useI18n()
   const submitHref = getStoryGptHref()
   const submitExternal = hasStoryGptUrl()
@@ -163,6 +166,13 @@ export function BoardPage() {
   const showFilteredEmpty =
     !loading && !error && hasActiveBoardFilters(boardFilters) && filteredIssues.length === 0
   const showResults = !loading && !error && filteredIssues.length > 0
+  const mapEligible = useMemo(() => isMapEligible(filteredIssues), [filteredIssues])
+
+  useEffect(() => {
+    if (!mapEligible && boardView === 'map') {
+      setBoardView('list')
+    }
+  }, [mapEligible, boardView])
 
   return (
     <main className="board-shell" aria-label="Issue Board">
@@ -275,6 +285,14 @@ export function BoardPage() {
                 />
               </div>
               <ActiveFilterChips chips={activeFilterChips} onRemove={removeChip} />
+              {showResults ? (
+                <ListMapToggle
+                  view={boardView}
+                  onChange={setBoardView}
+                  mapEligible={mapEligible}
+                  t={t}
+                />
+              ) : null}
             </div>
             <a
               href={submitHref}
@@ -339,24 +357,33 @@ export function BoardPage() {
 
           {showResults ? (
             <div className="board-continuum" data-testid="board-continuum">
-              <section
-                className="board-feed"
-                id="issue-feed"
-                data-testid="board-feed"
-                aria-label="Issue feed"
-              >
-                {filteredIssues.map((item) => (
-                  <IssueCard
-                    key={item.id}
-                    issue={item}
-                    locale={locale}
-                    resolveLocalizedText={resolveLocalizedText}
-                    t={t}
-                    showOpenAffordance
-                    to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                  />
-                ))}
-              </section>
+              {boardView === 'map' && mapEligible ? (
+                <BoardIssuesMap
+                  issues={filteredIssues}
+                  resolveLocalizedText={resolveLocalizedText}
+                  t={t}
+                  boardUrlForBack={boardUrlForBack}
+                />
+              ) : (
+                <section
+                  className="board-feed"
+                  id="issue-feed"
+                  data-testid="board-feed"
+                  aria-label="Issue feed"
+                >
+                  {filteredIssues.map((item) => (
+                    <IssueCard
+                      key={item.id}
+                      issue={item}
+                      locale={locale}
+                      resolveLocalizedText={resolveLocalizedText}
+                      t={t}
+                      showOpenAffordance
+                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                    />
+                  ))}
+                </section>
+              )}
               <ContinuumResidual />
             </div>
           ) : null}

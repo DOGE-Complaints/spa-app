@@ -1,4 +1,4 @@
-/** Schema Runtime overlay L10N (en canon M141 §10). */
+/** Schema Runtime overlay + map L10N (en canon M141 §10 / M142). */
 
 export const SCHEMA_RUNTIME_DICTIONARY_EN = Object.freeze({
   schemaRuntime: {
@@ -12,6 +12,17 @@ export const SCHEMA_RUNTIME_DICTIONARY_EN = Object.freeze({
         affected_group: 'Affected group',
         service_object: 'Service object',
       },
+    },
+    map: {
+      toggle: {
+        list: 'List',
+        map: 'Map',
+      },
+      ineligible:
+        'Map unavailable: no Issues in these results have public coordinates.',
+      emptyPins: 'No locations to show on the map for this view',
+      partialHint: 'Issues without public coordinates remain available in List view.',
+      pinOpen: 'Open issue',
     },
   },
 })
@@ -29,6 +40,17 @@ export const SCHEMA_RUNTIME_DICTIONARY_ET = Object.freeze({
         service_object: 'Teenuse objekt',
       },
     },
+    map: {
+      toggle: {
+        list: 'Nimekiri',
+        map: 'Kaart',
+      },
+      ineligible:
+        'Kaart pole saadaval: ühelgi teemal selles tulemuses pole avalikke koordinaate.',
+      emptyPins: 'Selle vaate jaoks pole kaardil asukohti',
+      partialHint: 'Teemad ilma avalike koordinaatideta jäävad Nimekirja vaatesse.',
+      pinOpen: 'Ava teema',
+    },
   },
 })
 
@@ -45,6 +67,17 @@ export const SCHEMA_RUNTIME_DICTIONARY_RU = Object.freeze({
         service_object: 'Объект услуги',
       },
     },
+    map: {
+      toggle: {
+        list: 'Список',
+        map: 'Карта',
+      },
+      ineligible:
+        'Карта недоступна: ни у одной темы в этих результатах нет публичных координат.',
+      emptyPins: 'Для этого вида нет точек на карте',
+      partialHint: 'Темы без публичных координат остаются в виде Список.',
+      pinOpen: 'Открыть тему',
+    },
   },
 })
 
@@ -60,6 +93,12 @@ export const SCHEMA_RUNTIME_FLAT_KEYS = Object.freeze([
   'schemaRuntime.cardField.signals.desired_outcome',
   'schemaRuntime.cardField.signals.affected_group',
   'schemaRuntime.cardField.signals.service_object',
+  'schemaRuntime.map.toggle.list',
+  'schemaRuntime.map.toggle.map',
+  'schemaRuntime.map.ineligible',
+  'schemaRuntime.map.emptyPins',
+  'schemaRuntime.map.partialHint',
+  'schemaRuntime.map.pinOpen',
 ])
 
 /**
