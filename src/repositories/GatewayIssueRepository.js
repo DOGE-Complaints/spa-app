@@ -67,6 +67,17 @@ async function readJsonOrThrow(response) {
   return response.json()
 }
 
+/**
+ * Return gateway Issue objects verbatim from the public envelope.
+ * MUST preserve optional sidecars `schema_card` and `geo` when present.
+ * MUST NOT remap to `admin_*`, fetch `structured_payload`, or load pack.json.
+ * @param {unknown} issue
+ * @returns {unknown}
+ */
+function passThroughPublicIssue(issue) {
+  return issue
+}
+
 export function createGatewayIssueRepository(baseUrl) {
   const normalizedBaseUrl = assertBaseUrl(baseUrl)
 
@@ -74,21 +85,25 @@ export function createGatewayIssueRepository(baseUrl) {
     async getIssues(options = undefined) {
       const params = buildIssuesQuery(options)
       const query = params.toString()
-      const url = `${normalizedBaseUrl}/tallinn/issues${query ? `?${query}` : ''}`
+      const url = `${normalizedBaseUrl}/node/issues${query ? `?${query}` : ''}`
       const response = await fetch(url)
       const envelope = await readJsonOrThrow(response)
-      return envelope?.data?.issues ?? []
+      const issues = envelope?.data?.issues
+      if (!Array.isArray(issues)) return []
+      return issues.map(passThroughPublicIssue)
     },
 
     async getIssue(id) {
       const safeId = encodeURIComponent(String(id))
-      const url = `${normalizedBaseUrl}/tallinn/issues/${safeId}`
+      const url = `${normalizedBaseUrl}/node/issues/${safeId}`
       const response = await fetch(url)
       if (response.status === 404) {
         return null
       }
       const envelope = await readJsonOrThrow(response)
-      return envelope?.data?.issue ?? null
+      const issue = envelope?.data?.issue
+      if (issue == null) return null
+      return passThroughPublicIssue(issue)
     },
   }
 

@@ -52,6 +52,22 @@ export const PROBLEM_STATUS = Object.freeze({
  * @typedef {'IMPROVEMENT'|'SERVICE_REQUEST'|'INCIDENT'} IssueType
  * @typedef {'exact'|'date'|'date_range'|'time_interval'|'datetime_range'|'approx_period'} IssueTimeType
  *
+ * Public Issue sidecar from gateway `GET /node/issues` (flat dotted-path keys verbatim).
+ * @typedef {string|number|boolean|null} IssueSchemaCardValue
+ * @typedef {Object.<string, IssueSchemaCardValue>} IssueSchemaCard
+ *
+ * Public `geo` keys only — never `admin_*` on the Issue wire.
+ * Pin eligibility (SSR-03): numeric `lat` + `lon` both present; `detail_level` is metadata only.
+ * @typedef {Object} IssueGeo
+ * @property {number=} lat
+ * @property {number=} lon
+ * @property {string=} label
+ * @property {string=} district
+ * @property {string=} settlement
+ * @property {string=} region
+ * @property {string=} country
+ * @property {string=} detail_level
+ *
  * @typedef {Object} Issue
  * @property {string} id
  * @property {IssueType} type
@@ -66,6 +82,8 @@ export const PROBLEM_STATUS = Object.freeze({
  * @property {string=} image_hash
  * @property {string=} created_at
  * @property {('et'|'ru'|'en')[]=} original_locale — human-submitted locales from backend projection
+ * @property {IssueSchemaCard=} schema_card — optional gateway overlay leaves; omit when civic-only
+ * @property {IssueGeo=} geo — optional public geo; omit when absent
  *
  * @typedef {Object} IssueIntakePayload
  * @property {{ first_name: string, last_name: string }} user
@@ -134,6 +152,62 @@ function isOptionalOriginalLocaleArray(value) {
   return value.every((item) => typeof item === 'string' && allowed.has(item))
 }
 
+function isSchemaCardValue(value) {
+  return value === null || typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'
+}
+
+function isOptionalSchemaCard(value) {
+  if (value === undefined) return true
+  if (!isRecord(value)) return false
+  return Object.values(value).every(isSchemaCardValue)
+}
+
+const ISSUE_GEO_PUBLIC_KEYS = Object.freeze([
+  'lat',
+  'lon',
+  'label',
+  'district',
+  'settlement',
+  'region',
+  'country',
+  'detail_level',
+])
+
+const ISSUE_GEO_FORBIDDEN_KEYS = Object.freeze(['street', 'house'])
+
+function isOptionalIssueGeo(value) {
+  if (value === undefined) return true
+  if (!isRecord(value)) return false
+  for (const key of Object.keys(value)) {
+    if (key.startsWith('admin_') || ISSUE_GEO_FORBIDDEN_KEYS.includes(key)) return false
+  }
+  const optionalNumberOk = (v) => v === undefined || typeof v === 'number'
+  const optionalStringOk = (v) => v === undefined || typeof v === 'string'
+  const { lat, lon, label, district, settlement, region, country, detail_level } = value
+  if (
+    !(
+      optionalNumberOk(lat) &&
+      optionalNumberOk(lon) &&
+      optionalStringOk(label) &&
+      optionalStringOk(district) &&
+      optionalStringOk(settlement) &&
+      optionalStringOk(region) &&
+      optionalStringOk(country) &&
+      optionalStringOk(detail_level)
+    )
+  ) {
+    return false
+  }
+  // Extra non-admin keys (e.g. FAKE-OLD `postal_code`) allowed as pass-through metadata.
+  for (const [key, v] of Object.entries(value)) {
+    if (ISSUE_GEO_PUBLIC_KEYS.includes(key)) continue
+    if (v !== undefined && typeof v !== 'string' && typeof v !== 'number' && typeof v !== 'boolean' && v !== null) {
+      return false
+    }
+  }
+  return true
+}
+
 export function isIssue(value) {
   if (!isRecord(value)) return false
 
@@ -151,7 +225,9 @@ export function isIssue(value) {
     isOptionalString(value.image_txid) &&
     isOptionalString(value.image_hash) &&
     isOptionalString(value.created_at) &&
-    isOptionalOriginalLocaleArray(value.original_locale)
+    isOptionalOriginalLocaleArray(value.original_locale) &&
+    isOptionalSchemaCard(value.schema_card) &&
+    isOptionalIssueGeo(value.geo)
   )
 }
 
