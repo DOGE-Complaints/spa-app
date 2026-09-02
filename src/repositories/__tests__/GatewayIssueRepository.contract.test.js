@@ -14,7 +14,7 @@ const ALLOWED_STATUS = new Set(Object.values(ISSUE_STATUS))
 const ALLOWED_TYPE = new Set(Object.values(ISSUE_TYPE))
 
 async function fetchLiveIssues() {
-  const response = await fetch(`${GATEWAY_BASE_URL}/tallinn/issues`)
+  const response = await fetch(`${GATEWAY_BASE_URL}/node/issues`)
   if (!response.ok) {
     throw new Error(`Gateway error: ${response.status}`)
   }

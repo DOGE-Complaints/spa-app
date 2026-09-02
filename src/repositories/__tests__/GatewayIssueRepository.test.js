@@ -20,7 +20,7 @@ describe('GatewayIssueRepository', () => {
 
     await repo.getIssues()
 
-    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/issues')
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/node/issues')
   })
 
   it('maps filters to query parameters in getIssues', async () => {
@@ -42,7 +42,7 @@ describe('GatewayIssueRepository', () => {
 
     expect(items).toEqual([{ id: '1' }])
     const requestUrl = fetchMock.mock.calls[0][0]
-    expect(requestUrl).toContain('http://localhost:8000/tallinn/issues?')
+    expect(requestUrl).toContain('http://localhost:8000/node/issues?')
     expect(requestUrl).toContain('status=NEW')
     expect(requestUrl).toContain('status=PUBLISHED')
     expect(requestUrl).toContain('type=INCIDENT')
@@ -82,7 +82,7 @@ describe('GatewayIssueRepository', () => {
 
     const result = await repo.getIssue('missing')
     expect(result).toBeNull()
-    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/issues/missing')
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/node/issues/missing')
   })
 
   it('throws on non-404 error for getIssue', async () => {
@@ -105,7 +105,7 @@ describe('GatewayIssueRepository', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock.mock.calls[0]).toHaveLength(1)
-    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/issues')
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/node/issues')
     const init = fetchMock.mock.calls[0][1]
     expect(init).toBeUndefined()
   })
@@ -122,8 +122,68 @@ describe('GatewayIssueRepository', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
     expect(fetchMock.mock.calls[0]).toHaveLength(1)
-    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/issues/1')
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/node/issues/1')
     const init = fetchMock.mock.calls[0][1]
     expect(init).toBeUndefined()
+  })
+
+  it('passes through schema_card + geo from list envelope without mutation', async () => {
+    const fixture = {
+      id: 'ISSUE-SSR-01',
+      type: 'INCIDENT',
+      title: 'Overlay ready',
+      status: 'PUBLISHED',
+      labels: ['district'],
+      schema_card: {
+        'signals.desired_outcome': 'fix lighting',
+        'signals.affected_group': 'residents',
+      },
+      geo: {
+        lat: 59.437,
+        lon: 24.753,
+        district: 'Kesklinn',
+        detail_level: 'district',
+      },
+    }
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ data: { issues: [fixture] } }),
+    })
+    vi.stubGlobal('fetch', fetchMock)
+    const repo = createGatewayIssueRepository('http://localhost:8000')
+
+    const items = await repo.getIssues()
+
+    expect(items).toHaveLength(1)
+    expect(items[0]).toEqual(fixture)
+    expect(items[0].schema_card).toBe(fixture.schema_card)
+    expect(items[0].geo).toBe(fixture.geo)
+    expect(items[0].geo.detail_level).toBe('district')
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/node/issues')
+  })
+
+  it('passes through detail issue with sidecars; civic-only still valid', async () => {
+    const withSidecars = {
+      id: 'ISSUE-SSR-D1',
+      schema_card: { 'signals.service_object': 'streetlamp' },
+      geo: { lat: 59.4, lon: 24.7 },
+    }
+    const civicOnly = { id: 'ISSUE-CIVIC', title: 'No sidecar' }
+
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ data: { issue: withSidecars } }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ data: { issue: civicOnly } }),
+      })
+    vi.stubGlobal('fetch', fetchMock)
+    const repo = createGatewayIssueRepository('http://localhost:8000')
+
+    await expect(repo.getIssue('ISSUE-SSR-D1')).resolves.toEqual(withSidecars)
+    await expect(repo.getIssue('ISSUE-CIVIC')).resolves.toEqual(civicOnly)
   })
 })

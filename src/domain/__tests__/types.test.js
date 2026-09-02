@@ -92,6 +92,56 @@ describe('domain types: Issue', () => {
     expect(isIssue(issue)).toBe(true)
     expect(isIssue({ ...issue, original_locale: ['xx'] })).toBe(false)
   })
+
+  it('accepts optional schema_card + public geo (incl. detail_level)', () => {
+    const issue = {
+      id: 'DE-SSR-01',
+      type: ISSUE_TYPE.INCIDENT,
+      title: 'Schema sidecar',
+      status: ISSUE_STATUS.PUBLISHED,
+      labels: ['district'],
+      schema_card: {
+        'signals.desired_outcome': 'fix',
+        'signals.affected_group': null,
+        'signals.service_object': 1,
+      },
+      geo: {
+        lat: 59.437,
+        lon: 24.753,
+        label: 'Tallinn',
+        district: 'Kesklinn',
+        detail_level: 'district',
+      },
+    }
+
+    expect(isIssue(issue)).toBe(true)
+    expect(assertIssue(issue)).toEqual(issue)
+  })
+
+  it('rejects invent admin_* keys on public geo', () => {
+    const issue = {
+      id: 'DE-SSR-bad',
+      type: ISSUE_TYPE.INCIDENT,
+      title: 'Bad geo',
+      status: ISSUE_STATUS.NEW,
+      labels: [],
+      geo: { admin_district: 'Kesklinn' },
+    }
+
+    expect(isIssue(issue)).toBe(false)
+  })
+
+  it('accepts civic-only Issue without schema_card or geo', () => {
+    const issue = {
+      id: 'DE-CIVIC',
+      type: ISSUE_TYPE.IMPROVEMENT,
+      title: 'Civic only',
+      status: ISSUE_STATUS.NEW,
+      labels: [],
+    }
+
+    expect(isIssue(issue)).toBe(true)
+  })
 })
 
 describe('domain types: IssueIntakePayload', () => {
