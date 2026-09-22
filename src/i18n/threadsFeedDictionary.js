@@ -1,4 +1,4 @@
-/** Threads feed L10N (en canon M143/M144/M148). Namespace threadsFeed.* */
+/** Threads feed L10N (en canon M143/M144/M145/M148). Namespace threadsFeed.* */
 
 const COMPOSER_EN = Object.freeze({
   placeholder: 'Write a comment',
@@ -54,6 +54,99 @@ const COMPOSER_RU = Object.freeze({
   postFailedHelper: 'Ваш текст всё ещё здесь. Попробуйте снова.',
 })
 
+const REACTIONS_EN = Object.freeze({
+  react: 'React',
+  viewReactions: 'View reactions',
+  close: 'Close',
+  chooseUpTo: 'Choose up to 3 reactions',
+  enabledOnlyHelper: 'Only reactions enabled for this node are shown',
+  agreeDisagreeExclusive: 'Agree and Disagree can’t be selected together',
+  layer: {
+    emotional: 'Emotional',
+    epistemic: 'Epistemic',
+    moderation: 'Moderation',
+  },
+  id: {
+    acknowledge: 'Acknowledge',
+    support: 'Support',
+    empathy: 'Empathy',
+    concern: 'Concerned',
+    hopeful: 'Hopeful',
+    sad: 'Sad',
+    outraged_situation: 'This is unacceptable',
+    amused: 'Amusing',
+    agree: 'Agree',
+    disagree: 'Disagree',
+    useful_fact: 'Useful fact',
+    insightful: 'Insightful',
+    needs_evidence: 'Needs evidence',
+    off_topic: 'Off-topic',
+    aggressive: 'Aggressive',
+  },
+})
+
+const REACTIONS_ET = Object.freeze({
+  react: 'Reageeri',
+  viewReactions: 'Vaata reaktsioone',
+  close: 'Sulge',
+  chooseUpTo: 'Vali kuni 3 reaktsiooni',
+  enabledOnlyHelper: 'Näidatakse ainult selle sõlme jaoks lubatud reaktsioone',
+  agreeDisagreeExclusive: 'Nõustun ja Ei nõustu ei saa koos valida',
+  layer: {
+    emotional: 'Emotsionaalne',
+    epistemic: 'Epistemiline',
+    moderation: 'Moderatsioon',
+  },
+  id: {
+    acknowledge: 'Märkasin',
+    support: 'Toetan',
+    empathy: 'Tunnen kaasa',
+    concern: 'Olen mures',
+    hopeful: 'Annab lootust',
+    sad: 'Kurb',
+    outraged_situation: 'See on vastuvõetamatu',
+    amused: 'Naljakas',
+    agree: 'Nõustun',
+    disagree: 'Ei nõustu',
+    useful_fact: 'Kasulik fakt',
+    insightful: 'Hea tähelepanek',
+    needs_evidence: 'Vajab tõendeid',
+    off_topic: 'Teemast väljas',
+    aggressive: 'Agressiivne',
+  },
+})
+
+const REACTIONS_RU = Object.freeze({
+  react: 'Реакция',
+  viewReactions: 'Смотреть реакции',
+  close: 'Закрыть',
+  chooseUpTo: 'Выберите до 3 реакций',
+  enabledOnlyHelper: 'Показаны только реакции, включённые для этого узла',
+  agreeDisagreeExclusive: '«Согласен» и «Не согласен» нельзя выбрать вместе',
+  layer: {
+    emotional: 'Эмоциональные',
+    epistemic: 'Эпистемические',
+    moderation: 'Модерация',
+  },
+  id: {
+    acknowledge: 'Замечено',
+    support: 'Поддерживаю',
+    empathy: 'Сочувствую',
+    concern: 'Беспокоит',
+    hopeful: 'Даёт надежду',
+    sad: 'Грустно',
+    outraged_situation: 'Это возмущает',
+    amused: 'Смешно',
+    agree: 'Согласен / согласна',
+    disagree: 'Не согласен / не согласна',
+    useful_fact: 'Полезный факт',
+    insightful: 'Ценное наблюдение',
+    needs_evidence: 'Нужны подтверждения',
+    off_topic: 'Не по теме',
+    aggressive: 'Агрессивно',
+  },
+})
+
 export const THREADS_FEED_DICTIONARY_EN = Object.freeze({
   threadsFeed: {
     post: {
@@ -76,6 +169,7 @@ export const THREADS_FEED_DICTIONARY_EN = Object.freeze({
       reactionSummarySlot: 'Reactions',
     },
     composer: COMPOSER_EN,
+    reactions: REACTIONS_EN,
   },
 })
 
@@ -101,6 +195,7 @@ export const THREADS_FEED_DICTIONARY_ET = Object.freeze({
       reactionSummarySlot: 'Reaktsioonid',
     },
     composer: COMPOSER_ET,
+    reactions: REACTIONS_ET,
   },
 })
 
@@ -126,6 +221,7 @@ export const THREADS_FEED_DICTIONARY_RU = Object.freeze({
       reactionSummarySlot: 'Реакции',
     },
     composer: COMPOSER_RU,
+    reactions: REACTIONS_RU,
   },
 })
 
@@ -164,4 +260,28 @@ export const THREADS_FEED_FLAT_KEYS = Object.freeze([
   'threadsFeed.composer.maxDepthReached',
   'threadsFeed.composer.postFailed',
   'threadsFeed.composer.postFailedHelper',
+  'threadsFeed.reactions.react',
+  'threadsFeed.reactions.viewReactions',
+  'threadsFeed.reactions.close',
+  'threadsFeed.reactions.chooseUpTo',
+  'threadsFeed.reactions.enabledOnlyHelper',
+  'threadsFeed.reactions.agreeDisagreeExclusive',
+  'threadsFeed.reactions.layer.emotional',
+  'threadsFeed.reactions.layer.epistemic',
+  'threadsFeed.reactions.layer.moderation',
+  'threadsFeed.reactions.id.acknowledge',
+  'threadsFeed.reactions.id.support',
+  'threadsFeed.reactions.id.empathy',
+  'threadsFeed.reactions.id.concern',
+  'threadsFeed.reactions.id.hopeful',
+  'threadsFeed.reactions.id.sad',
+  'threadsFeed.reactions.id.outraged_situation',
+  'threadsFeed.reactions.id.amused',
+  'threadsFeed.reactions.id.agree',
+  'threadsFeed.reactions.id.disagree',
+  'threadsFeed.reactions.id.useful_fact',
+  'threadsFeed.reactions.id.insightful',
+  'threadsFeed.reactions.id.needs_evidence',
+  'threadsFeed.reactions.id.off_topic',
+  'threadsFeed.reactions.id.aggressive',
 ])

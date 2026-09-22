@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { CommentComposer } from './CommentComposer.jsx'
+import { ReactionControls } from './ReactionControls.jsx'
 import './CommentTree.css'
 
 /**
@@ -49,10 +50,6 @@ export function CommentTree({
                     <span />
                   </div>
                   <div className="comment-tree-actions" role="group">
-                    <button type="button" className="comment-tree-action" data-testid="comment-action-react">
-                      <img src="/icons/threads-feed/ic-react.png" alt="" aria-hidden="true" />
-                      <span>{t('threadsFeed.post.action.react')}</span>
-                    </button>
                     {!atMax ? (
                       <button
                         type="button"
@@ -65,6 +62,7 @@ export function CommentTree({
                       </button>
                     ) : null}
                   </div>
+                  <ReactionControls t={t} target="comment" />
                   {showBoundary ? (
                     <p className="comment-tree-max-depth" data-testid="comment-max-depth" role="status">
                       {t('threadsFeed.composer.maxDepthReached')}

@@ -1,5 +1,6 @@
 import { CommentComposer } from './CommentComposer.jsx'
 import { CommentTree } from './CommentTree.jsx'
+import { ReactionControls } from './ReactionControls.jsx'
 import {
   THR02_DEMO_COMMENTS,
   THR02_DEMO_MAX_DEPTH,
@@ -90,7 +91,7 @@ export function IssueThreadBlock({
             <p className="issue-thread-summary-title">{t('threadsFeed.post.existingDiscussion')}</p>
           </div>
           <div className="issue-thread-reaction-slot" data-testid="issue-thread-reaction-slot">
-            <span>{t('threadsFeed.post.reactionSummarySlot')}</span>
+            <ReactionControls t={t} target="thread-root" />
           </div>
           <CommentTree t={t} comments={comments} maxDepth={effectiveMaxDepth} scene={scene || 'nested'} />
         </div>
