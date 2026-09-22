@@ -20,6 +20,19 @@ Parent: [`00-overview.md`](./00-overview.md) · REQ [`17`](../../requirements/17
 
 ## Escalation stub (operator Q7 = A)
 
+### As-of-Done (THR-04 · `pkg-000080`)
+
+| Fact | Evidence |
+|------|----------|
+| Component | `src/components/threads/InviteOrganizationStub.jsx` (+ CSS) |
+| Mount | `IssueThreadBlock` action row |
+| L10N | `threadsFeed.escalate.*` in `threadsFeedDictionary.js` |
+| Harness | `inviteOrganizationHarness.js` · `window.__THR04_FORCE_SCENE__` |
+| States | THR-E-A Idle · THR-E-B Activated informational feedback · THR-E-C Soon/disabled |
+| HTTP | **Open** — presentation stub only; **no invent escalate HTTP**; **no false success** |
+
+### Historical (pre-P3)
+
 - Visible affordance on post/thread chrome.
 - Click → toast/modal «не подключено» **or** named Open handoff route if one appears later.
 - **Not** silent no-op; **not** invent escalate HTTP this wave (REQ §5.5 / D2 p3 invitation).
