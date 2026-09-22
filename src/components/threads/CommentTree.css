@@ -1,0 +1,125 @@
+/* CommentTree — M144 THR-T-A/B */
+
+.comment-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.comment-tree-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-tree-node {
+  position: relative;
+  margin-left: calc(var(--comment-depth, 0) * 18px);
+  padding-left: 12px;
+  border-left: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.comment-tree-node--depth-0 {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+}
+
+.comment-tree-card {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+}
+
+.comment-tree-card--selected {
+  border-color: rgba(245, 197, 66, 0.45);
+}
+
+.comment-tree-identity {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.comment-tree-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comment-tree-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f2f2f2;
+}
+
+.comment-tree-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comment-tree-lines span {
+  display: block;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.comment-tree-lines span:first-child {
+  width: 86%;
+}
+.comment-tree-lines span:last-child {
+  width: 62%;
+}
+
+.comment-tree-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.comment-tree-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: transparent;
+  color: #9a9da6;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.comment-tree-action img {
+  width: 14px;
+  height: 14px;
+}
+
+.comment-tree-max-depth {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: #9a9da6;
+}
+
+@media (max-width: 520px) {
+  .comment-tree-node {
+    margin-left: calc(var(--comment-depth, 0) * 12px);
+  }
+}

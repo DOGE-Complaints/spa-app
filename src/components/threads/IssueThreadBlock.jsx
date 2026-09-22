@@ -1,17 +1,38 @@
+import { CommentComposer } from './CommentComposer.jsx'
+import { CommentTree } from './CommentTree.jsx'
+import {
+  THR02_DEMO_COMMENTS,
+  THR02_DEMO_MAX_DEPTH,
+  resolveHarnessThr02Scene,
+} from './thr02DemoFixture.js'
 import './IssueThreadBlock.css'
 
 /**
- * Shared discussion shell (M143 / M148). Placement only for THR-01.
+ * Shared discussion shell (M143/M148 + M144 tree/composer).
+ * Social HTTP Open — presentation chrome only; no invent endpoints.
+ *
  * @param {'loading'|'empty'|'populated'|'unavailable'} status
  * @param {(k: string) => string} t
  * @param {() => void} [onRetry]
+ * @param {number} [maxDepth] configured depth from knobs (not a fixed product law)
+ * @param {Array} [comments] presentation nodes
  */
-export function IssueThreadBlock({ status = 'empty', t, onRetry }) {
+export function IssueThreadBlock({
+  status = 'empty',
+  t,
+  onRetry,
+  maxDepth = THR02_DEMO_MAX_DEPTH,
+  comments = THR02_DEMO_COMMENTS,
+}) {
+  const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
+  const effectiveMaxDepth = scene === 'max-depth' ? 2 : maxDepth
+
   return (
     <section
       className={`issue-thread-block issue-thread-block--${status}`}
       data-testid="issue-thread-block"
       data-thread-status={status}
+      data-thr02-scene={scene || undefined}
       aria-label={t('threadsFeed.post.action.discussion')}
     >
       <header className="issue-thread-block-label">
@@ -67,20 +88,11 @@ export function IssueThreadBlock({ status = 'empty', t, onRetry }) {
         <div className="issue-thread-state issue-thread-populated" data-testid="issue-thread-populated">
           <div className="issue-thread-summary" data-testid="issue-thread-summary">
             <p className="issue-thread-summary-title">{t('threadsFeed.post.existingDiscussion')}</p>
-            <div className="issue-thread-preview-rows" aria-hidden="true">
-              <span className="issue-thread-preview-row" />
-              <span className="issue-thread-preview-row" />
-            </div>
           </div>
-          <button type="button" className="issue-thread-open-tree" data-testid="issue-thread-open-tree">
-            <span>{t('threadsFeed.post.openTree')}</span>
-            <span className="issue-thread-open-chevron" aria-hidden="true">
-              ›
-            </span>
-          </button>
           <div className="issue-thread-reaction-slot" data-testid="issue-thread-reaction-slot">
             <span>{t('threadsFeed.post.reactionSummarySlot')}</span>
           </div>
+          <CommentTree t={t} comments={comments} maxDepth={effectiveMaxDepth} scene={scene || 'nested'} />
         </div>
       ) : null}
 
@@ -101,20 +113,16 @@ export function IssueThreadBlock({ status = 'empty', t, onRetry }) {
         </div>
       ) : null}
 
-      {status === 'empty' || status === 'populated' ? (
-        <div className="issue-thread-composer" data-testid="issue-thread-composer">
-          <label className="visually-hidden" htmlFor="issue-thread-composer-input">
-            {t('threadsFeed.post.composerPlaceholder')}
-          </label>
-          <input
-            id="issue-thread-composer-input"
-            className="issue-thread-composer-input"
-            type="text"
-            readOnly
-            placeholder={t('threadsFeed.post.composerPlaceholder')}
-            aria-readonly="true"
-          />
-        </div>
+      {status === 'empty' ? (
+        <CommentComposer t={t} mode="root" testId="issue-thread-composer" />
+      ) : null}
+
+      {status === 'populated' &&
+      scene !== 'reply' &&
+      scene !== 'attach-allowed' &&
+      scene !== 'attach-denied' &&
+      scene !== 'post-fail' ? (
+        <CommentComposer t={t} mode="root" testId="issue-thread-composer" />
       ) : null}
     </section>
   )
