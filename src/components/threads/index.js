@@ -9,3 +9,5 @@ export {
   isReactionsV1Id,
 } from './reactionsV1Catalog.js'
 export { CommentComposer } from './CommentComposer.jsx'
+export { InviteOrganizationStub } from './InviteOrganizationStub.jsx'
+export { resolveHarnessThr04Scene } from './inviteOrganizationHarness.js'

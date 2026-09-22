@@ -1,4 +1,4 @@
-/** Threads feed L10N (en canon M143/M144/M145/M148). Namespace threadsFeed.* */
+/** Threads feed L10N (en canon M143–M146/M148). Namespace threadsFeed.* */
 
 const COMPOSER_EN = Object.freeze({
   placeholder: 'Write a comment',
@@ -147,6 +147,39 @@ const REACTIONS_RU = Object.freeze({
   },
 })
 
+const ESCALATE_EN = Object.freeze({
+  inviteOrganization: 'Invite organization',
+  inviteShort: 'Invite',
+  inviteDescription: 'Invite an organization to join the discussion',
+  notConnectedYet: 'Collaboration handoff isn’t connected yet',
+  noInvitationSent: 'No invitation was sent. This capability will be connected in a future release.',
+  gotIt: 'Got it',
+  soonHelper: 'Collaboration invitations are coming soon.',
+  comingSoon: 'Coming soon',
+})
+
+const ESCALATE_ET = Object.freeze({
+  inviteOrganization: 'Kutsu organisatsioon',
+  inviteShort: 'Kutsu',
+  inviteDescription: 'Kutsu organisatsioon aruteluga liituma',
+  notConnectedYet: 'Koostöö üleandmine pole veel ühendatud',
+  noInvitationSent: 'Kutset ei saadetud. See võimalus ühendatakse tulevikus.',
+  gotIt: 'Selge',
+  soonHelper: 'Koostöö kutsed tulevad peagi.',
+  comingSoon: 'Peagi',
+})
+
+const ESCALATE_RU = Object.freeze({
+  inviteOrganization: 'Пригласить организацию',
+  inviteShort: 'Пригласить',
+  inviteDescription: 'Пригласить организацию к обсуждению',
+  notConnectedYet: 'Передача сотрудничества ещё не подключена',
+  noInvitationSent: 'Приглашение не отправлено. Возможность будет подключена в будущем релизе.',
+  gotIt: 'Понятно',
+  soonHelper: 'Приглашения к сотрудничеству скоро появятся.',
+  comingSoon: 'Скоро',
+})
+
 export const THREADS_FEED_DICTIONARY_EN = Object.freeze({
   threadsFeed: {
     post: {
@@ -170,6 +203,7 @@ export const THREADS_FEED_DICTIONARY_EN = Object.freeze({
     },
     composer: COMPOSER_EN,
     reactions: REACTIONS_EN,
+    escalate: ESCALATE_EN,
   },
 })
 
@@ -196,6 +230,7 @@ export const THREADS_FEED_DICTIONARY_ET = Object.freeze({
     },
     composer: COMPOSER_ET,
     reactions: REACTIONS_ET,
+    escalate: ESCALATE_ET,
   },
 })
 
@@ -222,6 +257,7 @@ export const THREADS_FEED_DICTIONARY_RU = Object.freeze({
     },
     composer: COMPOSER_RU,
     reactions: REACTIONS_RU,
+    escalate: ESCALATE_RU,
   },
 })
 
@@ -284,4 +320,12 @@ export const THREADS_FEED_FLAT_KEYS = Object.freeze([
   'threadsFeed.reactions.id.needs_evidence',
   'threadsFeed.reactions.id.off_topic',
   'threadsFeed.reactions.id.aggressive',
+  'threadsFeed.escalate.inviteOrganization',
+  'threadsFeed.escalate.inviteShort',
+  'threadsFeed.escalate.inviteDescription',
+  'threadsFeed.escalate.notConnectedYet',
+  'threadsFeed.escalate.noInvitationSent',
+  'threadsFeed.escalate.gotIt',
+  'threadsFeed.escalate.soonHelper',
+  'threadsFeed.escalate.comingSoon',
 ])

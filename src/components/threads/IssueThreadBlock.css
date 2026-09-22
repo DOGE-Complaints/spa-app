@@ -25,6 +25,16 @@
   width: 100%;
 }
 
+.issue-thread-actions > .invite-org-stub {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.issue-thread-actions > .invite-org-stub .invite-org-button {
+  width: 100%;
+  height: 100%;
+}
+
 .issue-thread-action {
   flex: 1 1 0;
   display: inline-flex;

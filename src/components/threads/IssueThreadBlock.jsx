@@ -1,5 +1,6 @@
 import { CommentComposer } from './CommentComposer.jsx'
 import { CommentTree } from './CommentTree.jsx'
+import { InviteOrganizationStub } from './InviteOrganizationStub.jsx'
 import { ReactionControls } from './ReactionControls.jsx'
 import {
   THR02_DEMO_COMMENTS,
@@ -50,14 +51,7 @@ export function IssueThreadBlock({
             <img src="/icons/threads-feed/ic-discussion.png" alt="" aria-hidden="true" />
             <span>{t('threadsFeed.post.action.discussion')}</span>
           </button>
-          <button
-            type="button"
-            className="issue-thread-action issue-thread-action--secondary"
-            data-testid="thread-action-invite"
-          >
-            <img src="/icons/threads-feed/ic-invite-organization.png" alt="" aria-hidden="true" />
-            <span>{t('threadsFeed.post.action.inviteOrganization')}</span>
-          </button>
+          <InviteOrganizationStub t={t} />
         </div>
       ) : null}
 
