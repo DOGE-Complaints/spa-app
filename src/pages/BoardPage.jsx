@@ -15,6 +15,8 @@ import {
 } from '../components/Filters/index.js'
 import { Button } from '../components/Button'
 import { IssueCard } from '../components/IssueCard/index.js'
+import { BoardIssuePost, IssueThreadBlock } from '../components/threads/index.js'
+import { resolveHarnessThreadStatus } from '../components/threads/resolveHarnessThreadStatus.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
 import { useDebouncedBoardSearch } from '../hooks/useDebouncedBoardSearch.js'
@@ -372,15 +374,19 @@ export function BoardPage() {
                   aria-label="Issue feed"
                 >
                   {filteredIssues.map((item) => (
-                    <IssueCard
+                    <BoardIssuePost
                       key={item.id}
-                      issue={item}
-                      locale={locale}
-                      resolveLocalizedText={resolveLocalizedText}
-                      t={t}
-                      showOpenAffordance
-                      to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                    />
+                      thread={<IssueThreadBlock status={resolveHarnessThreadStatus('empty')} t={t} />}
+                    >
+                      <IssueCard
+                        issue={item}
+                        locale={locale}
+                        resolveLocalizedText={resolveLocalizedText}
+                        t={t}
+                        showOpenAffordance
+                        to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+                      />
+                    </BoardIssuePost>
                   ))}
                 </section>
               )}

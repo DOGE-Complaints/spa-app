@@ -3,6 +3,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { SchemaCardOverlay } from '../components/SchemaCardOverlay/SchemaCardOverlay.jsx'
+import { IssueThreadBlock } from '../components/threads/index.js'
+import { resolveHarnessThreadStatus } from '../components/threads/resolveHarnessThreadStatus.js'
 import { TranslationMarker } from '../components/TranslationMarker/TranslationMarker.jsx'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
@@ -195,6 +197,9 @@ export function IssuePage() {
               </div>
             ) : null}
           </section>
+          <div className="issue-page-thread-mount">
+            <IssueThreadBlock status={resolveHarnessThreadStatus('empty')} t={t} />
+          </div>
         </section>
           )
         })()

@@ -1,0 +1,30 @@
+/* BoardIssuePost — M143 continuous shell rev 1.1 */
+
+.board-issue-post {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  overflow: hidden;
+  color: var(--color-text-primary);
+}
+
+.board-issue-post-civic {
+  min-width: 0;
+}
+
+/* Flatten nested IssueCard so outer shell is the only rounded card */
+.board-issue-post .issue-card {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.board-issue-post-divider {
+  height: 1px;
+  margin: 0 20px;
+  background: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,219 @@
+/* IssueThreadBlock — M143/M148 placement shell (THR-01) */
+
+.issue-thread-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 20px 18px;
+  background: rgba(0, 0, 0, 0.12);
+  min-width: 0;
+}
+
+.issue-thread-block-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9a9da6;
+}
+
+.issue-thread-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.issue-thread-action {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-text-primary);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.issue-thread-action img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.issue-thread-action--secondary {
+  color: #9a9da6;
+  font-weight: 500;
+}
+
+.issue-thread-state {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 56px;
+}
+
+.issue-thread-spinner {
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+}
+
+.issue-thread-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.issue-thread-skeleton span {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.issue-thread-skeleton span:nth-child(1) {
+  width: 88%;
+}
+.issue-thread-skeleton span:nth-child(2) {
+  width: 72%;
+}
+.issue-thread-skeleton span:nth-child(3) {
+  width: 54%;
+}
+
+.issue-thread-empty-title,
+.issue-thread-unavailable-title,
+.issue-thread-summary-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f2f2f2;
+}
+
+.issue-thread-empty-helper,
+.issue-thread-unavailable-helper {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #9a9da6;
+  line-height: 1.4;
+}
+
+.issue-thread-unavailable-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.issue-thread-unavailable-title img {
+  width: 18px;
+  height: 18px;
+}
+
+.issue-thread-retry {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-accent-active);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-accent-active);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.issue-thread-preview-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.issue-thread-preview-row {
+  display: block;
+  height: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.issue-thread-preview-row:first-child {
+  width: 92%;
+}
+.issue-thread-preview-row:last-child {
+  width: 68%;
+}
+
+.issue-thread-open-tree {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  color: var(--color-accent-active);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+
+.issue-thread-open-chevron {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.issue-thread-reaction-slot {
+  font-size: 0.8rem;
+  color: #9a9da6;
+  padding: 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.issue-thread-composer-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--color-text-primary);
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.issue-thread-composer-input::placeholder {
+  color: #9a9da6;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 520px) {
+  .issue-thread-actions {
+    flex-wrap: wrap;
+  }
+
+  .issue-thread-action {
+    flex: 1 1 calc(50% - 8px);
+  }
+}
