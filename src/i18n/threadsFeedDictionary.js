@@ -1,4 +1,4 @@
-/** Threads feed L10N (en canon M143–M146/M148). Namespace threadsFeed.* */
+/** Threads feed L10N (en canon M143–M147/M148). Namespace threadsFeed.* */
 
 const COMPOSER_EN = Object.freeze({
   placeholder: 'Write a comment',
@@ -180,6 +180,36 @@ const ESCALATE_RU = Object.freeze({
   comingSoon: 'Скоро',
 })
 
+const VERIFY_EN = Object.freeze({
+  cta: 'Verify to participate',
+  body: 'Verification is required before you can write in this discussion.',
+  goToVerification: 'Go to verification',
+  notNow: 'Not now',
+  resultOpaque: 'Verified',
+  continueHelper: 'You can continue your comment.',
+  civicNodeLine: 'Civic node · DOGEstonia Identity',
+})
+
+const VERIFY_ET = Object.freeze({
+  cta: 'Kinnita osalemiseks',
+  body: 'Enne arutelusse kirjutamist on vaja kinnitust.',
+  goToVerification: 'Mine kinnitama',
+  notNow: 'Mitte praegu',
+  resultOpaque: 'Kinnitatud',
+  continueHelper: 'Saad oma kommentaari jätkata.',
+  civicNodeLine: 'Kodanikussõlm · DOGEstonia Identity',
+})
+
+const VERIFY_RU = Object.freeze({
+  cta: 'Подтвердите участие',
+  body: 'Перед тем как писать в обсуждении, нужна верификация.',
+  goToVerification: 'Перейти к проверке',
+  notNow: 'Не сейчас',
+  resultOpaque: 'Подтверждено',
+  continueHelper: 'Можете продолжить комментарий.',
+  civicNodeLine: 'Гражданский узел · DOGEstonia Identity',
+})
+
 export const THREADS_FEED_DICTIONARY_EN = Object.freeze({
   threadsFeed: {
     post: {
@@ -204,6 +234,7 @@ export const THREADS_FEED_DICTIONARY_EN = Object.freeze({
     composer: COMPOSER_EN,
     reactions: REACTIONS_EN,
     escalate: ESCALATE_EN,
+    verify: VERIFY_EN,
   },
 })
 
@@ -231,6 +262,7 @@ export const THREADS_FEED_DICTIONARY_ET = Object.freeze({
     composer: COMPOSER_ET,
     reactions: REACTIONS_ET,
     escalate: ESCALATE_ET,
+    verify: VERIFY_ET,
   },
 })
 
@@ -258,6 +290,7 @@ export const THREADS_FEED_DICTIONARY_RU = Object.freeze({
     composer: COMPOSER_RU,
     reactions: REACTIONS_RU,
     escalate: ESCALATE_RU,
+    verify: VERIFY_RU,
   },
 })
 
@@ -328,4 +361,11 @@ export const THREADS_FEED_FLAT_KEYS = Object.freeze([
   'threadsFeed.escalate.gotIt',
   'threadsFeed.escalate.soonHelper',
   'threadsFeed.escalate.comingSoon',
+  'threadsFeed.verify.cta',
+  'threadsFeed.verify.body',
+  'threadsFeed.verify.goToVerification',
+  'threadsFeed.verify.notNow',
+  'threadsFeed.verify.resultOpaque',
+  'threadsFeed.verify.continueHelper',
+  'threadsFeed.verify.civicNodeLine',
 ])

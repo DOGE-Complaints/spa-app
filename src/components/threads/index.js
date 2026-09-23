@@ -11,3 +11,9 @@ export {
 export { CommentComposer } from './CommentComposer.jsx'
 export { InviteOrganizationStub } from './InviteOrganizationStub.jsx'
 export { resolveHarnessThr04Scene } from './inviteOrganizationHarness.js'
+export { VerifyWriteGate } from './VerifyWriteGate.jsx'
+export {
+  isIdentityVerifiedForWrite,
+  resolveHarnessThr05Scene,
+  buildVerifyHandoffHref,
+} from './verifyWriteGate.js'

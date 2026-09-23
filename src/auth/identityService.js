@@ -13,6 +13,8 @@ const MOCK_ME_BASE = Object.freeze({
   phone_verified: false,
   phone_dial_prefix: null,
   phone_verified_at: null,
+  /** Opaque threads write gate (AC-SPA-THR-05) — not phone_verified alone */
+  identity_verified: false,
 })
 
 /** @type {Record<string, unknown>} */

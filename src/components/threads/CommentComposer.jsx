@@ -1,8 +1,15 @@
 import { useId, useState } from 'react'
+import { VerifyWriteGate } from './VerifyWriteGate.jsx'
+import {
+  buildVerifyHandoffHref,
+  isIdentityVerifiedForWrite,
+  resolveHarnessThr05Scene,
+} from './verifyWriteGate.js'
 import './CommentComposer.css'
 
 /**
- * Root / reply composer with attach chip + soft-fail (presentation only — no invent HTTP).
+ * Root / reply composer with attach chip + soft-fail + verify-before-write gate (M147).
+ * Presentation only — no invent social/verify HTTP; no invent pack JSON keys.
  */
 export function CommentComposer({
   t,
@@ -12,22 +19,52 @@ export function CommentComposer({
   initialAttachment = null,
   attachOutcome = 'idle',
   postOutcome = 'idle',
+  /** Me profile or partial — gate uses identity_verified only */
+  profile = null,
+  /** Override gate boolean; when null, derived from profile + harness */
+  identityVerified = null,
+  returnTo = '#/board',
+  onNavigateVerify,
   onCancel,
   testId = 'issue-thread-composer',
 }) {
   const inputId = useId()
+  const forcedScene = resolveHarnessThr05Scene()
+  const scene = forcedScene || 'live'
+  const verifiedFromProfile =
+    identityVerified === null || identityVerified === undefined
+      ? isIdentityVerifiedForWrite(profile)
+      : Boolean(identityVerified)
+  const isVerified =
+    forcedScene === 'verified'
+      ? true
+      : forcedScene === 'unverified' || forcedScene === 'handoff' || forcedScene === 'civic'
+        ? false
+        : verifiedFromProfile
+
   const [draft, setDraft] = useState(initialDraft)
   const [attachment, setAttachment] = useState(initialAttachment)
   const [attachError, setAttachError] = useState(attachOutcome === 'denied')
   const [postError, setPostError] = useState(postOutcome === 'fail')
+  const [gateOpen, setGateOpen] = useState(
+    forcedScene === 'unverified' || forcedScene === 'civic' || forcedScene === 'handoff',
+  )
+  const [showVerifiedChrome, setShowVerifiedChrome] = useState(forcedScene === 'verified')
+  const [handoffHref, setHandoffHref] = useState(
+    forcedScene === 'handoff' ? buildVerifyHandoffHref(returnTo) : null,
+  )
 
   const placeholder =
     mode === 'reply' ? t('threadsFeed.composer.replyPlaceholder') : t('threadsFeed.composer.placeholder')
 
   function handleAttach() {
+    if (!isVerified) {
+      setGateOpen(true)
+      setShowVerifiedChrome(false)
+      return
+    }
     if (attachOutcome === 'denied') {
       setAttachError(true)
-      // Do not set attachment; do not clear draft
       return
     }
     setAttachError(false)
@@ -39,6 +76,11 @@ export function CommentComposer({
   }
 
   function handlePost() {
+    if (!isVerified) {
+      setGateOpen(true)
+      setShowVerifiedChrome(false)
+      return
+    }
     if (postOutcome === 'fail') {
       setPostError(true)
       return
@@ -50,11 +92,29 @@ export function CommentComposer({
     setPostError(false)
   }
 
+  function handleGoVerify() {
+    const href = buildVerifyHandoffHref(returnTo)
+    setHandoffHref(href)
+    if (typeof onNavigateVerify === 'function') {
+      onNavigateVerify(href)
+      return
+    }
+    if (typeof window !== 'undefined') {
+      window.location.hash = href.replace(/^#/, '')
+    }
+  }
+
+  function handleDismissGate() {
+    setGateOpen(false)
+  }
+
   return (
     <div
       className={`comment-composer comment-composer--${mode}${postError ? ' comment-composer--post-fail' : ''}`}
       data-testid={testId}
       data-composer-mode={mode}
+      data-thr05-scene={scene}
+      data-identity-verified={isVerified ? 'true' : 'false'}
     >
       {mode === 'reply' ? (
         <div className="comment-composer-context" data-testid="comment-composer-replying-to">
@@ -76,7 +136,7 @@ export function CommentComposer({
         id={inputId}
         className="comment-composer-input"
         data-testid="comment-composer-input"
-        rows={mode === 'reply' || postError || attachment ? 3 : 1}
+        rows={mode === 'reply' || postError || attachment || gateOpen ? 3 : 1}
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         placeholder={placeholder}
@@ -113,6 +173,24 @@ export function CommentComposer({
           </p>
           <p className="comment-composer-post-fail-helper">{t('threadsFeed.composer.postFailedHelper')}</p>
         </div>
+      ) : null}
+
+      {showVerifiedChrome ? <VerifyWriteGate t={t} variant="verified" /> : null}
+
+      {gateOpen && !isVerified ? (
+        <VerifyWriteGate
+          t={t}
+          variant="blocked"
+          showCivicLine={forcedScene === 'civic'}
+          onGoVerify={handleGoVerify}
+          onDismiss={handleDismissGate}
+        />
+      ) : null}
+
+      {handoffHref ? (
+          <p className="comment-composer-handoff" data-testid="verify-handoff-href" hidden={forcedScene !== 'handoff'}>
+          {handoffHref}
+        </p>
       ) : null}
 
       <div className="comment-composer-toolbar" role="group">
