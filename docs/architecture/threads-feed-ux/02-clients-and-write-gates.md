@@ -19,15 +19,18 @@ Parent: [`00-overview.md`](./00-overview.md) · REQ [`17`](../../requirements/17
 | Issues list | `src/repositories/GatewayIssueRepository.js` — `GET {base}/node/issues` |
 | Issue detail | same file — `GET {base}/node/issues/:id` |
 | Me | `src/auth/identityService.js` — `GET /me` |
-| Legacy flag still in UI | `phone_verified` on cabinet/VerifyPage — **not** sole consumer contract after identity wave; spa write gate must prefer `identity_verified` |
+| Threads write gate | `isIdentityVerifiedForWrite` / `meIdentityVerified.js` — **`identity_verified`** |
+| Me composer consumer | `CommentComposer` → `canWriteThreadsWithMe` (THR-06) |
+| Social client seam | `ThreadsSocialClient.js` — Open ops → **Unavailable** (no invent URLs) |
+| Legacy flag still in UI | `phone_verified` on cabinet/VerifyPage — **not** sole threads write gate |
 
 ## Write gate (logical)
 
 ```text
 before comment | react | attach-ref
-  → read identity_verified from Me
+  → read identity_verified from Me (meIdentityVerified / verifyWriteGate)
   → if false/unavailable → do not write; hand off to /verify (see 04)
-  → if true → call threads social op (Closed) or fail-soft unavailable (Open)
+  → if true → call threads social op when Closed; else Unavailable (Open)
 ```
 
 ## Contracts

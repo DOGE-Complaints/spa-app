@@ -1,8 +1,8 @@
 import { useId, useState } from 'react'
+import { canWriteThreadsWithMe } from '../../auth/meIdentityVerified.js'
 import { VerifyWriteGate } from './VerifyWriteGate.jsx'
 import {
   buildVerifyHandoffHref,
-  isIdentityVerifiedForWrite,
   resolveHarnessThr05Scene,
 } from './verifyWriteGate.js'
 import './CommentComposer.css'
@@ -33,7 +33,7 @@ export function CommentComposer({
   const scene = forcedScene || 'live'
   const verifiedFromProfile =
     identityVerified === null || identityVerified === undefined
-      ? isIdentityVerifiedForWrite(profile)
+      ? canWriteThreadsWithMe(profile)
       : Boolean(identityVerified)
   const isVerified =
     forcedScene === 'verified'
