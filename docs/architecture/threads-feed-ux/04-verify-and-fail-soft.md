@@ -9,7 +9,19 @@ Parent: [`00-overview.md`](./00-overview.md) · REQ [`17`](../../requirements/17
 - Check **result** chrome must **not** display verification method (AC-SPA-THR-05).
 - CTA copy may use pack **type + integration name** from gateway when available — not hard-coded phone.
 
-### As-is coexistence
+### As-of-Done (THR-05 · `pkg-000081`)
+
+| Fact | Evidence |
+|------|----------|
+| Gate helper | `src/components/threads/verifyWriteGate.js` · `isIdentityVerifiedForWrite` (`identity_verified === true` only) |
+| Gate chrome | `src/components/threads/VerifyWriteGate.jsx` (+ CSS) |
+| Composer intercept | `CommentComposer.jsx` post/attach |
+| Handoff | `buildVerifyHandoffHref` → `#/verify?returnTo=` |
+| L10N | `threadsFeed.verify.*` in `threadsFeedDictionary.js` |
+| Harness | `window.__THR05_FORCE_SCENE__` |
+| Pack keys | **Unknown / Open** — civic line only; **no invent** |
+
+### Historical / coexistence
 
 | Fact | Evidence |
 |------|----------|
@@ -17,7 +29,7 @@ Parent: [`00-overview.md`](./00-overview.md) · REQ [`17`](../../requirements/17
 | `VerifyPage` | `src/pages/VerifyPage.jsx` (as-is still tied to phone flows / `phone_verified` in places) |
 | Opaque boolean wire | Identity TECH-ARCH: `identity_verified` on `GET /me` |
 
-Spa shell consumes **`identity_verified`** for the write gate; method-named flags may coexist on Me but are not the sole gate.
+Spa shell consumes **`identity_verified`** for the threads write gate; method-named flags may coexist on Me / VerifyPage but are not the sole gate.
 
 ## Progressive shell + fail-soft (operator Q8 = A)
 
