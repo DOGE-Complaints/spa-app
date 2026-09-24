@@ -1,9 +1,11 @@
 import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import {
   CLOSED_SOCIAL_PATHS,
+  classifyCommentWriteResponse,
   createThreadsSocialClient,
   isSocialOpClosed,
   unavailableSocialResult,
+  writeFailSocialResult,
 } from '../ThreadsSocialClient.js'
 import { createGatewayIssueRepository } from '../GatewayIssueRepository.js'
 import {
@@ -18,31 +20,31 @@ import {
 } from '../threadsKnobsCache.js'
 import { mapThreadTreeToBlock, truncateCommentLabel } from '../mapThreadTreeToBlock.js'
 
-describe('ThreadsSocialClient THR-07 Close', () => {
+describe('ThreadsSocialClient THR-07/08 Close', () => {
   afterEach(() => {
     vi.restoreAllMocks()
   })
 
-  it('closes knobs + tree_read only; write ops stay open', () => {
+  it('closes knobs + tree_read + comment_create/reply; react/attach stay open', () => {
     expect(isSocialOpClosed('knobs')).toBe(true)
     expect(isSocialOpClosed('tree_read')).toBe(true)
-    expect(isSocialOpClosed('comment_create')).toBe(false)
+    expect(isSocialOpClosed('comment_create')).toBe(true)
+    expect(isSocialOpClosed('comment_reply')).toBe(true)
     expect(isSocialOpClosed('react')).toBe(false)
     expect(isSocialOpClosed('attach_ref')).toBe(false)
     expect(CLOSED_SOCIAL_PATHS.knobs).toBe('/threads/knobs')
     expect(CLOSED_SOCIAL_PATHS.tree_read('ISS-1')).toBe('/threads/issues/ISS-1')
-    expect(CLOSED_SOCIAL_PATHS.tree_read('ISS-1')).not.toMatch(/by-issue/)
+    expect(CLOSED_SOCIAL_PATHS.comment_write('ISS-1')).toBe('/threads/issues/ISS-1/comments')
+    expect(CLOSED_SOCIAL_PATHS.comment_write('ISS-1')).not.toMatch(/by-issue/)
   })
 
-  it('open ops return Unavailable without fetch', async () => {
+  it('open react/attach return Unavailable without fetch', async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
-    const client = createThreadsSocialClient({ baseUrl: 'http://127.0.0.1:8001' })
-    const results = await Promise.all([
-      client.createComment(),
-      client.replyComment(),
-      client.react(),
-      client.attachRef(),
-    ])
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://127.0.0.1:8001',
+      getAccessToken: async () => 'tok',
+    })
+    const results = await Promise.all([client.react(), client.attachRef()])
     for (const r of results) {
       expect(r.status).toBe('unavailable')
       expect(r.reason).toBe('social_http_open')
@@ -103,6 +105,147 @@ describe('ThreadsSocialClient THR-07 Close', () => {
   it('unavailableSocialResult is frozen shape', () => {
     const r = unavailableSocialResult('tree_read')
     expect(r).toEqual({ status: 'unavailable', reason: 'social_http_open', op: 'tree_read' })
+  })
+})
+
+describe('ThreadsSocialClient THR-08 comment write', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('verified happy path POSTs Closed URL with Bearer + parent_id null', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: { comment_id: 'c-new', parent_id: null, depth: 0, body: 'Hello' },
+          trace_id: 't1',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'access-tok',
+    })
+    const result = await client.createComment({ issueId: 'ISS-1', body: 'Hello' })
+    expect(result.status).toBe('ok')
+    expect(result.data.comment_id).toBe('c-new')
+    expect(fetchSpy).toHaveBeenCalledTimes(1)
+    const [url, init] = fetchSpy.mock.calls[0]
+    expect(String(url)).toBe('http://threads.test/threads/issues/ISS-1/comments')
+    expect(String(url)).not.toMatch(/by-issue/)
+    expect(init.method).toBe('POST')
+    expect(init.headers.Authorization).toBe('Bearer access-tok')
+    expect(JSON.parse(init.body)).toEqual({ body: 'Hello', parent_id: null })
+  })
+
+  it('reply POSTs same Closed path with parent_id', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: { comment_id: 'c-r', parent_id: 'c-root', depth: 1, body: 'Reply' },
+          trace_id: 't1',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.replyComment({ issueId: 'ISS-1', body: 'Reply', parentId: 'c-root' })
+    expect(result.status).toBe('ok')
+    expect(JSON.parse(fetchSpy.mock.calls[0][1].body)).toEqual({ body: 'Reply', parent_id: 'c-root' })
+  })
+
+  it('missing bearer → verify fail without fetch', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => null,
+    })
+    const result = await client.createComment({ issueId: 'ISS-1', body: 'x' })
+    expect(result).toEqual(
+      expect.objectContaining({ status: 'fail', failKind: 'verify', op: 'comment_create' }),
+    )
+    expect(fetchSpy).not.toHaveBeenCalled()
+  })
+
+  it('401/403 → verify soft-fail', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ error: { code: 'FORBIDDEN', type: 'auth', message: 'no' } }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.createComment({ issueId: 'ISS-1', body: 'x' })
+    expect(result.failKind).toBe('verify')
+    expect(result.httpStatus).toBe(403)
+  })
+
+  it('200 DOMAIN_ERROR depth → max_depth', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          error: {
+            code: 'DOMAIN_ERROR',
+            type: 'DOMAIN_ERROR',
+            message: 'max depth exceeded',
+            details: { reason: 'depth' },
+          },
+          trace_id: 't1',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.replyComment({ issueId: 'ISS-1', body: 'x', parentId: 'c1' })
+    expect(result.failKind).toBe('max_depth')
+  })
+
+  it('422 → post_fail', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ detail: [{ loc: ['body'], msg: 'bad' }] }), {
+        status: 422,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.createComment({ issueId: 'ISS-1', body: '' })
+    expect(result.failKind).toBe('post_fail')
+    expect(result.httpStatus).toBe(422)
+  })
+
+  it('classifyCommentWriteResponse maps §8 matrix', () => {
+    expect(classifyCommentWriteResponse(401, { error: { code: 'UNAUTHORIZED' } }, 'comment_create').failKind).toBe(
+      'verify',
+    )
+    expect(
+      classifyCommentWriteResponse(
+        200,
+        { error: { code: 'DOMAIN_ERROR', details: { reason: 'max_depth' } } },
+        'comment_reply',
+      ).failKind,
+    ).toBe('max_depth')
+    expect(classifyCommentWriteResponse(422, {}, 'comment_create').failKind).toBe('post_fail')
+    expect(
+      classifyCommentWriteResponse(
+        200,
+        { data: { comment_id: 'c1', parent_id: null, depth: 0, body: 'ok' } },
+        'comment_create',
+      ).status,
+    ).toBe('ok')
+    expect(writeFailSocialResult('comment_create', 'post_fail').status).toBe('fail')
   })
 })
 
@@ -188,10 +331,14 @@ describe('fail-soft Issues regress', () => {
     vi.restoreAllMocks()
   })
 
-  it('getIssues still works when social write ops Unavailable', async () => {
-    const social = createThreadsSocialClient({ baseUrl: 'http://threads.test' })
-    const socialResult = await social.createComment()
-    expect(socialResult.status).toBe('unavailable')
+  it('getIssues still works when social comment write soft-fails without invent paths', async () => {
+    const social = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => null,
+    })
+    const socialResult = await social.createComment({ issueId: 'ISS-1', body: 'x' })
+    expect(socialResult.status).toBe('fail')
+    expect(socialResult.failKind).toBe('verify')
 
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       new Response(JSON.stringify({ data: { issues: [{ id: 'ISS-1' }] } }), {
