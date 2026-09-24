@@ -35,16 +35,41 @@ export const REACTION_LAYERS = Object.freeze(['emotional', 'epistemic', 'moderat
 export const DEFAULT_MAX_REACTIONS_PER_ACTOR = 3
 
 /**
- * @param {{ includeDisabled?: boolean, target?: 'comment'|'thread-root' }} [opts]
+ * @param {{
+ *   includeDisabled?: boolean,
+ *   target?: 'comment'|'thread-root',
+ *   reactionsEnable?: Record<string, boolean>|null,
+ * }} [opts]
  */
 export function listReactionsV1(opts = {}) {
   const includeDisabled = Boolean(opts.includeDisabled)
   const target = opts.target || 'comment'
+  const enableMap = opts.reactionsEnable
+  const hasEnableMap = enableMap && typeof enableMap === 'object' && Object.keys(enableMap).length > 0
   return REACTIONS_V1_ENTRIES.filter((entry) => {
-    if (!includeDisabled && !entry.enabledDefault) return false
     if (target === 'thread-root' && entry.layer === 'moderation') return false
+    if (hasEnableMap && Object.prototype.hasOwnProperty.call(enableMap, entry.id)) {
+      return Boolean(enableMap[entry.id])
+    }
+    if (!includeDisabled && !entry.enabledDefault) return false
     return true
   })
+}
+
+/**
+ * Map OpenAPI summary_marks → catalog presentation rows.
+ * @param {Array<{ reaction_id?: string, count?: number }>|null|undefined} summaryMarks
+ */
+export function mapSummaryMarksToEntries(summaryMarks) {
+  if (!Array.isArray(summaryMarks)) return null
+  const rows = []
+  for (const mark of summaryMarks) {
+    const id = mark && mark.reaction_id != null ? String(mark.reaction_id) : ''
+    const entry = REACTIONS_V1_ENTRIES.find((e) => e.id === id)
+    if (!entry) continue
+    rows.push({ ...entry, count: Number(mark.count) || 0 })
+  }
+  return rows
 }
 
 export function isReactionsV1Id(id) {

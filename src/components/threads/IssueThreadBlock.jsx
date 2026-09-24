@@ -27,6 +27,11 @@ export function IssueThreadBlock({
   returnTo = '#/board',
   onSubmitComment,
   onPostSuccess,
+  onAttachRef,
+  mediaAllowedTypes = null,
+  maxReactions,
+  reactionsEnable = null,
+  onReact,
 }) {
   const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
   const effectiveMaxDepth = scene === 'max-depth' ? 2 : maxDepth
@@ -37,6 +42,14 @@ export function IssueThreadBlock({
     returnTo,
     onSubmitComment,
     onPostSuccess,
+    onAttachRef,
+    mediaAllowedTypes,
+  }
+
+  const reactionShared = {
+    maxReactions,
+    reactionsEnable,
+    onReact,
   }
 
   return (
@@ -95,7 +108,7 @@ export function IssueThreadBlock({
             <p className="issue-thread-summary-title">{t('threadsFeed.post.existingDiscussion')}</p>
           </div>
           <div className="issue-thread-reaction-slot" data-testid="issue-thread-reaction-slot">
-            <ReactionControls t={t} target="thread-root" />
+            <ReactionControls t={t} target="thread-root" {...reactionShared} />
           </div>
           <CommentTree
             t={t}
@@ -103,6 +116,7 @@ export function IssueThreadBlock({
             maxDepth={effectiveMaxDepth}
             scene={scene || 'nested'}
             {...composerShared}
+            {...reactionShared}
           />
         </div>
       ) : null}

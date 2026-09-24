@@ -10,6 +10,7 @@ import './CommentComposer.css'
 /**
  * Root / reply composer with attach chip + soft-fail + verify-before-write gate (M147).
  * THR-08: optional onSubmitComment for Closed POST; gate before any network.
+ * THR-09: optional onAttachRef for Closed POST attachment-refs (no multipart).
  */
 export function CommentComposer({
   t,
@@ -17,6 +18,8 @@ export function CommentComposer({
   parentLabel = '',
   /** Reply target comment_id (Closed POST parent_id) */
   parentId = null,
+  /** Existing comment to bind attach-ref (reply → parent; root needs explicit id) */
+  attachCommentId = null,
   initialDraft = '',
   initialAttachment = null,
   attachOutcome = 'idle',
@@ -33,6 +36,13 @@ export function CommentComposer({
    * @type {((args: { body: string, parentId: string|null }) => Promise<object|void>)|undefined}
    */
   onSubmitComment,
+  /**
+   * Live attach-ref (THR-09). No blob/multipart.
+   * @type {((args: { refId: string, mediaType: string, commentId: string }) => Promise<object|void>)|undefined}
+   */
+  onAttachRef,
+  /** Knobs media allowlist — empty → attach-denied when live */
+  mediaAllowedTypes = null,
   /** After successful write */
   onPostSuccess,
   testId = 'issue-thread-composer',
@@ -75,7 +85,7 @@ export function CommentComposer({
     setMaxDepthError(false)
   }
 
-  function handleAttach() {
+  async function handleAttach() {
     if (!isVerified) {
       openVerifyGate()
       return
@@ -84,6 +94,54 @@ export function CommentComposer({
       setAttachError(true)
       return
     }
+
+    if (typeof onAttachRef === 'function') {
+      const allow = Array.isArray(mediaAllowedTypes) ? mediaAllowedTypes.map(String) : []
+      if (allow.length === 0) {
+        setAttachError(true)
+        return
+      }
+      const commentId =
+        attachCommentId != null && String(attachCommentId).trim() !== ''
+          ? String(attachCommentId)
+          : mode === 'reply' && parentId != null
+            ? String(parentId)
+            : null
+      if (!commentId) {
+        setAttachError(true)
+        return
+      }
+      const mediaType = allow[0]
+      const refId =
+        typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+          ? crypto.randomUUID()
+          : `ref-${Date.now()}`
+      setAttachError(false)
+      try {
+        const result = await onAttachRef({ refId, mediaType, commentId })
+        if (result && result.status === 'ok') {
+          setAttachment({
+            label: t('threadsFeed.composer.attachedFile'),
+            refId: String(result.data?.ref_id || refId),
+            mediaType,
+          })
+          return
+        }
+        if (result && result.status === 'fail' && result.failKind === 'verify') {
+          openVerifyGate()
+          return
+        }
+        if (result && result.status === 'fail' && result.failKind === 'attach_denied') {
+          setAttachError(true)
+          return
+        }
+        setAttachError(true)
+      } catch {
+        setAttachError(true)
+      }
+      return
+    }
+
     setAttachError(false)
     setAttachment({ label: t('threadsFeed.composer.attachedFile') })
   }
@@ -258,7 +316,9 @@ export function CommentComposer({
           type="button"
           className="comment-composer-tool"
           data-testid="comment-attach-button"
-          onClick={handleAttach}
+          onClick={() => {
+            void handleAttach()
+          }}
         >
           <img src="/icons/threads-feed/ic-attach.png" alt="" aria-hidden="true" />
           <span>{t('threadsFeed.composer.attach')}</span>

@@ -19,6 +19,11 @@ export function CommentTree({
   returnTo = '#/board',
   onSubmitComment,
   onPostSuccess,
+  onAttachRef,
+  mediaAllowedTypes = null,
+  maxReactions,
+  reactionsEnable = null,
+  onReact,
 }) {
   const [replyParentId, setReplyParentId] = useState(
     forcedReplyParentId || (scene === 'reply' || scene === 'attach-allowed' || scene === 'attach-denied' || scene === 'post-fail'
@@ -68,7 +73,14 @@ export function CommentTree({
                       </button>
                     ) : null}
                   </div>
-                  <ReactionControls t={t} target="comment" />
+                  <ReactionControls
+                    t={t}
+                    target="comment"
+                    commentId={node.id}
+                    maxReactions={maxReactions}
+                    reactionsEnable={reactionsEnable}
+                    onReact={onReact}
+                  />
                   {showBoundary ? (
                     <p className="comment-tree-max-depth" data-testid="comment-max-depth" role="status">
                       {t('threadsFeed.composer.maxDepthReached')}
@@ -92,6 +104,9 @@ export function CommentTree({
                   identityVerified={identityVerified}
                   returnTo={returnTo}
                   onSubmitComment={onSubmitComment}
+                  onAttachRef={onAttachRef}
+                  mediaAllowedTypes={mediaAllowedTypes}
+                  attachCommentId={replyParent.id}
                   onPostSuccess={(result) => {
                     setReplyParentId(null)
                     if (typeof onPostSuccess === 'function') onPostSuccess(result)

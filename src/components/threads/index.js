@@ -8,6 +8,8 @@ export {
   listReactionsV1,
   toggleReactionSelection,
   isReactionsV1Id,
+  mapSummaryMarksToEntries,
+  DEFAULT_MAX_REACTIONS_PER_ACTOR,
 } from './reactionsV1Catalog.js'
 export { CommentComposer } from './CommentComposer.jsx'
 export { InviteOrganizationStub } from './InviteOrganizationStub.jsx'

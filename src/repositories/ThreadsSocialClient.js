@@ -1,23 +1,24 @@
 /**
- * Threads social client (THR-06 seam + THR-07 knobs/tree + THR-08 comment write Close).
+ * Threads social client (THR-06…09).
  *
- * Closed ops (OpenAPI / HTTP-06): knobs + tree_read + comment_create/reply.
- * Remaining ops stay Open → Unavailable — **no invent** URLs / no `/threads/by-issue`.
+ * Closed ops (OpenAPI / HTTP-06): knobs + tree_read + comment + react + attach_ref.
+ * **No invent** URLs / no `/threads/by-issue` / no multipart blob.
  */
 
 import { getThreadsBaseUrl, normalizePublicBaseUrl } from '../config/publicEnv.js'
 import { getThreadsAccessToken } from '../auth/threadsAccessToken.js'
+import { isReactionsV1Id } from '../components/threads/reactionsV1Catalog.js'
 
 /** @typedef {{ status: 'unavailable', reason: string, op: string }} SocialUnavailable */
 /** @typedef {{ status: 'ok', data: Record<string, unknown>, op: string }} SocialOk */
-/** @typedef {{ status: 'fail', failKind: 'verify'|'max_depth'|'post_fail', op: string, reason?: string, httpStatus?: number, code?: string }} SocialWriteFail */
+/** @typedef {{ status: 'fail', failKind: 'verify'|'max_depth'|'post_fail'|'attach_denied', op: string, reason?: string, httpStatus?: number, code?: string }} SocialWriteFail */
 
 export const SOCIAL_HTTP_CONTRACT = Object.freeze({
   tree_read: 'closed',
   comment_create: 'closed',
   comment_reply: 'closed',
-  react: 'open',
-  attach_ref: 'open',
+  react: 'closed',
+  attach_ref: 'closed',
   knobs: 'closed',
 })
 
@@ -29,6 +30,12 @@ export const CLOSED_SOCIAL_PATHS = Object.freeze({
   /** @param {string} issueId */
   comment_write: (issueId) =>
     `/threads/issues/${encodeURIComponent(String(issueId))}/comments`,
+  /** @param {string} issueId */
+  reactions: (issueId) =>
+    `/threads/issues/${encodeURIComponent(String(issueId))}/reactions`,
+  /** @param {string} issueId */
+  attachment_refs: (issueId) =>
+    `/threads/issues/${encodeURIComponent(String(issueId))}/attachment-refs`,
 })
 
 /**
@@ -55,7 +62,7 @@ export function unavailableSocialResult(op, reason = 'social_http_open') {
 /**
  * Soft-fail write result (api-req §8) — not Unavailable open-seam.
  * @param {string} op
- * @param {'verify'|'max_depth'|'post_fail'} failKind
+ * @param {'verify'|'max_depth'|'post_fail'|'attach_denied'} failKind
  * @param {{ reason?: string, httpStatus?: number, code?: string }} [extra]
  * @returns {SocialWriteFail}
  */
@@ -110,7 +117,6 @@ export function classifyCommentWriteResponse(httpStatus, envelope, op) {
     })
   }
 
-  // Domain soft-fail on 200 (must check error key — not assume non-2xx)
   if (httpStatus === 200 && err) {
     const code = String(err.code || err.type || '')
     const details = err.details && typeof err.details === 'object' ? err.details : {}
@@ -145,6 +151,103 @@ export function classifyCommentWriteResponse(httpStatus, envelope, op) {
 
   const data = readSuccessData(envelope)
   if (!data || data.comment_id === undefined || data.comment_id === null || String(data.comment_id).trim() === '') {
+    return writeFailSocialResult(op, 'post_fail', { reason: 'malformed', httpStatus })
+  }
+  return Object.freeze({ status: 'ok', data, op })
+}
+
+/**
+ * Classify reaction PUT per api-req §5/§8.
+ * @param {number} httpStatus
+ * @param {unknown} envelope
+ * @param {string} [op='react']
+ * @returns {SocialOk|SocialWriteFail}
+ */
+export function classifyReactionResponse(httpStatus, envelope, op = 'react') {
+  const err = readErrorBlock(envelope)
+
+  if (httpStatus === 401 || httpStatus === 403) {
+    return writeFailSocialResult(op, 'verify', {
+      httpStatus,
+      code: err?.code || (httpStatus === 401 ? 'UNAUTHORIZED' : 'FORBIDDEN'),
+    })
+  }
+
+  if (httpStatus === 200 && err) {
+    const code = String(err.code || err.type || '')
+    const isDomain = code === 'DOMAIN_ERROR' || String(err.type || '') === 'DOMAIN_ERROR'
+    return writeFailSocialResult(op, 'post_fail', {
+      httpStatus: 200,
+      code: isDomain ? 'DOMAIN_ERROR' : code || 'error',
+    })
+  }
+
+  if (httpStatus === 422) {
+    return writeFailSocialResult(op, 'post_fail', { httpStatus: 422, code: 'VALIDATION' })
+  }
+
+  if (httpStatus < 200 || httpStatus >= 300) {
+    return writeFailSocialResult(op, 'post_fail', {
+      httpStatus,
+      code: err?.code || `http_${httpStatus}`,
+    })
+  }
+
+  const data = readSuccessData(envelope)
+  if (!data || !Array.isArray(data.selected)) {
+    return writeFailSocialResult(op, 'post_fail', { reason: 'malformed', httpStatus })
+  }
+  return Object.freeze({ status: 'ok', data, op })
+}
+
+/**
+ * Classify attachment-ref POST per api-req §6/§8.
+ * @param {number} httpStatus
+ * @param {unknown} envelope
+ * @param {string} [op='attach_ref']
+ * @returns {SocialOk|SocialWriteFail}
+ */
+export function classifyAttachRefResponse(httpStatus, envelope, op = 'attach_ref') {
+  const err = readErrorBlock(envelope)
+
+  if (httpStatus === 401 || httpStatus === 403) {
+    return writeFailSocialResult(op, 'verify', {
+      httpStatus,
+      code: err?.code || (httpStatus === 401 ? 'UNAUTHORIZED' : 'FORBIDDEN'),
+    })
+  }
+
+  if (httpStatus === 200 && err) {
+    const code = String(err.code || err.type || '')
+    const details = err.details && typeof err.details === 'object' ? err.details : {}
+    const reason = String(/** @type {{ reason?: unknown }} */ (details).reason || '')
+    const isDomain = code === 'DOMAIN_ERROR' || String(err.type || '') === 'DOMAIN_ERROR'
+    if (isDomain && reason === 'attach-denied') {
+      return writeFailSocialResult(op, 'attach_denied', {
+        httpStatus: 200,
+        code: 'DOMAIN_ERROR',
+        reason: 'attach-denied',
+      })
+    }
+    return writeFailSocialResult(op, 'post_fail', {
+      httpStatus: 200,
+      code: isDomain ? 'DOMAIN_ERROR' : code || 'error',
+    })
+  }
+
+  if (httpStatus === 422) {
+    return writeFailSocialResult(op, 'post_fail', { httpStatus: 422, code: 'VALIDATION' })
+  }
+
+  if (httpStatus < 200 || httpStatus >= 300) {
+    return writeFailSocialResult(op, 'post_fail', {
+      httpStatus,
+      code: err?.code || `http_${httpStatus}`,
+    })
+  }
+
+  const data = readSuccessData(envelope)
+  if (!data || data.ref_id === undefined || data.ref_id === null || String(data.ref_id).trim() === '') {
     return writeFailSocialResult(op, 'post_fail', { reason: 'malformed', httpStatus })
   }
   return Object.freeze({ status: 'ok', data, op })
@@ -202,13 +305,16 @@ export function createThreadsSocialClient(options = {}) {
   }
 
   /**
-   * @param {'comment_create'|'comment_reply'} op
+   * @param {string} op
    * @param {string} issueId
-   * @param {{ body: string, parent_id: string|null }} payload
-   * @param {string|null|undefined} [explicitToken]
+   * @param {string} path
+   * @param {'POST'|'PUT'} method
+   * @param {Record<string, unknown>} body
+   * @param {string|null|undefined} explicitToken
+   * @param {(status: number, envelope: unknown, op: string) => SocialOk|SocialWriteFail} classify
    * @returns {Promise<SocialOk|SocialUnavailable|SocialWriteFail>}
    */
-  async function runClosedCommentWrite(op, issueId, payload, explicitToken) {
+  async function runClosedBearerWrite(op, issueId, path, method, body, explicitToken, classify) {
     if (!isSocialOpClosed(op)) {
       return runOpen(op)
     }
@@ -218,7 +324,6 @@ export function createThreadsSocialClient(options = {}) {
     if (issueId === undefined || issueId === null || String(issueId).trim() === '') {
       return unavailableSocialResult(op, 'missing_issue_id')
     }
-    const path = CLOSED_SOCIAL_PATHS.comment_write(issueId)
     if (path.includes('/threads/by-issue')) {
       return unavailableSocialResult(op, 'forbidden_path')
     }
@@ -236,15 +341,12 @@ export function createThreadsSocialClient(options = {}) {
     const url = `${baseUrl}${path}`
     try {
       const response = await fetchImpl(url, {
-        method: 'POST',
+        method,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({
-          body: String(payload.body ?? ''),
-          parent_id: payload.parent_id === undefined ? null : payload.parent_id,
-        }),
+        body: JSON.stringify(body),
       })
       let envelope
       try {
@@ -255,10 +357,32 @@ export function createThreadsSocialClient(options = {}) {
           httpStatus: response.status,
         })
       }
-      return classifyCommentWriteResponse(response.status, envelope, op)
+      return classify(response.status, envelope, op)
     } catch {
       return writeFailSocialResult(op, 'post_fail', { reason: 'network' })
     }
+  }
+
+  /**
+   * @param {'comment_create'|'comment_reply'} op
+   * @param {string} issueId
+   * @param {{ body: string, parent_id: string|null }} payload
+   * @param {string|null|undefined} [explicitToken]
+   * @returns {Promise<SocialOk|SocialUnavailable|SocialWriteFail>}
+   */
+  async function runClosedCommentWrite(op, issueId, payload, explicitToken) {
+    return runClosedBearerWrite(
+      op,
+      issueId,
+      CLOSED_SOCIAL_PATHS.comment_write(issueId),
+      'POST',
+      {
+        body: String(payload.body ?? ''),
+        parent_id: payload.parent_id === undefined ? null : payload.parent_id,
+      },
+      explicitToken,
+      classifyCommentWriteResponse,
+    )
   }
 
   return {
@@ -300,11 +424,86 @@ export function createThreadsSocialClient(options = {}) {
         accessToken,
       )
     },
-    async react() {
-      return runOpen('react')
+    /**
+     * PUT reactions — catalog ids only.
+     * @param {{
+     *   issueId: string,
+     *   targetKind: 'thread_root'|'comment',
+     *   commentId?: string|null,
+     *   reactionId: string,
+     *   op: 'add'|'remove',
+     *   accessToken?: string|null,
+     * }} args
+     */
+    async react({ issueId, targetKind, commentId = null, reactionId, op, accessToken } = {}) {
+      if (!isReactionsV1Id(reactionId)) {
+        return writeFailSocialResult('react', 'post_fail', { reason: 'unknown_reaction_id' })
+      }
+      if (op !== 'add' && op !== 'remove') {
+        return writeFailSocialResult('react', 'post_fail', { reason: 'bad_op' })
+      }
+      const kind = targetKind === 'thread_root' ? 'thread_root' : 'comment'
+      const body = {
+        target_kind: kind,
+        comment_id: kind === 'thread_root' ? null : commentId == null ? null : String(commentId),
+        reaction_id: String(reactionId),
+        op,
+      }
+      if (kind === 'comment' && (body.comment_id === null || String(body.comment_id).trim() === '')) {
+        return writeFailSocialResult('react', 'post_fail', { reason: 'missing_comment_id' })
+      }
+      return runClosedBearerWrite(
+        'react',
+        issueId,
+        CLOSED_SOCIAL_PATHS.reactions(issueId),
+        'PUT',
+        body,
+        accessToken,
+        classifyReactionResponse,
+      )
     },
-    async attachRef() {
-      return runOpen('attach_ref')
+    /**
+     * POST attachment-refs — refs only, no multipart.
+     * @param {{
+     *   issueId: string,
+     *   refId: string,
+     *   mediaType: string,
+     *   commentId: string,
+     *   floorClass?: string,
+     *   accessToken?: string|null,
+     * }} args
+     */
+    async attachRef({
+      issueId,
+      refId,
+      mediaType,
+      commentId,
+      floorClass = 'ok',
+      accessToken,
+    } = {}) {
+      if (refId === undefined || refId === null || String(refId).trim() === '') {
+        return writeFailSocialResult('attach_ref', 'post_fail', { reason: 'missing_ref_id' })
+      }
+      if (mediaType === undefined || mediaType === null || String(mediaType).trim() === '') {
+        return writeFailSocialResult('attach_ref', 'post_fail', { reason: 'missing_media_type' })
+      }
+      if (commentId === undefined || commentId === null || String(commentId).trim() === '') {
+        return writeFailSocialResult('attach_ref', 'post_fail', { reason: 'missing_comment_id' })
+      }
+      return runClosedBearerWrite(
+        'attach_ref',
+        issueId,
+        CLOSED_SOCIAL_PATHS.attachment_refs(issueId),
+        'POST',
+        {
+          ref_id: String(refId),
+          media_type: String(mediaType),
+          comment_id: String(commentId),
+          floor_class: floorClass == null ? 'ok' : String(floorClass),
+        },
+        accessToken,
+        classifyAttachRefResponse,
+      )
     },
     async getKnobs() {
       if (!isSocialOpClosed('knobs')) {

@@ -1,5 +1,12 @@
 import { useId, useMemo, useState } from 'react'
-import { listReactionsV1, resolveHarnessThr03Scene, toggleReactionSelection, REACTION_LAYERS } from './reactionsV1Catalog.js'
+import {
+  DEFAULT_MAX_REACTIONS_PER_ACTOR,
+  listReactionsV1,
+  mapSummaryMarksToEntries,
+  resolveHarnessThr03Scene,
+  toggleReactionSelection,
+  REACTION_LAYERS,
+} from './reactionsV1Catalog.js'
 import './ReactionControls.css'
 
 function labelFor(t, id) {
@@ -11,7 +18,8 @@ function layerLabel(t, layer) {
 }
 
 /**
- * Compact summary strip + reactions.v1 picker (M145). Presentation only — no invent HTTP.
+ * Compact summary strip + reactions.v1 picker (M145).
+ * THR-09: optional onReact → Closed PUT; knobs enable/capacity.
  */
 export function ReactionControls({
   t,
@@ -19,6 +27,14 @@ export function ReactionControls({
   initialSelected = [],
   summaryMarks = null,
   aggregateCount = null,
+  commentId = null,
+  maxReactions = DEFAULT_MAX_REACTIONS_PER_ACTOR,
+  reactionsEnable = null,
+  /**
+   * Live persist (THR-09).
+   * @type {((args: { reactionId: string, op: 'add'|'remove', target: string, commentId: string|null }) => Promise<object|void>)|undefined}
+   */
+  onReact,
 }) {
   const scene = resolveHarnessThr03Scene('strip')
   const [open, setOpen] = useState(
@@ -28,25 +44,83 @@ export function ReactionControls({
     if (scene === 'exclusive') return ['agree']
     return initialSelected
   })
+  const [marksState, setMarksState] = useState(() => mapSummaryMarksToEntries(summaryMarks))
+  const [aggregateState, setAggregateState] = useState(
+    aggregateCount === null || aggregateCount === undefined ? null : Number(aggregateCount),
+  )
   const [exclusiveHint, setExclusiveHint] = useState(scene === 'exclusive')
+  const [busy, setBusy] = useState(false)
   const panelId = useId()
 
-  const enabled = useMemo(() => listReactionsV1({ target, includeDisabled: false }), [target])
+  const capacity = Number.isFinite(Number(maxReactions)) && Number(maxReactions) > 0
+    ? Math.floor(Number(maxReactions))
+    : DEFAULT_MAX_REACTIONS_PER_ACTOR
+
+  const enabled = useMemo(
+    () =>
+      listReactionsV1({
+        target,
+        includeDisabled: false,
+        reactionsEnable,
+      }),
+    [target, reactionsEnable],
+  )
   const showDisabledNote = scene === 'enabled-only'
 
-  const marks = summaryMarks || enabled.slice(0, 3)
-  const count = aggregateCount ?? Math.max(marks.length, selected.length)
+  const marks = marksState || enabled.slice(0, 3)
+  const count = aggregateState ?? Math.max(marks.length, selected.length)
 
-  function handleSelect(id) {
+  async function handleSelect(id) {
+    if (busy) return
     const before = selected
-    const { selected: next } = toggleReactionSelection(before, id)
+    const { selected: next, error } = toggleReactionSelection(before, id, capacity)
+    if (error === 'unknown-id' || error === 'capacity') return
     if (
       (id === 'agree' && before.includes('disagree')) ||
       (id === 'disagree' && before.includes('agree'))
     ) {
       setExclusiveHint(true)
     }
-    setSelected(next)
+
+    if (typeof onReact !== 'function') {
+      setSelected(next)
+      return
+    }
+
+    const op = before.includes(id) ? 'remove' : 'add'
+    setBusy(true)
+    try {
+      const result = await onReact({
+        reactionId: id,
+        op,
+        target,
+        commentId: target === 'thread-root' ? null : commentId,
+      })
+      if (result && result.status === 'ok' && result.data) {
+        const data = result.data
+        if (Array.isArray(data.selected)) {
+          setSelected(data.selected.map(String))
+        } else {
+          setSelected(next)
+        }
+        const mapped = mapSummaryMarksToEntries(
+          /** @type {Array<{ reaction_id?: string, count?: number }>} */ (data.summary_marks),
+        )
+        if (mapped) setMarksState(mapped)
+        if (data.aggregate_count !== undefined && data.aggregate_count !== null) {
+          setAggregateState(Number(data.aggregate_count))
+        }
+        return
+      }
+      if (result && result.status === 'fail' && result.failKind === 'verify') {
+        return
+      }
+      // Soft-fail: keep prior selection
+    } catch {
+      // keep prior
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -56,6 +130,7 @@ export function ReactionControls({
       data-reaction-target={target}
       data-thr03-scene={scene}
       data-catalog={REACTIONS_CATALOG_ATTR}
+      data-max-reactions={String(capacity)}
     >
       <div className="reaction-summary-strip" data-testid="reaction-summary-strip">
         <div className="reaction-summary-marks" aria-hidden={marks.length === 0}>
@@ -78,6 +153,7 @@ export function ReactionControls({
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
+          disabled={busy}
         >
           <img src="/icons/threads-feed/ic-react.png" alt="" aria-hidden="true" />
           <span>{t('threadsFeed.reactions.react')}</span>
@@ -144,7 +220,10 @@ export function ReactionControls({
                             data-testid={`reaction-choice-${entry.id}`}
                             data-reaction-id={entry.id}
                             aria-pressed={isOn}
-                            onClick={() => handleSelect(entry.id)}
+                            disabled={busy}
+                            onClick={() => {
+                              void handleSelect(entry.id)
+                            }}
                           >
                             <span className="reaction-emoji" aria-hidden="true">
                               {entry.emoji}
