@@ -2,16 +2,12 @@ import { CommentComposer } from './CommentComposer.jsx'
 import { CommentTree } from './CommentTree.jsx'
 import { InviteOrganizationStub } from './InviteOrganizationStub.jsx'
 import { ReactionControls } from './ReactionControls.jsx'
-import {
-  THR02_DEMO_COMMENTS,
-  THR02_DEMO_MAX_DEPTH,
-  resolveHarnessThr02Scene,
-} from './thr02DemoFixture.js'
+import { resolveHarnessThr02Scene } from './thr02DemoFixture.js'
 import './IssueThreadBlock.css'
 
 /**
  * Shared discussion shell (M143/M148 + M144 tree/composer).
- * Social HTTP Open — presentation chrome only; no invent endpoints.
+ * Prod mounts pass comments/maxDepth from knobs+tree (THR-07) — no demo default.
  *
  * @param {'loading'|'empty'|'populated'|'unavailable'} status
  * @param {(k: string) => string} t
@@ -23,8 +19,8 @@ export function IssueThreadBlock({
   status = 'empty',
   t,
   onRetry,
-  maxDepth = THR02_DEMO_MAX_DEPTH,
-  comments = THR02_DEMO_COMMENTS,
+  maxDepth = 2,
+  comments = [],
 }) {
   const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
   const effectiveMaxDepth = scene === 'max-depth' ? 2 : maxDepth

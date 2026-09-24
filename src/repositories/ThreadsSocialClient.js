@@ -1,21 +1,29 @@
 /**
- * Threads social client seam (THR-06).
+ * Threads social client (THR-06 seam + THR-07 knobs/tree Close).
  *
- * ADMIN-THR-04: tree/comment/react/attach/knobs remain **Unknown / Open**.
- * Until siblings name Closed production paths, every social op returns
- * explicit Unavailable — **no invent production URLs**.
+ * Closed ops (OpenAPI / HTTP-06): knobs + tree_read only.
+ * Remaining ops stay Open → Unavailable — **no invent** URLs / no `/threads/by-issue`.
  */
 
-/** @typedef {{ status: 'unavailable', reason: 'social_http_open', op: string }} SocialUnavailable */
-/** @typedef {{ status: 'closed', path: string }} SocialClosed — reserved when siblings Close */
+import { getThreadsBaseUrl, normalizePublicBaseUrl } from '../config/publicEnv.js'
+
+/** @typedef {{ status: 'unavailable', reason: string, op: string }} SocialUnavailable */
+/** @typedef {{ status: 'ok', data: Record<string, unknown>, op: string }} SocialOk */
 
 export const SOCIAL_HTTP_CONTRACT = Object.freeze({
-  tree_read: 'open',
+  tree_read: 'closed',
   comment_create: 'open',
   comment_reply: 'open',
   react: 'open',
   attach_ref: 'open',
-  knobs: 'open',
+  knobs: 'closed',
+})
+
+/** Closed path templates — SSOT OpenAPI (no by-issue). */
+export const CLOSED_SOCIAL_PATHS = Object.freeze({
+  knobs: '/threads/knobs',
+  /** @param {string} issueId */
+  tree_read: (issueId) => `/threads/issues/${encodeURIComponent(String(issueId))}`,
 })
 
 /**
@@ -28,48 +36,107 @@ export function isSocialOpClosed(op) {
 
 /**
  * @param {string} op
+ * @param {string} [reason='social_http_open']
  * @returns {SocialUnavailable}
  */
-export function unavailableSocialResult(op) {
+export function unavailableSocialResult(op, reason = 'social_http_open') {
   return Object.freeze({
     status: 'unavailable',
-    reason: 'social_http_open',
+    reason: String(reason),
     op: String(op),
   })
 }
 
 /**
- * Typed threads social client — fail-soft while paths Open.
- * Does not call fetch for Open ops; does not invent URLs.
+ * @param {unknown} envelope
+ * @returns {Record<string, unknown>|null}
  */
-export function createThreadsSocialClient() {
-  async function run(op) {
-    if (!isSocialOpClosed(op)) {
-      return unavailableSocialResult(op)
+function readSuccessData(envelope) {
+  if (!envelope || typeof envelope !== 'object') return null
+  if (!('data' in envelope)) return null
+  const data = /** @type {{ data?: unknown }} */ (envelope).data
+  if (data === null || typeof data !== 'object' || Array.isArray(data)) return null
+  return /** @type {Record<string, unknown>} */ (data)
+}
+
+/**
+ * @param {object} [options]
+ * @param {string} [options.baseUrl]
+ * @param {typeof fetch} [options.fetchImpl]
+ */
+export function createThreadsSocialClient(options = {}) {
+  const baseUrl = normalizePublicBaseUrl(
+    options.baseUrl !== undefined ? options.baseUrl : getThreadsBaseUrl(),
+  )
+  const fetchImpl = options.fetchImpl || globalThis.fetch.bind(globalThis)
+
+  async function runOpen(op) {
+    return unavailableSocialResult(op, 'social_http_open')
+  }
+
+  /**
+   * @param {string} op
+   * @param {string} path
+   * @returns {Promise<SocialOk|SocialUnavailable>}
+   */
+  async function runClosedGet(op, path) {
+    if (!baseUrl) {
+      return unavailableSocialResult(op, 'missing_base_url')
     }
-    // Closed branch reserved for future named sibling paths — never invent here.
-    throw new Error(`ThreadsSocialClient: Closed op "${op}" has no named path yet`)
+    if (path.includes('/threads/by-issue')) {
+      return unavailableSocialResult(op, 'forbidden_path')
+    }
+    const url = `${baseUrl}${path}`
+    try {
+      const response = await fetchImpl(url)
+      if (!response.ok) {
+        return unavailableSocialResult(op, `http_${response.status}`)
+      }
+      let envelope
+      try {
+        envelope = await response.json()
+      } catch {
+        return unavailableSocialResult(op, 'malformed')
+      }
+      const data = readSuccessData(envelope)
+      if (!data) {
+        return unavailableSocialResult(op, 'malformed')
+      }
+      return Object.freeze({ status: 'ok', data, op })
+    } catch {
+      return unavailableSocialResult(op, 'network')
+    }
   }
 
   return {
     contract: SOCIAL_HTTP_CONTRACT,
-    async getThreadTree() {
-      return run('tree_read')
+    baseUrl,
+    async getThreadTree(issueId) {
+      if (!isSocialOpClosed('tree_read')) {
+        return runOpen('tree_read')
+      }
+      if (issueId === undefined || issueId === null || String(issueId).trim() === '') {
+        return unavailableSocialResult('tree_read', 'missing_issue_id')
+      }
+      return runClosedGet('tree_read', CLOSED_SOCIAL_PATHS.tree_read(issueId))
     },
     async createComment() {
-      return run('comment_create')
+      return runOpen('comment_create')
     },
     async replyComment() {
-      return run('comment_reply')
+      return runOpen('comment_reply')
     },
     async react() {
-      return run('react')
+      return runOpen('react')
     },
     async attachRef() {
-      return run('attach_ref')
+      return runOpen('attach_ref')
     },
     async getKnobs() {
-      return run('knobs')
+      if (!isSocialOpClosed('knobs')) {
+        return runOpen('knobs')
+      }
+      return runClosedGet('knobs', CLOSED_SOCIAL_PATHS.knobs)
     },
   }
 }

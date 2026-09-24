@@ -1,5 +1,6 @@
 export { BoardIssuePost } from './BoardIssuePost.jsx'
 export { IssueThreadBlock } from './IssueThreadBlock.jsx'
+export { LiveIssueThreadMount } from './LiveIssueThreadMount.jsx'
 export { CommentTree } from './CommentTree.jsx'
 export { ReactionControls } from './ReactionControls.jsx'
 export {

@@ -15,8 +15,7 @@ import {
 } from '../components/Filters/index.js'
 import { Button } from '../components/Button'
 import { IssueCard } from '../components/IssueCard/index.js'
-import { BoardIssuePost, IssueThreadBlock } from '../components/threads/index.js'
-import { resolveHarnessThreadStatus } from '../components/threads/resolveHarnessThreadStatus.js'
+import { BoardIssuePost, LiveIssueThreadMount } from '../components/threads/index.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
 import { useDebouncedBoardSearch } from '../hooks/useDebouncedBoardSearch.js'
@@ -376,7 +375,7 @@ export function BoardPage() {
                   {filteredIssues.map((item) => (
                     <BoardIssuePost
                       key={item.id}
-                      thread={<IssueThreadBlock status={resolveHarnessThreadStatus('empty')} t={t} />}
+                      thread={<LiveIssueThreadMount issueId={item.id} t={t} />}
                     >
                       <IssueCard
                         issue={item}
