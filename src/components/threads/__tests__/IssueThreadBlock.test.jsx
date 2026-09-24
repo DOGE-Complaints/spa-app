@@ -45,13 +45,21 @@ describe('IssueThreadBlock', () => {
   })
 
   it('populated projects tree + reaction + summary slots', () => {
-    const html = renderToStaticMarkup(<IssueThreadBlock status="populated" t={makeT()} />)
+    const html = renderToStaticMarkup(
+      <IssueThreadBlock status="populated" t={makeT()} comments={THR02_DEMO_COMMENTS} maxDepth={2} />,
+    )
     expect(html).toContain('data-testid="issue-thread-populated"')
     expect(html).toContain('data-testid="issue-thread-summary"')
     expect(html).toContain('data-testid="issue-thread-tree"')
     expect(html).toContain('data-testid="issue-thread-reaction-slot"')
     expect(html).toContain('data-testid="issue-thread-composer"')
     expect(html).toContain('data-testid="issue-thread-actions"')
+  })
+
+  it('does not default prod comments to demo fixture', () => {
+    const html = renderToStaticMarkup(<IssueThreadBlock status="populated" t={makeT()} />)
+    expect(html).not.toContain('Comment preview')
+    expect(html).not.toContain('data-comment-id="c-root"')
   })
 })
 

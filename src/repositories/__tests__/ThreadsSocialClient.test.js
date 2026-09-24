@@ -1,6 +1,6 @@
-import { describe, expect, it, vi, afterEach } from 'vitest'
+import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import {
-  SOCIAL_HTTP_CONTRACT,
+  CLOSED_SOCIAL_PATHS,
   createThreadsSocialClient,
   isSocialOpClosed,
   unavailableSocialResult,
@@ -10,37 +10,165 @@ import {
   canWriteThreadsWithMe,
   resolveMeIdentityVerified,
 } from '../../auth/meIdentityVerified.js'
+import {
+  ensureThreadsKnobsCached,
+  getCachedMaxDepth,
+  resetThreadsKnobsCache,
+  resetThreadsKnobsFocusBinding,
+} from '../threadsKnobsCache.js'
+import { mapThreadTreeToBlock, truncateCommentLabel } from '../mapThreadTreeToBlock.js'
 
-describe('ThreadsSocialClient', () => {
-  it('marks all ADMIN-04 social ops as open — not closed', () => {
-    for (const op of Object.keys(SOCIAL_HTTP_CONTRACT)) {
-      expect(isSocialOpClosed(op)).toBe(false)
-    }
+describe('ThreadsSocialClient THR-07 Close', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
   })
 
-  it('returns Unavailable without inventing production URLs or calling fetch', async () => {
+  it('closes knobs + tree_read only; write ops stay open', () => {
+    expect(isSocialOpClosed('knobs')).toBe(true)
+    expect(isSocialOpClosed('tree_read')).toBe(true)
+    expect(isSocialOpClosed('comment_create')).toBe(false)
+    expect(isSocialOpClosed('react')).toBe(false)
+    expect(isSocialOpClosed('attach_ref')).toBe(false)
+    expect(CLOSED_SOCIAL_PATHS.knobs).toBe('/threads/knobs')
+    expect(CLOSED_SOCIAL_PATHS.tree_read('ISS-1')).toBe('/threads/issues/ISS-1')
+    expect(CLOSED_SOCIAL_PATHS.tree_read('ISS-1')).not.toMatch(/by-issue/)
+  })
+
+  it('open ops return Unavailable without fetch', async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
-    const client = createThreadsSocialClient()
+    const client = createThreadsSocialClient({ baseUrl: 'http://127.0.0.1:8001' })
     const results = await Promise.all([
-      client.getThreadTree(),
       client.createComment(),
       client.replyComment(),
       client.react(),
       client.attachRef(),
-      client.getKnobs(),
     ])
     for (const r of results) {
       expect(r.status).toBe('unavailable')
       expect(r.reason).toBe('social_http_open')
-      expect(JSON.stringify(r)).not.toMatch(/\/thread|\/threads\/|\/social\//i)
     }
     expect(fetchSpy).not.toHaveBeenCalled()
-    fetchSpy.mockRestore()
+  })
+
+  it('getKnobs fetches Closed path only', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: { max_depth: 8, max_reactions_per_actor: 3, reactions_enable: {}, media_allowed_types: [] },
+          trace_id: 't1',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({ baseUrl: 'http://127.0.0.1:8001' })
+    const result = await client.getKnobs()
+    expect(result.status).toBe('ok')
+    expect(result.data.max_depth).toBe(8)
+    expect(fetchSpy).toHaveBeenCalledWith('http://127.0.0.1:8001/threads/knobs')
+    const url = String(fetchSpy.mock.calls[0][0])
+    expect(url).not.toMatch(/by-issue/)
+  })
+
+  it('getThreadTree fetches Closed path; empty → ok data', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ data: { issue_id: 'ISS-1', comments: [] }, trace_id: 't1' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+    const client = createThreadsSocialClient({ baseUrl: 'http://threads.test' })
+    const result = await client.getThreadTree('ISS-1')
+    expect(result.status).toBe('ok')
+    expect(result.data.comments).toEqual([])
+    expect(fetchSpy).toHaveBeenCalledWith('http://threads.test/threads/issues/ISS-1')
+    expect(String(fetchSpy.mock.calls[0][0])).not.toMatch(/by-issue/)
+  })
+
+  it('network fail → unavailable', async () => {
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline'))
+    const client = createThreadsSocialClient({ baseUrl: 'http://threads.test' })
+    const result = await client.getThreadTree('ISS-1')
+    expect(result).toEqual({ status: 'unavailable', reason: 'network', op: 'tree_read' })
+  })
+
+  it('missing base URL → unavailable without invent localhost fetch', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
+    const client = createThreadsSocialClient({ baseUrl: '' })
+    const result = await client.getKnobs()
+    expect(result.status).toBe('unavailable')
+    expect(result.reason).toBe('missing_base_url')
+    expect(fetchSpy).not.toHaveBeenCalled()
   })
 
   it('unavailableSocialResult is frozen shape', () => {
     const r = unavailableSocialResult('tree_read')
     expect(r).toEqual({ status: 'unavailable', reason: 'social_http_open', op: 'tree_read' })
+  })
+})
+
+describe('threadsKnobsCache', () => {
+  beforeEach(() => {
+    resetThreadsKnobsCache()
+    resetThreadsKnobsFocusBinding()
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+    resetThreadsKnobsCache()
+  })
+
+  it('caches max_depth from getKnobs', async () => {
+    const client = {
+      getKnobs: vi.fn().mockResolvedValue({
+        status: 'ok',
+        data: { max_depth: 5 },
+        op: 'knobs',
+      }),
+    }
+    const a = await ensureThreadsKnobsCached({ client })
+    const b = await ensureThreadsKnobsCached({ client })
+    expect(a.max_depth).toBe(5)
+    expect(b.max_depth).toBe(5)
+    expect(getCachedMaxDepth()).toBe(5)
+    expect(client.getKnobs).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('mapThreadTreeToBlock', () => {
+  it('maps empty / populated / unavailable', () => {
+    expect(mapThreadTreeToBlock({ status: 'ok', data: { issue_id: 'i', comments: [] } })).toEqual({
+      status: 'empty',
+      comments: [],
+    })
+    const populated = mapThreadTreeToBlock({
+      status: 'ok',
+      data: {
+        issue_id: 'i',
+        comments: [{ comment_id: 'c1', parent_id: null, depth: 0, body: 'Hello world' }],
+      },
+    })
+    expect(populated.status).toBe('populated')
+    expect(populated.comments[0]).toEqual({
+      id: 'c1',
+      parentId: null,
+      depth: 0,
+      label: 'Hello world',
+    })
+    expect(mapThreadTreeToBlock({ status: 'unavailable', reason: 'network', op: 'tree_read' }).status).toBe(
+      'unavailable',
+    )
+  })
+
+  it('truncates long body labels', () => {
+    const long = 'x'.repeat(200)
+    expect(truncateCommentLabel(long).length).toBeLessThanOrEqual(160)
+    expect(truncateCommentLabel(long).endsWith('…')).toBe(true)
+  })
+
+  it('malformed comments → unavailable', () => {
+    expect(
+      mapThreadTreeToBlock({ status: 'ok', data: { issue_id: 'i', comments: [{ body: 'no id' }] } }).status,
+    ).toBe('unavailable')
   })
 })
 
@@ -60,9 +188,9 @@ describe('fail-soft Issues regress', () => {
     vi.restoreAllMocks()
   })
 
-  it('getIssues still works when social client is Unavailable', async () => {
-    const social = createThreadsSocialClient()
-    const socialResult = await social.getThreadTree()
+  it('getIssues still works when social write ops Unavailable', async () => {
+    const social = createThreadsSocialClient({ baseUrl: 'http://threads.test' })
+    const socialResult = await social.createComment()
     expect(socialResult.status).toBe('unavailable')
 
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
@@ -74,10 +202,7 @@ describe('fail-soft Issues regress', () => {
     const issuesRepo = createGatewayIssueRepository('https://gateway.example.test')
     const issues = await issuesRepo.getIssues()
     expect(issues).toEqual([{ id: 'ISS-1' }])
-    expect(globalThis.fetch).toHaveBeenCalledWith(
-      expect.stringMatching(/\/node\/issues$/),
-    )
-    // Must not invent social production paths in the Issues call
+    expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringMatching(/\/node\/issues$/))
     const calledUrl = String(globalThis.fetch.mock.calls[0][0])
     expect(calledUrl).not.toMatch(/\/thread|\/threads\//i)
   })

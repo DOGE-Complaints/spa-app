@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
+  assertThreadsBaseUrl,
+  getThreadsBaseUrl,
   getVitePublicString,
   getVitePublicUrl,
   normalizePublicBaseUrl,
@@ -33,6 +35,20 @@ describe('publicEnv (BUG-08)', () => {
         VITE_GATEWAY_BASE_URL: 'http://localhost:8000 ',
       }),
     ).toBe('http://localhost:8000')
+  })
+
+  it('getThreadsBaseUrl + assertThreadsBaseUrl (THR-07)', () => {
+    expect(
+      getThreadsBaseUrl({
+        VITE_THREADS_BASE_URL: 'http://127.0.0.1:8001/',
+      }),
+    ).toBe('http://127.0.0.1:8001')
+    expect(() => assertThreadsBaseUrl({ VITE_THREADS_BASE_URL: '' })).toThrow(
+      /VITE_THREADS_BASE_URL is required/,
+    )
+    expect(assertThreadsBaseUrl({ VITE_THREADS_BASE_URL: 'http://127.0.0.1:8001' })).toBe(
+      'http://127.0.0.1:8001',
+    )
   })
 
   it('getVitePublicString trims mode / keys without stripping URL slashes', () => {
