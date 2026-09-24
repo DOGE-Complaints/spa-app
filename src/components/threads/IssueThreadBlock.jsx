@@ -8,6 +8,7 @@ import './IssueThreadBlock.css'
 /**
  * Shared discussion shell (M143/M148 + M144 tree/composer).
  * Prod mounts pass comments/maxDepth from knobs+tree (THR-07) — no demo default.
+ * THR-08: profile / onSubmitComment / returnTo for live write.
  *
  * @param {'loading'|'empty'|'populated'|'unavailable'} status
  * @param {(k: string) => string} t
@@ -21,9 +22,22 @@ export function IssueThreadBlock({
   onRetry,
   maxDepth = 2,
   comments = [],
+  profile = null,
+  identityVerified = null,
+  returnTo = '#/board',
+  onSubmitComment,
+  onPostSuccess,
 }) {
   const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
   const effectiveMaxDepth = scene === 'max-depth' ? 2 : maxDepth
+
+  const composerShared = {
+    profile,
+    identityVerified,
+    returnTo,
+    onSubmitComment,
+    onPostSuccess,
+  }
 
   return (
     <section
@@ -83,7 +97,13 @@ export function IssueThreadBlock({
           <div className="issue-thread-reaction-slot" data-testid="issue-thread-reaction-slot">
             <ReactionControls t={t} target="thread-root" />
           </div>
-          <CommentTree t={t} comments={comments} maxDepth={effectiveMaxDepth} scene={scene || 'nested'} />
+          <CommentTree
+            t={t}
+            comments={comments}
+            maxDepth={effectiveMaxDepth}
+            scene={scene || 'nested'}
+            {...composerShared}
+          />
         </div>
       ) : null}
 
@@ -105,7 +125,7 @@ export function IssueThreadBlock({
       ) : null}
 
       {status === 'empty' ? (
-        <CommentComposer t={t} mode="root" testId="issue-thread-composer" />
+        <CommentComposer t={t} mode="root" testId="issue-thread-composer" {...composerShared} />
       ) : null}
 
       {status === 'populated' &&
@@ -113,7 +133,7 @@ export function IssueThreadBlock({
       scene !== 'attach-allowed' &&
       scene !== 'attach-denied' &&
       scene !== 'post-fail' ? (
-        <CommentComposer t={t} mode="root" testId="issue-thread-composer" />
+        <CommentComposer t={t} mode="root" testId="issue-thread-composer" {...composerShared} />
       ) : null}
     </section>
   )

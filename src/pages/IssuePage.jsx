@@ -4,6 +4,7 @@ import { Button } from '../components/Button'
 import { StatusBadge } from '../components/StatusBadge.jsx'
 import { SchemaCardOverlay } from '../components/SchemaCardOverlay/SchemaCardOverlay.jsx'
 import { LiveIssueThreadMount } from '../components/threads/index.js'
+import { useOptionalSessionShell } from '../auth/SessionShellContext.jsx'
 import { TranslationMarker } from '../components/TranslationMarker/TranslationMarker.jsx'
 import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
@@ -39,6 +40,8 @@ export function IssuePage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { locale, t, resolveLocalizedText } = useI18n()
+  const sessionShell = useOptionalSessionShell()
+  const meProfile = sessionShell?.profile ?? null
   const [issue, setIssue] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -197,7 +200,12 @@ export function IssuePage() {
             ) : null}
           </section>
           <div className="issue-page-thread-mount">
-            <LiveIssueThreadMount issueId={id} t={t} />
+            <LiveIssueThreadMount
+              issueId={id}
+              t={t}
+              profile={meProfile}
+              returnTo={id ? `#/issue/${id}` : '#/board'}
+            />
           </div>
         </section>
           )

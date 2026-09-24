@@ -16,6 +16,7 @@ import {
 import { Button } from '../components/Button'
 import { IssueCard } from '../components/IssueCard/index.js'
 import { BoardIssuePost, LiveIssueThreadMount } from '../components/threads/index.js'
+import { useOptionalSessionShell } from '../auth/SessionShellContext.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
 import { useDebouncedBoardSearch } from '../hooks/useDebouncedBoardSearch.js'
@@ -55,6 +56,8 @@ export function BoardPage() {
   const [error, setError] = useState(null)
   const [boardView, setBoardView] = useState('list')
   const { locale, t, resolveLocalizedText } = useI18n()
+  const sessionShell = useOptionalSessionShell()
+  const meProfile = sessionShell?.profile ?? null
   const submitHref = getStoryGptHref()
   const submitExternal = hasStoryGptUrl()
   const boardFilters = parseBoardQuery(location.search)
@@ -375,7 +378,14 @@ export function BoardPage() {
                   {filteredIssues.map((item) => (
                     <BoardIssuePost
                       key={item.id}
-                      thread={<LiveIssueThreadMount issueId={item.id} t={t} />}
+                      thread={
+                        <LiveIssueThreadMount
+                          issueId={item.id}
+                          t={t}
+                          profile={meProfile}
+                          returnTo={`#/board`}
+                        />
+                      }
                     >
                       <IssueCard
                         issue={item}

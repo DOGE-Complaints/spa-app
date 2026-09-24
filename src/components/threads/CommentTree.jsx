@@ -6,6 +6,7 @@ import './CommentTree.css'
 /**
  * Nested comment tree with configured max-depth boundary (M144 THR-T-A/B).
  * Depth from prop — not a fixed product law.
+ * THR-08: forwards profile / onSubmitComment into reply composer.
  */
 export function CommentTree({
   t,
@@ -13,6 +14,11 @@ export function CommentTree({
   maxDepth = 2,
   scene = 'nested',
   replyParentId: forcedReplyParentId = null,
+  profile = null,
+  identityVerified = null,
+  returnTo = '#/board',
+  onSubmitComment,
+  onPostSuccess,
 }) {
   const [replyParentId, setReplyParentId] = useState(
     forcedReplyParentId || (scene === 'reply' || scene === 'attach-allowed' || scene === 'attach-denied' || scene === 'post-fail'
@@ -74,6 +80,7 @@ export function CommentTree({
                 <CommentComposer
                   t={t}
                   mode="reply"
+                  parentId={replyParent.id}
                   parentLabel={replyParent.label}
                   initialDraft={
                     scene === 'attach-denied' || scene === 'post-fail' ? 'Draft text that must survive' : ''
@@ -81,6 +88,14 @@ export function CommentTree({
                   initialAttachment={scene === 'attach-allowed' || scene === 'post-fail' ? { label: t('threadsFeed.composer.attachedFile') } : null}
                   attachOutcome={scene === 'attach-denied' ? 'denied' : scene === 'attach-allowed' ? 'allowed' : 'idle'}
                   postOutcome={scene === 'post-fail' ? 'fail' : 'idle'}
+                  profile={profile}
+                  identityVerified={identityVerified}
+                  returnTo={returnTo}
+                  onSubmitComment={onSubmitComment}
+                  onPostSuccess={(result) => {
+                    setReplyParentId(null)
+                    if (typeof onPostSuccess === 'function') onPostSuccess(result)
+                  }}
                   onCancel={() => setReplyParentId(null)}
                   testId="issue-thread-reply-composer"
                 />

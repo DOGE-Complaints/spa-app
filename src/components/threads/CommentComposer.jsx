@@ -9,12 +9,14 @@ import './CommentComposer.css'
 
 /**
  * Root / reply composer with attach chip + soft-fail + verify-before-write gate (M147).
- * Presentation only — no invent social/verify HTTP; no invent pack JSON keys.
+ * THR-08: optional onSubmitComment for Closed POST; gate before any network.
  */
 export function CommentComposer({
   t,
   mode = 'root',
   parentLabel = '',
+  /** Reply target comment_id (Closed POST parent_id) */
+  parentId = null,
   initialDraft = '',
   initialAttachment = null,
   attachOutcome = 'idle',
@@ -26,6 +28,13 @@ export function CommentComposer({
   returnTo = '#/board',
   onNavigateVerify,
   onCancel,
+  /**
+   * Live write hook (THR-08). Return SocialOk | SocialWriteFail | SocialUnavailable.
+   * @type {((args: { body: string, parentId: string|null }) => Promise<object|void>)|undefined}
+   */
+  onSubmitComment,
+  /** After successful write */
+  onPostSuccess,
   testId = 'issue-thread-composer',
 }) {
   const inputId = useId()
@@ -46,6 +55,8 @@ export function CommentComposer({
   const [attachment, setAttachment] = useState(initialAttachment)
   const [attachError, setAttachError] = useState(attachOutcome === 'denied')
   const [postError, setPostError] = useState(postOutcome === 'fail')
+  const [maxDepthError, setMaxDepthError] = useState(false)
+  const [posting, setPosting] = useState(false)
   const [gateOpen, setGateOpen] = useState(
     forcedScene === 'unverified' || forcedScene === 'civic' || forcedScene === 'handoff',
   )
@@ -57,10 +68,16 @@ export function CommentComposer({
   const placeholder =
     mode === 'reply' ? t('threadsFeed.composer.replyPlaceholder') : t('threadsFeed.composer.placeholder')
 
+  function openVerifyGate() {
+    setGateOpen(true)
+    setShowVerifiedChrome(false)
+    setPostError(false)
+    setMaxDepthError(false)
+  }
+
   function handleAttach() {
     if (!isVerified) {
-      setGateOpen(true)
-      setShowVerifiedChrome(false)
+      openVerifyGate()
       return
     }
     if (attachOutcome === 'denied') {
@@ -75,12 +92,46 @@ export function CommentComposer({
     setAttachment(null)
   }
 
-  function handlePost() {
+  async function handlePost() {
     if (!isVerified) {
-      setGateOpen(true)
-      setShowVerifiedChrome(false)
+      openVerifyGate()
       return
     }
+
+    if (typeof onSubmitComment === 'function') {
+      setPosting(true)
+      setPostError(false)
+      setMaxDepthError(false)
+      try {
+        const result = await onSubmitComment({
+          body: draft,
+          parentId: mode === 'reply' ? parentId : null,
+        })
+        if (!result || result.status === 'ok') {
+          setDraft('')
+          setAttachment(null)
+          if (typeof onPostSuccess === 'function') {
+            onPostSuccess(result)
+          }
+          return
+        }
+        if (result.status === 'fail' && result.failKind === 'verify') {
+          openVerifyGate()
+          return
+        }
+        if (result.status === 'fail' && result.failKind === 'max_depth') {
+          setMaxDepthError(true)
+          return
+        }
+        setPostError(true)
+      } catch {
+        setPostError(true)
+      } finally {
+        setPosting(false)
+      }
+      return
+    }
+
     if (postOutcome === 'fail') {
       setPostError(true)
       return
@@ -90,6 +141,7 @@ export function CommentComposer({
 
   function handleRetry() {
     setPostError(false)
+    setMaxDepthError(false)
   }
 
   function handleGoVerify() {
@@ -136,10 +188,11 @@ export function CommentComposer({
         id={inputId}
         className="comment-composer-input"
         data-testid="comment-composer-input"
-        rows={mode === 'reply' || postError || attachment || gateOpen ? 3 : 1}
+        rows={mode === 'reply' || postError || maxDepthError || attachment || gateOpen ? 3 : 1}
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         placeholder={placeholder}
+        disabled={posting}
       />
 
       {attachment ? (
@@ -162,6 +215,13 @@ export function CommentComposer({
         <p className="comment-composer-warning" data-testid="comment-attach-denied" role="alert">
           <img src="/icons/story-handoff/ic-warning-triangle.png" alt="" aria-hidden="true" />
           <span>{t('threadsFeed.composer.attachDenied')}</span>
+        </p>
+      ) : null}
+
+      {maxDepthError ? (
+        <p className="comment-composer-warning" data-testid="comment-max-depth-fail" role="status">
+          <img src="/icons/story-handoff/ic-warning-triangle.png" alt="" aria-hidden="true" />
+          <span>{t('threadsFeed.composer.maxDepthReached')}</span>
         </p>
       ) : null}
 
@@ -203,14 +263,14 @@ export function CommentComposer({
           <img src="/icons/threads-feed/ic-attach.png" alt="" aria-hidden="true" />
           <span>{t('threadsFeed.composer.attach')}</span>
         </button>
-        {mode === 'reply' || postError ? (
+        {mode === 'reply' || postError || maxDepthError ? (
           <button
             type="button"
             className="comment-composer-tool comment-composer-tool--neutral"
             data-testid="comment-composer-cancel"
             onClick={onCancel}
           >
-            {postError ? t('threadsFeed.composer.keepEditing') : t('threadsFeed.composer.cancel')}
+            {postError || maxDepthError ? t('threadsFeed.composer.keepEditing') : t('threadsFeed.composer.cancel')}
           </button>
         ) : null}
         {postError ? (
@@ -228,7 +288,10 @@ export function CommentComposer({
             type="button"
             className="comment-composer-primary"
             data-testid="comment-composer-post"
-            onClick={handlePost}
+            onClick={() => {
+              void handlePost()
+            }}
+            disabled={posting}
           >
             {mode === 'reply' ? t('threadsFeed.composer.postReply') : t('threadsFeed.composer.postReply')}
           </button>

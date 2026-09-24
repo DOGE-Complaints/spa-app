@@ -15,3 +15,8 @@ export function useSessionShell() {
   }
   return ctx
 }
+
+/** Safe for public pages/tests outside SessionShellProvider — returns null. */
+export function useOptionalSessionShell() {
+  return useContext(SessionShellContext)
+}
