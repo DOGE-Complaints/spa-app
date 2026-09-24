@@ -26,6 +26,18 @@ function makeT() {
 afterEach(() => cleanup())
 
 describe('reactions.v1 catalog', () => {
+  it('filters by knobs reactions_enable without inventing ids', () => {
+    const enabled = listReactionsV1({
+      target: 'comment',
+      reactionsEnable: { agree: true, disagree: false, hopeful: true },
+    })
+    const ids = enabled.map((e) => e.id)
+    expect(ids).toContain('agree')
+    expect(ids).toContain('hopeful')
+    expect(ids).not.toContain('disagree')
+    expect(ids.every((id) => isReactionsV1Id(id))).toBe(true)
+  })
+
   it('exposes only catalog ids — no like/love invent', () => {
     expect(REACTIONS_V1_IDS).toEqual([
       'acknowledge',

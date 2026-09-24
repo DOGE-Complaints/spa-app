@@ -1,7 +1,9 @@
 import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import {
   CLOSED_SOCIAL_PATHS,
+  classifyAttachRefResponse,
   classifyCommentWriteResponse,
+  classifyReactionResponse,
   createThreadsSocialClient,
   isSocialOpClosed,
   unavailableSocialResult,
@@ -20,35 +22,42 @@ import {
 } from '../threadsKnobsCache.js'
 import { mapThreadTreeToBlock, truncateCommentLabel } from '../mapThreadTreeToBlock.js'
 
-describe('ThreadsSocialClient THR-07/08 Close', () => {
+describe('ThreadsSocialClient THR-07/08/09 Close', () => {
   afterEach(() => {
     vi.restoreAllMocks()
   })
 
-  it('closes knobs + tree_read + comment_create/reply; react/attach stay open', () => {
+  it('closes knobs + tree_read + comment + react + attach_ref', () => {
     expect(isSocialOpClosed('knobs')).toBe(true)
     expect(isSocialOpClosed('tree_read')).toBe(true)
     expect(isSocialOpClosed('comment_create')).toBe(true)
     expect(isSocialOpClosed('comment_reply')).toBe(true)
-    expect(isSocialOpClosed('react')).toBe(false)
-    expect(isSocialOpClosed('attach_ref')).toBe(false)
+    expect(isSocialOpClosed('react')).toBe(true)
+    expect(isSocialOpClosed('attach_ref')).toBe(true)
     expect(CLOSED_SOCIAL_PATHS.knobs).toBe('/threads/knobs')
     expect(CLOSED_SOCIAL_PATHS.tree_read('ISS-1')).toBe('/threads/issues/ISS-1')
     expect(CLOSED_SOCIAL_PATHS.comment_write('ISS-1')).toBe('/threads/issues/ISS-1/comments')
+    expect(CLOSED_SOCIAL_PATHS.reactions('ISS-1')).toBe('/threads/issues/ISS-1/reactions')
+    expect(CLOSED_SOCIAL_PATHS.attachment_refs('ISS-1')).toBe('/threads/issues/ISS-1/attachment-refs')
     expect(CLOSED_SOCIAL_PATHS.comment_write('ISS-1')).not.toMatch(/by-issue/)
+    expect(CLOSED_SOCIAL_PATHS.reactions('ISS-1')).not.toMatch(/by-issue/)
   })
 
-  it('open react/attach return Unavailable without fetch', async () => {
+  it('unknown reaction id rejected without fetch', async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}'))
     const client = createThreadsSocialClient({
       baseUrl: 'http://127.0.0.1:8001',
       getAccessToken: async () => 'tok',
     })
-    const results = await Promise.all([client.react(), client.attachRef()])
-    for (const r of results) {
-      expect(r.status).toBe('unavailable')
-      expect(r.reason).toBe('social_http_open')
-    }
+    const result = await client.react({
+      issueId: 'ISS-1',
+      targetKind: 'comment',
+      commentId: 'c1',
+      reactionId: 'not-a-real-id',
+      op: 'add',
+    })
+    expect(result.status).toBe('fail')
+    expect(result.reason).toBe('unknown_reaction_id')
     expect(fetchSpy).not.toHaveBeenCalled()
   })
 
@@ -246,6 +255,187 @@ describe('ThreadsSocialClient THR-08 comment write', () => {
       ).status,
     ).toBe('ok')
     expect(writeFailSocialResult('comment_create', 'post_fail').status).toBe('fail')
+  })
+})
+
+describe('ThreadsSocialClient THR-09 react + attach_ref', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('react add PUTs Closed path with Bearer + ReactionData', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: {
+            issue_id: 'ISS-1',
+            target_kind: 'comment',
+            comment_id: 'c1',
+            reaction_id: 'agree',
+            op: 'add',
+            selected: ['agree'],
+            summary_marks: [{ reaction_id: 'agree', count: 1 }],
+            aggregate_count: 1,
+          },
+          trace_id: 't1',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.react({
+      issueId: 'ISS-1',
+      targetKind: 'comment',
+      commentId: 'c1',
+      reactionId: 'agree',
+      op: 'add',
+    })
+    expect(result.status).toBe('ok')
+    expect(result.data.selected).toEqual(['agree'])
+    const [url, init] = fetchSpy.mock.calls[0]
+    expect(String(url)).toBe('http://threads.test/threads/issues/ISS-1/reactions')
+    expect(String(url)).not.toMatch(/by-issue/)
+    expect(init.method).toBe('PUT')
+    expect(init.headers.Authorization).toBe('Bearer tok')
+    expect(JSON.parse(init.body)).toEqual({
+      target_kind: 'comment',
+      comment_id: 'c1',
+      reaction_id: 'agree',
+      op: 'add',
+    })
+  })
+
+  it('react remove on thread_root sends comment_id null', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: {
+            issue_id: 'ISS-1',
+            target_kind: 'thread_root',
+            comment_id: null,
+            reaction_id: 'support',
+            op: 'remove',
+            selected: [],
+            summary_marks: [],
+            aggregate_count: 0,
+          },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    await client.react({
+      issueId: 'ISS-1',
+      targetKind: 'thread_root',
+      reactionId: 'support',
+      op: 'remove',
+    })
+    expect(JSON.parse(fetchSpy.mock.calls[0][1].body)).toEqual({
+      target_kind: 'thread_root',
+      comment_id: null,
+      reaction_id: 'support',
+      op: 'remove',
+    })
+  })
+
+  it('attachRef POSTs refs only; attach-denied DOMAIN on 200', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          error: {
+            code: 'DOMAIN_ERROR',
+            type: 'DOMAIN_ERROR',
+            message: 'floor',
+            details: { reason: 'attach-denied' },
+          },
+          trace_id: 't1',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.attachRef({
+      issueId: 'ISS-1',
+      refId: 'ref-1',
+      mediaType: 'image/png',
+      commentId: 'c1',
+    })
+    expect(result.failKind).toBe('attach_denied')
+    expect(result.reason).toBe('attach-denied')
+    const [url, init] = fetchSpy.mock.calls[0]
+    expect(String(url)).toBe('http://threads.test/threads/issues/ISS-1/attachment-refs')
+    expect(String(url)).not.toMatch(/by-issue/)
+    expect(init.method).toBe('POST')
+    expect(JSON.parse(init.body)).toEqual({
+      ref_id: 'ref-1',
+      media_type: 'image/png',
+      comment_id: 'c1',
+      floor_class: 'ok',
+    })
+    expect(JSON.stringify(init.body)).not.toMatch(/multipart|FormData|blob/i)
+  })
+
+  it('attachRef happy path ok', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: { ref_id: 'ref-1', media_type: 'image/png', comment_id: 'c1', floor_class: 'ok' },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.attachRef({
+      issueId: 'ISS-1',
+      refId: 'ref-1',
+      mediaType: 'image/png',
+      commentId: 'c1',
+    })
+    expect(result.status).toBe('ok')
+    expect(result.data.ref_id).toBe('ref-1')
+  })
+
+  it('classifyReactionResponse + classifyAttachRefResponse §8', () => {
+    expect(
+      classifyReactionResponse(
+        200,
+        {
+          data: {
+            selected: ['agree'],
+            summary_marks: [],
+            aggregate_count: 1,
+          },
+        },
+        'react',
+      ).status,
+    ).toBe('ok')
+    expect(classifyReactionResponse(403, { error: { code: 'FORBIDDEN' } }, 'react').failKind).toBe('verify')
+    expect(
+      classifyAttachRefResponse(
+        200,
+        { error: { code: 'DOMAIN_ERROR', details: { reason: 'attach-denied' } } },
+        'attach_ref',
+      ).failKind,
+    ).toBe('attach_denied')
+    expect(
+      classifyAttachRefResponse(
+        200,
+        { data: { ref_id: 'r', media_type: 'image/png', comment_id: 'c', floor_class: 'ok' } },
+        'attach_ref',
+      ).status,
+    ).toBe('ok')
   })
 })
 
