@@ -63,8 +63,8 @@ describe('publicEnv (BUG-08)', () => {
       }),
     ).toBe('anon-key')
     expect(
-      getVitePublicString('VITE_IDENTITY_SERVICE_URL', {
-        VITE_IDENTITY_SERVICE_URL: ' https://identity.example/ ',
+      getVitePublicString('VITE_IDENTITY_BASE_URL', {
+        VITE_IDENTITY_BASE_URL: ' https://identity.example/ ',
       }),
     ).toBe('https://identity.example/')
   })

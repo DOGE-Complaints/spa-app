@@ -51,7 +51,7 @@ describe('spaStartDecision FR-BUG-06.5 / 06.8 a–d', () => {
   it('(b) public bake + .env localhost refuses start', () => {
     const root = makeRoot({
       js: 'https://api.example.com/tallinn/issues https://id.example.com',
-      envText: 'VITE_GATEWAY_BASE_URL=http://127.0.0.1:8000\nVITE_IDENTITY_SERVICE_URL=http://127.0.0.1:8100\n',
+      envText: 'VITE_GATEWAY_BASE_URL=http://127.0.0.1:8000\nVITE_IDENTITY_BASE_URL=http://127.0.0.1:8100\n',
     })
     expect(writeBakeMeta(root).bakeKind).toBe('public')
     const d = decideStartAction({ rootDir: root })
@@ -71,7 +71,7 @@ describe('spaStartDecision FR-BUG-06.5 / 06.8 a–d', () => {
   it('(d) local bake after local .env allows serve', () => {
     const root = makeRoot({
       js: 'http://127.0.0.1:8000/tallinn/issues http://127.0.0.1:8100/me',
-      envText: 'VITE_GATEWAY_BASE_URL=http://127.0.0.1:8000\nVITE_IDENTITY_SERVICE_URL=http://127.0.0.1:8100\n',
+      envText: 'VITE_GATEWAY_BASE_URL=http://127.0.0.1:8000\nVITE_IDENTITY_BASE_URL=http://127.0.0.1:8100\n',
     })
     expect(writeBakeMeta(root).bakeKind).toBe('local')
     expect(decideStartAction({ rootDir: root })).toEqual({ action: 'serve' })
@@ -86,7 +86,7 @@ describe('spaStartDecision FR-BUG-06.5 / 06.8 a–d', () => {
 
   it('detects localhost in env with trim (no secret dump)', () => {
     const root = makeRoot({
-      envText: 'VITE_GATEWAY_BASE_URL=http://127.0.0.1:8000  \n# comment\nVITE_IDENTITY_SERVICE_URL=https://id.example.com\n',
+      envText: 'VITE_GATEWAY_BASE_URL=http://127.0.0.1:8000  \n# comment\nVITE_IDENTITY_BASE_URL=https://id.example.com\n',
     })
     const env = readLocalBackendEnv(join(root, '.env'))
     expect(env.exists).toBe(true)

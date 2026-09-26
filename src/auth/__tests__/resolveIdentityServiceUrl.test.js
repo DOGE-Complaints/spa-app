@@ -7,21 +7,21 @@ import {
 describe('resolveIdentityServiceUrl (HL-04)', () => {
   it('PROD missing URL throws and does not return localhost', () => {
     expect(() =>
-      resolveIdentityServiceUrl({ PROD: true, VITE_IDENTITY_SERVICE_URL: undefined }),
-    ).toThrow(/VITE_IDENTITY_SERVICE_URL/)
+      resolveIdentityServiceUrl({ PROD: true, VITE_IDENTITY_BASE_URL: undefined }),
+    ).toThrow(/VITE_IDENTITY_BASE_URL/)
     expect(() =>
-      resolveIdentityServiceUrl({ PROD: true, VITE_IDENTITY_SERVICE_URL: '' }),
+      resolveIdentityServiceUrl({ PROD: true, VITE_IDENTITY_BASE_URL: '' }),
     ).toThrow(/refusing localhost fallback/)
     expect(() =>
-      resolveIdentityServiceUrl({ PROD: true, VITE_IDENTITY_SERVICE_URL: '   ' }),
-    ).toThrow(/VITE_IDENTITY_SERVICE_URL/)
+      resolveIdentityServiceUrl({ PROD: true, VITE_IDENTITY_BASE_URL: '   ' }),
+    ).toThrow(/VITE_IDENTITY_BASE_URL/)
   })
 
   it('PROD with public URL returns trimmed value', () => {
     expect(
       resolveIdentityServiceUrl({
         PROD: true,
-        VITE_IDENTITY_SERVICE_URL: ' https://identity.example/ ',
+        VITE_IDENTITY_BASE_URL: ' https://identity.example/ ',
       }),
     ).toBe('https://identity.example/')
   })
@@ -37,7 +37,7 @@ describe('resolveIdentityServiceUrl (HL-04)', () => {
     expect(
       resolveIdentityServiceUrl({
         PROD: false,
-        VITE_IDENTITY_SERVICE_URL: 'http://localhost:8100',
+        VITE_IDENTITY_BASE_URL: 'http://localhost:8100',
       }),
     ).toBe('http://localhost:8100')
   })
