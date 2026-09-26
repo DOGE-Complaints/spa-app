@@ -39,6 +39,7 @@ Stories подаются **только через Custom GPT** — SPA не с�
 | 12 | [12-dashboard-page.md](12-dashboard-page.md) | `DashboardPage.jsx`, `ProfileCard.jsx`, `CivicStatusPanel.jsx` | Planned — NOT IMPLEMENTED |
 | 13 | [13-error-handling.md](13-error-handling.md) | Горизонтальная обработка ошибок | Planned — NOT IMPLEMENTED |
 | 14 | [14-i18n-identity-strings.md](14-i18n-identity-strings.md) | Новые ключи для `dictionaries.js` (et/ru/en) | Planned — NOT IMPLEMENTED |
+| 18 | [18-req9-vite-identity-base-url.md](18-req9-vite-identity-base-url.md) | REQ9 R3: hard cut identity peer env → `VITE_IDENTITY_BASE_URL`; no service tokens in browser | **Done** · P3 [REQ9-01](../tasks/backlog-stories/req9-vite-identity-base-url/STORY-SPA-REQ9-01-vite-identity-base-url.md) `pkg-000086` |
 
 ---
 

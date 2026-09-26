@@ -110,9 +110,9 @@ Railway обнаруживает `package.json` и `railway.toml` в корне 
 |------------|----------------|------------------|
 | `VITE_LIFE_REALITY_MODE` | Да (prod) | `GFL-DRIVEN` |
 | `VITE_GATEWAY_BASE_URL` | Да при GFL-DRIVEN | `https://your-gateway.railway.app` |
-| `VITE_IDENTITY_SERVICE_URL` | Да (auth / **prod required**) | `https://your-identity.railway.app` |
+| `VITE_IDENTITY_BASE_URL` | Да (auth / **prod required**) | `https://your-identity.railway.app` |
 
-> **HL-04 fail-fast:** In a production build (`import.meta.env.PROD`), missing or blank `VITE_IDENTITY_SERVICE_URL` throws at module load (`resolveIdentityServiceUrl`) — the SPA will **not** silently call `http://localhost:8100`. Local/dev may omit the var and use the localhost fallback. See [Release checklist — env-bake](#release-checklist--env-bake-hl-02) for build-time public URL checks (HL-02).
+> **HL-04 fail-fast:** In a production build (`import.meta.env.PROD`), missing or blank `VITE_IDENTITY_BASE_URL` throws at module load (`resolveIdentityServiceUrl`) — the SPA will **not** silently call `http://localhost:8100`. Local/dev may omit the var and use the localhost fallback. See [Release checklist — env-bake](#release-checklist--env-bake-hl-02) for build-time public URL checks (HL-02).
 
 | `VITE_SUPABASE_URL` | Да (prod) | `https://<project>.supabase.co` |
 | `VITE_SUPABASE_ANON_KEY` | Да (prod) | `eyJ...` (anon, не service_role) |
@@ -126,7 +126,7 @@ Railway обнаруживает `package.json` и `railway.toml` в корне 
 ```
 VITE_LIFE_REALITY_MODE=GFL-DRIVEN
 VITE_GATEWAY_BASE_URL=https://your-gateway.railway.app
-VITE_IDENTITY_SERVICE_URL=https://your-identity.railway.app
+VITE_IDENTITY_BASE_URL=https://your-identity.railway.app
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...
 VITE_IDENTITY_MOCK_MODE=false
@@ -252,7 +252,7 @@ npm run deploy
 
 1. Set **public** (non-localhost) values for:
    - `VITE_GATEWAY_BASE_URL`
-   - `VITE_IDENTITY_SERVICE_URL`
+   - `VITE_IDENTITY_BASE_URL`
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
    - `VITE_STORY_GPT_URL`
@@ -261,7 +261,7 @@ npm run deploy
 
 ```bash
 VITE_GATEWAY_BASE_URL=https://… \
-VITE_IDENTITY_SERVICE_URL=https://… \
+VITE_IDENTITY_BASE_URL=https://… \
 VITE_SUPABASE_URL=https://… \
 VITE_SUPABASE_ANON_KEY=eyJ… \
 VITE_STORY_GPT_URL=https://… \
@@ -273,6 +273,16 @@ npm run verify:build:env-bake
 4. Do **not** deploy a `dist/` that was baked from local `.env` with `127.0.0.1` service bases — that artifact is **not** a release.
 
 Script entrypoint: [`package.json`](../package.json) → `verify:build:env-bake` → [`scripts/verify-build-env-bake.mjs`](../scripts/verify-build-env-bake.mjs).
+
+### REQ9 — rename bake-var to `VITE_IDENTITY_BASE_URL` (ops checklist)
+
+**Lock A:** Story Done does **not** require a live Railway UI click as proof. Repo docs + this checklist are enough for AC.
+
+After code that reads `VITE_IDENTITY_BASE_URL` lands:
+
+1. Railway → spa service → **Variables**: set public `VITE_IDENTITY_BASE_URL` (identity origin URL). **Remove** the old bake-var name if still present.
+2. **Rebuild** the spa service so Vite bake embeds the new key (Variables changes alone without rebuild leave a stale dist).
+3. Confirm release path still uses `npm run verify:build:env-bake` (see above) with the **new** key name.
 
 ---
 

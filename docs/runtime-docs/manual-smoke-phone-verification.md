@@ -28,7 +28,7 @@
 ```env
 VITE_SUPABASE_URL=https://<your-project>.supabase.co
 VITE_SUPABASE_ANON_KEY=<your-anon-key>
-VITE_IDENTITY_SERVICE_URL=http://127.0.0.1:8100
+VITE_IDENTITY_BASE_URL=http://127.0.0.1:8100
 ```
 
 ### Режим A — UI-only

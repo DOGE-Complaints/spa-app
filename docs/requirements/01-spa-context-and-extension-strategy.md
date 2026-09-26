@@ -87,7 +87,7 @@ src/
 ### Паттерн сервиса (из `issueService.js`)
 ```javascript
 // VITE env var с дефолтом
-const IDENTITY_SERVICE_URL = import.meta.env.VITE_IDENTITY_SERVICE_URL ?? 'http://localhost:8100'
+const IDENTITY_SERVICE_URL = import.meta.env.VITE_IDENTITY_BASE_URL ?? 'http://localhost:8100'
 
 // Factory function
 export function createIdentityService(baseUrl) { ... }
@@ -103,7 +103,7 @@ const REALITY_MODE = import.meta.env.VITE_LIFE_REALITY_MODE ?? 'FAKE-OLD'
 const GATEWAY_BASE_URL = import.meta.env.VITE_GATEWAY_BASE_URL ?? ''
 
 // Новый (идентичный паттерн):
-const IDENTITY_SERVICE_URL = import.meta.env.VITE_IDENTITY_SERVICE_URL ?? 'http://localhost:8100'
+const IDENTITY_SERVICE_URL = import.meta.env.VITE_IDENTITY_BASE_URL ?? 'http://localhost:8100'
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL ?? ''
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY ?? ''
 ```

@@ -98,7 +98,7 @@ export default defineConfig({
 })
 ```
 
-Proxy — опциональный convenience для dev. В production — явный `VITE_IDENTITY_SERVICE_URL`.
+Proxy — опциональный convenience для dev. В production — явный `VITE_IDENTITY_BASE_URL`.
 
 ---
 

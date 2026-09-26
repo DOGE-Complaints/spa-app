@@ -27,13 +27,15 @@ Railway подхватит [`railway.toml`](../railway.toml):
 |----------|-------------------------|
 | `VITE_LIFE_REALITY_MODE` | `GFL-DRIVEN` |
 | `VITE_GATEWAY_BASE_URL` | `https://dogestonia-tallinn.up.railway.app` |
-| `VITE_IDENTITY_SERVICE_URL` | `https://doge-identity-service-tallinn-demo.up.railway.app` |
+| `VITE_IDENTITY_BASE_URL` | `https://doge-identity-service-tallinn-demo.up.railway.app` |
 | `VITE_SUPABASE_URL` | из Supabase Dashboard → Settings → API |
 | `VITE_SUPABASE_ANON_KEY` | anon key (не service_role) |
 | `VITE_STORY_GPT_URL` | URL вашего Custom GPT |
 | `VITE_IDENTITY_MOCK_MODE` | `false` |
 
 Секреты backend (service_role, OAuth secrets) **не** добавлять в spa — только публичные `VITE_*`.
+
+**REQ9 ops (lock A):** bake-var is `VITE_IDENTITY_BASE_URL` (not the retired `…SERVICE_URL` name). After rename in repo: update Variables → trigger **rebuild**. Live Railway UI rename is **not** a Story Done gate — checklist only. Full note: [deploy-guide.md § REQ9](./deploy-guide.md#req9--rename-bake-var-to-vite_identity_base_url-ops-checklist).
 
 ## 3. Deploy
 
@@ -79,7 +81,7 @@ Pre-deploy guards (локально, перед push):
 npm run verify:bundle:no-service-role
 VITE_LIFE_REALITY_MODE=GFL-DRIVEN \
 VITE_GATEWAY_BASE_URL=https://dogestonia-tallinn.up.railway.app \
-VITE_IDENTITY_SERVICE_URL=https://doge-identity-service-tallinn-demo.up.railway.app \
+VITE_IDENTITY_BASE_URL=https://doge-identity-service-tallinn-demo.up.railway.app \
 VITE_SUPABASE_URL=https://<project>.supabase.co \
 VITE_SUPABASE_ANON_KEY=<anon> \
 VITE_STORY_GPT_URL=https://chatgpt.com/g/<your-gpt> \

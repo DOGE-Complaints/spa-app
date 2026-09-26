@@ -11,7 +11,7 @@
 
 Единственная точка для всех HTTP вызовов к `doge-identity-service`. Инкапсулирует:
 - Bearer token injection (из Supabase session)
-- Base URL из `VITE_IDENTITY_SERVICE_URL`
+- Base URL из `VITE_IDENTITY_BASE_URL`
 - Error normalization
 - Mock mode при `VITE_IDENTITY_MOCK_MODE=true`
 
@@ -27,7 +27,7 @@ SPA вызывает только 3 endpoints identity-service:
 ```javascript
 import { supabase } from '../auth/supabaseClient.js'
 
-const IDENTITY_SERVICE_URL = import.meta.env.VITE_IDENTITY_SERVICE_URL ?? 'http://localhost:8100'
+const IDENTITY_SERVICE_URL = import.meta.env.VITE_IDENTITY_BASE_URL ?? 'http://localhost:8100'
 const IDENTITY_MOCK_MODE = import.meta.env.VITE_IDENTITY_MOCK_MODE === 'true'
 
 // ── Mock responses для dev без backend ──────────────────────────────────────

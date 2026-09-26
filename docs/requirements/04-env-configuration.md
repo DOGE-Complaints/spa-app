@@ -19,7 +19,7 @@
 
 | Переменная | Required | Default | Описание |
 |-----------|---------|---------|---------|
-| `VITE_IDENTITY_SERVICE_URL` | No | `http://localhost:8100` | Base URL для doge-identity-service. Production: `https://identity.dogestonia.ee` |
+| `VITE_IDENTITY_BASE_URL` | No | `http://localhost:8100` | Base URL для doge-identity-service. Production: `https://identity.dogestonia.ee` |
 | `VITE_SUPABASE_URL` | Yes (prod) | — | Supabase project URL. Dashboard → Settings → API → Project URL |
 | `VITE_SUPABASE_ANON_KEY` | Yes (prod) | — | Supabase anon/public key. Безопасно включать в frontend — RLS защищает данные. |
 | `VITE_IDENTITY_MOCK_MODE` | No | `false` | `true` — mock identity in browser (режим A); `false` — HTTP к identity (режим B, file sink). |
@@ -39,7 +39,7 @@
 
 ```env
 # doge-identity-service base URL
-VITE_IDENTITY_SERVICE_URL=http://localhost:8100
+VITE_IDENTITY_BASE_URL=http://localhost:8100
 
 # Supabase (заполнить перед dev-сессией, anon key — публичный)
 VITE_SUPABASE_URL=
@@ -64,7 +64,7 @@ VITE_SUPABASE_URL=https://<project-ref>.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJhbGc...
 
 # Identity service (если запущен локально)
-VITE_IDENTITY_SERVICE_URL=http://localhost:8100
+VITE_IDENTITY_BASE_URL=http://localhost:8100
 
 # Если тестируем с real doge-complaints-gateway:
 VITE_LIFE_REALITY_MODE=GFL-DRIVEN
@@ -83,7 +83,7 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY ?? ''
 // src/auth/resolveIdentityServiceUrl.js (+ wired from identityService / oauthService / identityReadyClient)
 import { resolveIdentityServiceUrl } from './resolveIdentityServiceUrl.js'
 const IDENTITY_SERVICE_URL = resolveIdentityServiceUrl()
-// PROD (import.meta.env.PROD): missing/blank VITE_IDENTITY_SERVICE_URL → throw (HL-04; no silent localhost)
+// PROD (import.meta.env.PROD): missing/blank VITE_IDENTITY_BASE_URL → throw (HL-04; no silent localhost)
 // non-PROD: missing/blank → http://localhost:8100
 const IDENTITY_MOCK_MODE = import.meta.env.VITE_IDENTITY_MOCK_MODE === 'true'
 ```
@@ -95,7 +95,7 @@ const IDENTITY_MOCK_MODE = import.meta.env.VITE_IDENTITY_MOCK_MODE === 'true'
 | Значение | Режим | Phone API |
 |----------|-------|-----------|
 | `true` | A — UI-only | mock в браузере, HTTP не идёт (`skippedHttp: true` в Console) |
-| `false` | B — file E2E | `POST` на `VITE_IDENTITY_SERVICE_URL/auth/phone/*` |
+| `false` | B — file E2E | `POST` на `VITE_IDENTITY_BASE_URL/auth/phone/*` |
 
 При `VITE_IDENTITY_MOCK_MODE=true` identity service вызовы возвращают mock данные:
 
@@ -139,7 +139,7 @@ const MOCK_ME_UNVERIFIED = {
 
 ## Acceptance Criteria
 
-- [ ] `VITE_IDENTITY_SERVICE_URL` читается в `identityService.js` по паттерну `import.meta.env.*`
+- [ ] `VITE_IDENTITY_BASE_URL` читается в `identityService.js` по паттерну `import.meta.env.*`
 - [ ] `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` используются только в `supabaseClient.js`
 - [ ] `.env` с пустыми секретами коммитится (документирует список vars)
 - [ ] `.env.local` в `.gitignore`
