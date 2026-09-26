@@ -8,7 +8,7 @@ import { join } from 'node:path'
 const LOCAL_BACKEND_RE = /localhost|127\.0\.0\.1/i
 
 /**
- * Parse VITE_GATEWAY_BASE_URL / VITE_IDENTITY_SERVICE_URL from a dotenv file.
+ * Parse VITE_GATEWAY_BASE_URL / VITE_IDENTITY_BASE_URL from a dotenv file.
  * Trim values; ignore other keys (no secrets logged).
  * @param {string} envPath
  * @returns {{ gateway: string, identity: string, exists: boolean }}
@@ -28,7 +28,7 @@ export function readLocalBackendEnv(envPath) {
     const key = line.slice(0, eq).trim()
     const value = line.slice(eq + 1).trim()
     if (key === 'VITE_GATEWAY_BASE_URL') gateway = value
-    if (key === 'VITE_IDENTITY_SERVICE_URL') identity = value
+    if (key === 'VITE_IDENTITY_BASE_URL') identity = value
   }
   return { gateway, identity, exists: true }
 }

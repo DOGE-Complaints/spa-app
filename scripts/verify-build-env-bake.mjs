@@ -19,20 +19,20 @@ function fail(message) {
 }
 
 const gatewayUrl = String(process.env.VITE_GATEWAY_BASE_URL ?? '').trim()
-const identityUrl = String(process.env.VITE_IDENTITY_SERVICE_URL ?? '').trim()
+const identityUrl = String(process.env.VITE_IDENTITY_BASE_URL ?? '').trim()
 const supabaseUrl = String(process.env.VITE_SUPABASE_URL ?? '').trim()
 const supabaseAnonKey = String(process.env.VITE_SUPABASE_ANON_KEY ?? '').trim()
 const storyGptUrl = String(process.env.VITE_STORY_GPT_URL ?? '').trim()
 
 if (!gatewayUrl || !identityUrl || !supabaseUrl || !supabaseAnonKey || !storyGptUrl) {
   fail(
-    'set VITE_GATEWAY_BASE_URL, VITE_IDENTITY_SERVICE_URL, VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_STORY_GPT_URL before verify',
+    'set VITE_GATEWAY_BASE_URL, VITE_IDENTITY_BASE_URL, VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_STORY_GPT_URL before verify',
   )
 }
 
 for (const [label, value] of [
   ['VITE_GATEWAY_BASE_URL', gatewayUrl],
-  ['VITE_IDENTITY_SERVICE_URL', identityUrl],
+  ['VITE_IDENTITY_BASE_URL', identityUrl],
   ['VITE_SUPABASE_URL', supabaseUrl],
 ]) {
   if (/localhost|127\.0\.0\.1/i.test(value)) {
