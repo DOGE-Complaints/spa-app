@@ -32,6 +32,9 @@ export function IssueThreadBlock({
   maxReactions,
   reactionsEnable = null,
   onReact,
+  threadRootSummaryMarks = null,
+  threadRootAggregateCount = null,
+  threadRootSelected = [],
 }) {
   const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
   const effectiveMaxDepth = scene === 'max-depth' ? 2 : maxDepth
@@ -99,6 +102,16 @@ export function IssueThreadBlock({
         <div className="issue-thread-state" data-testid="issue-thread-empty" role="status">
           <p className="issue-thread-empty-title">{t('threadsFeed.post.empty.title')}</p>
           <p className="issue-thread-empty-helper">{t('threadsFeed.post.empty.helper')}</p>
+          <div className="issue-thread-reaction-slot" data-testid="issue-thread-reaction-slot">
+            <ReactionControls
+              t={t}
+              target="thread-root"
+              initialSelected={threadRootSelected}
+              summaryMarks={threadRootSummaryMarks}
+              aggregateCount={threadRootAggregateCount}
+              {...reactionShared}
+            />
+          </div>
         </div>
       ) : null}
 
@@ -108,7 +121,14 @@ export function IssueThreadBlock({
             <p className="issue-thread-summary-title">{t('threadsFeed.post.existingDiscussion')}</p>
           </div>
           <div className="issue-thread-reaction-slot" data-testid="issue-thread-reaction-slot">
-            <ReactionControls t={t} target="thread-root" {...reactionShared} />
+            <ReactionControls
+              t={t}
+              target="thread-root"
+              initialSelected={threadRootSelected}
+              summaryMarks={threadRootSummaryMarks}
+              aggregateCount={threadRootAggregateCount}
+              {...reactionShared}
+            />
           </div>
           <CommentTree
             t={t}

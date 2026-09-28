@@ -1,4 +1,4 @@
-import { useId, useMemo, useState } from 'react'
+import { useEffect, useId, useMemo, useState } from 'react'
 import {
   DEFAULT_MAX_REACTIONS_PER_ACTOR,
   listReactionsV1,
@@ -52,6 +52,13 @@ export function ReactionControls({
   const [busy, setBusy] = useState(false)
   const panelId = useId()
 
+  useEffect(() => {
+    setMarksState(mapSummaryMarksToEntries(summaryMarks))
+    setAggregateState(
+      aggregateCount === null || aggregateCount === undefined ? null : Number(aggregateCount),
+    )
+  }, [summaryMarks, aggregateCount])
+
   const capacity = Number.isFinite(Number(maxReactions)) && Number(maxReactions) > 0
     ? Math.floor(Number(maxReactions))
     : DEFAULT_MAX_REACTIONS_PER_ACTOR
@@ -67,8 +74,8 @@ export function ReactionControls({
   )
   const showDisabledNote = scene === 'enabled-only'
 
-  const marks = marksState || enabled.slice(0, 3)
-  const count = aggregateState ?? Math.max(marks.length, selected.length)
+  const marks = marksState || []
+  const count = aggregateState ?? (marks.length > 0 ? marks.reduce((n, m) => n + (Number(m.count) || 1), 0) : selected.length)
 
   async function handleSelect(id) {
     if (busy) return

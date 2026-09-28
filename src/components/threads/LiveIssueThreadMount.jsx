@@ -33,6 +33,13 @@ export function LiveIssueThreadMount({
 }) {
   const [status, setStatus] = useState(/** @type {'loading'|'empty'|'populated'|'unavailable'} */ ('loading'))
   const [comments, setComments] = useState(/** @type {Array} */ ([]))
+  const [threadRootReactions, setThreadRootReactions] = useState(
+    /** @type {{ summaryMarks: Array<{ reaction_id: string, count: number }>|null, aggregateCount: number|null, selected: string[] }} */ ({
+      summaryMarks: null,
+      aggregateCount: null,
+      selected: [],
+    }),
+  )
   const [maxDepth, setMaxDepth] = useState(2)
   const [maxReactions, setMaxReactions] = useState(3)
   const [reactionsEnable, setReactionsEnable] = useState(/** @type {Record<string, boolean>|null} */ (null))
@@ -43,12 +50,14 @@ export function LiveIssueThreadMount({
     if (harness) {
       setStatus(harness)
       setComments(harness === 'populated' ? [...THR02_DEMO_COMMENTS] : [])
+      setThreadRootReactions({ summaryMarks: null, aggregateCount: null, selected: [] })
       setMaxDepth(THR02_DEMO_MAX_DEPTH)
       return
     }
 
     setStatus('loading')
     setComments([])
+    setThreadRootReactions({ summaryMarks: null, aggregateCount: null, selected: [] })
     try {
       const knobs = await ensureThreadsKnobsCached({ client })
       if (!knobs) {
@@ -70,10 +79,14 @@ export function LiveIssueThreadMount({
       const treeResult = await client.getThreadTree(issueId)
       const mapped = mapThreadTreeToBlock(treeResult)
       setComments(mapped.comments)
+      setThreadRootReactions(
+        mapped.threadRootReactions || { summaryMarks: null, aggregateCount: null, selected: [] },
+      )
       setStatus(mapped.status)
     } catch {
       setStatus('unavailable')
       setComments([])
+      setThreadRootReactions({ summaryMarks: null, aggregateCount: null, selected: [] })
     }
   }, [client, issueId])
 
@@ -165,6 +178,9 @@ export function LiveIssueThreadMount({
       maxReactions={maxReactions}
       reactionsEnable={reactionsEnable}
       onReact={onReact}
+      threadRootSummaryMarks={threadRootReactions.summaryMarks}
+      threadRootAggregateCount={threadRootReactions.aggregateCount}
+      threadRootSelected={threadRootReactions.selected || []}
     />
   )
 }

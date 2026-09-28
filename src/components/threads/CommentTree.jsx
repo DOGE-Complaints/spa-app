@@ -77,6 +77,9 @@ export function CommentTree({
                     t={t}
                     target="comment"
                     commentId={node.id}
+                    initialSelected={node.selected ?? []}
+                    summaryMarks={node.summaryMarks ?? null}
+                    aggregateCount={node.aggregateCount ?? null}
                     maxReactions={maxReactions}
                     reactionsEnable={reactionsEnable}
                     onReact={onReact}
