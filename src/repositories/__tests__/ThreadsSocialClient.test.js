@@ -472,12 +472,26 @@ describe('mapThreadTreeToBlock', () => {
     expect(mapThreadTreeToBlock({ status: 'ok', data: { issue_id: 'i', comments: [] } })).toEqual({
       status: 'empty',
       comments: [],
+      threadRootReactions: { summaryMarks: null, aggregateCount: null, selected: [] },
     })
     const populated = mapThreadTreeToBlock({
       status: 'ok',
       data: {
         issue_id: 'i',
-        comments: [{ comment_id: 'c1', parent_id: null, depth: 0, body: 'Hello world' }],
+        comments: [
+          {
+            comment_id: 'c1',
+            parent_id: null,
+            depth: 0,
+            body: 'Hello world',
+            summary_marks: [{ reaction_id: 'agree', count: 2 }],
+            aggregate_count: 2,
+          },
+        ],
+        thread_root_reactions: {
+          summary_marks: [{ reaction_id: 'acknowledge', count: 1 }],
+          aggregate_count: 1,
+        },
       },
     })
     expect(populated.status).toBe('populated')
@@ -486,10 +500,73 @@ describe('mapThreadTreeToBlock', () => {
       parentId: null,
       depth: 0,
       label: 'Hello world',
+      summaryMarks: [{ reaction_id: 'agree', count: 2 }],
+      aggregateCount: 2,
+      selected: [],
+    })
+    expect(populated.threadRootReactions).toEqual({
+      summaryMarks: [{ reaction_id: 'acknowledge', count: 1 }],
+      aggregateCount: 1,
+      selected: [],
     })
     expect(mapThreadTreeToBlock({ status: 'unavailable', reason: 'network', op: 'tree_read' }).status).toBe(
       'unavailable',
     )
+  })
+
+  it('maps Option A selected on root + comments; counts still from summaries', () => {
+    const mapped = mapThreadTreeToBlock({
+      status: 'ok',
+      data: {
+        issue_id: 'i',
+        comments: [
+          {
+            comment_id: 'c1',
+            parent_id: null,
+            depth: 0,
+            body: 'Hello',
+            summary_marks: [{ reaction_id: 'agree', count: 3 }],
+            aggregate_count: 3,
+            selected: ['agree'],
+          },
+        ],
+        thread_root_reactions: {
+          summary_marks: [{ reaction_id: 'acknowledge', count: 5 }],
+          aggregate_count: 5,
+          selected: ['acknowledge', 'agree'],
+        },
+      },
+    })
+    expect(mapped.threadRootReactions.selected).toEqual(['acknowledge', 'agree'])
+    expect(mapped.threadRootReactions.summaryMarks).toEqual([{ reaction_id: 'acknowledge', count: 5 }])
+    expect(mapped.threadRootReactions.aggregateCount).toBe(5)
+    expect(mapped.comments[0].selected).toEqual(['agree'])
+    expect(mapped.comments[0].summaryMarks).toEqual([{ reaction_id: 'agree', count: 3 }])
+  })
+
+  it('absent selected → empty arrays (anonymous Option A)', () => {
+    const mapped = mapThreadTreeToBlock({
+      status: 'ok',
+      data: {
+        issue_id: 'i',
+        comments: [
+          {
+            comment_id: 'c1',
+            parent_id: null,
+            depth: 0,
+            body: 'Hi',
+            summary_marks: [{ reaction_id: 'agree', count: 1 }],
+            aggregate_count: 1,
+          },
+        ],
+        thread_root_reactions: {
+          summary_marks: [{ reaction_id: 'agree', count: 1 }],
+          aggregate_count: 1,
+        },
+      },
+    })
+    expect(mapped.threadRootReactions.selected).toEqual([])
+    expect(mapped.comments[0].selected).toEqual([])
   })
 
   it('truncates long body labels', () => {

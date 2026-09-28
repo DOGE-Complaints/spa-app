@@ -124,4 +124,30 @@ describe('ReactionControls', () => {
     expect(screen.getByTestId('reaction-choice-agree').getAttribute('aria-pressed')).toBe('false')
     expect(screen.getByTestId('reaction-agree-disagree-hint')).toBeTruthy()
   })
+
+  it('Keep: empty summaryMarks → empty strip marks (no fake catalog)', () => {
+    const html = renderToStaticMarkup(
+      <ReactionControls t={makeT()} target="thread-root" summaryMarks={null} aggregateCount={null} />,
+    )
+    expect(html).toContain('data-testid="reaction-summary-strip"')
+    expect(html).toContain('aria-hidden="true"')
+    expect(html).not.toContain('data-reaction-id=')
+    expect(html).toContain('data-testid="reaction-summary-count">0<')
+  })
+
+  it('applies PUT U2 selected + summary_marks from onReact ok response', async () => {
+    const onReact = async () => ({
+      status: 'ok',
+      data: {
+        selected: ['agree'],
+        summary_marks: [{ reaction_id: 'agree', count: 2 }],
+        aggregate_count: 2,
+      },
+    })
+    render(<ReactionControls t={makeT()} target="comment" commentId="c1" onReact={onReact} />)
+    fireEvent.click(screen.getByTestId('reaction-open-button'))
+    fireEvent.click(screen.getByTestId('reaction-choice-agree'))
+    expect((await screen.findByTestId('reaction-choice-agree')).getAttribute('aria-pressed')).toBe('true')
+    expect(screen.getByTestId('reaction-summary-count').textContent).toBe('2')
+  })
 })
