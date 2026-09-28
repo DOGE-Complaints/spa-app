@@ -5,9 +5,9 @@ Parent-id: dogestonia-threads-board-architecture-hardening
 Siblings:  
 - doge-threads/docs/requirements/03-req10-tree-marks-read-and-contract.md (contract: tree summaries + **Option A** optional Bearer `selected[]` — spa must not invent HTTP path) · story [`STORY-THREADS-REQ10-05`](../../../doge-threads/docs/tasks/backlog-stories/req10-tree-marks-read-and-contract/STORY-THREADS-REQ10-05-actor-selected-server.md)  
 - doge-complaints-gateway/docs/requirements/54-req10-lifecycle-status-normalize.md (contract: none for reactions UI)  
-Status: **Done (H1 wave)** · REQ10-01 P3 Done `pkg-000087` (2026-09-28T18:05:35Z) · REQ10-02 / H5 still **Blocked** (threads REQ10-05)  
+Status: **Done (H1+H5 spa)** · REQ10-01 P3/P6 `pkg-000087` · REQ10-02 P3 Done `pkg-000088` (2026-09-28T18:22:01Z) · P6 H5 SSOT `2026-09-28T18:27:35Z`  
 Justification: docs/analysis/audit-threads-board-persist-clean-vs-hack-2026-09-27.md §§7–9  
-Дата: 2026-09-28 · materialized: 2026-09-28T11:05:54Z · backlog: 2026-09-28T13:38:42Z · H1 As-of-Done SSOT: 2026-09-28T18:12:58Z  
+Дата: 2026-09-28 · materialized: 2026-09-28T11:05:54Z · backlog: 2026-09-28T13:38:42Z · H1 As-of-Done SSOT: 2026-09-28T18:12:58Z · H5 As-of-Done SSOT: 2026-09-28T18:27:35Z  
 Backlog: [req10-threads-reaction-reload-honesty/INDEX.md](../tasks/backlog-stories/req10-threads-reaction-reload-honesty/INDEX.md) · [REQ10-01](../tasks/backlog-stories/req10-threads-reaction-reload-honesty/STORY-SPA-REQ10-01-debug-ingest-cleanup.md) · [REQ10-02](../tasks/backlog-stories/req10-threads-reaction-reload-honesty/STORY-SPA-REQ10-02-reaction-selected-reload.md)  
 Operator locks: **Option A** · `selected` for thread-root **+** comments · REQ10-01 independent of H5  
 Related: docs/requirements/17-issue-thread-feed-ux-and-reactions.md (REQ7 shell — not reopened)
@@ -30,20 +30,23 @@ Related: docs/requirements/17-issue-thread-feed-ux-and-reactions.md (REQ7 shell 
 
 ## 3) Verified current state
 
-**As-of-Done / Current** (REQ10-01 P3 `2026-09-28T18:05:35Z` · P6 SSOT `2026-09-28T18:12:58Z`):
+**As-of-Done / Current** (H1 REQ10-01 · H5 REQ10-02 P3 `2026-09-28T18:22:01Z` · P6 SSOT `2026-09-28T18:27:35Z`):
 
 | Fact | Evidence |
 |------|----------|
 | Literal `7840/ingest` under `spa-app/src` | **0** (`rg`; mount+client ingest regions removed) |
 | Mount / client control flow without ingest | `LiveIssueThreadMount.jsx` · `ThreadsSocialClient.js` |
 | Closed path set unchanged | `ThreadsSocialClient.js` `CLOSED_SOCIAL_PATHS` |
-| Tree mapper has `threadRootReactions` / per-comment marks | `mapThreadTreeToBlock.js` |
-| Mount passes summaryMarks/aggregateCount, not selected | `LiveIssueThreadMount.jsx` → `IssueThreadBlock` (H5 → REQ10-02) |
-| `ReactionControls` has `initialSelected` + `useEffect` on summaryMarks | `ReactionControls.jsx` |
-| Fake `enabled.slice(0,3)` removed (`marks = marksState \|\| []`) | `ReactionControls.jsx` |
-| Persist smoke script exists | `tests/puppeteer/threads-comment-reaction-persist.mjs` (per audit) |
+| Mapper Option A `selected[]` on root + comments | `mapThreadTreeToBlock.js` `mapActorSelected` |
+| Mount → `threadRootSelected` → root `initialSelected` | `LiveIssueThreadMount.jsx` · `IssueThreadBlock.jsx` |
+| CommentTree `initialSelected={node.selected ?? []}` | `CommentTree.jsx` |
+| Counts from tree `summary_marks` / `aggregate_count` | mapper + pickers |
+| Keep: `marks = marksState \|\| []` (no fake catalog) | `ReactionControls.jsx` |
+| PUT U2 write applies `data.selected` / `summary_marks` | `ReactionControls.jsx` |
+| Persist smoke script exists | `tests/puppeteer/threads-comment-reaction-persist.mjs` |
 
-**Historical (pre-REQ10-01):** Debug ingest present in `ThreadsSocialClient.js` + `LiveIssueThreadMount.jsx` (10× `7840/ingest`).
+**Historical (pre-REQ10-01):** Debug ingest present in `ThreadsSocialClient.js` + `LiveIssueThreadMount.jsx` (10× `7840/ingest`).  
+**Historical (pre-REQ10-02):** Mount passed summary/aggregate only — no `selected` / `initialSelected` wire.
 
 ## 4) Target behavior
 
@@ -56,9 +59,9 @@ Related: docs/requirements/17-issue-thread-feed-ux-and-reactions.md (REQ7 shell 
 ## 5) Acceptance criteria
 
 - [x] H1 (spa): `rg` over `spa-app/src` — no `7840/ingest`  
-- [ ] H5 client: after reload (auth), thread-root + comment pickers reflect server `selected` once sibling delivers it  
-- [ ] H7 Keep: no fake catalog strip when marks empty  
-- [ ] No invented HTTP path in spa client  
+- [x] H5 client: after reload (auth), thread-root + comment pickers reflect server `selected` once sibling delivers it  
+- [x] H7 Keep: no fake catalog strip when marks empty  
+- [x] No invented HTTP path in spa client  
 - [ ] H9 stretch optional — not Pass blocker
 
 ## 6) Open questions
@@ -68,4 +71,4 @@ Related: docs/requirements/17-issue-thread-feed-ux-and-reactions.md (REQ7 shell 
 
 ## 7) Dependencies
 
-Parent §3.1, §3.5, §3.7, §6.2; sibling threads `03-…` (must land server half before spa H5 green); REQ7 spa `17-…` (shell context, no product reopen).
+Parent §3.1, §3.5, §3.7, §6.2; sibling threads `03-…` (server half Done — REQ10-05); REQ7 spa `17-…` (shell context, no product reopen).
