@@ -40,6 +40,7 @@ Stories подаются **только через Custom GPT** — SPA не с�
 | 13 | [13-error-handling.md](13-error-handling.md) | Горизонтальная обработка ошибок | Planned — NOT IMPLEMENTED |
 | 14 | [14-i18n-identity-strings.md](14-i18n-identity-strings.md) | Новые ключи для `dictionaries.js` (et/ru/en) | Planned — NOT IMPLEMENTED |
 | 18 | [18-req9-vite-identity-base-url.md](18-req9-vite-identity-base-url.md) | REQ9 R3: hard cut identity peer env → `VITE_IDENTITY_BASE_URL`; no service tokens in browser | **Done** · P3 [REQ9-01](../tasks/backlog-stories/req9-vite-identity-base-url/STORY-SPA-REQ9-01-vite-identity-base-url.md) `pkg-000086` |
+| 19 | [19-req10-threads-reaction-reload-honesty.md](19-req10-threads-reaction-reload-honesty.md) | REQ10: debug ingest out; Option A `selected` after reload (root+comments); Keep empty strip; siblings threads 03/REQ10-05, gateway 54 | **Done (H1)** · P3 [REQ10-01](../tasks/backlog-stories/req10-threads-reaction-reload-honesty/STORY-SPA-REQ10-01-debug-ingest-cleanup.md) `pkg-000087` · REQ10-02 Blocked |
 
 ---
 
