@@ -31,6 +31,25 @@ vi.mock('../../services/emergingSignalsService.js', () => ({
   getEmergingSignals: vi.fn(),
 }))
 
+vi.mock('../../board/prefetchDiscussionFlags.js', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    prefetchDiscussionFlags: vi.fn(async (issues) => {
+      const flags = new Map()
+      for (const issue of issues ?? []) {
+        const id = String(issue?.id ?? '')
+        if (id) flags.set(id, false)
+      }
+      return flags
+    }),
+  }
+})
+
+vi.mock('../../components/threads/LiveIssueThreadMount.jsx', () => ({
+  LiveIssueThreadMount: () => <div data-testid="thread-mount-stub" />,
+}))
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 
 const sampleIssue = {
@@ -75,9 +94,11 @@ describe('BoardPage ES-05 continuum', () => {
       expect(screen.getByTestId('board-continuum')).toBeTruthy()
     })
 
-    expect(screen.getByTestId('board-feed')).toBeTruthy()
-    expect(screen.getByText('ISS-100')).toBeTruthy()
-    expect(screen.getByRole('link', { name: /Issue ISS-100/ })).toBeTruthy()
+    await waitFor(() => {
+      expect(screen.getByTestId('board-feed').getAttribute('data-discussion-sort')).toBe('ready')
+      expect(screen.getByText('ISS-100')).toBeTruthy()
+    })
+    expect(screen.getByRole('link', { name: /Issue ISS-100:/ })).toBeTruthy()
     expect(screen.getByTestId('board-continuum')).toBeTruthy()
     expect(screen.getByTestId('continuum-residual')).toBeTruthy()
     expect(screen.getByText('Issues and discovery')).toBeTruthy()

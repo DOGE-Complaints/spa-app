@@ -27,6 +27,14 @@ vi.mock('../../services/emergingSignalsService.js', () => ({
   getEmergingSignals: vi.fn(),
 }))
 
+vi.mock('../../board/prefetchDiscussionFlags.js', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    prefetchDiscussionFlags: vi.fn(async () => new Map()),
+  }
+})
+
 function renderBoard(pathName = '/board') {
   return render(
     <I18nProvider>
