@@ -105,10 +105,13 @@ export function BoardIssuesMap({ issues, resolveLocalizedText, t, boardUrlForBac
           const clusterId = features[0]?.properties?.cluster_id
           const source = map.getSource(SOURCE_ID)
           if (clusterId == null || !source?.getClusterExpansionZoom) return
-          source.getClusterExpansionZoom(clusterId, (error, zoom) => {
-            if (error) return
-            map.easeTo({ center: features[0].geometry.coordinates, zoom })
-          })
+          // MapLibre v4: Promise API (callback arity ignored)
+          void source
+            .getClusterExpansionZoom(clusterId)
+            .then((zoom) => {
+              map.easeTo({ center: features[0].geometry.coordinates, zoom })
+            })
+            .catch(() => {})
           setPopup(null)
         })
 
@@ -141,25 +144,27 @@ export function BoardIssuesMap({ issues, resolveLocalizedText, t, boardUrlForBac
         setPointer(UNCLUSTERED_LAYER)
       }
 
-      const boot = () => {
+      const boot = async () => {
         if (cancelled) return
-        if (!map.hasImage(PIN_IMAGE_ID)) {
-          map.loadImage('/icons/semantic-schema-runtime/ic-map-pin.png', (err, image) => {
-            if (!cancelled && !err && image && !map.hasImage(PIN_IMAGE_ID)) {
+        try {
+          if (!map.hasImage(PIN_IMAGE_ID)) {
+            // MapLibre v4: loadImage returns Promise<GetResourceResponse<…>> (callback ignored)
+            const response = await map.loadImage('/icons/semantic-schema-runtime/ic-map-pin.png')
+            const image = response?.data
+            if (!cancelled && image && !map.hasImage(PIN_IMAGE_ID)) {
               map.addImage(PIN_IMAGE_ID, image)
             }
-            if (!cancelled) {
-              ensureLayers()
-              syncSource(map, geojsonRef.current)
-            }
-          })
-        } else {
-          ensureLayers()
-          syncSource(map, geojsonRef.current)
+          }
+        } catch (err) {
+          // Fail-soft: still mount layers (icon may be missing) rather than leave basemap-only
+          console.warn('[BoardIssuesMap] loadImage failed', err)
         }
+        if (cancelled) return
+        ensureLayers()
+        syncSource(map, geojsonRef.current)
       }
 
-      boot()
+      void boot()
 
       return () => {
         cancelled = true
