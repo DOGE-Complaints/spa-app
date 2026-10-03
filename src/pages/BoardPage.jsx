@@ -37,6 +37,8 @@ import { ListMapToggle, BoardIssuesMap } from '../components/map/index.js'
 import { isMapEligible } from '../map/issueGeo.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
+import { sortIssuesByDiscussionPriority } from '../board/sortIssuesByDiscussionPriority.js'
+import { useBoardDiscussionFlags } from '../hooks/useBoardDiscussionFlags.js'
 
 function BoardFeedSkeleton({ count = 4 }) {
   return (
@@ -141,6 +143,17 @@ export function BoardPage() {
     if (!boardFilters.search || !boardFilters.search.trim()) return issues
     return issues.filter((issue) => issueMatchesSearchQuery(issue, boardFilters.search))
   }, [issues, boardFilters.search])
+
+  const discussionFlagsEnabled = !loading && !error && filteredIssues.length > 0
+  const { flags: discussionFlags, ready: discussionFlagsReady } = useBoardDiscussionFlags(
+    filteredIssues,
+    { enabled: discussionFlagsEnabled },
+  )
+  const listIssues = useMemo(
+    () => sortIssuesByDiscussionPriority(filteredIssues, discussionFlags),
+    [filteredIssues, discussionFlags],
+  )
+
   const availableLabels = useMemo(
     () => collectLabelKeysFromIssues(issues, { includeCore: false }),
     [issues],
@@ -170,6 +183,8 @@ export function BoardPage() {
   const showFilteredEmpty =
     !loading && !error && hasActiveBoardFilters(boardFilters) && filteredIssues.length === 0
   const showResults = !loading && !error && filteredIssues.length > 0
+  /** PH-12 Target: sort-before-stable-list — keep List skeleton until flags settle. */
+  const showListPendingSort = showResults && boardView === 'list' && !discussionFlagsReady
   const mapEligible = useMemo(() => isMapEligible(filteredIssues), [filteredIssues])
 
   useEffect(() => {
@@ -374,29 +389,35 @@ export function BoardPage() {
                   id="issue-feed"
                   data-testid="board-feed"
                   aria-label="Issue feed"
+                  aria-busy={showListPendingSort ? 'true' : undefined}
+                  data-discussion-sort={showListPendingSort ? 'pending' : 'ready'}
                 >
-                  {filteredIssues.map((item) => (
-                    <BoardIssuePost
-                      key={item.id}
-                      thread={
-                        <LiveIssueThreadMount
-                          issueId={item.id}
+                  {showListPendingSort ? (
+                    <BoardFeedSkeleton />
+                  ) : (
+                    listIssues.map((item) => (
+                      <BoardIssuePost
+                        key={item.id}
+                        thread={
+                          <LiveIssueThreadMount
+                            issueId={item.id}
+                            t={t}
+                            profile={meProfile}
+                            returnTo={`#/board`}
+                          />
+                        }
+                      >
+                        <IssueCard
+                          issue={item}
+                          locale={locale}
+                          resolveLocalizedText={resolveLocalizedText}
                           t={t}
-                          profile={meProfile}
-                          returnTo={`#/board`}
+                          showOpenAffordance
+                          to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
                         />
-                      }
-                    >
-                      <IssueCard
-                        issue={item}
-                        locale={locale}
-                        resolveLocalizedText={resolveLocalizedText}
-                        t={t}
-                        showOpenAffordance
-                        to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                      />
-                    </BoardIssuePost>
-                  ))}
+                      </BoardIssuePost>
+                    ))
+                  )}
                 </section>
               )}
               <ContinuumResidual />
