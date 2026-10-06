@@ -1,21 +1,6 @@
 import { useEffect, useMemo, useState, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import {
-  ActiveFilterChips,
-  DateRangeFilter,
-  FilterPanel,
-  GeoFilter,
-  InstitutionFilter,
-  StatusFilter,
-  TypeFilter,
-  LabelsFilter,
-  ResetFiltersControl,
-  SearchInput,
-  buildChipDescriptors,
-} from '../components/Filters/index.js'
-import { Button } from '../components/Button'
-import { IssueCard } from '../components/IssueCard/index.js'
-import { BoardIssuePost, LiveIssueThreadMount } from '../components/threads/index.js'
+import { buildChipDescriptors } from '../components/Filters/index.js'
 import { useOptionalSessionShell } from '../auth/SessionShellContext.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
@@ -31,23 +16,12 @@ import {
 } from '../i18n/collectInstitutionsFromIssues.js'
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
-import { ContinuumResidual, EarlySignalDiscovery } from '../components/earlySignal/index.js'
-import { ListMapToggle, BoardIssuesMap } from '../components/map/index.js'
 import { isMapEligible } from '../map/issueGeo.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 import { sortIssuesByDiscussionPriority } from '../board/sortIssuesByDiscussionPriority.js'
 import { useBoardDiscussionFlags } from '../hooks/useBoardDiscussionFlags.js'
+import { BoardToolbar, BoardFeedArea } from '../features/board/index.js'
 import './BoardPage.css'
-
-function BoardFeedSkeleton({ count = 4 }) {
-  return (
-    <>
-      {Array.from({ length: count }, (_, i) => (
-        <div key={i} className="board-skeleton-card" aria-hidden="true" />
-      ))}
-    </>
-  )
-}
 
 export function BoardPage() {
   const location = useLocation()
@@ -194,228 +168,52 @@ export function BoardPage() {
 
   return (
     <main className="board-shell" aria-label="Issue Board">
-          <header className="board-toolbar">
-            <div className="board-toolbar-left">
-              <div className="board-toolbar-copy">
-                <h2>{t('board')}</h2>
-                <p className="board-routing-query" aria-label="Board query state">
-                  {normalizedSearch || '(no query)'}
-                </p>
-              </div>
-              <div className="board-filters-row">
-                <SearchInput
-                  value={searchDraft}
-                  onChange={setSearchDraft}
-                  placeholder={t('searchPlaceholder')}
-                  ariaLabel={t('searchPlaceholder')}
-                  clearAriaLabel={t('clear')}
-                />
-                <FilterPanel
-                  open={isPanelOpen}
-                  onToggle={togglePanel}
-                  title={t('openFilters')}
-                  institutionSlot={
-                    <InstitutionFilter
-                      institution={pending.institution}
-                      availableInstitutions={availableInstitutions}
-                      onChange={(institution) => setPending((current) => ({ ...current, institution }))}
-                      formatInstitution={formatInstitution}
-                      t={t}
-                      variant="panel"
-                    />
-                  }
-                  dateSlot={
-                    <DateRangeFilter
-                      createdAfter={pending.created_after}
-                      createdBefore={pending.created_before}
-                      onChangeAfter={(created_after) => setPending((current) => ({ ...current, created_after }))}
-                      onChangeBefore={(created_before) => setPending((current) => ({ ...current, created_before }))}
-                      t={t}
-                      locale={locale}
-                      variant="panel"
-                    />
-                  }
-                  geoSlot={
-                    <GeoFilter
-                      geo={{
-                        geo_district: pending.geo_district,
-                        geo_settlement: pending.geo_settlement,
-                        geo_region: pending.geo_region,
-                        geo_country: pending.geo_country,
-                        geo_postal_code: pending.geo_postal_code,
-                      }}
-                      availableOptions={availableGeoOptions}
-                      onChange={(field, values) => setPending((current) => ({ ...current, [field]: values }))}
-                      t={t}
-                      variant="panel"
-                    />
-                  }
-                  footer={
-                    <>
-                      <Button
-                        type="button"
-                        hierarchy="primary"
-                        disabled={!isDirty}
-                        onClick={apply}
-                      >
-                        {t('filterApply')}
-                      </Button>
-                      <ResetFiltersControl
-                        hasActiveFilters={hasActiveFilters}
-                        onReset={reset}
-                        t={t}
-                      />
-                    </>
-                  }
-                >
-                  <StatusFilter
-                    status={pending.status}
-                    onChange={(status) => setPending((current) => ({ ...current, status }))}
-                    locale={locale}
-                    t={t}
-                    variant="panel"
-                  />
-                  <TypeFilter
-                    type={pending.type}
-                    onChange={(type) => setPending((current) => ({ ...current, type }))}
-                    t={t}
-                    variant="panel"
-                  />
-                  <LabelsFilter
-                    labels={pending.labels}
-                    availableLabels={availableLabels}
-                    onChange={(labels) => setPending((current) => ({ ...current, labels }))}
-                    t={t}
-                    locale={locale}
-                    variant="panel"
-                  />
-                </FilterPanel>
-                <ResetFiltersControl
-                  hasActiveFilters={hasActiveFilters}
-                  onReset={reset}
-                  t={t}
-                />
-              </div>
-              <ActiveFilterChips chips={activeFilterChips} onRemove={removeChip} />
-              {showResults ? (
-                <ListMapToggle
-                  view={boardView}
-                  onChange={setBoardView}
-                  mapEligible={mapEligible}
-                  t={t}
-                />
-              ) : null}
-            </div>
-            <a
-              href={submitHref}
-              target={submitExternal ? '_blank' : undefined}
-              rel={submitExternal ? 'noopener noreferrer' : undefined}
-              className="board-cta"
-              data-testid="board-submit-cta"
-              aria-label={t('howItWorks.cta.submitAccessibleLabel')}
-            >
-              <span>{t('publicHome.nav.submitStory')}</span>
-              {submitExternal ? (
-                <img
-                  className="board-cta-external-icon"
-                  src="/icons/public-home/ic-external-link.png"
-                  alt=""
-                  aria-hidden="true"
-                />
-              ) : null}
-            </a>
-          </header>
-
-          {error ? (
-            <div className="board-feed-state board-load-error" data-testid="board-load-error" role="alert">
-              <img
-                className="board-feed-state-icon"
-                src="/icons/story-handoff/ic-cloud-error.png"
-                alt=""
-                aria-hidden="true"
-              />
-              <h3>{t('publicHome.board.error.title')}</h3>
-              <p>{t('publicHome.board.error.message')}</p>
-              <Button type="button" hierarchy="primary" intent="retry" onClick={fetchIssues}>
-                {t('publicHome.board.error.retry')}
-              </Button>
-            </div>
-          ) : null}
-
-          {loading ? (
-            <section
-              className="board-feed"
-              data-testid="board-feed"
-              aria-busy="true"
-              aria-label={t('publicHome.board.loading.accessible')}
-            >
-              <BoardFeedSkeleton />
-            </section>
-          ) : null}
-
-          {!loading && showEmptyBoard ? <EarlySignalDiscovery /> : null}
-
-          {!loading && showFilteredEmpty ? (
-            <div className="board-feed-state board-no-results" data-testid="board-filtered-empty" role="status">
-              <h3>{t('publicHome.board.filteredEmpty.title')}</h3>
-              <p>{t('publicHome.board.filteredEmpty.message')}</p>
-              <div className="board-no-results-actions">
-                <Button type="button" hierarchy="secondary" onClick={reset}>
-                  {t('publicHome.board.filteredEmpty.reset')}
-                </Button>
-              </div>
-            </div>
-          ) : null}
-
-          {showResults ? (
-            <div className="board-continuum" data-testid="board-continuum">
-              {boardView === 'map' && mapEligible ? (
-                <BoardIssuesMap
-                  issues={filteredIssues}
-                  resolveLocalizedText={resolveLocalizedText}
-                  t={t}
-                  boardUrlForBack={boardUrlForBack}
-                />
-              ) : (
-                <section
-                  className="board-feed"
-                  id="issue-feed"
-                  data-testid="board-feed"
-                  aria-label="Issue feed"
-                  aria-busy={showListPendingSort ? 'true' : undefined}
-                  data-discussion-sort={showListPendingSort ? 'pending' : 'ready'}
-                >
-                  {showListPendingSort ? (
-                    <BoardFeedSkeleton />
-                  ) : (
-                    listIssues.map((item) => (
-                      <BoardIssuePost
-                        key={item.id}
-                        thread={
-                          <LiveIssueThreadMount
-                            issueId={item.id}
-                            t={t}
-                            profile={meProfile}
-                            returnTo={`#/board`}
-                          />
-                        }
-                      >
-                        <IssueCard
-                          issue={item}
-                          locale={locale}
-                          resolveLocalizedText={resolveLocalizedText}
-                          t={t}
-                          showOpenAffordance
-                          to={`/issue/${item.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-                        />
-                      </BoardIssuePost>
-                    ))
-                  )}
-                </section>
-              )}
-              <ContinuumResidual />
-            </div>
-          ) : null}
+      <BoardToolbar
+        t={t}
+        locale={locale}
+        normalizedSearch={normalizedSearch}
+        searchDraft={searchDraft}
+        setSearchDraft={setSearchDraft}
+        pending={pending}
+        setPending={setPending}
+        isPanelOpen={isPanelOpen}
+        togglePanel={togglePanel}
+        isDirty={isDirty}
+        hasActiveFilters={hasActiveFilters}
+        apply={apply}
+        reset={reset}
+        availableInstitutions={availableInstitutions}
+        availableGeoOptions={availableGeoOptions}
+        availableLabels={availableLabels}
+        formatInstitution={formatInstitution}
+        activeFilterChips={activeFilterChips}
+        removeChip={removeChip}
+        showResults={showResults}
+        boardView={boardView}
+        setBoardView={setBoardView}
+        mapEligible={mapEligible}
+        submitHref={submitHref}
+        submitExternal={submitExternal}
+      />
+      <BoardFeedArea
+        t={t}
+        locale={locale}
+        error={error}
+        loading={loading}
+        fetchIssues={fetchIssues}
+        showEmptyBoard={showEmptyBoard}
+        showFilteredEmpty={showFilteredEmpty}
+        reset={reset}
+        showResults={showResults}
+        boardView={boardView}
+        mapEligible={mapEligible}
+        filteredIssues={filteredIssues}
+        listIssues={listIssues}
+        resolveLocalizedText={resolveLocalizedText}
+        boardUrlForBack={boardUrlForBack}
+        showListPendingSort={showListPendingSort}
+        meProfile={meProfile}
+      />
     </main>
   )
 }
