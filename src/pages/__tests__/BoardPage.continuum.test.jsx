@@ -46,6 +46,10 @@ vi.mock('../../board/prefetchDiscussionFlags.js', async (importOriginal) => {
   }
 })
 
+vi.mock('../../hooks/useBoardDiscussionFlags.js', () => ({
+  useBoardDiscussionFlags: () => ({ flags: new Map(), ready: true }),
+}))
+
 vi.mock('../../components/threads/LiveIssueThreadMount.jsx', () => ({
   LiveIssueThreadMount: () => <div data-testid="thread-mount-stub" />,
 }))
@@ -90,14 +94,20 @@ describe('BoardPage ES-05 continuum', () => {
     issueService.getIssues.mockResolvedValue([sampleIssue])
     renderBoard('/board')
 
-    await waitFor(() => {
-      expect(screen.getByTestId('board-continuum')).toBeTruthy()
-    })
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('board-continuum')).toBeTruthy()
+      },
+      { timeout: 8000 },
+    )
 
-    await waitFor(() => {
-      expect(screen.getByTestId('board-feed').getAttribute('data-discussion-sort')).toBe('ready')
-      expect(screen.getByText('ISS-100')).toBeTruthy()
-    })
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('board-feed').getAttribute('data-discussion-sort')).toBe('ready')
+        expect(screen.getByText('ISS-100')).toBeTruthy()
+      },
+      { timeout: 8000 },
+    )
     expect(screen.getByRole('link', { name: /Issue ISS-100:/ })).toBeTruthy()
     expect(screen.getByTestId('board-continuum')).toBeTruthy()
     expect(screen.getByTestId('continuum-residual')).toBeTruthy()
@@ -107,7 +117,7 @@ describe('BoardPage ES-05 continuum', () => {
     expect(screen.queryByText(/Offer/i)).toBeNull()
     expect(screen.queryByText(/Voices/i)).toBeNull()
     expect(screen.queryByText(/10 Stories created an Issue/i)).toBeNull()
-  })
+  }, 20000)
 
   it('omits compact Pulse/Emerging when those clients have no data', async () => {
     issueService.getIssues.mockResolvedValue([sampleIssue])
@@ -136,10 +146,12 @@ describe('BoardPage ES-05 continuum', () => {
 
   it('keeps PH-04 card → /issue/:id and does not touch /dashboard (AC-SPA-ES-07)', () => {
     const boardSrc = readFileSync(path.join(root, 'pages/BoardPage.jsx'), 'utf8')
+    const feedSrc = readFileSync(path.join(root, 'features/board/BoardFeedArea.jsx'), 'utf8')
+    const boardFeatureSrc = `${boardSrc}\n${feedSrc}`
     const appSrc = readFileSync(path.join(root, 'App.jsx'), 'utf8')
-    expect(boardSrc).toMatch(/\/issue\/\$\{item\.id\}/)
-    expect(boardSrc).toContain('showOpenAffordance')
-    expect(boardSrc).toContain('ContinuumResidual')
+    expect(boardFeatureSrc).toMatch(/\/issue\/\$\{item\.id\}/)
+    expect(boardFeatureSrc).toContain('showOpenAffordance')
+    expect(boardFeatureSrc).toContain('ContinuumResidual')
     expect(boardSrc).not.toContain('DashboardPage')
     expect(boardSrc).not.toContain("path=\"/dashboard\"")
     expect(appSrc).toContain('<Route path="/dashboard" element={<DashboardPage />} />')

@@ -17,12 +17,15 @@ const HARDCODED = /g-RkVU9xLWN|chatgpt\.com\/g\/g-/i
 
 describe('PH-06 Submit paths — env helper, no hardcode', () => {
   it('BoardPage Submit uses helper and publicHome.nav.submitStory', () => {
-    const src = readSrc('pages/BoardPage.jsx')
-    expect(src).toContain('getStoryGptHref')
-    expect(src).toContain("publicHome.nav.submitStory")
-    expect(src).toContain('board-submit-cta')
-    expect(src).not.toMatch(HARDCODED)
-    expect(src).not.toContain("t('createIssue')")
+    const page = readSrc('pages/BoardPage.jsx')
+    const toolbar = readSrc('features/board/BoardToolbar.jsx')
+    expect(page).toContain('getStoryGptHref')
+    expect(toolbar).toContain("publicHome.nav.submitStory")
+    expect(toolbar).toContain('board-submit-cta')
+    expect(page).not.toMatch(HARDCODED)
+    expect(toolbar).not.toMatch(HARDCODED)
+    expect(page).not.toContain("t('createIssue')")
+    expect(toolbar).not.toContain("t('createIssue')")
   })
 
   it('Header Submit uses helper + a11y label', () => {

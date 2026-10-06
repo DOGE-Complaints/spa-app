@@ -8,10 +8,14 @@ import { BoardPage } from '../BoardPage.jsx'
 import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { PUBLIC_HOME_FLAT_KEYS } from '../../i18n/publicHomeDictionary.js'
 
-const boardPageSource = readFileSync(
-  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../BoardPage.jsx'),
+const pagesDir = path.dirname(fileURLToPath(import.meta.url))
+const boardPageSource = readFileSync(path.resolve(pagesDir, '../BoardPage.jsx'), 'utf8')
+const boardFeedSource = readFileSync(
+  path.resolve(pagesDir, '../../features/board/BoardFeedArea.jsx'),
   'utf8',
 )
+const boardFeatureSource = `${boardPageSource}\n${boardFeedSource}`
+
 
 function renderBoard(pathName = '/board') {
   return renderToStaticMarkup(
@@ -46,23 +50,23 @@ describe('BoardPage PH-04 single feed', () => {
   })
 
   it('wires issue cards to /issue/:id in source', () => {
-    expect(boardPageSource).toMatch(/\/issue\/\$\{item\.id\}/)
-    expect(boardPageSource).toContain('showOpenAffordance')
-    expect(boardPageSource).not.toContain('board-columns')
+    expect(boardFeatureSource).toMatch(/\/issue\/\$\{item\.id\}/)
+    expect(boardFeatureSource).toContain('showOpenAffordance')
+    expect(boardFeatureSource).not.toContain('board-columns')
   })
 
   it('uses publicHome.board chrome keys for error/filtered (not Oops)', () => {
-    expect(boardPageSource).toContain("t('publicHome.board.error.retry')")
-    expect(boardPageSource).toContain("t('publicHome.board.filteredEmpty.title')")
-    expect(boardPageSource).not.toContain("t('publicHome.board.empty.title')")
-    expect(boardPageSource).not.toMatch(/Oops/i)
+    expect(boardFeatureSource).toContain("t('publicHome.board.error.retry')")
+    expect(boardFeatureSource).toContain("t('publicHome.board.filteredEmpty.title')")
+    expect(boardFeatureSource).not.toContain("t('publicHome.board.empty.title')")
+    expect(boardFeatureSource).not.toMatch(/Oops/i)
     expect(PUBLIC_HOME_FLAT_KEYS.filter((k) => k.startsWith('publicHome.board.'))).toHaveLength(10)
   })
 
   it('uses catalog icon path for load error; unfiltered empty is discovery', () => {
-    expect(boardPageSource).toContain('/icons/story-handoff/ic-cloud-error.png')
-    expect(boardPageSource).toContain('EarlySignalDiscovery')
-    expect(boardPageSource).not.toContain('/icons/public-home/ic-empty-board.png')
-    expect(boardPageSource).not.toContain('data-testid="board-empty"')
+    expect(boardFeatureSource).toContain('/icons/story-handoff/ic-cloud-error.png')
+    expect(boardFeatureSource).toContain('EarlySignalDiscovery')
+    expect(boardFeatureSource).not.toContain('/icons/public-home/ic-empty-board.png')
+    expect(boardFeatureSource).not.toContain('data-testid="board-empty"')
   })
 })
