@@ -37,6 +37,7 @@ import { isMapEligible } from '../map/issueGeo.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 import { sortIssuesByDiscussionPriority } from '../board/sortIssuesByDiscussionPriority.js'
 import { useBoardDiscussionFlags } from '../hooks/useBoardDiscussionFlags.js'
+import './BoardPage.css'
 
 function BoardFeedSkeleton({ count = 4 }) {
   return (

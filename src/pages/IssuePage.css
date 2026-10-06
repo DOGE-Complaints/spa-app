@@ -1,0 +1,103 @@
+/* REQ21-02: issue page rules moved from index.css (behavior-preserving) */
+.issue-page-shell {
+  min-height: 100vh;
+  padding: 16px 20px;
+}
+
+.issue-page-header {
+  margin-bottom: 16px;
+}
+
+.issue-details-state {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: var(--color-bg-secondary);
+  padding: 16px;
+}
+
+.issue-details-state h1 {
+  margin-top: 0;
+}
+
+.issue-details-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.issue-details-id {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.issue-details-type {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.issue-details-title {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+}
+
+.issue-details-body {
+  margin-bottom: 16px;
+}
+
+.issue-details-body p {
+  margin: 0 0 8px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.issue-details-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.issue-details-metadata-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.issue-details-metadata-label {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.issue-details-metadata-value {
+  color: var(--color-text-secondary);
+}
+
+.issue-details-metadata-monospace {
+  font-family: var(--font-family-mono);
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.issue-details-metadata-secondary {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}
+
+.issue-details-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+

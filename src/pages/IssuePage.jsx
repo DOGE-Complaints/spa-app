@@ -14,6 +14,7 @@ import {
   shouldShowMtMarker,
 } from '../i18n/translationMarkers.js'
 import { issueService } from '../services/issueService.js'
+import './IssuePage.css'
 
 function formatDate(value) {
   if (!value || typeof value !== 'string') return ''

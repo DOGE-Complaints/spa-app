@@ -1,0 +1,225 @@
+/* REQ21-02: board feature/page rules moved from index.css (behavior-preserving) */
+.board-toolbar {
+  min-height: 64px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 12px;
+}
+
+.board-toolbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.board-toolbar-copy {
+  min-width: 0;
+}
+
+.board-routing-query {
+  margin: 3px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+}
+
+.board-toolbar h2 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.board-toolbar p {
+  margin: 1px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.76rem;
+  line-height: 1.15;
+}
+
+.board-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--color-accent-active);
+  background: var(--color-bg-secondary);
+  color: var(--color-accent-active);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.board-cta-external-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.board-cta:disabled {
+  opacity: 0.9;
+  cursor: default;
+}
+
+.board-columns {
+  display: none; /* PH-04: columns removed — kept only to avoid stale class flashes */
+}
+
+.board-continuum {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.board-continuum .board-feed {
+  max-width: none;
+}
+
+.board-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 920px;
+}
+
+@media (max-width: 900px) {
+  .board-continuum {
+    grid-template-columns: 1fr;
+  }
+
+  .board-continuum .board-feed {
+    order: 1;
+  }
+
+  .board-continuum .continuum-residual {
+    order: 2;
+  }
+}
+
+.board-feed[aria-busy='true'] {
+  min-height: 240px;
+}
+
+.board-feed-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.board-feed-state-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.board-feed-state h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+}
+
+.board-feed-state p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.board-column {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: var(--color-bg-secondary);
+  padding: 10px 10px 12px;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.board-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.board-column-header h3 {
+  margin: 0;
+  font-size: 0.79rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.board-column-header span {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.board-column-divider {
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-accent-active);
+}
+
+.board-column-placeholder {
+  min-height: 124px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  padding: 10px 0;
+}
+
+.board-skeleton-card {
+  height: 120px;
+  border-radius: 14px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: board-skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes board-skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.board-load-error,
+.board-no-issues,
+.board-no-results {
+  /* state layout via .board-feed-state */
+}
+
+@media (max-width: 1200px) {
+  .board-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .board-columns {
+    grid-template-columns: 1fr;
+  }
+}
