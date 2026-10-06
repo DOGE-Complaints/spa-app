@@ -1,11 +1,60 @@
 /**
  * L0 Design tokens — consumer API: docs/UX/design-system.md §2 (`--color-*`)
- * Brand hex SSOT: docs/tasks/backlog-stories/design-foundation/DOGEstonia_Color_Palette_v1.0_RU.md §6 (`--doge-*`)
- * G9: G4 hex superseded by brand palette cutover; G4 infra (`var(--color-*)`) retained.
- * G7 Done: @font-face + font files in fonts.css / public/fonts/; G4 defines --font-* variables.
+ * Brand hex SSOT (legacy): Color Palette v1.0 §6 (`--doge-*`)
+ * Theme SSOT: docs/UX/next/DOGEstonia-design-tokens-package-v1.0.md §3.4 / §4.1
+ * REQ21-03: schemes under [data-theme="dark"|"light"]; default dark (boot).
+ * G7 Done: fonts.css / --font-*; G9 night values retained as Dark column.
  */
+
+/* Shared non-scheme tokens (typography / space / motion / control sizes) */
 :root {
-  /* Brand primitives (Color Palette v1.0 §6) — D-G9-1 */
+  /* §2.2 Typography */
+  --font-family-base: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-size-small: 12px;
+  --font-size-base: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 18px;
+
+  /* §2.3 Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+
+  /* §2.4 Motion / radius / focus / breakpoint */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --motion-fast: 150ms;
+  --breakpoint-md: 768px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  --button-height-small: 32px;
+  --button-height-medium: 40px;
+  --button-height-large: 48px;
+  --control-height-sm: var(--button-height-small);
+  --control-height-md: var(--button-height-medium);
+  --control-height-lg: var(--button-height-large);
+
+  --button-radius: var(--radius-sm);
+  --button-padding-inline-small: 10px;
+  --button-padding-inline-medium: 14px;
+  --button-padding-inline-large: 18px;
+  --button-icon-gap: var(--space-sm);
+  --button-transition-duration: var(--motion-fast);
+  --button-disabled-opacity: 0.55;
+
+  /*
+   * Dark scheme fallback on :root = FOUC-safe default before/without attribute.
+   * Matches package §3.4 Night / §4.1 Dark (as-is SPA G9).
+   */
+  color-scheme: dark;
+
   --doge-bg: #0B1320;
   --doge-accent: #F5A623;
   --doge-cream: #FFF4DE;
@@ -25,7 +74,6 @@
   --doge-accent-active: #D98F17;
   --doge-accent-soft: rgba(245, 166, 35, 0.14);
 
-  /* §2.1 Color — consumer API (D-G9-2); danger/success unchanged (D-G9-3) */
   --color-bg-primary: var(--doge-bg);
   --color-bg-secondary: var(--doge-surface-1);
   --color-text-primary: var(--doge-text);
@@ -38,49 +86,20 @@
   --color-border-default: var(--doge-border);
   --color-border-muted: var(--doge-muted);
 
-  /* D-G4-5 status — unchanged by G9 */
   --color-danger: #ff7b7b;
   --color-success: #9be28d;
 
-  /* Compatibility aliases (pre-G4 local var names → brand via doge) */
   --color-surface-elevated: var(--doge-surface-2);
   --color-surface: var(--doge-surface-1);
   --color-text-muted: var(--doge-muted);
   --color-border-subtle: rgba(43, 58, 77, 0.55);
   --color-border: var(--doge-border);
 
-  /* §2.2 Typography */
-  --font-family-base: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-size-small: 12px;
-  --font-size-base: 14px;
-  --font-size-medium: 16px;
-  --font-size-large: 18px;
-
-  /* §2.3 Spacing (defined; px→var migration deferred D-G4-3) */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 12px;
-  --space-lg: 16px;
-  --space-xl: 24px;
-
-  /* §2.4 Motion / radius / focus / breakpoint (G10 DS-BTN) */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --motion-fast: 150ms;
-  --breakpoint-md: 768px;
   --focus-ring-color: var(--color-accent-primary);
-  --focus-ring-width: 2px;
-  --focus-ring-offset: 2px;
 
-  /* DS-BTN semantic button tokens (spec §36; colors alias G9 — no new brand hex) */
   --button-primary-bg: var(--color-accent-primary);
   --button-primary-bg-hover: var(--color-accent-hover);
   --button-primary-bg-active: var(--color-accent-active);
-  /* Primary label: ink for contrast on #F5A623 (not white; FR-G10.7 / D-G9) */
   --button-primary-text: var(--doge-ink);
   --color-btn-on-primary: var(--button-primary-text);
 
@@ -97,7 +116,6 @@
 
   --button-disabled-bg: var(--color-bg-secondary);
   --button-disabled-text: var(--color-text-secondary);
-  --button-disabled-opacity: 0.55;
 
   --button-destructive-text: var(--color-danger);
   --button-destructive-border: var(--color-danger);
@@ -106,18 +124,157 @@
   --button-focus-color: var(--focus-ring-color);
   --button-focus-width: var(--focus-ring-width);
   --button-focus-offset: var(--focus-ring-offset);
+}
 
-  --button-height-small: 32px;
-  --button-height-medium: 40px;
-  --button-height-large: 48px;
-  --control-height-sm: var(--button-height-small);
-  --control-height-md: var(--button-height-medium);
-  --control-height-lg: var(--button-height-large);
+/* Explicit dark selector (AC-SPA-REQ2103-01) — same Night column as :root fallback */
+[data-theme='dark'] {
+  color-scheme: dark;
 
-  --button-radius: var(--radius-sm);
-  --button-padding-inline-small: 10px;
-  --button-padding-inline-medium: 14px;
-  --button-padding-inline-large: 18px;
-  --button-icon-gap: var(--space-sm);
-  --button-transition-duration: var(--motion-fast);
+  --doge-bg: #0B1320;
+  --doge-accent: #F5A623;
+  --doge-cream: #FFF4DE;
+  --doge-white: #FFFFFF;
+  --doge-ink: #111111;
+
+  --doge-surface-1: #111C2B;
+  --doge-surface-2: #172538;
+  --doge-border: #2B3A4D;
+
+  --doge-text: #FFFFFF;
+  --doge-text-warm: #FFF4DE;
+  --doge-text-2: #B8C2CF;
+  --doge-muted: #7D8999;
+
+  --doge-accent-hover: #FFB544;
+  --doge-accent-active: #D98F17;
+  --doge-accent-soft: rgba(245, 166, 35, 0.14);
+
+  --color-bg-primary: var(--doge-bg);
+  --color-bg-secondary: var(--doge-surface-1);
+  --color-text-primary: var(--doge-text);
+  --color-text-secondary: var(--doge-text-2);
+  --color-text-warm: var(--doge-text-warm);
+  --color-accent-primary: var(--doge-accent);
+  --color-accent-hover: var(--doge-accent-hover);
+  --color-accent-active: var(--doge-accent-active);
+  --color-accent-soft: var(--doge-accent-soft);
+  --color-border-default: var(--doge-border);
+  --color-border-muted: var(--doge-muted);
+
+  --color-danger: #ff7b7b;
+  --color-success: #9be28d;
+
+  --color-surface-elevated: var(--doge-surface-2);
+  --color-surface: var(--doge-surface-1);
+  --color-text-muted: var(--doge-muted);
+  --color-border-subtle: rgba(43, 58, 77, 0.55);
+  --color-border: var(--doge-border);
+
+  --focus-ring-color: var(--color-accent-primary);
+
+  --button-primary-bg: var(--color-accent-primary);
+  --button-primary-bg-hover: var(--color-accent-hover);
+  --button-primary-bg-active: var(--color-accent-active);
+  --button-primary-text: var(--doge-ink);
+  --color-btn-on-primary: var(--button-primary-text);
+
+  --button-secondary-bg: transparent;
+  --button-secondary-bg-hover: var(--color-bg-secondary);
+  --button-secondary-border: var(--color-border-default);
+  --button-secondary-text: var(--color-text-primary);
+
+  --button-tertiary-text: var(--color-text-primary);
+  --button-tertiary-text-muted: var(--color-text-secondary);
+
+  --button-link-text: var(--color-accent-primary);
+  --button-link-text-active: var(--color-accent-hover);
+
+  --button-disabled-bg: var(--color-bg-secondary);
+  --button-disabled-text: var(--color-text-secondary);
+
+  --button-destructive-text: var(--color-danger);
+  --button-destructive-border: var(--color-danger);
+  --button-destructive-bg-hover: rgba(255, 123, 123, 0.12);
+
+  --button-focus-color: var(--focus-ring-color);
+  --button-focus-width: var(--focus-ring-width);
+  --button-focus-offset: var(--focus-ring-offset);
+}
+
+/*
+ * Light scheme — package §4.1 Light column bridged to legacy --color-* / --doge-* / --button-*.
+ * No hex invent beyond tokens package.
+ */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --doge-bg: #F7F6F2;
+  --doge-accent: #F5C542;
+  --doge-cream: #FFF4DE;
+  --doge-white: #FFFFFF;
+  --doge-ink: #101828;
+
+  --doge-surface-1: #FFFFFF;
+  --doge-surface-2: #FFFDF8;
+  --doge-border: #E7E4DC;
+
+  --doge-text: #101828;
+  --doge-text-warm: #B54708;
+  --doge-text-2: #667085;
+  --doge-muted: #7A7D86;
+
+  --doge-accent-hover: #E7B72E;
+  --doge-accent-active: #D4A820;
+  --doge-accent-soft: rgba(245, 197, 66, 0.16);
+
+  --color-bg-primary: var(--doge-bg);
+  --color-bg-secondary: var(--doge-surface-1);
+  --color-text-primary: var(--doge-text);
+  --color-text-secondary: var(--doge-text-2);
+  --color-text-warm: var(--doge-text-warm);
+  --color-accent-primary: var(--doge-accent);
+  --color-accent-hover: var(--doge-accent-hover);
+  --color-accent-active: var(--doge-accent-active);
+  --color-accent-soft: var(--doge-accent-soft);
+  --color-border-default: var(--doge-border);
+  --color-border-muted: var(--doge-muted);
+
+  --color-danger: #B42318;
+  --color-success: #146C43;
+
+  --color-surface-elevated: var(--doge-surface-2);
+  --color-surface: var(--doge-surface-1);
+  --color-text-muted: var(--doge-muted);
+  --color-border-subtle: rgba(231, 228, 220, 0.85);
+  --color-border: var(--doge-border);
+
+  --focus-ring-color: #D99A00;
+
+  --button-primary-bg: var(--color-accent-primary);
+  --button-primary-bg-hover: var(--color-accent-hover);
+  --button-primary-bg-active: var(--color-accent-active);
+  --button-primary-text: var(--doge-ink);
+  --color-btn-on-primary: var(--button-primary-text);
+
+  --button-secondary-bg: #F1EFE9;
+  --button-secondary-bg-hover: #E7E4DC;
+  --button-secondary-border: var(--color-border-default);
+  --button-secondary-text: var(--color-text-primary);
+
+  --button-tertiary-text: var(--color-text-primary);
+  --button-tertiary-text-muted: var(--color-text-secondary);
+
+  --button-link-text: #B54708;
+  --button-link-text-active: #B54708;
+
+  --button-disabled-bg: var(--color-bg-secondary);
+  --button-disabled-text: var(--color-text-secondary);
+
+  --button-destructive-text: var(--color-danger);
+  --button-destructive-border: var(--color-danger);
+  --button-destructive-bg-hover: rgba(180, 35, 24, 0.12);
+
+  --button-focus-color: var(--focus-ring-color);
+  --button-focus-width: var(--focus-ring-width);
+  --button-focus-offset: var(--focus-ring-offset);
 }
