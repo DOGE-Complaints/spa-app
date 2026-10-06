@@ -1,0 +1,31 @@
+/* Header ThemeToggle — matches locale trigger chrome (mockup-150 / mockup-129). No redesign invent. */
+.header-theme-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.header-theme-toggle:hover {
+  border-color: color-mix(in srgb, var(--doge-accent) 60%, transparent);
+}
+
+.header-theme-toggle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.header-theme-toggle-text {
+  line-height: 1;
+}
+
+[data-theme='light'] .header-theme-toggle {
+  border-color: var(--color-border-default);
+}

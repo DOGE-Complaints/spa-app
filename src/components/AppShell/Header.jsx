@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AccountControlSlot } from '../AccountControl/AccountControlSlot.jsx'
+import { ThemeToggle } from '../ThemeToggle/ThemeToggle.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { getStoryGptHref, hasStoryGptUrl } from '../../config/storyGptUrl.js'
 import { LanguageSelector } from './LanguageSelector.jsx'
@@ -110,10 +111,11 @@ export function Header({ className = '', accountSlot }) {
       </nav>
 
       <div className="header-controls">
+        <LanguageSelector />
+        <ThemeToggle />
         <div className="header-account-slot" data-testid="header-account-slot">
           {accountSlot !== undefined ? accountSlot : <AccountControlSlot />}
         </div>
-        <LanguageSelector />
         <button
           type="button"
           className="header-menu-toggle"

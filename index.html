@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="./favicon.png" type="image/png" />
     <title>DOGEstonia</title>
-    <!-- REQ21-03: default dark before paint. dogestonia.theme persistence → REQ21-04. -->
+    <!-- REQ21-04: FOUC — prefer localStorage dogestonia.theme; else default dark. No OS theme. -->
     <script>
       (function () {
         var root = document.documentElement
-        if (!root.getAttribute('data-theme')) {
+        var stored = null
+        try {
+          stored = localStorage.getItem('dogestonia.theme')
+        } catch (e) {}
+        if (stored === 'light' || stored === 'dark') {
+          root.setAttribute('data-theme', stored)
+        } else if (!root.getAttribute('data-theme')) {
           root.setAttribute('data-theme', 'dark')
         }
         var theme = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'

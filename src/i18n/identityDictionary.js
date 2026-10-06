@@ -14,6 +14,12 @@ export const IDENTITY_DICTIONARY_EN = Object.freeze({
       workspace: 'Workspace',
       profile: 'Profile',
     },
+    theme: {
+      dark: 'Dark',
+      light: 'Light',
+      switchToDark: 'Switch to dark theme',
+      switchToLight: 'Switch to light theme',
+    },
   },
   auth: {
     brand: {
@@ -519,6 +525,12 @@ export const IDENTITY_DICTIONARY_ET = Object.freeze({
       workspace: 'Tööruum',
       profile: 'Profiil',
     },
+    theme: {
+      dark: 'Tume',
+      light: 'Hele',
+      switchToDark: 'Lülita tumedale teemale',
+      switchToLight: 'Lülita heledale teemale',
+    },
   },
   auth: {
     brand: {
@@ -1022,6 +1034,12 @@ export const IDENTITY_DICTIONARY_RU = Object.freeze({
       board: 'Доска',
       workspace: 'Рабочее пространство',
       profile: 'Профиль',
+    },
+    theme: {
+      dark: 'Тёмная',
+      light: 'Светлая',
+      switchToDark: 'Включить тёмную тему',
+      switchToLight: 'Включить светлую тему',
     },
   },
   auth: {
@@ -1530,6 +1548,10 @@ export const IDENTITY_FLAT_KEYS = Object.freeze([
   'appShell.nav.board',
   'appShell.nav.workspace',
   'appShell.nav.profile',
+  'appShell.theme.dark',
+  'appShell.theme.light',
+  'appShell.theme.switchToDark',
+  'appShell.theme.switchToLight',
   'auth.brand.logoAlt',
   'auth.brand.mark',
   'auth.brand.name',
