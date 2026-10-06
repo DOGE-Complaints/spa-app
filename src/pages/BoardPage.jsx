@@ -32,10 +32,8 @@ import {
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { ContinuumResidual, EarlySignalDiscovery } from '../components/earlySignal/index.js'
-import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { ListMapToggle, BoardIssuesMap } from '../components/map/index.js'
 import { isMapEligible } from '../map/issueGeo.js'
-import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 import { sortIssuesByDiscussionPriority } from '../board/sortIssuesByDiscussionPriority.js'
 import { useBoardDiscussionFlags } from '../hooks/useBoardDiscussionFlags.js'
@@ -195,12 +193,6 @@ export function BoardPage() {
 
   return (
     <main className="board-shell" aria-label="Issue Board">
-      <AppShell
-        header={<Header />}
-        sidebar={<Sidebar activeNav="board" />}
-        showSidebar={PUBLIC_SHELL_SHOW_SIDEBAR}
-        footer={<PublicFooter />}
-      >
           <header className="board-toolbar">
             <div className="board-toolbar-left">
               <div className="board-toolbar-copy">
@@ -423,8 +415,6 @@ export function BoardPage() {
               <ContinuumResidual />
             </div>
           ) : null}
-
-      </AppShell>
     </main>
   )
 }
