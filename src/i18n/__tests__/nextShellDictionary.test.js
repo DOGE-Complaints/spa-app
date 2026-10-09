@@ -4,8 +4,8 @@ import {
   NEXT_SHELL_FLAT_KEYS,
 } from '../nextShellDictionary.js'
 
-describe('nextShell dictionary SSOT (NS-01…03)', () => {
-  it('lists nextShell.wip + header + rail flat keys', () => {
+describe('nextShell dictionary SSOT (NS-01…04)', () => {
+  it('lists nextShell.wip + header + rail + mobile flat keys', () => {
     expect(NEXT_SHELL_FLAT_KEYS).toEqual([
       'nextShell.wip.title',
       'nextShell.wip.body',
@@ -22,6 +22,11 @@ describe('nextShell dictionary SSOT (NS-01…03)', () => {
       'nextShell.rail.metricsUnderReview',
       'nextShell.rail.empty',
       'nextShell.rail.navAria',
+      'nextShell.mobile.back',
+      'nextShell.mobile.close',
+      'nextShell.mobile.navBoard',
+      'nextShell.mobile.navProfile',
+      'nextShell.mobile.navAria',
     ])
   })
 
@@ -35,6 +40,11 @@ describe('nextShell dictionary SSOT (NS-01…03)', () => {
       expect(dict.nextShell.rail.board).toBeTruthy()
       expect(dict.nextShell.rail.empty).toBeTruthy()
       expect(dict.nextShell.rail.navAria).toBeTruthy()
+      expect(dict.nextShell.mobile.back).toBeTruthy()
+      expect(dict.nextShell.mobile.close).toBeTruthy()
+      expect(dict.nextShell.mobile.navBoard).toBeTruthy()
+      expect(dict.nextShell.mobile.navProfile).toBeTruthy()
+      expect(dict.nextShell.mobile.navAria).toBeTruthy()
     }
   })
 })
