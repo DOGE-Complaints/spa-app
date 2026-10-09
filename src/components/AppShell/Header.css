@@ -81,6 +81,39 @@
   min-width: 0;
 }
 
+.header-chrome-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.header-chrome-icon-btn:hover {
+  border-color: color-mix(in srgb, var(--doge-accent) 60%, transparent);
+}
+
+.header-chrome-icon-btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.header-chrome-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+[data-theme='light'] .header-chrome-icon-btn {
+  border-color: var(--color-border-default);
+}
+
 .header-menu-toggle {
   display: none;
   align-items: center;

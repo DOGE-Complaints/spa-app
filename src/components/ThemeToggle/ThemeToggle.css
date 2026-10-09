@@ -22,6 +22,13 @@
   outline-offset: var(--focus-ring-offset);
 }
 
+.header-theme-toggle-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 .header-theme-toggle-text {
   line-height: 1;
 }

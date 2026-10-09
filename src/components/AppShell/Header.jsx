@@ -7,12 +7,17 @@ import { getStoryGptHref, hasStoryGptUrl } from '../../config/storyGptUrl.js'
 import { LanguageSelector } from './LanguageSelector.jsx'
 import './Header.css'
 
+const NEXT_SHELL_MENU_ICON = '/icons/next-shell/navigation/menu.svg'
+const NEXT_SHELL_SEARCH_ICON = '/icons/next-shell/navigation/search.svg'
+const NEXT_SHELL_NOTIFICATIONS_ICON = '/icons/next-shell/navigation/notifications.svg'
+const FEED_HOME = '/next/feed'
+
 function primaryNavClassName({ isActive }) {
   return `header-nav-item${isActive ? ' header-nav-item-active' : ''}`
 }
 
 /**
- * Public header chrome (M129): Brand | Primary nav | Session & locale.
+ * Public header chrome (M129 + NS-02 next-shell icons / brand → feed home).
  * Account slot host — default content = PH-02 AccountControl (override via accountSlot).
  */
 export function Header({ className = '', accountSlot }) {
@@ -97,7 +102,13 @@ export function Header({ className = '', accountSlot }) {
       data-testid="public-header"
       data-menu-open={menuOpen ? 'yes' : 'no'}
     >
-      <Link to="/board" className="header-brand" data-testid="public-header-brand" onClick={closeMenu}>
+      <Link
+        to={FEED_HOME}
+        className="header-brand"
+        data-testid="public-header-brand"
+        aria-label={t('nextShell.header.homeAria')}
+        onClick={closeMenu}
+      >
         <img
           src={logoSrc}
           alt="DOGEstonia logo"
@@ -111,8 +122,26 @@ export function Header({ className = '', accountSlot }) {
       </nav>
 
       <div className="header-controls">
+        <button
+          type="button"
+          className="header-chrome-icon-btn"
+          data-testid="public-header-search-affordance"
+          aria-label={t('nextShell.header.searchAria')}
+          title={t('nextShell.header.searchAria')}
+        >
+          <img src={NEXT_SHELL_SEARCH_ICON} alt="" className="header-chrome-icon" aria-hidden="true" />
+        </button>
         <LanguageSelector />
         <ThemeToggle />
+        <button
+          type="button"
+          className="header-chrome-icon-btn"
+          data-testid="public-header-notifications-chrome"
+          aria-label={t('nextShell.header.notificationsAria')}
+          title={t('nextShell.header.notificationsAria')}
+        >
+          <img src={NEXT_SHELL_NOTIFICATIONS_ICON} alt="" className="header-chrome-icon" aria-hidden="true" />
+        </button>
         <div className="header-account-slot" data-testid="header-account-slot">
           {accountSlot !== undefined ? accountSlot : <AccountControlSlot />}
         </div>
@@ -122,10 +151,10 @@ export function Header({ className = '', accountSlot }) {
           data-testid="public-header-menu-toggle"
           aria-expanded={menuOpen}
           aria-controls={menuId}
-          aria-label={menuOpen ? t('publicHome.nav.menuClose') : t('publicHome.nav.menuOpen')}
+          aria-label={menuOpen ? t('nextShell.header.menuClose') : t('nextShell.header.menuOpen')}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <img src="/icons/public-home/ic-nav-menu.png" alt="" className="header-menu-toggle-icon" />
+          <img src={NEXT_SHELL_MENU_ICON} alt="" className="header-menu-toggle-icon" aria-hidden="true" />
         </button>
       </div>
 

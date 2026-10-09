@@ -7,8 +7,9 @@ import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { MenuAction } from '../Button'
 import './AccountControl.css'
 
-const PROFILE_ICON = '/icons/user-cabinet/ic-field-role.png'
-const CHEVRON_ICON = '/icons/identity/ic-chevron-down.png'
+const PROFILE_ICON = '/icons/next-shell/navigation/account.svg'
+const CHEVRON_ICON = '/icons/next-shell/actions/chevron-down.svg'
+const FEED_HOME = '/next/feed'
 
 /**
  * Public header account control (M130): guest Sign in | auth menu Profile + Log out.
@@ -95,7 +96,7 @@ export function AccountControl({ className = '' }) {
     try {
       await supabase.auth.signOut()
     } finally {
-      navigate('/board', { replace: true })
+      navigate(FEED_HOME, { replace: true })
       setSigningOut(false)
     }
   }
