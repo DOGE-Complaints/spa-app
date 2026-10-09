@@ -44,11 +44,13 @@ describe('NS-01 NextFeedHostPage route smoke', () => {
     expect(isPublicPath('/next/feed/issue/demo-1')).toBe(true)
   })
 
-  it('renders #/next/feed WIP inside AppShellLayout', () => {
+  it('renders #/next/feed WIP inside AppShellLayout with ProfileRail', () => {
     const html = renderNextFeed('/next/feed')
     expect(html).toContain('data-testid="app-shell"')
     expect(html).toContain('data-testid="public-header"')
     expect(html).toContain('data-testid="public-footer"')
+    expect(html).toContain('data-testid="profile-rail"')
+    expect(html).toContain('data-testid="profile-rail-empty"')
     expect(html).toContain('data-testid="next-feed-host-wip"')
     expect(html).toContain('Feed coming soon')
     expect(html).toContain('Shell is ready. Feed content ships in a later package.')
@@ -56,10 +58,11 @@ describe('NS-01 NextFeedHostPage route smoke', () => {
     expect(html).not.toContain('board-columns')
   })
 
-  it('renders #/next/feed/issue/:id host with same WIP (no feed body)', () => {
+  it('renders #/next/feed/issue/:id host with rail + same WIP (no feed body)', () => {
     const html = renderNextFeed('/next/feed/issue/demo-1')
     expect(html).toContain('data-testid="next-feed-host"')
     expect(html).toContain('data-testid="next-feed-host-wip"')
+    expect(html).toContain('data-testid="profile-rail"')
     expect(html).not.toContain('data-testid="board-feed"')
   })
 
@@ -77,9 +80,10 @@ describe('NS-01 NextFeedHostPage route smoke', () => {
     expect(appSrc).toContain('NextFeedHostPage')
   })
 
-  it('exposes nextShell.wip + header flat keys', () => {
+  it('exposes nextShell.wip + header + rail flat keys', () => {
     expect(NEXT_SHELL_FLAT_KEYS).toContain('nextShell.wip.title')
     expect(NEXT_SHELL_FLAT_KEYS).toContain('nextShell.wip.body')
     expect(NEXT_SHELL_FLAT_KEYS).toContain('nextShell.header.homeAria')
+    expect(NEXT_SHELL_FLAT_KEYS).toContain('nextShell.rail.empty')
   })
 })

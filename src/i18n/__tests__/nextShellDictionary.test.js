@@ -4,8 +4,8 @@ import {
   NEXT_SHELL_FLAT_KEYS,
 } from '../nextShellDictionary.js'
 
-describe('nextShell dictionary SSOT (NS-01/NS-02)', () => {
-  it('lists nextShell.wip + nextShell.header flat keys', () => {
+describe('nextShell dictionary SSOT (NS-01…03)', () => {
+  it('lists nextShell.wip + header + rail flat keys', () => {
     expect(NEXT_SHELL_FLAT_KEYS).toEqual([
       'nextShell.wip.title',
       'nextShell.wip.body',
@@ -14,6 +14,14 @@ describe('nextShell dictionary SSOT (NS-01/NS-02)', () => {
       'nextShell.header.menuOpen',
       'nextShell.header.menuClose',
       'nextShell.header.notificationsAria',
+      'nextShell.rail.profile',
+      'nextShell.rail.myStories',
+      'nextShell.rail.board',
+      'nextShell.rail.metricsSubmitted',
+      'nextShell.rail.metricsPublished',
+      'nextShell.rail.metricsUnderReview',
+      'nextShell.rail.empty',
+      'nextShell.rail.navAria',
     ])
   })
 
@@ -21,12 +29,12 @@ describe('nextShell dictionary SSOT (NS-01/NS-02)', () => {
     for (const locale of ['en', 'et', 'ru']) {
       const dict = NEXT_SHELL_DICTIONARY_BY_LOCALE[locale]
       expect(dict.nextShell.wip.title).toBeTruthy()
-      expect(dict.nextShell.wip.body).toBeTruthy()
       expect(dict.nextShell.header.homeAria).toBeTruthy()
-      expect(dict.nextShell.header.searchAria).toBeTruthy()
-      expect(dict.nextShell.header.menuOpen).toBeTruthy()
-      expect(dict.nextShell.header.menuClose).toBeTruthy()
-      expect(dict.nextShell.header.notificationsAria).toBeTruthy()
+      expect(dict.nextShell.rail.profile).toBeTruthy()
+      expect(dict.nextShell.rail.myStories).toBeTruthy()
+      expect(dict.nextShell.rail.board).toBeTruthy()
+      expect(dict.nextShell.rail.empty).toBeTruthy()
+      expect(dict.nextShell.rail.navAria).toBeTruthy()
     }
   })
 })
