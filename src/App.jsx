@@ -22,7 +22,8 @@ function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route element={<AppShellLayout />}>
-        <Route path="/" element={<Navigate to="/board" replace />} />
+        {/* NS-06 Q8: default entry + catch-all → next feed after NS-01…05 shell */}
+        <Route path="/" element={<Navigate to="/next/feed" replace />} />
         <Route path="/board" element={<BoardPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/issue/:id" element={<IssuePage />} />
@@ -34,7 +35,7 @@ function App() {
         {/* NS-01: next feed host above catch-all — feed body → next-feed */}
         <Route path="/next/feed" element={<NextFeedHostPage />} />
         <Route path="/next/feed/issue/:id" element={<NextFeedHostPage />} />
-        <Route path="*" element={<Navigate to="/board" replace />} />
+        <Route path="*" element={<Navigate to="/next/feed" replace />} />
       </Route>
     </Routes>
   )
