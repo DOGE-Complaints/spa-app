@@ -4,9 +4,10 @@ import {
   shouldShowSessionShellOverlay,
 } from '../auth/sessionShellState.js'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
-import { AppShell, Header, PublicFooter, Sidebar } from '../components/AppShell/index.js'
+import { AppShell, Header, ProfileRail, PublicFooter, Sidebar } from '../components/AppShell/index.js'
 import { SessionShellOverlay } from '../components/SessionShellState/index.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
+import { useStoryActivityRail } from '../hooks/useStoryActivityRail.js'
 import { UserCabinetPage } from '../pages/UserCabinetPage.jsx'
 import {
   isLoginPath,
@@ -28,6 +29,12 @@ function boardBackFromSearch(search) {
   const from = params.get('from') || ''
   if (from.startsWith('/board')) return from
   return '/board'
+}
+
+/** NS-03: ProfileRail + honest empty story-activity (SPA HTTP not wired). */
+function NextFeedProfileRailSlot() {
+  const activity = useStoryActivityRail()
+  return <ProfileRail activity={activity} />
 }
 
 /**
@@ -59,17 +66,32 @@ export function AppShellLayout() {
   if (publicRoute && !loginRoute) {
     const isHowItWorks = location.pathname === '/how-it-works'
     const isIssue = location.pathname.startsWith('/issue/')
+    const isNextFeed =
+      location.pathname === '/next/feed' || location.pathname.startsWith('/next/feed/')
+    // NS-03: ProfileRail on next-feed host only; classic shelter-list + PH-09 flag intact elsewhere
+    const showSidebar = isNextFeed ? true : PUBLIC_SHELL_SHOW_SIDEBAR
+    const shellClass = [
+      isHowItWorks ? 'how-it-works-shell' : null,
+      isNextFeed ? 'next-shell-route' : null,
+    ]
+      .filter(Boolean)
+      .join(' ')
+
     return (
       <AppShell
-        className={isHowItWorks ? 'how-it-works-shell' : ''}
+        className={shellClass}
         header={<Header />}
         sidebar={
-          <Sidebar
-            activeNav="board"
-            boardTo={isIssue ? boardBackFromSearch(location.search) : undefined}
-          />
+          isNextFeed ? (
+            <NextFeedProfileRailSlot />
+          ) : (
+            <Sidebar
+              activeNav="board"
+              boardTo={isIssue ? boardBackFromSearch(location.search) : undefined}
+            />
+          )
         }
-        showSidebar={PUBLIC_SHELL_SHOW_SIDEBAR}
+        showSidebar={showSidebar}
         footer={<PublicFooter />}
       >
         {content}

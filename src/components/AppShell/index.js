@@ -1,5 +1,6 @@
 export { AppShell } from './AppShell.jsx'
 export { Header, PublicHeader } from './Header.jsx'
 export { Sidebar } from './Sidebar.jsx'
+export { ProfileRail } from './ProfileRail.jsx'
 export { LanguageSelector, LocaleSelector } from './LanguageSelector.jsx'
 export { PublicFooter } from '../PublicFooter/index.js'

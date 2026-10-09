@@ -1,4 +1,37 @@
-/** Next Shell host + header copy (NS-01/NS-02). Feed product body → next-feed. */
+/** Next Shell host + header + rail copy (NS-01…03). Feed product body → next-feed. */
+
+const RAIL_EN = Object.freeze({
+  profile: 'Profile',
+  myStories: 'My stories',
+  board: 'Board',
+  metricsSubmitted: 'Submitted',
+  metricsPublished: 'Published',
+  metricsUnderReview: 'Under review',
+  empty: 'No stories yet',
+  navAria: 'Profile rail navigation',
+})
+
+const RAIL_ET = Object.freeze({
+  profile: 'Profiil',
+  myStories: 'Minu lood',
+  board: 'Tahvel',
+  metricsSubmitted: 'Esitatud',
+  metricsPublished: 'Avaldatud',
+  metricsUnderReview: 'Ülevaatamisel',
+  empty: 'Lugusid pole veel',
+  navAria: 'Profiilirea navigatsioon',
+})
+
+const RAIL_RU = Object.freeze({
+  profile: 'Профиль',
+  myStories: 'Мои истории',
+  board: 'Доска',
+  metricsSubmitted: 'Отправлено',
+  metricsPublished: 'Опубликовано',
+  metricsUnderReview: 'На проверке',
+  empty: 'Пока нет историй',
+  navAria: 'Навигация профиля',
+})
 
 export const NEXT_SHELL_DICTIONARY_EN = Object.freeze({
   nextShell: {
@@ -13,6 +46,7 @@ export const NEXT_SHELL_DICTIONARY_EN = Object.freeze({
       menuClose: 'Close menu',
       notificationsAria: 'Notifications (coming later)',
     },
+    rail: RAIL_EN,
   },
 })
 
@@ -29,6 +63,7 @@ export const NEXT_SHELL_DICTIONARY_ET = Object.freeze({
       menuClose: 'Sulge menüü',
       notificationsAria: 'Teavitused (hiljem)',
     },
+    rail: RAIL_ET,
   },
 })
 
@@ -45,6 +80,7 @@ export const NEXT_SHELL_DICTIONARY_RU = Object.freeze({
       menuClose: 'Закрыть меню',
       notificationsAria: 'Уведомления (позже)',
     },
+    rail: RAIL_RU,
   },
 })
 
@@ -62,4 +98,12 @@ export const NEXT_SHELL_FLAT_KEYS = Object.freeze([
   'nextShell.header.menuOpen',
   'nextShell.header.menuClose',
   'nextShell.header.notificationsAria',
+  'nextShell.rail.profile',
+  'nextShell.rail.myStories',
+  'nextShell.rail.board',
+  'nextShell.rail.metricsSubmitted',
+  'nextShell.rail.metricsPublished',
+  'nextShell.rail.metricsUnderReview',
+  'nextShell.rail.empty',
+  'nextShell.rail.navAria',
 ])
