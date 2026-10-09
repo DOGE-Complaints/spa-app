@@ -9,6 +9,8 @@ describe('sessionRoutePolicy', () => {
     expect(isPublicPath('/issue/a/b')).toBe(true)
     expect(isPublicPath('/login')).toBe(true)
     expect(isPublicPath('/')).toBe(true)
+    expect(isPublicPath('/next/feed')).toBe(true)
+    expect(isPublicPath('/next/feed/issue/demo-1')).toBe(true)
   })
 
   it('treats dashboard profile verify story submit as protected', () => {
