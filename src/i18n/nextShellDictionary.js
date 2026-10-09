@@ -1,4 +1,4 @@
-/** Next Shell host + header + rail + mobile chrome (NS-01…04). Feed product body → next-feed. */
+/** Next Shell host + header + rail + mobile + classic shelter (NS-01…05). Feed product body → next-feed. */
 
 const RAIL_EN = Object.freeze({
   profile: 'Profile',
@@ -57,6 +57,18 @@ const MOBILE_RU = Object.freeze({
   navAria: 'Навигация мобильной оболочки',
 })
 
+const SHELTER_EN = Object.freeze({
+  classicHint: 'Classic board (temporary shelter)',
+})
+
+const SHELTER_ET = Object.freeze({
+  classicHint: 'Klassikaline tahvel (ajutine)',
+})
+
+const SHELTER_RU = Object.freeze({
+  classicHint: 'Классическая доска (временный shelter)',
+})
+
 export const NEXT_SHELL_DICTIONARY_EN = Object.freeze({
   nextShell: {
     wip: {
@@ -72,6 +84,7 @@ export const NEXT_SHELL_DICTIONARY_EN = Object.freeze({
     },
     rail: RAIL_EN,
     mobile: MOBILE_EN,
+    shelter: SHELTER_EN,
   },
 })
 
@@ -90,6 +103,7 @@ export const NEXT_SHELL_DICTIONARY_ET = Object.freeze({
     },
     rail: RAIL_ET,
     mobile: MOBILE_ET,
+    shelter: SHELTER_ET,
   },
 })
 
@@ -108,6 +122,7 @@ export const NEXT_SHELL_DICTIONARY_RU = Object.freeze({
     },
     rail: RAIL_RU,
     mobile: MOBILE_RU,
+    shelter: SHELTER_RU,
   },
 })
 
@@ -138,4 +153,5 @@ export const NEXT_SHELL_FLAT_KEYS = Object.freeze([
   'nextShell.mobile.navBoard',
   'nextShell.mobile.navProfile',
   'nextShell.mobile.navAria',
+  'nextShell.shelter.classicHint',
 ])

@@ -76,11 +76,14 @@ export function AppShellLayout() {
     const isIssue = location.pathname.startsWith('/issue/')
     const isNextFeed =
       location.pathname === '/next/feed' || location.pathname.startsWith('/next/feed/')
-    // NS-03: ProfileRail on next-feed host only; classic shelter-list + PH-09 flag intact elsewhere
-    const showSidebar = isNextFeed ? true : PUBLIC_SHELL_SHOW_SIDEBAR
+    // NS-05 D2.3: same next-shell chrome on classic shelter (#/board, #/issue/:id); content stays legacy
+    const isClassicShelter = location.pathname === '/board' || isIssue
+    const useNextShellChrome = isNextFeed || isClassicShelter
+    const showSidebar = useNextShellChrome ? true : PUBLIC_SHELL_SHOW_SIDEBAR
     const shellClass = [
       isHowItWorks ? 'how-it-works-shell' : null,
-      isNextFeed ? 'next-shell-route' : null,
+      useNextShellChrome ? 'next-shell-route' : null,
+      isClassicShelter ? 'next-shell-classic-shelter' : null,
     ]
       .filter(Boolean)
       .join(' ')
@@ -90,7 +93,7 @@ export function AppShellLayout() {
         className={shellClass}
         header={<Header />}
         sidebar={
-          isNextFeed ? (
+          useNextShellChrome ? (
             <NextFeedProfileRailSlot />
           ) : (
             <Sidebar
@@ -100,10 +103,10 @@ export function AppShellLayout() {
           )
         }
         showSidebar={showSidebar}
-        showRightSlot={isNextFeed}
+        showRightSlot={useNextShellChrome}
         rightSlot={null}
-        mobileTop={isNextFeed ? <MobileAppBar leadingAction="menu" /> : null}
-        mobileBottom={isNextFeed ? <MobileBottomNav /> : null}
+        mobileTop={useNextShellChrome ? <MobileAppBar leadingAction="menu" /> : null}
+        mobileBottom={useNextShellChrome ? <MobileBottomNav /> : null}
         footer={<PublicFooter />}
       >
         {content}
