@@ -4,8 +4,8 @@ import {
   NEXT_SHELL_FLAT_KEYS,
 } from '../nextShellDictionary.js'
 
-describe('nextShell dictionary SSOT (NS-01…04)', () => {
-  it('lists nextShell.wip + header + rail + mobile flat keys', () => {
+describe('nextShell dictionary SSOT (NS-01…05)', () => {
+  it('lists nextShell.wip + header + rail + mobile + shelter flat keys', () => {
     expect(NEXT_SHELL_FLAT_KEYS).toEqual([
       'nextShell.wip.title',
       'nextShell.wip.body',
@@ -27,6 +27,7 @@ describe('nextShell dictionary SSOT (NS-01…04)', () => {
       'nextShell.mobile.navBoard',
       'nextShell.mobile.navProfile',
       'nextShell.mobile.navAria',
+      'nextShell.shelter.classicHint',
     ])
   })
 
@@ -45,6 +46,7 @@ describe('nextShell dictionary SSOT (NS-01…04)', () => {
       expect(dict.nextShell.mobile.navBoard).toBeTruthy()
       expect(dict.nextShell.mobile.navProfile).toBeTruthy()
       expect(dict.nextShell.mobile.navAria).toBeTruthy()
+      expect(dict.nextShell.shelter.classicHint).toBeTruthy()
     }
   })
 })

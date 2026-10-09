@@ -61,10 +61,11 @@ describe('AppShellLayout NS-03 ProfileRail slot', () => {
     expect(screen.getByTestId('feed-issue')).toBeTruthy()
   })
 
-  it('keeps classic #/board without ProfileRail when PUBLIC_SHELL_SHOW_SIDEBAR off', () => {
+  it('shows ProfileRail on classic #/board after NS-05 D2.3 (shelter content intact)', () => {
     renderAt('/board')
-    expect(screen.queryByTestId('profile-rail')).toBeNull()
+    expect(screen.getByTestId('profile-rail')).toBeTruthy()
     expect(screen.getByTestId('board-host')).toBeTruthy()
-    expect(document.querySelector('[data-show-sidebar="no"]')).toBeTruthy()
+    expect(document.querySelector('[data-show-sidebar="yes"]')).toBeTruthy()
+    expect(document.querySelector('.next-shell-classic-shelter')).toBeTruthy()
   })
 })

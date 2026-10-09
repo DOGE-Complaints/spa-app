@@ -60,11 +60,12 @@ describe('AppShellLayout NS-04 grid + mobile chrome', () => {
     expect(screen.getByTestId('mobile-bottom-nav')).toBeTruthy()
   })
 
-  it('keeps classic #/board without next-shell grid / mobile chrome', () => {
+  it('applies next-shell grid + mobile chrome on classic #/board (NS-05 D2.3)', () => {
     renderAt('/board')
-    expect(screen.queryByTestId('next-shell-right-slot')).toBeNull()
-    expect(screen.queryByTestId('mobile-app-bar')).toBeNull()
-    expect(screen.queryByTestId('mobile-bottom-nav')).toBeNull()
-    expect(document.querySelector('[data-right-slot="no"], [data-show-sidebar="no"]')).toBeTruthy()
+    expect(screen.getByTestId('next-shell-right-slot')).toBeTruthy()
+    expect(screen.getByTestId('mobile-app-bar')).toBeTruthy()
+    expect(screen.getByTestId('mobile-bottom-nav')).toBeTruthy()
+    expect(document.querySelector('.next-shell-classic-shelter')).toBeTruthy()
+    expect(screen.getByTestId('board-host')).toBeTruthy()
   })
 })
