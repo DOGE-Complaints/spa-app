@@ -1,0 +1,54 @@
+.mobile-bottom-nav {
+  display: none;
+  /* fixed so chrome stays in viewport (M149 E / Component §11 · P6 F2 evidence) */
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  min-height: 64px;
+  padding: 8px 12px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+  background: var(--color-bg-secondary);
+  gap: 8px;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.mobile-bottom-nav__item {
+  flex: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 48px;
+  min-width: 48px;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  border-radius: 10px;
+  padding: 6px 8px;
+}
+
+.mobile-bottom-nav__item--active {
+  color: var(--color-text-primary);
+  background: color-mix(in srgb, var(--doge-accent, var(--color-accent-active)) 14%, transparent);
+}
+
+.mobile-bottom-nav__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 767px) {
+  .app-shell.next-shell-route .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .app-shell.next-shell-route .app-shell__body.board-main {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+}

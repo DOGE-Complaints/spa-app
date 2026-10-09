@@ -4,7 +4,15 @@ import {
   shouldShowSessionShellOverlay,
 } from '../auth/sessionShellState.js'
 import { useSessionShell } from '../auth/SessionShellContext.jsx'
-import { AppShell, Header, ProfileRail, PublicFooter, Sidebar } from '../components/AppShell/index.js'
+import {
+  AppShell,
+  Header,
+  MobileAppBar,
+  MobileBottomNav,
+  ProfileRail,
+  PublicFooter,
+  Sidebar,
+} from '../components/AppShell/index.js'
 import { SessionShellOverlay } from '../components/SessionShellState/index.js'
 import { PUBLIC_SHELL_SHOW_SIDEBAR } from '../config/publicShell.js'
 import { useStoryActivityRail } from '../hooks/useStoryActivityRail.js'
@@ -92,6 +100,10 @@ export function AppShellLayout() {
           )
         }
         showSidebar={showSidebar}
+        showRightSlot={isNextFeed}
+        rightSlot={null}
+        mobileTop={isNextFeed ? <MobileAppBar leadingAction="menu" /> : null}
+        mobileBottom={isNextFeed ? <MobileBottomNav /> : null}
         footer={<PublicFooter />}
       >
         {content}

@@ -1,4 +1,4 @@
-/** Next Shell host + header + rail copy (NS-01…03). Feed product body → next-feed. */
+/** Next Shell host + header + rail + mobile chrome (NS-01…04). Feed product body → next-feed. */
 
 const RAIL_EN = Object.freeze({
   profile: 'Profile',
@@ -33,6 +33,30 @@ const RAIL_RU = Object.freeze({
   navAria: 'Навигация профиля',
 })
 
+const MOBILE_EN = Object.freeze({
+  back: 'Back',
+  close: 'Close',
+  navBoard: 'Board',
+  navProfile: 'Profile',
+  navAria: 'Mobile shell navigation',
+})
+
+const MOBILE_ET = Object.freeze({
+  back: 'Tagasi',
+  close: 'Sulge',
+  navBoard: 'Tahvel',
+  navProfile: 'Profiil',
+  navAria: 'Mobiilse ümbrise navigatsioon',
+})
+
+const MOBILE_RU = Object.freeze({
+  back: 'Назад',
+  close: 'Закрыть',
+  navBoard: 'Доска',
+  navProfile: 'Профиль',
+  navAria: 'Навигация мобильной оболочки',
+})
+
 export const NEXT_SHELL_DICTIONARY_EN = Object.freeze({
   nextShell: {
     wip: {
@@ -47,6 +71,7 @@ export const NEXT_SHELL_DICTIONARY_EN = Object.freeze({
       notificationsAria: 'Notifications (coming later)',
     },
     rail: RAIL_EN,
+    mobile: MOBILE_EN,
   },
 })
 
@@ -64,6 +89,7 @@ export const NEXT_SHELL_DICTIONARY_ET = Object.freeze({
       notificationsAria: 'Teavitused (hiljem)',
     },
     rail: RAIL_ET,
+    mobile: MOBILE_ET,
   },
 })
 
@@ -81,6 +107,7 @@ export const NEXT_SHELL_DICTIONARY_RU = Object.freeze({
       notificationsAria: 'Уведомления (позже)',
     },
     rail: RAIL_RU,
+    mobile: MOBILE_RU,
   },
 })
 
@@ -106,4 +133,9 @@ export const NEXT_SHELL_FLAT_KEYS = Object.freeze([
   'nextShell.rail.metricsUnderReview',
   'nextShell.rail.empty',
   'nextShell.rail.navAria',
+  'nextShell.mobile.back',
+  'nextShell.mobile.close',
+  'nextShell.mobile.navBoard',
+  'nextShell.mobile.navProfile',
+  'nextShell.mobile.navAria',
 ])

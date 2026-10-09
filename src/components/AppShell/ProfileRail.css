@@ -101,7 +101,36 @@
   line-height: 1.4;
 }
 
-/* M149 left rail ~240px within shell grid (Component §10: 224–264) */
-.app-shell.next-shell-route .board-main:not(.board-main--no-sidebar) {
+/* M149 left rail ~240px + empty right slot (Component §10 / layout SSOT / Q16) */
+.app-shell.next-shell-route .board-main:not(.board-main--no-sidebar):not(.board-main--with-right) {
   grid-template-columns: 240px 1fr;
+}
+
+.app-shell.next-shell-route .board-main.board-main--with-right:not(.board-main--no-sidebar) {
+  grid-template-columns: 240px 1fr minmax(0, 280px);
+}
+
+@media (max-width: 1199px) {
+  .app-shell.next-shell-route .board-main.board-main--with-right:not(.board-main--no-sidebar) {
+    grid-template-columns: 240px 1fr;
+  }
+  .app-shell.next-shell-route .next-shell-right-slot {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .app-shell.next-shell-route .board-main.board-main--with-right,
+  .app-shell.next-shell-route .board-main:not(.board-main--no-sidebar) {
+    grid-template-columns: 1fr;
+  }
+  .app-shell.next-shell-route .app-shell__sidebar {
+    display: none;
+  }
+  .app-shell.next-shell-route .next-shell-right-slot {
+    display: none;
+  }
+  .app-shell.next-shell-route .app-shell__footer {
+    display: none;
+  }
 }

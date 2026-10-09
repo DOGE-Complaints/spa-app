@@ -113,6 +113,22 @@
   grid-template-columns: 1fr;
 }
 
+/* NS-04: optional empty right slot host (Q16 · no NodeContextRail product) */
+.board-main--with-right {
+  grid-template-columns: 272px 1fr minmax(0, 280px);
+}
+
+.board-main--no-sidebar.board-main--with-right {
+  grid-template-columns: 1fr minmax(0, 280px);
+}
+
+.app-shell__right.next-shell-right-slot {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  min-width: 0;
+  /* Empty structural slot — no production modules */
+}
+
 .board-sidebar {
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--color-bg-secondary);

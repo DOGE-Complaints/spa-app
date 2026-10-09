@@ -9,7 +9,8 @@ function navItemClassName({ isActive }) {
 
 /**
  * Shared DOGEstonia app shell (M124 §6): logo, sidebar, header, footer slots.
- * @param {{ showSidebar?: boolean }} props — when false, aside is not rendered (PH-09).
+ * @param {{ showSidebar?: boolean, showRightSlot?: boolean, rightSlot?: import('react').ReactNode, mobileTop?: import('react').ReactNode, mobileBottom?: import('react').ReactNode }} props
+ * — showSidebar false omits left aside (PH-09). showRightSlot = empty/omit right column host (NS-04 Q16 · no product module).
  */
 export function AppShell({
   header,
@@ -17,6 +18,10 @@ export function AppShell({
   footer,
   showFooter = true,
   showSidebar = true,
+  showRightSlot = false,
+  rightSlot = null,
+  mobileTop = null,
+  mobileBottom = null,
   children,
   className = '',
 }) {
@@ -25,12 +30,14 @@ export function AppShell({
     'app-shell__body',
     'board-main',
     showSidebar ? null : 'board-main--no-sidebar',
+    showRightSlot ? 'board-main--with-right' : null,
   ]
     .filter(Boolean)
     .join(' ')
 
   return (
     <div className={`app-shell ${className}`.trim()} data-testid="app-shell">
+      {mobileTop}
       <header className="app-shell__header header-strip" aria-label={t('appShell.aria.header')}>
         {header ?? (
           <div className="app-shell__header-default">
@@ -49,7 +56,11 @@ export function AppShell({
         )}
       </header>
 
-      <div className={bodyClassName} data-show-sidebar={showSidebar ? 'yes' : 'no'}>
+      <div
+        className={bodyClassName}
+        data-show-sidebar={showSidebar ? 'yes' : 'no'}
+        data-right-slot={showRightSlot ? 'yes' : 'no'}
+      >
         {showSidebar ? (
           <aside className="app-shell__sidebar board-sidebar" aria-label={t('appShell.aria.sidebar')}>
             {sidebar ?? (
@@ -69,7 +80,19 @@ export function AppShell({
         ) : null}
 
         <section className="app-shell__main board-workspace">{children}</section>
+
+        {showRightSlot ? (
+          <aside
+            className="app-shell__right next-shell-right-slot"
+            data-testid="next-shell-right-slot"
+            aria-hidden={rightSlot == null ? 'true' : undefined}
+          >
+            {rightSlot}
+          </aside>
+        ) : null}
       </div>
+
+      {mobileBottom}
 
       {showFooter ? (
         footer !== undefined && footer !== null ? (
