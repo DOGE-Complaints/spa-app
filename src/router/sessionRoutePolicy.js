@@ -1,4 +1,4 @@
-const PUBLIC_PATHS = new Set(['/', '/board', '/how-it-works', '/login'])
+const PUBLIC_PATHS = new Set(['/', '/board', '/how-it-works', '/login', '/next/feed'])
 
 const PROTECTED_PREFIXES = ['/dashboard', '/profile', '/story/submit', '/story/compose', '/verify']
 
@@ -10,6 +10,10 @@ export function isPublicPath(pathname) {
     return true
   }
   if (pathname.startsWith('/issue/')) {
+    return true
+  }
+  // NS-01 host: `#/next/feed` + `#/next/feed/issue/:id` (public shell chrome)
+  if (pathname === '/next/feed' || pathname.startsWith('/next/feed/')) {
     return true
   }
   return false

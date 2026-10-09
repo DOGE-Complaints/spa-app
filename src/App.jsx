@@ -8,6 +8,7 @@ import { DashboardPage } from './pages/DashboardPage.jsx'
 import { HowItWorksPage } from './pages/HowItWorksPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
+import { NextFeedHostPage } from './pages/NextFeedHostPage.jsx'
 import { StorySubmitPage } from './pages/StorySubmitPage.jsx'
 import { VerifyPage } from './pages/VerifyPage.jsx'
 
@@ -30,6 +31,9 @@ function App() {
         <Route path="/verify" element={<VerifyPage />} />
         <Route path="/story/submit" element={<StorySubmitPage />} />
         <Route path="/story/compose" element={<StoryComposeRedirect />} />
+        {/* NS-01: next feed host above catch-all — feed body → next-feed */}
+        <Route path="/next/feed" element={<NextFeedHostPage />} />
+        <Route path="/next/feed/issue/:id" element={<NextFeedHostPage />} />
         <Route path="*" element={<Navigate to="/board" replace />} />
       </Route>
     </Routes>
