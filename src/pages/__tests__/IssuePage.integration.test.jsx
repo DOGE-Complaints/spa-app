@@ -53,8 +53,11 @@ describe('IssuePage integration', () => {
     expect(html).toContain('issue-page-header')
     expect(html).toContain('ds-btn')
     expect(html).toContain('header-strip')
-    expect(html).not.toContain('board-sidebar')
-    expect(html).toContain('board-main--no-sidebar')
+    // NS-05 D2.3: ProfileRail hosts in .board-sidebar; WORKSPACE label forbidden
+    expect(html).not.toContain('board-sidebar-workspace')
+    expect(html).toContain('next-shell-classic-shelter')
+    expect(html).toContain('board-main--with-right')
+    expect(html).toContain('data-testid="profile-rail"')
     expect(html).toContain('board-footer')
     expect(html).toContain('data-testid="app-shell"')
     expect(html).toContain('header-locale')

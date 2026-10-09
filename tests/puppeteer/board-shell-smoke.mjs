@@ -52,11 +52,18 @@ async function run() {
       throw new Error(`Board shell redirected to login; url=${pageUrl}`)
     }
 
+    // NS-05 D2.3: classic #/board uses next-shell chrome (ProfileRail + empty right).
+    // PH-09 WORKSPACE column remains forbidden; ProfileRail lives in .board-sidebar host.
     const requiredSelectors = [
       '.board-shell',
       '.header-strip',
       '.board-main',
-      '.board-main--no-sidebar',
+      '.next-shell-route',
+      '.next-shell-classic-shelter',
+      '[data-show-sidebar="yes"]',
+      '.board-main--with-right',
+      '[data-testid="profile-rail"]',
+      '[data-testid="next-shell-right-slot"]',
       '.board-toolbar',
       '.board-feed, [data-testid="board-empty"], [data-testid="board-load-error"], [data-testid="board-filtered-empty"], [data-testid="board-early-signal-discovery"]',
       '.board-footer',
@@ -69,10 +76,9 @@ async function run() {
       }
     }
 
-    // PH-09: public board must not keep WORKSPACE sidebar column
-    const sidebar = await page.$('.board-sidebar')
-    if (sidebar) {
-      throw new Error('Expected no .board-sidebar on public board (PH-09 display mode off)')
+    const workspaceLabel = await page.$('.board-sidebar-workspace')
+    if (workspaceLabel) {
+      throw new Error('Expected no WORKSPACE sidebar label on public board (PH-09 / NS-05 ProfileRail)')
     }
 
     // PH-04: single feed — no status/kanban columns

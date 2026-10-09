@@ -47,8 +47,12 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).toContain('class="board-shell"')
     expect(html).toContain('header-strip')
     expect(html).toContain('board-main')
-    expect(html).toContain('board-main--no-sidebar')
-    expect(html).not.toContain('board-sidebar')
+    // NS-05 D2.3: classic board uses next-shell chrome (ProfileRail + empty right)
+    expect(html).toContain('next-shell-route')
+    expect(html).toContain('next-shell-classic-shelter')
+    expect(html).toContain('board-main--with-right')
+    expect(html).toContain('data-testid="profile-rail"')
+    expect(html).not.toContain('board-sidebar-workspace')
     expect(html).toContain('board-workspace')
     expect(html).toContain('board-footer')
     expect(html).toContain('data-testid="public-footer"')
@@ -58,10 +62,11 @@ describe('BoardPage shell visual parity scaffold', () => {
     expect(html).not.toContain('header-status')
   })
 
-  it('keeps public header nav without WORKSPACE column (PH-09)', () => {
+  it('keeps public header nav; ProfileRail not WORKSPACE column (PH-09 / NS-05)', () => {
     const html = renderBoardInShell()
     expect(html).toContain('data-testid="public-header-nav"')
-    expect(html).toContain('data-show-sidebar="no"')
+    expect(html).toContain('data-show-sidebar="yes"')
+    expect(html).not.toContain('board-sidebar-workspace')
   })
 
   it('renders a single board feed without status columns', () => {
