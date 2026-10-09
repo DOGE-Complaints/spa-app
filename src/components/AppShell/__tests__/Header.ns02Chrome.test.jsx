@@ -1,0 +1,67 @@
+/**
+ * @vitest-environment jsdom
+ */
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { Header } from '../Header.jsx'
+import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
+import { LOCALE_STORAGE_KEY } from '../../../i18n/core.js'
+
+function renderHeader(initialPath = '/next/feed') {
+  return render(
+    <I18nProvider>
+      <MemoryRouter initialEntries={[initialPath]}>
+        <Routes>
+          <Route path="*" element={<Header accountSlot={null} />} />
+        </Routes>
+      </MemoryRouter>
+    </I18nProvider>,
+  )
+}
+
+describe('Public Header NS-02 next chrome', () => {
+  beforeEach(() => {
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, 'en')
+  })
+
+  afterEach(() => {
+    cleanup()
+    window.localStorage.removeItem(LOCALE_STORAGE_KEY)
+  })
+
+  it('brand links to feed home with nextShell home aria', () => {
+    renderHeader()
+    const brand = screen.getByTestId('public-header-brand')
+    expect(brand.getAttribute('href')).toBe('/next/feed')
+    expect(brand.getAttribute('aria-label')).toBe('Go to feed home')
+    expect(brand.querySelector('img.header-brand-logo')?.getAttribute('src')).toBe(
+      '/assets/DOGEstonia-logo-horizontal.png',
+    )
+  })
+
+  it('wires next-shell menu / search / notifications chrome icons', () => {
+    renderHeader()
+    expect(screen.getByTestId('public-header-menu-toggle').querySelector('img')?.getAttribute('src')).toBe(
+      '/icons/next-shell/navigation/menu.svg',
+    )
+    expect(screen.getByTestId('public-header-search-affordance').getAttribute('aria-label')).toMatch(
+      /coming later/i,
+    )
+    expect(screen.getByTestId('public-header-search-affordance').querySelector('img')?.getAttribute('src')).toBe(
+      '/icons/next-shell/navigation/search.svg',
+    )
+    expect(
+      screen.getByTestId('public-header-notifications-chrome').querySelector('img')?.getAttribute('src'),
+    ).toBe('/icons/next-shell/navigation/notifications.svg')
+  })
+
+  it('ThemeToggle uses next-shell theme glyph', () => {
+    renderHeader()
+    const theme = screen.getByTestId('public-header-theme-toggle')
+    const src = theme.querySelector('img')?.getAttribute('src')
+    expect(src === '/icons/next-shell/navigation/theme-dark.svg' || src === '/icons/next-shell/navigation/theme-light.svg').toBe(
+      true,
+    )
+  })
+})

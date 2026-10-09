@@ -101,7 +101,7 @@ describe('AccountControl (PH-02)', () => {
     expect(screen.queryByTestId('account-control-menu')).toBeNull()
   })
 
-  it('Log out calls supabase.auth.signOut and redirects to /board', async () => {
+  it('Log out calls supabase.auth.signOut and redirects to feed home', async () => {
     mockUseSessionShell.mockReturnValue({
       shellState: SESSION_SHELL_STATES.AUTHENTICATED,
       profile: { display_name: 'Anna' },
@@ -112,7 +112,7 @@ describe('AccountControl (PH-02)', () => {
     fireEvent.click(screen.getByTestId('account-control-logout'))
     await waitFor(() => {
       expect(mockSignOut).toHaveBeenCalledTimes(1)
-      expect(mockNavigate).toHaveBeenCalledWith('/board', { replace: true })
+      expect(mockNavigate).toHaveBeenCalledWith('/next/feed', { replace: true })
     })
   })
 

@@ -77,7 +77,9 @@ describe('NS-01 NextFeedHostPage route smoke', () => {
     expect(appSrc).toContain('NextFeedHostPage')
   })
 
-  it('exposes nextShell.wip flat keys', () => {
-    expect(NEXT_SHELL_FLAT_KEYS).toEqual(['nextShell.wip.title', 'nextShell.wip.body'])
+  it('exposes nextShell.wip + header flat keys', () => {
+    expect(NEXT_SHELL_FLAT_KEYS).toContain('nextShell.wip.title')
+    expect(NEXT_SHELL_FLAT_KEYS).toContain('nextShell.wip.body')
+    expect(NEXT_SHELL_FLAT_KEYS).toContain('nextShell.header.homeAria')
   })
 })

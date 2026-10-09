@@ -33,7 +33,7 @@ describe('Public Header (PH-01)', () => {
   it('renders brand home link with horizontal logo and no visible text name', () => {
     renderHeader()
     const brand = screen.getByTestId('public-header-brand')
-    expect(brand.getAttribute('href')).toBe('/board')
+    expect(brand.getAttribute('href')).toBe('/next/feed')
     const logo = brand.querySelector('img.header-brand-logo')
     expect(logo).toBeTruthy()
     expect(logo.getAttribute('src')).toBe('/assets/DOGEstonia-logo-horizontal.png')
