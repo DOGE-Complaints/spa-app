@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { readFileSync } from 'node:fs'
@@ -9,6 +9,12 @@ import { AppShellLayout } from '../../layout/AppShellLayout.jsx'
 import { NextFeedHostPage } from '../NextFeedHostPage.jsx'
 import { NEXT_SHELL_FLAT_KEYS } from '../../i18n/nextShellDictionary.js'
 import { isPublicPath } from '../../router/sessionRoutePolicy.js'
+
+vi.mock('../../services/issueService.js', () => ({
+  issueService: {
+    getIssues: vi.fn().mockResolvedValue([]),
+  },
+}))
 
 vi.mock('../../auth/SessionShellContext.jsx', async (importOriginal) => {
   const actual = await importOriginal()
@@ -22,6 +28,8 @@ vi.mock('../../auth/SessionShellContext.jsx', async (importOriginal) => {
     useOptionalSessionShell: () => null,
   }
 })
+
+import { issueService } from '../../services/issueService.js'
 
 function renderNextFeed(initialPath) {
   return renderToStaticMarkup(
@@ -38,32 +46,35 @@ function renderNextFeed(initialPath) {
   )
 }
 
-describe('NS-01 NextFeedHostPage route smoke', () => {
+describe('NS-01 / NF-01 NextFeedHostPage route smoke', () => {
+  beforeEach(() => {
+    issueService.getIssues.mockReset()
+    issueService.getIssues.mockResolvedValue([])
+  })
+
   it('treats next feed host paths as public', () => {
     expect(isPublicPath('/next/feed')).toBe(true)
     expect(isPublicPath('/next/feed/issue/demo-1')).toBe(true)
   })
 
-  it('renders #/next/feed WIP inside AppShellLayout with ProfileRail', () => {
+  it('renders #/next/feed feed host inside AppShellLayout with ProfileRail', () => {
     const html = renderNextFeed('/next/feed')
     expect(html).toContain('data-testid="app-shell"')
     expect(html).toContain('data-testid="public-header"')
     expect(html).toContain('data-testid="public-footer"')
     expect(html).toContain('data-testid="profile-rail"')
-    expect(html).toContain('data-testid="profile-rail-empty"')
-    expect(html).toContain('data-testid="next-feed-host-wip"')
-    expect(html).toContain('Feed coming soon')
-    expect(html).toContain('Shell is ready. Feed content ships in a later package.')
-    expect(html).not.toContain('data-testid="board-feed"')
+    expect(html).toContain('data-testid="next-feed-host"')
+    expect(html).toContain('data-testid="feed-host"')
+    expect(html).toContain('data-testid="feed-toolbar"')
+    expect(html).not.toContain('data-testid="next-feed-host-wip"')
     expect(html).not.toContain('board-columns')
   })
 
-  it('renders #/next/feed/issue/:id host with rail + same WIP (no feed body)', () => {
+  it('renders #/next/feed/issue/:id host with rail + feed host', () => {
     const html = renderNextFeed('/next/feed/issue/demo-1')
     expect(html).toContain('data-testid="next-feed-host"')
-    expect(html).toContain('data-testid="next-feed-host-wip"')
+    expect(html).toContain('data-testid="feed-host"')
     expect(html).toContain('data-testid="profile-rail"')
-    expect(html).not.toContain('data-testid="board-feed"')
   })
 
   it('registers routes in App.jsx above catch-all', () => {
