@@ -6,7 +6,7 @@ import {
 import { UI_DICTIONARY } from '../dictionaries.js'
 
 describe('nextFeedDictionary', () => {
-  it('lists nextFeed.list + toolbar + post + map flat keys', () => {
+  it('lists nextFeed.list + toolbar + post + map + thread flat keys', () => {
     expect(NEXT_FEED_FLAT_KEYS).toEqual([
       'nextFeed.list.loading',
       'nextFeed.list.empty',
@@ -31,6 +31,9 @@ describe('nextFeedDictionary', () => {
       'nextFeed.map.error',
       'nextFeed.map.unavailable',
       'nextFeed.map.pinLabel',
+      'nextFeed.thread.empty',
+      'nextFeed.thread.attachDenied',
+      'nextFeed.thread.maxDepth',
     ])
   })
 
@@ -55,6 +58,9 @@ describe('nextFeedDictionary', () => {
       expect(dict.nextFeed.map.error).toBeTruthy()
       expect(dict.nextFeed.map.unavailable).toBeTruthy()
       expect(dict.nextFeed.map.pinLabel).toBeTruthy()
+      expect(dict.nextFeed.thread.empty).toBeTruthy()
+      expect(dict.nextFeed.thread.attachDenied).toBeTruthy()
+      expect(dict.nextFeed.thread.maxDepth).toBeTruthy()
       expect(NEXT_FEED_BY_LOCALE[locale].nextFeed.list.loading).toBe(
         dict.nextFeed.list.loading,
       )

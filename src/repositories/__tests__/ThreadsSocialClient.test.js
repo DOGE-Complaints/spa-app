@@ -87,17 +87,75 @@ describe('ThreadsSocialClient THR-07/08/09 Close', () => {
         headers: { 'Content-Type': 'application/json' },
       }),
     )
-    const client = createThreadsSocialClient({ baseUrl: 'http://threads.test' })
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => null,
+    })
     const result = await client.getThreadTree('ISS-1')
     expect(result.status).toBe('ok')
     expect(result.data.comments).toEqual([])
+    expect(fetchSpy).toHaveBeenCalledTimes(1)
     expect(fetchSpy).toHaveBeenCalledWith('http://threads.test/threads/issues/ISS-1')
     expect(String(fetchSpy.mock.calls[0][0])).not.toMatch(/by-issue/)
   })
 
+  it('getThreadTree with token sends Authorization Bearer', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: {
+            issue_id: 'ISS-1',
+            comments: [],
+            thread_root_reactions: { selected: ['like'] },
+          },
+          trace_id: 't1',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok-test',
+    })
+    const result = await client.getThreadTree('ISS-1')
+    expect(result.status).toBe('ok')
+    expect(result.data.thread_root_reactions.selected).toEqual(['like'])
+    expect(fetchSpy).toHaveBeenCalledTimes(1)
+    const [url, init] = fetchSpy.mock.calls[0]
+    expect(url).toBe('http://threads.test/threads/issues/ISS-1')
+    expect(init.headers.Authorization).toBe('Bearer tok-test')
+  })
+
+  it('getThreadTree 401 with Bearer retries once without Authorization', async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response('unauthorized', { status: 401 }))
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ data: { issue_id: 'ISS-1', comments: [] }, trace_id: 't1' }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'stale-tok',
+    })
+    const result = await client.getThreadTree('ISS-1')
+    expect(result.status).toBe('ok')
+    expect(result.data.comments).toEqual([])
+    expect(fetchSpy).toHaveBeenCalledTimes(2)
+    const [url1, init1] = fetchSpy.mock.calls[0]
+    expect(url1).toBe('http://threads.test/threads/issues/ISS-1')
+    expect(init1.headers.Authorization).toBe('Bearer stale-tok')
+    expect(fetchSpy.mock.calls[1]).toEqual(['http://threads.test/threads/issues/ISS-1'])
+  })
+
   it('network fail → unavailable', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline'))
-    const client = createThreadsSocialClient({ baseUrl: 'http://threads.test' })
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => null,
+    })
     const result = await client.getThreadTree('ISS-1')
     expect(result).toEqual({ status: 'unavailable', reason: 'network', op: 'tree_read' })
   })
