@@ -5,6 +5,7 @@ import {
   buildVerifyHandoffHref,
   resolveHarnessThr05Scene,
 } from './verifyWriteGate.js'
+import { THREADS_FEED_THREAD_ICONS } from './threadIcons.js'
 import './CommentComposer.css'
 
 /**
@@ -46,7 +47,9 @@ export function CommentComposer({
   /** After successful write */
   onPostSuccess,
   testId = 'issue-thread-composer',
+  iconPack = null,
 }) {
+  const icons = iconPack || THREADS_FEED_THREAD_ICONS
   const inputId = useId()
   const forcedScene = resolveHarnessThr05Scene()
   const scene = forcedScene || 'live'
@@ -255,7 +258,7 @@ export function CommentComposer({
 
       {attachment ? (
         <div className="comment-attach-chip" data-testid="comment-attach-chip">
-          <img src="/icons/story-handoff/ic-doc-new.png" alt="" aria-hidden="true" />
+          <img src={icons.attach} alt="" aria-hidden="true" />
           <span>{attachment.label}</span>
           <button
             type="button"
@@ -264,21 +267,21 @@ export function CommentComposer({
             onClick={handleRemoveAttachment}
             aria-label={t('threadsFeed.composer.removeAttachment')}
           >
-            <img src="/icons/threads-feed/ic-remove-attachment.png" alt="" aria-hidden="true" />
+            <img src={icons.close} alt="" aria-hidden="true" />
           </button>
         </div>
       ) : null}
 
       {attachError ? (
         <p className="comment-composer-warning" data-testid="comment-attach-denied" role="alert">
-          <img src="/icons/story-handoff/ic-warning-triangle.png" alt="" aria-hidden="true" />
+          <img src={icons.error} alt="" aria-hidden="true" />
           <span>{t('threadsFeed.composer.attachDenied')}</span>
         </p>
       ) : null}
 
       {maxDepthError ? (
         <p className="comment-composer-warning" data-testid="comment-max-depth-fail" role="status">
-          <img src="/icons/story-handoff/ic-warning-triangle.png" alt="" aria-hidden="true" />
+          <img src={icons.error} alt="" aria-hidden="true" />
           <span>{t('threadsFeed.composer.maxDepthReached')}</span>
         </p>
       ) : null}
@@ -286,7 +289,7 @@ export function CommentComposer({
       {postError ? (
         <div className="comment-composer-post-fail" data-testid="comment-post-fail" role="alert">
           <p className="comment-composer-post-fail-title">
-            <img src="/icons/story-handoff/ic-warning-triangle.png" alt="" aria-hidden="true" />
+            <img src={icons.error} alt="" aria-hidden="true" />
             <span>{t('threadsFeed.composer.postFailed')}</span>
           </p>
           <p className="comment-composer-post-fail-helper">{t('threadsFeed.composer.postFailedHelper')}</p>
@@ -320,7 +323,7 @@ export function CommentComposer({
             void handleAttach()
           }}
         >
-          <img src="/icons/threads-feed/ic-attach.png" alt="" aria-hidden="true" />
+          <img src={icons.attach} alt="" aria-hidden="true" />
           <span>{t('threadsFeed.composer.attach')}</span>
         </button>
         {mode === 'reply' || postError || maxDepthError ? (
@@ -340,7 +343,7 @@ export function CommentComposer({
             data-testid="comment-composer-try-again"
             onClick={handleRetry}
           >
-            <img src="/icons/story-handoff/ic-auto-resubmit.png" alt="" aria-hidden="true" />
+            <img src={icons.retry} alt="" aria-hidden="true" />
             <span>{t('threadsFeed.composer.tryAgain')}</span>
           </button>
         ) : (
@@ -353,7 +356,8 @@ export function CommentComposer({
             }}
             disabled={posting}
           >
-            {mode === 'reply' ? t('threadsFeed.composer.postReply') : t('threadsFeed.composer.postReply')}
+            <img src={icons.send} alt="" aria-hidden="true" />
+            <span>{mode === 'reply' ? t('threadsFeed.composer.postReply') : t('threadsFeed.composer.postReply')}</span>
           </button>
         )}
       </div>

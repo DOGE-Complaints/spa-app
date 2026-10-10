@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CommentComposer } from './CommentComposer.jsx'
 import { ReactionControls } from './ReactionControls.jsx'
+import { THREADS_FEED_THREAD_ICONS } from './threadIcons.js'
 import './CommentTree.css'
 
 /**
@@ -24,7 +25,9 @@ export function CommentTree({
   maxReactions,
   reactionsEnable = null,
   onReact,
+  iconPack = null,
 }) {
+  const icons = iconPack || THREADS_FEED_THREAD_ICONS
   const [replyParentId, setReplyParentId] = useState(
     forcedReplyParentId || (scene === 'reply' || scene === 'attach-allowed' || scene === 'attach-denied' || scene === 'post-fail'
       ? comments.find((c) => c.depth < maxDepth)?.id ?? null
@@ -55,11 +58,9 @@ export function CommentTree({
               >
                 <div className="comment-tree-identity" aria-hidden="true" />
                 <div className="comment-tree-body">
-                  <p className="comment-tree-label">{node.label}</p>
-                  <div className="comment-tree-lines" aria-hidden="true">
-                    <span />
-                    <span />
-                  </div>
+                  <p className="comment-tree-body-text" data-testid="comment-tree-body">
+                    {node.body || node.label}
+                  </p>
                   <div className="comment-tree-actions" role="group">
                     {!atMax ? (
                       <button
@@ -68,7 +69,7 @@ export function CommentTree({
                         data-testid="comment-action-reply"
                         onClick={() => setReplyParentId(node.id)}
                       >
-                        <img src="/icons/threads-feed/ic-reply.png" alt="" aria-hidden="true" />
+                        <img src={icons.reply} alt="" aria-hidden="true" />
                         <span>{t('threadsFeed.composer.reply')}</span>
                       </button>
                     ) : null}
@@ -96,7 +97,7 @@ export function CommentTree({
                   t={t}
                   mode="reply"
                   parentId={replyParent.id}
-                  parentLabel={replyParent.label}
+                  parentLabel={replyParent.body || replyParent.label}
                   initialDraft={
                     scene === 'attach-denied' || scene === 'post-fail' ? 'Draft text that must survive' : ''
                   }
@@ -110,6 +111,7 @@ export function CommentTree({
                   onAttachRef={onAttachRef}
                   mediaAllowedTypes={mediaAllowedTypes}
                   attachCommentId={replyParent.id}
+                  iconPack={icons}
                   onPostSuccess={(result) => {
                     setReplyParentId(null)
                     if (typeof onPostSuccess === 'function') onPostSuccess(result)

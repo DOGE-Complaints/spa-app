@@ -3,6 +3,7 @@ import { CommentTree } from './CommentTree.jsx'
 import { InviteOrganizationStub } from './InviteOrganizationStub.jsx'
 import { ReactionControls } from './ReactionControls.jsx'
 import { resolveHarnessThr02Scene } from './thr02DemoFixture.js'
+import { THREADS_FEED_THREAD_ICONS } from './threadIcons.js'
 import './IssueThreadBlock.css'
 
 /**
@@ -35,9 +36,12 @@ export function IssueThreadBlock({
   threadRootSummaryMarks = null,
   threadRootAggregateCount = null,
   threadRootSelected = [],
+  iconPack = null,
+  showInviteStub = true,
 }) {
   const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
   const effectiveMaxDepth = scene === 'max-depth' ? 2 : maxDepth
+  const icons = iconPack || THREADS_FEED_THREAD_ICONS
 
   const composerShared = {
     profile,
@@ -47,6 +51,7 @@ export function IssueThreadBlock({
     onPostSuccess,
     onAttachRef,
     mediaAllowedTypes,
+    iconPack: icons,
   }
 
   const reactionShared = {
@@ -70,14 +75,14 @@ export function IssueThreadBlock({
       {status !== 'unavailable' && status !== 'loading' ? (
         <div className="issue-thread-actions" data-testid="issue-thread-actions" role="group">
           <button type="button" className="issue-thread-action" data-testid="thread-action-react">
-            <img src="/icons/threads-feed/ic-react.png" alt="" aria-hidden="true" />
+            <img src={icons.react} alt="" aria-hidden="true" />
             <span>{t('threadsFeed.post.action.react')}</span>
           </button>
           <button type="button" className="issue-thread-action" data-testid="thread-action-discussion">
-            <img src="/icons/threads-feed/ic-discussion.png" alt="" aria-hidden="true" />
+            <img src={icons.discussion} alt="" aria-hidden="true" />
             <span>{t('threadsFeed.post.action.discussion')}</span>
           </button>
-          <InviteOrganizationStub t={t} />
+          {showInviteStub ? <InviteOrganizationStub t={t} /> : null}
         </div>
       ) : null}
 
@@ -85,7 +90,7 @@ export function IssueThreadBlock({
         <div className="issue-thread-state" data-testid="issue-thread-loading" role="status">
           <img
             className="issue-thread-spinner"
-            src="/icons/story-handoff/ic-spinner.png"
+            src={icons.unavailable}
             alt=""
             aria-hidden="true"
           />
@@ -135,6 +140,7 @@ export function IssueThreadBlock({
             comments={comments}
             maxDepth={effectiveMaxDepth}
             scene={scene || 'nested'}
+            iconPack={icons}
             {...composerShared}
             {...reactionShared}
           />
@@ -144,7 +150,7 @@ export function IssueThreadBlock({
       {status === 'unavailable' ? (
         <div className="issue-thread-state issue-thread-unavailable" data-testid="issue-thread-unavailable" role="alert">
           <p className="issue-thread-unavailable-title">
-            <img src="/icons/story-handoff/ic-cloud-error.png" alt="" aria-hidden="true" />
+            <img src={icons.error} alt="" aria-hidden="true" />
             <span>{t('threadsFeed.post.discussionUnavailable')}</span>
           </p>
           <p className="issue-thread-unavailable-helper">
@@ -152,6 +158,7 @@ export function IssueThreadBlock({
           </p>
           {typeof onRetry === 'function' ? (
             <button type="button" className="issue-thread-retry" data-testid="issue-thread-retry" onClick={onRetry}>
+              <img src={icons.retry} alt="" aria-hidden="true" className="issue-thread-retry-icon" />
               {t('threadsFeed.post.tryAgain')}
             </button>
           ) : null}

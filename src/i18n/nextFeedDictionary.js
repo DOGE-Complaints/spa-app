@@ -105,12 +105,31 @@ const MAP_RU = Object.freeze({
   pinLabel: 'Место обращения',
 })
 
+const THREAD_EN = Object.freeze({
+  empty: 'No comments yet',
+  attachDenied: 'Attachments are not available',
+  maxDepth: 'Reply depth limit reached',
+})
+
+const THREAD_ET = Object.freeze({
+  empty: 'Kommentaare pole veel',
+  attachDenied: 'Manuseid ei saa lisada',
+  maxDepth: 'Vastuste sügavuse limiit',
+})
+
+const THREAD_RU = Object.freeze({
+  empty: 'Пока нет комментариев',
+  attachDenied: 'Вложения недоступны',
+  maxDepth: 'Достигнут лимит глубины ответов',
+})
+
 export const NEXT_FEED_DICTIONARY_EN = Object.freeze({
   nextFeed: {
     list: LIST_EN,
     toolbar: TOOLBAR_EN,
     post: POST_EN,
     map: MAP_EN,
+    thread: THREAD_EN,
   },
 })
 
@@ -120,6 +139,7 @@ export const NEXT_FEED_DICTIONARY_ET = Object.freeze({
     toolbar: TOOLBAR_ET,
     post: POST_ET,
     map: MAP_ET,
+    thread: THREAD_ET,
   },
 })
 
@@ -129,6 +149,7 @@ export const NEXT_FEED_DICTIONARY_RU = Object.freeze({
     toolbar: TOOLBAR_RU,
     post: POST_RU,
     map: MAP_RU,
+    thread: THREAD_RU,
   },
 })
 
@@ -162,4 +183,7 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.map.error',
   'nextFeed.map.unavailable',
   'nextFeed.map.pinLabel',
+  'nextFeed.thread.empty',
+  'nextFeed.thread.attachDenied',
+  'nextFeed.thread.maxDepth',
 ])

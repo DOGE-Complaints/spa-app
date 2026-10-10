@@ -87,11 +87,13 @@ export function mapApiCommentToNode(raw) {
   if (!Number.isFinite(depth) || depth < 0) return null
   const parentId = row.parent_id === undefined ? null : row.parent_id
   const reaction = mapReactionSummaryPayload(row)
+  const bodyText = String(row.body ?? '').trim()
   return {
     id: String(id),
     parentId: parentId === null || parentId === undefined ? null : String(parentId),
     depth: Math.floor(depth),
     label: truncateCommentLabel(row.body),
+    body: bodyText,
     summaryMarks: reaction.summaryMarks,
     aggregateCount: reaction.aggregateCount,
     selected: reaction.selected,

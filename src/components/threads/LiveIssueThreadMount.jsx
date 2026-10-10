@@ -30,6 +30,8 @@ export function LiveIssueThreadMount({
   profile = null,
   returnTo = '#/board',
   client = defaultThreadsSocialClient,
+  iconPack = null,
+  showInviteStub = true,
 }) {
   const [status, setStatus] = useState(/** @type {'loading'|'empty'|'populated'|'unavailable'} */ ('loading'))
   const [comments, setComments] = useState(/** @type {Array} */ ([]))
@@ -181,6 +183,8 @@ export function LiveIssueThreadMount({
       threadRootSummaryMarks={threadRootReactions.summaryMarks}
       threadRootAggregateCount={threadRootReactions.aggregateCount}
       threadRootSelected={threadRootReactions.selected || []}
+      iconPack={iconPack}
+      showInviteStub={showInviteStub}
     />
   )
 }

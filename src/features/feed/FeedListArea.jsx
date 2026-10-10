@@ -1,6 +1,7 @@
 import { Button } from '../../components/Button'
-import { BoardIssuePost, LiveIssueThreadMount } from '../../components/threads/index.js'
+import { BoardIssuePost } from '../../components/threads/index.js'
 import { FeedCivicPost } from './FeedCivicPost.jsx'
+import { FeedThreadMount } from './FeedThreadMount.jsx'
 import { FeedFeedSkeleton } from './FeedFeedSkeleton.jsx'
 import { FeedMapArea } from './FeedMapArea.jsx'
 
@@ -129,11 +130,11 @@ export function FeedListArea({
             <BoardIssuePost
               key={item.id}
               thread={
-                <LiveIssueThreadMount
+                <FeedThreadMount
                   issueId={item.id}
                   t={t}
                   profile={meProfile}
-                  returnTo={`#/next/feed`}
+                  returnTo="#/next/feed"
                 />
               }
             >

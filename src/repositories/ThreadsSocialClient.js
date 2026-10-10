@@ -284,7 +284,22 @@ export function createThreadsSocialClient(options = {}) {
     }
     const url = `${baseUrl}${path}`
     try {
-      const response = await fetchImpl(url)
+      let accessToken = null
+      if (op === 'tree_read') {
+        try {
+          accessToken = await resolveToken(undefined)
+        } catch {
+          accessToken = null
+        }
+      }
+      const sentBearer = Boolean(accessToken)
+      let response = sentBearer
+        ? await fetchImpl(url, { headers: { Authorization: `Bearer ${accessToken}` } })
+        : await fetchImpl(url)
+      // Auth enrichment only: expired/invalid JWT must not hard-fail the public board.
+      if (sentBearer && response.status === 401) {
+        response = await fetchImpl(url)
+      }
       if (!response.ok) {
         return unavailableSocialResult(op, `http_${response.status}`)
       }
@@ -357,7 +372,8 @@ export function createThreadsSocialClient(options = {}) {
           httpStatus: response.status,
         })
       }
-      return classify(response.status, envelope, op)
+      const classified = classify(response.status, envelope, op)
+      return classified
     } catch {
       return writeFailSocialResult(op, 'post_fail', { reason: 'network' })
     }

@@ -1,8 +1,25 @@
-/** Presentation demo nodes for M144 (non-believable placeholders). No invent HTTP. */
+/** Presentation demo nodes (M153 illustrative bodies). No invent HTTP / author identity. */
 export const THR02_DEMO_COMMENTS = Object.freeze([
-  { id: 'c-root', depth: 0, label: 'Comment preview' },
-  { id: 'c-reply', depth: 1, parentId: 'c-root', label: 'Reply preview' },
-  { id: 'c-nested', depth: 2, parentId: 'c-reply', label: 'Nested reply preview' },
+  {
+    id: 'c-root',
+    depth: 0,
+    label: 'I can help coordinate a shared pet-care group for neighbours.',
+    body: 'I can help coordinate a shared pet-care group for neighbours.',
+  },
+  {
+    id: 'c-reply',
+    depth: 1,
+    parentId: 'c-root',
+    label: 'A simple sign-up list would make it easier to start.',
+    body: 'A simple sign-up list would make it easier to start.',
+  },
+  {
+    id: 'c-nested',
+    depth: 2,
+    parentId: 'c-reply',
+    label: 'We could list short visits and longer stays separately.',
+    body: 'We could list short visits and longer stays separately.',
+  },
 ])
 
 /** Configured max depth for presentation demos — prop/knob, not a fixed product law. */
