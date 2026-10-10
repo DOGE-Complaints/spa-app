@@ -6,7 +6,7 @@ import {
 import { UI_DICTIONARY } from '../dictionaries.js'
 
 describe('nextFeedDictionary', () => {
-  it('lists nextFeed.list + toolbar + post flat keys', () => {
+  it('lists nextFeed.list + toolbar + post + map flat keys', () => {
     expect(NEXT_FEED_FLAT_KEYS).toEqual([
       'nextFeed.list.loading',
       'nextFeed.list.empty',
@@ -25,6 +25,12 @@ describe('nextFeedDictionary', () => {
       'nextFeed.post.share',
       'nextFeed.post.noMedia',
       'nextFeed.post.schemaUnavailable',
+      'nextFeed.map.listView',
+      'nextFeed.map.mapView',
+      'nextFeed.map.partial',
+      'nextFeed.map.error',
+      'nextFeed.map.unavailable',
+      'nextFeed.map.pinLabel',
     ])
   })
 
@@ -43,11 +49,20 @@ describe('nextFeedDictionary', () => {
       expect(dict.nextFeed.post.share).toBeTruthy()
       expect(dict.nextFeed.post.noMedia).toBeTruthy()
       expect(dict.nextFeed.post.schemaUnavailable).toBeTruthy()
+      expect(dict.nextFeed.map.listView).toBeTruthy()
+      expect(dict.nextFeed.map.mapView).toBeTruthy()
+      expect(dict.nextFeed.map.partial).toBeTruthy()
+      expect(dict.nextFeed.map.error).toBeTruthy()
+      expect(dict.nextFeed.map.unavailable).toBeTruthy()
+      expect(dict.nextFeed.map.pinLabel).toBeTruthy()
       expect(NEXT_FEED_BY_LOCALE[locale].nextFeed.list.loading).toBe(
         dict.nextFeed.list.loading,
       )
       expect(NEXT_FEED_BY_LOCALE[locale].nextFeed.post.openIssue).toBe(
         dict.nextFeed.post.openIssue,
+      )
+      expect(NEXT_FEED_BY_LOCALE[locale].nextFeed.map.mapView).toBe(
+        dict.nextFeed.map.mapView,
       )
     }
   })
