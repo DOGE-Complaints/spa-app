@@ -37,6 +37,9 @@ describe('nextFeedDictionary', () => {
       'nextFeed.gate.verifyRequired',
       'nextFeed.gate.deniedGeneric',
       'nextFeed.gate.draftPreserved',
+      'nextFeed.mount.close',
+      'nextFeed.mount.openAsPage',
+      'nextFeed.verify.smokeNote',
     ])
   })
 
@@ -67,6 +70,9 @@ describe('nextFeedDictionary', () => {
       expect(dict.nextFeed.gate.verifyRequired).toBeTruthy()
       expect(dict.nextFeed.gate.deniedGeneric).toBeTruthy()
       expect(dict.nextFeed.gate.draftPreserved).toBeTruthy()
+      expect(dict.nextFeed.mount.close).toBeTruthy()
+      expect(dict.nextFeed.mount.openAsPage).toBeTruthy()
+      expect(dict.nextFeed.verify.smokeNote).toBeTruthy()
       expect(NEXT_FEED_BY_LOCALE[locale].nextFeed.list.loading).toBe(
         dict.nextFeed.list.loading,
       )
@@ -75,6 +81,9 @@ describe('nextFeedDictionary', () => {
       )
       expect(NEXT_FEED_BY_LOCALE[locale].nextFeed.map.mapView).toBe(
         dict.nextFeed.map.mapView,
+      )
+      expect(NEXT_FEED_BY_LOCALE[locale].nextFeed.mount.close).toBe(
+        dict.nextFeed.mount.close,
       )
     }
   })
