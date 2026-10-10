@@ -4,8 +4,8 @@ import { NEXT_FEED_THREAD_ICONS } from './feedThreadIcons.js'
 import { makeFeedThreadT } from './feedThreadT.js'
 
 /**
- * Next-feed thread mount (NF-04): Closed ThreadsSocialClient + next-feed icons + L10N gaps.
- * No invent write paths; invite stub suppressed (NF-05).
+ * Next-feed thread mount (NF-04/NF-05): Closed ThreadsSocialClient + next-feed icons + L10N gaps.
+ * Invite stub honesty on (no invent escalate HTTP). No M155 people surfaces.
  */
 export function FeedThreadMount({ t, returnTo = '#/next/feed', ...rest }) {
   const threadT = useMemo(() => makeFeedThreadT(t), [t])
@@ -15,7 +15,7 @@ export function FeedThreadMount({ t, returnTo = '#/next/feed', ...rest }) {
       t={threadT}
       returnTo={returnTo}
       iconPack={NEXT_FEED_THREAD_ICONS}
-      showInviteStub={false}
+      showInviteStub={true}
     />
   )
 }

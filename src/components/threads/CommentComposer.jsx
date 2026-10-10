@@ -296,7 +296,7 @@ export function CommentComposer({
         </div>
       ) : null}
 
-      {showVerifiedChrome ? <VerifyWriteGate t={t} variant="verified" /> : null}
+      {showVerifiedChrome ? <VerifyWriteGate t={t} variant="verified" iconPack={icons} /> : null}
 
       {gateOpen && !isVerified ? (
         <VerifyWriteGate
@@ -305,6 +305,7 @@ export function CommentComposer({
           showCivicLine={forcedScene === 'civic'}
           onGoVerify={handleGoVerify}
           onDismiss={handleDismissGate}
+          iconPack={icons}
         />
       ) : null}
 

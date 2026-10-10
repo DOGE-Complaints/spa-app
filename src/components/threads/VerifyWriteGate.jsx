@@ -1,7 +1,8 @@
+import { THREADS_FEED_THREAD_ICONS } from './threadIcons.js'
 import './VerifyWriteGate.css'
 
 /**
- * Compact verify-before-write gate chrome (M147).
+ * Compact verify-before-write gate chrome (M147 / M157).
  * Presentation only — navigates existing `/verify`; no invent pack JSON keys; opaque Verified result.
  */
 export function VerifyWriteGate({
@@ -10,12 +11,17 @@ export function VerifyWriteGate({
   showCivicLine = false,
   onGoVerify,
   onDismiss,
+  iconPack = null,
 }) {
+  const icons = iconPack || THREADS_FEED_THREAD_ICONS
+  const verifiedSrc = icons.verified || '/icons/story-handoff/ic-success-check.png'
+  const blockedSrc = icons.unavailable || '/icons/story-handoff/ic-verify-shield.png'
+
   if (variant === 'verified') {
     return (
       <div className="verify-write-gate verify-write-gate--verified" data-testid="verify-write-gate" data-gate-variant="verified">
         <p className="verify-write-gate-result" data-testid="verify-result-opaque">
-          <img src="/icons/story-handoff/ic-success-check.png" alt="" aria-hidden="true" />
+          <img src={verifiedSrc} alt="" aria-hidden="true" />
           <span>{t('threadsFeed.verify.resultOpaque')}</span>
         </p>
         <p className="verify-write-gate-helper">{t('threadsFeed.verify.continueHelper')}</p>
@@ -32,7 +38,7 @@ export function VerifyWriteGate({
       aria-labelledby="verify-write-gate-title"
     >
       <p id="verify-write-gate-title" className="verify-write-gate-title" data-testid="verify-gate-title">
-        <img src="/icons/story-handoff/ic-verify-shield.png" alt="" aria-hidden="true" />
+        <img src={blockedSrc} alt="" aria-hidden="true" />
         <span>{t('threadsFeed.verify.cta')}</span>
       </p>
       <p className="verify-write-gate-body" data-testid="verify-gate-body">

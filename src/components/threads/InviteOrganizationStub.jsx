@@ -1,15 +1,18 @@
 import { useId, useRef, useState } from 'react'
 import { resolveHarnessThr04Scene } from './inviteOrganizationHarness.js'
+import { THREADS_FEED_THREAD_ICONS } from './threadIcons.js'
 import './InviteOrganizationStub.css'
 
 /**
- * M146 Invite organization stub — secondary chrome control.
+ * M146 / M156 Invite organization stub — secondary chrome control.
  * Click → informational feedback only. No invent escalate HTTP. No false success.
  *
  * @param {(k: string) => string} t
  * @param {'preview'|'soon'} [availability] product mode; harness may override to soon/activated
  */
-export function InviteOrganizationStub({ t, availability = 'preview' }) {
+export function InviteOrganizationStub({ t, availability = 'preview', iconPack = null }) {
+  const icons = iconPack || THREADS_FEED_THREAD_ICONS
+  const inviteSrc = icons.invite || '/icons/threads-feed/ic-invite-organization.png'
   const scene = resolveHarnessThr04Scene(availability === 'soon' ? 'soon' : 'idle')
   const isSoon = scene === 'soon' || availability === 'soon'
   const [open, setOpen] = useState(scene === 'activated')
@@ -48,7 +51,7 @@ export function InviteOrganizationStub({ t, availability = 'preview' }) {
         disabled={isSoon}
         onClick={handleOpen}
       >
-        <img src="/icons/threads-feed/ic-invite-organization.png" alt="" aria-hidden="true" />
+        <img src={inviteSrc} alt="" aria-hidden="true" />
         <span className="invite-org-label-full">{label}</span>
         <span className="invite-org-label-short">{shortLabel}</span>
         {isSoon ? (

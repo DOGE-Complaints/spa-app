@@ -58,6 +58,7 @@ export function IssueThreadBlock({
     maxReactions,
     reactionsEnable,
     onReact,
+    iconPack: icons,
   }
 
   return (
@@ -82,7 +83,7 @@ export function IssueThreadBlock({
             <img src={icons.discussion} alt="" aria-hidden="true" />
             <span>{t('threadsFeed.post.action.discussion')}</span>
           </button>
-          {showInviteStub ? <InviteOrganizationStub t={t} /> : null}
+          {showInviteStub ? <InviteOrganizationStub t={t} iconPack={icons} /> : null}
         </div>
       ) : null}
 

@@ -123,6 +123,24 @@ const THREAD_RU = Object.freeze({
   maxDepth: 'Достигнут лимит глубины ответов',
 })
 
+const GATE_EN = Object.freeze({
+  verifyRequired: 'Verify your identity to post',
+  deniedGeneric: 'Could not complete this action',
+  draftPreserved: 'Your draft was kept',
+})
+
+const GATE_ET = Object.freeze({
+  verifyRequired: 'Postitamiseks kinnita identiteet',
+  deniedGeneric: 'Toimingut ei õnnestunud lõpule viia',
+  draftPreserved: 'Mustand säilitati',
+})
+
+const GATE_RU = Object.freeze({
+  verifyRequired: 'Подтвердите личность, чтобы писать',
+  deniedGeneric: 'Не удалось выполнить действие',
+  draftPreserved: 'Черновик сохранён',
+})
+
 export const NEXT_FEED_DICTIONARY_EN = Object.freeze({
   nextFeed: {
     list: LIST_EN,
@@ -130,6 +148,7 @@ export const NEXT_FEED_DICTIONARY_EN = Object.freeze({
     post: POST_EN,
     map: MAP_EN,
     thread: THREAD_EN,
+    gate: GATE_EN,
   },
 })
 
@@ -140,6 +159,7 @@ export const NEXT_FEED_DICTIONARY_ET = Object.freeze({
     post: POST_ET,
     map: MAP_ET,
     thread: THREAD_ET,
+    gate: GATE_ET,
   },
 })
 
@@ -150,6 +170,7 @@ export const NEXT_FEED_DICTIONARY_RU = Object.freeze({
     post: POST_RU,
     map: MAP_RU,
     thread: THREAD_RU,
+    gate: GATE_RU,
   },
 })
 
@@ -186,4 +207,7 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.thread.empty',
   'nextFeed.thread.attachDenied',
   'nextFeed.thread.maxDepth',
+  'nextFeed.gate.verifyRequired',
+  'nextFeed.gate.deniedGeneric',
+  'nextFeed.gate.draftPreserved',
 ])

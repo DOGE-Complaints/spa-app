@@ -84,6 +84,7 @@ export function CommentTree({
                     maxReactions={maxReactions}
                     reactionsEnable={reactionsEnable}
                     onReact={onReact}
+                    iconPack={icons}
                   />
                   {showBoundary ? (
                     <p className="comment-tree-max-depth" data-testid="comment-max-depth" role="status">

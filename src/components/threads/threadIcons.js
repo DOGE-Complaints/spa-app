@@ -10,4 +10,6 @@ export const THREADS_FEED_THREAD_ICONS = Object.freeze({
   unavailable: '/icons/story-handoff/ic-cloud-error.png',
   react: '/icons/threads-feed/ic-react.png',
   discussion: '/icons/threads-feed/ic-discussion.png',
+  invite: '/icons/threads-feed/ic-invite-organization.png',
+  verified: '/icons/story-handoff/ic-success-check.png',
 })

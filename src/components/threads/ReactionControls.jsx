@@ -7,6 +7,7 @@ import {
   toggleReactionSelection,
   REACTION_LAYERS,
 } from './reactionsV1Catalog.js'
+import { THREADS_FEED_THREAD_ICONS } from './threadIcons.js'
 import './ReactionControls.css'
 
 function labelFor(t, id) {
@@ -17,8 +18,20 @@ function layerLabel(t, layer) {
   return t(`threadsFeed.reactions.layer.${layer}`)
 }
 
+function reactionMarkVisual(entry, icons) {
+  const src = icons && icons[entry.id]
+  if (src) {
+    return <img className="reaction-mark-icon" src={src} alt="" aria-hidden="true" />
+  }
+  return (
+    <span className="reaction-emoji" aria-hidden="true">
+      {entry.emoji}
+    </span>
+  )
+}
+
 /**
- * Compact summary strip + reactions.v1 picker (M145).
+ * Compact summary strip + reactions.v1 picker (M145 / M154).
  * THR-09: optional onReact → Closed PUT; knobs enable/capacity.
  */
 export function ReactionControls({
@@ -30,12 +43,14 @@ export function ReactionControls({
   commentId = null,
   maxReactions = DEFAULT_MAX_REACTIONS_PER_ACTOR,
   reactionsEnable = null,
+  iconPack = null,
   /**
    * Live persist (THR-09).
    * @type {((args: { reactionId: string, op: 'add'|'remove', target: string, commentId: string|null }) => Promise<object|void>)|undefined}
    */
   onReact,
 }) {
+  const icons = iconPack || THREADS_FEED_THREAD_ICONS
   const scene = resolveHarnessThr03Scene('strip')
   const [open, setOpen] = useState(
     scene === 'picker' || scene === 'enabled-only' || scene === 'exclusive' || scene === 'keyboard',
@@ -143,9 +158,7 @@ export function ReactionControls({
         <div className="reaction-summary-marks" aria-hidden={marks.length === 0}>
           {marks.map((entry) => (
             <span key={entry.id} className="reaction-summary-mark" data-reaction-id={entry.id}>
-              <span className="reaction-emoji" aria-hidden="true">
-                {entry.emoji}
-              </span>
+              {reactionMarkVisual(entry, icons)}
               <span className="reaction-summary-label">{labelFor(t, entry.id)}</span>
             </span>
           ))}
@@ -162,11 +175,11 @@ export function ReactionControls({
           onClick={() => setOpen((v) => !v)}
           disabled={busy}
         >
-          <img src="/icons/threads-feed/ic-react.png" alt="" aria-hidden="true" />
+          <img src={icons.react} alt="" aria-hidden="true" />
           <span>{t('threadsFeed.reactions.react')}</span>
           <img
             className="reaction-open-chevron"
-            src="/icons/public-home/ic-chevron-right.png"
+            src={icons.chevronDown || '/icons/public-home/ic-chevron-right.png'}
             alt=""
             aria-hidden="true"
           />
@@ -189,7 +202,10 @@ export function ReactionControls({
               data-testid="reaction-picker-close"
               onClick={() => setOpen(false)}
             >
-              {t('threadsFeed.reactions.close')}
+              {icons.close ? (
+                <img src={icons.close} alt="" aria-hidden="true" />
+              ) : null}
+              <span>{t('threadsFeed.reactions.close')}</span>
             </button>
           </div>
           {showDisabledNote ? (
@@ -232,9 +248,7 @@ export function ReactionControls({
                               void handleSelect(entry.id)
                             }}
                           >
-                            <span className="reaction-emoji" aria-hidden="true">
-                              {entry.emoji}
-                            </span>
+                            {reactionMarkVisual(entry, icons)}
                             <span>{labelFor(t, entry.id)}</span>
                           </button>
                         </li>

@@ -1,5 +1,5 @@
 /**
- * Prefer draft nextFeed.thread.* gaps; fall through to threadsFeed.* (NF-04 L10N).
+ * Prefer draft nextFeed.thread.* / nextFeed.gate.* gaps; fall through to threadsFeed.* (NF-04/NF-05 L10N).
  * @param {(k: string) => string} t
  * @returns {(k: string) => string}
  */
@@ -8,6 +8,9 @@ export function makeFeedThreadT(t) {
     'threadsFeed.post.empty.title': 'nextFeed.thread.empty',
     'threadsFeed.composer.attachDenied': 'nextFeed.thread.attachDenied',
     'threadsFeed.composer.maxDepthReached': 'nextFeed.thread.maxDepth',
+    'threadsFeed.verify.cta': 'nextFeed.gate.verifyRequired',
+    'threadsFeed.verify.body': 'nextFeed.gate.deniedGeneric',
+    'threadsFeed.composer.draftPreserved': 'nextFeed.gate.draftPreserved',
   }
   return (key) => {
     const mapped = map[key]
