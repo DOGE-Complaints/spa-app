@@ -54,10 +54,35 @@ const TOOLBAR_RU = Object.freeze({
   queryAria: 'Состояние запроса ленты',
 })
 
+const POST_EN = Object.freeze({
+  openIssue: 'Open issue',
+  more: 'More actions',
+  share: 'Share',
+  noMedia: 'No media attached',
+  schemaUnavailable: 'Structured details unavailable',
+})
+
+const POST_ET = Object.freeze({
+  openIssue: 'Ava teade',
+  more: 'Rohkem',
+  share: 'Jaga',
+  noMedia: 'Meediat pole',
+  schemaUnavailable: 'Struktureeritud andmed puuduvad',
+})
+
+const POST_RU = Object.freeze({
+  openIssue: 'Открыть обращение',
+  more: 'Ещё',
+  share: 'Поделиться',
+  noMedia: 'Медиа нет',
+  schemaUnavailable: 'Структурированные данные недоступны',
+})
+
 export const NEXT_FEED_DICTIONARY_EN = Object.freeze({
   nextFeed: {
     list: LIST_EN,
     toolbar: TOOLBAR_EN,
+    post: POST_EN,
   },
 })
 
@@ -65,6 +90,7 @@ export const NEXT_FEED_DICTIONARY_ET = Object.freeze({
   nextFeed: {
     list: LIST_ET,
     toolbar: TOOLBAR_ET,
+    post: POST_ET,
   },
 })
 
@@ -72,6 +98,7 @@ export const NEXT_FEED_DICTIONARY_RU = Object.freeze({
   nextFeed: {
     list: LIST_RU,
     toolbar: TOOLBAR_RU,
+    post: POST_RU,
   },
 })
 
@@ -94,4 +121,9 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.toolbar.searchUnavailable',
   'nextFeed.toolbar.title',
   'nextFeed.toolbar.queryAria',
+  'nextFeed.post.openIssue',
+  'nextFeed.post.more',
+  'nextFeed.post.share',
+  'nextFeed.post.noMedia',
+  'nextFeed.post.schemaUnavailable',
 ])

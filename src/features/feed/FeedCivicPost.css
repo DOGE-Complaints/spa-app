@@ -1,0 +1,172 @@
+/* FeedCivicPost — M150 ISSUE-CARD-NO-MEDIA / SSR-C-civic (NF-02) */
+
+.feed-civic-post {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  color: var(--color-text-primary);
+  min-width: 0;
+}
+
+.feed-civic-post-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.feed-civic-post-id {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.feed-civic-post-date,
+.feed-civic-post-geo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+}
+
+.feed-civic-post-more {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.feed-civic-post-more:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.feed-civic-post-more:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doge-accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.feed-civic-post-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.feed-civic-post-summary {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.feed-civic-post-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.feed-civic-post-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+  color: var(--color-text-secondary);
+}
+
+.feed-civic-post-chip-type {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+}
+
+.feed-civic-post-chip-topic {
+  flex-shrink: 0;
+}
+
+.feed-civic-post-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-accent-active);
+  text-decoration: none;
+  width: fit-content;
+}
+
+.feed-civic-post-open:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.feed-civic-post-open:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doge-accent) 80%, transparent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.feed-civic-post-actions {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  min-height: 48px;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.feed-civic-post-action {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.feed-civic-post-action:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+}
+
+.feed-civic-post-action:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doge-accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.feed-civic-post-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Flatten inside BoardIssuePost shell */
+.board-issue-post .feed-civic-post {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}

@@ -1,6 +1,6 @@
 import { Button } from '../../components/Button'
-import { IssueCard } from '../../components/IssueCard/index.js'
 import { BoardIssuePost, LiveIssueThreadMount } from '../../components/threads/index.js'
+import { FeedCivicPost } from './FeedCivicPost.jsx'
 import { FeedFeedSkeleton } from './FeedFeedSkeleton.jsx'
 
 /**
@@ -123,12 +123,11 @@ export function FeedListArea({
                 />
               }
             >
-              <IssueCard
+              <FeedCivicPost
                 issue={item}
                 locale={locale}
                 resolveLocalizedText={resolveLocalizedText}
                 t={t}
-                showOpenAffordance
                 to={`/next/feed/issue/${item.id}?from=${encodeURIComponent(feedUrlForBack)}`}
               />
             </BoardIssuePost>
