@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { buildChipDescriptors } from '../components/Filters/index.js'
 import { useOptionalSessionShell } from '../auth/SessionShellContext.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
@@ -21,7 +21,7 @@ import {
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { isMapEligible } from '../map/issueGeo.js'
-import { FeedToolbar, FeedListArea } from '../features/feed/index.js'
+import { FeedToolbar, FeedListArea, FeedIssueMount } from '../features/feed/index.js'
 import './NextFeedHostPage.css'
 import '../features/feed/FeedHost.css'
 
@@ -39,6 +39,7 @@ function stripFeedSearch(filters) {
 export function NextFeedHostPage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { id: issueId } = useParams()
   const [issues, setIssues] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -47,6 +48,13 @@ export function NextFeedHostPage() {
   const { locale, t, resolveLocalizedText } = useI18n()
   const sessionShell = useOptionalSessionShell()
   const meProfile = sessionShell?.profile ?? null
+
+  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search])
+  const forcedPresentation = searchParams.get('presentation')
+  const mountPresentation =
+    forcedPresentation === 'route' || forcedPresentation === 'modal' || forcedPresentation === 'sheet'
+      ? forcedPresentation
+      : 'auto'
 
   const rawFilters = parseBoardQuery(location.search)
   const boardFilters = useMemo(() => stripFeedSearch(rawFilters), [
@@ -62,7 +70,11 @@ export function NextFeedHostPage() {
   const normalizedSearch = normalizeBoardSearch(
     serializeBoardQuery(stripFeedSearch(boardFilters)),
   )
-  const feedUrlForBack = `${FEED_PATH}${normalizedSearch}`
+  const feedUrlForBack = useMemo(() => {
+    const from = searchParams.get('from')
+    if (typeof from === 'string' && from.startsWith('/next/feed')) return from
+    return `${FEED_PATH}${normalizedSearch}`
+  }, [searchParams, normalizedSearch])
 
   const serverFilterKey = useMemo(
     () => serializeServerBoardQuery(boardFilters),
@@ -165,51 +177,73 @@ export function NextFeedHostPage() {
     }
   }, [mapEligible, feedView])
 
+  const showRouteMount = Boolean(issueId && mountPresentation === 'route')
+
   return (
     <div className="board-shell next-feed-host-route" data-testid="next-feed-host">
-      <main className="feed-host" data-testid="feed-host" aria-label={t('nextFeed.list.accessible')}>
-        <FeedToolbar
-          t={t}
-          locale={locale}
-          normalizedSearch={normalizedSearch}
-          pending={pending}
-          setPending={setPending}
-          isPanelOpen={isPanelOpen}
-          togglePanel={togglePanel}
-          isDirty={isDirty}
-          hasActiveFilters={hasActiveFilters}
-          apply={apply}
-          reset={reset}
-          availableInstitutions={availableInstitutions}
-          availableGeoOptions={availableGeoOptions}
-          availableLabels={availableLabels}
-          formatInstitution={formatInstitution}
-          activeFilterChips={activeFilterChips}
-          removeChip={removeChip}
-          showResults={showResults || showStale}
-          feedView={feedView}
-          setFeedView={setFeedView}
-          mapEligible={mapEligible}
-        />
-        <FeedListArea
-          t={t}
-          locale={locale}
-          error={error}
-          loading={loading}
-          stale={showStale}
-          fetchIssues={fetchIssues}
-          showEmpty={showEmpty}
-          showFilteredEmpty={showFilteredEmpty}
-          reset={reset}
-          showResults={showResults || showStale}
-          issues={issues}
-          resolveLocalizedText={resolveLocalizedText}
-          feedUrlForBack={feedUrlForBack}
-          meProfile={meProfile}
-          feedView={feedView}
-          mapEligible={mapEligible}
-          onReturnToList={() => setFeedView('list')}
-        />
+      <main
+        className={`feed-host${issueId ? ' feed-host--issue-open' : ''}`}
+        data-testid="feed-host"
+        aria-label={t('nextFeed.list.accessible')}
+        data-issue-open={issueId ? 'true' : undefined}
+      >
+        {!showRouteMount ? (
+          <>
+            <FeedToolbar
+              t={t}
+              locale={locale}
+              normalizedSearch={normalizedSearch}
+              pending={pending}
+              setPending={setPending}
+              isPanelOpen={isPanelOpen}
+              togglePanel={togglePanel}
+              isDirty={isDirty}
+              hasActiveFilters={hasActiveFilters}
+              apply={apply}
+              reset={reset}
+              availableInstitutions={availableInstitutions}
+              availableGeoOptions={availableGeoOptions}
+              availableLabels={availableLabels}
+              formatInstitution={formatInstitution}
+              activeFilterChips={activeFilterChips}
+              removeChip={removeChip}
+              showResults={showResults || showStale}
+              feedView={feedView}
+              setFeedView={setFeedView}
+              mapEligible={mapEligible}
+            />
+            <FeedListArea
+              t={t}
+              locale={locale}
+              error={error}
+              loading={loading}
+              stale={showStale}
+              fetchIssues={fetchIssues}
+              showEmpty={showEmpty}
+              showFilteredEmpty={showFilteredEmpty}
+              reset={reset}
+              showResults={showResults || showStale}
+              issues={issues}
+              resolveLocalizedText={resolveLocalizedText}
+              feedUrlForBack={feedUrlForBack}
+              meProfile={meProfile}
+              feedView={feedView}
+              mapEligible={mapEligible}
+              onReturnToList={() => setFeedView('list')}
+            />
+          </>
+        ) : null}
+        {issueId ? (
+          <FeedIssueMount
+            issueId={issueId}
+            t={t}
+            locale={locale}
+            resolveLocalizedText={resolveLocalizedText}
+            meProfile={meProfile}
+            feedUrlForBack={feedUrlForBack}
+            presentation={mountPresentation}
+          />
+        ) : null}
       </main>
     </div>
   )

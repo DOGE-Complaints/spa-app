@@ -141,6 +141,33 @@ const GATE_RU = Object.freeze({
   draftPreserved: 'Черновик сохранён',
 })
 
+const MOUNT_EN = Object.freeze({
+  close: 'Close',
+  openAsPage: 'Open as page',
+})
+
+const MOUNT_ET = Object.freeze({
+  close: 'Sulge',
+  openAsPage: 'Ava lehena',
+})
+
+const MOUNT_RU = Object.freeze({
+  close: 'Закрыть',
+  openAsPage: 'Открыть как страницу',
+})
+
+const VERIFY_EN = Object.freeze({
+  smokeNote: 'Feed critical paths smoke',
+})
+
+const VERIFY_ET = Object.freeze({
+  smokeNote: 'Voogi kriitiliste teede suitsutest',
+})
+
+const VERIFY_RU = Object.freeze({
+  smokeNote: 'Смоук критических путей ленты',
+})
+
 export const NEXT_FEED_DICTIONARY_EN = Object.freeze({
   nextFeed: {
     list: LIST_EN,
@@ -149,6 +176,8 @@ export const NEXT_FEED_DICTIONARY_EN = Object.freeze({
     map: MAP_EN,
     thread: THREAD_EN,
     gate: GATE_EN,
+    mount: MOUNT_EN,
+    verify: VERIFY_EN,
   },
 })
 
@@ -160,6 +189,8 @@ export const NEXT_FEED_DICTIONARY_ET = Object.freeze({
     map: MAP_ET,
     thread: THREAD_ET,
     gate: GATE_ET,
+    mount: MOUNT_ET,
+    verify: VERIFY_ET,
   },
 })
 
@@ -171,6 +202,8 @@ export const NEXT_FEED_DICTIONARY_RU = Object.freeze({
     map: MAP_RU,
     thread: THREAD_RU,
     gate: GATE_RU,
+    mount: MOUNT_RU,
+    verify: VERIFY_RU,
   },
 })
 
@@ -210,4 +243,7 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.gate.verifyRequired',
   'nextFeed.gate.deniedGeneric',
   'nextFeed.gate.draftPreserved',
+  'nextFeed.mount.close',
+  'nextFeed.mount.openAsPage',
+  'nextFeed.verify.smokeNote',
 ])

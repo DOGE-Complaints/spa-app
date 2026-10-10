@@ -225,5 +225,12 @@
 
   .issue-thread-action {
     flex: 1 1 calc(50% - 8px);
+    min-width: 0;
+  }
+
+  /* NF-06 F2: Invite stub must wrap like peer actions (no clip at 390). */
+  .issue-thread-actions > .invite-org-stub {
+    flex: 1 1 calc(50% - 8px);
+    max-width: 100%;
   }
 }
