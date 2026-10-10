@@ -1,0 +1,54 @@
+/* FeedListMapToggle — M151 List | Map (NF-03) */
+
+.feed-list-map-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.feed-list-map-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feed-list-map-toggle-btn:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.feed-list-map-toggle-btn.is-active {
+  color: var(--color-text-primary);
+  border-color: color-mix(in srgb, var(--doge-accent) 70%, transparent);
+  background: color-mix(in srgb, var(--doge-accent) 12%, transparent);
+}
+
+.feed-list-map-toggle-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.feed-list-map-toggle-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doge-accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.feed-list-map-toggle-ineligible {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}

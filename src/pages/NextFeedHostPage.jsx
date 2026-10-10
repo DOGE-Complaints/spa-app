@@ -20,6 +20,7 @@ import {
 } from '../i18n/collectInstitutionsFromIssues.js'
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
+import { isMapEligible } from '../map/issueGeo.js'
 import { FeedToolbar, FeedListArea } from '../features/feed/index.js'
 import './NextFeedHostPage.css'
 import '../features/feed/FeedHost.css'
@@ -42,6 +43,7 @@ export function NextFeedHostPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [stale, setStale] = useState(false)
+  const [feedView, setFeedView] = useState('list')
   const { locale, t, resolveLocalizedText } = useI18n()
   const sessionShell = useOptionalSessionShell()
   const meProfile = sessionShell?.profile ?? null
@@ -155,6 +157,13 @@ export function NextFeedHostPage() {
   const showFilteredEmpty = !loading && !error && filtersActive && issues.length === 0
   const showResults = issues.length > 0
   const showStale = Boolean(stale && error && issues.length > 0)
+  const mapEligible = useMemo(() => isMapEligible(issues), [issues])
+
+  useEffect(() => {
+    if (!mapEligible && feedView === 'map') {
+      setFeedView('list')
+    }
+  }, [mapEligible, feedView])
 
   return (
     <div className="board-shell next-feed-host-route" data-testid="next-feed-host">
@@ -177,6 +186,10 @@ export function NextFeedHostPage() {
           formatInstitution={formatInstitution}
           activeFilterChips={activeFilterChips}
           removeChip={removeChip}
+          showResults={showResults || showStale}
+          feedView={feedView}
+          setFeedView={setFeedView}
+          mapEligible={mapEligible}
         />
         <FeedListArea
           t={t}
@@ -193,6 +206,9 @@ export function NextFeedHostPage() {
           resolveLocalizedText={resolveLocalizedText}
           feedUrlForBack={feedUrlForBack}
           meProfile={meProfile}
+          feedView={feedView}
+          mapEligible={mapEligible}
+          onReturnToList={() => setFeedView('list')}
         />
       </main>
     </div>

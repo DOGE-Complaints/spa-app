@@ -48,6 +48,10 @@
   gap: 8px;
 }
 
+.feed-toolbar-left .feed-list-map-toggle {
+  margin-top: 4px;
+}
+
 .feed-search-unavailable {
   display: inline-flex;
   align-items: center;

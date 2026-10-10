@@ -78,11 +78,39 @@ const POST_RU = Object.freeze({
   schemaUnavailable: 'Структурированные данные недоступны',
 })
 
+const MAP_EN = Object.freeze({
+  listView: 'List',
+  mapView: 'Map',
+  partial: 'Some issues have no public location',
+  error: 'Map could not load',
+  unavailable: 'Map unavailable',
+  pinLabel: 'Issue location',
+})
+
+const MAP_ET = Object.freeze({
+  listView: 'Nimekiri',
+  mapView: 'Kaart',
+  partial: 'Mõnel teatel puudub avalik asukoht',
+  error: 'Kaarti ei õnnestunud laadida',
+  unavailable: 'Kaart pole saadaval',
+  pinLabel: 'Teate asukoht',
+})
+
+const MAP_RU = Object.freeze({
+  listView: 'Список',
+  mapView: 'Карта',
+  partial: 'У части обращений нет публичной геопозиции',
+  error: 'Карта не загрузилась',
+  unavailable: 'Карта недоступна',
+  pinLabel: 'Место обращения',
+})
+
 export const NEXT_FEED_DICTIONARY_EN = Object.freeze({
   nextFeed: {
     list: LIST_EN,
     toolbar: TOOLBAR_EN,
     post: POST_EN,
+    map: MAP_EN,
   },
 })
 
@@ -91,6 +119,7 @@ export const NEXT_FEED_DICTIONARY_ET = Object.freeze({
     list: LIST_ET,
     toolbar: TOOLBAR_ET,
     post: POST_ET,
+    map: MAP_ET,
   },
 })
 
@@ -99,6 +128,7 @@ export const NEXT_FEED_DICTIONARY_RU = Object.freeze({
     list: LIST_RU,
     toolbar: TOOLBAR_RU,
     post: POST_RU,
+    map: MAP_RU,
   },
 })
 
@@ -126,4 +156,10 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.post.share',
   'nextFeed.post.noMedia',
   'nextFeed.post.schemaUnavailable',
+  'nextFeed.map.listView',
+  'nextFeed.map.mapView',
+  'nextFeed.map.partial',
+  'nextFeed.map.error',
+  'nextFeed.map.unavailable',
+  'nextFeed.map.pinLabel',
 ])

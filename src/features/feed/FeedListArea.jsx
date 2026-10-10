@@ -2,10 +2,11 @@ import { Button } from '../../components/Button'
 import { BoardIssuePost, LiveIssueThreadMount } from '../../components/threads/index.js'
 import { FeedCivicPost } from './FeedCivicPost.jsx'
 import { FeedFeedSkeleton } from './FeedFeedSkeleton.jsx'
+import { FeedMapArea } from './FeedMapArea.jsx'
 
 /**
- * Feed result region: loading / empty / filtered-empty / error / stale / list.
- * Shell chrome owned by AppShell — this is content-only (M149 panels).
+ * Feed result region: loading / empty / filtered-empty / error / stale / list|map.
+ * Shell chrome owned by AppShell — this is content-only (M149/M151 panels).
  */
 export function FeedListArea({
   t,
@@ -22,6 +23,9 @@ export function FeedListArea({
   resolveLocalizedText,
   feedUrlForBack,
   meProfile,
+  feedView = 'list',
+  mapEligible = false,
+  onReturnToList,
 }) {
   return (
     <>
@@ -103,7 +107,17 @@ export function FeedListArea({
         </div>
       ) : null}
 
-      {showResults ? (
+      {showResults && feedView === 'map' && mapEligible ? (
+        <FeedMapArea
+          issues={issues}
+          resolveLocalizedText={resolveLocalizedText}
+          t={t}
+          feedUrlForBack={feedUrlForBack}
+          onReturnToList={onReturnToList}
+        />
+      ) : null}
+
+      {showResults && !(feedView === 'map' && mapEligible) ? (
         <section
           className="feed-list"
           id="next-feed-list"

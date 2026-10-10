@@ -9,9 +9,10 @@ import {
   LabelsFilter,
   ResetFiltersControl,
 } from '../../components/Filters/index.js'
+import { FeedListMapToggle } from './FeedListMapToggle.jsx'
 
 /**
- * Next-feed toolbar: structural filters only.
+ * Next-feed toolbar: structural filters + List|Map toggle (M151).
  * Live text search withheld (DUI-Q12 / REQ-56 FE enable pending).
  */
 export function FeedToolbar({
@@ -32,6 +33,10 @@ export function FeedToolbar({
   formatInstitution,
   activeFilterChips,
   removeChip,
+  showResults = false,
+  feedView = 'list',
+  setFeedView,
+  mapEligible = false,
 }) {
   return (
     <header className="feed-toolbar" data-testid="feed-toolbar">
@@ -130,6 +135,14 @@ export function FeedToolbar({
           <ResetFiltersControl hasActiveFilters={hasActiveFilters} onReset={reset} t={t} />
         </div>
         <ActiveFilterChips chips={activeFilterChips} onRemove={removeChip} />
+        {showResults ? (
+          <FeedListMapToggle
+            view={feedView}
+            onChange={setFeedView}
+            mapEligible={mapEligible}
+            t={t}
+          />
+        ) : null}
       </div>
     </header>
   )

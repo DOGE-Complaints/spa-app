@@ -27,7 +27,23 @@ function fitToFeatures(map, featureCollection) {
  * Board map of pin-capable Issues (ADR D2–D8 · Architecture §3–4).
  * Cluster tap = zoom only; pin → popup → Open (not direct navigate).
  */
-export function BoardIssuesMap({ issues, resolveLocalizedText, t, boardUrlForBack = '/board' }) {
+/**
+ * @param {object} props
+ * @param {import('../../domain/types.js').Issue[]} props.issues
+ * @param {(field: unknown) => string} props.resolveLocalizedText
+ * @param {(k: string) => string} props.t
+ * @param {string} [props.boardUrlForBack]
+ * @param {string} [props.pinImageUrl] — runtime pin asset (NF-03: `/icons/next-feed/map/map-pin.svg`)
+ * @param {string} [props.issuePathPrefix] — Open-issue path prefix (`/issue` or `/next/feed/issue`)
+ */
+export function BoardIssuesMap({
+  issues,
+  resolveLocalizedText,
+  t,
+  boardUrlForBack = '/board',
+  pinImageUrl = '/icons/semantic-schema-runtime/ic-map-pin.png',
+  issuePathPrefix = '/issue',
+}) {
   const pinIssues = useMemo(() => listPinCapableIssues(issues), [issues])
   const geojson = useMemo(
     () => issuesToPinGeoJson(pinIssues, resolveLocalizedText),
@@ -87,18 +103,34 @@ export function BoardIssuesMap({ issues, resolveLocalizedText, t, boardUrlForBac
           paint: { 'text-color': '#0b121e' },
         })
 
-        map.addLayer({
-          id: UNCLUSTERED_LAYER,
-          type: 'symbol',
-          source: SOURCE_ID,
-          filter: ['!', ['has', 'point_count']],
-          layout: {
-            'icon-image': PIN_IMAGE_ID,
-            'icon-size': 0.45,
-            'icon-allow-overlap': true,
-            'icon-anchor': 'bottom',
-          },
-        })
+        if (map.hasImage(PIN_IMAGE_ID)) {
+          map.addLayer({
+            id: UNCLUSTERED_LAYER,
+            type: 'symbol',
+            source: SOURCE_ID,
+            filter: ['!', ['has', 'point_count']],
+            layout: {
+              'icon-image': PIN_IMAGE_ID,
+              'icon-size': 0.55,
+              'icon-allow-overlap': true,
+              'icon-anchor': 'bottom',
+            },
+          })
+        } else {
+          // Fail-visible: circle markers when pin raster not ready (NF-03 / MapLibre SVG/PNG race).
+          map.addLayer({
+            id: UNCLUSTERED_LAYER,
+            type: 'circle',
+            source: SOURCE_ID,
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+              'circle-color': '#E11D48',
+              'circle-radius': 9,
+              'circle-stroke-width': 2,
+              'circle-stroke-color': '#ffffff',
+            },
+          })
+        }
 
         map.on('click', CLUSTER_LAYER, (e) => {
           const features = map.queryRenderedFeatures(e.point, { layers: [CLUSTER_LAYER] })
@@ -144,24 +176,63 @@ export function BoardIssuesMap({ issues, resolveLocalizedText, t, boardUrlForBac
         setPointer(UNCLUSTERED_LAYER)
       }
 
-      const boot = async () => {
-        if (cancelled) return
+      const loadPinImage = async () => {
+        if (map.hasImage(PIN_IMAGE_ID)) return true
         try {
-          if (!map.hasImage(PIN_IMAGE_ID)) {
-            // MapLibre v4: loadImage returns Promise<GetResourceResponse<…>> (callback ignored)
-            const response = await map.loadImage('/icons/semantic-schema-runtime/ic-map-pin.png')
+          // Prefer HTMLImageElement so catalog SVG/PNG pins can load in Chromium.
+          const img = new Image()
+          img.crossOrigin = 'anonymous'
+          img.src = pinImageUrl
+          await Promise.race([
+            img.decode(),
+            new Promise((_, reject) => {
+              setTimeout(() => reject(new Error('pin decode timeout')), 2500)
+            }),
+          ])
+          if (!cancelled && !map.hasImage(PIN_IMAGE_ID)) {
+            map.addImage(PIN_IMAGE_ID, img, { pixelRatio: 2 })
+          }
+          return map.hasImage(PIN_IMAGE_ID)
+        } catch (err) {
+          console.warn('[BoardIssuesMap] pin Image decode failed', err)
+          try {
+            const response = await map.loadImage(pinImageUrl)
             const image = response?.data
             if (!cancelled && image && !map.hasImage(PIN_IMAGE_ID)) {
               map.addImage(PIN_IMAGE_ID, image)
             }
+            return map.hasImage(PIN_IMAGE_ID)
+          } catch (fallbackErr) {
+            console.warn('[BoardIssuesMap] loadImage fallback failed', fallbackErr)
+            return false
           }
-        } catch (err) {
-          // Fail-soft: still mount layers (icon may be missing) rather than leave basemap-only
-          console.warn('[BoardIssuesMap] loadImage failed', err)
         }
+      }
+
+      const boot = async () => {
         if (cancelled) return
+        // Mount source/layers first so pins are never basemap-only while decode hangs.
         ensureLayers()
         syncSource(map, geojsonRef.current)
+        const ok = await loadPinImage()
+        if (cancelled || !ok || typeof map.getLayer !== 'function') return
+        // Upgrade circle fallback → symbol pin when raster arrives after first paint.
+        const layer = map.getLayer(UNCLUSTERED_LAYER)
+        if (layer && layer.type === 'circle') {
+          map.removeLayer(UNCLUSTERED_LAYER)
+          map.addLayer({
+            id: UNCLUSTERED_LAYER,
+            type: 'symbol',
+            source: SOURCE_ID,
+            filter: ['!', ['has', 'point_count']],
+            layout: {
+              'icon-image': PIN_IMAGE_ID,
+              'icon-size': 0.55,
+              'icon-allow-overlap': true,
+              'icon-anchor': 'bottom',
+            },
+          })
+        }
       }
 
       void boot()
@@ -171,7 +242,7 @@ export function BoardIssuesMap({ issues, resolveLocalizedText, t, boardUrlForBac
         mapRef.current = null
       }
     },
-    [syncSource],
+    [syncSource, pinImageUrl],
   )
 
   useEffect(() => {
@@ -202,7 +273,7 @@ export function BoardIssuesMap({ issues, resolveLocalizedText, t, boardUrlForBac
             {popup.label ? <p className="board-issues-map-popup-label">{popup.label}</p> : null}
             <Link
               className="board-issues-map-popup-open"
-              to={`/issue/${popup.id}?from=${encodeURIComponent(boardUrlForBack)}`}
+              to={`${issuePathPrefix}/${popup.id}?from=${encodeURIComponent(boardUrlForBack)}`}
             >
               {t('schemaRuntime.map.pinOpen')}
             </Link>
