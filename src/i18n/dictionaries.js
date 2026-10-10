@@ -33,6 +33,11 @@ import {
   NEXT_SHELL_DICTIONARY_ET,
   NEXT_SHELL_DICTIONARY_RU,
 } from './nextShellDictionary.js'
+import {
+  NEXT_FEED_DICTIONARY_EN,
+  NEXT_FEED_DICTIONARY_ET,
+  NEXT_FEED_DICTIONARY_RU,
+} from './nextFeedDictionary.js'
 
 export const UI_DICTIONARY = Object.freeze({
   et: {
@@ -105,6 +110,7 @@ export const UI_DICTIONARY = Object.freeze({
     ...SCHEMA_RUNTIME_DICTIONARY_ET,
     ...THREADS_FEED_DICTIONARY_ET,
     ...NEXT_SHELL_DICTIONARY_ET,
+    ...NEXT_FEED_DICTIONARY_ET,
   },
   ru: {
     board: 'Доска',
@@ -176,6 +182,7 @@ export const UI_DICTIONARY = Object.freeze({
     ...SCHEMA_RUNTIME_DICTIONARY_RU,
     ...THREADS_FEED_DICTIONARY_RU,
     ...NEXT_SHELL_DICTIONARY_RU,
+    ...NEXT_FEED_DICTIONARY_RU,
   },
   en: {
     board: 'Board',
@@ -247,5 +254,6 @@ export const UI_DICTIONARY = Object.freeze({
     ...SCHEMA_RUNTIME_DICTIONARY_EN,
     ...THREADS_FEED_DICTIONARY_EN,
     ...NEXT_SHELL_DICTIONARY_EN,
+    ...NEXT_FEED_DICTIONARY_EN,
   },
 })
