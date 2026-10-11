@@ -22,6 +22,8 @@ describe('nextFeedDictionary', () => {
       'nextFeed.toolbar.queryAria',
       'nextFeed.post.openIssue',
       'nextFeed.post.more',
+      'nextFeed.post.actions',
+      'nextFeed.post.comment',
       'nextFeed.post.share',
       'nextFeed.post.noMedia',
       'nextFeed.post.schemaUnavailable',
@@ -55,6 +57,8 @@ describe('nextFeedDictionary', () => {
       expect(dict.nextFeed.toolbar.searchUnavailable).toBeTruthy()
       expect(dict.nextFeed.post.openIssue).toBeTruthy()
       expect(dict.nextFeed.post.more).toBeTruthy()
+      expect(dict.nextFeed.post.actions).toBeTruthy()
+      expect(dict.nextFeed.post.comment).toBeTruthy()
       expect(dict.nextFeed.post.share).toBeTruthy()
       expect(dict.nextFeed.post.noMedia).toBeTruthy()
       expect(dict.nextFeed.post.schemaUnavailable).toBeTruthy()

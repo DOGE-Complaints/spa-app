@@ -18,23 +18,29 @@ function makeT(locale = 'en') {
     en: {
       'nextFeed.post.openIssue': 'Open issue',
       'nextFeed.post.more': 'More actions',
+      'nextFeed.post.actions': 'Post actions',
+      'nextFeed.post.comment': 'Comment',
       'nextFeed.post.share': 'Share',
       'threadsFeed.post.action.react': 'React',
-      'threadsFeed.post.action.discussion': 'Discussion',
+      'threadsFeed.post.reactionSummarySlot': 'Reactions',
     },
     et: {
       'nextFeed.post.openIssue': 'Ava teade',
       'nextFeed.post.more': 'Rohkem',
+      'nextFeed.post.actions': 'Postituse toimingud',
+      'nextFeed.post.comment': 'Kommentaar',
       'nextFeed.post.share': 'Jaga',
       'threadsFeed.post.action.react': 'Reageeri',
-      'threadsFeed.post.action.discussion': 'Arutelu',
+      'threadsFeed.post.reactionSummarySlot': 'Reaktsioonid',
     },
     ru: {
       'nextFeed.post.openIssue': 'Открыть обращение',
       'nextFeed.post.more': 'Ещё',
+      'nextFeed.post.actions': 'Действия с записью',
+      'nextFeed.post.comment': 'Комментарий',
       'nextFeed.post.share': 'Поделиться',
       'threadsFeed.post.action.react': 'Реакция',
-      'threadsFeed.post.action.discussion': 'Обсуждение',
+      'threadsFeed.post.reactionSummarySlot': 'Реакции',
     },
   }
   return (key) => map[locale][key] ?? key
@@ -86,8 +92,10 @@ describe('NF-02 FeedCivicPost', () => {
     expect(html).toContain('/icons/next-feed/actions/share.svg')
     expect(html).toContain('Open issue')
     expect(html).toContain('React')
-    expect(html).toContain('Discussion')
+    expect(html).toContain('Comment')
     expect(html).toContain('Share')
+    expect(html).toContain('Reactions')
+    expect(html).toContain('data-action-zones="4"')
     expect(html).not.toContain('schema-card-overlay')
     expect(html).not.toContain('SchemaCardOverlay')
     expect(html).not.toContain('Additional details')
