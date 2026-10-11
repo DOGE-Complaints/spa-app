@@ -78,6 +78,7 @@ Amendment: [DUI decision record](../../UX/next/feed/DOGEstonia-DUI-Q01-Q18-phase
 ## 3) Tokens & theme
 
 - Consume semantic tokens via existing `[data-theme]` runtime (REQ-21).
+- **NF-10:** feed content plane (`FeedHost` toolbar/list/skeleton, civic/discussion/reactions chrome) uses `--color-*` / `[data-theme]` — light-first M149; dark smoke M160; no second palette invent.
 - UX [tokens package](../../UX/next/feed/DOGEstonia-design-tokens-package-v1.0.md) remains design SSOT; extend `src/styles/tokens.css` when shell/feed needs missing semantics — incremental, not a silent second palette in JSX.
 - A11y overrides per A11y pack until tokens revision (REQ-22 behavior §6).
 
