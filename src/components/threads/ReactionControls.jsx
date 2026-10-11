@@ -49,11 +49,23 @@ export function ReactionControls({
    * @type {((args: { reactionId: string, op: 'add'|'remove', target: string, commentId: string|null }) => Promise<object|void>)|undefined}
    */
   onReact,
+  /** Extra class on root (feed presentation). */
+  className = '',
+  /** M154 empty honesty: omit theatrical zero when no marks. */
+  hideZeroCount = false,
+  /** `sheet` = mobile bottom-sheet chrome (feed M154). */
+  pickerVariant = 'default',
+  /** Increment / change to force-open picker (civic strip bridge). */
+  openSignal = 0,
 }) {
   const icons = iconPack || THREADS_FEED_THREAD_ICONS
   const scene = resolveHarnessThr03Scene('strip')
   const [open, setOpen] = useState(
-    scene === 'picker' || scene === 'enabled-only' || scene === 'exclusive' || scene === 'keyboard',
+    scene === 'picker' ||
+      scene === 'enabled-only' ||
+      scene === 'exclusive' ||
+      scene === 'keyboard' ||
+      scene === 'mobile',
   )
   const [selected, setSelected] = useState(() => {
     if (scene === 'exclusive') return ['agree']
@@ -74,6 +86,10 @@ export function ReactionControls({
     )
   }, [summaryMarks, aggregateCount])
 
+  useEffect(() => {
+    if (openSignal) setOpen(true)
+  }, [openSignal])
+
   const capacity = Number.isFinite(Number(maxReactions)) && Number(maxReactions) > 0
     ? Math.floor(Number(maxReactions))
     : DEFAULT_MAX_REACTIONS_PER_ACTOR
@@ -90,7 +106,10 @@ export function ReactionControls({
   const showDisabledNote = scene === 'enabled-only'
 
   const marks = marksState || []
-  const count = aggregateState ?? (marks.length > 0 ? marks.reduce((n, m) => n + (Number(m.count) || 1), 0) : selected.length)
+  const count =
+    aggregateState ??
+    (marks.length > 0 ? marks.reduce((n, m) => n + (Number(m.count) || 1), 0) : selected.length)
+  const showCount = !(hideZeroCount && (!count || count === 0) && marks.length === 0)
 
   async function handleSelect(id) {
     if (busy) return
@@ -145,14 +164,24 @@ export function ReactionControls({
     }
   }
 
+  const rootClass = ['reaction-controls', className].filter(Boolean).join(' ')
+  const pickerClass = [
+    'reaction-picker',
+    scene === 'keyboard' ? 'reaction-picker--keyboard' : '',
+    pickerVariant === 'sheet' ? 'reaction-picker--sheet' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <div
-      className="reaction-controls"
+      className={rootClass}
       data-testid="reaction-controls"
       data-reaction-target={target}
       data-thr03-scene={scene}
       data-catalog={REACTIONS_CATALOG_ATTR}
       data-max-reactions={String(capacity)}
+      data-picker-variant={pickerVariant}
     >
       <div className="reaction-summary-strip" data-testid="reaction-summary-strip">
         <div className="reaction-summary-marks" aria-hidden={marks.length === 0}>
@@ -163,9 +192,11 @@ export function ReactionControls({
             </span>
           ))}
         </div>
-        <span className="reaction-summary-count" data-testid="reaction-summary-count">
-          {count}
-        </span>
+        {showCount ? (
+          <span className="reaction-summary-count" data-testid="reaction-summary-count">
+            {count}
+          </span>
+        ) : null}
         <button
           type="button"
           className="reaction-open-button"
@@ -189,8 +220,9 @@ export function ReactionControls({
       {open ? (
         <div
           id={panelId}
-          className={`reaction-picker${scene === 'keyboard' ? ' reaction-picker--keyboard' : ''}`}
+          className={pickerClass}
           data-testid="reaction-picker"
+          data-presentation={pickerVariant === 'sheet' ? 'm154-sheet' : 'm154-picker'}
           role="dialog"
           aria-label={t('threadsFeed.reactions.viewReactions')}
         >

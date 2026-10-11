@@ -26,8 +26,10 @@ export function CommentTree({
   reactionsEnable = null,
   onReact,
   iconPack = null,
+  ReactionComponent = ReactionControls,
 }) {
   const icons = iconPack || THREADS_FEED_THREAD_ICONS
+  const ReactionUi = ReactionComponent || ReactionControls
   const [replyParentId, setReplyParentId] = useState(
     forcedReplyParentId || (scene === 'reply' || scene === 'attach-allowed' || scene === 'attach-denied' || scene === 'post-fail'
       ? comments.find((c) => c.depth < maxDepth)?.id ?? null
@@ -74,7 +76,7 @@ export function CommentTree({
                       </button>
                     ) : null}
                   </div>
-                  <ReactionControls
+                  <ReactionUi
                     t={t}
                     target="comment"
                     commentId={node.id}

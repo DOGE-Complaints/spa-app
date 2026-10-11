@@ -1,6 +1,45 @@
 import { Button } from '../../components/Button'
 import { FeedCivicPost } from './FeedCivicPost.jsx'
 import { FeedThreadMount } from './FeedThreadMount.jsx'
+import {
+  FeedReactionOpenProvider,
+  useFeedReactionOpen,
+} from './FeedReactionOpenContext.jsx'
+
+function FeedIssueDetailReady({
+  issue,
+  locale,
+  resolveLocalizedText,
+  t,
+  meProfile,
+  returnTo,
+}) {
+  const bridge = useFeedReactionOpen()
+  return (
+    <section
+      className="feed-issue-detail"
+      data-testid="feed-issue-detail"
+      data-issue-status="ready"
+      data-issue-id={issue.id}
+    >
+      <FeedCivicPost
+        issue={issue}
+        locale={locale}
+        resolveLocalizedText={resolveLocalizedText}
+        t={t}
+        onOpenReactions={() => bridge?.openThreadRootPicker(issue.id)}
+      />
+      <div className="feed-issue-detail-thread">
+        <FeedThreadMount
+          issueId={issue.id}
+          t={t}
+          profile={meProfile}
+          returnTo={returnTo}
+        />
+      </div>
+    </section>
+  )
+}
 
 /**
  * Shared Issue + Discussion product for modal / sheet / route mounts (M158).
@@ -78,26 +117,15 @@ export function FeedIssueDetail({
   }
 
   return (
-    <section
-      className="feed-issue-detail"
-      data-testid="feed-issue-detail"
-      data-issue-status="ready"
-      data-issue-id={issue.id}
-    >
-      <FeedCivicPost
+    <FeedReactionOpenProvider>
+      <FeedIssueDetailReady
         issue={issue}
         locale={locale}
         resolveLocalizedText={resolveLocalizedText}
         t={t}
+        meProfile={meProfile}
+        returnTo={returnTo}
       />
-      <div className="feed-issue-detail-thread">
-        <FeedThreadMount
-          issueId={issue.id}
-          t={t}
-          profile={meProfile}
-          returnTo={returnTo}
-        />
-      </div>
-    </section>
+    </FeedReactionOpenProvider>
   )
 }

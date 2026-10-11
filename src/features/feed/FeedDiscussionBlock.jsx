@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react'
 import { CommentComposer } from '../../components/threads/CommentComposer.jsx'
 import { CommentTree } from '../../components/threads/CommentTree.jsx'
 import { InviteOrganizationStub } from '../../components/threads/InviteOrganizationStub.jsx'
-import { ReactionControls } from '../../components/threads/ReactionControls.jsx'
 import { resolveHarnessThr02Scene } from '../../components/threads/thr02DemoFixture.js'
 import { THREADS_FEED_THREAD_ICONS } from '../../components/threads/threadIcons.js'
+import { FeedReactionsStrip } from './FeedReactionsStrip.jsx'
 import './FeedDiscussionBlock.css'
 
 const COLLAPSED_PREVIEW_LIMIT = 2
@@ -36,6 +36,7 @@ export function FeedDiscussionBlock({
   threadRootSelected = [],
   iconPack = null,
   showInviteStub = true,
+  issueId = null,
 }) {
   const [expanded, setExpanded] = useState(false)
   const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
@@ -110,7 +111,8 @@ export function FeedDiscussionBlock({
           <p className="feed-discussion-empty-title">{t('threadsFeed.post.empty.title')}</p>
           <p className="feed-discussion-empty-helper">{t('threadsFeed.post.empty.helper')}</p>
           <div className="feed-discussion-reaction-slot" data-testid="issue-thread-reaction-slot">
-            <ReactionControls
+            <FeedReactionsStrip
+              issueId={issueId}
               t={t}
               target="thread-root"
               initialSelected={threadRootSelected}
@@ -136,7 +138,8 @@ export function FeedDiscussionBlock({
             ))}
           </ul>
           <div className="feed-discussion-reaction-slot" data-testid="issue-thread-reaction-slot">
-            <ReactionControls
+            <FeedReactionsStrip
+              issueId={issueId}
               t={t}
               target="thread-root"
               initialSelected={threadRootSelected}
@@ -176,7 +179,8 @@ export function FeedDiscussionBlock({
             </button>
           </div>
           <div className="feed-discussion-reaction-slot" data-testid="issue-thread-reaction-slot">
-            <ReactionControls
+            <FeedReactionsStrip
+              issueId={issueId}
               t={t}
               target="thread-root"
               initialSelected={threadRootSelected}
@@ -191,6 +195,7 @@ export function FeedDiscussionBlock({
             maxDepth={effectiveMaxDepth}
             scene={scene || 'nested'}
             iconPack={icons}
+            ReactionComponent={FeedReactionsStrip}
             {...composerShared}
             {...reactionShared}
           />

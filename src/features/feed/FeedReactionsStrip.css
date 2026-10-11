@@ -1,0 +1,140 @@
+/* FeedReactionsStrip — M154 THR-R light chrome (NF-09 · AD-VP-01/02) */
+.feed-reactions-strip {
+  width: 100%;
+  min-width: 0;
+}
+
+.feed-reactions-strip .feed-reactions-controls {
+  gap: 10px;
+}
+
+.feed-reactions-strip .reaction-summary-strip {
+  gap: 8px 12px;
+}
+
+.feed-reactions-strip .reaction-summary-mark {
+  color: #667085;
+  font-size: 12px;
+}
+
+.feed-reactions-strip .reaction-summary-count {
+  color: #101828;
+  font-weight: 700;
+}
+
+.feed-reactions-strip .reaction-open-button {
+  border-color: #e7e4dc;
+  background: #fffdf8;
+  color: #101828;
+  border-radius: 999px;
+  padding: 8px 14px;
+  min-height: 44px;
+}
+
+.feed-reactions-strip .reaction-open-button:focus-visible {
+  outline: 2px solid #f5c542;
+  outline-offset: 2px;
+}
+
+.feed-reactions-strip .reaction-picker {
+  border-color: #e7e4dc;
+  background: #fffdf8;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(16, 24, 40, 0.1);
+}
+
+.feed-reactions-strip .reaction-picker-layer-title {
+  color: #667085;
+  letter-spacing: 0.04em;
+}
+
+.feed-reactions-strip .reaction-choice {
+  border-color: #e7e4dc;
+  background: #f7f6f2;
+  border-radius: 12px;
+  min-height: 44px;
+  color: #101828;
+  max-width: none;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* M154 mobile sheet: stacked full-width choices — readable labels (no ellipsis) */
+.feed-reactions-strip .reaction-picker--sheet .reaction-picker-list {
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.feed-reactions-strip .reaction-picker--sheet .reaction-choice {
+  width: 100%;
+  justify-content: flex-start;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.feed-reactions-strip .reaction-picker--sheet .reaction-choice > span {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  max-width: none;
+}
+
+.feed-reactions-strip .reaction-choice--selected {
+  border-color: #f5c542;
+  background: #fff8e6;
+}
+
+.feed-reactions-strip .reaction-choice:focus-visible,
+.feed-reactions-strip .reaction-choice--focus {
+  outline-color: #f5c542;
+}
+
+.feed-reactions-strip .reaction-picker-exclusive {
+  background: #fff6e8;
+  color: #8a4b12;
+}
+
+.feed-reactions-strip--loading {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 40px;
+}
+
+.feed-reactions-strip-skeleton {
+  display: inline-block;
+  height: 10px;
+  width: 48px;
+  border-radius: 999px;
+  background: #e7e4dc;
+}
+
+.feed-reactions-strip--error {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  color: #667085;
+  font-size: 13px;
+}
+
+.feed-reactions-strip--error p {
+  margin: 0;
+}
+
+.feed-reactions-strip-retry {
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid #e7e4dc;
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b54708;
+  cursor: pointer;
+}

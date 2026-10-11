@@ -189,6 +189,7 @@ export function LiveIssueThreadMount({
       threadRootSelected={threadRootReactions.selected || []}
       iconPack={iconPack}
       showInviteStub={showInviteStub}
+      issueId={issueId}
     />
   )
 }

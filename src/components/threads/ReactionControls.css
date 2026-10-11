@@ -211,3 +211,17 @@
     align-self: flex-start;
   }
 }
+
+/* M154 mobile sheet chrome (feed presentation sets pickerVariant=sheet) */
+.reaction-picker--sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  max-height: 70dvh;
+  overflow: auto;
+  border-radius: 16px 16px 0 0;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  box-shadow: 0 -8px 32px rgba(16, 24, 40, 0.14);
+}

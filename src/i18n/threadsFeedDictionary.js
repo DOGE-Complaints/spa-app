@@ -60,6 +60,7 @@ const REACTIONS_EN = Object.freeze({
   close: 'Close',
   chooseUpTo: 'Choose up to 3 reactions',
   enabledOnlyHelper: 'Only reactions enabled for this node are shown',
+  unavailable: 'Reactions unavailable',
   agreeDisagreeExclusive: 'Agree and Disagree can’t be selected together',
   layer: {
     emotional: 'Emotional',
@@ -91,6 +92,7 @@ const REACTIONS_ET = Object.freeze({
   close: 'Sulge',
   chooseUpTo: 'Vali kuni 3 reaktsiooni',
   enabledOnlyHelper: 'Näidatakse ainult selle sõlme jaoks lubatud reaktsioone',
+  unavailable: 'Reaktsioonid pole saadaval',
   agreeDisagreeExclusive: 'Nõustun ja Ei nõustu ei saa koos valida',
   layer: {
     emotional: 'Emotsionaalne',
@@ -122,6 +124,7 @@ const REACTIONS_RU = Object.freeze({
   close: 'Закрыть',
   chooseUpTo: 'Выберите до 3 реакций',
   enabledOnlyHelper: 'Показаны только реакции, включённые для этого узла',
+  unavailable: 'Реакции недоступны',
   agreeDisagreeExclusive: '«Согласен» и «Не согласен» нельзя выбрать вместе',
   layer: {
     emotional: 'Эмоциональные',
@@ -334,6 +337,7 @@ export const THREADS_FEED_FLAT_KEYS = Object.freeze([
   'threadsFeed.reactions.close',
   'threadsFeed.reactions.chooseUpTo',
   'threadsFeed.reactions.enabledOnlyHelper',
+  'threadsFeed.reactions.unavailable',
   'threadsFeed.reactions.agreeDisagreeExclusive',
   'threadsFeed.reactions.layer.emotional',
   'threadsFeed.reactions.layer.epistemic',

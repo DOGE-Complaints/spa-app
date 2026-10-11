@@ -4,6 +4,35 @@ import { FeedCivicPost } from './FeedCivicPost.jsx'
 import { FeedThreadMount } from './FeedThreadMount.jsx'
 import { FeedFeedSkeleton } from './FeedFeedSkeleton.jsx'
 import { FeedMapArea } from './FeedMapArea.jsx'
+import {
+  FeedReactionOpenProvider,
+  useFeedReactionOpen,
+} from './FeedReactionOpenContext.jsx'
+
+function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, meProfile }) {
+  const bridge = useFeedReactionOpen()
+  return (
+    <BoardIssuePost
+      thread={
+        <FeedThreadMount
+          issueId={item.id}
+          t={t}
+          profile={meProfile}
+          returnTo="#/next/feed"
+        />
+      }
+    >
+      <FeedCivicPost
+        issue={item}
+        locale={locale}
+        resolveLocalizedText={resolveLocalizedText}
+        t={t}
+        to={`/next/feed/issue/${item.id}?from=${encodeURIComponent(feedUrlForBack)}`}
+        onOpenReactions={() => bridge?.openThreadRootPicker(item.id)}
+      />
+    </BoardIssuePost>
+  )
+}
 
 /**
  * Feed result region: loading / empty / filtered-empty / error / stale / list|map.
@@ -126,27 +155,19 @@ export function FeedListArea({
           aria-label={t('nextFeed.list.accessible')}
           aria-busy={loading ? 'true' : undefined}
         >
-          {issues.map((item) => (
-            <BoardIssuePost
-              key={item.id}
-              thread={
-                <FeedThreadMount
-                  issueId={item.id}
-                  t={t}
-                  profile={meProfile}
-                  returnTo="#/next/feed"
-                />
-              }
-            >
-              <FeedCivicPost
-                issue={item}
+          <FeedReactionOpenProvider>
+            {issues.map((item) => (
+              <FeedIssueCard
+                key={item.id}
+                item={item}
                 locale={locale}
                 resolveLocalizedText={resolveLocalizedText}
                 t={t}
-                to={`/next/feed/issue/${item.id}?from=${encodeURIComponent(feedUrlForBack)}`}
+                feedUrlForBack={feedUrlForBack}
+                meProfile={meProfile}
               />
-            </BoardIssuePost>
-          ))}
+            ))}
+          </FeedReactionOpenProvider>
         </section>
       ) : null}
     </>

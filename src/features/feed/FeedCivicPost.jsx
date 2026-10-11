@@ -59,7 +59,14 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
  * @param {(k: string) => string} props.t
  * @param {string} [props.to] — open-issue href
  */
-export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
+export function FeedCivicPost({
+  issue,
+  locale,
+  resolveLocalizedText,
+  t,
+  to,
+  onOpenReactions = null,
+}) {
   const contentField = issue.summary ?? issue.title
   const contentMeta = resolveLocalizedTextWithMeta(contentField, locale)
   const cardText = resolveLocalizedText(contentField)
@@ -197,6 +204,9 @@ export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
           data-testid="feed-civic-action-react"
           data-zone="react"
           aria-label={t('threadsFeed.post.action.react')}
+          onClick={() => {
+            if (typeof onOpenReactions === 'function') onOpenReactions()
+          }}
         >
           <img
             className="feed-civic-post-icon"
@@ -242,6 +252,9 @@ export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
           data-testid="feed-civic-action-reactions"
           data-zone="reactions"
           aria-label={t('threadsFeed.post.reactionSummarySlot')}
+          onClick={() => {
+            if (typeof onOpenReactions === 'function') onOpenReactions()
+          }}
         >
           <span className="feed-civic-post-reaction-marks" aria-hidden="true">
             {REACTIONS_ZONE_MARKS.map((mark) => (
