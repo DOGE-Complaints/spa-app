@@ -62,16 +62,17 @@ Presentation may wrap or replace chrome of shared modules; it must not fork a se
 - Fail-soft: social/thread failure must not remove civic Issue (AC-05).
 - Write gate: draft preserve; generic 403 ≠ auto `/verify` (AC-07).
 
-### 2a) Board text search FE enable (AD-VP-03 · 2026-10-11)
+### 2a) Board text search FE enable (AD-VP-03 · NF-12 Done · 2026-10-11)
 
 | Fact | Status |
 |------|--------|
 | Gateway | REQ-56 **Ready** — optional query param **`search`** on `GET /node/issues` (D-S1) |
 | DUI-Q12 (2026-10-08) | Hid **active** production toolbar search **until server semantics exist** |
-| Lift | Condition satisfied; operator lock 2026-10-11 → next-feed **may** enable live search (story NF-12) |
+| Lift | Condition satisfied; operator lock 2026-10-11 → next-feed enables live search |
+| Wiring | `FeedToolbar` enable · `buildFeedListOptions` / `GatewayIssueRepository` / `serializeServerBoardQuery` keep **`search`** only · empty copy via `searchActive` · no alternate endpoint |
 | Forbidden | Invent alternate search endpoint/param name; claim search Done without wiring HTTP `search` |
 
-Amendment: [DUI decision record](../../UX/next/feed/DOGEstonia-DUI-Q01-Q18-phase-1-decision-record-2026-10-08.md) DUI-Q12 · tracker AD-VP-03 / AD-VP-06.
+Amendment: [DUI decision record](../../UX/next/feed/DOGEstonia-DUI-Q01-Q18-phase-1-decision-record-2026-10-08.md) DUI-Q12 · tracker AD-VP-03 / AD-VP-06. Story NF-12 Done unblocks NF-11 search matrix cell.
 
 ---
 
