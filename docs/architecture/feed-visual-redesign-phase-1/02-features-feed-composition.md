@@ -35,11 +35,12 @@ Parent: [`00-overview.md`](00-overview.md) · REQ [`22`](../../requirements/22-f
 
 Presentation may wrap or replace chrome of shared modules; it must not fork a second HTTP client.
 
-### 1c) Discussion collapsed presentation (NF-08 · M152/M153)
+### 1c) Discussion collapsed presentation (NF-08 · M152/M153 · NF-11 F5)
 
 | Fact | Home |
 |------|------|
-| Collapsed / expand chrome | `src/features/feed/FeedDiscussionBlock.jsx` (+ CSS) · `data-presentation="m152-collapsed"` / expand → M153 tree + oval composer |
+| Collapsed / expand chrome | `src/features/feed/FeedDiscussionBlock.jsx` (+ CSS) · `data-presentation="m152-collapsed"` / expand → M153 tree |
+| Oval composer | `data-oval-composer` · `data-composer-chrome="oval"` / `oval-entry` · paperclip + circular icon send (no labelled Post reply pill) · Closed `CommentComposer` semantics |
 | Mount | `FeedThreadMount` → Closed `LiveIssueThreadMount` with `BlockComponent={FeedDiscussionBlock}` |
 | Forbidden | Classic `issue-thread-actions` Discussion/Invite primary row competing with civic strip · invent second threads HTTP plane · M155 |
 
