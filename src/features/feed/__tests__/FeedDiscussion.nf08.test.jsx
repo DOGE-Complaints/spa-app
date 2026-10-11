@@ -85,7 +85,27 @@ describe('NF-08 FeedDiscussionBlock M152/M153 (AD-VP-01/02)', () => {
     expect(html).not.toContain('data-testid="thread-action-discussion"')
     expect(html).not.toContain('data-testid="comment-tree"')
     expect(html).toContain('data-testid="issue-thread-composer"')
+    expect(html).toContain('data-composer-chrome="oval-entry"')
+    expect(html).toContain('data-oval-composer="true"')
+    expect(html).toContain('data-presentation="m153-composer-entry"')
     expect(html).toContain('data-testid="invite-organization-stub"')
+  })
+
+  it('expanded populated exposes M153 oval composer chrome (circular-send presentation)', () => {
+    const html = renderUi(
+      <FeedDiscussionBlock
+        status="populated"
+        t={makeT()}
+        iconPack={NEXT_FEED_THREAD_ICONS}
+        comments={comments}
+        initialExpanded={true}
+      />,
+    )
+    expect(html).toContain('data-presentation="m153-tree"')
+    expect(html).toContain('data-composer-chrome="oval"')
+    expect(html).toContain('data-oval-composer="true"')
+    expect(html).toContain('data-presentation="m153-composer"')
+    expect(html).toContain('data-testid="comment-composer-post"')
   })
 
   it('collapsed previews take first two bodies in order (thr02 root+reply, not roots-only)', () => {
