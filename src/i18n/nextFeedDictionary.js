@@ -57,6 +57,8 @@ const TOOLBAR_RU = Object.freeze({
 const POST_EN = Object.freeze({
   openIssue: 'Open issue',
   more: 'More actions',
+  actions: 'Post actions',
+  comment: 'Comment',
   share: 'Share',
   noMedia: 'No media attached',
   schemaUnavailable: 'Structured details unavailable',
@@ -65,6 +67,8 @@ const POST_EN = Object.freeze({
 const POST_ET = Object.freeze({
   openIssue: 'Ava teade',
   more: 'Rohkem',
+  actions: 'Postituse toimingud',
+  comment: 'Kommentaar',
   share: 'Jaga',
   noMedia: 'Meediat pole',
   schemaUnavailable: 'Struktureeritud andmed puuduvad',
@@ -73,6 +77,8 @@ const POST_ET = Object.freeze({
 const POST_RU = Object.freeze({
   openIssue: 'Открыть обращение',
   more: 'Ещё',
+  actions: 'Действия с записью',
+  comment: 'Комментарий',
   share: 'Поделиться',
   noMedia: 'Медиа нет',
   schemaUnavailable: 'Структурированные данные недоступны',
@@ -228,6 +234,8 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.toolbar.queryAria',
   'nextFeed.post.openIssue',
   'nextFeed.post.more',
+  'nextFeed.post.actions',
+  'nextFeed.post.comment',
   'nextFeed.post.share',
   'nextFeed.post.noMedia',
   'nextFeed.post.schemaUnavailable',

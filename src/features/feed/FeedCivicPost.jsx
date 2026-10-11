@@ -40,9 +40,17 @@ function formatGeoLabel(geo) {
   return parts.join(', ')
 }
 
+/** Reactions zone affordance marks — catalog glyphs only; no invent orb (AD-VP-01 / icon catalog gap). */
+const REACTIONS_ZONE_MARKS = Object.freeze([
+  { id: 'acknowledge', src: '/icons/next-feed/reactions/acknowledge.svg' },
+  { id: 'support', src: '/icons/next-feed/reactions/support.svg' },
+  { id: 'agree', src: '/icons/next-feed/reactions/agree.svg' },
+])
+
 /**
  * Next-feed civic issue-as-post (M150 ISSUE-CARD-NO-MEDIA / SSR-C-civic).
- * No SchemaCardOverlay · no media production slot · action strip affordances only.
+ * Four-zone strip per AD-VP-01 · no SchemaCardOverlay · no media production slot.
+ * Civic paw identity icon: honest omit (catalog gap) — no invent SVG.
  *
  * @param {object} props
  * @param {import('../../domain/types.js').Issue} props.issue
@@ -80,6 +88,8 @@ export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
       className="feed-civic-post"
       data-testid="feed-civic-post"
       data-civic-variant="no-media"
+      data-civic-identity-icon="omit-catalog-gap"
+      data-status-wire={String(issue.status ?? '')}
       aria-label={`Issue ${issue.id}: ${titleText || cardText}`}
     >
       <header className="feed-civic-post-meta">
@@ -177,13 +187,15 @@ export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
       <div
         className="feed-civic-post-actions"
         data-testid="feed-civic-post-actions"
+        data-action-zones="4"
         role="group"
-        aria-label={t('nextFeed.post.more')}
+        aria-label={t('nextFeed.post.actions')}
       >
         <button
           type="button"
           className="feed-civic-post-action"
           data-testid="feed-civic-action-react"
+          data-zone="react"
           aria-label={t('threadsFeed.post.action.react')}
         >
           <img
@@ -198,7 +210,8 @@ export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
           type="button"
           className="feed-civic-post-action"
           data-testid="feed-civic-action-comment"
-          aria-label={t('threadsFeed.post.action.discussion')}
+          data-zone="comment"
+          aria-label={t('nextFeed.post.comment')}
         >
           <img
             className="feed-civic-post-icon"
@@ -206,12 +219,13 @@ export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
             alt=""
             aria-hidden="true"
           />
-          <span>{t('threadsFeed.post.action.discussion')}</span>
+          <span>{t('nextFeed.post.comment')}</span>
         </button>
         <button
           type="button"
           className="feed-civic-post-action"
           data-testid="feed-civic-action-share"
+          data-zone="share"
           aria-label={t('nextFeed.post.share')}
         >
           <img
@@ -221,6 +235,25 @@ export function FeedCivicPost({ issue, locale, resolveLocalizedText, t, to }) {
             aria-hidden="true"
           />
           <span>{t('nextFeed.post.share')}</span>
+        </button>
+        <button
+          type="button"
+          className="feed-civic-post-action feed-civic-post-action-reactions"
+          data-testid="feed-civic-action-reactions"
+          data-zone="reactions"
+          aria-label={t('threadsFeed.post.reactionSummarySlot')}
+        >
+          <span className="feed-civic-post-reaction-marks" aria-hidden="true">
+            {REACTIONS_ZONE_MARKS.map((mark) => (
+              <img
+                key={mark.id}
+                className="feed-civic-post-reaction-mark"
+                src={mark.src}
+                alt=""
+              />
+            ))}
+          </span>
+          <span>{t('threadsFeed.post.reactionSummarySlot')}</span>
         </button>
       </div>
     </article>

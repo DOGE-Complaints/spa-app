@@ -1,12 +1,15 @@
-/* FeedCivicPost — M150 ISSUE-CARD-NO-MEDIA / SSR-C-civic (NF-02) */
+/* FeedCivicPost — M150 ISSUE-CARD-NO-MEDIA / SSR-C-civic · NF-07 four-zone + light chrome */
 
 .feed-civic-post {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   padding: 20px;
   color: var(--color-text-primary);
   min-width: 0;
+  background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
+  border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  border-radius: 12px;
 }
 
 .feed-civic-post-meta {
@@ -47,7 +50,7 @@
 }
 
 .feed-civic-post-more:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: color-mix(in srgb, var(--color-text-secondary) 10%, transparent);
 }
 
 .feed-civic-post-more:focus-visible {
@@ -57,14 +60,15 @@
 
 .feed-civic-post-title {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.35;
+  color: var(--color-text-primary);
 }
 
 .feed-civic-post-summary {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   line-height: 1.45;
   color: var(--color-text-secondary);
 }
@@ -81,7 +85,8 @@
   gap: 4px;
   padding: 3px 8px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  background: color-mix(in srgb, var(--color-surface-elevated, #fffdf8) 70%, transparent);
   font-size: 0.72rem;
   color: var(--color-text-secondary);
 }
@@ -104,7 +109,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--color-accent-active);
+  color: var(--button-link-text, var(--color-text-warm, #b54708));
   text-decoration: none;
   width: fit-content;
 }
@@ -120,35 +125,37 @@
   border-radius: 4px;
 }
 
+/* M150 four-zone action row — equal flex zones · 56px desktop / ≥44px touch */
 .feed-civic-post-actions {
   display: flex;
   align-items: stretch;
-  gap: 4px;
-  min-height: 48px;
+  gap: 2px;
+  min-height: 56px;
   margin-top: 4px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
 }
 
 .feed-civic-post-action {
-  flex: 1;
+  flex: 1 1 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  min-width: 0;
   min-height: 44px;
-  padding: 8px 6px;
+  padding: 8px 4px;
   border: none;
   border-radius: 8px;
   background: transparent;
   color: var(--color-text-secondary);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
 }
 
 .feed-civic-post-action:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
   color: var(--color-text-primary);
 }
 
@@ -157,16 +164,73 @@
   outline-offset: 2px;
 }
 
+.feed-civic-post-action-reactions {
+  gap: 4px;
+}
+
+.feed-civic-post-reaction-marks {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.feed-civic-post-reaction-mark {
+  width: 14px;
+  height: 14px;
+  margin-inline-start: -4px;
+  border-radius: 50%;
+  background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
+  box-shadow: 0 0 0 1px var(--color-border-default, var(--doge-border, #e7e4dc));
+}
+
+.feed-civic-post-reaction-mark:first-child {
+  margin-inline-start: 0;
+}
+
 .feed-civic-post-icon {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
 }
 
-/* Flatten inside BoardIssuePost shell */
+/* Flatten nested card when BoardIssuePost owns outer chrome */
 .board-issue-post .feed-civic-post {
   border: none;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+}
+
+/* Next-feed list: light-first BoardIssuePost shell (feed presentation · AD-VP-01) */
+.feed-list .board-issue-post {
+  background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
+  border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  border-radius: 12px;
+  color: var(--color-text-primary);
+}
+
+.feed-list .board-issue-post-divider {
+  background: var(--color-border-default, var(--doge-border, #e7e4dc));
+}
+
+@media (max-width: 420px) {
+  .feed-civic-post {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .feed-civic-post-actions {
+    min-height: 52px;
+  }
+
+  .feed-civic-post-action {
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.68rem;
+    padding: 6px 2px;
+  }
+
+  .feed-list .board-issue-post {
+    border-radius: 10px;
+  }
 }
