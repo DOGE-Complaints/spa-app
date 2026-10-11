@@ -36,6 +36,8 @@ describe('nextFeedDictionary', () => {
       'nextFeed.thread.empty',
       'nextFeed.thread.attachDenied',
       'nextFeed.thread.maxDepth',
+      'nextFeed.thread.viewDiscussion',
+      'nextFeed.thread.collapseDiscussion',
       'nextFeed.gate.verifyRequired',
       'nextFeed.gate.deniedGeneric',
       'nextFeed.gate.draftPreserved',
@@ -71,6 +73,8 @@ describe('nextFeedDictionary', () => {
       expect(dict.nextFeed.thread.empty).toBeTruthy()
       expect(dict.nextFeed.thread.attachDenied).toBeTruthy()
       expect(dict.nextFeed.thread.maxDepth).toBeTruthy()
+      expect(dict.nextFeed.thread.viewDiscussion).toBeTruthy()
+      expect(dict.nextFeed.thread.collapseDiscussion).toBeTruthy()
       expect(dict.nextFeed.gate.verifyRequired).toBeTruthy()
       expect(dict.nextFeed.gate.deniedGeneric).toBeTruthy()
       expect(dict.nextFeed.gate.draftPreserved).toBeTruthy()
