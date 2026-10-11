@@ -201,12 +201,13 @@
   box-shadow: none;
 }
 
-/* Next-feed list: light-first BoardIssuePost shell (feed presentation · AD-VP-01) */
+/* Next-feed list: theme-token BoardIssuePost shell (feed presentation · AD-VP-01 · NF-10) */
 .feed-list .board-issue-post {
   background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
   border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
   border-radius: 12px;
   color: var(--color-text-primary);
+  box-shadow: none;
 }
 
 .feed-list .board-issue-post-divider {

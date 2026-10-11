@@ -105,6 +105,8 @@ export function FeedListArea({
         <section
           className="feed-list"
           data-testid="feed-list"
+          data-presentation="m149-list"
+          data-list-state="loading"
           aria-busy="true"
           aria-label={t('nextFeed.list.loading')}
         >
@@ -149,12 +151,19 @@ export function FeedListArea({
 
       {showResults && !(feedView === 'map' && mapEligible) ? (
         <section
-          className="feed-list"
+          className={`feed-list${loading ? ' feed-list--refreshing' : ''}`}
           id="next-feed-list"
           data-testid="feed-list"
+          data-presentation="m149-list"
+          data-list-state={loading ? 'refreshing' : 'populated'}
           aria-label={t('nextFeed.list.accessible')}
           aria-busy={loading ? 'true' : undefined}
         >
+          {loading ? (
+            <p className="feed-refresh-status" role="status" data-testid="feed-refresh-status">
+              {t('nextFeed.list.loading')}
+            </p>
+          ) : null}
           <FeedReactionOpenProvider>
             {issues.map((item) => (
               <FeedIssueCard

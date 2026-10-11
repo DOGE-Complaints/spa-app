@@ -15,7 +15,7 @@
   min-height: 36px;
   padding: 6px 12px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
   background: transparent;
   color: var(--color-text-secondary);
   font-size: 0.8rem;
@@ -25,7 +25,8 @@
 
 .feed-list-map-toggle-btn:hover:not(:disabled) {
   color: var(--color-text-primary);
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: color-mix(in srgb, var(--color-border-default, #e7e4dc) 70%, var(--color-text-secondary));
+  background: color-mix(in srgb, var(--color-text-secondary) 6%, transparent);
 }
 
 .feed-list-map-toggle-btn.is-active {
