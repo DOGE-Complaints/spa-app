@@ -9,6 +9,8 @@ const LIST_EN = Object.freeze({
   accessible: 'Published issues feed',
   filteredEmptyTitle: 'No issues match these filters',
   filteredEmptyMessage: 'Clear filters to see published issues again.',
+  searchEmptyTitle: 'No issues match this search',
+  searchEmptyMessage: 'Clear search or filters to see published issues again.',
 })
 
 const LIST_ET = Object.freeze({
@@ -20,6 +22,8 @@ const LIST_ET = Object.freeze({
   accessible: 'Avaldatud teadete voog',
   filteredEmptyTitle: 'Filtritele ei vasta ühtegi teadet',
   filteredEmptyMessage: 'Lähtesta filtrid, et näha avaldatud teateid.',
+  searchEmptyTitle: 'Otsingule ei vasta ühtegi teadet',
+  searchEmptyMessage: 'Tühjenda otsing või filtrid, et näha avaldatud teateid.',
 })
 
 const LIST_RU = Object.freeze({
@@ -31,25 +35,33 @@ const LIST_RU = Object.freeze({
   accessible: 'Лента опубликованных обращений',
   filteredEmptyTitle: 'Нет обращений по выбранным фильтрам',
   filteredEmptyMessage: 'Сбросьте фильтры, чтобы снова увидеть опубликованные обращения.',
+  searchEmptyTitle: 'Нет обращений по этому поиску',
+  searchEmptyMessage: 'Очистите поиск или фильтры, чтобы снова увидеть опубликованные обращения.',
 })
 
 const TOOLBAR_EN = Object.freeze({
   filters: 'Filters',
-  searchUnavailable: 'Live search is not available yet',
+  searchPlaceholder: 'Search issues…',
+  searchAria: 'Search published issues',
+  searchClear: 'Clear search',
   title: 'Feed',
   queryAria: 'Feed query state',
 })
 
 const TOOLBAR_ET = Object.freeze({
   filters: 'Filtrid',
-  searchUnavailable: 'Otseotsing pole veel saadaval',
+  searchPlaceholder: 'Otsi teateid…',
+  searchAria: 'Otsi avaldatud teateid',
+  searchClear: 'Tühjenda otsing',
   title: 'Voog',
   queryAria: 'Voo päringu olek',
 })
 
 const TOOLBAR_RU = Object.freeze({
   filters: 'Фильтры',
-  searchUnavailable: 'Живой поиск пока недоступен',
+  searchPlaceholder: 'Поиск обращений…',
+  searchAria: 'Поиск опубликованных обращений',
+  searchClear: 'Очистить поиск',
   title: 'Лента',
   queryAria: 'Состояние запроса ленты',
 })
@@ -234,8 +246,12 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.list.accessible',
   'nextFeed.list.filteredEmptyTitle',
   'nextFeed.list.filteredEmptyMessage',
+  'nextFeed.list.searchEmptyTitle',
+  'nextFeed.list.searchEmptyMessage',
   'nextFeed.toolbar.filters',
-  'nextFeed.toolbar.searchUnavailable',
+  'nextFeed.toolbar.searchPlaceholder',
+  'nextFeed.toolbar.searchAria',
+  'nextFeed.toolbar.searchClear',
   'nextFeed.toolbar.title',
   'nextFeed.toolbar.queryAria',
   'nextFeed.post.openIssue',

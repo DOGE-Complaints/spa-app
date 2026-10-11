@@ -4,6 +4,7 @@ import { buildChipDescriptors } from '../components/Filters/index.js'
 import { useOptionalSessionShell } from '../auth/SessionShellContext.jsx'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { useBoardFilterDraft } from '../hooks/useBoardFilterDraft.js'
+import { useDebouncedBoardSearch } from '../hooks/useDebouncedBoardSearch.js'
 import { hasActiveBoardFilters } from '../router/boardFilterState.js'
 import {
   normalizeBoardSearch,
@@ -26,11 +27,6 @@ import './NextFeedHostPage.css'
 import '../features/feed/FeedHost.css'
 
 const FEED_PATH = '/next/feed'
-
-/** Strip live search from feed URL (DUI-Q12 — FE enable later). */
-function stripFeedSearch(filters) {
-  return { ...filters, search: '' }
-}
 
 /**
  * Thin L2 host for `#/next/feed` — feed visual plane in `features/feed/`.
@@ -57,7 +53,8 @@ export function NextFeedHostPage() {
       : 'auto'
 
   const rawFilters = parseBoardQuery(location.search)
-  const boardFilters = useMemo(() => stripFeedSearch(rawFilters), [
+  const boardFilters = useMemo(() => rawFilters, [
+    rawFilters.search,
     rawFilters.status.join(','),
     rawFilters.type,
     rawFilters.labels.join(','),
@@ -67,9 +64,7 @@ export function NextFeedHostPage() {
     ...GEO_ADMIN_FILTER_KEYS.map((key) => rawFilters[key].join(',')),
   ])
 
-  const normalizedSearch = normalizeBoardSearch(
-    serializeBoardQuery(stripFeedSearch(boardFilters)),
-  )
+  const normalizedSearch = normalizeBoardSearch(serializeBoardQuery(boardFilters))
   const feedUrlForBack = useMemo(() => {
     const from = searchParams.get('from')
     if (typeof from === 'string' && from.startsWith('/next/feed')) return from
@@ -79,6 +74,7 @@ export function NextFeedHostPage() {
   const serverFilterKey = useMemo(
     () => serializeServerBoardQuery(boardFilters),
     [
+      boardFilters.search,
       boardFilters.type,
       boardFilters.labels.join(','),
       boardFilters.institution,
@@ -104,6 +100,24 @@ export function NextFeedHostPage() {
     pathname: FEED_PATH,
   })
 
+  const commitSearch = useCallback(
+    (search) => {
+      const next = { ...boardFilters, search: typeof search === 'string' ? search : '' }
+      navigate({ pathname: FEED_PATH, search: serializeBoardQuery(next) }, { replace: true })
+    },
+    [
+      navigate,
+      boardFilters.search,
+      boardFilters.type,
+      boardFilters.labels.join(','),
+      boardFilters.institution,
+      boardFilters.created_after,
+      boardFilters.created_before,
+      ...GEO_ADMIN_FILTER_KEYS.map((key) => boardFilters[key].join(',')),
+    ],
+  )
+  const { searchDraft, setSearchDraft } = useDebouncedBoardSearch(boardFilters.search, commitSearch)
+
   const fetchIssues = useCallback(() => {
     setLoading(true)
     setError(null)
@@ -126,6 +140,7 @@ export function NextFeedHostPage() {
         setLoading(false)
       })
   }, [
+    boardFilters.search,
     boardFilters.type,
     boardFilters.labels.join(','),
     boardFilters.institution,
@@ -193,6 +208,8 @@ export function NextFeedHostPage() {
               t={t}
               locale={locale}
               normalizedSearch={normalizedSearch}
+              searchDraft={searchDraft}
+              setSearchDraft={setSearchDraft}
               pending={pending}
               setPending={setPending}
               isPanelOpen={isPanelOpen}
@@ -230,6 +247,7 @@ export function NextFeedHostPage() {
               feedView={feedView}
               mapEligible={mapEligible}
               onReturnToList={() => setFeedView('list')}
+              searchActive={Boolean(boardFilters.search?.trim())}
             />
           </>
         ) : null}

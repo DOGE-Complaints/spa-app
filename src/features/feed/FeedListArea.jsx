@@ -56,6 +56,7 @@ export function FeedListArea({
   feedView = 'list',
   mapEligible = false,
   onReturnToList,
+  searchActive = false,
 }) {
   return (
     <>
@@ -130,9 +131,22 @@ export function FeedListArea({
       ) : null}
 
       {!loading && showFilteredEmpty ? (
-        <div className="feed-state feed-filtered-empty" data-testid="feed-filtered-empty" role="status">
-          <h3>{t('nextFeed.list.filteredEmptyTitle')}</h3>
-          <p>{t('nextFeed.list.filteredEmptyMessage')}</p>
+        <div
+          className="feed-state feed-filtered-empty"
+          data-testid="feed-filtered-empty"
+          data-search-empty={searchActive ? 'true' : undefined}
+          role="status"
+        >
+          <h3>
+            {searchActive
+              ? t('nextFeed.list.searchEmptyTitle')
+              : t('nextFeed.list.filteredEmptyTitle')}
+          </h3>
+          <p>
+            {searchActive
+              ? t('nextFeed.list.searchEmptyMessage')
+              : t('nextFeed.list.filteredEmptyMessage')}
+          </p>
           <Button type="button" hierarchy="secondary" onClick={reset}>
             {t('resetFilters')}
           </Button>

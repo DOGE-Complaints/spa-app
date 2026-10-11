@@ -8,17 +8,19 @@ import {
   TypeFilter,
   LabelsFilter,
   ResetFiltersControl,
+  SearchInput,
 } from '../../components/Filters/index.js'
 import { FeedListMapToggle } from './FeedListMapToggle.jsx'
 
 /**
- * Next-feed toolbar: structural filters + List|Map toggle (M151).
- * Live text search withheld (DUI-Q12 / REQ-56 FE enable pending).
+ * Next-feed toolbar: live text search (M149 / AD-VP-03) + structural filters + List|Map.
  */
 export function FeedToolbar({
   t,
   locale,
   normalizedSearch,
+  searchDraft,
+  setSearchDraft,
   pending,
   setPending,
   isPanelOpen,
@@ -48,19 +50,15 @@ export function FeedToolbar({
           </p>
         </div>
         <div className="feed-filters-row">
-          <p
-            className="feed-search-unavailable"
-            data-testid="feed-search-unavailable"
-            role="status"
-          >
-            <img
-              className="feed-icon"
-              src="/icons/next-feed/status/unavailable.svg"
-              alt=""
-              aria-hidden="true"
+          <div className="feed-search" data-testid="feed-search">
+            <SearchInput
+              value={searchDraft}
+              onChange={setSearchDraft}
+              placeholder={t('nextFeed.toolbar.searchPlaceholder')}
+              ariaLabel={t('nextFeed.toolbar.searchAria')}
+              clearAriaLabel={t('nextFeed.toolbar.searchClear')}
             />
-            <span>{t('nextFeed.toolbar.searchUnavailable')}</span>
-          </p>
+          </div>
           <img
             className="feed-icon"
             src="/icons/next-feed/actions/filter.svg"

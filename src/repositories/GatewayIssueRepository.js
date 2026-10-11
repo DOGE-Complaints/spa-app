@@ -57,8 +57,16 @@ function buildIssuesQuery(options = undefined) {
     appendArrayParams(params, key, options[key])
   }
 
+  // REQ-56 / AD-VP-03 — gateway param name locked to `search` (no invent endpoint)
+  if (typeof options.search === 'string' && options.search.trim()) {
+    params.set('search', options.search.trim())
+  }
+
   return params
 }
+
+/** @internal exported for unit tests (NF-12) */
+export { buildIssuesQuery as __buildIssuesQueryForTests }
 
 async function readJsonOrThrow(response) {
   if (!response.ok) {

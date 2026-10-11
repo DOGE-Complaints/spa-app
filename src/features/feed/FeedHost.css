@@ -54,17 +54,14 @@
   margin-top: 4px;
 }
 
-.feed-search-unavailable {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px dashed var(--color-border-default, var(--doge-border, #e7e4dc));
-  color: var(--color-text-secondary);
-  font-size: 0.8rem;
-  background: color-mix(in srgb, var(--color-surface-elevated, #fffdf8) 55%, transparent);
+.feed-search {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  max-width: 22rem;
+}
+
+.feed-search .board-search-input-wrap {
+  width: 100%;
 }
 
 .feed-icon {

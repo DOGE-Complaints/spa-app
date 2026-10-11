@@ -128,11 +128,13 @@ export function serializeServerBoardQuery(input) {
   const filters = typeof input === 'string' || input instanceof URLSearchParams
     ? parseBoardQuery(input)
     : input
+  // AD-VP-03 / NF-12: keep trimmed `search` in server refetch key (REQ-56 param).
+  // Empty/whitespace → omitted by serializeBoardQuery (no text restriction).
   return serializeBoardQuery({
     status: filters?.status ?? [],
     type: filters?.type ?? '',
     labels: filters?.labels ?? [],
-    search: '',
+    search: typeof filters?.search === 'string' ? filters.search : '',
     institution: filters?.institution ?? '',
     created_after: filters?.created_after ?? '',
     created_before: filters?.created_before ?? '',
