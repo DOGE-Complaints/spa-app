@@ -143,33 +143,124 @@
   margin-top: 4px;
 }
 
-/* M153 oval composer chrome — paperclip + circular send geometry via existing tools */
+/* M153 oval composer chrome — integrated paperclip + circular icon send (AD-VP-01 · NF-11 T04) */
 .feed-discussion-composer-wrap[data-composer-chrome='oval'],
 .feed-discussion-composer-wrap[data-composer-chrome='oval-entry'] {
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
-.feed-discussion-composer-wrap .comment-composer-input {
-  border-radius: 999px;
-  min-height: 48px;
-  padding: 12px 18px;
-  border-color: var(--color-border-default, var(--doge-border, #e7e4dc));
-  background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
-}
-
-.feed-discussion-composer-wrap .comment-composer-toolbar {
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
+  gap: 6px;
+  padding: 4px 4px 4px 14px;
+  border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  border-radius: 999px;
+  background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
+  min-width: 0;
 }
 
-.feed-discussion-composer-wrap button[data-testid='comment-attach-button'] {
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 40px;
+  max-height: 40px;
+  padding: 8px 4px;
+  border: none;
   border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-primary);
+  resize: none;
+  box-shadow: none;
 }
 
-.feed-discussion-composer-wrap button[data-testid='comment-composer-post'] {
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-toolbar {
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 2px;
+  margin-left: 0;
+}
+
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-attach-button'] {
+  border: none;
   border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  justify-content: center;
+  gap: 0;
+}
+
+/* Keep accessible name; hide visible «Attach» label (icon = paperclip) */
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-attach-button'] > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-post'],
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-try-again'] {
+  margin-left: 0;
+  width: 44px;
+  height: 44px;
   min-width: 44px;
   min-height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-action-primary, #e67a2e);
+  color: #fff;
   justify-content: center;
+  gap: 0;
+  box-shadow: none;
+}
+
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-post'] > span,
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-try-again'] > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-post'] img,
+.feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-try-again'] img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-attach-chip,
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-warning,
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-post-fail,
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-handoff {
+  flex: 1 1 100%;
+  order: 3;
+}
+
+@media (max-width: 520px) {
+  .feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-post'],
+  .feed-discussion-composer-wrap[data-oval-composer='true'] button[data-testid='comment-composer-try-again'] {
+    width: 44px;
+    margin-left: 0;
+  }
 }
 
 .feed-list .feed-discussion-block {

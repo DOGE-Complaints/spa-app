@@ -37,8 +37,10 @@ export function FeedDiscussionBlock({
   iconPack = null,
   showInviteStub = true,
   issueId = null,
+  /** Test / harness: start expanded (M153 tree + oval composer) */
+  initialExpanded = false,
 }) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(Boolean(initialExpanded))
   const scene = status === 'populated' ? resolveHarnessThr02Scene('nested') : null
   const effectiveMaxDepth = scene === 'max-depth' ? 2 : maxDepth
   const icons = iconPack || THREADS_FEED_THREAD_ICONS
@@ -230,13 +232,23 @@ export function FeedDiscussionBlock({
       ) : null}
 
       {showComposerEntry && (status === 'empty' || (status === 'populated' && !expanded)) ? (
-        <div className="feed-discussion-composer-wrap" data-composer-chrome="oval-entry">
+        <div
+          className="feed-discussion-composer-wrap"
+          data-composer-chrome="oval-entry"
+          data-oval-composer="true"
+          data-presentation="m153-composer-entry"
+        >
           <CommentComposer t={t} mode="root" testId="issue-thread-composer" {...composerShared} />
         </div>
       ) : null}
 
       {status === 'populated' && expanded && showComposerEntry ? (
-        <div className="feed-discussion-composer-wrap" data-composer-chrome="oval">
+        <div
+          className="feed-discussion-composer-wrap"
+          data-composer-chrome="oval"
+          data-oval-composer="true"
+          data-presentation="m153-composer"
+        >
           <CommentComposer t={t} mode="root" testId="issue-thread-composer" {...composerShared} />
         </div>
       ) : null}
