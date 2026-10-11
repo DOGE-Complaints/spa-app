@@ -43,6 +43,15 @@ Presentation may wrap or replace chrome of shared modules; it must not fork a se
 | Mount | `FeedThreadMount` → Closed `LiveIssueThreadMount` with `BlockComponent={FeedDiscussionBlock}` |
 | Forbidden | Classic `issue-thread-actions` Discussion/Invite primary row competing with civic strip · invent second threads HTTP plane · M155 |
 
+### 1d) Reactions strip + picker presentation (NF-09 · M154)
+
+| Fact | Home |
+|------|------|
+| Compact strip / picker chrome | `src/features/feed/FeedReactionsStrip.jsx` (+ CSS) · `data-presentation="m154-strip"` · sheet\|popover |
+| Civic bridge | `FeedReactionOpenContext` · `feed-civic-action-reactions` → thread-root picker |
+| Semantics reuse | Closed `ReactionControls` + `reactionsV1Catalog` / PUT — no invent ids · THREAD-ROOT no Moderation |
+| Forbidden | M155 people list · Facebook-like default · Moderation selectable at root |
+
 ---
 
 ## 2) Trust & honesty
