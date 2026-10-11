@@ -115,18 +115,24 @@ const THREAD_EN = Object.freeze({
   empty: 'No comments yet',
   attachDenied: 'Attachments are not available',
   maxDepth: 'Reply depth limit reached',
+  viewDiscussion: 'View discussion',
+  collapseDiscussion: 'Collapse discussion',
 })
 
 const THREAD_ET = Object.freeze({
   empty: 'Kommentaare pole veel',
   attachDenied: 'Manuseid ei saa lisada',
   maxDepth: 'Vastuste sügavuse limiit',
+  viewDiscussion: 'Vaata arutelu',
+  collapseDiscussion: 'Sulge arutelu',
 })
 
 const THREAD_RU = Object.freeze({
   empty: 'Пока нет комментариев',
   attachDenied: 'Вложения недоступны',
   maxDepth: 'Достигнут лимит глубины ответов',
+  viewDiscussion: 'Смотреть обсуждение',
+  collapseDiscussion: 'Свернуть обсуждение',
 })
 
 const GATE_EN = Object.freeze({
@@ -248,6 +254,8 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.thread.empty',
   'nextFeed.thread.attachDenied',
   'nextFeed.thread.maxDepth',
+  'nextFeed.thread.viewDiscussion',
+  'nextFeed.thread.collapseDiscussion',
   'nextFeed.gate.verifyRequired',
   'nextFeed.gate.deniedGeneric',
   'nextFeed.gate.draftPreserved',

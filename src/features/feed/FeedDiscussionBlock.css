@@ -1,0 +1,183 @@
+/* FeedDiscussionBlock — M152 THR-P collapsed + M153 expand (NF-08 · AD-VP-01/02) */
+
+.feed-discussion-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px 20px;
+  min-width: 0;
+  color: var(--color-text-primary);
+  border-top: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  background: color-mix(in srgb, var(--color-surface-elevated, #fffdf8) 88%, transparent);
+}
+
+.feed-discussion-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.feed-discussion-state {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.feed-discussion-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feed-discussion-skeleton span {
+  display: block;
+  height: 10px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-text-secondary) 14%, transparent);
+}
+
+.feed-discussion-skeleton span:nth-child(2) {
+  width: 82%;
+}
+
+.feed-discussion-skeleton span:nth-child(3) {
+  width: 64%;
+}
+
+.feed-discussion-empty-title,
+.feed-discussion-summary-title,
+.feed-discussion-unavailable-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.feed-discussion-empty-helper,
+.feed-discussion-unavailable-helper {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.feed-discussion-unavailable-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feed-discussion-unavailable-title img,
+.feed-discussion-retry-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.feed-discussion-previews {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feed-discussion-preview-body {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+}
+
+.feed-discussion-view,
+.feed-discussion-collapse,
+.feed-discussion-retry {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  width: fit-content;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  background: transparent;
+  color: var(--button-link-text, var(--color-text-warm, #b54708));
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feed-discussion-view:hover,
+.feed-discussion-collapse:hover {
+  background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
+}
+
+.feed-discussion-view:focus-visible,
+.feed-discussion-collapse:focus-visible,
+.feed-discussion-retry:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doge-accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.feed-discussion-retry {
+  border-color: var(--doge-accent, #f5c542);
+  color: var(--color-text-primary);
+}
+
+.feed-discussion-expanded-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.feed-discussion-invite-secondary {
+  margin-top: 4px;
+}
+
+/* M153 oval composer chrome — paperclip + circular send geometry via existing tools */
+.feed-discussion-composer-wrap[data-composer-chrome='oval'],
+.feed-discussion-composer-wrap[data-composer-chrome='oval-entry'] {
+  margin-top: 4px;
+}
+
+.feed-discussion-composer-wrap .comment-composer-input {
+  border-radius: 999px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-color: var(--color-border-default, var(--doge-border, #e7e4dc));
+  background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
+}
+
+.feed-discussion-composer-wrap .comment-composer-toolbar {
+  align-items: center;
+}
+
+.feed-discussion-composer-wrap button[data-testid='comment-attach-button'] {
+  border-radius: 999px;
+}
+
+.feed-discussion-composer-wrap button[data-testid='comment-composer-post'] {
+  border-radius: 999px;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+}
+
+.feed-list .feed-discussion-block {
+  background: color-mix(in srgb, var(--color-bg-primary, #f7f6f2) 55%, transparent);
+}
+
+@media (max-width: 420px) {
+  .feed-discussion-block {
+    padding: 14px 16px 16px;
+  }
+}

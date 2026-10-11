@@ -32,6 +32,8 @@ export function LiveIssueThreadMount({
   client = defaultThreadsSocialClient,
   iconPack = null,
   showInviteStub = true,
+  /** Presentation block — default classic IssueThreadBlock; next-feed passes FeedDiscussionBlock */
+  BlockComponent = IssueThreadBlock,
 }) {
   const [status, setStatus] = useState(/** @type {'loading'|'empty'|'populated'|'unavailable'} */ ('loading'))
   const [comments, setComments] = useState(/** @type {Array} */ ([]))
@@ -164,8 +166,10 @@ export function LiveIssueThreadMount({
     await load()
   }, [load])
 
+  const Block = BlockComponent || IssueThreadBlock
+
   return (
-    <IssueThreadBlock
+    <Block
       status={status}
       t={t}
       comments={comments}

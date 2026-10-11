@@ -8,6 +8,7 @@ export function makeFeedThreadT(t) {
     'threadsFeed.post.empty.title': 'nextFeed.thread.empty',
     'threadsFeed.composer.attachDenied': 'nextFeed.thread.attachDenied',
     'threadsFeed.composer.maxDepthReached': 'nextFeed.thread.maxDepth',
+    'threadsFeed.post.openTree': 'nextFeed.thread.viewDiscussion',
     'threadsFeed.verify.cta': 'nextFeed.gate.verifyRequired',
     'threadsFeed.verify.body': 'nextFeed.gate.deniedGeneric',
     'threadsFeed.composer.draftPreserved': 'nextFeed.gate.draftPreserved',
