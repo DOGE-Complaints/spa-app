@@ -2,19 +2,20 @@ import { describe, expect, it } from 'vitest'
 import { serializeServerBoardQuery } from '../../router/boardQuery.js'
 
 describe('BoardPage serverFilterKey regression', () => {
-  it('server query key ignores search-only URL delta (fetch cadence guard)', () => {
+  it('server query key includes search delta (REQ-56 / NF-12 FE enable)', () => {
     const withSearchA = serializeServerBoardQuery('?status=NEW&labels=waste&search=alpha')
     const withSearchB = serializeServerBoardQuery('?status=NEW&labels=waste&search=beta')
     const withoutSearch = serializeServerBoardQuery({
       status: ['NEW'],
       labels: ['waste'],
       type: '',
-      search: 'ignored',
+      search: '',
     })
 
-    expect(withSearchA).toBe('?status=NEW&labels=waste')
-    expect(withSearchB).toBe(withSearchA)
-    expect(withoutSearch).toBe(withSearchA)
+    expect(withSearchA).toBe('?status=NEW&labels=waste&search=alpha')
+    expect(withSearchB).toBe('?status=NEW&labels=waste&search=beta')
+    expect(withSearchA).not.toBe(withSearchB)
+    expect(withoutSearch).toBe('?status=NEW&labels=waste')
   })
 
   it('server query key changes when institution or date bounds change', () => {

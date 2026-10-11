@@ -50,27 +50,30 @@ describe('NF-01 feed list/toolbar host', () => {
     expect(NEXT_FEED_FLAT_KEYS).toContain('nextFeed.list.retry')
     expect(NEXT_FEED_FLAT_KEYS).toContain('nextFeed.list.stale')
     expect(NEXT_FEED_FLAT_KEYS).toContain('nextFeed.toolbar.filters')
-    expect(NEXT_FEED_FLAT_KEYS).toContain('nextFeed.toolbar.searchUnavailable')
+    expect(NEXT_FEED_FLAT_KEYS).toContain('nextFeed.toolbar.searchPlaceholder')
   })
 
-  it('renders feed host with toolbar and hides live search', () => {
+  it('renders feed host with toolbar and live search control', () => {
     const html = renderFeed('/next/feed')
     expect(html).toContain('data-testid="next-feed-host"')
     expect(html).toContain('data-testid="feed-host"')
     expect(html).toContain('data-testid="feed-toolbar"')
-    expect(html).toContain('data-testid="feed-search-unavailable"')
-    expect(html).toContain('Live search is not available yet')
+    expect(html).toContain('data-testid="feed-search"')
+    expect(html).toContain('class="board-search-input"')
+    expect(html).not.toContain('data-testid="feed-search-unavailable"')
     expect(html).not.toContain('data-testid="next-feed-host-wip"')
     expect(html).not.toContain('Feed coming soon')
   })
 
-  it('toolbar wires next-feed / next-shell icon URLs', () => {
+  it('toolbar wires next-feed filter icon + search input', () => {
     const t = (key) => key
     const html = renderToStaticMarkup(
       <FeedToolbar
         t={t}
         locale="en"
         normalizedSearch=""
+        searchDraft=""
+        setSearchDraft={() => {}}
         pending={{
           status: [],
           type: '',
@@ -100,7 +103,7 @@ describe('NF-01 feed list/toolbar host', () => {
         removeChip={() => {}}
       />,
     )
-    expect(html).toContain('/icons/next-feed/status/unavailable.svg')
+    expect(html).toContain('data-testid="feed-search"')
     expect(html).toContain('/icons/next-feed/actions/filter.svg')
   })
 
@@ -150,12 +153,12 @@ describe('NF-01 feed list/toolbar host', () => {
     expect(emptyHtml).toContain('/icons/next-feed/status/info.svg')
   })
 
-  it('buildFeedListOptions locks PUBLISHED and omits search', () => {
+  it('buildFeedListOptions locks PUBLISHED and passes trimmed search (NF-12)', () => {
     const opts = buildFeedListOptions({
       status: ['NEW'],
       type: 'INCIDENT',
       labels: ['waste'],
-      search: 'should-not-pass',
+      search: '  pet care  ',
       institution: '',
       created_after: '',
       created_before: '',
@@ -168,6 +171,8 @@ describe('NF-01 feed list/toolbar host', () => {
     expect(opts.status).toEqual([ISSUE_STATUS.PUBLISHED])
     expect(opts.type).toBe('INCIDENT')
     expect(opts.labels).toEqual(['waste'])
-    expect(opts.search).toBeUndefined()
+    expect(opts.search).toBe('pet care')
+    const empty = buildFeedListOptions({ search: '   ' })
+    expect(empty.search).toBeUndefined()
   })
 })

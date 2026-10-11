@@ -43,13 +43,17 @@ describe('boardQuery helpers', () => {
     expect(normalizeBoardSearch('?status=NEW&foo=bar&search=test')).toBe('?status=NEW&search=test')
   })
 
-  it('serializeServerBoardQuery ignores search-only URL changes', () => {
+  it('serializeServerBoardQuery includes trimmed search in server refetch key (REQ-56 / NF-12)', () => {
     const withFoo = serializeServerBoardQuery('?status=NEW&search=foo')
     const withBar = serializeServerBoardQuery('?status=NEW&search=bar')
     const withoutSearch = serializeServerBoardQuery('?status=NEW')
+    const whitespaceOnly = serializeServerBoardQuery('?status=NEW&search=%20%20')
 
-    expect(withFoo).toBe(withBar)
-    expect(withFoo).toBe(withoutSearch)
+    expect(withFoo).toBe('?status=NEW&search=foo')
+    expect(withBar).toBe('?status=NEW&search=bar')
+    expect(withFoo).not.toBe(withBar)
+    expect(withFoo).not.toBe(withoutSearch)
+    expect(whitespaceOnly).toBe(withoutSearch)
   })
 
   it('serializeServerBoardQuery changes when server filters change', () => {

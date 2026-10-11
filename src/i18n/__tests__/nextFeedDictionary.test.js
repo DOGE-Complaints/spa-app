@@ -16,8 +16,12 @@ describe('nextFeedDictionary', () => {
       'nextFeed.list.accessible',
       'nextFeed.list.filteredEmptyTitle',
       'nextFeed.list.filteredEmptyMessage',
+      'nextFeed.list.searchEmptyTitle',
+      'nextFeed.list.searchEmptyMessage',
       'nextFeed.toolbar.filters',
-      'nextFeed.toolbar.searchUnavailable',
+      'nextFeed.toolbar.searchPlaceholder',
+      'nextFeed.toolbar.searchAria',
+      'nextFeed.toolbar.searchClear',
       'nextFeed.toolbar.title',
       'nextFeed.toolbar.queryAria',
       'nextFeed.post.openIssue',
@@ -56,7 +60,11 @@ describe('nextFeedDictionary', () => {
       expect(dict.nextFeed.list.retry).toBeTruthy()
       expect(dict.nextFeed.list.stale).toBeTruthy()
       expect(dict.nextFeed.toolbar.filters).toBeTruthy()
-      expect(dict.nextFeed.toolbar.searchUnavailable).toBeTruthy()
+      expect(dict.nextFeed.toolbar.searchPlaceholder).toBeTruthy()
+      expect(dict.nextFeed.toolbar.searchAria).toBeTruthy()
+      expect(dict.nextFeed.toolbar.searchClear).toBeTruthy()
+      expect(dict.nextFeed.list.searchEmptyTitle).toBeTruthy()
+      expect(dict.nextFeed.list.searchEmptyMessage).toBeTruthy()
       expect(dict.nextFeed.post.openIssue).toBeTruthy()
       expect(dict.nextFeed.post.more).toBeTruthy()
       expect(dict.nextFeed.post.actions).toBeTruthy()
