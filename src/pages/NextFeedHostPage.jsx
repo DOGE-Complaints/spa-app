@@ -22,9 +22,17 @@ import {
 import { collectGeoAdminOptionsFromIssues } from '../i18n/collectGeoAdminOptionsFromIssues.js'
 import { GEO_ADMIN_FILTER_KEYS } from '../i18n/geoAdminFilterKeys.js'
 import { isMapEligible } from '../map/issueGeo.js'
-import { FeedToolbar, FeedListArea, FeedIssueMount } from '../features/feed/index.js'
+import {
+  FeedToolbar,
+  FeedListArea,
+  FeedIssueMount,
+  BoardLayout,
+  PageContentLayout,
+  useBoardLayoutVariant,
+} from '../features/feed/index.js'
 import './NextFeedHostPage.css'
 import '../features/feed/FeedHost.css'
+import '../features/feed/board/BoardChrome.css'
 
 const FEED_PATH = '/next/feed'
 
@@ -193,79 +201,85 @@ export function NextFeedHostPage() {
   }, [mapEligible, feedView])
 
   const showRouteMount = Boolean(issueId && mountPresentation === 'route')
+  const layoutVariant = useBoardLayoutVariant()
 
   return (
     <div className="board-shell next-feed-host-route" data-testid="next-feed-host">
-      <main
-        className={`feed-host${issueId ? ' feed-host--issue-open' : ''}`}
-        data-testid="feed-host"
-        aria-label={t('nextFeed.list.accessible')}
-        data-issue-open={issueId ? 'true' : undefined}
-      >
-        {!showRouteMount ? (
-          <>
-            <FeedToolbar
-              t={t}
-              locale={locale}
-              normalizedSearch={normalizedSearch}
-              searchDraft={searchDraft}
-              setSearchDraft={setSearchDraft}
-              pending={pending}
-              setPending={setPending}
-              isPanelOpen={isPanelOpen}
-              togglePanel={togglePanel}
-              isDirty={isDirty}
-              hasActiveFilters={hasActiveFilters}
-              apply={apply}
-              reset={reset}
-              availableInstitutions={availableInstitutions}
-              availableGeoOptions={availableGeoOptions}
-              availableLabels={availableLabels}
-              formatInstitution={formatInstitution}
-              activeFilterChips={activeFilterChips}
-              removeChip={removeChip}
-              showResults={showResults || showStale}
-              loading={loading}
-              showFilteredEmpty={showFilteredEmpty}
-              searchActive={Boolean(boardFilters.search?.trim())}
-              feedView={feedView}
-              setFeedView={setFeedView}
-              mapEligible={mapEligible}
-            />
-            <FeedListArea
-              t={t}
-              locale={locale}
-              error={error}
-              loading={loading}
-              stale={showStale}
-              fetchIssues={fetchIssues}
-              showEmpty={showEmpty}
-              showFilteredEmpty={showFilteredEmpty}
-              reset={reset}
-              showResults={showResults || showStale}
-              issues={issues}
-              resolveLocalizedText={resolveLocalizedText}
-              feedUrlForBack={feedUrlForBack}
-              meProfile={meProfile}
-              feedView={feedView}
-              mapEligible={mapEligible}
-              onReturnToList={() => setFeedView('list')}
-              searchActive={Boolean(boardFilters.search?.trim())}
-            />
-          </>
-        ) : null}
-        {issueId ? (
-          <FeedIssueMount
-            issueId={issueId}
-            t={t}
-            locale={locale}
-            resolveLocalizedText={resolveLocalizedText}
-            meProfile={meProfile}
-            feedUrlForBack={feedUrlForBack}
-            presentation={mountPresentation}
-          />
-        ) : null}
-      </main>
+      {/* Shell rails = next-shell OOS — BoardLayout content column only (no empty side tracks). */}
+      <BoardLayout variant={layoutVariant}>
+        <PageContentLayout density={layoutVariant}>
+          <main
+            className={`feed-host${issueId ? ' feed-host--issue-open' : ''}`}
+            data-testid="feed-host"
+            aria-label={t('nextFeed.list.accessible')}
+            data-issue-open={issueId ? 'true' : undefined}
+          >
+            {!showRouteMount ? (
+              <>
+                <FeedToolbar
+                  t={t}
+                  locale={locale}
+                  normalizedSearch={normalizedSearch}
+                  searchDraft={searchDraft}
+                  setSearchDraft={setSearchDraft}
+                  pending={pending}
+                  setPending={setPending}
+                  isPanelOpen={isPanelOpen}
+                  togglePanel={togglePanel}
+                  isDirty={isDirty}
+                  hasActiveFilters={hasActiveFilters}
+                  apply={apply}
+                  reset={reset}
+                  availableInstitutions={availableInstitutions}
+                  availableGeoOptions={availableGeoOptions}
+                  availableLabels={availableLabels}
+                  formatInstitution={formatInstitution}
+                  activeFilterChips={activeFilterChips}
+                  removeChip={removeChip}
+                  showResults={showResults || showStale}
+                  loading={loading}
+                  showFilteredEmpty={showFilteredEmpty}
+                  searchActive={Boolean(boardFilters.search?.trim())}
+                  feedView={feedView}
+                  setFeedView={setFeedView}
+                  mapEligible={mapEligible}
+                />
+                <FeedListArea
+                  t={t}
+                  locale={locale}
+                  error={error}
+                  loading={loading}
+                  stale={showStale}
+                  fetchIssues={fetchIssues}
+                  showEmpty={showEmpty}
+                  showFilteredEmpty={showFilteredEmpty}
+                  reset={reset}
+                  showResults={showResults || showStale}
+                  issues={issues}
+                  resolveLocalizedText={resolveLocalizedText}
+                  feedUrlForBack={feedUrlForBack}
+                  meProfile={meProfile}
+                  feedView={feedView}
+                  mapEligible={mapEligible}
+                  onReturnToList={() => setFeedView('list')}
+                  searchActive={Boolean(boardFilters.search?.trim())}
+                />
+              </>
+            ) : null}
+            {issueId ? (
+              <FeedIssueMount
+                issueId={issueId}
+                t={t}
+                locale={locale}
+                resolveLocalizedText={resolveLocalizedText}
+                meProfile={meProfile}
+                feedUrlForBack={feedUrlForBack}
+                presentation={mountPresentation}
+              />
+            ) : null}
+          </main>
+        </PageContentLayout>
+      </BoardLayout>
     </div>
   )
 }

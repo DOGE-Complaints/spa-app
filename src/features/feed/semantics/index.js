@@ -9,6 +9,7 @@ export {
 } from './commentTreeDepth.js'
 export { isDraftDirty } from './composerDraft.js'
 export { selectResultsContextStatus } from './resultsContext.js'
+export { selectBoardLayoutVariant } from './boardLayoutVariant.js'
 export {
   REACTIONS_V1_VERSION,
   REACTIONS_V1_ENTRIES,

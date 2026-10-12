@@ -54,8 +54,12 @@ export {
   ResultsContext,
   StaleResultsNotice,
   BoardFeedState,
+  BoardLayout,
+  PageContentLayout,
 } from './board/index.js'
 export { selectResultsContextStatus } from './semantics/resultsContext.js'
+export { selectBoardLayoutVariant } from './semantics/boardLayoutVariant.js'
+export { useBoardLayoutVariant } from './useBoardLayoutVariant.js'
 export {
   selectPreviewBodies,
   COLLAPSED_PREVIEW_LIMIT,

@@ -43,3 +43,69 @@
 .board-feed-state {
   min-width: 0;
 }
+
+/* DS §2 BoardLayout / PageContentLayout — next-feed content column only (shell OOS). */
+
+.board-layout {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: 20px;
+  align-items: start;
+}
+
+.board-layout--compact,
+.board-layout--medium {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Wide: single content column when side modules Absent — no empty rail tracks. */
+.board-layout--wide {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.board-layout--wide[data-has-side-start='true'][data-has-side-end='false'] {
+  grid-template-columns: 240px minmax(640px, 1fr);
+}
+
+.board-layout--wide[data-has-side-start='false'][data-has-side-end='true'] {
+  grid-template-columns: minmax(640px, 1fr) 280px;
+}
+
+.board-layout--wide[data-has-side-start='true'][data-has-side-end='true'] {
+  grid-template-columns: 240px minmax(640px, 1fr) 280px;
+}
+
+.board-layout__main {
+  min-width: 0;
+  width: 100%;
+}
+
+.board-layout__side {
+  min-width: 0;
+}
+
+.page-content-layout {
+  width: 100%;
+  margin-inline: auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.page-content-layout--compact {
+  max-width: 720px;
+  padding-inline: clamp(12px, 3vw, 20px);
+}
+
+.page-content-layout--medium {
+  max-width: 760px;
+  padding-inline: 24px;
+}
+
+.page-content-layout--wide {
+  max-width: 824px;
+  padding-inline: clamp(24px, 2vw, 28px);
+}
