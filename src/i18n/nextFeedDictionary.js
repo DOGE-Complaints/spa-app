@@ -122,6 +122,7 @@ const MAP_EN = Object.freeze({
   error: 'Map could not load',
   unavailable: 'Map unavailable',
   pinLabel: 'Issue location',
+  closePreview: 'Close preview',
 })
 
 const MAP_ET = Object.freeze({
@@ -131,6 +132,7 @@ const MAP_ET = Object.freeze({
   error: 'Kaarti ei õnnestunud laadida',
   unavailable: 'Kaart pole saadaval',
   pinLabel: 'Teate asukoht',
+  closePreview: 'Sulge eelvaade',
 })
 
 const MAP_RU = Object.freeze({
@@ -140,6 +142,7 @@ const MAP_RU = Object.freeze({
   error: 'Карта не загрузилась',
   unavailable: 'Карта недоступна',
   pinLabel: 'Место обращения',
+  closePreview: 'Закрыть превью',
 })
 
 const THREAD_EN = Object.freeze({
@@ -293,6 +296,7 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.map.error',
   'nextFeed.map.unavailable',
   'nextFeed.map.pinLabel',
+  'nextFeed.map.closePreview',
   'nextFeed.thread.empty',
   'nextFeed.thread.attachDenied',
   'nextFeed.thread.maxDepth',

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
-import { BoardIssuesMap } from '../../components/map/BoardIssuesMap.jsx'
 import { listPinCapableIssues } from '../../map/issueGeo.js'
 import { Button } from '../../components/Button'
+import { BoardMap, MapSubsetNotice, MapStatePanel } from './map/index.js'
 import './FeedMapArea.css'
 
 /** Catalog SVG remains at map-pin.svg; MapLibre needs a raster (PNG) for visible markers. */
@@ -9,9 +9,9 @@ const NEXT_FEED_PIN_CATALOG = '/icons/next-feed/map/map-pin.svg'
 const NEXT_FEED_PIN = '/icons/next-feed/map/map-pin.png'
 
 /**
- * Next-feed map region (M151 · FR-NF-03.2–.4).
- * Reuses BoardIssuesMap + issueGeo; pin asset = next-feed catalog SVG.
- * No invent map/search HTTP (DUI-Q14 process honesty).
+ * Next-feed map region (M151 · FR-VL-10 / NF-03).
+ * DS §9 chrome: MapSubsetNotice · BoardMap · MapIssuePreview · MapAttribution · MapStatePanel.
+ * Reuses BoardIssuesMap + issueGeo; no invent map/search HTTP.
  */
 export function FeedMapArea({
   issues,
@@ -43,25 +43,32 @@ export function FeedMapArea({
 
   if (mapFailed) {
     return (
-      <div className="feed-map-area feed-map-area--error" data-testid="feed-map-error" role="alert">
-        <img
-          className="feed-icon feed-icon--lg"
-          src="/icons/next-feed/status/error.svg"
-          alt=""
-          aria-hidden="true"
-        />
-        <h3>{t('nextFeed.map.error')}</h3>
-        <p>{t('nextFeed.map.unavailable')}</p>
-        <Button type="button" hierarchy="secondary" onClick={onReturnToList}>
-          <img
-            className="feed-icon feed-icon--inline"
-            src="/icons/next-feed/actions/list-view.svg"
-            alt=""
-            aria-hidden="true"
-          />
-          {t('nextFeed.map.listView')}
-        </Button>
-      </div>
+      <MapStatePanel
+        variant="error"
+        title={t('nextFeed.map.error')}
+        body={
+          <>
+            <img
+              className="feed-icon feed-icon--lg"
+              src="/icons/next-feed/status/error.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <p>{t('nextFeed.map.unavailable')}</p>
+          </>
+        }
+        actions={
+          <Button type="button" hierarchy="secondary" onClick={onReturnToList}>
+            <img
+              className="feed-icon feed-icon--inline"
+              src="/icons/next-feed/actions/list-view.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            {t('nextFeed.map.listView')}
+          </Button>
+        }
+      />
     )
   }
 
@@ -70,23 +77,16 @@ export function FeedMapArea({
       className="feed-map-area"
       data-testid="feed-map-area"
       aria-label={t('nextFeed.map.mapView')}
+      data-pin-asset={NEXT_FEED_PIN_CATALOG}
+      data-pin-raster={NEXT_FEED_PIN}
     >
-      {partial ? (
-        <p className="feed-map-partial" data-testid="feed-map-partial" role="status">
-          {t('nextFeed.map.partial')}
-        </p>
-      ) : null}
-      <div
-        className="feed-map-surface"
-        data-pin-asset={NEXT_FEED_PIN_CATALOG}
-        data-pin-raster={NEXT_FEED_PIN}
-        onErrorCapture={() => setMapFailed(true)}
-      >
-        <BoardIssuesMap
+      {partial ? <MapSubsetNotice>{t('nextFeed.map.partial')}</MapSubsetNotice> : null}
+      <div onErrorCapture={() => setMapFailed(true)}>
+        <BoardMap
           issues={issues}
           resolveLocalizedText={resolveLocalizedText}
           t={mapT}
-          boardUrlForBack={feedUrlForBack}
+          feedUrlForBack={feedUrlForBack}
           pinImageUrl={NEXT_FEED_PIN}
           issuePathPrefix="/next/feed/issue"
         />

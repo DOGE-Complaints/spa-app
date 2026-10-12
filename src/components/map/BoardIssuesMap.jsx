@@ -35,6 +35,8 @@ function fitToFeatures(map, featureCollection) {
  * @param {string} [props.boardUrlForBack]
  * @param {string} [props.pinImageUrl] — runtime pin asset (NF-03: `/icons/next-feed/map/map-pin.svg`)
  * @param {string} [props.issuePathPrefix] — Open-issue path prefix (`/issue` or `/next/feed/issue`)
+ * @param {boolean} [props.showPartialHint] — classic board default true; next-feed BoardMap uses MapSubsetNotice
+ * @param {(args: { popup: { id: string, title: string, label: string }, onClose: () => void, openHref: string, openLabel: string }) => import('react').ReactNode} [props.renderPinPreview]
  */
 export function BoardIssuesMap({
   issues,
@@ -43,6 +45,8 @@ export function BoardIssuesMap({
   boardUrlForBack = '/board',
   pinImageUrl = '/icons/semantic-schema-runtime/ic-map-pin.png',
   issuePathPrefix = '/issue',
+  showPartialHint = true,
+  renderPinPreview = null,
 }) {
   const pinIssues = useMemo(() => listPinCapableIssues(issues), [issues])
   const geojson = useMemo(
@@ -54,6 +58,27 @@ export function BoardIssuesMap({
   const geojsonRef = useRef(geojson)
   geojsonRef.current = geojson
   const partial = pinIssues.length > 0 && pinIssues.length < issues.length
+
+  // Path A / local-five demo harness (mirrors nf03-demo-map-error) — no invent map HTTP.
+  useEffect(() => {
+    try {
+      if (typeof window === 'undefined') return
+      if (window.sessionStorage?.getItem('nf-vl-10-demo-pin-preview') !== '1') return
+      const issue = pinIssues[0]
+      if (!issue) return
+      const title =
+        typeof resolveLocalizedText === 'function'
+          ? resolveLocalizedText(issue.title) || String(issue.title ?? issue.id)
+          : String(issue.title ?? issue.id)
+      setPopup({
+        id: String(issue.id),
+        title,
+        label: issue.geo?.label ? String(issue.geo.label) : '',
+      })
+    } catch {
+      /* ignore */
+    }
+  }, [pinIssues, resolveLocalizedText])
 
   const syncSource = useCallback((map, data) => {
     const source = map.getSource(SOURCE_ID)
@@ -259,34 +284,45 @@ export function BoardIssuesMap({
     )
   }
 
+  const openHref = popup
+    ? `${issuePathPrefix}/${popup.id}?from=${encodeURIComponent(boardUrlForBack)}`
+    : ''
+  const openLabel = t('schemaRuntime.map.pinOpen')
+
   return (
     <section className="board-issues-map" data-testid="board-issues-map" aria-label={t('schemaRuntime.map.toggle.map')}>
-      {partial ? (
+      {showPartialHint && partial ? (
         <p className="board-issues-map-partial" data-testid="board-map-partial-hint">
           {t('schemaRuntime.map.partialHint')}
         </p>
       ) : null}
       <MapLibreMap onMapReady={onMapReady}>
-        {popup ? (
-          <div className="board-issues-map-popup" data-testid="board-map-pin-popup" role="dialog">
-            <h3>{popup.title}</h3>
-            {popup.label ? <p className="board-issues-map-popup-label">{popup.label}</p> : null}
-            <Link
-              className="board-issues-map-popup-open"
-              to={`${issuePathPrefix}/${popup.id}?from=${encodeURIComponent(boardUrlForBack)}`}
-            >
-              {t('schemaRuntime.map.pinOpen')}
-            </Link>
-            <button
-              type="button"
-              className="board-issues-map-popup-close"
-              onClick={() => setPopup(null)}
-              aria-label="Close"
-            >
-              ×
-            </button>
-          </div>
-        ) : null}
+        {popup
+          ? typeof renderPinPreview === 'function'
+            ? renderPinPreview({
+                popup,
+                onClose: () => setPopup(null),
+                openHref,
+                openLabel,
+              })
+            : (
+              <div className="board-issues-map-popup" data-testid="board-map-pin-popup" role="dialog">
+                <h3>{popup.title}</h3>
+                {popup.label ? <p className="board-issues-map-popup-label">{popup.label}</p> : null}
+                <Link className="board-issues-map-popup-open" to={openHref}>
+                  {openLabel}
+                </Link>
+                <button
+                  type="button"
+                  className="board-issues-map-popup-close"
+                  onClick={() => setPopup(null)}
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+              </div>
+            )
+          : null}
       </MapLibreMap>
     </section>
   )

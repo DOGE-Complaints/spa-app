@@ -69,6 +69,14 @@ export {
   VISUAL_INDENT_CAP,
   isDraftDirty,
 } from './semantics/index.js'
+export {
+  BoardMap,
+  IssueMapPin,
+  MapSubsetNotice,
+  MapIssuePreview,
+  MapAttribution,
+  MapStatePanel,
+} from './map/index.js'
 export { FeedListMapToggle } from './FeedListMapToggle.jsx'
 export { FeedMapArea } from './FeedMapArea.jsx'
 export { FeedThreadMount } from './FeedThreadMount.jsx'
