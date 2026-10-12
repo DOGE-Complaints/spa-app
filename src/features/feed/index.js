@@ -19,6 +19,14 @@ export {
   ReactionSelectionFooter,
   ReactionScopeHint,
 } from './reactions/index.js'
+export {
+  DiscussionHeader,
+  ThreadSummary,
+  CommentPreview,
+  ViewDiscussionAction,
+  DiscussionSummaryChrome,
+} from './comments/index.js'
+export { selectPreviewBodies, COLLAPSED_PREVIEW_LIMIT } from './semantics/index.js'
 export { FeedListMapToggle } from './FeedListMapToggle.jsx'
 export { FeedMapArea } from './FeedMapArea.jsx'
 export { FeedThreadMount } from './FeedThreadMount.jsx'

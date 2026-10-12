@@ -4,13 +4,14 @@ import { CommentTree } from '../../components/threads/CommentTree.jsx'
 import { InviteOrganizationStub } from '../../components/threads/InviteOrganizationStub.jsx'
 import { resolveHarnessThr02Scene } from '../../components/threads/thr02DemoFixture.js'
 import { THREADS_FEED_THREAD_ICONS } from '../../components/threads/threadIcons.js'
+import { DiscussionHeader, DiscussionSummaryChrome } from './comments/index.js'
+import { selectPreviewBodies } from './semantics/discussionPreview.js'
 import { FeedReactionsStrip } from './FeedReactionsStrip.jsx'
 import './FeedDiscussionBlock.css'
 
-const COLLAPSED_PREVIEW_LIMIT = 2
-
 /**
- * Next-feed Discussion presentation (M152 THR-P + M153 expand) — AD-VP-01/02.
+ * Next-feed Discussion presentation (M152 THR-P + M153 expand) — AD-VP-01/02 · VL-04 DS §6.
+ * Collapsed Done = DiscussionSummaryChrome; classic IssueThreadBlock DISCUSSION chrome ≠ Done.
  * Closed semantics via props from LiveIssueThreadMount; no classic M143 3-button row.
  *
  * @param {object} props — same contract as IssueThreadBlock + feed presentation
@@ -64,12 +65,7 @@ export function FeedDiscussionBlock({
   }
 
   // M152 THR-P-C: up to two literal `comments[].body` in response order (not roots-only).
-  const previewBodies = useMemo(() => {
-    return comments
-      .map((c) => String(c?.body ?? '').trim())
-      .filter(Boolean)
-      .slice(0, COLLAPSED_PREVIEW_LIMIT)
-  }, [comments])
+  const previewBodies = useMemo(() => selectPreviewBodies(comments), [comments])
 
   const showComposerEntry =
     status === 'empty' ||
@@ -91,9 +87,7 @@ export function FeedDiscussionBlock({
       data-thr02-scene={scene || undefined}
       aria-label={t('threadsFeed.post.action.discussion')}
     >
-      <header className="feed-discussion-label">
-        <span>{t('threadsFeed.post.action.discussion')}</span>
-      </header>
+      <DiscussionHeader title={t('threadsFeed.post.action.discussion')} />
 
       {/* FR-NF-08.2: no classic React|Discussion|Invite primary row — civic strip owns actions */}
 
@@ -127,39 +121,25 @@ export function FeedDiscussionBlock({
       ) : null}
 
       {status === 'populated' && !expanded ? (
-        <div
-          className="feed-discussion-state feed-discussion-collapsed"
-          data-testid="feed-discussion-collapsed"
-        >
-          <p className="feed-discussion-summary-title">{t('threadsFeed.post.existingDiscussion')}</p>
-          <ul className="feed-discussion-previews" data-testid="feed-discussion-previews">
-            {previewBodies.map((body, i) => (
-              <li key={`preview-${i}`} className="feed-discussion-preview-body">
-                {body}
-              </li>
-            ))}
-          </ul>
-          <div className="feed-discussion-reaction-slot" data-testid="issue-thread-reaction-slot">
-            <FeedReactionsStrip
-              issueId={issueId}
-              t={t}
-              target="thread-root"
-              initialSelected={threadRootSelected}
-              summaryMarks={threadRootSummaryMarks}
-              aggregateCount={threadRootAggregateCount}
-              {...reactionShared}
-            />
-          </div>
-          <button
-            type="button"
-            className="feed-discussion-view"
-            data-testid="feed-discussion-view"
-            aria-expanded="false"
-            onClick={() => setExpanded(true)}
-          >
-            {t('nextFeed.thread.viewDiscussion')}
-          </button>
-        </div>
+        <DiscussionSummaryChrome
+          summaryTitle={t('threadsFeed.post.existingDiscussion')}
+          previewBodies={previewBodies}
+          viewLabel={t('nextFeed.thread.viewDiscussion')}
+          onView={() => setExpanded(true)}
+          reactionSlot={
+            <div className="feed-discussion-reaction-slot" data-testid="issue-thread-reaction-slot">
+              <FeedReactionsStrip
+                issueId={issueId}
+                t={t}
+                target="thread-root"
+                initialSelected={threadRootSelected}
+                summaryMarks={threadRootSummaryMarks}
+                aggregateCount={threadRootAggregateCount}
+                {...reactionShared}
+              />
+            </div>
+          }
+        />
       ) : null}
 
       {status === 'populated' && expanded ? (

@@ -1,0 +1,27 @@
+/* DS §6 discussion summary chrome — next-feed plane (not classic IssueThreadBlock Done). */
+
+.discussion-summary-chrome {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.discussion-header {
+  margin: 0;
+}
+
+.thread-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.thread-summary-title {
+  margin: 0;
+}
+
+.view-discussion-action {
+  /* inherits .feed-discussion-view */
+}
