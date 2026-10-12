@@ -6,39 +6,10 @@ import {
   shouldShowMtMarker,
 } from '../../i18n/translationMarkers.js'
 import { TranslationMarker } from '../../components/TranslationMarker/TranslationMarker.jsx'
-import { StatusBadge } from '../../components/StatusBadge.jsx'
 import { topicIconForLabel } from '../../i18n/issueTopicIcons.js'
+import { formatIssueDate, formatGeoLabel } from './semantics/index.js'
+import { IssueIdentityHeader } from './identity/index.js'
 import './FeedCivicPost.css'
-
-/**
- * Format created_at for civic meta (short date).
- * @param {string} [value]
- * @returns {string}
- */
-function formatDate(value) {
-  if (!value || typeof value !== 'string') return ''
-  try {
-    const d = new Date(value)
-    if (Number.isNaN(d.getTime())) return value
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-  } catch {
-    return value
-  }
-}
-
-/**
- * Honest public geo label — omit when absent (no invent).
- * @param {import('../../domain/types.js').IssueGeo|undefined} geo
- * @returns {string}
- */
-function formatGeoLabel(geo) {
-  if (!geo || typeof geo !== 'object') return ''
-  if (typeof geo.label === 'string' && geo.label.trim()) return geo.label.trim()
-  const parts = [geo.settlement, geo.district, geo.region, geo.country]
-    .filter((p) => typeof p === 'string' && p.trim())
-    .map((p) => p.trim())
-  return parts.join(', ')
-}
 
 /** Reactions zone affordance marks — catalog glyphs only; no invent orb (AD-VP-01 / icon catalog gap). */
 const REACTIONS_ZONE_MARKS = Object.freeze([
@@ -77,9 +48,11 @@ export function FeedCivicPost({
     String(cardText).trim() !== String(titleText).trim()
   const showMtMarker = shouldShowMtMarker(issue, locale)
   const showFallbackMarker = shouldShowContentFallbackMarker(contentMeta)
-  const dateText = formatDate(issue.created_at)
+  const dateText = formatIssueDate(issue.created_at)
   const geoText = formatGeoLabel(issue.geo)
   const typeDisplay = String(issue.type ?? '').toUpperCase()
+  // No Closed public_label field on Issue — honest wire id (FR-VL-01.3); no fake ISSUE UV-*.
+  const publicLabel = null
   const labelChips = (issue.labels ?? []).map((l) => {
     const key = String(l)
     const formatted = formatLabelKeyWithMeta(t, key, locale)
@@ -96,41 +69,20 @@ export function FeedCivicPost({
       data-testid="feed-civic-post"
       data-civic-variant="no-media"
       data-civic-identity-icon="omit-catalog-gap"
+      data-identity-surface="IssueIdentityHeader"
       data-status-wire={String(issue.status ?? '')}
       aria-label={`Issue ${issue.id}: ${titleText || cardText}`}
     >
-      <header className="feed-civic-post-meta">
-        <span className="feed-civic-post-id">{issue.id}</span>
-        <StatusBadge status={issue.status} />
-        {typeDisplay ? (
-          <span className="feed-civic-post-chip feed-civic-post-chip-type">{typeDisplay}</span>
-        ) : null}
-        {geoText ? (
-          <span className="feed-civic-post-geo" data-testid="feed-civic-post-geo">
-            <img
-              className="feed-civic-post-icon"
-              src="/icons/next-shell/actions/location.svg"
-              alt=""
-              aria-hidden="true"
-            />
-            <span>{geoText}</span>
-          </span>
-        ) : null}
-        {dateText ? <span className="feed-civic-post-date">{dateText}</span> : null}
-        <button
-          type="button"
-          className="feed-civic-post-more"
-          data-testid="feed-civic-post-more"
-          aria-label={t('nextFeed.post.more')}
-        >
-          <img
-            className="feed-civic-post-icon"
-            src="/icons/next-feed/actions/more.svg"
-            alt=""
-            aria-hidden="true"
-          />
-        </button>
-      </header>
+      <IssueIdentityHeader
+        issueId={issue.id}
+        status={issue.status}
+        typeDisplay={typeDisplay}
+        geoText={geoText}
+        dateText={dateText}
+        iconSrc={null}
+        publicLabel={publicLabel}
+        moreLabel={t('nextFeed.post.more')}
+      />
 
       <h3 className="feed-civic-post-title">
         {titleText || cardText}

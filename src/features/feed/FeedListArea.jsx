@@ -11,26 +11,34 @@ import {
 
 function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, meProfile }) {
   const bridge = useFeedReactionOpen()
+  // Shelter: BoardIssuePost remains list chrome until VL layout stories displace it.
+  // Not claimable as VL Done identity (AD-VL / ban-matrix) — identity lives in FeedCivicPost.
   return (
-    <BoardIssuePost
-      thread={
-        <FeedThreadMount
-          issueId={item.id}
-          t={t}
-          profile={meProfile}
-          returnTo="#/next/feed"
-        />
-      }
+    <div
+      data-testid="feed-list-card-shelter"
+      data-vl-shelter="BoardIssuePost"
+      data-vl-done-claim="false"
     >
-      <FeedCivicPost
-        issue={item}
-        locale={locale}
-        resolveLocalizedText={resolveLocalizedText}
-        t={t}
-        to={`/next/feed/issue/${item.id}?from=${encodeURIComponent(feedUrlForBack)}`}
-        onOpenReactions={() => bridge?.openThreadRootPicker(item.id)}
-      />
-    </BoardIssuePost>
+      <BoardIssuePost
+        thread={
+          <FeedThreadMount
+            issueId={item.id}
+            t={t}
+            profile={meProfile}
+            returnTo="#/next/feed"
+          />
+        }
+      >
+        <FeedCivicPost
+          issue={item}
+          locale={locale}
+          resolveLocalizedText={resolveLocalizedText}
+          t={t}
+          to={`/next/feed/issue/${item.id}?from=${encodeURIComponent(feedUrlForBack)}`}
+          onOpenReactions={() => bridge?.openThreadRootPicker(item.id)}
+        />
+      </BoardIssuePost>
+    </div>
   )
 }
 

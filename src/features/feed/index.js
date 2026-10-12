@@ -1,6 +1,13 @@
 export { FeedToolbar } from './FeedToolbar.jsx'
 export { FeedListArea } from './FeedListArea.jsx'
 export { FeedCivicPost } from './FeedCivicPost.jsx'
+export {
+  IssueIdentityHeader,
+  IssueTypeIcon,
+  IssueStatusBadge,
+  IssueMetadataRow,
+} from './identity/index.js'
+export { formatIssueDate, formatGeoLabel } from './semantics/index.js'
 export { FeedListMapToggle } from './FeedListMapToggle.jsx'
 export { FeedMapArea } from './FeedMapArea.jsx'
 export { FeedThreadMount } from './FeedThreadMount.jsx'

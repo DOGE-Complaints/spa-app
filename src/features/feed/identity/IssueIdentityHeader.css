@@ -1,0 +1,80 @@
+/* IssueIdentityHeader — DS §5 · M150 identity plane (AD-VL-01/02) */
+
+.issue-identity-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  width: 100%;
+}
+
+.issue-identity-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.issue-identity-top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  min-width: 0;
+}
+
+.issue-identity-id {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+  word-break: break-all;
+}
+
+.issue-identity-id[data-label-kind='wire-id'] {
+  /* Honest wire id — no fake ISSUE UV-* public label (FR-VL-01.3) */
+  font-variant-numeric: tabular-nums;
+}
+
+.issue-identity-more {
+  margin-left: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.issue-identity-more:hover {
+  background: color-mix(in srgb, var(--color-text-secondary) 10%, transparent);
+}
+
+.issue-identity-more:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doge-accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.issue-identity-more-icon {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 420px) {
+  .issue-identity-header {
+    gap: 10px;
+  }
+
+  .issue-type-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
