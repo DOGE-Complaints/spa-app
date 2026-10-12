@@ -166,12 +166,13 @@ describe('NF-06 mounts + verify', () => {
   })
 
   it('theme stress: mount CSS uses semantic token vars (no invent hex dual palette in JSX)', () => {
-    const css = fs.readFileSync(
-      path.resolve(__dirname, '../FeedIssueMount.css'),
+    const chrome = fs.readFileSync(
+      path.resolve(__dirname, '../presentation/PresentationChrome.css'),
       'utf8',
     )
-    expect(css).toContain('var(--color-bg-secondary')
-    expect(css).toContain('var(--color-text-primary')
-    expect(css).toContain('@media (max-width: 719px)')
+    const detail = fs.readFileSync(path.resolve(__dirname, '../FeedIssueMount.css'), 'utf8')
+    expect(chrome).toContain('var(--color-bg-secondary')
+    expect(chrome).toContain('var(--color-text-primary')
+    expect(detail).toContain('@media (max-width: 719px)')
   })
 })
