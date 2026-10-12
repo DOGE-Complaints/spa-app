@@ -8,6 +8,7 @@ export {
   IssueMetadataRow,
 } from './identity/index.js'
 export { formatIssueDate, formatGeoLabel } from './semantics/index.js'
+export { BoardSearchField } from './search/index.js'
 export { FeedListMapToggle } from './FeedListMapToggle.jsx'
 export { FeedMapArea } from './FeedMapArea.jsx'
 export { FeedThreadMount } from './FeedThreadMount.jsx'

@@ -8,12 +8,13 @@ import {
   TypeFilter,
   LabelsFilter,
   ResetFiltersControl,
-  SearchInput,
 } from '../../components/Filters/index.js'
+import { BoardSearchField } from './search/index.js'
 import { FeedListMapToggle } from './FeedListMapToggle.jsx'
 
 /**
- * Next-feed toolbar: live text search (M149 / AD-VP-03) + structural filters + List|Map.
+ * Next-feed toolbar: DS BoardSearchField (VL-02 / M149) + structural filters + List|Map.
+ * Closed `search` wiring stays in host/query builders (NF-12 Related — do not reopen).
  */
 export function FeedToolbar({
   t,
@@ -51,7 +52,7 @@ export function FeedToolbar({
         </div>
         <div className="feed-filters-row">
           <div className="feed-search" data-testid="feed-search">
-            <SearchInput
+            <BoardSearchField
               value={searchDraft}
               onChange={setSearchDraft}
               placeholder={t('nextFeed.toolbar.searchPlaceholder')}
