@@ -8,6 +8,7 @@ export {
   visualIndentDepth,
 } from './commentTreeDepth.js'
 export { isDraftDirty } from './composerDraft.js'
+export { selectResultsContextStatus } from './resultsContext.js'
 export {
   REACTIONS_V1_VERSION,
   REACTIONS_V1_ENTRIES,

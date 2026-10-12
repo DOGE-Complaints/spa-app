@@ -50,6 +50,13 @@ export {
   KeyboardComposerLayout,
 } from './presentation/index.js'
 export {
+  BoardHeading,
+  ResultsContext,
+  StaleResultsNotice,
+  BoardFeedState,
+} from './board/index.js'
+export { selectResultsContextStatus } from './semantics/resultsContext.js'
+export {
   selectPreviewBodies,
   COLLAPSED_PREVIEW_LIMIT,
   isAtMaxDepth,

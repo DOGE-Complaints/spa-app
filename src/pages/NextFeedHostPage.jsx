@@ -225,6 +225,9 @@ export function NextFeedHostPage() {
               activeFilterChips={activeFilterChips}
               removeChip={removeChip}
               showResults={showResults || showStale}
+              loading={loading}
+              showFilteredEmpty={showFilteredEmpty}
+              searchActive={Boolean(boardFilters.search?.trim())}
               feedView={feedView}
               setFeedView={setFeedView}
               mapEligible={mapEligible}

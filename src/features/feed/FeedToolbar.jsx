@@ -10,11 +10,22 @@ import {
   ResetFiltersControl,
 } from '../../components/Filters/index.js'
 import { BoardSearchField } from './search/index.js'
+import { BoardHeading, ResultsContext } from './board/index.js'
+import { selectResultsContextStatus } from './semantics/resultsContext.js'
 import { FeedListMapToggle } from './FeedListMapToggle.jsx'
+import './board/BoardChrome.css'
+
+const RESULTS_LABEL_KEY = Object.freeze({
+  populated: 'nextFeed.toolbar.resultsPopulated',
+  refreshing: 'nextFeed.toolbar.resultsRefreshing',
+  filtered: 'nextFeed.toolbar.resultsFiltered',
+  search: 'nextFeed.toolbar.resultsSearch',
+  idle: 'nextFeed.toolbar.resultsIdle',
+})
 
 /**
- * Next-feed toolbar: DS BoardSearchField (VL-02 / M149) + structural filters + List|Map.
- * Closed `search` wiring stays in host/query builders (NF-12 Related — do not reopen).
+ * Next-feed toolbar: DS BoardHeading + ResultsContext (VL-08 / M149) + BoardSearchField (VL-02).
+ * Classic `#/board` toolbar unchanged. Closed `search` wiring stays in host (NF-12 Related).
  */
 export function FeedToolbar({
   t,
@@ -37,18 +48,31 @@ export function FeedToolbar({
   activeFilterChips,
   removeChip,
   showResults = false,
+  loading = false,
+  showFilteredEmpty = false,
+  searchActive = false,
   feedView = 'list',
   setFeedView,
   mapEligible = false,
 }) {
+  const resultsStatus = selectResultsContextStatus({
+    showResults,
+    loading,
+    showFilteredEmpty,
+    searchActive: searchActive || Boolean(String(searchDraft || '').trim()),
+  })
+  const resultsLabel = t(RESULTS_LABEL_KEY[resultsStatus] || RESULTS_LABEL_KEY.idle)
+
   return (
     <header className="feed-toolbar" data-testid="feed-toolbar">
       <div className="feed-toolbar-left">
         <div className="feed-toolbar-copy">
-          <h2>{t('nextFeed.toolbar.title')}</h2>
-          <p className="feed-routing-query" aria-label={t('nextFeed.toolbar.queryAria')}>
+          <BoardHeading title={t('nextFeed.toolbar.title')} subtitle={t('nextFeed.toolbar.subtitle')} />
+          <ResultsContext status={resultsStatus} label={resultsLabel} />
+          {/* Dev/debug only — not ResultsContext Done surface (anti-mixing FR-VL-08). */}
+          <span className="feed-routing-query" hidden aria-hidden="true" data-routing-query={normalizedSearch || ''}>
             {normalizedSearch || '(no query)'}
-          </p>
+          </span>
         </div>
         <div className="feed-filters-row">
           <div className="feed-search" data-testid="feed-search">

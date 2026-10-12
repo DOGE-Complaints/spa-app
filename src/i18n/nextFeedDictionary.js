@@ -45,7 +45,13 @@ const TOOLBAR_EN = Object.freeze({
   searchAria: 'Search published issues',
   searchClear: 'Clear search',
   title: 'Feed',
+  subtitle: 'Published issues from your community',
   queryAria: 'Feed query state',
+  resultsPopulated: 'Showing published issues',
+  resultsRefreshing: 'Updating results…',
+  resultsFiltered: 'No matches for the current filters',
+  resultsSearch: 'No matches for this search',
+  resultsIdle: 'Browse published issues',
 })
 
 const TOOLBAR_ET = Object.freeze({
@@ -54,7 +60,13 @@ const TOOLBAR_ET = Object.freeze({
   searchAria: 'Otsi avaldatud teateid',
   searchClear: 'Tühjenda otsing',
   title: 'Voog',
+  subtitle: 'Avaldatud teated sinu kogukonnast',
   queryAria: 'Voo päringu olek',
+  resultsPopulated: 'Näitan avaldatud teateid',
+  resultsRefreshing: 'Uuendan tulemusi…',
+  resultsFiltered: 'Filtritele ei vasta ühtegi teadet',
+  resultsSearch: 'Otsingule ei vasta ühtegi teadet',
+  resultsIdle: 'Sirvi avaldatud teateid',
 })
 
 const TOOLBAR_RU = Object.freeze({
@@ -63,8 +75,15 @@ const TOOLBAR_RU = Object.freeze({
   searchAria: 'Поиск опубликованных обращений',
   searchClear: 'Очистить поиск',
   title: 'Лента',
+  subtitle: 'Опубликованные обращения вашего сообщества',
   queryAria: 'Состояние запроса ленты',
+  resultsPopulated: 'Показаны опубликованные обращения',
+  resultsRefreshing: 'Обновление результатов…',
+  resultsFiltered: 'Нет совпадений по выбранным фильтрам',
+  resultsSearch: 'Нет совпадений по этому поиску',
+  resultsIdle: 'Просматривайте опубликованные обращения',
 })
+
 
 const POST_EN = Object.freeze({
   openIssue: 'Open issue',
@@ -253,7 +272,14 @@ export const NEXT_FEED_FLAT_KEYS = Object.freeze([
   'nextFeed.toolbar.searchAria',
   'nextFeed.toolbar.searchClear',
   'nextFeed.toolbar.title',
+  'nextFeed.toolbar.subtitle',
   'nextFeed.toolbar.queryAria',
+  'nextFeed.toolbar.resultsPopulated',
+  'nextFeed.toolbar.resultsRefreshing',
+  'nextFeed.toolbar.resultsFiltered',
+  'nextFeed.toolbar.resultsSearch',
+  'nextFeed.toolbar.resultsIdle',
+
   'nextFeed.post.openIssue',
   'nextFeed.post.more',
   'nextFeed.post.actions',

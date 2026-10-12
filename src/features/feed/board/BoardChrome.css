@@ -1,0 +1,45 @@
+/* DS §4 board heading / results / stale — next-feed only (AD-VL-01/02). */
+
+.board-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.board-heading__title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.board-heading__subtitle {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+.results-context {
+  margin: 2px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  line-height: 1.3;
+}
+
+.results-context--refreshing {
+  font-style: italic;
+}
+
+.stale-results-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.board-feed-state {
+  min-width: 0;
+}
