@@ -18,7 +18,7 @@ Root: `spa-app/src/features/feed/`
 | `comments/` | Discussion summary + light CommentTree plane · **Present** summary (VL-04) + layout/tree (VL-05 P3 · `#/next/feed*` Done; `#/board` classic unchanged; composer → VL-06) |
 | `composer/` | Composer entry / thread composer / reply / discard · **Present** DS atoms (VL-06 P3 · `#/next/feed*` Done; `#/board` classic CommentComposer; verify chrome → VL-11) |
 | `presentation/` | Issue presentation + overlay host/layout · **Present** `IssuePresentationLayout` + `OverlayHost`/`OverlayLayout` + `KeyboardComposerLayout` (VL-07 P3 · `#/next/feed*` Done; `#/board` classic mounts unchanged) |
-| `board/` | Board heading / results context · **Present** `BoardHeading` + `ResultsContext` + `StaleResultsNotice` + `BoardFeedState` (VL-08 P3 · `#/next/feed*` Done; `#/board` classic toolbar unchanged) · page layouts → VL-09 |
+| `board/` | Board heading / results / page layouts · **Present** `BoardHeading` + `ResultsContext` + `StaleResultsNotice` + `BoardFeedState` (VL-08) + `BoardLayout` + `PageContentLayout` (VL-09 P3 · `#/next/feed*` Done; `#/board` classic unchanged; shell rails next-shell OOS) |
 | `map/` | Map notices / preview chrome (VL-10) |
 | `verify/` | Verify write-gate chrome (VL-11) |
 | `escalation/` | Escalation stub / collaboration feedback (VL-12) |
