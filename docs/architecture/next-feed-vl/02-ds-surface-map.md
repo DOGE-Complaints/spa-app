@@ -19,7 +19,7 @@ Root: `spa-app/src/features/feed/`
 | `composer/` | Composer entry / thread composer / reply / discard · **Present** DS atoms (VL-06 P3 · `#/next/feed*` Done; `#/board` classic CommentComposer; verify chrome → VL-11) |
 | `presentation/` | Issue presentation + overlay host/layout · **Present** `IssuePresentationLayout` + `OverlayHost`/`OverlayLayout` + `KeyboardComposerLayout` (VL-07 P3 · `#/next/feed*` Done; `#/board` classic mounts unchanged) |
 | `board/` | Board heading / results / page layouts · **Present** `BoardHeading` + `ResultsContext` + `StaleResultsNotice` + `BoardFeedState` (VL-08) + `BoardLayout` + `PageContentLayout` (VL-09 P3 · `#/next/feed*` Done; `#/board` classic unchanged; shell rails next-shell OOS) |
-| `map/` | Map notices / preview chrome (VL-10) |
+| `map/` | Map notices / preview chrome · **Present** `BoardMap` + `MapSubsetNotice` + `MapIssuePreview` + `MapAttribution` + `MapStatePanel` + `IssueMapPin` (VL-10 P3 · `#/next/feed*` Done; `#/board` classic map unchanged) |
 | `verify/` | Verify write-gate chrome (VL-11) |
 | `escalation/` | Escalation stub / collaboration feedback (VL-12) |
 
