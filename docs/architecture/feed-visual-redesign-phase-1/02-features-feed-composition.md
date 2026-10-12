@@ -35,6 +35,15 @@ Parent: [`00-overview.md`](00-overview.md) · REQ [`22`](../../requirements/22-f
 
 Presentation may wrap or replace chrome of shared modules; it must not fork a second HTTP client.
 
+### 1b′) Dual plane / anti-mixing (AD-VL-01 · AD-VL-02 · 2026-10-12)
+
+| Plane | Routes | Done chrome |
+|-------|--------|-------------|
+| Classic | `#/board` | Existing board/threads chrome — **preserved**; do not break |
+| Next-feed DS | `#/next/feed*` | **Named** surfaces from [component DS v1.0](../../UX/next/feed/DOGEstonia-next-feed-component-design-system-v1.0.md); classic modules **deprecated as next-feed Done presentation** (Closed semantics OK behind adapters) |
+
+Tracker: [`ARCH-DELTA-visual-language-plane-2026-10-12.md`](../../tasks/backlog-stories/next-feed-vl/ARCH-DELTA-visual-language-plane-2026-10-12.md) · package [next-feed-vl](../../tasks/backlog-stories/next-feed-vl/INDEX.md) · EPIC-SPA-21 · target tech arch [`../next-feed-vl/00-overview.md`](../next-feed-vl/00-overview.md). Extends AD-VP-01/02; does not reopen NF-01…12.
+
 ### 1c) Discussion collapsed presentation (NF-08 · M152/M153 · NF-11 F5)
 
 | Fact | Home |
