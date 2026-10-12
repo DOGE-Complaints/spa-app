@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { InviteOrganizationStub } from '../../components/threads/InviteOrganizationStub.jsx'
 import { resolveHarnessThr02Scene } from '../../components/threads/thr02DemoFixture.js'
 import { THREADS_FEED_THREAD_ICONS } from '../../components/threads/threadIcons.js'
 import {
@@ -9,6 +8,7 @@ import {
   DiscussionSummaryChrome,
 } from './comments/index.js'
 import { ComposerEntry, ThreadComposer } from './composer/index.js'
+import { EscalationStub } from './escalation/index.js'
 import { KeyboardComposerLayout } from './presentation/index.js'
 import { selectPreviewBodies } from './semantics/discussionPreview.js'
 import { FeedReactionsStrip } from './FeedReactionsStrip.jsx'
@@ -21,6 +21,7 @@ import './presentation/PresentationChrome.css'
  * Next-feed Discussion presentation (M152 THR-P + M153 expand) — AD-VP-01/02 · VL-04/05/06 DS §2/§6/§7.
  * Collapsed Done = DiscussionSummaryChrome; expanded Done = DiscussionLayout + light CommentTree.
  * Composer Done = ComposerEntry / ThreadComposer; classic CommentComposer ≠ Done on `#/next/feed*`.
+ * Escalation Done = EscalationStub / CollaborationFeedback; classic InviteOrganizationStub ≠ Done on `#/next/feed*`.
  *
  * @param {object} props — same contract as IssueThreadBlock + feed presentation
  */
@@ -215,8 +216,12 @@ export function FeedDiscussionBlock({
 
   const stub =
     showInviteStub && status !== 'unavailable' && status !== 'loading' ? (
-      <div className="feed-discussion-invite-secondary" data-testid="feed-discussion-invite-slot">
-        <InviteOrganizationStub t={t} iconPack={icons} />
+      <div
+        className="feed-discussion-invite-secondary"
+        data-testid="feed-discussion-invite-slot"
+        data-vl-shelter-displaced="InviteOrganizationStub"
+      >
+        <EscalationStub t={t} iconPack={icons} />
       </div>
     ) : null
 

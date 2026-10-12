@@ -17,6 +17,10 @@ export {
   resolveHarnessVl11Scene,
 } from './verifyWriteGate.js'
 export {
+  resolveHarnessVl12Scene,
+  resolveHarnessThr04Scene,
+} from './escalationStub.js'
+export {
   REACTIONS_V1_VERSION,
   REACTIONS_V1_ENTRIES,
   REACTIONS_V1_IDS,

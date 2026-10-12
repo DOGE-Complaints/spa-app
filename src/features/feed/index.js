@@ -82,6 +82,7 @@ export {
   VerifyReturnFeedback,
   WriteDeniedNotice,
 } from './verify/index.js'
+export { EscalationStub, CollaborationFeedback } from './escalation/index.js'
 export { FeedListMapToggle } from './FeedListMapToggle.jsx'
 export { FeedMapArea } from './FeedMapArea.jsx'
 export { FeedThreadMount } from './FeedThreadMount.jsx'
