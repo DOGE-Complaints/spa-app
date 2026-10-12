@@ -2,6 +2,12 @@ export { formatIssueDate } from './formatIssueDate.js'
 export { formatGeoLabel } from './formatGeoLabel.js'
 export { COLLAPSED_PREVIEW_LIMIT, selectPreviewBodies } from './discussionPreview.js'
 export {
+  VISUAL_INDENT_CAP,
+  isAtMaxDepth,
+  shouldShowDepthNotice,
+  visualIndentDepth,
+} from './commentTreeDepth.js'
+export {
   REACTIONS_V1_VERSION,
   REACTIONS_V1_ENTRIES,
   REACTIONS_V1_IDS,

@@ -25,8 +25,20 @@ export {
   CommentPreview,
   ViewDiscussionAction,
   DiscussionSummaryChrome,
+  DiscussionLayout,
+  CommentTree,
+  CommentNode,
+  ThreadConnector,
+  ReplyDepthNotice,
 } from './comments/index.js'
-export { selectPreviewBodies, COLLAPSED_PREVIEW_LIMIT } from './semantics/index.js'
+export {
+  selectPreviewBodies,
+  COLLAPSED_PREVIEW_LIMIT,
+  isAtMaxDepth,
+  shouldShowDepthNotice,
+  visualIndentDepth,
+  VISUAL_INDENT_CAP,
+} from './semantics/index.js'
 export { FeedListMapToggle } from './FeedListMapToggle.jsx'
 export { FeedMapArea } from './FeedMapArea.jsx'
 export { FeedThreadMount } from './FeedThreadMount.jsx'
