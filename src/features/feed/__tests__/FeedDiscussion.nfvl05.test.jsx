@@ -110,7 +110,7 @@ describe('NF-VL-05 DiscussionLayout + light CommentTree (AD-VL-01/02 · DS §2/�
     expect(html).toContain('data-testid="feed-discussion-expanded"')
     expect(html).toContain('data-vl-plane="light-comment-tree"')
     expect(html).toContain('data-presentation="m153-tree"')
-    expect(html).toContain('data-composer-shelter="true"')
+    expect(html).toContain('data-composer-ds="true"')
     expect(html).not.toContain('comment-tree-identity')
   })
 })
