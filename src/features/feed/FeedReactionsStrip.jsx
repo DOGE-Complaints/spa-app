@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import { ReactionControls } from '../../components/threads/ReactionControls.jsx'
+import { ReactionChrome } from './reactions/index.js'
 import { useFeedNarrow } from './useFeedNarrow.js'
 import { useFeedReactionOpen } from './FeedReactionOpenContext.jsx'
 import './FeedReactionsStrip.css'
 
 /**
- * Next-feed reactions presentation (M154 THR-R) — AD-VP-01/02.
- * Reuses Closed ReactionControls semantics/catalog/PUT; reskins chrome.
+ * Next-feed reactions presentation (M154 / DS §8) — AD-VL-01/02/03.
+ * DS ReactionChrome plane; classic ReactionControls ≠ Done on this path.
  *
- * @param {object} props — ReactionControls contract + optional issueId for civic bridge
+ * @param {object} props — Closed reaction contract + optional issueId for civic bridge
  */
 export function FeedReactionsStrip({
   issueId = null,
@@ -76,8 +76,9 @@ export function FeedReactionsStrip({
       data-presentation="m154-strip"
       data-strip-status="ready"
       data-picker-layout={pickerVariant === 'sheet' ? 'sheet' : 'popover'}
+      data-vl-done-surface="ReactionChrome"
     >
-      <ReactionControls
+      <ReactionChrome
         {...controlsProps}
         target={target}
         className="feed-reactions-controls"

@@ -4,7 +4,8 @@
   min-width: 0;
 }
 
-.feed-reactions-strip .feed-reactions-controls {
+.feed-reactions-strip .feed-reactions-controls,
+.feed-reactions-strip .reaction-chrome {
   gap: 10px;
 }
 
