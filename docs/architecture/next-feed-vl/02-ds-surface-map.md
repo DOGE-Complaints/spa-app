@@ -16,7 +16,7 @@ Root: `spa-app/src/features/feed/`
 | `search/` | Board search field chrome · **Present** `BoardSearchField` (VL-02 P3 · `#/next/feed*` Done; `#/board` keeps Filters `SearchInput`) |
 | `reactions/` | Reaction aggregate / picker / footer / hints · **Present** `ReactionChrome` + DS atoms (VL-03 P3 · `#/next/feed*` Done; `#/board` keeps classic `ReactionControls`) |
 | `comments/` | Discussion summary + light CommentTree plane · **Present** summary (VL-04) + layout/tree (VL-05 P3 · `#/next/feed*` Done; `#/board` classic unchanged; composer → VL-06) |
-| `composer/` | Composer entry / thread composer / reply / discard |
+| `composer/` | Composer entry / thread composer / reply / discard · **Present** DS atoms (VL-06 P3 · `#/next/feed*` Done; `#/board` classic CommentComposer; verify chrome → VL-11) |
 | `presentation/` | Issue presentation + overlay host/layout (VL-07) |
 | `board/` | Board heading / results context / page layouts (VL-08…09) |
 | `map/` | Map notices / preview chrome (VL-10) |
