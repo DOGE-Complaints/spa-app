@@ -43,6 +43,7 @@ describe('nextFeedDictionary', () => {
       'nextFeed.map.error',
       'nextFeed.map.unavailable',
       'nextFeed.map.pinLabel',
+      'nextFeed.map.closePreview',
       'nextFeed.thread.empty',
       'nextFeed.thread.attachDenied',
       'nextFeed.thread.maxDepth',
