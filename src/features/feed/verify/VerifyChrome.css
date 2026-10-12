@@ -1,0 +1,91 @@
+/* DS §10 next-feed verify chrome (M157 light-first · AD-VL-01/02).
+ * Classic VerifyWriteGate.css dark skin ≠ Done here. */
+
+.nf-verify-write-gate,
+.nf-verify-return,
+.nf-write-denied-notice {
+  margin-top: 0.5rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  background: var(--color-surface-elevated, #fffdf8);
+  color: var(--color-text-primary, #101828);
+}
+
+.nf-verify-write-gate-title,
+.nf-verify-return-result,
+.nf-verify-return-title,
+.nf-write-denied-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #101828);
+}
+
+.nf-verify-write-gate-title img,
+.nf-verify-return-result img,
+.nf-verify-return-title img,
+.nf-write-denied-title img {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.nf-verify-write-gate-body,
+.nf-verify-write-gate-helper,
+.nf-verify-write-gate-civic,
+.nf-verify-return-helper,
+.nf-write-denied-helper {
+  margin: 0.45rem 0 0;
+  color: var(--color-text-secondary, #667085);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.nf-verify-write-gate-civic {
+  color: var(--color-text-primary, #101828);
+}
+
+.nf-verify-write-gate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.nf-verify-write-gate-primary {
+  appearance: none;
+  border: none;
+  background: #f5c542;
+  color: #141417;
+  border-radius: 0.35rem;
+  padding: 0.55rem 0.85rem;
+  min-height: 44px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nf-verify-write-gate-secondary {
+  appearance: none;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  border-radius: 0.35rem;
+  padding: 0.55rem 0.85rem;
+  min-height: 44px;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.nf-verify-return--verified {
+  border-color: color-mix(in srgb, #12b76a 35%, var(--color-border-default, #e7e4dc));
+}
+
+.nf-write-denied-notice {
+  border-color: color-mix(in srgb, #f04438 30%, var(--color-border-default, #e7e4dc));
+}

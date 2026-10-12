@@ -1,11 +1,12 @@
 import { useId, useState } from 'react'
 import { canWriteThreadsWithMe } from '../../../auth/meIdentityVerified.js'
-import { VerifyWriteGate } from '../../../components/threads/VerifyWriteGate.jsx'
 import {
   buildVerifyHandoffHref,
   resolveHarnessThr05Scene,
-} from '../../../components/threads/verifyWriteGate.js'
-import { THREADS_FEED_THREAD_ICONS } from '../../../components/threads/threadIcons.js'
+  resolveHarnessVl11Scene,
+} from '../semantics/verifyWriteGate.js'
+import { VerifyWriteGate, VerifyReturnFeedback, WriteDeniedNotice } from '../verify/index.js'
+import { NEXT_FEED_THREAD_ICONS } from '../feedThreadIcons.js'
 import { CommentTextInput } from './CommentTextInput.jsx'
 import { ComposerActionRow } from './ComposerActionRow.jsx'
 import { ComposerFeedback } from './ComposerFeedback.jsx'
@@ -17,7 +18,7 @@ import './ComposerChrome.css'
  * DS §7 ThreadComposer — next-feed composer plane (AD-VL-01/02).
  * Closed submit/attach/verify contracts retained from classic CommentComposer (no invent POST).
  * Classic `components/threads/CommentComposer.jsx` remains board Done path.
- * VerifyWriteGate classic chrome stays until VL-11 (not claimed Done here).
+ * VL-11: DS verify chrome from `features/feed/verify/` (not classic VerifyWriteGate.jsx).
  */
 export function ThreadComposer({
   t,
@@ -42,9 +43,11 @@ export function ThreadComposer({
   testId = 'issue-thread-composer',
   iconPack = null,
 }) {
-  const icons = iconPack || THREADS_FEED_THREAD_ICONS
+  const icons = iconPack || NEXT_FEED_THREAD_ICONS
   const inputId = useId()
-  const forcedScene = resolveHarnessThr05Scene()
+  const thr05 = resolveHarnessThr05Scene()
+  const vl11 = resolveHarnessVl11Scene()
+  const forcedScene = vl11 || thr05
   const scene = forcedScene || 'live'
   const verifiedFromProfile =
     identityVerified === null || identityVerified === undefined
@@ -53,7 +56,13 @@ export function ThreadComposer({
   const isVerified =
     forcedScene === 'verified'
       ? true
-      : forcedScene === 'unverified' || forcedScene === 'handoff' || forcedScene === 'civic'
+      : forcedScene === 'unverified' ||
+          forcedScene === 'handoff' ||
+          forcedScene === 'civic' ||
+          forcedScene === 'cancelled' ||
+          forcedScene === 'failed' ||
+          forcedScene === 'stale' ||
+          forcedScene === 'write_denied'
         ? false
         : verifiedFromProfile
 
@@ -66,7 +75,14 @@ export function ThreadComposer({
   const [gateOpen, setGateOpen] = useState(
     forcedScene === 'unverified' || forcedScene === 'civic' || forcedScene === 'handoff',
   )
-  const [showVerifiedChrome, setShowVerifiedChrome] = useState(forcedScene === 'verified')
+  const [returnVariant, setReturnVariant] = useState(() => {
+    if (forcedScene === 'verified') return 'verified'
+    if (forcedScene === 'cancelled') return 'cancelled'
+    if (forcedScene === 'failed') return 'failed'
+    if (forcedScene === 'stale') return 'stale'
+    return null
+  })
+  const [writeDenied, setWriteDenied] = useState(forcedScene === 'write_denied')
   const [handoffHref, setHandoffHref] = useState(
     forcedScene === 'handoff' ? buildVerifyHandoffHref(returnTo) : null,
   )
@@ -80,7 +96,8 @@ export function ThreadComposer({
 
   function openVerifyGate() {
     setGateOpen(true)
-    setShowVerifiedChrome(false)
+    setReturnVariant(null)
+    setWriteDenied(false)
     setPostError(false)
     setMaxDepthError(false)
   }
@@ -165,6 +182,7 @@ export function ThreadComposer({
       setPosting(true)
       setPostError(false)
       setMaxDepthError(false)
+      setWriteDenied(false)
       try {
         const result = await onSubmitComment({
           body: draft,
@@ -183,6 +201,15 @@ export function ThreadComposer({
         }
         if (result.status === 'fail' && result.failKind === 'max_depth') {
           setMaxDepthError(true)
+          return
+        }
+        // Unknown/ambiguous write deny — honest notice, not false «unverified» (FR-VL-11.3).
+        if (
+          result.status === 'fail' &&
+          result.failKind === 'post_fail' &&
+          (result.httpStatus === 403 || result.reason === 'write_denied_unknown')
+        ) {
+          setWriteDenied(true)
           return
         }
         setPostError(true)
@@ -204,6 +231,7 @@ export function ThreadComposer({
   function handleRetry() {
     setPostError(false)
     setMaxDepthError(false)
+    setWriteDenied(false)
   }
 
   function handleGoVerify() {
@@ -217,6 +245,9 @@ export function ThreadComposer({
       window.location.hash = href.replace(/^#/, '')
     }
   }
+
+  const showGate = gateOpen && !isVerified && !writeDenied && !returnVariant
+  const submitBlockedByReturn = returnVariant === 'cancelled' || returnVariant === 'failed' || returnVariant === 'stale'
 
   return (
     <div
@@ -250,7 +281,11 @@ export function ThreadComposer({
           notifyDraft(next, attachment)
         }}
         placeholder={placeholder}
-        rows={mode === 'reply' || postError || maxDepthError || attachment || gateOpen ? 3 : 1}
+        rows={
+          mode === 'reply' || postError || maxDepthError || attachment || showGate || returnVariant || writeDenied
+            ? 3
+            : 1
+        }
         disabled={posting}
       />
 
@@ -294,12 +329,22 @@ export function ThreadComposer({
         </ComposerFeedback>
       ) : null}
 
-      {showVerifiedChrome ? <VerifyWriteGate t={t} variant="verified" iconPack={icons} /> : null}
+      {returnVariant ? (
+        <VerifyReturnFeedback
+          t={t}
+          variant={returnVariant}
+          iconPack={icons}
+          onRetryVerify={
+            returnVariant === 'cancelled' || returnVariant === 'failed' ? handleGoVerify : null
+          }
+        />
+      ) : null}
 
-      {gateOpen && !isVerified ? (
+      {writeDenied ? <WriteDeniedNotice t={t} iconPack={icons} /> : null}
+
+      {showGate ? (
         <VerifyWriteGate
           t={t}
-          variant="blocked"
           showCivicLine={forcedScene === 'civic'}
           onGoVerify={handleGoVerify}
           onDismiss={() => setGateOpen(false)}
@@ -325,14 +370,16 @@ export function ThreadComposer({
           <img src={icons.attach} alt="" aria-hidden="true" />
           <span>{t('threadsFeed.composer.attach')}</span>
         </button>
-        {mode === 'reply' || postError || maxDepthError ? (
+        {mode === 'reply' || postError || maxDepthError || writeDenied ? (
           <button
             type="button"
             className="nf-composer-tool nf-composer-tool--neutral"
             data-testid="comment-composer-cancel"
             onClick={onCancel}
           >
-            {postError || maxDepthError ? t('threadsFeed.composer.keepEditing') : t('threadsFeed.composer.cancel')}
+            {postError || maxDepthError || writeDenied
+              ? t('threadsFeed.composer.keepEditing')
+              : t('threadsFeed.composer.cancel')}
           </button>
         ) : null}
         {postError ? (
@@ -348,7 +395,7 @@ export function ThreadComposer({
           <SubmitCommentAction
             testId="comment-composer-post"
             className="nf-composer-primary"
-            disabled={posting}
+            disabled={posting || writeDenied || submitBlockedByReturn}
             onClick={() => {
               void handlePost()
             }}

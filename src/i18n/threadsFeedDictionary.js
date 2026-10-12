@@ -189,8 +189,17 @@ const VERIFY_EN = Object.freeze({
   goToVerification: 'Go to verification',
   notNow: 'Not now',
   resultOpaque: 'Verified',
-  continueHelper: 'You can continue your comment.',
+  continueHelper: 'You can continue your reply.',
   civicNodeLine: 'Civic node · DOGEstonia Identity',
+  cancelledTitle: 'Verification not completed',
+  cancelledHelper: 'Your draft is still here. Verify to continue when you are ready.',
+  failedTitle: 'Verification could not be completed',
+  failedHelper: 'Writing remains blocked. Try verification again through the existing flow.',
+  verifyToContinue: 'Verify to continue',
+  staleTitle: 'This discussion changed while you were away',
+  staleHelper: 'Your draft is still here. Review the Issue before posting.',
+  writeDeniedTitle: 'Writing is unavailable right now',
+  writeDeniedHelper: 'Try again later. This does not mean you are unverified.',
 })
 
 const VERIFY_ET = Object.freeze({
@@ -199,8 +208,17 @@ const VERIFY_ET = Object.freeze({
   goToVerification: 'Mine kinnitama',
   notNow: 'Mitte praegu',
   resultOpaque: 'Kinnitatud',
-  continueHelper: 'Saad oma kommentaari jätkata.',
+  continueHelper: 'Saad oma vastust jätkata.',
   civicNodeLine: 'Kodanikussõlm · DOGEstonia Identity',
+  cancelledTitle: 'Kinnitamine ei lõppenud',
+  cancelledHelper: 'Mustand on alles. Jätka kinnitamist, kui oled valmis.',
+  failedTitle: 'Kinnitamine ebaõnnestus',
+  failedHelper: 'Kirjutamine on endiselt blokeeritud. Proovi uuesti olemasolevas voos.',
+  verifyToContinue: 'Kinnita, et jätkata',
+  staleTitle: 'Arutelu muutus sinu eemaloleku ajal',
+  staleHelper: 'Mustand on alles. Enne postitamist vaata teema üle.',
+  writeDeniedTitle: 'Kirjutamine pole praegu saadaval',
+  writeDeniedHelper: 'Proovi hiljem uuesti. See ei tähenda, et oled kinnitamata.',
 })
 
 const VERIFY_RU = Object.freeze({
@@ -209,8 +227,17 @@ const VERIFY_RU = Object.freeze({
   goToVerification: 'Перейти к проверке',
   notNow: 'Не сейчас',
   resultOpaque: 'Подтверждено',
-  continueHelper: 'Можете продолжить комментарий.',
+  continueHelper: 'Можете продолжить ответ.',
   civicNodeLine: 'Гражданский узел · DOGEstonia Identity',
+  cancelledTitle: 'Проверка не завершена',
+  cancelledHelper: 'Черновик сохранён. Подтвердите участие, когда будете готовы.',
+  failedTitle: 'Не удалось завершить проверку',
+  failedHelper: 'Запись по-прежнему заблокирована. Повторите через существующий поток.',
+  verifyToContinue: 'Подтвердить, чтобы продолжить',
+  staleTitle: 'Обсуждение изменилось, пока вас не было',
+  staleHelper: 'Черновик сохранён. Проверьте Issue перед отправкой.',
+  writeDeniedTitle: 'Запись сейчас недоступна',
+  writeDeniedHelper: 'Попробуйте позже. Это не значит, что вы не верифицированы.',
 })
 
 export const THREADS_FEED_DICTIONARY_EN = Object.freeze({
@@ -372,4 +399,13 @@ export const THREADS_FEED_FLAT_KEYS = Object.freeze([
   'threadsFeed.verify.resultOpaque',
   'threadsFeed.verify.continueHelper',
   'threadsFeed.verify.civicNodeLine',
+  'threadsFeed.verify.cancelledTitle',
+  'threadsFeed.verify.cancelledHelper',
+  'threadsFeed.verify.failedTitle',
+  'threadsFeed.verify.failedHelper',
+  'threadsFeed.verify.verifyToContinue',
+  'threadsFeed.verify.staleTitle',
+  'threadsFeed.verify.staleHelper',
+  'threadsFeed.verify.writeDeniedTitle',
+  'threadsFeed.verify.writeDeniedHelper',
 ])
