@@ -15,7 +15,7 @@ Root: `spa-app/src/features/feed/`
 | `identity/` | Civic identity chrome |
 | `search/` | Board search field chrome · **Present** `BoardSearchField` (VL-02 P3 · `#/next/feed*` Done; `#/board` keeps Filters `SearchInput`) |
 | `reactions/` | Reaction aggregate / picker / footer / hints · **Present** `ReactionChrome` + DS atoms (VL-03 P3 · `#/next/feed*` Done; `#/board` keeps classic `ReactionControls`) |
-| `comments/` | Discussion summary + light CommentTree plane · **Present** summary atoms (VL-04 P3 · `#/next/feed*` Done; `#/board` classic unchanged; VL-05 tree still target) |
+| `comments/` | Discussion summary + light CommentTree plane · **Present** summary (VL-04) + layout/tree (VL-05 P3 · `#/next/feed*` Done; `#/board` classic unchanged; composer → VL-06) |
 | `composer/` | Composer entry / thread composer / reply / discard |
 | `presentation/` | Issue presentation + overlay host/layout (VL-07) |
 | `board/` | Board heading / results context / page layouts (VL-08…09) |
