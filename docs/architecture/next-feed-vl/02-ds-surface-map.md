@@ -21,7 +21,7 @@ Root: `spa-app/src/features/feed/`
 | `board/` | Board heading / results / page layouts · **Present** `BoardHeading` + `ResultsContext` + `StaleResultsNotice` + `BoardFeedState` (VL-08) + `BoardLayout` + `PageContentLayout` (VL-09 P3 · `#/next/feed*` Done; `#/board` classic unchanged; shell rails next-shell OOS) |
 | `map/` | Map notices / preview chrome · **Present** `BoardMap` + `MapSubsetNotice` + `MapIssuePreview` + `MapAttribution` + `MapStatePanel` + `IssueMapPin` (VL-10 P3 · `#/next/feed*` Done; `#/board` classic map unchanged) |
 | `verify/` | Verify write-gate chrome · **Present** `VerifyWriteGate` + `VerifyReturnFeedback` + `WriteDeniedNotice` (VL-11 P3 · `#/next/feed*` Done; `#/board` keeps classic `VerifyWriteGate`) |
-| `escalation/` | Escalation stub / collaboration feedback (VL-12) |
+| `escalation/` | Escalation stub / collaboration feedback · **Present** `EscalationStub` + `CollaborationFeedback` (VL-12 P3 · `#/next/feed*` Done; `#/board` keeps classic `InviteOrganizationStub`) |
 
 Core groups named in interview Q4: `identity`, `search`, `reactions`, `comments`, `composer`, `thread` → **`thread` intent covered by `comments/` + `presentation/`** (discussion vs overlay mounts). Additional concern folders above map remaining VL-07…12 without new STORY keys.
 
