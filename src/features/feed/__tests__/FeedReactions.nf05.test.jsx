@@ -47,7 +47,9 @@ describe('NF-05 reactions + invite stub + write gate', () => {
     expect(html).toContain('data-testid="invite-organization-stub"')
     expect(html).toContain('/icons/next-feed/actions/collaboration-invite.svg')
     expect(html).toContain('/icons/next-feed/actions/react.svg')
+    // Classic IssueThreadBlock still mounts ReactionControls (board/threads path — out of VL mutate).
     expect(html).toContain('data-testid="reaction-controls"')
+    expect(html).not.toContain('data-testid="reaction-people"')
     expect(html).not.toContain('people-list')
     expect(html).not.toContain('data-testid="reaction-people"')
   })
