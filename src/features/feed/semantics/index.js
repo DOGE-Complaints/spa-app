@@ -7,6 +7,7 @@ export {
   shouldShowDepthNotice,
   visualIndentDepth,
 } from './commentTreeDepth.js'
+export { isDraftDirty } from './composerDraft.js'
 export {
   REACTIONS_V1_VERSION,
   REACTIONS_V1_ENTRIES,

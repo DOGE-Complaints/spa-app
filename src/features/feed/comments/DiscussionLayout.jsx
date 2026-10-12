@@ -1,6 +1,6 @@
 /**
  * DS §2 DiscussionLayout — vertical slots: header / body / composer / stub.
- * Composer slot may still host classic CommentComposer until VL-06 (shelter seam).
+ * Composer slot hosts VL-06 DS atoms (ComposerEntry / ThreadComposer).
  */
 export function DiscussionLayout({ header = null, body = null, composer = null, stub = null, className = '' }) {
   return (
@@ -21,7 +21,7 @@ export function DiscussionLayout({ header = null, body = null, composer = null, 
         </div>
       ) : null}
       {composer ? (
-        <div className="discussion-layout__composer" data-slot="composer" data-composer-shelter="true">
+        <div className="discussion-layout__composer" data-slot="composer" data-composer-ds="true">
           {composer}
         </div>
       ) : null}

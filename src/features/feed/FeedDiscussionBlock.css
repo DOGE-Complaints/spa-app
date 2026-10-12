@@ -149,6 +149,7 @@
   margin-top: 8px;
 }
 
+.feed-discussion-composer-wrap[data-oval-composer='true'] .nf-composer,
 .feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer {
   display: flex;
   flex-direction: row;
@@ -162,6 +163,7 @@
   min-width: 0;
 }
 
+.feed-discussion-composer-wrap[data-oval-composer='true'] .comment-text-input,
 .feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-input {
   flex: 1 1 auto;
   min-width: 0;
@@ -176,6 +178,7 @@
   box-shadow: none;
 }
 
+.feed-discussion-composer-wrap[data-oval-composer='true'] .composer-action-row,
 .feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-toolbar {
   display: inline-flex;
   flex: 0 0 auto;
@@ -247,6 +250,9 @@
   filter: brightness(0) invert(1);
 }
 
+.feed-discussion-composer-wrap[data-oval-composer='true'] .nf-composer-attach-chip,
+.feed-discussion-composer-wrap[data-oval-composer='true'] .composer-feedback,
+.feed-discussion-composer-wrap[data-oval-composer='true'] .nf-composer-handoff,
 .feed-discussion-composer-wrap[data-oval-composer='true'] .comment-attach-chip,
 .feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-warning,
 .feed-discussion-composer-wrap[data-oval-composer='true'] .comment-composer-post-fail,

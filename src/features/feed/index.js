@@ -32,12 +32,23 @@ export {
   ReplyDepthNotice,
 } from './comments/index.js'
 export {
+  ComposerEntry,
+  ThreadComposer,
+  ReplyContext,
+  CommentTextInput,
+  ComposerActionRow,
+  SubmitCommentAction,
+  ComposerFeedback,
+  DraftDiscardDialog,
+} from './composer/index.js'
+export {
   selectPreviewBodies,
   COLLAPSED_PREVIEW_LIMIT,
   isAtMaxDepth,
   shouldShowDepthNotice,
   visualIndentDepth,
   VISUAL_INDENT_CAP,
+  isDraftDirty,
 } from './semantics/index.js'
 export { FeedListMapToggle } from './FeedListMapToggle.jsx'
 export { FeedMapArea } from './FeedMapArea.jsx'

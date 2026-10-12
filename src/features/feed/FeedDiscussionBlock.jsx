@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { CommentComposer } from '../../components/threads/CommentComposer.jsx'
 import { InviteOrganizationStub } from '../../components/threads/InviteOrganizationStub.jsx'
 import { resolveHarnessThr02Scene } from '../../components/threads/thr02DemoFixture.js'
 import { THREADS_FEED_THREAD_ICONS } from '../../components/threads/threadIcons.js'
@@ -9,15 +8,17 @@ import {
   DiscussionLayout,
   DiscussionSummaryChrome,
 } from './comments/index.js'
+import { ComposerEntry, ThreadComposer } from './composer/index.js'
 import { selectPreviewBodies } from './semantics/discussionPreview.js'
 import { FeedReactionsStrip } from './FeedReactionsStrip.jsx'
 import './FeedDiscussionBlock.css'
 import './comments/DiscussionTreeChrome.css'
+import './composer/ComposerChrome.css'
 
 /**
- * Next-feed Discussion presentation (M152 THR-P + M153 expand) — AD-VP-01/02 · VL-04/05 DS §2/§6.
+ * Next-feed Discussion presentation (M152 THR-P + M153 expand) — AD-VP-01/02 · VL-04/05/06 DS §2/§6/§7.
  * Collapsed Done = DiscussionSummaryChrome; expanded Done = DiscussionLayout + light CommentTree.
- * Classic threads/CommentTree chrome ≠ Done on `#/next/feed*` (composer/invite shelter until VL-06/12).
+ * Composer Done = ComposerEntry / ThreadComposer; classic CommentComposer ≠ Done on `#/next/feed*`.
  *
  * @param {object} props — same contract as IssueThreadBlock + feed presentation
  */
@@ -187,17 +188,26 @@ export function FeedDiscussionBlock({
     )
   }
 
+  const composerFull = status === 'populated' && expanded
   const composer =
     showComposerEntry && (status === 'empty' || status === 'populated') ? (
       <div
         className="feed-discussion-composer-wrap"
-        data-composer-chrome={status === 'populated' && expanded ? 'oval' : 'oval-entry'}
+        data-composer-chrome={composerFull ? 'oval' : 'oval-entry'}
         data-oval-composer="true"
-        data-presentation={
-          status === 'populated' && expanded ? 'm153-composer' : 'm153-composer-entry'
-        }
+        data-presentation={composerFull ? 'm153-composer' : 'm153-composer-entry'}
       >
-        <CommentComposer t={t} mode="root" testId="issue-thread-composer" {...composerShared} />
+        {composerFull ? (
+          <ThreadComposer t={t} mode="root" testId="issue-thread-composer" {...composerShared} />
+        ) : (
+          <ComposerEntry
+            t={t}
+            mode="root"
+            testId="issue-thread-composer"
+            initiallyOpen={true}
+            {...composerShared}
+          />
+        )}
       </div>
     ) : null
 

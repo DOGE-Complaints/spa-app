@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { CommentComposer } from '../../../components/threads/CommentComposer.jsx'
 import { THREADS_FEED_THREAD_ICONS } from '../../../components/threads/threadIcons.js'
+import { ThreadComposer } from '../composer/index.js'
 import {
   isAtMaxDepth,
   shouldShowDepthNotice,
@@ -13,7 +13,7 @@ import './DiscussionTreeChrome.css'
 /**
  * DS §6 next-feed CommentTree — light M152/M153 plane (AD-VL-01/02).
  * Classic `components/threads/CommentTree.jsx` remains board Done path — not imported here as chrome.
- * Composer reply UI stays classic shelter until VL-06.
+ * Reply uses VL-06 ThreadComposer (DS §7).
  */
 export function CommentTree({
   t,
@@ -105,7 +105,7 @@ export function CommentTree({
               }
               replyComposer={
                 replyParentId === node.id && replyParent ? (
-                  <CommentComposer
+                  <ThreadComposer
                     t={t}
                     mode="reply"
                     parentId={replyParent.id}
