@@ -131,7 +131,8 @@ describe('NF-07 FeedCivicPost visual parity (M150 / AD-VP-01)', () => {
       />,
     )
     expect(html).not.toContain('data-testid="feed-civic-post-geo"')
-    expect(html).not.toContain('feed-civic-post-date')
+    expect(html).not.toContain('data-testid="issue-metadata-date"')
+    expect(html).toContain('data-testid="issue-identity-header"')
     expect(html).toContain('data-testid="feed-civic-action-reactions"')
     expect(html).not.toContain('data-reaction-count=')
   })
