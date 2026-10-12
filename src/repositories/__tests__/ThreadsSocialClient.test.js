@@ -557,6 +557,7 @@ describe('mapThreadTreeToBlock', () => {
       id: 'c1',
       parentId: null,
       depth: 0,
+      body: 'Hello world',
       label: 'Hello world',
       summaryMarks: [{ reaction_id: 'agree', count: 2 }],
       aggregateCount: 2,

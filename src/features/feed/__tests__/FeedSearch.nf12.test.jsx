@@ -42,7 +42,7 @@ describe('NF-12 text search FE enable (AD-VP-03 / REQ-56)', () => {
     )
   })
 
-  it('toolbar renders live SearchInput (hide lifted)', () => {
+  it('toolbar renders live BoardSearchField (VL-02 skin; NF-12 wire retained)', () => {
     const html = renderToStaticMarkup(
       <FeedToolbar
         t={makeT({
@@ -87,8 +87,11 @@ describe('NF-12 text search FE enable (AD-VP-03 / REQ-56)', () => {
       />,
     )
     expect(html).toContain('data-testid="feed-search"')
-    expect(html).toContain('board-search-input')
+    expect(html).toContain('data-testid="board-search-field"')
+    expect(html).toContain('data-search-surface="BoardSearchField"')
     expect(html).toContain('Search issues…')
+    expect(html).toContain('data-testid="board-search-field-clear"')
+    expect(html).not.toContain('board-search-input')
     expect(html).not.toContain('feed-search-unavailable')
   })
 

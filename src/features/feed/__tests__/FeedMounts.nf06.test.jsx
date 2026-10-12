@@ -99,7 +99,7 @@ describe('NF-06 mounts + verify', () => {
     expect(html).toContain('data-issue-status="ready"')
     expect(html).toContain('DEMO-NF06-1')
     expect(html).toContain('data-testid="feed-civic-post"')
-    expect(html).toContain('issue-thread-block')
+    expect(html).toContain('data-testid="feed-discussion-block"')
   })
 
   it('modal presentation exposes dialog chrome and close icon reuse', () => {

@@ -59,7 +59,7 @@ describe('NF-01 feed list/toolbar host', () => {
     expect(html).toContain('data-testid="feed-host"')
     expect(html).toContain('data-testid="feed-toolbar"')
     expect(html).toContain('data-testid="feed-search"')
-    expect(html).toContain('class="board-search-input"')
+    expect(html).toContain('data-testid="board-search-field"')
     expect(html).not.toContain('data-testid="feed-search-unavailable"')
     expect(html).not.toContain('data-testid="next-feed-host-wip"')
     expect(html).not.toContain('Feed coming soon')
