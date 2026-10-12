@@ -13,7 +13,7 @@ Root: `spa-app/src/features/feed/`
 |----------------|------|
 | `semantics/` | Backend / Closed clients / mapping — **no UI** (Q2–Q3) |
 | `identity/` | Civic identity chrome |
-| `search/` | Board search field chrome |
+| `search/` | Board search field chrome · **Present** `BoardSearchField` (VL-02 P3 · `#/next/feed*` Done; `#/board` keeps Filters `SearchInput`) |
 | `reactions/` | Reaction aggregate / picker / footer / hints |
 | `comments/` | Discussion summary + light CommentTree plane |
 | `composer/` | Composer entry / thread composer / reply / discard |
