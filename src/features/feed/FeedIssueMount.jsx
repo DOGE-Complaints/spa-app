@@ -2,12 +2,21 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { issueService } from '../../services/issueService.js'
 import { FeedIssueDetail } from './FeedIssueDetail.jsx'
+import {
+  IssuePresentationLayout,
+  OverlayHost,
+  OverlayLayout,
+  toIssuePresentationVariant,
+  toOverlayLayoutVariant,
+} from './presentation/index.js'
 import { useFeedNarrow } from './useFeedNarrow.js'
+import './presentation/PresentationChrome.css'
 import './FeedIssueMount.css'
 
 /**
  * Issue mount parity: desktop modal · narrow sheet · forced route page (M158).
- * Parent chrome differs; civic + Discussion product is FeedIssueDetail.
+ * Parent chrome = DS OverlayHost / OverlayLayout / IssuePresentationLayout (VL-07).
+ * Civic + Discussion product remains FeedIssueDetail.
  *
  * @param {object} props
  * @param {string} props.issueId
@@ -38,6 +47,8 @@ export function FeedIssueMount({
     if (presentationProp && presentationProp !== 'auto') return presentationProp
     return narrow ? 'sheet' : 'modal'
   }, [presentationProp, narrow])
+
+  const layoutVariant = toIssuePresentationVariant(presentation)
 
   const fetchIssue = useCallback(() => {
     if (!issueId) return
@@ -70,15 +81,6 @@ export function FeedIssueMount({
     fetchIssue()
   }, [fetchIssue])
 
-  useEffect(() => {
-    if (presentation === 'route') return undefined
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [presentation])
-
   const onBack = useCallback(() => {
     navigate(feedUrlForBack.startsWith('/') ? feedUrlForBack : `/${feedUrlForBack}`)
   }, [navigate, feedUrlForBack])
@@ -102,57 +104,62 @@ export function FeedIssueMount({
     feedUrlForBack.startsWith('/') ? feedUrlForBack : `/${feedUrlForBack}`,
   )}`
 
-  const chrome = (
-    <>
-      <header className="feed-issue-mount-header">
-        <h2 className="feed-issue-mount-title" id="feed-issue-mount-title">
-          {issue ? `Issue ${issue.id}` : `Issue ${issueId}`}
-        </h2>
-        <div className="feed-issue-mount-actions">
-          {presentation !== 'route' ? (
-            <Link
-              to={openAsPageTo}
-              className="feed-issue-mount-open-page"
-              data-testid="feed-issue-open-as-page"
-            >
-              {t('nextFeed.mount.openAsPage')}
-            </Link>
-          ) : null}
-          <button
-            type="button"
-            className="feed-issue-mount-close"
-            data-testid="feed-issue-mount-close"
-            aria-label={t('nextFeed.mount.close')}
-            onClick={onBack}
+  const header = (
+    <header className="feed-issue-mount-header">
+      <h2 className="feed-issue-mount-title" id="feed-issue-mount-title">
+        {issue ? `Issue ${issue.id}` : `Issue ${issueId}`}
+      </h2>
+      <div className="feed-issue-mount-actions">
+        {presentation !== 'route' ? (
+          <Link
+            to={openAsPageTo}
+            className="feed-issue-mount-open-page"
+            data-testid="feed-issue-open-as-page"
           >
-            <img
-              src="/icons/next-shell/actions/close.svg"
-              alt=""
-              aria-hidden="true"
-              width={20}
-              height={20}
-            />
-            <span>{t('nextFeed.mount.close')}</span>
-          </button>
-        </div>
-      </header>
-      <div className="feed-issue-mount-body">
-        <FeedIssueDetail
-          issueId={issueId}
-          issue={issue}
-          loading={loading}
-          error={error}
-          notFound={notFound}
-          onRetry={fetchIssue}
-          onBack={onBack}
-          locale={locale}
-          resolveLocalizedText={resolveLocalizedText}
-          t={t}
-          meProfile={meProfile}
-          returnTo={hashBack}
-        />
+            {t('nextFeed.mount.openAsPage')}
+          </Link>
+        ) : null}
+        <button
+          type="button"
+          className="feed-issue-mount-close"
+          data-testid="feed-issue-mount-close"
+          aria-label={t('nextFeed.mount.close')}
+          onClick={onBack}
+        >
+          <img
+            src="/icons/next-shell/actions/close.svg"
+            alt=""
+            aria-hidden="true"
+            width={20}
+            height={20}
+          />
+          <span>{t('nextFeed.mount.close')}</span>
+        </button>
       </div>
-    </>
+    </header>
+  )
+
+  const body = (
+    <div className="feed-issue-mount-body">
+      <FeedIssueDetail
+        issueId={issueId}
+        issue={issue}
+        loading={loading}
+        error={error}
+        notFound={notFound}
+        onRetry={fetchIssue}
+        onBack={onBack}
+        locale={locale}
+        resolveLocalizedText={resolveLocalizedText}
+        t={t}
+        meProfile={meProfile}
+        returnTo={hashBack}
+      />
+    </div>
+  )
+
+  const layout = (
+    <IssuePresentationLayout variant={layoutVariant} header={header} body={body} titleId="feed-issue-mount-title" />
   )
 
   if (presentation === 'route') {
@@ -163,36 +170,27 @@ export function FeedIssueMount({
         data-presentation="route"
         aria-labelledby="feed-issue-mount-title"
       >
-        {chrome}
+        {layout}
       </div>
     )
   }
 
   return (
-    <div
-      className={`feed-issue-mount-root feed-issue-mount-root--${presentation}`}
-      data-testid="feed-issue-mount-root"
-      data-presentation={presentation}
-    >
-      <button
-        type="button"
-        className="feed-issue-mount-scrim"
-        data-testid="feed-issue-mount-scrim"
-        aria-label={t('nextFeed.mount.close')}
-        onClick={onBack}
-      />
-      <div
-        className={`feed-issue-mount feed-issue-mount--${presentation}`}
-        data-testid="feed-issue-mount"
-        data-presentation={presentation}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="feed-issue-mount-title"
-        tabIndex={-1}
-        onKeyDown={onKeyDown}
+    <OverlayHost onDismiss={onBack} data-presentation={presentation}>
+      <OverlayLayout
+        variant={toOverlayLayoutVariant(presentation)}
+        scrimLabel={t('nextFeed.mount.close')}
+        onScrimClick={onBack}
+        panelProps={{
+          role: 'dialog',
+          'aria-modal': 'true',
+          'aria-labelledby': 'feed-issue-mount-title',
+          tabIndex: -1,
+          onKeyDown,
+        }}
       >
-        {chrome}
-      </div>
-    </div>
+        {layout}
+      </OverlayLayout>
+    </OverlayHost>
   )
 }

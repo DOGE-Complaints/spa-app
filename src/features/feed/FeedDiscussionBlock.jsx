@@ -9,11 +9,13 @@ import {
   DiscussionSummaryChrome,
 } from './comments/index.js'
 import { ComposerEntry, ThreadComposer } from './composer/index.js'
+import { KeyboardComposerLayout } from './presentation/index.js'
 import { selectPreviewBodies } from './semantics/discussionPreview.js'
 import { FeedReactionsStrip } from './FeedReactionsStrip.jsx'
 import './FeedDiscussionBlock.css'
 import './comments/DiscussionTreeChrome.css'
 import './composer/ComposerChrome.css'
+import './presentation/PresentationChrome.css'
 
 /**
  * Next-feed Discussion presentation (M152 THR-P + M153 expand) — AD-VP-01/02 · VL-04/05/06 DS §2/§6/§7.
@@ -233,7 +235,9 @@ export function FeedDiscussionBlock({
       <DiscussionLayout
         header={<DiscussionHeader title={t('threadsFeed.post.action.discussion')} />}
         body={body}
-        composer={composer}
+        composer={
+          composer ? <KeyboardComposerLayout active={true}>{composer}</KeyboardComposerLayout> : null
+        }
         stub={stub}
       />
     </section>
