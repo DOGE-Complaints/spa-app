@@ -16,6 +16,7 @@ import { resolveLabMediaStub } from './labMediaStub.js'
  * @typedef {object} LabFeedFixture
  * @property {string} publicId — visible demo id (fixture-only; not Closed product label field)
  * @property {string} title
+ * @property {string} summary — fixture-authored (not geoHint-only)
  * @property {string} geoHint
  * @property {'PUBLISHED'} status
  * @property {'INCIDENT'} type
@@ -30,6 +31,7 @@ const LAB_FEED_FIXTURE_DRAFTS = [
   {
     publicId: 'DOGEstonia-UusVeerenni-001',
     title: 'Night construction noise — Uus Veerenni corner',
+    summary: 'Residents report repeated late-night construction noise near the corner.',
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',
@@ -43,6 +45,7 @@ const LAB_FEED_FIXTURE_DRAFTS = [
   {
     publicId: 'DOGEstonia-UusVeerenni-002',
     title: 'Potholes on Pärnu mnt near bus stop',
+    summary: 'Deep potholes make the bike lane and bus approach unsafe.',
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',
@@ -55,6 +58,7 @@ const LAB_FEED_FIXTURE_DRAFTS = [
   {
     publicId: 'DOGEstonia-UusVeerenni-003',
     title: 'Overflowing bins at Kadriorg playground',
+    summary: 'Weekend rush filled playground bins; litter spills onto paths.',
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',
@@ -68,6 +72,7 @@ const LAB_FEED_FIXTURE_DRAFTS = [
   {
     publicId: 'DOGEstonia-UusVeerenni-004',
     title: 'Broken streetlight on Telliskivi block',
+    summary: 'Dark stretch near the corner shop after the streetlight failed.',
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',
@@ -80,6 +85,7 @@ const LAB_FEED_FIXTURE_DRAFTS = [
   {
     publicId: 'DOGEstonia-UusVeerenni-005',
     title: 'Standing water after rain — Kalamaja alley',
+    summary: 'Blocked drain leaves standing water in the alley for a second day.',
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',

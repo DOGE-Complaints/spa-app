@@ -13,3 +13,14 @@ export { FeedLabDiscussionDeprecated } from './FeedLabDiscussionDeprecated.jsx'
 export { FeedLabDetailOverlayDeprecated } from './FeedLabDetailOverlayDeprecated.jsx'
 export { LabReactionChromeDeprecated } from './LabReactionChromeDeprecated.jsx'
 export { labT } from './labI18n.js'
+
+/** LAB-07 greenfield — import from `./post/` preferred on Done path (no Deprecated) */
+export {
+  FeedPostCard,
+  FeedPostIdentity,
+  FeedPostTitle,
+  FeedPostSummary,
+  FeedPostOpenIssue,
+  FeedPostMedia,
+  FeedPostActionStrip,
+} from './post/index.js'

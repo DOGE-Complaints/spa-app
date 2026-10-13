@@ -1,0 +1,34 @@
+.feed-post-action-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  min-height: 56px;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #e7e4dc;
+  gap: 0;
+}
+
+.feed-post-action-strip__zone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  margin: 0;
+  padding: 0.5rem 0.35rem;
+  border: 0;
+  border-right: 1px solid #e7e4dc;
+  background: transparent;
+  font: 600 0.8125rem/1.2 system-ui, sans-serif;
+  color: #344054;
+  cursor: pointer;
+}
+
+.feed-post-action-strip__zone:last-child {
+  border-right: 0;
+}
+
+.feed-post-action-strip__zone:focus-visible {
+  outline: 2px solid #f5c542;
+  outline-offset: -2px;
+}

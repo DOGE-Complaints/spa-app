@@ -1,0 +1,21 @@
+.feed-post-summary {
+  margin: 0;
+  font: 400 0.9375rem/1.45 system-ui, sans-serif;
+  color: #344054;
+  text-align: left;
+  word-break: break-word;
+}
+
+.feed-post-summary--hit {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.feed-post-summary--hit:focus-visible {
+  outline: 2px solid #f5c542;
+  outline-offset: 2px;
+}

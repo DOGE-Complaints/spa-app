@@ -37,3 +37,20 @@
   padding: 0;
   min-width: 0;
 }
+
+.feed-lab-page__section {
+  margin: 0 0 2.5rem;
+  min-width: 0;
+}
+
+.feed-lab-page__section--deprecated {
+  opacity: 0.92;
+  border-top: 1px dashed #c9c4b8;
+  padding-top: 1.5rem;
+}
+
+.feed-lab-page__section-title {
+  margin: 0 0 0.75rem;
+  font: 650 1rem/1.35 system-ui, sans-serif;
+  color: #344054;
+}
