@@ -1,0 +1,22 @@
+/* LAB-10 · M158 greenfield overlay body — token plane · not classic board */
+.feed-issue-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.feed-issue-detail-body .feed-post-title {
+  margin: 0;
+  font: 650 1.25rem/1.35 system-ui, sans-serif;
+  color: var(--color-text-primary, #1a1f26);
+  text-align: left;
+}
+
+.feed-issue-detail-body .feed-post-summary {
+  margin: 0;
+  font: 400 0.95rem/1.45 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+  text-align: left;
+}

@@ -1,5 +1,7 @@
-/** LAB-07/08 greenfield post plane — explicit exports · not Deprecated */
+/** LAB-07…10 greenfield post plane — explicit exports · not Deprecated */
 export { FeedPostCard } from './FeedPostCard.jsx'
+export { FeedIssueDetailOverlay } from './FeedIssueDetailOverlay.jsx'
+export { FeedIssueDetailBody } from './FeedIssueDetailBody.jsx'
 export { FeedPostIdentity } from './FeedPostIdentity.jsx'
 export { FeedPostTitle } from './FeedPostTitle.jsx'
 export { FeedPostSummary } from './FeedPostSummary.jsx'
