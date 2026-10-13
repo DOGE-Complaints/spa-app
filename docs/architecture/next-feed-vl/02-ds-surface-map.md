@@ -57,6 +57,7 @@ Exact filename per surface = implement wave; arch requires **named exports match
 | STORY-SPA-NF-LAB-01 | `FeedLabPage` blank canvas `#/lab/feed` | `pages/FeedLabPage` · **Present** foundation (LAB-01 P3) · **not** visual package PASS · product `#/next/feed*` / `#/board` unchanged |
 | STORY-SPA-NF-LAB-02 | Lab fixtures + media stub contract | `features/feed-lab/fixtures/` · **Present** 5× `DOGEstonia-UusVeerenni-00N` + `/assets/dogefeed.png` (LAB-02 P3) · data foundation · **not** full visual Done |
 | STORY-SPA-NF-LAB-03 | Atom compose card · local reactions · discussion | `features/feed-lab/` (`FeedLabIssueCard` · `LabReactionChrome` · `FeedLabDiscussion`) · structure **Present** (LAB-03 P3) · story **Blocked** · Partial visual · OP eye Absent · **not** visual Done / Story Done |
+| STORY-SPA-NF-LAB-04 | Modal detail from title/summary/media | `features/feed-lab/FeedLabDetailOverlay` · OverlayHost + IssuePresentationLayout · structure **Present** (LAB-04 P3) · story **Blocked** · Partial visual · OP eye Absent · **not** visual Done / Story Done |
 
 Lab is Related-only to this VL map — do not treat lab chrome as next-feed VL Done.
 
