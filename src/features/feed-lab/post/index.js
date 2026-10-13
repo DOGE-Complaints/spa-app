@@ -13,3 +13,11 @@ export {
   FeedReactionOption,
   FeedReactionLayerGroup,
 } from './reactions/index.js'
+export {
+  FeedDiscussionPlane,
+  FeedDiscussionSummary,
+  FeedDiscussionHeader,
+  FeedCommentTree,
+  FeedCommentNode,
+  FeedComposerEntry,
+} from './discussion/index.js'

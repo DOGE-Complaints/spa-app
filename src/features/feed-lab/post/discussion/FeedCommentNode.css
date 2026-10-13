@@ -1,0 +1,20 @@
+.feed-post-comment-node {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0;
+  border-bottom: 1px solid #efece4;
+  min-width: 0;
+}
+
+.feed-post-comment-node:last-child {
+  border-bottom: none;
+}
+
+.feed-post-comment-node__body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #101828;
+  white-space: pre-wrap;
+}

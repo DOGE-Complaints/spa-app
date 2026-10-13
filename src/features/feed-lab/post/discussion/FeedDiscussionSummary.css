@@ -1,0 +1,48 @@
+.feed-post-discussion-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0 4px;
+  min-width: 0;
+}
+
+.feed-post-discussion-summary__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #101828;
+}
+
+.feed-post-discussion-summary__previews {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feed-post-discussion-summary__preview {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #667085;
+}
+
+.feed-post-discussion-summary__view {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid #e7e4dc;
+  border-radius: 8px;
+  background: #f7f6f2;
+  color: #101828;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.feed-post-discussion-summary__view:focus-visible {
+  outline: 2px solid #f5c542;
+  outline-offset: 1px;
+}

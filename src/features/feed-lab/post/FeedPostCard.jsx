@@ -5,15 +5,17 @@ import { FeedPostSummary } from './FeedPostSummary.jsx'
 import { FeedPostOpenIssue } from './FeedPostOpenIssue.jsx'
 import { FeedPostMedia } from './FeedPostMedia.jsx'
 import { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
-import { FeedReactionPlane } from './reactions/index.js'
+import { FeedDiscussionPlane } from './discussion/index.js'
 import './FeedPostCard.css'
 
 /**
- * LAB-07/08 greenfield civic post card — M150 anatomy + M154 reactions.
- * Ban: Deprecated chrome · classic controls stylesheet · product hosts · emoji-soup on Done path.
+ * LAB-07…09 greenfield civic post card — M150 anatomy + M154 reactions + M152 discussion.
+ * Ban: Deprecated chrome · classic uppercase thread label · product discussion block · Controls stylesheet.
  */
 export function FeedPostCard({ fixture, onOpenDetail = null, onActionZone = null }) {
   const [reactionsOpen, setReactionsOpen] = useState(false)
+  const [discussionExpanded, setDiscussionExpanded] = useState(false)
+  const [composerFocusSignal, setComposerFocusSignal] = useState(0)
 
   function openDetail(event) {
     if (typeof onOpenDetail !== 'function') return
@@ -23,6 +25,10 @@ export function FeedPostCard({ fixture, onOpenDetail = null, onActionZone = null
   function handleZone(zoneId, event) {
     if (zoneId === 'react' || zoneId === 'reactions') {
       setReactionsOpen((v) => !v)
+    }
+    if (zoneId === 'comment') {
+      setDiscussionExpanded(true)
+      setComposerFocusSignal((n) => n + 1)
     }
     if (typeof onActionZone === 'function') onActionZone(zoneId, event)
   }
@@ -36,6 +42,7 @@ export function FeedPostCard({ fixture, onOpenDetail = null, onActionZone = null
       data-lab-plane="greenfield"
       data-lab-card="feed-post"
       data-lab-reactions="m154"
+      data-lab-discussion="m152"
     >
       <div className="feed-post-card__body">
         <FeedPostIdentity fixture={fixture} />
@@ -49,10 +56,13 @@ export function FeedPostCard({ fixture, onOpenDetail = null, onActionZone = null
         <FeedPostMedia media={fixture.media} onOpenDetail={onOpenDetail ? openDetail : null} />
       </div>
       <FeedPostActionStrip onZone={handleZone} />
-      <FeedReactionPlane
-        target="thread-root"
-        open={reactionsOpen}
-        onOpenChange={setReactionsOpen}
+      <FeedDiscussionPlane
+        fixture={fixture}
+        expanded={discussionExpanded}
+        onExpandedChange={setDiscussionExpanded}
+        reactionsOpen={reactionsOpen}
+        onReactionsOpenChange={setReactionsOpen}
+        focusComposerSignal={composerFocusSignal}
       />
     </article>
   )

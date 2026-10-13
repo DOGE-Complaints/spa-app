@@ -1,0 +1,28 @@
+.feed-post-discussion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.feed-post-discussion-header__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+  color: #101828;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.feed-post-discussion-header__collapse {
+  min-height: 32px;
+  padding: 4px 10px;
+  border: 1px solid #e7e4dc;
+  border-radius: 8px;
+  background: #fffdf8;
+  color: #667085;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
