@@ -5,6 +5,7 @@ import {
 } from './layout/AppShellLayout.jsx'
 import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
+import { FeedLabPage } from './pages/FeedLabPage.jsx'
 import { HowItWorksPage } from './pages/HowItWorksPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
@@ -35,6 +36,8 @@ function App() {
         {/* NS-01: next feed host above catch-all — feed body → next-feed */}
         <Route path="/next/feed" element={<NextFeedHostPage />} />
         <Route path="/next/feed/issue/:id" element={<NextFeedHostPage />} />
+        {/* LAB-01: isolated lab canvas — inside shell; not product feed host */}
+        <Route path="/lab/feed" element={<FeedLabPage />} />
         <Route path="*" element={<Navigate to="/next/feed" replace />} />
       </Route>
     </Routes>

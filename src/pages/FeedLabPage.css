@@ -1,0 +1,16 @@
+/* LAB-01 blank canvas — minimal layout; not classic Controls; not visual PASS. */
+.feed-lab-page {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.feed-lab-page__canvas {
+  flex: 1;
+  min-height: 24rem;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--color-surface, #ffffff);
+}
