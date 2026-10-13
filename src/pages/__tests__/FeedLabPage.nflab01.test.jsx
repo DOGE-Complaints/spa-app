@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { FeedLabPage } from '../FeedLabPage.jsx'
 
 const dir = path.dirname(fileURLToPath(import.meta.url))
@@ -20,31 +21,35 @@ describe('FeedLabPage NF-LAB-01', () => {
 
   it('renders lab canvas surface (foundation / data smoke)', () => {
     render(
-      <MemoryRouter initialEntries={['/lab/feed']}>
-        <Routes>
-          <Route path="/lab/feed" element={<FeedLabPage />} />
-        </Routes>
-      </MemoryRouter>,
+      <I18nProvider>
+        <MemoryRouter initialEntries={['/lab/feed']}>
+          <Routes>
+            <Route path="/lab/feed" element={<FeedLabPage />} />
+          </Routes>
+        </MemoryRouter>
+      </I18nProvider>,
     )
     expect(screen.getByTestId('feed-lab-page')).toBeTruthy()
     expect(screen.getByTestId('feed-lab-canvas')).toBeTruthy()
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
-    expect(['blank', 'data']).toContain(
+    expect(['blank', 'data', 'compose']).toContain(
       screen.getByTestId('feed-lab-page').getAttribute('data-lab-foundation'),
     )
   })
 
-  it('shows five fixture public ids for LAB-02 data smoke', () => {
+  it('shows five fixture public ids on lab cards (LAB-02/03)', () => {
     render(
-      <MemoryRouter initialEntries={['/lab/feed']}>
-        <Routes>
-          <Route path="/lab/feed" element={<FeedLabPage />} />
-        </Routes>
-      </MemoryRouter>,
+      <I18nProvider>
+        <MemoryRouter initialEntries={['/lab/feed']}>
+          <Routes>
+            <Route path="/lab/feed" element={<FeedLabPage />} />
+          </Routes>
+        </MemoryRouter>
+      </I18nProvider>,
     )
     expect(screen.getByTestId('feed-lab-fixture-count').textContent).toMatch(/5/)
-    expect(screen.getByTestId('feed-lab-fixture-DOGEstonia-UusVeerenni-001')).toBeTruthy()
-    expect(screen.getByTestId('feed-lab-fixture-DOGEstonia-UusVeerenni-005')).toBeTruthy()
+    expect(screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-001')).toBeTruthy()
+    expect(screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-005')).toBeTruthy()
   })
 
   it('lab entry module holds ban-list (no product hosts / classic Controls imports)', () => {
