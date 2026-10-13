@@ -93,34 +93,28 @@ describe('FeedLab Deprecated plane NF-LAB-06', () => {
     expect(typeof FeedLabDetailOverlayDeprecated).toBe('function')
   })
 
-  it('FeedLabPage mounts Deprecated residual with data-lab-plane=deprecated', () => {
-    expect(pageSrc).toContain('FeedLabIssueCardDeprecated')
-    expect(pageSrc).toContain('FeedLabDetailOverlayDeprecated')
-    expect(pageSrc).not.toMatch(/\bFeedLabIssueCard\b(?!Deprecated)/)
-    expect(pageSrc).not.toMatch(/\bFeedLabDetailOverlay\b(?!Deprecated)/)
+  it('Deprecated modules remain on disk · FeedLabPage cutover bans Deprecated imports (LAB-10)', () => {
+    // Archaeology: *Deprecated files + barrel kept; Done page mounts greenfield only.
+    expect(pageSrc).not.toMatch(/\bFeedLabIssueCardDeprecated\b/)
+    expect(pageSrc).not.toMatch(/\bFeedLabDetailOverlayDeprecated\b/)
+    expect(pageSrc).not.toMatch(/\bLabReactionChromeDeprecated\b/)
+    expect(pageSrc).not.toMatch(/\bFeedLabDiscussionDeprecated\b/)
+    expect(pageSrc).toMatch(/from ['"].*feed-lab\/post/)
+    expect(pageSrc).toContain('FeedIssueDetailOverlay')
 
     renderLab()
     const page = screen.getByTestId('feed-lab-page')
     expect(page.getAttribute('data-lab-visual-done')).toBe('false')
-    expect(screen.getByTestId('feed-lab-deprecated-section').getAttribute('data-lab-plane')).toBe(
-      'deprecated',
-    )
-    expect(screen.getAllByTestId(/^feed-lab-issue-card-/)).toHaveLength(5)
-    expect(
-      screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-001').getAttribute(
-        'data-lab-plane',
-      ),
-    ).toBe('deprecated')
-    expect(screen.getAllByTestId('lab-reaction-chrome')[0].getAttribute('data-lab-plane')).toBe(
-      'deprecated',
-    )
+    expect(page.getAttribute('data-lab-plane')).toBe('greenfield')
+    expect(screen.queryByTestId('feed-lab-deprecated-section')).toBeNull()
+    expect(screen.queryAllByTestId(/^feed-lab-issue-card-/)).toHaveLength(0)
   })
 
-  it('detail overlay root carries data-lab-plane=deprecated', () => {
+  it('greenfield overlay root carries data-lab-plane=greenfield (not Deprecated)', () => {
     renderLab()
-    fireEvent.click(screen.getAllByTestId('feed-lab-card-title')[0])
-    expect(screen.getByTestId('feed-lab-detail-panel').getAttribute('data-lab-plane')).toBe(
-      'deprecated',
+    fireEvent.click(screen.getAllByTestId('feed-post-title')[0])
+    expect(screen.getByTestId('feed-issue-detail-panel').getAttribute('data-lab-plane')).toBe(
+      'greenfield',
     )
   })
 

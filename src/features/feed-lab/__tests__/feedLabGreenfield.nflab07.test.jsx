@@ -98,11 +98,10 @@ describe('FeedLab greenfield NF-LAB-07', () => {
     )
   })
 
-  it('keeps Deprecated residual separate without claiming visual Done', () => {
+  it('LAB-10 cutover: no Deprecated residual section · visual Done still false', () => {
     renderLab()
-    expect(screen.getByTestId('feed-lab-deprecated-section').getAttribute('data-lab-plane')).toBe(
-      'deprecated',
-    )
-    expect(screen.getAllByTestId(/^feed-lab-issue-card-/)).toHaveLength(5)
+    expect(screen.queryByTestId('feed-lab-deprecated-section')).toBeNull()
+    expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-plane')).toBe('greenfield')
+    expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
   })
 })

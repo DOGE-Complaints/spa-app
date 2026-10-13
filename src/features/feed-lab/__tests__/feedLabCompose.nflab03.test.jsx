@@ -1,4 +1,8 @@
 /** @vitest-environment jsdom */
+/**
+ * LAB-03 shallow compose — superseded on `#/lab/feed` Done path by LAB-10 greenfield cutover.
+ * Keeps ban-list + asserts greenfield list (not Deprecated residual mount).
+ */
 import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import { readFileSync, readdirSync } from 'node:fs'
@@ -47,15 +51,16 @@ function renderLab() {
   )
 }
 
-describe('FeedLab compose NF-LAB-03', () => {
+describe('FeedLab compose NF-LAB-03 (superseded mount → LAB-10 greenfield)', () => {
   afterEach(() => cleanup())
 
-  it('renders five atom-composed cards with fixture public ids', () => {
+  it('renders five greenfield cards with fixture public ids (cutover)', () => {
     renderLab()
-    expect(screen.getByTestId('feed-lab-card-list')).toBeTruthy()
-    expect(screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-001')).toBeTruthy()
-    expect(screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-005')).toBeTruthy()
-    expect(screen.getAllByTestId(/^feed-lab-issue-card-/)).toHaveLength(5)
+    expect(screen.getByTestId('feed-lab-greenfield-list')).toBeTruthy()
+    expect(screen.getByTestId('feed-post-card-DOGEstonia-UusVeerenni-001')).toBeTruthy()
+    expect(screen.getByTestId('feed-post-card-DOGEstonia-UusVeerenni-005')).toBeTruthy()
+    expect(screen.getAllByTestId(/^feed-post-card-/)).toHaveLength(5)
+    expect(screen.queryByTestId('feed-lab-card-list')).toBeNull()
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-foundation')).toBe('compose')
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
   })
@@ -84,18 +89,16 @@ describe('FeedLab compose NF-LAB-03', () => {
 
   it('discussion header is not classic DISCUSSION Done copy', () => {
     renderLab()
-    const headers = screen.getAllByTestId('discussion-header')
+    const headers = screen.getAllByTestId('feed-post-discussion-summary-title')
     expect(headers.length).toBeGreaterThan(0)
     for (const h of headers) {
       expect(h.textContent?.trim().toUpperCase()).not.toBe('DISCUSSION')
     }
   })
 
-  it('mounts lab-local reaction chrome (in-memory seam)', () => {
+  it('mounts greenfield reaction plane (not Deprecated chrome)', () => {
     renderLab()
-    const chromes = screen.getAllByTestId('lab-reaction-chrome')
-    expect(chromes).toHaveLength(5)
-    expect(chromes[0].getAttribute('data-lab-local-memory')).toBe('true')
-    expect(screen.getByTestId('reaction-picker')).toBeTruthy()
+    expect(screen.queryAllByTestId('lab-reaction-chrome')).toHaveLength(0)
+    expect(screen.getAllByTestId('feed-reaction-plane')).toHaveLength(5)
   })
 })

@@ -1,6 +1,10 @@
 /** @vitest-environment jsdom */
+/**
+ * LAB-04 shallow overlay — superseded on Done path by LAB-10 FeedIssueDetailOverlay.
+ * Retargeted to greenfield hit targets + panel ids.
+ */
 import { afterEach, describe, expect, it } from 'vitest'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -44,30 +48,30 @@ function renderLab() {
   )
 }
 
-describe('FeedLab overlay NF-LAB-04', () => {
+describe('FeedLab overlay NF-LAB-04 (superseded → LAB-10 greenfield)', () => {
   afterEach(() => cleanup())
 
-  it('opens overlay from title hit and closes via close button', () => {
+  it('opens greenfield overlay from title hit and closes via close button', () => {
     renderLab()
     expect(screen.queryByTestId('overlay-host')).toBeNull()
-    const titles = screen.getAllByTestId('feed-lab-card-title')
+    const titles = screen.getAllByTestId('feed-post-title')
     fireEvent.click(titles[0])
     expect(screen.getByTestId('overlay-host')).toBeTruthy()
     expect(screen.getByTestId('issue-presentation-layout')).toBeTruthy()
-    expect(screen.getByTestId('feed-lab-detail-panel')).toBeTruthy()
-    expect(screen.getByTestId('feed-lab-detail-body').textContent).toContain(
+    expect(screen.getByTestId('feed-issue-detail-panel')).toBeTruthy()
+    expect(screen.getByTestId('feed-issue-detail-body').textContent).toContain(
       'DOGEstonia-UusVeerenni-001',
     )
-    fireEvent.click(screen.getByTestId('feed-lab-detail-close'))
+    fireEvent.click(screen.getByTestId('feed-issue-detail-close'))
     expect(screen.queryByTestId('overlay-host')).toBeNull()
   })
 
   it('does not open overlay from action strip', () => {
     renderLab()
-    fireEvent.click(screen.getAllByTestId('feed-lab-card-actions')[0])
+    const card = screen.getByTestId('feed-post-card-DOGEstonia-UusVeerenni-001')
+    fireEvent.click(within(card).getByTestId('feed-post-action-strip'))
     expect(screen.queryByTestId('overlay-host')).toBeNull()
-    const reactBtn = screen.getAllByTestId('feed-lab-card-actions')[0].querySelector('[data-zone="react"]')
-    fireEvent.click(reactBtn)
+    fireEvent.click(within(card).getByTestId('feed-post-action-react'))
     expect(screen.queryByTestId('overlay-host')).toBeNull()
   })
 
@@ -80,8 +84,11 @@ describe('FeedLab overlay NF-LAB-04', () => {
 
   it('discussion in overlay is not classic DISCUSSION', () => {
     renderLab()
-    fireEvent.click(screen.getAllByTestId('feed-lab-card-media')[2])
-    const headers = screen.getAllByTestId('discussion-header')
+    fireEvent.click(screen.getAllByTestId('feed-post-media')[2])
+    expect(screen.getByTestId('feed-issue-detail-panel')).toBeTruthy()
+    const headers = within(screen.getByTestId('feed-issue-detail-body')).getAllByTestId(
+      'feed-post-discussion-summary-title',
+    )
     expect(headers.length).toBeGreaterThan(0)
     for (const h of headers) {
       expect(h.textContent?.trim().toUpperCase()).not.toBe('DISCUSSION')
