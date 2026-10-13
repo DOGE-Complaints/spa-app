@@ -1,0 +1,41 @@
+.feed-reaction-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #e7e4dc;
+  border-radius: 10px;
+  background: #fffdf8;
+  color: #101828;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.feed-reaction-option:hover,
+.feed-reaction-option:focus-visible {
+  outline: 2px solid #f5c542;
+  outline-offset: 1px;
+}
+
+.feed-reaction-option[aria-pressed='true'] {
+  border-color: #f5c542;
+  background: #fff8e6;
+  box-shadow: inset 0 0 0 1px #f5c542;
+}
+
+.feed-reaction-option__check {
+  width: 1.1em;
+  flex: 0 0 auto;
+  color: #b38600;
+  font-weight: 700;
+}
+
+.feed-reaction-option__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.3;
+}

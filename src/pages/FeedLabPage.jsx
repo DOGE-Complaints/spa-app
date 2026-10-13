@@ -9,8 +9,8 @@ import './FeedLabPage.css'
 
 /**
  * Feed lab canvas (`#/lab/feed`) — EPIC-SPA-22.
- * LAB-07: greenfield `feed-lab/post/` preview (primary) + Deprecated residual until LAB-10.
- * Greenfield Done path imports only from `post/` (zero *Deprecated).
+ * LAB-07/08: greenfield `feed-lab/post/` (+ `reactions/`) preview + Deprecated residual until LAB-10.
+ * Greenfield Done path imports only from `post/` (zero *Deprecated / ReactionChrome / Controls.css).
  * Visual package PASS requires OP eye (Partial = BLOCK). NOT visual Done.
  */
 export function FeedLabPage() {
@@ -53,7 +53,7 @@ export function FeedLabPage() {
           aria-label="Greenfield post plane"
         >
           <h2 className="feed-lab-page__section-title" data-testid="feed-lab-greenfield-heading">
-            Greenfield post plane (LAB-07)
+            Greenfield post + reactions (LAB-07/08)
           </h2>
           <ol
             className="feed-lab-page__list"
