@@ -61,6 +61,7 @@ Exact filename per surface = implement wave; arch requires **named exports match
 | STORY-SPA-NF-LAB-06 | Deprecate lab shallow plane | `features/feed-lab/*Deprecated` (`FeedLabIssueCardDeprecated` · `LabReactionChromeDeprecated` · `FeedLabDiscussionDeprecated` · `FeedLabDetailOverlayDeprecated`) · rename foundation **Done** (LAB-06 P3) · `data-lab-plane=deprecated` · shared `features/feed/**` untouched · **not** visual package PASS · **not** greenfield |
 | STORY-SPA-NF-LAB-07 | Greenfield post card chrome | `features/feed-lab/post/` (`FeedPostCard` · Identity · Title · Summary · OpenIssue · Media · ActionStrip) · structure **Present** (LAB-07 P3) · story **Blocked** · Partial visual · OP eye Absent · `data-lab-visual-done=false` · **not** visual Done |
 | STORY-SPA-NF-LAB-08 | Greenfield reactions plane | `features/feed-lab/post/reactions/` (`FeedReactionPlane` · Aggregate · Picker · Option · LayerGroup) · structure **Present** (LAB-08 P3) · story **Blocked** · Partial visual · OP eye Absent · strip→picker · `data-lab-visual-done=false` · **not** visual Done |
+| STORY-SPA-NF-LAB-09 | Greenfield discussion plane | `features/feed-lab/post/discussion/` (`FeedDiscussionPlane` · Summary · Header · CommentTree/Node · ComposerEntry) · structure **Present** (LAB-09 P3) · story **Blocked** · Partial visual · OP eye Absent · Comment strip→expand · M152 C reaction adjacency · `data-lab-visual-done=false` · **not** visual Done |
 
 Lab is Related-only to this VL map — do not treat lab chrome as next-feed VL Done.
 
