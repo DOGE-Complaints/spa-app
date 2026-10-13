@@ -50,6 +50,16 @@ Exact filename per surface = implement wave; arch requires **named exports match
 
 ---
 
+## 2b) Related — feed lab (EPIC-SPA-22 · not VL Done)
+
+| STORY | Surface | Home |
+|-------|---------|------|
+| STORY-SPA-NF-LAB-01 | `FeedLabPage` blank canvas `#/lab/feed` | `pages/FeedLabPage` · **Present** foundation (LAB-01 P3) · **not** visual package PASS · product `#/next/feed*` / `#/board` unchanged |
+
+Lab is Related-only to this VL map — do not treat lab chrome as next-feed VL Done.
+
+---
+
 ## 3) Icons (Q6)
 
 | Surface | Arch status |
