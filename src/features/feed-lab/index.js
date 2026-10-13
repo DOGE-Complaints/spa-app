@@ -6,3 +6,8 @@ export {
   loadLabFeedFixtures,
   resolveLabMediaStub,
 } from './fixtures/index.js'
+
+export { FeedLabIssueCard } from './FeedLabIssueCard.jsx'
+export { FeedLabDiscussion } from './FeedLabDiscussion.jsx'
+export { LabReactionChrome } from './LabReactionChrome.jsx'
+export { labT } from './labI18n.js'
