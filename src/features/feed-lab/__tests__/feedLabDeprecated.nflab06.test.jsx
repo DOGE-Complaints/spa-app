@@ -93,7 +93,7 @@ describe('FeedLab Deprecated plane NF-LAB-06', () => {
     expect(typeof FeedLabDetailOverlayDeprecated).toBe('function')
   })
 
-  it('FeedLabPage mounts Deprecated plane with data-lab-plane=deprecated', () => {
+  it('FeedLabPage mounts Deprecated residual with data-lab-plane=deprecated', () => {
     expect(pageSrc).toContain('FeedLabIssueCardDeprecated')
     expect(pageSrc).toContain('FeedLabDetailOverlayDeprecated')
     expect(pageSrc).not.toMatch(/\bFeedLabIssueCard\b(?!Deprecated)/)
@@ -101,8 +101,10 @@ describe('FeedLab Deprecated plane NF-LAB-06', () => {
 
     renderLab()
     const page = screen.getByTestId('feed-lab-page')
-    expect(page.getAttribute('data-lab-plane')).toBe('deprecated')
     expect(page.getAttribute('data-lab-visual-done')).toBe('false')
+    expect(screen.getByTestId('feed-lab-deprecated-section').getAttribute('data-lab-plane')).toBe(
+      'deprecated',
+    )
     expect(screen.getAllByTestId(/^feed-lab-issue-card-/)).toHaveLength(5)
     expect(
       screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-001').getAttribute(
