@@ -6,14 +6,31 @@ import { labT } from './labI18n.js'
 import './FeedLabIssueCard.css'
 
 /**
- * LAB-03 atom-composed lab card — DS identity + lab text/media/actions + local reactions + discussion.
+ * LAB-03/04 atom-composed lab card — DS identity + lab text/media/actions + local reactions.
+ * LAB-04: title / summary / media / Open issue open detail; action strip does not.
  * Ban: product feed hosts + classic board Controls CSS on Done path.
  */
-export function FeedLabIssueCard({ fixture, initiallyExpandDiscussion = false, initiallyOpenReactions = false }) {
+export function FeedLabIssueCard({
+  fixture,
+  initiallyExpandDiscussion = false,
+  initiallyOpenReactions = false,
+  onOpenDetail = null,
+}) {
   const [mediaState, setMediaState] = useState('pending')
   const [reactionsOpenSignal, setReactionsOpenSignal] = useState(
     initiallyOpenReactions ? 1 : 0,
   )
+
+  function openDetail(event) {
+    if (typeof onOpenDetail !== 'function') return
+    onOpenDetail(fixture.publicId, event?.currentTarget ?? null)
+  }
+
+  function stopAction(event) {
+    event.stopPropagation()
+  }
+
+  const summaryText = fixture.summary || fixture.geoHint || ''
 
   return (
     <article
@@ -34,15 +51,35 @@ export function FeedLabIssueCard({ fixture, initiallyExpandDiscussion = false, i
         moreLabel={labT('nextFeed.post.more')}
       />
 
-      <h3 className="feed-lab-issue-card__title" data-testid="feed-lab-card-title">
+      <button
+        type="button"
+        className="feed-lab-issue-card__title feed-lab-issue-card__hit"
+        data-testid="feed-lab-card-title"
+        data-lab-hit="title"
+        onClick={openDetail}
+      >
         {fixture.title}
-      </h3>
+      </button>
+
+      {summaryText ? (
+        <button
+          type="button"
+          className="feed-lab-issue-card__summary feed-lab-issue-card__hit"
+          data-testid="feed-lab-card-summary"
+          data-lab-hit="summary"
+          onClick={openDetail}
+        >
+          {summaryText}
+        </button>
+      ) : null}
 
       <button
         type="button"
         className="feed-lab-issue-card__open"
         data-testid="feed-lab-card-open"
+        data-lab-hit="open-issue"
         aria-label={labT('nextFeed.post.openIssue')}
+        onClick={openDetail}
       >
         <img
           className="feed-lab-issue-card__icon"
@@ -53,11 +90,14 @@ export function FeedLabIssueCard({ fixture, initiallyExpandDiscussion = false, i
         <span>{labT('nextFeed.post.openIssue')}</span>
       </button>
 
-      <div
-        className="feed-lab-issue-card__media"
+      <button
+        type="button"
+        className="feed-lab-issue-card__media feed-lab-issue-card__hit"
         data-testid="feed-lab-card-media"
+        data-lab-hit="media"
         data-lab-media-clickable="true"
         data-media-state={mediaState}
+        onClick={openDetail}
       >
         <img
           className="feed-lab-issue-card__media-img"
@@ -71,21 +111,26 @@ export function FeedLabIssueCard({ fixture, initiallyExpandDiscussion = false, i
         {mediaState === 'absent-honest' ? (
           <p className="feed-lab-issue-card__media-absent">Media stub Absent — honest placeholder</p>
         ) : null}
-      </div>
+      </button>
 
       <div
         className="feed-lab-issue-card__actions"
         data-testid="feed-lab-card-actions"
         data-action-zones="4"
+        data-lab-hit="actions-excluded"
         role="group"
         aria-label={labT('nextFeed.post.actions')}
+        onClick={stopAction}
       >
         <button
           type="button"
           className="feed-lab-issue-card__action"
           data-zone="react"
           aria-label={labT('threadsFeed.post.action.react')}
-          onClick={() => setReactionsOpenSignal((n) => n + 1)}
+          onClick={(e) => {
+            stopAction(e)
+            setReactionsOpenSignal((n) => n + 1)
+          }}
         >
           <img
             className="feed-lab-issue-card__icon"
@@ -100,6 +145,7 @@ export function FeedLabIssueCard({ fixture, initiallyExpandDiscussion = false, i
           className="feed-lab-issue-card__action"
           data-zone="comment"
           aria-label={labT('nextFeed.post.comment')}
+          onClick={stopAction}
         >
           <img
             className="feed-lab-issue-card__icon"
@@ -114,6 +160,7 @@ export function FeedLabIssueCard({ fixture, initiallyExpandDiscussion = false, i
           className="feed-lab-issue-card__action"
           data-zone="share"
           aria-label={labT('nextFeed.post.share')}
+          onClick={stopAction}
         >
           <img
             className="feed-lab-issue-card__icon"
@@ -128,7 +175,10 @@ export function FeedLabIssueCard({ fixture, initiallyExpandDiscussion = false, i
           className="feed-lab-issue-card__action"
           data-zone="reactions"
           aria-label="Reactions"
-          onClick={() => setReactionsOpenSignal((n) => n + 1)}
+          onClick={(e) => {
+            stopAction(e)
+            setReactionsOpenSignal((n) => n + 1)
+          }}
         >
           <img
             className="feed-lab-issue-card__icon"

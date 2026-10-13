@@ -9,5 +9,6 @@ export {
 
 export { FeedLabIssueCard } from './FeedLabIssueCard.jsx'
 export { FeedLabDiscussion } from './FeedLabDiscussion.jsx'
+export { FeedLabDetailOverlay } from './FeedLabDetailOverlay.jsx'
 export { LabReactionChrome } from './LabReactionChrome.jsx'
 export { labT } from './labI18n.js'
