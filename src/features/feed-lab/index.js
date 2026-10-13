@@ -7,8 +7,9 @@ export {
   resolveLabMediaStub,
 } from './fixtures/index.js'
 
-export { FeedLabIssueCard } from './FeedLabIssueCard.jsx'
-export { FeedLabDiscussion } from './FeedLabDiscussion.jsx'
-export { FeedLabDetailOverlay } from './FeedLabDetailOverlay.jsx'
-export { LabReactionChrome } from './LabReactionChrome.jsx'
+/** Deprecated shallow lab plane (LAB-06) — explicit names · not Done greenfield */
+export { FeedLabIssueCardDeprecated } from './FeedLabIssueCardDeprecated.jsx'
+export { FeedLabDiscussionDeprecated } from './FeedLabDiscussionDeprecated.jsx'
+export { FeedLabDetailOverlayDeprecated } from './FeedLabDetailOverlayDeprecated.jsx'
+export { LabReactionChromeDeprecated } from './LabReactionChromeDeprecated.jsx'
 export { labT } from './labI18n.js'

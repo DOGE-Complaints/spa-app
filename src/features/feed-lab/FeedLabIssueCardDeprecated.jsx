@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { IssueIdentityHeader } from '../feed/identity/index.js'
-import { LabReactionChrome } from './LabReactionChrome.jsx'
-import { FeedLabDiscussion } from './FeedLabDiscussion.jsx'
+import { LabReactionChromeDeprecated } from './LabReactionChromeDeprecated.jsx'
+import { FeedLabDiscussionDeprecated } from './FeedLabDiscussionDeprecated.jsx'
 import { labT } from './labI18n.js'
-import './FeedLabIssueCard.css'
+import './FeedLabIssueCardDeprecated.css'
 
 /**
  * LAB-03/04 atom-composed lab card — DS identity + lab text/media/actions + local reactions.
  * LAB-04: title / summary / media / Open issue open detail; action strip does not.
  * Ban: product feed hosts + classic board Controls CSS on Done path.
  */
-export function FeedLabIssueCard({
+export function FeedLabIssueCardDeprecated({
   fixture,
   initiallyExpandDiscussion = false,
   initiallyOpenReactions = false,
@@ -39,6 +39,7 @@ export function FeedLabIssueCard({
       data-public-id={fixture.publicId}
       data-fixture="true"
       data-lab-card="atom-compose"
+      data-lab-plane="deprecated"
     >
       <IssueIdentityHeader
         issueId={fixture.publicId}
@@ -191,10 +192,10 @@ export function FeedLabIssueCard({
       </div>
 
       <div className="feed-lab-issue-card__reactions" data-testid="feed-lab-card-reactions">
-        <LabReactionChrome t={labT} openSignal={reactionsOpenSignal} />
+        <LabReactionChromeDeprecated t={labT} openSignal={reactionsOpenSignal} />
       </div>
 
-      <FeedLabDiscussion fixture={fixture} initiallyExpanded={initiallyExpandDiscussion} />
+      <FeedLabDiscussionDeprecated fixture={fixture} initiallyExpanded={initiallyExpandDiscussion} />
     </article>
   )
 }

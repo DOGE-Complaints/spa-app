@@ -5,17 +5,17 @@ import {
   IssuePresentationLayout,
 } from '../feed/presentation/index.js'
 import '../feed/presentation/PresentationChrome.css'
-import { LabReactionChrome } from './LabReactionChrome.jsx'
-import { FeedLabDiscussion } from './FeedLabDiscussion.jsx'
+import { LabReactionChromeDeprecated } from './LabReactionChromeDeprecated.jsx'
+import { FeedLabDiscussionDeprecated } from './FeedLabDiscussionDeprecated.jsx'
 import { labT } from './labI18n.js'
-import './FeedLabDetailOverlay.css'
+import './FeedLabDetailOverlayDeprecated.css'
 
 /**
  * LAB-04 lab detail overlay — OverlayHost + IssuePresentationLayout (M158).
  * Ban: product hosts + classic board Controls CSS on Done path.
  * Fixture-only · no HTTP.
  */
-export function FeedLabDetailOverlay({ fixture, open, onDismiss, restoreFocusRef = null }) {
+export function FeedLabDetailOverlayDeprecated({ fixture, open, onDismiss, restoreFocusRef = null }) {
   if (!fixture) return null
 
   const titleId = 'feed-lab-detail-title'
@@ -72,9 +72,9 @@ export function FeedLabDetailOverlay({ fixture, open, onDismiss, restoreFocusRef
         <span className="feed-lab-detail__action-label">Reactions</span>
       </div>
       <div className="feed-lab-detail__reactions">
-        <LabReactionChrome t={labT} />
+        <LabReactionChromeDeprecated t={labT} />
       </div>
-      <FeedLabDiscussion fixture={fixture} initiallyExpanded={true} />
+      <FeedLabDiscussionDeprecated fixture={fixture} initiallyExpanded={true} />
     </div>
   )
 
@@ -99,6 +99,7 @@ export function FeedLabDetailOverlay({ fixture, open, onDismiss, restoreFocusRef
           tabIndex: -1,
           'data-testid': 'feed-lab-detail-panel',
           'data-lab-overlay': 'm158',
+          'data-lab-plane': 'deprecated',
         }}
       >
         <IssuePresentationLayout

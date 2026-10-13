@@ -7,14 +7,14 @@ import {
 import { NEXT_FEED_THREAD_ICONS } from '../feed/feedThreadIcons.js'
 import { ReactionAggregateStrip } from '../feed/reactions/ReactionAggregateStrip.jsx'
 import { ReactionPicker } from '../feed/reactions/ReactionPicker.jsx'
-import './LabReactionChrome.css'
+import './LabReactionChromeDeprecated.css'
 
 /**
  * Lab-local reactions chrome — M154 atoms + in-memory selection only.
  * Does **not** pull classic board Controls CSS (ban LAB-03 Done path).
  * Styles live in lab-owned CSS (base strip/picker geometry + next tokens).
  */
-export function LabReactionChrome({
+export function LabReactionChromeDeprecated({
   t,
   target = 'thread-root',
   initialSelected = [],
@@ -69,6 +69,7 @@ export function LabReactionChrome({
       data-catalog="reactions.v1"
       data-max-reactions={String(capacity)}
       data-lab-local-memory="true"
+      data-lab-plane="deprecated"
     >
       <ReactionAggregateStrip
         marks={marks}

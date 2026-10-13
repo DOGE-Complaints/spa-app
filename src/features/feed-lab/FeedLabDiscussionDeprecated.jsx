@@ -6,13 +6,13 @@ import {
 } from '../feed/comments/index.js'
 import { ComposerEntry } from '../feed/composer/index.js'
 import { labT } from './labI18n.js'
-import './FeedLabDiscussion.css'
+import './FeedLabDiscussionDeprecated.css'
 
 /**
  * Lab discussion plane — M152 summary + M153 composer entry (local only).
  * Not classic product discussion host · header ≠ «DISCUSSION».
  */
-export function FeedLabDiscussion({ fixture, initiallyExpanded = false }) {
+export function FeedLabDiscussionDeprecated({ fixture, initiallyExpanded = false }) {
   const [expanded, setExpanded] = useState(Boolean(initiallyExpanded))
   const comments = Array.isArray(fixture?.comments) ? fixture.comments : []
   const previewBodies = comments.slice(0, 2).map((c) => c.body)
@@ -25,6 +25,7 @@ export function FeedLabDiscussion({ fixture, initiallyExpanded = false }) {
         data-testid="feed-lab-discussion"
         data-lab-discussion="collapsed"
         data-fixture="true"
+        data-lab-plane="deprecated"
       >
         <DiscussionSummaryChrome
           summaryTitle={summaryTitle}
@@ -42,6 +43,7 @@ export function FeedLabDiscussion({ fixture, initiallyExpanded = false }) {
       data-testid="feed-lab-discussion"
       data-lab-discussion="expanded"
       data-fixture="true"
+      data-lab-plane="deprecated"
     >
       <DiscussionLayout
         header={<DiscussionHeader title="Thread" />}

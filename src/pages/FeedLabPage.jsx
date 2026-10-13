@@ -1,16 +1,16 @@
 import { useRef, useState } from 'react'
 import {
   LAB_FEED_FIXTURES,
-  FeedLabIssueCard,
-  FeedLabDetailOverlay,
+  FeedLabIssueCardDeprecated,
+  FeedLabDetailOverlayDeprecated,
 } from '../features/feed-lab/index.js'
 import './FeedLabPage.css'
 
 /**
  * Feed lab canvas (`#/lab/feed`) — EPIC-SPA-22.
- * LAB-03 cards + LAB-04 detail overlay (M158) from title/summary/media hits.
+ * LAB-06: mounts Deprecated shallow plane until LAB-10 cutover.
  * No product feed host / toolbar / map; zero gateway/threads HTTP.
- * Visual package PASS requires OP eye (Partial = BLOCK).
+ * Visual package PASS requires OP eye (Partial = BLOCK). NOT visual Done.
  */
 export function FeedLabPage() {
   const [detailId, setDetailId] = useState(null)
@@ -37,6 +37,7 @@ export function FeedLabPage() {
       data-vl-lab-surface="FeedLabPage"
       data-lab-foundation="compose"
       data-lab-overlay="lab-04"
+      data-lab-plane="deprecated"
       data-lab-visual-done="false"
     >
       <div className="feed-lab-page__canvas" data-testid="feed-lab-canvas" aria-label="Feed lab canvas">
@@ -50,7 +51,7 @@ export function FeedLabPage() {
         >
           {LAB_FEED_FIXTURES.map((fx, index) => (
             <li key={fx.publicId} className="feed-lab-page__list-item">
-              <FeedLabIssueCard
+              <FeedLabIssueCardDeprecated
                 fixture={fx}
                 initiallyExpandDiscussion={index === 0}
                 initiallyOpenReactions={index === 1}
@@ -60,7 +61,7 @@ export function FeedLabPage() {
           ))}
         </ol>
       </div>
-      <FeedLabDetailOverlay
+      <FeedLabDetailOverlayDeprecated
         fixture={detailFixture}
         open={Boolean(detailFixture)}
         onDismiss={closeDetail}
