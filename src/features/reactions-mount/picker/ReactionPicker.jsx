@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { REACTION_LAYERS } from '../../feed/semantics/reactionsV1.js'
 import { CR_REACTION_ICON_PACK } from '../icons/crReactionIcons.js'
+import { CrReactionIcon } from '../icons/CrReactionIcon.jsx'
 import { ReactionPickerLayerGroup } from './ReactionPickerLayerGroup.jsx'
 import './ReactionPicker.css'
 
@@ -88,9 +89,7 @@ export function ReactionPicker({
             if (typeof onClose === 'function') onClose()
           }}
         >
-          {icons.close ? (
-            <img src={icons.close} alt="" aria-hidden="true" />
-          ) : null}
+          {icons.close ? <CrReactionIcon src={icons.close} size={16} /> : null}
           <span>{t('threadsFeed.reactions.close')}</span>
         </button>
       </div>

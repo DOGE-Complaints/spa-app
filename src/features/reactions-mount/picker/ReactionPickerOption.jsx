@@ -1,3 +1,4 @@
+import { CrReactionIcon } from '../icons/CrReactionIcon.jsx'
 import './ReactionPickerOption.css'
 
 /**
@@ -29,7 +30,7 @@ export function ReactionPickerOption({
         {selected ? '✓' : ''}
       </span>
       {iconSrc ? (
-        <img className="rm-picker-option__icon" src={iconSrc} alt="" aria-hidden="true" />
+        <CrReactionIcon className="rm-picker-option__icon" src={iconSrc} size={20} />
       ) : null}
       <span className="rm-picker-option__label">{label}</span>
     </button>

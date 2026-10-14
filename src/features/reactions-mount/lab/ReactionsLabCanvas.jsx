@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
-import { THREADS_FEED_DICTIONARY_EN } from '../../../i18n/threadsFeedDictionary.js'
+import { useEffect, useMemo, useState } from 'react'
+import { THREADS_FEED_DICTIONARY_BY_LOCALE } from '../../../i18n/threadsFeedDictionary.js'
+import { setThemeAttribute } from '../../../theme/bootTheme.js'
 import { ReactionsMount } from '../ReactionsMount.jsx'
 import { createFixtureAdapter, STRIP_STATE_FIXTURES } from '../adapters/FixtureAdapter.js'
 import { createLiveAdapter } from '../adapters/LiveAdapter.js'
@@ -21,6 +22,10 @@ function makeT(dict) {
   }
 }
 
+const LOCALES = /** @type {const} */ (['en', 'et', 'ru'])
+const THEMES = /** @type {const} */ (['light', 'dark'])
+const VIEWPORTS = /** @type {const} */ (['desktop', '320'])
+const TEXT_ZOOMS = /** @type {const} */ (['100', '200'])
 const STRIP_STATES = /** @type {const} */ (['populated', 'empty', 'loading', 'unavailable'])
 const PICKER_SCENES = /** @type {const} */ ([
   'comment-desktop',
@@ -31,12 +36,16 @@ const PICKER_SCENES = /** @type {const} */ ([
 ])
 
 /**
- * CR-03 lab canvas for `#/lab/reactions`.
- * FixtureAdapter default · two hosts · strip + picker stands (CR-01/CR-02).
- * LiveAdapter optional (thin ThreadsSocialClient) — not default.
+ * CR-03/CR-04 lab canvas for `#/lab/reactions`.
+ * FixtureAdapter default · M160 stress: ET/RU/EN × light/dark × 320/200%.
  */
 export function ReactionsLabCanvas() {
-  const t = useMemo(() => makeT(THREADS_FEED_DICTIONARY_EN), [])
+  const [locale, setLocale] = useState(/** @type {(typeof LOCALES)[number]} */ ('en'))
+  const [theme, setTheme] = useState(/** @type {(typeof THEMES)[number]} */ ('light'))
+  const [viewport, setViewport] = useState(/** @type {(typeof VIEWPORTS)[number]} */ ('desktop'))
+  const [textZoom, setTextZoom] = useState(/** @type {(typeof TEXT_ZOOMS)[number]} */ ('100'))
+  const dict = THREADS_FEED_DICTIONARY_BY_LOCALE[locale] || THREADS_FEED_DICTIONARY_BY_LOCALE.en
+  const t = useMemo(() => makeT(dict), [dict])
   const rootAdapter = useMemo(
     () => createFixtureAdapter({ initialState: 'populated', target: 'thread-root' }),
     [],
@@ -49,17 +58,22 @@ export function ReactionsLabCanvas() {
     () => createFixtureAdapter({ initialState: 'populated', target: 'comment', failNext: true }),
     [],
   )
-  const liveAdapter = useMemo(
-    () => createLiveAdapter({ issueId: '' }),
-    [],
-  )
+  const liveAdapter = useMemo(() => createLiveAdapter({ issueId: '' }), [])
   const [adapterMode, setAdapterMode] = useState(/** @type {'fixture'|'live'} */ ('fixture'))
-  const [demoState, setDemoState] = useState(/** @type {keyof typeof STRIP_STATE_FIXTURES} */ ('populated'))
-  const [pickerScene, setPickerScene] = useState(/** @type {(typeof PICKER_SCENES)[number]} */ ('comment-desktop'))
+  const [demoState, setDemoState] = useState(
+    /** @type {keyof typeof STRIP_STATE_FIXTURES} */ ('populated'),
+  )
+  const [pickerScene, setPickerScene] = useState(
+    /** @type {(typeof PICKER_SCENES)[number]} */ ('comment-desktop'),
+  )
   const demoSnap = STRIP_STATE_FIXTURES[demoState]
   const activeRootOnReact = adapterMode === 'fixture' ? rootAdapter.onReact : liveAdapter.onReact
   const activeCommentOnReact =
     adapterMode === 'fixture' ? commentAdapter.onReact : liveAdapter.onReact
+
+  useEffect(() => {
+    setThemeAttribute(theme, document, { persist: false })
+  }, [theme])
 
   return (
     <div
@@ -71,6 +85,11 @@ export function ReactionsLabCanvas() {
       data-rm-adapter={adapterMode}
       data-rm-adapter-default="fixture"
       data-rm-picker-scene={pickerScene}
+      data-lab-locale={locale}
+      data-lab-theme={theme}
+      data-lab-viewport={viewport}
+      data-lab-text-zoom={textZoom}
+      data-lab-stress="m160"
     >
       <header className="rm-lab-canvas__header">
         <h1 className="rm-lab-canvas__title" data-testid="rm-lab-title">
@@ -79,6 +98,86 @@ export function ReactionsLabCanvas() {
         <p className="rm-lab-canvas__meta" data-testid="rm-lab-meta">
           {t('threadsFeed.reactions.lab.meta')}
         </p>
+
+        <div
+          className="rm-lab-canvas__stress"
+          data-testid="rm-lab-stress-controls"
+          aria-label="M160 stress"
+        >
+          <div className="rm-lab-canvas__stress-row" role="group" aria-label={t('threadsFeed.reactions.lab.stressLocale')}>
+            <span className="rm-lab-canvas__stress-label">{t('threadsFeed.reactions.lab.stressLocale')}</span>
+            {LOCALES.map((code) => (
+              <button
+                key={code}
+                type="button"
+                data-testid={`rm-lab-locale-${code}`}
+                className={locale === code ? 'is-active' : undefined}
+                aria-pressed={locale === code}
+                onClick={() => setLocale(code)}
+              >
+                {code.toUpperCase()}
+              </button>
+            ))}
+          </div>
+          <div className="rm-lab-canvas__stress-row" role="group" aria-label={t('threadsFeed.reactions.lab.stressTheme')}>
+            <span className="rm-lab-canvas__stress-label">{t('threadsFeed.reactions.lab.stressTheme')}</span>
+            {THEMES.map((name) => (
+              <button
+                key={name}
+                type="button"
+                data-testid={`rm-lab-theme-${name}`}
+                className={theme === name ? 'is-active' : undefined}
+                aria-pressed={theme === name}
+                onClick={() => setTheme(name)}
+              >
+                {t(`threadsFeed.reactions.lab.${name}`)}
+              </button>
+            ))}
+          </div>
+          <div className="rm-lab-canvas__stress-row" role="group" aria-label={t('threadsFeed.reactions.lab.stressViewport')}>
+            <span className="rm-lab-canvas__stress-label">{t('threadsFeed.reactions.lab.stressViewport')}</span>
+            <button
+              type="button"
+              data-testid="rm-lab-viewport-desktop"
+              className={viewport === 'desktop' ? 'is-active' : undefined}
+              aria-pressed={viewport === 'desktop'}
+              onClick={() => setViewport('desktop')}
+            >
+              {t('threadsFeed.reactions.lab.viewportDesktop')}
+            </button>
+            <button
+              type="button"
+              data-testid="rm-lab-viewport-320"
+              className={viewport === '320' ? 'is-active' : undefined}
+              aria-pressed={viewport === '320'}
+              onClick={() => setViewport('320')}
+            >
+              {t('threadsFeed.reactions.lab.viewportNarrow')}
+            </button>
+          </div>
+          <div className="rm-lab-canvas__stress-row" role="group" aria-label={t('threadsFeed.reactions.lab.stressTextZoom')}>
+            <span className="rm-lab-canvas__stress-label">{t('threadsFeed.reactions.lab.stressTextZoom')}</span>
+            <button
+              type="button"
+              data-testid="rm-lab-text-100"
+              className={textZoom === '100' ? 'is-active' : undefined}
+              aria-pressed={textZoom === '100'}
+              onClick={() => setTextZoom('100')}
+            >
+              {t('threadsFeed.reactions.lab.textNormal')}
+            </button>
+            <button
+              type="button"
+              data-testid="rm-lab-text-200"
+              className={textZoom === '200' ? 'is-active' : undefined}
+              aria-pressed={textZoom === '200'}
+              onClick={() => setTextZoom('200')}
+            >
+              {t('threadsFeed.reactions.lab.textZoom')}
+            </button>
+          </div>
+        </div>
+
         <div className="rm-lab-canvas__adapter" data-testid="rm-lab-adapter-toggle" role="group">
           <button
             type="button"
@@ -139,7 +238,7 @@ export function ReactionsLabCanvas() {
               ))}
             </span>
             <ReactionsMount
-              key={`demo-${demoState}`}
+              key={`demo-${demoState}-${locale}`}
               target="thread-root"
               density="compact"
               slot={REACTIONS_MOUNT_SLOT_KINDS.POST_ACTION_STRIP}
@@ -169,6 +268,7 @@ export function ReactionsLabCanvas() {
             </h3>
             <p className="rm-lab-canvas__hint">Moderation absent · Emotional + Epistemic</p>
             <ReactionsMount
+              key={`host-root-${locale}`}
               target="thread-root"
               density="compact"
               stripStatus="ready"
@@ -187,6 +287,7 @@ export function ReactionsLabCanvas() {
               Same package + config · moderation eligible · slot=comment-node
             </p>
             <ReactionsMount
+              key={`host-comment-${locale}`}
               target="comment"
               density="compact"
               commentId="lab-comment-1"
@@ -241,7 +342,7 @@ export function ReactionsLabCanvas() {
                 Comment: I can help coordinate a shared pet-care group for neighbours.
               </p>
               <ReactionsMount
-                key="picker-comment-desktop"
+                key={`picker-comment-desktop-${locale}`}
                 target="comment"
                 commentId="lab-comment-picker"
                 density="compact"
@@ -265,7 +366,7 @@ export function ReactionsLabCanvas() {
             <>
               <p className="rm-lab-canvas__issue">Thread root — no selectable Moderation.</p>
               <ReactionsMount
-                key="picker-root-scope"
+                key={`picker-root-scope-${locale}`}
                 target="thread-root"
                 density="compact"
                 stripStatus="ready"
@@ -284,7 +385,7 @@ export function ReactionsLabCanvas() {
             <>
               <p className="rm-lab-canvas__issue">Mobile sheet surface (forced · M154 C).</p>
               <ReactionsMount
-                key="picker-mobile-sheet"
+                key={`picker-mobile-sheet-${locale}`}
                 target="comment"
                 commentId="lab-comment-mobile"
                 density="compact"
@@ -307,7 +408,7 @@ export function ReactionsLabCanvas() {
                 Agree selected → choose Disagree → XOR (M154 D).
               </p>
               <ReactionsMount
-                key="picker-xor"
+                key={`picker-xor-${locale}`}
                 target="comment"
                 commentId="lab-comment-xor"
                 density="compact"
@@ -330,7 +431,7 @@ export function ReactionsLabCanvas() {
                 Next save fails → previous selection restored (M154 E).
               </p>
               <ReactionsMount
-                key="picker-save-error"
+                key={`picker-save-error-${locale}`}
                 target="comment"
                 commentId="lab-comment-save-err"
                 density="compact"

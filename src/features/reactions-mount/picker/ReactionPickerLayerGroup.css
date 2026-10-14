@@ -10,7 +10,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #667085;
+  color: var(--color-text-secondary, #667085);
 }
 
 .rm-picker-layer__list {

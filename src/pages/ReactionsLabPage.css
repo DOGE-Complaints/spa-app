@@ -1,4 +1,5 @@
 .reactions-lab-page {
   min-height: 100%;
-  background: #f7f6f2;
+  background: var(--color-bg-primary, #f7f6f2);
+  color: var(--color-text-primary, #101828);
 }

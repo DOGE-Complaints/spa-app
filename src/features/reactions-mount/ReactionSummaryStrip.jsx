@@ -1,5 +1,6 @@
 import { mapSummaryMarksToEntries } from '../feed/semantics/reactionsV1.js'
 import { CR_REACTION_ICON_PACK } from './icons/crReactionIcons.js'
+import { CrReactionIcon } from './icons/CrReactionIcon.jsx'
 import './ReactionSummaryStrip.css'
 
 /**
@@ -47,11 +48,10 @@ export function ReactionSummaryStrip({
         data-density={density}
         role="alert"
       >
-        <img
+        <CrReactionIcon
           className="rm-summary-strip__status-icon"
           src={icons.unavailable}
-          alt=""
-          aria-hidden="true"
+          size={18}
         />
         <p className="rm-summary-strip__unavailable-text">
           {t('threadsFeed.reactions.unavailable')}
@@ -63,7 +63,7 @@ export function ReactionSummaryStrip({
             data-testid="reaction-summary-retry"
             onClick={onRetry}
           >
-            <img src={icons.retry} alt="" aria-hidden="true" />
+            <CrReactionIcon src={icons.retry} size={16} />
             <span>{t('threadsFeed.post.tryAgain')}</span>
           </button>
         ) : null}
@@ -106,7 +106,7 @@ export function ReactionSummaryStrip({
                 data-reaction-id={entry.id}
                 data-testid={`reaction-summary-mark-${entry.id}`}
               >
-                <img src={icons[entry.id]} alt="" />
+                <CrReactionIcon src={icons[entry.id]} size={16} />
               </span>
             ))}
           </span>
@@ -135,7 +135,7 @@ export function ReactionSummaryStrip({
           if (typeof onOpen === 'function') onOpen()
         }}
       >
-        <img src={icons.react} alt="" aria-hidden="true" />
+        <CrReactionIcon src={icons.react} size={18} />
         <span>{t('threadsFeed.reactions.react')}</span>
       </button>
     </div>

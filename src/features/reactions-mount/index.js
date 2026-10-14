@@ -8,6 +8,7 @@ export {
   CR_SELECTABLE_MARK_IDS,
   CR_OMIT_SELECTABLE_IDS,
 } from './icons/crReactionIcons.js'
+export { CrReactionIcon } from './icons/CrReactionIcon.jsx'
 export {
   createFixtureAdapter,
   STRIP_STATE_FIXTURES,
