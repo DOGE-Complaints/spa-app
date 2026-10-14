@@ -18,7 +18,7 @@
 
 ## Boundaries
 
-- Picker UI → CR-02  
+- Picker UI → [02-reaction-picker-surface.md](./02-reaction-picker-surface.md) (CR-02 structure Present · visual BLOCKED)  
 - Full lab polish → CR-03  
 - `#/next/feed` cutover OOS  
 - Classic `ReactionControls` not a Done mandate  
