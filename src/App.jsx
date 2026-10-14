@@ -6,6 +6,7 @@ import {
 import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
 import { FeedLabPage } from './pages/FeedLabPage.jsx'
+import { ReactionsLabPage } from './pages/ReactionsLabPage.jsx'
 import { HowItWorksPage } from './pages/HowItWorksPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
@@ -38,6 +39,8 @@ function App() {
         <Route path="/next/feed/issue/:id" element={<NextFeedHostPage />} />
         {/* LAB-01: isolated lab canvas — inside shell; not product feed host */}
         <Route path="/lab/feed" element={<FeedLabPage />} />
+        {/* CR-01: reactions-mount lab — FixtureAdapter strip; not #/next/feed */}
+        <Route path="/lab/reactions" element={<ReactionsLabPage />} />
         <Route path="*" element={<Navigate to="/next/feed" replace />} />
       </Route>
     </Routes>
