@@ -148,11 +148,11 @@ describe('CR-02 reaction picker', () => {
     )
     const agree = screen.getByTestId('rm-picker-option-agree')
     const disagree = screen.getByTestId('rm-picker-option-disagree')
-    expect(agree.querySelector('img')?.getAttribute('src')).toBe(
+    expect(agree.querySelector('[data-testid="rm-icon"]')?.getAttribute('data-rm-icon-src')).toBe(
       '/icons/next-feed/reactions/agree.svg',
     )
-    expect(disagree.querySelector('img')?.getAttribute('src')).toBe(
-      '/icons/next-feed/reactions/disagree.svg',
-    )
+    expect(
+      disagree.querySelector('[data-testid="rm-icon"]')?.getAttribute('data-rm-icon-src'),
+    ).toBe('/icons/next-feed/reactions/disagree.svg')
   })
 })
