@@ -67,6 +67,8 @@ export function createFixtureAdapter(opts = {}) {
   let summaryMarks = seed.summaryMarks ? seed.summaryMarks.map((m) => ({ ...m })) : seed.summaryMarks
   let aggregateCount = seed.aggregateCount
   let selected = [...seed.selected]
+  /** When true, next onReact returns fail (CR-02 save-error restore lab). */
+  let failNext = Boolean(opts.failNext)
 
   function snapshot() {
     return {
@@ -79,11 +81,19 @@ export function createFixtureAdapter(opts = {}) {
     }
   }
 
+  function setFailNext(value = true) {
+    failNext = Boolean(value)
+  }
+
   /**
    * Compatible with ReactionChrome onReact seam.
    * @param {{ reactionId: string, op: 'add'|'remove', target?: string, commentId?: string|null }} args
    */
   async function onReact(args) {
+    if (failNext) {
+      failNext = false
+      return { status: 'fail', failKind: 'save', data: snapshot() }
+    }
     const id = String(args?.reactionId || '')
     const before = [...selected]
     const { selected: next, error } = toggleReactionSelection(before, id, maxReactions)
@@ -130,6 +140,7 @@ export function createFixtureAdapter(opts = {}) {
     snapshot,
     onReact,
     setStripState,
+    setFailNext,
     /** Aggregate activate — M155 OOS no-op */
     onAggregateActivate() {
       return { status: 'ok', data: { oos: 'M155' } }

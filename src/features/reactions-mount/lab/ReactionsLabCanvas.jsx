@@ -20,11 +20,18 @@ function makeT(dict) {
   }
 }
 
-const STATES = /** @type {const} */ (['populated', 'empty', 'loading', 'unavailable'])
+const STRIP_STATES = /** @type {const} */ (['populated', 'empty', 'loading', 'unavailable'])
+const PICKER_SCENES = /** @type {const} */ ([
+  'comment-desktop',
+  'root-scope',
+  'mobile-sheet',
+  'xor',
+  'save-error',
+])
 
 /**
- * CR-01 lab canvas for `#/lab/reactions` — strip states + root/comment hosts.
- * Full lab polish → CR-03. No `#/next/feed` cutover. M155 OOS.
+ * CR-01/CR-02 lab canvas for `#/lab/reactions`.
+ * Strip states + hosts + M154 B–E picker scenes. Full polish → CR-03.
  */
 export function ReactionsLabCanvas() {
   const t = useMemo(() => makeT(THREADS_FEED_DICTIONARY_EN), [])
@@ -36,7 +43,12 @@ export function ReactionsLabCanvas() {
     () => createFixtureAdapter({ initialState: 'populated', target: 'comment' }),
     [],
   )
+  const failAdapter = useMemo(
+    () => createFixtureAdapter({ initialState: 'populated', target: 'comment', failNext: true }),
+    [],
+  )
   const [demoState, setDemoState] = useState(/** @type {keyof typeof STRIP_STATE_FIXTURES} */ ('populated'))
+  const [pickerScene, setPickerScene] = useState(/** @type {(typeof PICKER_SCENES)[number]} */ ('comment-desktop'))
   const demoSnap = STRIP_STATE_FIXTURES[demoState]
 
   return (
@@ -46,12 +58,13 @@ export function ReactionsLabCanvas() {
       data-lab-plane="reactions-mount"
       data-lab-visual-done="false"
       data-m155-oos="true"
+      data-rm-picker-scene={pickerScene}
     >
       <header className="rm-lab-canvas__header">
-        <h1 className="rm-lab-canvas__title">Reactions mount lab (CR-01)</h1>
+        <h1 className="rm-lab-canvas__title">Reactions mount lab (CR-01 / CR-02)</h1>
         <p className="rm-lab-canvas__meta">
-          Greenfield <code>features/reactions-mount/</code> · M154 strip · FixtureAdapter · Path A
-          visual pending OP eye
+          Greenfield <code>features/reactions-mount/</code> · M154 strip + picker · FixtureAdapter ·
+          Path A visual pending OP eye
         </p>
       </header>
 
@@ -62,7 +75,7 @@ export function ReactionsLabCanvas() {
       >
         <h2>Strip states (M154 A)</h2>
         <div className="rm-lab-canvas__state-tabs" role="tablist">
-          {STATES.map((s) => (
+          {STRIP_STATES.map((s) => (
             <button
               key={s}
               type="button"
@@ -107,6 +120,150 @@ export function ReactionsLabCanvas() {
               onAggregateActivate={rootAdapter.onAggregateActivate}
             />
           </div>
+        </div>
+      </section>
+
+      <section
+        className="rm-lab-canvas__section"
+        data-testid="rm-lab-picker-scenes"
+        aria-label="Picker scenes M154 B-E"
+      >
+        <h2>Picker scenes (M154 B–E)</h2>
+        <div className="rm-lab-canvas__state-tabs" role="tablist">
+          {PICKER_SCENES.map((s) => (
+            <button
+              key={s}
+              type="button"
+              role="tab"
+              aria-selected={pickerScene === s}
+              data-testid={`rm-lab-picker-scene-${s}`}
+              className={pickerScene === s ? 'is-active' : undefined}
+              onClick={() => {
+                if (s === 'save-error') failAdapter.setFailNext(true)
+                setPickerScene(s)
+              }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+
+        <div
+          className="rm-lab-canvas__card rm-lab-canvas__card--picker"
+          data-testid="rm-lab-picker-card"
+          data-rm-picker-scene={pickerScene}
+        >
+          {pickerScene === 'comment-desktop' ? (
+            <>
+              <p className="rm-lab-canvas__issue">
+                Comment: I can help coordinate a shared pet-care group for neighbours.
+              </p>
+              <ReactionsMount
+                key="picker-comment-desktop"
+                target="comment"
+                commentId="lab-comment-picker"
+                density="compact"
+                slot={REACTIONS_MOUNT_SLOT_KINDS.COMMENT_NODE}
+                stripStatus="ready"
+                summaryMarks={[
+                  { reaction_id: 'empathy', count: 2 },
+                  { reaction_id: 'agree', count: 1 },
+                ]}
+                aggregateCount={3}
+                selected={['agree']}
+                defaultOpen
+                forcePickerSurface="popover"
+                t={t}
+                onReact={commentAdapter.onReact}
+              />
+            </>
+          ) : null}
+
+          {pickerScene === 'root-scope' ? (
+            <>
+              <p className="rm-lab-canvas__issue">Thread root — no selectable Moderation.</p>
+              <ReactionsMount
+                key="picker-root-scope"
+                target="thread-root"
+                density="compact"
+                stripStatus="ready"
+                summaryMarks={STRIP_STATE_FIXTURES.populated.summaryMarks}
+                aggregateCount={STRIP_STATE_FIXTURES.populated.aggregateCount}
+                selected={['support']}
+                defaultOpen
+                forcePickerSurface="popover"
+                t={t}
+                onReact={rootAdapter.onReact}
+              />
+            </>
+          ) : null}
+
+          {pickerScene === 'mobile-sheet' ? (
+            <>
+              <p className="rm-lab-canvas__issue">Mobile sheet surface (forced · M154 C).</p>
+              <ReactionsMount
+                key="picker-mobile-sheet"
+                target="comment"
+                commentId="lab-comment-mobile"
+                density="compact"
+                slot={REACTIONS_MOUNT_SLOT_KINDS.COMMENT_NODE}
+                stripStatus="ready"
+                summaryMarks={[{ reaction_id: 'acknowledge', count: 1 }]}
+                aggregateCount={1}
+                selected={[]}
+                defaultOpen
+                forcePickerSurface="sheet"
+                t={t}
+                onReact={commentAdapter.onReact}
+              />
+            </>
+          ) : null}
+
+          {pickerScene === 'xor' ? (
+            <>
+              <p className="rm-lab-canvas__issue">
+                Agree selected → choose Disagree → XOR (M154 D).
+              </p>
+              <ReactionsMount
+                key="picker-xor"
+                target="comment"
+                commentId="lab-comment-xor"
+                density="compact"
+                slot={REACTIONS_MOUNT_SLOT_KINDS.COMMENT_NODE}
+                stripStatus="ready"
+                summaryMarks={[{ reaction_id: 'agree', count: 1 }]}
+                aggregateCount={1}
+                selected={['agree', 'support']}
+                defaultOpen
+                forcePickerSurface="popover"
+                t={t}
+                onReact={commentAdapter.onReact}
+              />
+            </>
+          ) : null}
+
+          {pickerScene === 'save-error' ? (
+            <>
+              <p className="rm-lab-canvas__issue">
+                Next save fails → previous selection restored (M154 E).
+              </p>
+              <ReactionsMount
+                key="picker-save-error"
+                target="comment"
+                commentId="lab-comment-save-err"
+                density="compact"
+                slot={REACTIONS_MOUNT_SLOT_KINDS.COMMENT_NODE}
+                stripStatus="ready"
+                summaryMarks={[{ reaction_id: 'support', count: 1 }]}
+                aggregateCount={1}
+                selected={['support']}
+                defaultOpen
+                forcePickerSurface="popover"
+                t={t}
+                onReact={failAdapter.onReact}
+              />
+            </>
+          ) : null}
         </div>
       </section>
 

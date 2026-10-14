@@ -1,0 +1,23 @@
+.rm-picker-layer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rm-picker-layer__title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #667085;
+}
+
+.rm-picker-layer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

@@ -6,6 +6,12 @@
   width: 100%;
 }
 
+.reactions-mount__anchor {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+}
+
 .rm-visually-hidden {
   position: absolute;
   width: 1px;

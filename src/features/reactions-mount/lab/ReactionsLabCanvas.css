@@ -57,6 +57,12 @@
   background: #fffdf8;
 }
 
+.rm-lab-canvas__card--picker {
+  min-height: 420px;
+  position: relative;
+  overflow: visible;
+}
+
 .rm-lab-canvas__issue {
   margin: 0 0 12px;
   color: #667085;
