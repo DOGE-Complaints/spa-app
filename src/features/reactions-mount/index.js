@@ -12,6 +12,7 @@ export {
   createFixtureAdapter,
   STRIP_STATE_FIXTURES,
 } from './adapters/FixtureAdapter.js'
+export { createLiveAdapter } from './adapters/LiveAdapter.js'
 export {
   POST_ACTION_STRIP_ZONES,
   REACTIONS_MOUNT_STRIP_ZONES,

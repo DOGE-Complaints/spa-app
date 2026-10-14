@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { THREADS_FEED_DICTIONARY_EN } from '../../../i18n/threadsFeedDictionary.js'
 import { ReactionsMount } from '../ReactionsMount.jsx'
 import { createFixtureAdapter, STRIP_STATE_FIXTURES } from '../adapters/FixtureAdapter.js'
+import { createLiveAdapter } from '../adapters/LiveAdapter.js'
 import {
   POST_ACTION_STRIP_ZONES,
   REACTIONS_MOUNT_SLOT_KINDS,
@@ -30,8 +31,9 @@ const PICKER_SCENES = /** @type {const} */ ([
 ])
 
 /**
- * CR-01/CR-02 lab canvas for `#/lab/reactions`.
- * Strip states + hosts + M154 B–E picker scenes. Full polish → CR-03.
+ * CR-03 lab canvas for `#/lab/reactions`.
+ * FixtureAdapter default · two hosts · strip + picker stands (CR-01/CR-02).
+ * LiveAdapter optional (thin ThreadsSocialClient) — not default.
  */
 export function ReactionsLabCanvas() {
   const t = useMemo(() => makeT(THREADS_FEED_DICTIONARY_EN), [])
@@ -47,9 +49,17 @@ export function ReactionsLabCanvas() {
     () => createFixtureAdapter({ initialState: 'populated', target: 'comment', failNext: true }),
     [],
   )
+  const liveAdapter = useMemo(
+    () => createLiveAdapter({ issueId: '' }),
+    [],
+  )
+  const [adapterMode, setAdapterMode] = useState(/** @type {'fixture'|'live'} */ ('fixture'))
   const [demoState, setDemoState] = useState(/** @type {keyof typeof STRIP_STATE_FIXTURES} */ ('populated'))
   const [pickerScene, setPickerScene] = useState(/** @type {(typeof PICKER_SCENES)[number]} */ ('comment-desktop'))
   const demoSnap = STRIP_STATE_FIXTURES[demoState]
+  const activeRootOnReact = adapterMode === 'fixture' ? rootAdapter.onReact : liveAdapter.onReact
+  const activeCommentOnReact =
+    adapterMode === 'fixture' ? commentAdapter.onReact : liveAdapter.onReact
 
   return (
     <div
@@ -58,14 +68,37 @@ export function ReactionsLabCanvas() {
       data-lab-plane="reactions-mount"
       data-lab-visual-done="false"
       data-m155-oos="true"
+      data-rm-adapter={adapterMode}
+      data-rm-adapter-default="fixture"
       data-rm-picker-scene={pickerScene}
     >
       <header className="rm-lab-canvas__header">
-        <h1 className="rm-lab-canvas__title">Reactions mount lab (CR-01 / CR-02)</h1>
-        <p className="rm-lab-canvas__meta">
-          Greenfield <code>features/reactions-mount/</code> · M154 strip + picker · FixtureAdapter ·
-          Path A visual pending OP eye
+        <h1 className="rm-lab-canvas__title" data-testid="rm-lab-title">
+          {t('threadsFeed.reactions.lab.title')}
+        </h1>
+        <p className="rm-lab-canvas__meta" data-testid="rm-lab-meta">
+          {t('threadsFeed.reactions.lab.meta')}
         </p>
+        <div className="rm-lab-canvas__adapter" data-testid="rm-lab-adapter-toggle" role="group">
+          <button
+            type="button"
+            data-testid="rm-lab-adapter-fixture"
+            className={adapterMode === 'fixture' ? 'is-active' : undefined}
+            aria-pressed={adapterMode === 'fixture'}
+            onClick={() => setAdapterMode('fixture')}
+          >
+            {t('threadsFeed.reactions.lab.adapterFixture')}
+          </button>
+          <button
+            type="button"
+            data-testid="rm-lab-adapter-live"
+            className={adapterMode === 'live' ? 'is-active' : undefined}
+            aria-pressed={adapterMode === 'live'}
+            onClick={() => setAdapterMode('live')}
+          >
+            {t('threadsFeed.reactions.lab.adapterLive')}
+          </button>
+        </div>
       </header>
 
       <section
@@ -115,9 +148,58 @@ export function ReactionsLabCanvas() {
               aggregateCount={demoSnap.aggregateCount}
               selected={demoSnap.selected}
               t={t}
-              onReact={rootAdapter.onReact}
+              onReact={activeRootOnReact}
               onRetry={() => setDemoState('populated')}
               onAggregateActivate={rootAdapter.onAggregateActivate}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="rm-lab-canvas__section"
+        data-testid="rm-lab-hosts"
+        aria-label="Root and comment hosts"
+      >
+        <h2>Hosts — root vs comment (AC-24-06)</h2>
+        <div className="rm-lab-canvas__hosts">
+          <div className="rm-lab-canvas__card" data-testid="rm-lab-host-root">
+            <h3 data-testid="rm-lab-host-root-label">
+              {t('threadsFeed.reactions.lab.hostRoot')}
+            </h3>
+            <p className="rm-lab-canvas__hint">Moderation absent · Emotional + Epistemic</p>
+            <ReactionsMount
+              target="thread-root"
+              density="compact"
+              stripStatus="ready"
+              summaryMarks={STRIP_STATE_FIXTURES.populated.summaryMarks}
+              aggregateCount={STRIP_STATE_FIXTURES.populated.aggregateCount}
+              selected={['support']}
+              t={t}
+              onReact={activeRootOnReact}
+            />
+          </div>
+          <div className="rm-lab-canvas__card" data-testid="rm-lab-host-comment">
+            <h3 data-testid="rm-lab-host-comment-label">
+              {t('threadsFeed.reactions.lab.hostComment')}
+            </h3>
+            <p className="rm-lab-canvas__hint">
+              Same package + config · moderation eligible · slot=comment-node
+            </p>
+            <ReactionsMount
+              target="comment"
+              density="compact"
+              commentId="lab-comment-1"
+              slot={REACTIONS_MOUNT_SLOT_KINDS.COMMENT_NODE}
+              stripStatus="ready"
+              summaryMarks={[
+                { reaction_id: 'empathy', count: 2 },
+                { reaction_id: 'agree', count: 1 },
+              ]}
+              aggregateCount={3}
+              selected={['agree']}
+              t={t}
+              onReact={activeCommentOnReact}
             />
           </div>
         </div>
@@ -264,51 +346,6 @@ export function ReactionsLabCanvas() {
               />
             </>
           ) : null}
-        </div>
-      </section>
-
-      <section
-        className="rm-lab-canvas__section"
-        data-testid="rm-lab-hosts"
-        aria-label="Root and comment hosts"
-      >
-        <h2>Hosts — root vs comment (same package)</h2>
-        <div className="rm-lab-canvas__hosts">
-          <div className="rm-lab-canvas__card" data-testid="rm-lab-host-root">
-            <h3>Thread root</h3>
-            <p className="rm-lab-canvas__hint">Moderation absent · Emotional + Epistemic</p>
-            <ReactionsMount
-              target="thread-root"
-              density="compact"
-              stripStatus="ready"
-              summaryMarks={STRIP_STATE_FIXTURES.populated.summaryMarks}
-              aggregateCount={STRIP_STATE_FIXTURES.populated.aggregateCount}
-              selected={['support']}
-              t={t}
-              onReact={rootAdapter.onReact}
-            />
-          </div>
-          <div className="rm-lab-canvas__card" data-testid="rm-lab-host-comment">
-            <h3>Comment node</h3>
-            <p className="rm-lab-canvas__hint">
-              Same package + config · moderation eligible · slot=comment-node
-            </p>
-            <ReactionsMount
-              target="comment"
-              density="compact"
-              commentId="lab-comment-1"
-              slot={REACTIONS_MOUNT_SLOT_KINDS.COMMENT_NODE}
-              stripStatus="ready"
-              summaryMarks={[
-                { reaction_id: 'empathy', count: 2 },
-                { reaction_id: 'agree', count: 1 },
-              ]}
-              aggregateCount={3}
-              selected={['agree']}
-              t={t}
-              onReact={commentAdapter.onReact}
-            />
-          </div>
         </div>
       </section>
     </div>

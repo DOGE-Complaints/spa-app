@@ -39,7 +39,7 @@ function App() {
         <Route path="/next/feed/issue/:id" element={<NextFeedHostPage />} />
         {/* LAB-01: isolated lab canvas — inside shell; not product feed host */}
         <Route path="/lab/feed" element={<FeedLabPage />} />
-        {/* CR-01: reactions-mount lab — FixtureAdapter strip; not #/next/feed */}
+        {/* CR-03: #/lab/reactions — FixtureAdapter default · two hosts · not #/next/feed */}
         <Route path="/lab/reactions" element={<ReactionsLabPage />} />
         <Route path="*" element={<Navigate to="/next/feed" replace />} />
       </Route>

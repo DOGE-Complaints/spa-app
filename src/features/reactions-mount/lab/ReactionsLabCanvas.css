@@ -63,6 +63,29 @@
   overflow: visible;
 }
 
+.rm-lab-canvas__adapter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.rm-lab-canvas__adapter button {
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 1px solid #e7e4dc;
+  border-radius: 10px;
+  background: #fffdf8;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.rm-lab-canvas__adapter button.is-active {
+  outline: 2px solid #f5c542;
+  border-color: #f5c542;
+}
+
 .rm-lab-canvas__issue {
   margin: 0 0 12px;
   color: #667085;

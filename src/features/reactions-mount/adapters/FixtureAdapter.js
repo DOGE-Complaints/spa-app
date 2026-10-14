@@ -135,6 +135,7 @@ export function createFixtureAdapter(opts = {}) {
   }
 
   return {
+    kind: 'fixture',
     maxReactions,
     target,
     snapshot,
