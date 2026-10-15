@@ -64,7 +64,7 @@ describe('CR-09 strip slot composition A+C+B', () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     fireEvent.click(within(card).getByTestId('reaction-summary-react'))
-    expect(within(card).getByTestId('rm-reaction-picker')).toBeTruthy()
+    expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
     expect(within(card).getByTestId('feed-post-discussion-plane').getAttribute('data-lab-discussion')).toBe(

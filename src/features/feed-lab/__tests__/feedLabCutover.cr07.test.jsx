@@ -36,15 +36,15 @@ describe('CR-07 `#/lab/feed` cutover → ReactionsMount', () => {
     expect(commentMount.getAttribute('data-rm-moderation')).toBe('eligible')
 
     fireEvent.click(within(commentNode).getByTestId('reaction-summary-react'))
-    expect(within(commentNode).getByTestId('rm-reaction-picker')).toBeTruthy()
-    expect(within(commentNode).getByTestId('rm-picker-layer-moderation')).toBeTruthy()
+    expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
+    expect(screen.getByTestId('rm-picker-layer-moderation')).toBeTruthy()
   })
 
   it('CR-05/06 chrome: strip opens picker · icon-only close · root hint footer', async () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     fireEvent.click(within(card).getByTestId('reaction-summary-react'))
-    const picker = within(card).getByTestId('rm-reaction-picker')
+    const picker = screen.getByTestId('rm-reaction-picker')
     expect(within(picker).getByTestId('rm-picker-close')).toBeTruthy()
     expect(within(picker).queryByText(/^Close$/i)).toBeNull()
     expect(within(picker).getByTestId('rm-picker-root-scope-hint')).toBeTruthy()

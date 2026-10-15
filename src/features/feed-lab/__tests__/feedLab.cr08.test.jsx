@@ -67,7 +67,7 @@ describe('CR-08 lab feed theme + stress', () => {
     fireEvent.click(within(firstCard).getByTestId('reaction-summary-react'))
     const mounts = within(firstCard).getAllByTestId('feed-lab-reactions-mount')
     expect(mounts[0].getAttribute('data-lab-locale')).toBe('et')
-    const picker = within(firstCard).getByTestId('rm-reaction-picker')
+    const picker = screen.getByTestId('rm-reaction-picker')
     const etChoose = THREADS_FEED_DICTIONARY_BY_LOCALE.et.threadsFeed.reactions.chooseUpTo
     expect(within(picker).getByText(etChoose, { exact: false })).toBeTruthy()
   })
