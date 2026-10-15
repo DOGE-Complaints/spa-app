@@ -64,7 +64,7 @@ describe('CR-08 lab feed theme + stress', () => {
     renderFeedLab()
     fireEvent.click(screen.getByTestId('rm-lab-locale-et'))
     const firstCard = screen.getByTestId('feed-post-card-DOGEstonia-UusVeerenni-001')
-    fireEvent.click(within(firstCard).getByTestId('feed-post-action-react'))
+    fireEvent.click(within(firstCard).getByTestId('reaction-summary-react'))
     const mounts = within(firstCard).getAllByTestId('feed-lab-reactions-mount')
     expect(mounts[0].getAttribute('data-lab-locale')).toBe('et')
     const picker = within(firstCard).getByTestId('rm-reaction-picker')

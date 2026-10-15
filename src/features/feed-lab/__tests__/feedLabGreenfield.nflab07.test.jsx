@@ -75,7 +75,7 @@ describe('FeedLab greenfield NF-LAB-07', () => {
     expect(pageSrc).toContain('FeedPostCard')
   })
 
-  it('renders five greenfield cards with fixture ids, summary, 4-zone strip, 16:9 media', () => {
+  it('renders five greenfield cards with fixture ids, summary, 3-zone strip, 16:9 media', () => {
     renderLab()
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-preview')).toBe('greenfield')
@@ -92,9 +92,11 @@ describe('FeedLab greenfield NF-LAB-07', () => {
     expect(summaries[0].textContent).not.toBe('Tallinn')
     expect(LAB_FEED_FIXTURES[0].summary).toBeTruthy()
     const strips = screen.getAllByTestId('feed-post-action-strip')
-    expect(strips[0].getAttribute('data-lab-strip-zones')).toBe('4')
-    expect(strips[0].querySelectorAll('[data-zone]')).toHaveLength(4)
+    expect(strips[0].getAttribute('data-lab-strip-zones')).toBe('3')
+    expect(strips[0].querySelectorAll('[data-zone]')).toHaveLength(3)
     expect(strips[0].querySelectorAll('[data-zone="react"]')).toHaveLength(1)
+    expect(strips[0].querySelectorAll('[data-zone="reactions"]')).toHaveLength(0)
+    expect(screen.queryByTestId('feed-post-action-reactions')).toBeNull()
     expect(screen.getAllByTestId('feed-post-media')[0].getAttribute('data-lab-media-ratio')).toBe(
       '16:9',
     )

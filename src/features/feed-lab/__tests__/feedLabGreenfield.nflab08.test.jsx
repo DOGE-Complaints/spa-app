@@ -88,7 +88,7 @@ describe('FeedLab greenfield NF-LAB-08 reactions (CR-07 cutover)', () => {
     expect(within(card).queryByTestId('feed-reaction-plane')).toBeNull()
     expect(within(card).queryAllByTestId('rm-reaction-picker')).toHaveLength(0)
 
-    fireEvent.click(within(card).getByTestId('feed-post-action-react'))
+    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
     const picker = within(card).getByTestId('rm-reaction-picker')
     expect(picker).toBeTruthy()
     expect(within(card).getByTestId('rm-picker-layer-emotional')).toBeTruthy()

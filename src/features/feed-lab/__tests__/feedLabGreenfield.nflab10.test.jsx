@@ -71,7 +71,7 @@ describe('FeedLab greenfield NF-LAB-10 overlay + cutover', () => {
     expect(screen.queryByTestId('feed-lab-deprecated-section')).toBeNull()
 
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
-    fireEvent.click(within(card).getByTestId('feed-post-action-react'))
+    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
     expect(screen.queryByTestId('feed-issue-detail-panel')).toBeNull()
     expect(within(card).getByTestId('rm-reaction-picker')).toBeTruthy()
 

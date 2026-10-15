@@ -43,7 +43,7 @@ describe('CR-07 `#/lab/feed` cutover → ReactionsMount', () => {
   it('CR-05/06 chrome: strip opens picker · icon-only close · root hint footer', async () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
-    fireEvent.click(within(card).getByTestId('feed-post-action-react'))
+    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
     const picker = within(card).getByTestId('rm-reaction-picker')
     expect(within(picker).getByTestId('rm-picker-close')).toBeTruthy()
     expect(within(picker).queryByText(/^Close$/i)).toBeNull()
