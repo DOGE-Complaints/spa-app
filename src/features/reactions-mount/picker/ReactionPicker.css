@@ -12,16 +12,17 @@
   box-sizing: border-box;
 }
 
-/* FR-CR-06.3 — hug longest option label; no stretch empty gutter */
+/* FR-CR-06.3 / CR-10 — hug-width · portal fixed coords via inline style */
 .rm-picker--popover {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: auto;
-  top: calc(100% + 8px);
+  top: 0;
   width: max-content;
-  max-width: min(100%, 22rem);
+  max-width: min(100vw - 16px, 22rem);
   max-height: min(70vh, 440px);
   overflow: auto;
+  z-index: 1200;
 }
 
 /* FR-CR-06.5 — mobile sheet stays full-bleed */

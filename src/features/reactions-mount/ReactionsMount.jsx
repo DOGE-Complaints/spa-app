@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import {
   DEFAULT_MAX_REACTIONS_PER_ACTOR,
   listReactionsV1,
@@ -13,8 +13,37 @@ import {
 } from './slot/postActionStripSlot.js'
 import './ReactionsMount.css'
 
+const POPOVER_GAP_PX = 8
+const POPOVER_EDGE_PAD = 8
+const POPOVER_MAX_WIDTH_REM = 22
+
 /**
- * Greenfield ReactionsMount — strip (CR-01) + picker (CR-02).
+ * Measure zone-1 / strip anchor → fixed popover top/left (CR-10).
+ * @param {Element | null} el
+ * @returns {{ top: number, left: number } | null}
+ */
+export function measurePopoverPosition(el) {
+  if (!el || typeof el.getBoundingClientRect !== 'function') return null
+  if (typeof window === 'undefined') return null
+  const r = el.getBoundingClientRect()
+  const maxW = Math.min(window.innerWidth - POPOVER_EDGE_PAD * 2, POPOVER_MAX_WIDTH_REM * 16)
+  let top = r.bottom + POPOVER_GAP_PX
+  let left = r.left
+  if (left + maxW > window.innerWidth - POPOVER_EDGE_PAD) {
+    left = Math.max(POPOVER_EDGE_PAD, window.innerWidth - maxW - POPOVER_EDGE_PAD)
+  }
+  if (left < POPOVER_EDGE_PAD) left = POPOVER_EDGE_PAD
+  const maxH = Math.min(window.innerHeight * 0.7, 440)
+  if (top + maxH > window.innerHeight - POPOVER_EDGE_PAD) {
+    const above = r.top - POPOVER_GAP_PX - maxH
+    if (above >= POPOVER_EDGE_PAD) top = above
+    else top = Math.max(POPOVER_EDGE_PAD, window.innerHeight - maxH - POPOVER_EDGE_PAD)
+  }
+  return { top, left }
+}
+
+/**
+ * Greenfield ReactionsMount — strip (CR-01) + picker (CR-02) + portal escape (CR-10).
  * Props seam host-agnostic. Live HTTP → ThreadsSocialClient only later.
  *
  * Extra CR-02 props: defaultOpen, forcePickerSurface ('auto'|'popover'|'sheet')
@@ -42,6 +71,7 @@ export function ReactionsMount({
   className = '',
 }) {
   const panelId = useId()
+  const anchorRef = useRef(null)
   const [open, setOpen] = useState(Boolean(defaultOpen))
   const [busy, setBusy] = useState(false)
   const [writeSnapshot, setWriteSnapshot] = useState(null)
@@ -49,6 +79,7 @@ export function ReactionsMount({
   const [capacityBlocked, setCapacityBlocked] = useState(false)
   const [saveError, setSaveError] = useState(false)
   const [surface, setSurface] = useState(() => resolvePickerSurface(forcePickerSurface))
+  const [popoverStyle, setPopoverStyle] = useState(null)
 
   useEffect(() => {
     setSurface(resolvePickerSurface(forcePickerSurface))
@@ -63,6 +94,23 @@ export function ReactionsMount({
   useEffect(() => {
     if (defaultOpen) setOpen(true)
   }, [defaultOpen])
+
+  useLayoutEffect(() => {
+    if (!open || surface !== 'popover') {
+      setPopoverStyle(null)
+      return undefined
+    }
+    function update() {
+      setPopoverStyle(measurePopoverPosition(anchorRef.current))
+    }
+    update()
+    window.addEventListener('scroll', update, true)
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update, true)
+      window.removeEventListener('resize', update)
+    }
+  }, [open, surface])
 
   const capacity =
     Number.isFinite(Number(maxReactions)) && Number(maxReactions) > 0
@@ -220,7 +268,11 @@ export function ReactionsMount({
       data-enabled-count={String(enabledIds.length)}
       data-m155-oos="true"
     >
-      <div className="reactions-mount__anchor">
+      <div
+        ref={anchorRef}
+        className="reactions-mount__anchor"
+        data-testid="reactions-mount-anchor"
+      >
         <ReactionSummaryStrip
           stripStatus={status}
           summaryMarks={marks}
@@ -260,6 +312,8 @@ export function ReactionsMount({
           saveError={saveError}
           icons={icons}
           t={t}
+          anchorRef={anchorRef}
+          popoverStyle={popoverStyle}
           onSelect={(rid) => {
             void handleSelect(rid)
           }}

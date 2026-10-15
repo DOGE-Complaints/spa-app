@@ -1,4 +1,8 @@
-export { ReactionsMount, DEFAULT_MAX_REACTIONS_PER_ACTOR } from './ReactionsMount.jsx'
+export {
+  ReactionsMount,
+  DEFAULT_MAX_REACTIONS_PER_ACTOR,
+  measurePopoverPosition,
+} from './ReactionsMount.jsx'
 export { ReactionSummaryStrip } from './ReactionSummaryStrip.jsx'
 export { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
 export {
