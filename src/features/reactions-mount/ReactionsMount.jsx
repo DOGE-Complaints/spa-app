@@ -100,7 +100,7 @@ export function ReactionsMount({
   const status = writeSnapshot?.stripStatus ?? stripStatus
 
   function handleOpen() {
-    // FR-CR-02.4 — React always opens picker (even with selection)
+    // CR-05: empty → React; populated → aggregate hover/click (normative over CR-02 «React always»)
     setOpen(true)
     setSaveError(false)
     if (typeof onOpen === 'function') {

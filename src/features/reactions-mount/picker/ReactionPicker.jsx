@@ -6,7 +6,8 @@ import { ReactionPickerLayerGroup } from './ReactionPickerLayerGroup.jsx'
 import './ReactionPicker.css'
 
 /**
- * CR-02 ReactionPicker — desktop popover (M154 B) + mobile sheet (M154 C).
+ * CR-02/CR-05 ReactionPicker — desktop popover (M154 B) + mobile sheet (M154 C).
+ * Dismiss: outside pointer · icon-only NS close · Escape (CR-05 §3.2).
  * Groups: Emotional / Epistemic / Moderation (comment only). Root: no selectable Moderation.
  */
 export function ReactionPicker({
@@ -26,6 +27,7 @@ export function ReactionPicker({
   onSelect,
   onClose,
 }) {
+  const rootRef = useRef(null)
   const closeRef = useRef(null)
 
   useEffect(() => {
@@ -38,6 +40,21 @@ export function ReactionPicker({
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
+  }, [open, onClose])
+
+  // FR-CR-05.4 — pointer/click outside rm-reaction-picker closes
+  useEffect(() => {
+    if (!open) return undefined
+    function onPointerDown(e) {
+      const root = rootRef.current
+      if (!root) return
+      const targetNode = e.target
+      if (targetNode instanceof Node && !root.contains(targetNode)) {
+        if (typeof onClose === 'function') onClose()
+      }
+    }
+    document.addEventListener('pointerdown', onPointerDown, true)
+    return () => document.removeEventListener('pointerdown', onPointerDown, true)
   }, [open, onClose])
 
   useEffect(() => {
@@ -57,8 +74,11 @@ export function ReactionPicker({
     surface === 'sheet' ? 'rm-picker--sheet' : 'rm-picker--popover',
   ].join(' ')
 
+  const closeLabel = t('threadsFeed.reactions.close')
+
   return (
     <div
+      ref={rootRef}
       id={panelId}
       className={className}
       data-testid="rm-reaction-picker"
@@ -85,12 +105,13 @@ export function ReactionPicker({
           type="button"
           className="rm-picker__close"
           data-testid="rm-picker-close"
+          aria-label={closeLabel}
+          title={closeLabel}
           onClick={() => {
             if (typeof onClose === 'function') onClose()
           }}
         >
-          {icons.close ? <CrReactionIcon src={icons.close} size={16} /> : null}
-          <span>{t('threadsFeed.reactions.close')}</span>
+          <CrReactionIcon src={icons.close || CR_REACTION_ICON_PACK.close} size={16} />
         </button>
       </div>
 

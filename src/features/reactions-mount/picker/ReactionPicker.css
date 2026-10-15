@@ -59,17 +59,23 @@
 .rm-picker__close {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  min-height: 40px;
-  padding: 6px 12px;
-  border: 1px solid var(--color-border-default, #e7e4dc);
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
   border-radius: 8px;
-  background: var(--color-bg-primary, #f7f6f2);
-  color: var(--color-text-primary, #101828);
-  font: inherit;
-  font-size: 13px;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
   cursor: pointer;
   flex: 0 0 auto;
+}
+
+.rm-picker__close:hover {
+  color: var(--color-text-primary, #101828);
+  background: var(--color-bg-primary, #f7f6f2);
+  border-color: var(--color-border-default, #e7e4dc);
 }
 
 .rm-picker__close:focus-visible {

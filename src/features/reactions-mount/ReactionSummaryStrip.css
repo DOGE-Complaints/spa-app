@@ -60,6 +60,22 @@
   background: var(--color-surface-elevated, #fffdf8);
   cursor: pointer;
   color: inherit;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.rm-summary-strip__aggregate:hover,
+.rm-summary-strip__aggregate:focus-visible,
+.rm-summary-strip__aggregate--open {
+  border-color: var(--color-border-strong, #cfc8b8);
+  background: var(--color-bg-primary, #f7f6f2);
+  box-shadow: 0 0 0 2px var(--focus-ring-color, rgba(181, 71, 8, 0.28));
+}
+
+.rm-summary-strip__aggregate:focus-visible {
+  outline: none;
 }
 
 .rm-summary-strip__marks {

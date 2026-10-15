@@ -4,9 +4,9 @@ import { CrReactionIcon } from './icons/CrReactionIcon.jsx'
 import './ReactionSummaryStrip.css'
 
 /**
- * Greenfield ReactionSummaryStrip (M154 Panel A / FR-CR-01.1).
+ * Greenfield ReactionSummaryStrip (M154 Panel A / FR-CR-01.1 · CR-05 open/dismiss).
  * States: empty (no fake zeros) · loading · populated · unavailable (+ retry).
- * Picker UI → CR-02 (open callback only here).
+ * Empty: React opens picker. Populated: React hidden; aggregate hover/click opens.
  */
 export function ReactionSummaryStrip({
   stripStatus = 'ready',
@@ -80,6 +80,16 @@ export function ReactionSummaryStrip({
   // Empty: keep React affordance; never theatrical "0"
   const showCount = !isEmpty && Number.isFinite(count) && count > 0
 
+  function openPicker() {
+    if (typeof onOpen === 'function') onOpen()
+  }
+
+  function handleAggregateActivate() {
+    openPicker()
+    // M155 people remain OOS — adapter may still report oos; primary job is open picker (CR-05)
+    if (typeof onAggregateActivate === 'function') onAggregateActivate()
+  }
+
   return (
     <div
       className="rm-summary-strip"
@@ -91,12 +101,20 @@ export function ReactionSummaryStrip({
       {!isEmpty ? (
         <button
           type="button"
-          className="rm-summary-strip__aggregate"
+          className={[
+            'rm-summary-strip__aggregate',
+            open ? 'rm-summary-strip__aggregate--open' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
           data-testid="reaction-summary-aggregate"
+          data-rm-aggregate-active={open ? 'true' : 'false'}
+          aria-expanded={Boolean(open)}
+          aria-controls={panelId}
           aria-label={t('threadsFeed.reactions.viewReactions')}
-          onClick={() => {
-            if (typeof onAggregateActivate === 'function') onAggregateActivate()
-          }}
+          onMouseEnter={openPicker}
+          onFocus={openPicker}
+          onClick={handleAggregateActivate}
         >
           <span className="rm-summary-strip__marks" aria-hidden="true">
             {marks.slice(0, 3).map((entry) => (
@@ -124,20 +142,20 @@ export function ReactionSummaryStrip({
         />
       )}
 
-      <button
-        type="button"
-        className="rm-summary-strip__react"
-        data-testid="reaction-summary-react"
-        aria-expanded={Boolean(open)}
-        aria-controls={panelId}
-        disabled={busy}
-        onClick={() => {
-          if (typeof onOpen === 'function') onOpen()
-        }}
-      >
-        <CrReactionIcon src={icons.react} size={18} />
-        <span>{t('threadsFeed.reactions.react')}</span>
-      </button>
+      {isEmpty ? (
+        <button
+          type="button"
+          className="rm-summary-strip__react"
+          data-testid="reaction-summary-react"
+          aria-expanded={Boolean(open)}
+          aria-controls={panelId}
+          disabled={busy}
+          onClick={openPicker}
+        >
+          <CrReactionIcon src={icons.react} size={18} />
+          <span>{t('threadsFeed.reactions.react')}</span>
+        </button>
+      ) : null}
     </div>
   )
 }
