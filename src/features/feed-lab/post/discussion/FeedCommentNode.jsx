@@ -1,7 +1,7 @@
 import { FeedLabReactionsMount } from '../reactions/FeedLabReactionsMount.jsx'
 import './FeedCommentNode.css'
 
-export function FeedCommentNode({ comment }) {
+export function FeedCommentNode({ comment, t = null, locale = 'en' }) {
   return (
     <div
       className="feed-post-comment-node"
@@ -19,6 +19,8 @@ export function FeedCommentNode({ comment }) {
           target="comment"
           commentId={comment.id}
           initialState="empty"
+          t={t}
+          locale={locale}
         />
       </div>
     </div>

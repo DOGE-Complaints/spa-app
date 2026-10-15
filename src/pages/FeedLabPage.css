@@ -1,10 +1,28 @@
-/* LAB-03 · lab list rhythm (M149) — 5-card spacing · not product toolbar/map */
+/* LAB-03 · lab list rhythm (M149) — 5-card spacing · CR-08 M160 stress */
 .feed-lab-page {
   display: flex;
   flex: 1;
   min-height: 0;
   width: 100%;
   box-sizing: border-box;
+  background: var(--color-surface, #f5f3ee);
+  color: var(--color-text-primary, #101828);
+}
+
+.feed-lab-page[data-lab-viewport='320'] .feed-lab-page__canvas {
+  max-width: 320px;
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.feed-lab-page[data-lab-text-zoom='200'] {
+  font-size: 200%;
+}
+
+.feed-lab-page[data-lab-text-zoom='200'] .feed-lab-page__stress-label {
+  font-size: 0.55em;
 }
 
 .feed-lab-page__canvas {
@@ -16,10 +34,57 @@
   background: var(--color-surface, #f5f3ee);
 }
 
+.feed-lab-page__header {
+  margin: 0 0 1rem;
+}
+
 .feed-lab-page__meta {
   margin: 0 0 1rem;
   font: 500 0.875rem/1.4 system-ui, sans-serif;
   color: var(--color-text-muted, #5a5a5a);
+}
+
+.feed-lab-page__stress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px dashed var(--color-border-default, #e7e4dc);
+  border-radius: 12px;
+  background: var(--color-surface-elevated, #fffdf8);
+}
+
+.feed-lab-page__stress-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.feed-lab-page__stress-label {
+  min-width: 5.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary, #667085);
+}
+
+.feed-lab-page__stress-row button {
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 10px;
+  background: var(--color-surface-elevated, #fffdf8);
+  color: var(--color-text-primary, #101828);
+  font: inherit;
+  cursor: pointer;
+}
+
+.feed-lab-page__stress-row button.is-active {
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
+  border-color: var(--color-accent-primary, var(--doge-accent, #f5c542));
 }
 
 .feed-lab-page__list {
@@ -45,12 +110,12 @@
 
 .feed-lab-page__section--deprecated {
   opacity: 0.92;
-  border-top: 1px dashed #c9c4b8;
+  border-top: 1px dashed var(--color-border-default, #c9c4b8);
   padding-top: 1.5rem;
 }
 
 .feed-lab-page__section-title {
   margin: 0 0 0.75rem;
   font: 650 1rem/1.35 system-ui, sans-serif;
-  color: #344054;
+  color: var(--color-text-primary, #344054);
 }

@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: #e7e4dc;
+  background: var(--color-border-default, #e7e4dc);
   border-radius: 10px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
@@ -16,7 +16,7 @@
 }
 
 .feed-post-media--hit:focus-visible {
-  outline: 2px solid #f5c542;
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
   outline-offset: 2px;
 }
 
@@ -35,6 +35,6 @@
   height: 100%;
   min-height: 10rem;
   font: 500 0.875rem/1.4 system-ui, sans-serif;
-  color: #667085;
-  background: #f2f0ea;
+  color: var(--color-text-secondary, #667085);
+  background: var(--color-surface-muted, #f2f0ea);
 }

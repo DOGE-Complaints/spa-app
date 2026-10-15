@@ -1,4 +1,6 @@
-/** Minimal lab t() — no invent API; covers DS atom keys used on #/lab/feed. */
+import { THREADS_FEED_DICTIONARY_BY_LOCALE } from '../../i18n/threadsFeedDictionary.js'
+
+/** Minimal lab t() — EN fallback for feed chrome keys outside reactions dictionary. */
 const LAB_STRINGS = Object.freeze({
   'nextFeed.post.more': 'More',
   'nextFeed.post.openIssue': 'Open issue',
@@ -44,6 +46,37 @@ const LAB_STRINGS = Object.freeze({
   'threadsFeed.composer.discardConfirm': 'Discard',
   'threadsFeed.composer.discardKeep': 'Keep editing',
 })
+
+/**
+ * Nested dictionary walker (CR-04 / CR-08) — same grammar as ReactionsLabCanvas.
+ * @param {Record<string, unknown>} dict
+ * @returns {(key: string) => string}
+ */
+export function makeT(dict) {
+  return (key) => {
+    const parts = String(key).split('.')
+    let cur = dict
+    for (const p of parts) {
+      if (cur == null || typeof cur !== 'object') {
+        return LAB_STRINGS[key] ?? key
+      }
+      cur = cur[p]
+    }
+    if (typeof cur === 'string') return cur
+    return LAB_STRINGS[key] ?? key
+  }
+}
+
+/**
+ * Locale-aware t for `#/lab/feed` stress — THREADS_FEED_DICTIONARY_BY_LOCALE.
+ * @param {'en'|'et'|'ru'|string} locale
+ * @returns {(key: string) => string}
+ */
+export function makeLabFeedT(locale = 'en') {
+  const dict =
+    THREADS_FEED_DICTIONARY_BY_LOCALE[locale] || THREADS_FEED_DICTIONARY_BY_LOCALE.en
+  return makeT(dict)
+}
 
 /**
  * @param {string} key

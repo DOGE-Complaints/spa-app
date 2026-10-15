@@ -1,4 +1,4 @@
-/* LAB-07 M150 warm card — new CSS only · no classic Controls DNA */
+/* LAB-07 M150 warm card — theme tokens (CR-08) · no classic Controls DNA */
 .feed-post-card {
   display: flex;
   flex-direction: column;
@@ -6,11 +6,11 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  background: #fffdf8;
-  border: 1px solid #e7e4dc;
+  background: var(--color-surface-elevated, #fffdf8);
+  border: 1px solid var(--color-border-default, #e7e4dc);
   border-radius: 12px;
   overflow: hidden;
-  color: #101828;
+  color: var(--color-text-primary, #101828);
 }
 
 .feed-post-card__body {

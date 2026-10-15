@@ -1,7 +1,7 @@
 .feed-post-title {
   margin: 0;
   font: 650 1.125rem/1.35 system-ui, sans-serif;
-  color: #101828;
+  color: var(--color-text-primary, #101828);
   text-align: left;
   word-break: break-word;
 }
@@ -16,6 +16,6 @@
 }
 
 .feed-post-title--hit:focus-visible {
-  outline: 2px solid #f5c542;
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
   outline-offset: 2px;
 }

@@ -1,7 +1,7 @@
 import { FeedCommentNode } from './FeedCommentNode.jsx'
 import './FeedCommentTree.css'
 
-export function FeedCommentTree({ comments = [] }) {
+export function FeedCommentTree({ comments = [], t = null, locale = 'en' }) {
   return (
     <div
       className="feed-post-comment-tree"
@@ -9,7 +9,7 @@ export function FeedCommentTree({ comments = [] }) {
       data-lab-comment-count={String(comments.length)}
     >
       {comments.map((c) => (
-        <FeedCommentNode key={c.id} comment={c} />
+        <FeedCommentNode key={c.id} comment={c} t={t} locale={locale} />
       ))}
     </div>
   )

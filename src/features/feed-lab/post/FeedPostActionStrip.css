@@ -5,7 +5,7 @@
   min-height: 56px;
   margin: 0;
   padding: 0;
-  border-top: 1px solid #e7e4dc;
+  border-top: 1px solid var(--color-border-default, #e7e4dc);
   gap: 0;
 }
 
@@ -17,10 +17,10 @@
   margin: 0;
   padding: 0.5rem 0.35rem;
   border: 0;
-  border-right: 1px solid #e7e4dc;
+  border-right: 1px solid var(--color-border-default, #e7e4dc);
   background: transparent;
   font: 600 0.8125rem/1.2 system-ui, sans-serif;
-  color: #344054;
+  color: var(--color-text-secondary, #344054);
   cursor: pointer;
 }
 
@@ -29,6 +29,6 @@
 }
 
 .feed-post-action-strip__zone:focus-visible {
-  outline: 2px solid #f5c542;
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
   outline-offset: -2px;
 }

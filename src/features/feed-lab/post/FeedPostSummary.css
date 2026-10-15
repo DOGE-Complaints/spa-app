@@ -1,7 +1,7 @@
 .feed-post-summary {
   margin: 0;
   font: 400 0.9375rem/1.45 system-ui, sans-serif;
-  color: #344054;
+  color: var(--color-text-secondary, #344054);
   text-align: left;
   word-break: break-word;
 }
@@ -16,6 +16,6 @@
 }
 
 .feed-post-summary--hit:focus-visible {
-  outline: 2px solid #f5c542;
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
   outline-offset: 2px;
 }

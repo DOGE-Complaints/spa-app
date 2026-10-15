@@ -8,8 +8,9 @@ import { labT } from '../../labI18n.js'
 import './FeedLabReactionsMount.css'
 
 /**
- * CR-07 lab host — wraps greenfield ReactionsMount + FixtureAdapter for `#/lab/feed`.
+ * CR-07/CR-08 lab host — wraps greenfield ReactionsMount + FixtureAdapter for `#/lab/feed`.
  * Bridges PostActionStrip open toggle via remount + defaultOpen (no invent HTTP).
+ * Locale-aware `t` from FeedLabPage stress (CR-08) — falls back to EN `labT`.
  */
 export function FeedLabReactionsMount({
   target = 'thread-root',
@@ -18,6 +19,8 @@ export function FeedLabReactionsMount({
   onOpenChange = null,
   initialState = 'empty',
   className = '',
+  t = null,
+  locale = 'en',
 }) {
   const adapter = useMemo(
     () => createFixtureAdapter({ initialState, target }),
@@ -26,6 +29,7 @@ export function FeedLabReactionsMount({
   const snap = adapter.snapshot()
   const [openEpoch, setOpenEpoch] = useState(0)
   const prevOpen = useRef(Boolean(open))
+  const translate = typeof t === 'function' ? t : labT
 
   useEffect(() => {
     const next = Boolean(open)
@@ -49,11 +53,12 @@ export function FeedLabReactionsMount({
       data-lab-cutover="cr-07"
       data-lab-plane="greenfield"
       data-lab-reaction-target={target}
+      data-lab-locale={locale}
       data-m155-oos="true"
       data-rm-adapter="fixture"
     >
       <ReactionsMount
-        key={`fl-rm-${target}-${commentId ?? 'root'}-${openEpoch}`}
+        key={`fl-rm-${target}-${commentId ?? 'root'}-${locale}-${openEpoch}`}
         target={target}
         commentId={commentId}
         density="compact"
@@ -63,7 +68,7 @@ export function FeedLabReactionsMount({
         summaryMarks={snap.summaryMarks}
         aggregateCount={snap.aggregateCount}
         selected={snap.selected}
-        t={labT}
+        t={translate}
         onReact={adapter.onReact}
         onOpen={() => {
           if (typeof onOpenChange === 'function') onOpenChange(true)

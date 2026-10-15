@@ -18,6 +18,8 @@ export function FeedDiscussionPlane({
   reactionsOpen = false,
   onReactionsOpenChange = null,
   focusComposerSignal = 0,
+  t = null,
+  locale = 'en',
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expanded))
   const isControlled = typeof onExpandedChange === 'function'
@@ -60,6 +62,8 @@ export function FeedDiscussionPlane({
           open={reactionsOpen}
           onOpenChange={onReactionsOpenChange}
           initialState="empty"
+          t={t}
+          locale={locale}
         />
       </div>
 
@@ -68,7 +72,7 @@ export function FeedDiscussionPlane({
       ) : (
         <div className="feed-post-discussion-plane__body" data-testid="feed-post-discussion-expanded">
           <FeedDiscussionHeader title="Thread" onCollapse={() => setExpanded(false)} />
-          <FeedCommentTree comments={comments} />
+          <FeedCommentTree comments={comments} t={t} locale={locale} />
           <FeedComposerEntry ref={composerRef} />
         </div>
       )}

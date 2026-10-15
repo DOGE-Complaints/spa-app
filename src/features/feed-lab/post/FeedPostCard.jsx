@@ -12,7 +12,13 @@ import './FeedPostCard.css'
  * LAB-07…09 greenfield civic post card — M150 anatomy + M154 reactions + M152 discussion.
  * Ban: Deprecated chrome · classic uppercase thread label · product discussion block · Controls stylesheet.
  */
-export function FeedPostCard({ fixture, onOpenDetail = null, onActionZone = null }) {
+export function FeedPostCard({
+  fixture,
+  onOpenDetail = null,
+  onActionZone = null,
+  t = null,
+  locale = 'en',
+}) {
   const [reactionsOpen, setReactionsOpen] = useState(false)
   const [discussionExpanded, setDiscussionExpanded] = useState(false)
   const [composerFocusSignal, setComposerFocusSignal] = useState(0)
@@ -63,6 +69,8 @@ export function FeedPostCard({ fixture, onOpenDetail = null, onActionZone = null
         reactionsOpen={reactionsOpen}
         onReactionsOpenChange={setReactionsOpen}
         focusComposerSignal={composerFocusSignal}
+        t={t}
+        locale={locale}
       />
     </article>
   )
