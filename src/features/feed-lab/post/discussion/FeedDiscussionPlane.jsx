@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { FeedReactionPlane } from '../reactions/index.js'
+import { FeedLabReactionsMount } from '../reactions/FeedLabReactionsMount.jsx'
 import { FeedDiscussionSummary } from './FeedDiscussionSummary.jsx'
 import { FeedDiscussionHeader } from './FeedDiscussionHeader.jsx'
 import { FeedCommentTree } from './FeedCommentTree.jsx'
@@ -8,7 +8,7 @@ import './FeedDiscussionPlane.css'
 
 /**
  * LAB-09 greenfield discussion region under strip (M152/M153).
- * Reaction aggregate/picker lives inside this region (M152 C adjacency).
+ * CR-07: reaction slot → ReactionsMount (FixtureAdapter) · not FeedReactionPlane.
  * Ban: deprecated lab discussion host · product discussion block · classic uppercase label chrome.
  */
 export function FeedDiscussionPlane({
@@ -53,11 +53,13 @@ export function FeedDiscussionPlane({
         className="feed-post-discussion-plane__reactions"
         data-testid="feed-post-discussion-reaction-slot"
         data-lab-reaction-adjacency="m152-c"
+        data-lab-cutover="cr-07"
       >
-        <FeedReactionPlane
+        <FeedLabReactionsMount
           target="thread-root"
           open={reactionsOpen}
           onOpenChange={onReactionsOpenChange}
+          initialState="empty"
         />
       </div>
 

@@ -18,3 +18,8 @@
   color: #101828;
   white-space: pre-wrap;
 }
+
+.feed-post-comment-node__reactions {
+  margin-top: 4px;
+  min-width: 0;
+}

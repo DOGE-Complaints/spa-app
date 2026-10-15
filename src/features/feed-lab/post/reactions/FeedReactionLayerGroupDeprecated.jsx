@@ -1,8 +1,9 @@
-import { FeedReactionOption } from './FeedReactionOption.jsx'
+/** CR-07 Deprecated — retired from live `#/lab/feed` path. Kept for history / ban checks. Do not mount. */
+import { FeedReactionOptionDeprecated } from './FeedReactionOptionDeprecated.jsx'
 import { FEED_REACTION_LAYER_LABELS_EN } from './feedReactionLabels.js'
-import './FeedReactionLayerGroup.css'
+import './FeedReactionLayerGroupDeprecated.css'
 
-export function FeedReactionLayerGroup({ layer, entries, selectedIds, onSelect }) {
+export function FeedReactionLayerGroupDeprecated({ layer, entries, selectedIds, onSelect }) {
   if (!entries?.length) return null
   const title = FEED_REACTION_LAYER_LABELS_EN[layer] || layer
   return (
@@ -16,7 +17,7 @@ export function FeedReactionLayerGroup({ layer, entries, selectedIds, onSelect }
       <ul className="feed-reaction-layer-group__list">
         {entries.map((entry) => (
           <li key={entry.id}>
-            <FeedReactionOption
+            <FeedReactionOptionDeprecated
               entry={entry}
               selected={selectedIds.includes(entry.id)}
               onSelect={onSelect}

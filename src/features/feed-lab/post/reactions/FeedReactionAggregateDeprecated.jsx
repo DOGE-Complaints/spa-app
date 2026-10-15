@@ -1,16 +1,17 @@
+/** CR-07 Deprecated — retired from live `#/lab/feed` path. Kept for history / ban checks. Do not mount. */
 import { feedReactionLabel } from './feedReactionLabels.js'
-import './FeedReactionAggregate.css'
+import './FeedReactionAggregateDeprecated.css'
 
 /**
  * Confirmed marks + count only when selection Present; empty = no theatrical zero.
  */
-export function FeedReactionAggregate({ selectedIds = [] }) {
+export function FeedReactionAggregateDeprecated({ selectedIds = [] }) {
   const count = selectedIds.length
   const show = count > 0
   return (
     <div
       className="feed-reaction-aggregate"
-      data-testid="feed-reaction-aggregate"
+      data-testid="feed-reaction-aggregate-deprecated"
       data-lab-aggregate={show ? 'present' : 'empty'}
       aria-live="polite"
     >

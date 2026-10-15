@@ -1,18 +1,19 @@
+/** CR-07 Deprecated — retired from live `#/lab/feed` path. Kept for history / ban checks. Do not mount. */
 import { useId, useMemo, useState } from 'react'
 import {
   DEFAULT_MAX_REACTIONS_PER_ACTOR,
   listReactionsV1,
   toggleReactionSelection,
 } from '../../../feed/semantics/reactionsV1.js'
-import { FeedReactionAggregate } from './FeedReactionAggregate.jsx'
-import { FeedReactionPicker } from './FeedReactionPicker.jsx'
-import './FeedReactionPlane.css'
+import { FeedReactionAggregateDeprecated } from './FeedReactionAggregateDeprecated.jsx'
+import { FeedReactionPickerDeprecated } from './FeedReactionPickerDeprecated.jsx'
+import './FeedReactionPlaneDeprecated.css'
 
 /**
  * LAB-08 greenfield reactions host — local in-memory selection · no HTTP PUT.
  * Ban: Deprecated chrome · product reaction hosts · classic controls stylesheet · emoji-soup.
  */
-export function FeedReactionPlane({
+export function FeedReactionPlaneDeprecated({
   target = 'thread-root',
   initialSelected = [],
   maxReactions = DEFAULT_MAX_REACTIONS_PER_ACTOR,
@@ -64,7 +65,7 @@ export function FeedReactionPlane({
   return (
     <div
       className="feed-reaction-plane"
-      data-testid="feed-reaction-plane"
+      data-testid="feed-reaction-plane-deprecated"
       data-lab-plane="greenfield"
       data-reaction-target={target}
       data-catalog="reactions.v1"
@@ -72,8 +73,8 @@ export function FeedReactionPlane({
       data-lab-local-memory="true"
       data-lab-moderation={target === 'thread-root' ? 'absent' : 'eligible'}
     >
-      <FeedReactionAggregate selectedIds={selected} />
-      <FeedReactionPicker
+      <FeedReactionAggregateDeprecated selectedIds={selected} />
+      <FeedReactionPickerDeprecated
         open={pickerOpen}
         panelId={panelId}
         layers={layers}

@@ -1,12 +1,13 @@
+/** CR-07 Deprecated — retired from live `#/lab/feed` path. Kept for history / ban checks. Do not mount. */
 import { useEffect, useRef } from 'react'
-import { FeedReactionLayerGroup } from './FeedReactionLayerGroup.jsx'
-import './FeedReactionPicker.css'
+import { FeedReactionLayerGroupDeprecated } from './FeedReactionLayerGroupDeprecated.jsx'
+import './FeedReactionPickerDeprecated.css'
 
 /**
  * Anchored panel · Emotional + Epistemic at thread-root · Escape/close.
  * Class prefix feed-reaction-* · no classic Controls CSS class names.
  */
-export function FeedReactionPicker({
+export function FeedReactionPickerDeprecated({
   open,
   panelId,
   layers,
@@ -44,7 +45,7 @@ export function FeedReactionPicker({
     <div
       id={panelId}
       className="feed-reaction-picker"
-      data-testid="feed-reaction-picker"
+      data-testid="feed-reaction-picker-deprecated"
       data-lab-picker="m154"
       role="dialog"
       aria-label="Choose reactions"
@@ -70,7 +71,7 @@ export function FeedReactionPicker({
       </p>
       <div className="feed-reaction-picker__body">
         {layerEntries.map(([layer, entries]) => (
-          <FeedReactionLayerGroup
+          <FeedReactionLayerGroupDeprecated
             key={layer}
             layer={layer}
             entries={entries}

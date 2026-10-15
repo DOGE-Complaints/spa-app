@@ -8,13 +8,7 @@ export { FeedPostSummary } from './FeedPostSummary.jsx'
 export { FeedPostOpenIssue } from './FeedPostOpenIssue.jsx'
 export { FeedPostMedia } from './FeedPostMedia.jsx'
 export { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
-export {
-  FeedReactionPlane,
-  FeedReactionAggregate,
-  FeedReactionPicker,
-  FeedReactionOption,
-  FeedReactionLayerGroup,
-} from './reactions/index.js'
+export { FeedLabReactionsMount } from './reactions/index.js'
 export {
   FeedDiscussionPlane,
   FeedDiscussionSummary,

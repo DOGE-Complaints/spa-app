@@ -1,10 +1,11 @@
+/** CR-07 Deprecated — retired from live `#/lab/feed` path. Kept for history / ban checks. Do not mount. */
 import { feedReactionLabel } from './feedReactionLabels.js'
-import './FeedReactionOption.css'
+import './FeedReactionOptionDeprecated.css'
 
 /**
  * One catalog choice — label required · icon omit (no emoji invent).
  */
-export function FeedReactionOption({ entry, selected = false, onSelect }) {
+export function FeedReactionOptionDeprecated({ entry, selected = false, onSelect }) {
   const label = feedReactionLabel(entry.id)
   return (
     <button
