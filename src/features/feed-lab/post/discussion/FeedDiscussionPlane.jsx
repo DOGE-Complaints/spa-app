@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { FeedLabReactionsMount } from '../reactions/FeedLabReactionsMount.jsx'
 import { FeedDiscussionSummary } from './FeedDiscussionSummary.jsx'
 import { FeedDiscussionHeader } from './FeedDiscussionHeader.jsx'
 import { FeedCommentTree } from './FeedCommentTree.jsx'
@@ -8,15 +7,14 @@ import './FeedDiscussionPlane.css'
 
 /**
  * LAB-09 greenfield discussion region under strip (M152/M153).
- * CR-07: reaction slot → ReactionsMount (FixtureAdapter) · not FeedReactionPlane.
+ * CR-09: root ReactionsMount lives in strip reactSlot — no under-strip duplicate.
+ * Comment mounts remain on FeedCommentNode.
  * Ban: deprecated lab discussion host · product discussion block · classic uppercase label chrome.
  */
 export function FeedDiscussionPlane({
   fixture,
   expanded = false,
   onExpandedChange = null,
-  reactionsOpen = false,
-  onReactionsOpenChange = null,
   focusComposerSignal = 0,
   t = null,
   locale = 'en',
@@ -49,24 +47,9 @@ export function FeedDiscussionPlane({
       data-lab-plane="greenfield"
       data-lab-discussion={isExpanded ? 'expanded' : 'collapsed'}
       data-lab-discussion-artboard="m152"
+      data-lab-root-reaction-slot="strip"
       aria-label="Thread"
     >
-      <div
-        className="feed-post-discussion-plane__reactions"
-        data-testid="feed-post-discussion-reaction-slot"
-        data-lab-reaction-adjacency="m152-c"
-        data-lab-cutover="cr-07"
-      >
-        <FeedLabReactionsMount
-          target="thread-root"
-          open={reactionsOpen}
-          onOpenChange={onReactionsOpenChange}
-          initialState="empty"
-          t={t}
-          locale={locale}
-        />
-      </div>
-
       {!isExpanded ? (
         <FeedDiscussionSummary comments={comments} onView={() => setExpanded(true)} />
       ) : (

@@ -5,11 +5,13 @@ import { FeedPostSummary } from './FeedPostSummary.jsx'
 import { FeedPostOpenIssue } from './FeedPostOpenIssue.jsx'
 import { FeedPostMedia } from './FeedPostMedia.jsx'
 import { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
+import { FeedLabReactionsMount } from './reactions/FeedLabReactionsMount.jsx'
 import { FeedDiscussionPlane } from './discussion/index.js'
 import './FeedPostCard.css'
 
 /**
  * LAB-07…09 greenfield civic post card — M150 anatomy + M154 reactions + M152 discussion.
+ * CR-09: root React lives in strip reactSlot (A+C+B) — no under-strip duplicate.
  * Ban: Deprecated chrome · classic uppercase thread label · product discussion block · Controls stylesheet.
  */
 export function FeedPostCard({
@@ -19,7 +21,6 @@ export function FeedPostCard({
   t = null,
   locale = 'en',
 }) {
-  const [reactionsOpen, setReactionsOpen] = useState(false)
   const [discussionExpanded, setDiscussionExpanded] = useState(false)
   const [composerFocusSignal, setComposerFocusSignal] = useState(0)
 
@@ -29,9 +30,6 @@ export function FeedPostCard({
   }
 
   function handleZone(zoneId, event) {
-    if (zoneId === 'react' || zoneId === 'reactions') {
-      setReactionsOpen((v) => !v)
-    }
     if (zoneId === 'comment') {
       setDiscussionExpanded(true)
       setComposerFocusSignal((n) => n + 1)
@@ -49,6 +47,7 @@ export function FeedPostCard({
       data-lab-card="feed-post"
       data-lab-reactions="m154"
       data-lab-discussion="m152"
+      data-lab-strip-composition="a-c-b"
     >
       <div className="feed-post-card__body">
         <FeedPostIdentity fixture={fixture} />
@@ -61,13 +60,21 @@ export function FeedPostCard({
         <FeedPostOpenIssue onOpenDetail={onOpenDetail ? openDetail : null} />
         <FeedPostMedia media={fixture.media} onOpenDetail={onOpenDetail ? openDetail : null} />
       </div>
-      <FeedPostActionStrip onZone={handleZone} />
+      <FeedPostActionStrip
+        onZone={handleZone}
+        reactSlot={
+          <FeedLabReactionsMount
+            target="thread-root"
+            initialState="empty"
+            t={t}
+            locale={locale}
+          />
+        }
+      />
       <FeedDiscussionPlane
         fixture={fixture}
         expanded={discussionExpanded}
         onExpandedChange={setDiscussionExpanded}
-        reactionsOpen={reactionsOpen}
-        onReactionsOpenChange={setReactionsOpen}
         focusComposerSignal={composerFocusSignal}
         t={t}
         locale={locale}
