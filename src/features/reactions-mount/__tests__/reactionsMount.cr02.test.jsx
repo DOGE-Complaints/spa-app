@@ -61,7 +61,7 @@ describe('CR-02 reaction picker', () => {
     expect(full.selected).toEqual(['acknowledge', 'support', 'empathy'])
   })
 
-  it('React always opens picker even with selection', () => {
+  it('empty strip React opens picker (CR-05; selection alone without marks still empty)', () => {
     render(
       <ReactionsMount
         target="comment"
