@@ -82,7 +82,9 @@ describe('FeedLab greenfield NF-LAB-09 discussion', () => {
     expect(within(card).getByTestId('feed-post-discussion-reaction-slot').getAttribute('data-lab-reaction-adjacency')).toBe(
       'm152-c',
     )
-    expect(within(card).getByTestId('feed-reaction-plane')).toBeTruthy()
+    expect(within(card).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
+    expect(within(card).getByTestId('reactions-mount')).toBeTruthy()
+    expect(within(card).queryByTestId('feed-reaction-plane')).toBeNull()
     expect(within(card).getByTestId('feed-post-discussion-summary-title').textContent).toMatch(/Thread/)
     expect(within(card).getByText('Noise after 23:00 again.')).toBeTruthy()
 

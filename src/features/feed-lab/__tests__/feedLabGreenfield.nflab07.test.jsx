@@ -61,6 +61,8 @@ describe('FeedLab greenfield NF-LAB-07', () => {
 
   it('greenfield Done path bans Deprecated / Controls / product hosts', () => {
     for (const file of collectJsFiles(postRoot)) {
+      // CR-07: archive *Deprecated modules kept on disk; skip them in Done-path ban scan
+      if (/Deprecated\.(jsx?|css)$/.test(file)) continue
       const src = readFileSync(file, 'utf8')
       expect(hasBannedImport(src), file).toBe(false)
       expect(

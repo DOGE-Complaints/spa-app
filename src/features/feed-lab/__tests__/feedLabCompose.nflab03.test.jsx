@@ -96,9 +96,11 @@ describe('FeedLab compose NF-LAB-03 (superseded mount → LAB-10 greenfield)', (
     }
   })
 
-  it('mounts greenfield reaction plane (not Deprecated chrome)', () => {
+  it('mounts ReactionsMount cutover (not Deprecated chrome / FeedReactionPlane)', () => {
     renderLab()
     expect(screen.queryAllByTestId('lab-reaction-chrome')).toHaveLength(0)
-    expect(screen.getAllByTestId('feed-reaction-plane')).toHaveLength(5)
+    expect(screen.queryAllByTestId('feed-reaction-plane')).toHaveLength(0)
+    expect(screen.getAllByTestId('feed-lab-reactions-mount')).toHaveLength(5)
+    expect(screen.getAllByTestId('reactions-mount').length).toBeGreaterThanOrEqual(5)
   })
 })

@@ -57,6 +57,8 @@ describe('FeedLab greenfield NF-LAB-10 overlay + cutover', () => {
     expect(pageSrc.split(/\n/).some((l) => DEPRECATED_IMPORT_RE.test(l))).toBe(false)
     expect(pageSrc).not.toMatch(/from ['"][^'"]*Deprecated/)
     for (const file of collectJsFiles(postRoot)) {
+      // CR-07: archive *Deprecated modules kept on disk; skip them in Done-path ban scan
+      if (/Deprecated\.(jsx?|css)$/.test(file)) continue
       const src = readFileSync(file, 'utf8')
       expect(src.split(/\n/).some((l) => DEPRECATED_IMPORT_RE.test(l)), file).toBe(false)
     }
@@ -71,7 +73,7 @@ describe('FeedLab greenfield NF-LAB-10 overlay + cutover', () => {
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     fireEvent.click(within(card).getByTestId('feed-post-action-react'))
     expect(screen.queryByTestId('feed-issue-detail-panel')).toBeNull()
-    expect(within(card).getByTestId('feed-reaction-picker')).toBeTruthy()
+    expect(within(card).getByTestId('rm-reaction-picker')).toBeTruthy()
 
     fireEvent.click(within(card).getByTestId('feed-post-title'))
     const panel = screen.getByTestId('feed-issue-detail-panel')
