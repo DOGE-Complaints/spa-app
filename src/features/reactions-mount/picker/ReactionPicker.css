@@ -2,29 +2,36 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 12px;
+  padding: 12px 14px;
   border: 1px solid var(--color-border-default, #e7e4dc);
   border-radius: 12px;
   background: var(--color-surface-elevated, #fffdf8);
   color: var(--color-text-primary, #101828);
   box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
   z-index: 30;
+  box-sizing: border-box;
 }
 
+/* FR-CR-06.3 — hug longest option label; no stretch empty gutter */
 .rm-picker--popover {
   position: absolute;
   left: 0;
-  right: 0;
+  right: auto;
   top: calc(100% + 8px);
+  width: max-content;
+  max-width: min(100%, 22rem);
   max-height: min(70vh, 440px);
   overflow: auto;
 }
 
+/* FR-CR-06.5 — mobile sheet stays full-bleed */
 .rm-picker--sheet {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+  width: auto;
+  max-width: none;
   max-height: 70dvh;
   overflow: auto;
   border-radius: 16px 16px 0 0;
@@ -89,6 +96,12 @@
   color: var(--color-text-secondary, #667085);
 }
 
+.rm-picker__hint--footer {
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border-default, #e7e4dc);
+}
+
 .rm-picker__error {
   margin: 0;
   font-size: 13px;
@@ -100,4 +113,13 @@
   flex-direction: column;
   gap: 14px;
   min-width: 0;
+}
+
+.rm-picker--popover .rm-picker-option {
+  width: 100%;
+}
+
+.rm-picker--popover .rm-picker-option__label {
+  flex: 0 1 auto;
+  white-space: nowrap;
 }

@@ -50,3 +50,5 @@
   overflow-wrap: anywhere;
   word-break: break-word;
 }
+
+/* Sheet keeps label flex-fill; popover overrides in ReactionPicker.css */

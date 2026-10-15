@@ -6,9 +6,9 @@ import { ReactionPickerLayerGroup } from './ReactionPickerLayerGroup.jsx'
 import './ReactionPicker.css'
 
 /**
- * CR-02/CR-05 ReactionPicker — desktop popover (M154 B) + mobile sheet (M154 C).
- * Dismiss: outside pointer · icon-only NS close · Escape (CR-05 §3.2).
- * Groups: Emotional / Epistemic / Moderation (comment only). Root: no selectable Moderation.
+ * CR-02/CR-05/CR-06 ReactionPicker — desktop popover (M154 B) + mobile sheet (M154 C).
+ * CR-05 dismiss: outside · icon-only NS close · Escape.
+ * CR-06 chrome: capacity header-left · root hint footer after layers · popover hug-width.
  */
 export function ReactionPicker({
   open,
@@ -75,6 +75,15 @@ export function ReactionPicker({
   ].join(' ')
 
   const closeLabel = t('threadsFeed.reactions.close')
+  const rootHint =
+    target === 'thread-root' ? (
+      <p
+        className="rm-picker__hint rm-picker__hint--footer"
+        data-testid="rm-picker-root-scope-hint"
+      >
+        {t('threadsFeed.reactions.rootModerationHint')}
+      </p>
+    ) : null
 
   return (
     <div
@@ -115,12 +124,6 @@ export function ReactionPicker({
         </button>
       </div>
 
-      {target === 'thread-root' ? (
-        <p className="rm-picker__hint" data-testid="rm-picker-root-scope-hint">
-          {t('threadsFeed.reactions.rootModerationHint')}
-        </p>
-      ) : null}
-
       {exclusiveHint ? (
         <p className="rm-picker__hint" data-testid="rm-picker-xor-hint">
           {t('threadsFeed.reactions.agreeDisagreeExclusive')}
@@ -133,7 +136,7 @@ export function ReactionPicker({
         </p>
       ) : null}
 
-      <div className="rm-picker__body">
+      <div className="rm-picker__body" data-testid="rm-picker-body">
         {layerEntries.map(([layer, entries]) => (
           <ReactionPickerLayerGroup
             key={layer}
@@ -148,6 +151,9 @@ export function ReactionPicker({
           />
         ))}
       </div>
+
+      {/* FR-CR-06.2 — root moderation hint after layers (footer) */}
+      {rootHint}
     </div>
   )
 }
