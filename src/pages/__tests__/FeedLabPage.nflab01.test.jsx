@@ -48,8 +48,8 @@ describe('FeedLabPage NF-LAB-01', () => {
       </I18nProvider>,
     )
     expect(screen.getByTestId('feed-lab-fixture-count').textContent).toMatch(/5/)
-    expect(screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-001')).toBeTruthy()
-    expect(screen.getByTestId('feed-lab-issue-card-DOGEstonia-UusVeerenni-005')).toBeTruthy()
+    expect(screen.getByTestId('feed-post-card-DOGEstonia-UusVeerenni-001')).toBeTruthy()
+    expect(screen.getByTestId('feed-post-card-DOGEstonia-UusVeerenni-005')).toBeTruthy()
   })
 
   it('lab entry module holds ban-list (no product hosts / classic Controls imports)', () => {
