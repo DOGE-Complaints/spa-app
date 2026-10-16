@@ -93,9 +93,9 @@ describe('CR-01 reactions-mount package', () => {
     const html = container.innerHTML
     expect(html).toContain('/icons/next-feed/reactions/acknowledge.svg')
     expect(html).toContain('/icons/next-feed/reactions/support.svg')
-    // CR-05: populated hides React affordance (empty-only)
-    expect(screen.queryByTestId('reaction-summary-react')).toBeNull()
-    expect(html).not.toContain('/icons/next-feed/actions/react.svg')
+    // CR-12: populated keeps React affordance (react-always) · mark URLs still Present
+    expect(screen.getByTestId('reaction-summary-react')).toBeTruthy()
+    expect(html).toContain('/icons/next-feed/actions/react.svg')
     expect(html).not.toMatch(/[\u{1F300}-\u{1FAFF}]/u)
   })
 

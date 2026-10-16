@@ -43,7 +43,7 @@ describe('CR-05 strip open / dismiss', () => {
     expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
   })
 
-  it('populated: React absent; aggregate hover + click open picker', () => {
+  it('populated: React still visible (CR-12); aggregate hover + click open picker', () => {
     const onAggregate = vi.fn(() => ({ status: 'ok', data: { oos: 'M155' } }))
     render(
       <ReactionsMount
@@ -56,7 +56,7 @@ describe('CR-05 strip open / dismiss', () => {
         onAggregateActivate={onAggregate}
       />,
     )
-    expect(screen.queryByTestId('reaction-summary-react')).toBeNull()
+    expect(screen.getByTestId('reaction-summary-react')).toBeTruthy()
     const agg = screen.getByTestId('reaction-summary-aggregate')
     expect(screen.queryByTestId('rm-reaction-picker')).toBeNull()
     fireEvent.mouseEnter(agg)
@@ -114,7 +114,7 @@ describe('CR-05 strip open / dismiss', () => {
     expect(screen.queryByTestId('rm-reaction-picker')).toBeNull()
   })
 
-  it('strip unit: populated hides React affordance', () => {
+  it('strip unit: populated keeps React affordance (CR-12 react-always)', () => {
     render(
       <ReactionSummaryStrip
         stripStatus="ready"
@@ -123,7 +123,7 @@ describe('CR-05 strip open / dismiss', () => {
         t={t}
       />,
     )
-    expect(screen.queryByTestId('reaction-summary-react')).toBeNull()
+    expect(screen.getByTestId('reaction-summary-react')).toBeTruthy()
     expect(screen.getByTestId('reaction-summary-aggregate')).toBeTruthy()
   })
 
