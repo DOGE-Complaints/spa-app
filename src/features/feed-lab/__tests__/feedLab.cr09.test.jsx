@@ -26,23 +26,22 @@ function renderLab() {
 describe('CR-09 strip slot composition A+C+B', () => {
   afterEach(() => cleanup())
 
-  it('strip is 3 zones · no reactions text zone · mount in zone 1', () => {
+  it('strip hosts mount in zone 1 · CR-11 supersedes 3-zone → 4 zones Present', () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     expect(card.getAttribute('data-lab-strip-composition')).toBe('a-c-b')
     const strip = within(card).getByTestId('feed-post-action-strip')
-    expect(strip.getAttribute('data-lab-strip-zones')).toBe('3')
+    expect(strip.getAttribute('data-lab-strip-zones')).toBe('4')
     expect(strip.getAttribute('data-lab-strip-slot')).toBe('react')
-    expect(strip.querySelectorAll('[data-zone]')).toHaveLength(3)
-    expect(within(card).queryByTestId('feed-post-action-reactions')).toBeNull()
-    expect(strip.querySelector('[data-zone="reactions"]')).toBeNull()
+    expect(strip.querySelectorAll('[data-zone]')).toHaveLength(4)
+    expect(within(card).getByTestId('feed-post-action-reactions')).toBeTruthy()
+    expect(strip.querySelector('[data-zone="reactions"]')).toBeTruthy()
 
     const zone1 = within(card).getByTestId('feed-post-action-react')
     expect(zone1.getAttribute('data-lab-react-slot')).toBe('true')
     expect(within(zone1).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
     expect(within(zone1).getByTestId('reaction-summary-strip')).toBeTruthy()
     expect(within(zone1).getByTestId('reaction-summary-react')).toBeTruthy()
-    expect(zone1.textContent).not.toMatch(/^React$/)
   })
 
   it('no under-strip root duplicate · comment mounts kept after expand', () => {
@@ -78,8 +77,8 @@ describe('CR-09 strip slot composition A+C+B', () => {
     const stripSrc = readFileSync(path.resolve(dir, '../post/FeedPostActionStrip.jsx'), 'utf8')
     const planeSrc = readFileSync(path.resolve(dir, '../post/discussion/FeedDiscussionPlane.jsx'), 'utf8')
     expect(stripSrc).toMatch(/reactSlot/)
-    expect(stripSrc).toMatch(/data-lab-strip-zones="3"/)
-    expect(stripSrc).not.toMatch(/id:\s*'reactions'/)
+    expect(stripSrc).toMatch(/data-lab-strip-zones="4"/)
+    expect(stripSrc).toMatch(/id:\s*'reactions'/)
     expect(cardSrc).toMatch(/reactSlot=/)
     expect(cardSrc).toMatch(/FeedLabReactionsMount/)
     expect(planeSrc).not.toMatch(/FeedLabReactionsMount/)
