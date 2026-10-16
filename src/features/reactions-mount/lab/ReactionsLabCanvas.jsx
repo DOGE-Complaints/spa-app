@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { THREADS_FEED_DICTIONARY_BY_LOCALE } from '../../../i18n/threadsFeedDictionary.js'
 import { setThemeAttribute } from '../../../theme/bootTheme.js'
+import { FeedPostActionStrip } from '../../feed-lab/post/FeedPostActionStrip.jsx'
 import { ReactionsMount } from '../ReactionsMount.jsx'
 import { createFixtureAdapter, STRIP_STATE_FIXTURES } from '../adapters/FixtureAdapter.js'
 import { createLiveAdapter } from '../adapters/LiveAdapter.js'
@@ -9,6 +10,71 @@ import {
   REACTIONS_MOUNT_SLOT_KINDS,
 } from '../slot/postActionStripSlot.js'
 import './ReactionsLabCanvas.css'
+
+/**
+ * CR-15 — M154 composition stand for `#/lab/reactions`:
+ * 4-zone FeedPostActionStrip + React-always + aggregate-below + optional tile picker.
+ * FixtureAdapter only · Gap v2 residual · no invent HTTP/M155.
+ */
+function Cr15CompositionStand({
+  t,
+  locale,
+  adapter,
+  snap,
+  defaultOpen = false,
+  testId = 'rm-lab-cr15-composition',
+}) {
+  const [aggregateHost, setAggregateHost] = useState(null)
+  const apiRef = useRef(null)
+
+  return (
+    <div
+      className="rm-lab-canvas__card"
+      data-testid={testId}
+      data-lab-cr15-wire="true"
+      data-lab-strip-composition="four-zone"
+      data-lab-aggregate="below"
+      data-lab-picker-default-open={defaultOpen ? 'true' : 'false'}
+    >
+      <p className="rm-lab-canvas__issue">
+        CR-15 M154 wire — four-zone strip · React-always · aggregate below · FixtureAdapter
+        {defaultOpen ? ' · picker open (tiles + accents)' : ''}.
+      </p>
+      <FeedPostActionStrip
+        onZone={(zoneId) => {
+          if (zoneId === 'reactions') apiRef.current?.activateAggregate?.()
+        }}
+        reactSlot={
+          <ReactionsMount
+            key={`cr15-${testId}-${locale}-${defaultOpen ? 'open' : 'closed'}`}
+            target="thread-root"
+            density="compact"
+            slot={REACTIONS_MOUNT_SLOT_KINDS.POST_ACTION_STRIP}
+            stripStatus={snap.stripStatus}
+            summaryMarks={snap.summaryMarks}
+            aggregateCount={snap.aggregateCount}
+            selected={snap.selected}
+            t={t}
+            onReact={adapter.onReact}
+            onAggregateActivate={adapter.onAggregateActivate}
+            aggregatePlacement="below"
+            aggregateHost={aggregateHost}
+            apiRef={apiRef}
+            reactAlways
+            defaultOpen={defaultOpen}
+            forcePickerSurface={defaultOpen ? 'popover' : 'auto'}
+          />
+        }
+      />
+      <div
+        ref={setAggregateHost}
+        className="rm-lab-canvas__aggregate-host"
+        data-testid={`${testId}-aggregate-host`}
+        data-lab-aggregate-host="true"
+      />
+    </div>
+  )
+}
 
 function makeT(dict) {
   return (key) => {
@@ -37,7 +103,7 @@ const PICKER_SCENES = /** @type {const} */ ([
 
 /**
  * CR-03/CR-04 lab canvas for `#/lab/reactions`.
- * FixtureAdapter default · M160 stress: ET/RU/EN × light/dark × 320/200%.
+ * CR-15: M154 composition stands (CR-11…14 wire) · FixtureAdapter default · M160 stress.
  */
 export function ReactionsLabCanvas() {
   const [locale, setLocale] = useState(/** @type {(typeof LOCALES)[number]} */ ('en'))
@@ -90,6 +156,7 @@ export function ReactionsLabCanvas() {
       data-lab-viewport={viewport}
       data-lab-text-zoom={textZoom}
       data-lab-stress="m160"
+      data-lab-cr15-wire="true"
     >
       <header className="rm-lab-canvas__header">
         <h1 className="rm-lab-canvas__title" data-testid="rm-lab-title">
@@ -199,6 +266,29 @@ export function ReactionsLabCanvas() {
           </button>
         </div>
       </header>
+
+      <section
+        className="rm-lab-canvas__section"
+        data-testid="rm-lab-cr15-wire"
+        aria-label="CR-15 M154 composition wire"
+      >
+        <h2>CR-15 — M154 composition (CR-11…14 wire)</h2>
+        <Cr15CompositionStand
+          t={t}
+          locale={locale}
+          adapter={rootAdapter}
+          snap={STRIP_STATE_FIXTURES.populated}
+          testId="rm-lab-cr15-composition"
+        />
+        <Cr15CompositionStand
+          t={t}
+          locale={locale}
+          adapter={rootAdapter}
+          snap={STRIP_STATE_FIXTURES.populated}
+          defaultOpen
+          testId="rm-lab-cr15-picker"
+        />
+      </section>
 
       <section
         className="rm-lab-canvas__section"

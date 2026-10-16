@@ -12,6 +12,7 @@ import './FeedIssueDetailBody.css'
  * LAB-10 greenfield Issue body inside overlay — same civic + discussion atoms as list (M158 parity).
  * CR-09: root React in strip reactSlot · no under-strip duplicate mount.
  * CR-12: React-always · aggregate below strip · Reactions zone wire.
+ * CR-15: M154 composition wire marker (CR-11…14 held).
  */
 export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false, t = null, locale = 'en' }) {
   const [discussionExpanded, setDiscussionExpanded] = useState(Boolean(initiallyExpandDiscussion))
@@ -39,6 +40,7 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
       data-lab-overlay-body="m158"
       data-lab-strip-composition="a-c-b"
       data-lab-aggregate="below"
+      data-lab-cr15-wire="true"
     >
       <FeedPostIdentity fixture={fixture} />
       <FeedPostTitle>{fixture.title}</FeedPostTitle>

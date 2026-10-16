@@ -10,6 +10,7 @@ import './FeedLabReactionsMount.css'
 /**
  * CR-07/CR-08/CR-12 lab host — ReactionsMount + FixtureAdapter for `#/lab/feed`.
  * CR-12: aggregatePlacement=below portals row under strip · React-always · apiRef for Reactions zone.
+ * CR-15: composition wire marker · FixtureAdapter default · no dual live planes.
  */
 export function FeedLabReactionsMount({
   target = 'thread-root',
@@ -57,6 +58,7 @@ export function FeedLabReactionsMount({
       data-lab-reaction-target={target}
       data-lab-locale={locale}
       data-lab-aggregate-placement={aggregatePlacement}
+      data-lab-cr15-wire="true"
       data-m155-oos="true"
       data-rm-adapter="fixture"
     >

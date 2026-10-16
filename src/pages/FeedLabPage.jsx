@@ -15,6 +15,7 @@ const TEXT_ZOOMS = /** @type {const} */ (['100', '200'])
  * Greenfield only: `feed-lab/post/` list + overlay. Ban `*Deprecated` imports on Done path.
  * Theme via `setThemeAttribute(..., { persist: false })` — do not write localStorage.
  * `data-lab-plane=greenfield` · `data-lab-visual-done=false` until OP eye PASS.
+ * CR-15: M154 strip+picker wire held under M160 stress · Gap v2 residual → visual BLOCK.
  */
 export function FeedLabPage() {
   const [detailId, setDetailId] = useState(null)
@@ -58,6 +59,7 @@ export function FeedLabPage() {
       data-lab-viewport={viewport}
       data-lab-text-zoom={textZoom}
       data-lab-stress="m160"
+      data-lab-cr15-wire="true"
       data-m155-oos="true"
     >
       <div className="feed-lab-page__canvas" data-testid="feed-lab-canvas" aria-label="Feed lab canvas">

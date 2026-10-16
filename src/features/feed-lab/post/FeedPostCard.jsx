@@ -13,6 +13,7 @@ import './FeedPostCard.css'
  * LAB-07…09 greenfield civic post card — M150 anatomy + M154 reactions + M152 discussion.
  * CR-09: root React in strip reactSlot — no under-strip duplicate mount.
  * CR-12: React-always · aggregate row below strip · Reactions zone → activateAggregate.
+ * CR-15: M154 composition wire marker for OP eye (CR-11…14 held).
  */
 export function FeedPostCard({
   fixture,
@@ -56,6 +57,7 @@ export function FeedPostCard({
       data-lab-discussion="m152"
       data-lab-strip-composition="a-c-b"
       data-lab-aggregate="below"
+      data-lab-cr15-wire="true"
     >
       <div className="feed-post-card__body">
         <FeedPostIdentity fixture={fixture} />

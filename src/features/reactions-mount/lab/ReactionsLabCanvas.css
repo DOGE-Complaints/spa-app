@@ -181,3 +181,13 @@
   font-size: 0.8125rem;
   color: var(--color-text-secondary, #667085);
 }
+
+.rm-lab-canvas__aggregate-host {
+  min-height: 0;
+}
+
+.rm-lab-canvas__section[data-testid='rm-lab-cr15-wire'] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
