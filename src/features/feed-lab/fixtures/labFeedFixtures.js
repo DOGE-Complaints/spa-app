@@ -49,6 +49,8 @@ const LAB_FEED_FIXTURE_DRAFTS = [
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',
+    /** CR-12 lab: populated aggregate under strip (fixture-only) */
+    reactionStripState: 'populated',
     comments: [
       { id: 'lab-c-002-a', body: 'Bike lane is unsafe here.', fixtureOnly: true },
     ],

@@ -4,9 +4,9 @@ import { CrReactionIcon } from './icons/CrReactionIcon.jsx'
 import './ReactionSummaryStrip.css'
 
 /**
- * Greenfield ReactionSummaryStrip (M154 Panel A / FR-CR-01.1 · CR-05 open/dismiss).
- * States: empty (no fake zeros) · loading · populated · unavailable (+ retry).
- * Empty: React opens picker. Populated: React hidden; aggregate hover/click opens.
+ * Greenfield ReactionSummaryStrip (M154 / CR-12 React-always).
+ * React affordance always Present when ready (supersedes CR-05 hide-React for strip).
+ * Aggregate: `inline` (legacy in-strip) or `external` (CR-12 row via ReactionAggregateRow below strip).
  */
 export function ReactionSummaryStrip({
   stripStatus = 'ready',
@@ -22,13 +22,27 @@ export function ReactionSummaryStrip({
   onOpen = null,
   onRetry = null,
   onAggregateActivate = null,
+  /** @type {'inline'|'external'} */
+  aggregatePlacement = 'inline',
+  reactAlways = true,
 }) {
-  if (stripStatus === 'loading') {
+  function openPicker() {
+    if (typeof onOpen === 'function') onOpen()
+  }
+
+  function handleAggregateActivate() {
+    openPicker()
+    if (typeof onAggregateActivate === 'function') onAggregateActivate()
+  }
+
+  // External: loading/error live on under-strip aggregate row; strip keeps React.
+  if (aggregatePlacement === 'inline' && stripStatus === 'loading') {
     return (
       <div
         className="rm-summary-strip rm-summary-strip--loading"
         data-testid="reaction-summary-strip"
         data-rm-strip-status="loading"
+        data-rm-react-always={reactAlways ? 'true' : 'false'}
         data-density={density}
         role="status"
         aria-live="polite"
@@ -39,12 +53,13 @@ export function ReactionSummaryStrip({
     )
   }
 
-  if (stripStatus === 'error') {
+  if (aggregatePlacement === 'inline' && stripStatus === 'error') {
     return (
       <div
         className="rm-summary-strip rm-summary-strip--unavailable"
         data-testid="reaction-summary-strip"
         data-rm-strip-status="unavailable"
+        data-rm-react-always={reactAlways ? 'true' : 'false'}
         data-density={density}
         role="alert"
       >
@@ -77,28 +92,34 @@ export function ReactionSummaryStrip({
       ? marks.reduce((n, m) => n + (Number(m.count) || 0), 0)
       : Number(aggregateCount)
   const isEmpty = marks.length === 0 && (!count || count === 0)
-  // Empty: keep React affordance; never theatrical "0"
   const showCount = !isEmpty && Number.isFinite(count) && count > 0
+  const showInlineAggregate =
+    aggregatePlacement === 'inline' && !isEmpty && stripStatus === 'ready'
+  const showReact =
+    stripStatus === 'ready'
+      ? reactAlways || isEmpty
+      : aggregatePlacement === 'external'
 
-  function openPicker() {
-    if (typeof onOpen === 'function') onOpen()
-  }
-
-  function handleAggregateActivate() {
-    openPicker()
-    // M155 people remain OOS — adapter may still report oos; primary job is open picker (CR-05)
-    if (typeof onAggregateActivate === 'function') onAggregateActivate()
-  }
+  const statusAttr =
+    stripStatus === 'loading'
+      ? 'loading'
+      : stripStatus === 'error'
+        ? 'unavailable'
+        : isEmpty
+          ? 'empty'
+          : 'populated'
 
   return (
     <div
       className="rm-summary-strip"
       data-testid="reaction-summary-strip"
-      data-rm-strip-status={isEmpty ? 'empty' : 'populated'}
+      data-rm-strip-status={statusAttr}
+      data-rm-react-always={reactAlways ? 'true' : 'false'}
+      data-rm-aggregate-placement={aggregatePlacement}
       data-density={density}
       data-selected-count={String(Array.isArray(selected) ? selected.length : 0)}
     >
-      {!isEmpty ? (
+      {showInlineAggregate ? (
         <button
           type="button"
           className={[
@@ -134,22 +155,24 @@ export function ReactionSummaryStrip({
             </span>
           ) : null}
         </button>
-      ) : (
+      ) : null}
+
+      {aggregatePlacement === 'inline' && isEmpty && stripStatus === 'ready' ? (
         <span
           className="rm-summary-strip__empty"
           data-testid="reaction-summary-empty"
           aria-hidden="true"
         />
-      )}
+      ) : null}
 
-      {isEmpty ? (
+      {showReact ? (
         <button
           type="button"
           className="rm-summary-strip__react"
           data-testid="reaction-summary-react"
           aria-expanded={Boolean(open)}
           aria-controls={panelId}
-          disabled={busy}
+          disabled={busy || stripStatus === 'loading'}
           onClick={openPicker}
         >
           <CrReactionIcon src={icons.react} size={18} />

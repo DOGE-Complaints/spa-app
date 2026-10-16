@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { FeedPostIdentity } from './FeedPostIdentity.jsx'
 import { FeedPostTitle } from './FeedPostTitle.jsx'
 import { FeedPostSummary } from './FeedPostSummary.jsx'
@@ -11,8 +11,8 @@ import './FeedPostCard.css'
 
 /**
  * LAB-07…09 greenfield civic post card — M150 anatomy + M154 reactions + M152 discussion.
- * CR-09: root React lives in strip reactSlot (A+C+B) — no under-strip duplicate.
- * Ban: Deprecated chrome · classic uppercase thread label · product discussion block · Controls stylesheet.
+ * CR-09: root React in strip reactSlot — no under-strip duplicate mount.
+ * CR-12: React-always · aggregate row below strip · Reactions zone → activateAggregate.
  */
 export function FeedPostCard({
   fixture,
@@ -23,6 +23,8 @@ export function FeedPostCard({
 }) {
   const [discussionExpanded, setDiscussionExpanded] = useState(false)
   const [composerFocusSignal, setComposerFocusSignal] = useState(0)
+  const [aggregateHost, setAggregateHost] = useState(null)
+  const reactionsApiRef = useRef(null)
 
   function openDetail(event) {
     if (typeof onOpenDetail !== 'function') return
@@ -34,8 +36,13 @@ export function FeedPostCard({
       setDiscussionExpanded(true)
       setComposerFocusSignal((n) => n + 1)
     }
+    if (zoneId === 'reactions') {
+      reactionsApiRef.current?.activateAggregate?.()
+    }
     if (typeof onActionZone === 'function') onActionZone(zoneId, event)
   }
+
+  const reactionInitialState = fixture.reactionStripState || 'empty'
 
   return (
     <article
@@ -48,6 +55,7 @@ export function FeedPostCard({
       data-lab-reactions="m154"
       data-lab-discussion="m152"
       data-lab-strip-composition="a-c-b"
+      data-lab-aggregate="below"
     >
       <div className="feed-post-card__body">
         <FeedPostIdentity fixture={fixture} />
@@ -65,11 +73,20 @@ export function FeedPostCard({
         reactSlot={
           <FeedLabReactionsMount
             target="thread-root"
-            initialState="empty"
+            initialState={reactionInitialState}
             t={t}
             locale={locale}
+            aggregatePlacement="below"
+            aggregateHost={aggregateHost}
+            apiRef={reactionsApiRef}
           />
         }
+      />
+      <div
+        ref={setAggregateHost}
+        className="feed-post-card__aggregate-host"
+        data-testid="feed-post-aggregate-host"
+        data-lab-aggregate-host="true"
       />
       <FeedDiscussionPlane
         fixture={fixture}

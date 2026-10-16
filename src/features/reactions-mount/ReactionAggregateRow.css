@@ -1,0 +1,142 @@
+.rm-aggregate-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  border-top: 1px solid var(--color-border-default, #e7e4dc);
+  font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+  color: var(--color-text-primary, #101828);
+  background: var(--color-surface-elevated, transparent);
+}
+
+.rm-aggregate-row[data-density='compact'] {
+  gap: 6px 10px;
+  padding: 6px 10px;
+}
+
+.rm-aggregate-row--loading,
+.rm-aggregate-row--unavailable {
+  min-height: 40px;
+}
+
+.rm-aggregate-row__skeleton {
+  display: inline-block;
+  width: 72px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--color-border-default, #ece9e1) 0%,
+    var(--color-bg-primary, #f7f6f2) 50%,
+    var(--color-border-default, #ece9e1) 100%
+  );
+  background-size: 200% 100%;
+  animation: rm-agg-shimmer 1.1s ease-in-out infinite;
+}
+
+@keyframes rm-agg-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rm-aggregate-row__skeleton {
+    animation: none;
+  }
+}
+
+.rm-aggregate-row__control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 999px;
+  background: var(--color-surface-elevated, #fffdf8);
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.rm-aggregate-row__control:hover,
+.rm-aggregate-row__control:focus-visible,
+.rm-aggregate-row__control--open,
+.rm-aggregate-row--active .rm-aggregate-row__control {
+  border-color: var(--color-border-strong, #cfc8b8);
+  background: var(--color-bg-primary, #f7f6f2);
+  box-shadow: 0 0 0 2px var(--focus-ring-color, rgba(181, 71, 8, 0.28));
+}
+
+.rm-aggregate-row__control:focus-visible {
+  outline: none;
+}
+
+.rm-aggregate-row__marks {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rm-aggregate-row__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-left: -6px;
+  border-radius: 999px;
+  background: var(--color-bg-primary, #f7f6f2);
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  overflow: hidden;
+}
+
+.rm-aggregate-row__mark:first-child {
+  margin-left: 0;
+}
+
+.rm-aggregate-row__count {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.rm-aggregate-row__total {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary, #667085);
+}
+
+.rm-aggregate-row__status-icon {
+  flex: 0 0 auto;
+}
+
+.rm-aggregate-row__unavailable-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #667085);
+}
+
+.rm-aggregate-row__retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 10px;
+  background: var(--color-surface-elevated, #fffdf8);
+  color: var(--color-text-primary, #101828);
+  font: inherit;
+  cursor: pointer;
+}

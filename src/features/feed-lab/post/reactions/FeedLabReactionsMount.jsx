@@ -8,9 +8,8 @@ import { labT } from '../../labI18n.js'
 import './FeedLabReactionsMount.css'
 
 /**
- * CR-07/CR-08 lab host — wraps greenfield ReactionsMount + FixtureAdapter for `#/lab/feed`.
- * Bridges PostActionStrip open toggle via remount + defaultOpen (no invent HTTP).
- * Locale-aware `t` from FeedLabPage stress (CR-08) — falls back to EN `labT`.
+ * CR-07/CR-08/CR-12 lab host — ReactionsMount + FixtureAdapter for `#/lab/feed`.
+ * CR-12: aggregatePlacement=below portals row under strip · React-always · apiRef for Reactions zone.
  */
 export function FeedLabReactionsMount({
   target = 'thread-root',
@@ -21,6 +20,9 @@ export function FeedLabReactionsMount({
   className = '',
   t = null,
   locale = 'en',
+  aggregatePlacement = 'inline',
+  aggregateHost = null,
+  apiRef = null,
 }) {
   const adapter = useMemo(
     () => createFixtureAdapter({ initialState, target }),
@@ -54,11 +56,12 @@ export function FeedLabReactionsMount({
       data-lab-plane="greenfield"
       data-lab-reaction-target={target}
       data-lab-locale={locale}
+      data-lab-aggregate-placement={aggregatePlacement}
       data-m155-oos="true"
       data-rm-adapter="fixture"
     >
       <ReactionsMount
-        key={`fl-rm-${target}-${commentId ?? 'root'}-${locale}-${openEpoch}`}
+        key={`fl-rm-${target}-${commentId ?? 'root'}-${locale}-${openEpoch}-${initialState}`}
         target={target}
         commentId={commentId}
         density="compact"
@@ -74,6 +77,10 @@ export function FeedLabReactionsMount({
           if (typeof onOpenChange === 'function') onOpenChange(true)
         }}
         onAggregateActivate={adapter.onAggregateActivate}
+        aggregatePlacement={aggregatePlacement}
+        aggregateHost={aggregateHost}
+        apiRef={apiRef}
+        reactAlways
       />
     </div>
   )

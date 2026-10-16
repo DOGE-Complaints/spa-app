@@ -1,10 +1,12 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import {
   DEFAULT_MAX_REACTIONS_PER_ACTOR,
   listReactionsV1,
   toggleReactionSelection,
 } from '../feed/semantics/reactionsV1.js'
 import { ReactionSummaryStrip } from './ReactionSummaryStrip.jsx'
+import { ReactionAggregateRow } from './ReactionAggregateRow.jsx'
 import { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
 import { CR_REACTION_ICON_PACK, CR_OMIT_SELECTABLE_IDS } from './icons/crReactionIcons.js'
 import {
@@ -69,10 +71,18 @@ export function ReactionsMount({
   defaultOpen = false,
   forcePickerSurface = 'auto',
   className = '',
+  /** @type {'inline'|'below'} — CR-12: below portals aggregate under strip host */
+  aggregatePlacement = 'inline',
+  /** @type {Element|null} — DOM host below FeedPostActionStrip */
+  aggregateHost = null,
+  /** @type {React.MutableRefObject<{ activateAggregate: () => void }|null>|null} */
+  apiRef = null,
+  reactAlways = true,
 }) {
   const panelId = useId()
   const anchorRef = useRef(null)
   const [open, setOpen] = useState(Boolean(defaultOpen))
+  const [aggregateActive, setAggregateActive] = useState(false)
   const [busy, setBusy] = useState(false)
   const [writeSnapshot, setWriteSnapshot] = useState(null)
   const [exclusiveHint, setExclusiveHint] = useState(false)
@@ -148,7 +158,7 @@ export function ReactionsMount({
   const status = writeSnapshot?.stripStatus ?? stripStatus
 
   function handleOpen() {
-    // CR-05: empty → React; populated → aggregate hover/click (normative over CR-02 «React always»)
+    // CR-12: React always opens picker (empty and populated). Aggregate also activates picker.
     setOpen(true)
     setSaveError(false)
     if (typeof onOpen === 'function') {
@@ -156,7 +166,24 @@ export function ReactionsMount({
     }
   }
 
+  function activateAggregate() {
+    setAggregateActive(true)
+    handleOpen()
+    if (typeof onAggregateActivate === 'function') onAggregateActivate()
+  }
+
+  useEffect(() => {
+    if (!apiRef) return undefined
+    apiRef.current = { activateAggregate }
+    return () => {
+      if (apiRef.current?.activateAggregate === activateAggregate) {
+        apiRef.current = null
+      }
+    }
+  })
+
   function handleClose() {
+    setAggregateActive(false)
     setOpen(false)
   }
 
@@ -251,6 +278,37 @@ export function ReactionsMount({
   }
 
   const rootClass = ['reactions-mount', className].filter(Boolean).join(' ')
+  const placement = aggregatePlacement === 'below' ? 'below' : 'inline'
+  const stripAggregatePlacement = placement === 'below' ? 'external' : 'inline'
+
+  const retryHandler =
+    typeof onRetry === 'function'
+      ? () => {
+          setWriteSnapshot(null)
+          setSaveError(false)
+          onRetry()
+        }
+      : null
+
+  const aggregateRow =
+    placement === 'below' ? (
+      <ReactionAggregateRow
+        stripStatus={status}
+        summaryMarks={marks}
+        aggregateCount={aggregate}
+        icons={icons}
+        t={t}
+        density={density}
+        open={open}
+        active={aggregateActive}
+        panelId={panelId}
+        onOpen={handleOpen}
+        onRetry={retryHandler}
+        onAggregateActivate={
+          typeof onAggregateActivate === 'function' ? onAggregateActivate : undefined
+        }
+      />
+    ) : null
 
   return (
     <div
@@ -263,6 +321,8 @@ export function ReactionsMount({
       data-rm-moderation={targetConfig.moderationSelectable ? 'eligible' : 'absent'}
       data-rm-onreact={typeof onReact === 'function' ? 'wired' : 'local'}
       data-rm-picker-open={open ? 'true' : 'false'}
+      data-rm-aggregate-placement={placement}
+      data-rm-react-always={reactAlways ? 'true' : 'false'}
       data-catalog="reactions.v1"
       data-max-reactions={String(capacity)}
       data-enabled-count={String(enabledIds.length)}
@@ -285,18 +345,12 @@ export function ReactionsMount({
           open={open}
           panelId={panelId}
           onOpen={handleOpen}
-          onRetry={
-            typeof onRetry === 'function'
-              ? () => {
-                  setWriteSnapshot(null)
-                  setSaveError(false)
-                  onRetry()
-                }
-              : null
-          }
+          onRetry={retryHandler}
           onAggregateActivate={
             typeof onAggregateActivate === 'function' ? onAggregateActivate : undefined
           }
+          aggregatePlacement={stripAggregatePlacement}
+          reactAlways={reactAlways}
         />
         <ReactionPicker
           open={open}
@@ -320,6 +374,9 @@ export function ReactionsMount({
           onClose={handleClose}
         />
       </div>
+      {placement === 'below' && aggregateHost
+        ? createPortal(aggregateRow, aggregateHost)
+        : null}
       <span className="rm-visually-hidden" data-testid="reactions-mount-enabled-ids">
         {enabledIds.join(',')}
       </span>

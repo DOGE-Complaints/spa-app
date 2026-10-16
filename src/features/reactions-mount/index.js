@@ -4,6 +4,7 @@ export {
   measurePopoverPosition,
 } from './ReactionsMount.jsx'
 export { ReactionSummaryStrip } from './ReactionSummaryStrip.jsx'
+export { ReactionAggregateRow } from './ReactionAggregateRow.jsx'
 export { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
 export {
   CR_REACTION_ICON_PACK,
