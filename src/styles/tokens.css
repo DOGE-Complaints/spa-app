@@ -124,6 +124,34 @@
   --button-focus-color: var(--focus-ring-color);
   --button-focus-width: var(--focus-ring-width);
   --button-focus-offset: var(--focus-ring-offset);
+
+  /* reactions.v1 mark accents (dark / :root) — package §6 + catalog extension */
+  --rm-mark-accent-acknowledge: #F5C542;
+  --rm-mark-soft-acknowledge: rgba(245, 197, 66, 0.22);
+  --rm-mark-accent-support: #FF8A3D;
+  --rm-mark-soft-support: rgba(233, 107, 25, 0.24);
+  --rm-mark-accent-empathy: #F670C7;
+  --rm-mark-soft-empathy: rgba(198, 22, 116, 0.24);
+  --rm-mark-accent-concern: #FDB022;
+  --rm-mark-soft-concern: rgba(220, 104, 3, 0.24);
+  --rm-mark-accent-sad: #9B8AFB;
+  --rm-mark-soft-sad: rgba(97, 114, 243, 0.24);
+  --rm-mark-accent-outraged_situation: #FF6B4A;
+  --rm-mark-soft-outraged_situation: rgba(224, 79, 22, 0.24);
+  --rm-mark-accent-agree: #3CCB7F;
+  --rm-mark-soft-agree: rgba(22, 138, 91, 0.28);
+  --rm-mark-accent-disagree: #FF7B7B;
+  --rm-mark-soft-disagree: rgba(180, 35, 24, 0.28);
+  --rm-mark-accent-useful_fact: #B692F6;
+  --rm-mark-soft-useful_fact: rgba(122, 90, 248, 0.28);
+  --rm-mark-accent-insightful: #53B1FD;
+  --rm-mark-soft-insightful: rgba(46, 144, 250, 0.28);
+  --rm-mark-accent-needs_evidence: #FDB022;
+  --rm-mark-soft-needs_evidence: rgba(247, 144, 9, 0.24);
+  --rm-mark-accent-off_topic: #B692F6;
+  --rm-mark-soft-off_topic: rgba(122, 90, 248, 0.28);
+  --rm-mark-accent-aggressive: #FF7B7B;
+  --rm-mark-soft-aggressive: rgba(180, 35, 24, 0.28);
 }
 
 /* Explicit dark selector (AC-SPA-REQ2103-01) — same Night column as :root fallback */
@@ -199,6 +227,34 @@
   --button-focus-color: var(--focus-ring-color);
   --button-focus-width: var(--focus-ring-width);
   --button-focus-offset: var(--focus-ring-offset);
+
+  /* reactions.v1 mark accents — same Night column as :root */
+  --rm-mark-accent-acknowledge: #F5C542;
+  --rm-mark-soft-acknowledge: rgba(245, 197, 66, 0.22);
+  --rm-mark-accent-support: #FF8A3D;
+  --rm-mark-soft-support: rgba(233, 107, 25, 0.24);
+  --rm-mark-accent-empathy: #F670C7;
+  --rm-mark-soft-empathy: rgba(198, 22, 116, 0.24);
+  --rm-mark-accent-concern: #FDB022;
+  --rm-mark-soft-concern: rgba(220, 104, 3, 0.24);
+  --rm-mark-accent-sad: #9B8AFB;
+  --rm-mark-soft-sad: rgba(97, 114, 243, 0.24);
+  --rm-mark-accent-outraged_situation: #FF6B4A;
+  --rm-mark-soft-outraged_situation: rgba(224, 79, 22, 0.24);
+  --rm-mark-accent-agree: #3CCB7F;
+  --rm-mark-soft-agree: rgba(22, 138, 91, 0.28);
+  --rm-mark-accent-disagree: #FF7B7B;
+  --rm-mark-soft-disagree: rgba(180, 35, 24, 0.28);
+  --rm-mark-accent-useful_fact: #B692F6;
+  --rm-mark-soft-useful_fact: rgba(122, 90, 248, 0.28);
+  --rm-mark-accent-insightful: #53B1FD;
+  --rm-mark-soft-insightful: rgba(46, 144, 250, 0.28);
+  --rm-mark-accent-needs_evidence: #FDB022;
+  --rm-mark-soft-needs_evidence: rgba(247, 144, 9, 0.24);
+  --rm-mark-accent-off_topic: #B692F6;
+  --rm-mark-soft-off_topic: rgba(122, 90, 248, 0.28);
+  --rm-mark-accent-aggressive: #FF7B7B;
+  --rm-mark-soft-aggressive: rgba(180, 35, 24, 0.28);
 }
 
 /*
@@ -277,4 +333,32 @@
   --button-focus-color: var(--focus-ring-color);
   --button-focus-width: var(--focus-ring-width);
   --button-focus-offset: var(--focus-ring-offset);
+
+  /* reactions.v1 mark accents (light) — package §6 Present + catalog extension */
+  --rm-mark-accent-acknowledge: #D99A00;
+  --rm-mark-soft-acknowledge: #FFF6D8;
+  --rm-mark-accent-support: #E96B19;
+  --rm-mark-soft-support: #FFF1E8;
+  --rm-mark-accent-empathy: #C11574;
+  --rm-mark-soft-empathy: #FDF2FA;
+  --rm-mark-accent-concern: #DC6803;
+  --rm-mark-soft-concern: #FFFAEB;
+  --rm-mark-accent-sad: #6172F3;
+  --rm-mark-soft-sad: #EEF4FF;
+  --rm-mark-accent-outraged_situation: #E04F16;
+  --rm-mark-soft-outraged_situation: #FFF4ED;
+  --rm-mark-accent-agree: #168A5B;
+  --rm-mark-soft-agree: #EAF7EE;
+  --rm-mark-accent-disagree: #B42318;
+  --rm-mark-soft-disagree: #FFF0EE;
+  --rm-mark-accent-useful_fact: #7A5AF8;
+  --rm-mark-soft-useful_fact: #F4F3FF;
+  --rm-mark-accent-insightful: #2E90FA;
+  --rm-mark-soft-insightful: #EFF8FF;
+  --rm-mark-accent-needs_evidence: #F79009;
+  --rm-mark-soft-needs_evidence: #FFFAEB;
+  --rm-mark-accent-off_topic: #7A5AF8;
+  --rm-mark-soft-off_topic: #F3EFFF;
+  --rm-mark-accent-aggressive: #B42318;
+  --rm-mark-soft-aggressive: #FFF0EE;
 }

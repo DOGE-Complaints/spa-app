@@ -1,0 +1,95 @@
+/*
+ * CR-14 — wire data-reaction-id → --rm-mark-accent / --rm-mark-soft from tokens.css.
+ * Consumed by picker tiles + summary/aggregate marks.
+ */
+
+.rm-picker-option[data-reaction-id='acknowledge'],
+.rm-summary-strip__mark[data-reaction-id='acknowledge'],
+.rm-aggregate-row__mark[data-reaction-id='acknowledge'] {
+  --rm-mark-accent: var(--rm-mark-accent-acknowledge);
+  --rm-mark-soft: var(--rm-mark-soft-acknowledge);
+}
+
+.rm-picker-option[data-reaction-id='support'],
+.rm-summary-strip__mark[data-reaction-id='support'],
+.rm-aggregate-row__mark[data-reaction-id='support'] {
+  --rm-mark-accent: var(--rm-mark-accent-support);
+  --rm-mark-soft: var(--rm-mark-soft-support);
+}
+
+.rm-picker-option[data-reaction-id='empathy'],
+.rm-summary-strip__mark[data-reaction-id='empathy'],
+.rm-aggregate-row__mark[data-reaction-id='empathy'] {
+  --rm-mark-accent: var(--rm-mark-accent-empathy);
+  --rm-mark-soft: var(--rm-mark-soft-empathy);
+}
+
+.rm-picker-option[data-reaction-id='concern'],
+.rm-summary-strip__mark[data-reaction-id='concern'],
+.rm-aggregate-row__mark[data-reaction-id='concern'] {
+  --rm-mark-accent: var(--rm-mark-accent-concern);
+  --rm-mark-soft: var(--rm-mark-soft-concern);
+}
+
+.rm-picker-option[data-reaction-id='sad'],
+.rm-summary-strip__mark[data-reaction-id='sad'],
+.rm-aggregate-row__mark[data-reaction-id='sad'] {
+  --rm-mark-accent: var(--rm-mark-accent-sad);
+  --rm-mark-soft: var(--rm-mark-soft-sad);
+}
+
+.rm-picker-option[data-reaction-id='outraged_situation'],
+.rm-summary-strip__mark[data-reaction-id='outraged_situation'],
+.rm-aggregate-row__mark[data-reaction-id='outraged_situation'] {
+  --rm-mark-accent: var(--rm-mark-accent-outraged_situation);
+  --rm-mark-soft: var(--rm-mark-soft-outraged_situation);
+}
+
+.rm-picker-option[data-reaction-id='agree'],
+.rm-summary-strip__mark[data-reaction-id='agree'],
+.rm-aggregate-row__mark[data-reaction-id='agree'] {
+  --rm-mark-accent: var(--rm-mark-accent-agree);
+  --rm-mark-soft: var(--rm-mark-soft-agree);
+}
+
+.rm-picker-option[data-reaction-id='disagree'],
+.rm-summary-strip__mark[data-reaction-id='disagree'],
+.rm-aggregate-row__mark[data-reaction-id='disagree'] {
+  --rm-mark-accent: var(--rm-mark-accent-disagree);
+  --rm-mark-soft: var(--rm-mark-soft-disagree);
+}
+
+.rm-picker-option[data-reaction-id='useful_fact'],
+.rm-summary-strip__mark[data-reaction-id='useful_fact'],
+.rm-aggregate-row__mark[data-reaction-id='useful_fact'] {
+  --rm-mark-accent: var(--rm-mark-accent-useful_fact);
+  --rm-mark-soft: var(--rm-mark-soft-useful_fact);
+}
+
+.rm-picker-option[data-reaction-id='insightful'],
+.rm-summary-strip__mark[data-reaction-id='insightful'],
+.rm-aggregate-row__mark[data-reaction-id='insightful'] {
+  --rm-mark-accent: var(--rm-mark-accent-insightful);
+  --rm-mark-soft: var(--rm-mark-soft-insightful);
+}
+
+.rm-picker-option[data-reaction-id='needs_evidence'],
+.rm-summary-strip__mark[data-reaction-id='needs_evidence'],
+.rm-aggregate-row__mark[data-reaction-id='needs_evidence'] {
+  --rm-mark-accent: var(--rm-mark-accent-needs_evidence);
+  --rm-mark-soft: var(--rm-mark-soft-needs_evidence);
+}
+
+.rm-picker-option[data-reaction-id='off_topic'],
+.rm-summary-strip__mark[data-reaction-id='off_topic'],
+.rm-aggregate-row__mark[data-reaction-id='off_topic'] {
+  --rm-mark-accent: var(--rm-mark-accent-off_topic);
+  --rm-mark-soft: var(--rm-mark-soft-off_topic);
+}
+
+.rm-picker-option[data-reaction-id='aggressive'],
+.rm-summary-strip__mark[data-reaction-id='aggressive'],
+.rm-aggregate-row__mark[data-reaction-id='aggressive'] {
+  --rm-mark-accent: var(--rm-mark-accent-aggressive);
+  --rm-mark-soft: var(--rm-mark-soft-aggressive);
+}

@@ -1,4 +1,5 @@
 import { CrReactionIcon } from '../icons/CrReactionIcon.jsx'
+import '../icons/ReactionMarkAccents.css'
 import './ReactionPickerOption.css'
 
 /**

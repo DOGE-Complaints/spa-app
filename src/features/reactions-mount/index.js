@@ -13,6 +13,12 @@ export {
   CR_SELECTABLE_MARK_IDS,
   CR_OMIT_SELECTABLE_IDS,
 } from './icons/crReactionIcons.js'
+export {
+  CR_REACTION_ACCENT_IDS,
+  markAccentVar,
+  markSoftVar,
+  hasMarkAccent,
+} from './icons/crReactionAccentMap.js'
 export { CrReactionIcon } from './icons/CrReactionIcon.jsx'
 export {
   createFixtureAdapter,

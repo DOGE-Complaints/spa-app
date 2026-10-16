@@ -91,10 +91,10 @@
   height: 22px;
   margin-left: -6px;
   border-radius: 999px;
-  background: var(--color-bg-primary, #f7f6f2);
-  border: 1px solid var(--color-border-default, #e7e4dc);
+  background: var(--rm-mark-soft, var(--color-bg-primary, #f7f6f2));
+  border: 1px solid var(--rm-mark-accent, var(--color-border-default, #e7e4dc));
   overflow: hidden;
-  color: var(--color-text-primary, #101828);
+  color: var(--rm-mark-accent, var(--color-text-primary, #101828));
 }
 
 .rm-summary-strip__mark:first-child {

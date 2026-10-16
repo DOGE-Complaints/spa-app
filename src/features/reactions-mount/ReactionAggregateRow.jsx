@@ -1,6 +1,7 @@
 import { mapSummaryMarksToEntries } from '../feed/semantics/reactionsV1.js'
 import { CR_REACTION_ICON_PACK } from './icons/crReactionIcons.js'
 import { CrReactionIcon } from './icons/CrReactionIcon.jsx'
+import './icons/ReactionMarkAccents.css'
 import './ReactionAggregateRow.css'
 
 /**
