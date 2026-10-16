@@ -9,6 +9,7 @@ export function ReactionPickerLayerGroup({
   busy,
   icons,
   labelFor,
+  descriptionFor,
   onSelect,
 }) {
   if (!entries?.length) return null
@@ -20,15 +21,18 @@ export function ReactionPickerLayerGroup({
       aria-label={title}
     >
       <h3 className="rm-picker-layer__title">{title}</h3>
-      <ul className="rm-picker-layer__list">
+      <ul className="rm-picker-layer__list" data-testid={`rm-picker-layer-grid-${layer}`}>
         {entries.map((entry) => (
-          <li key={entry.id}>
+          <li key={entry.id} className="rm-picker-layer__cell">
             <ReactionPickerOption
               entry={entry}
               selected={selectedIds.includes(entry.id)}
               busy={busy}
               icons={icons}
               label={labelFor(entry.id)}
+              description={
+                typeof descriptionFor === 'function' ? descriptionFor(entry.id) : undefined
+              }
               onSelect={onSelect}
             />
           </li>

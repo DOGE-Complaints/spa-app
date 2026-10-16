@@ -1,18 +1,20 @@
 .rm-picker-option {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   width: 100%;
-  min-height: 44px;
-  padding: 8px 12px;
+  min-height: 96px;
+  padding: 10px 10px 12px;
   border: 1px solid var(--color-border-default, #e7e4dc);
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--color-surface-elevated, #fffdf8);
   color: var(--color-text-primary, #101828);
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .rm-picker-option:hover,
@@ -32,23 +34,62 @@
   cursor: not-allowed;
 }
 
-.rm-picker-option__check {
-  width: 1.1em;
+.rm-picker-option__icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
+  color: var(--color-text-secondary, #667085);
+}
+
+.rm-picker-option[aria-pressed='true'] .rm-picker-option__icon-wrap {
   color: var(--doge-text-warm, #b38600);
+}
+
+.rm-picker-option__check {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--color-accent-primary, #f5c542);
+  color: #101828;
+  font-size: 10px;
   font-weight: 700;
+  line-height: 1;
 }
 
 .rm-picker-option__icon {
   flex: 0 0 auto;
 }
 
-.rm-picker-option__label {
-  flex: 1 1 auto;
+.rm-picker-option__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   min-width: 0;
-  line-height: 1.3;
+  width: 100%;
+}
+
+.rm-picker-option__label {
+  font-weight: 700;
+  line-height: 1.25;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
-/* Sheet keeps label flex-fill; popover overrides in ReactionPicker.css */
+.rm-picker-option__desc {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--color-text-secondary, #667085);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

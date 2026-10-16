@@ -19,8 +19,8 @@
   right: auto;
   top: 0;
   width: max-content;
-  max-width: min(100vw - 16px, 22rem);
-  max-height: min(70vh, 440px);
+  max-width: min(100vw - 16px, 28rem);
+  max-height: min(70vh, 520px);
   overflow: auto;
   z-index: 1200;
 }
@@ -47,9 +47,23 @@
   gap: 12px;
 }
 
-.rm-picker__capacity-block {
+.rm-picker__title-block {
   min-width: 0;
   flex: 1 1 auto;
+}
+
+.rm-picker__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-text-primary, #101828);
+}
+
+.rm-picker__subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #667085);
 }
 
 .rm-picker__capacity {
@@ -116,11 +130,73 @@
   min-width: 0;
 }
 
-.rm-picker--popover .rm-picker-option {
+.rm-picker__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border-default, #e7e4dc);
+  flex-wrap: wrap;
+}
+
+.rm-picker__footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.rm-picker__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.rm-picker__btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  border-color: var(--color-border-default, #e7e4dc);
+}
+
+.rm-picker__btn--ghost:hover {
+  color: var(--color-text-primary, #101828);
+  background: var(--color-bg-primary, #f7f6f2);
+}
+
+.rm-picker__btn--primary {
+  background: var(--color-accent-primary, #f5c542);
+  color: #101828;
+  border-color: var(--color-accent-primary, #f5c542);
+}
+
+.rm-picker__btn--primary:hover {
+  filter: brightness(0.97);
+}
+
+.rm-picker__btn:focus-visible {
+  outline: 2px solid var(--focus-ring-color, #b54708);
+  outline-offset: 2px;
+}
+
+.rm-picker--sheet .rm-picker__footer {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.rm-picker--sheet .rm-picker__footer-actions {
+  margin-left: 0;
   width: 100%;
 }
 
-.rm-picker--popover .rm-picker-option__label {
-  flex: 0 1 auto;
-  white-space: nowrap;
+.rm-picker--sheet .rm-picker__btn--primary {
+  width: 100%;
 }

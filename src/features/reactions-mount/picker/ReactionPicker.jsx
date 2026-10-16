@@ -7,9 +7,10 @@ import { ReactionPickerLayerGroup } from './ReactionPickerLayerGroup.jsx'
 import './ReactionPicker.css'
 
 /**
- * CR-02/CR-05/CR-06/CR-10 ReactionPicker — desktop popover (M154 B) + mobile sheet (M154 C).
+ * CR-02/CR-05/CR-06/CR-10/CR-13 ReactionPicker — desktop popover (M154 B) + mobile sheet (M154 C).
+ * CR-13: tile grid · header title/subtitle · footer Cancel/Add (popover) · Done (sheet).
  * CR-10: desktop popover → createPortal(document.body) + position:fixed from zone-1 coords.
- * Sheet stays in-flow. CR-05 dismiss · CR-06 chrome held.
+ * Sheet stays in-flow. CR-05 dismiss · save semantics = optimistic select (footer closes).
  */
 export function ReactionPicker({
   open,
@@ -80,6 +81,10 @@ export function ReactionPicker({
   ].join(' ')
 
   const closeLabel = t('threadsFeed.reactions.close')
+  const titleKey =
+    target === 'thread-root'
+      ? 'threadsFeed.reactions.reactToPost'
+      : 'threadsFeed.reactions.reactToComment'
   const rootHint =
     target === 'thread-root' ? (
       <p
@@ -102,6 +107,16 @@ export function ReactionPicker({
         ? { position: 'fixed', top: '0px', left: '0px' }
         : undefined
 
+  function handleChromeClose() {
+    if (typeof onClose === 'function') onClose()
+  }
+
+  const capacityLine = (
+    <p className="rm-picker__capacity" data-testid="rm-picker-capacity">
+      {selectedCount} of {capacity} selected
+    </p>
+  )
+
   const node = (
     <div
       ref={rootRef}
@@ -111,16 +126,20 @@ export function ReactionPicker({
       data-testid="rm-reaction-picker"
       data-rm-picker-surface={surface}
       data-rm-picker-target={target}
+      data-rm-picker-layout="tile-grid"
       data-rm-portal={usePortal ? 'body' : 'inline'}
       data-lab-picker="m154"
       role="dialog"
       aria-modal={surface === 'sheet' ? 'true' : undefined}
-      aria-label={t('threadsFeed.reactions.viewReactions')}
+      aria-label={t(titleKey)}
     >
       <div className="rm-picker__header">
-        <div className="rm-picker__capacity-block">
-          <p className="rm-picker__capacity" data-testid="rm-picker-capacity">
-            {selectedCount} of {capacity} selected · {t('threadsFeed.reactions.chooseUpTo')}
+        <div className="rm-picker__title-block">
+          <h2 className="rm-picker__title" data-testid="rm-picker-title">
+            {t(titleKey)}
+          </h2>
+          <p className="rm-picker__subtitle" data-testid="rm-picker-subtitle">
+            {t('threadsFeed.reactions.chooseUpTo')}
           </p>
           {atCapacity || capacityBlocked ? (
             <p className="rm-picker__capacity-full" data-testid="rm-picker-capacity-full">
@@ -135,9 +154,7 @@ export function ReactionPicker({
           data-testid="rm-picker-close"
           aria-label={closeLabel}
           title={closeLabel}
-          onClick={() => {
-            if (typeof onClose === 'function') onClose()
-          }}
+          onClick={handleChromeClose}
         >
           <CrReactionIcon src={icons.close || CR_REACTION_ICON_PACK.close} size={16} />
         </button>
@@ -166,13 +183,49 @@ export function ReactionPicker({
             busy={busy}
             icons={icons}
             labelFor={(id) => t(`threadsFeed.reactions.id.${id}`)}
+            descriptionFor={(id) => t(`threadsFeed.reactions.desc.${id}`)}
             onSelect={onSelect}
           />
         ))}
       </div>
 
-      {/* FR-CR-06.2 — root moderation hint after layers (footer) */}
+      {/* FR-CR-06.2 — root moderation hint after layers (before chrome footer) */}
       {rootHint}
+
+      <div className="rm-picker__footer" data-testid="rm-picker-footer">
+        {capacityLine}
+        <div className="rm-picker__footer-actions">
+          {surface === 'sheet' ? (
+            <button
+              type="button"
+              className="rm-picker__btn rm-picker__btn--primary"
+              data-testid="rm-picker-done"
+              onClick={handleChromeClose}
+            >
+              {t('threadsFeed.reactions.done')}
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="rm-picker__btn rm-picker__btn--ghost"
+                data-testid="rm-picker-cancel"
+                onClick={handleChromeClose}
+              >
+                {t('threadsFeed.reactions.cancel')}
+              </button>
+              <button
+                type="button"
+                className="rm-picker__btn rm-picker__btn--primary"
+                data-testid="rm-picker-add"
+                onClick={handleChromeClose}
+              >
+                {t('threadsFeed.reactions.addReactions')}
+              </button>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   )
 
