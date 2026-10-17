@@ -14,6 +14,7 @@ import './FeedPostCard.css'
  * CR-09: root React in strip reactSlot — no under-strip duplicate mount.
  * CR-12: React-always · aggregate row below strip · Reactions zone → activateAggregate.
  * CR-15: M154 composition wire marker for OP eye (CR-11…14 held).
+ * CR-16: media flush above strip · React chip hover (strip CSS).
  */
 export function FeedPostCard({
   fixture,
@@ -58,6 +59,8 @@ export function FeedPostCard({
       data-lab-strip-composition="a-c-b"
       data-lab-aggregate="below"
       data-lab-cr15-wire="true"
+      data-lab-cr16-polish="true"
+      data-lab-media-flush="true"
     >
       <div className="feed-post-card__body">
         <FeedPostIdentity fixture={fixture} />
@@ -68,6 +71,12 @@ export function FeedPostCard({
           {fixture.summary}
         </FeedPostSummary>
         <FeedPostOpenIssue onOpenDetail={onOpenDetail ? openDetail : null} />
+      </div>
+      <div
+        className="feed-post-card__media"
+        data-testid="feed-card-media-flush"
+        data-lab-media-flush="true"
+      >
         <FeedPostMedia media={fixture.media} onOpenDetail={onOpenDetail ? openDetail : null} />
       </div>
       <FeedPostActionStrip

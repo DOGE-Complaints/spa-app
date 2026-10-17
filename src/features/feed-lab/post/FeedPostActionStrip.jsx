@@ -17,8 +17,7 @@ const ZONES = Object.freeze([
 
 /**
  * CR-11 four-zone strip — React | Comment | Share | Reactions · icon+label · ~56px.
- * Supersedes CR-09 3-zone chrome. When `reactSlot` set, zone 1 hosts live ReactionsMount
- * (picker open) with equal chrome weight (no React-only pill).
+ * CR-16: React hover/selected/focus paints inner chip only (not full grid cell).
  */
 export function FeedPostActionStrip({
   onZone = null,
@@ -34,6 +33,8 @@ export function FeedPostActionStrip({
       data-testid="feed-post-action-strip"
       data-lab-strip-zones="4"
       data-lab-strip-slot={hasSlot ? 'react' : 'none'}
+      data-lab-react-chip="true"
+      data-lab-cr16-polish="true"
       role="group"
       aria-label="Post actions"
     >
@@ -72,16 +73,37 @@ export function FeedPostActionStrip({
               if (typeof onZone === 'function') onZone(z.id, e)
             }}
           >
-            <img
-              className="feed-post-action-strip__icon"
-              src={iconSrc}
-              alt=""
-              width={18}
-              height={18}
-              aria-hidden="true"
-              data-testid={`feed-post-action-icon-${z.id}`}
-            />
-            <span className="feed-post-action-strip__label">{z.label}</span>
+            {isReact ? (
+              <span
+                className="feed-post-action-strip__chip"
+                data-testid="feed-post-action-react-chip"
+                data-lab-react-chip="true"
+              >
+                <img
+                  className="feed-post-action-strip__icon"
+                  src={iconSrc}
+                  alt=""
+                  width={18}
+                  height={18}
+                  aria-hidden="true"
+                  data-testid={`feed-post-action-icon-${z.id}`}
+                />
+                <span className="feed-post-action-strip__label">{z.label}</span>
+              </span>
+            ) : (
+              <>
+                <img
+                  className="feed-post-action-strip__icon"
+                  src={iconSrc}
+                  alt=""
+                  width={18}
+                  height={18}
+                  aria-hidden="true"
+                  data-testid={`feed-post-action-icon-${z.id}`}
+                />
+                <span className="feed-post-action-strip__label">{z.label}</span>
+              </>
+            )}
           </button>
         )
       })}

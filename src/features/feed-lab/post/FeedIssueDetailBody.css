@@ -1,10 +1,29 @@
 /* LAB-10 · M158 greenfield overlay body — token plane · not classic board */
+/* CR-16: copy padded · media full-bleed · strip flush under media */
 .feed-issue-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.feed-issue-detail-body__copy {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 20px;
   box-sizing: border-box;
+}
+
+.feed-issue-detail-body__media {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.feed-issue-detail-body__media .feed-post-media {
+  border-radius: 0;
 }
 
 .feed-issue-detail-body .feed-post-title {

@@ -13,6 +13,7 @@ import './FeedIssueDetailBody.css'
  * CR-09: root React in strip reactSlot · no under-strip duplicate mount.
  * CR-12: React-always · aggregate below strip · Reactions zone wire.
  * CR-15: M154 composition wire marker (CR-11…14 held).
+ * CR-16: media flush above strip (parity with FeedPostCard).
  */
 export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false, t = null, locale = 'en' }) {
   const [discussionExpanded, setDiscussionExpanded] = useState(Boolean(initiallyExpandDiscussion))
@@ -41,11 +42,21 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
       data-lab-strip-composition="a-c-b"
       data-lab-aggregate="below"
       data-lab-cr15-wire="true"
+      data-lab-cr16-polish="true"
+      data-lab-media-flush="true"
     >
-      <FeedPostIdentity fixture={fixture} />
-      <FeedPostTitle>{fixture.title}</FeedPostTitle>
-      <FeedPostSummary>{fixture.summary}</FeedPostSummary>
-      <FeedPostMedia media={fixture.media} />
+      <div className="feed-issue-detail-body__copy">
+        <FeedPostIdentity fixture={fixture} />
+        <FeedPostTitle>{fixture.title}</FeedPostTitle>
+        <FeedPostSummary>{fixture.summary}</FeedPostSummary>
+      </div>
+      <div
+        className="feed-issue-detail-body__media"
+        data-testid="feed-issue-detail-media"
+        data-lab-media-flush="true"
+      >
+        <FeedPostMedia media={fixture.media} />
+      </div>
       <FeedPostActionStrip
         onZone={handleZone}
         reactSlot={

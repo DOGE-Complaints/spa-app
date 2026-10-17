@@ -13,10 +13,22 @@
   color: var(--color-text-primary, #101828);
 }
 
+/* Identity / title / summary keep side padding · media is outside (CR-16 flush) */
 .feed-post-card__body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.25rem;
   min-width: 0;
+}
+
+/* CR-16 §3.2 — media full-bleed · strip border-top hugs media bottom */
+.feed-post-card__media {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.feed-post-card__media .feed-post-media {
+  border-radius: 0;
 }
