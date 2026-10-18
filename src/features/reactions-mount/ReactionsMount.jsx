@@ -10,6 +10,7 @@ import { ReactionAggregateRow } from './ReactionAggregateRow.jsx'
 import { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
 import { ReactorsPopover } from './people/ReactorsPopover.jsx'
 import { ReactionsDialog } from './people/ReactionsDialog.jsx'
+import { resolvePeopleSurface } from './people/resolvePeopleSurface.js'
 import { CR_REACTION_ICON_PACK, CR_OMIT_SELECTABLE_IDS } from './icons/crReactionIcons.js'
 import {
   REACTIONS_MOUNT_SLOT_KINDS,
@@ -48,10 +49,11 @@ export function measurePopoverPosition(el) {
 
 /**
  * Greenfield ReactionsMount — strip (CR-01) + picker (CR-02) + portal escape (CR-10)
- * + people popover (CR-17 / M155 A) + dialog (CR-18 / M155 B).
- * People open ≠ picker open · View all → dialog.
+ * + people popover (CR-17 / M155 A) + dialog (CR-18 / M155 B) + sheet (CR-19 / M155 C).
+ * People open ≠ picker open · View all → dialog · narrow → sheet.
  *
  * Extra CR-02 props: defaultOpen, forcePickerSurface ('auto'|'popover'|'sheet')
+ * Extra CR-19 props: forcePeopleSurface ('auto'|'popover'|'sheet')
  */
 export function ReactionsMount({
   target = 'thread-root',
@@ -73,6 +75,7 @@ export function ReactionsMount({
   onAggregateActivate = null,
   defaultOpen = false,
   forcePickerSurface = 'auto',
+  forcePeopleSurface = 'auto',
   className = '',
   /** @type {'inline'|'below'} — CR-12: below portals aggregate under strip host */
   aggregatePlacement = 'inline',
@@ -99,6 +102,9 @@ export function ReactionsMount({
   const [capacityBlocked, setCapacityBlocked] = useState(false)
   const [saveError, setSaveError] = useState(false)
   const [surface, setSurface] = useState(() => resolvePickerSurface(forcePickerSurface))
+  const [peopleSurface, setPeopleSurface] = useState(() =>
+    resolvePeopleSurface(forcePeopleSurface),
+  )
   const [popoverStyle, setPopoverStyle] = useState(null)
   const [peoplePopoverStyle, setPeoplePopoverStyle] = useState(null)
 
@@ -111,6 +117,16 @@ export function ReactionsMount({
     mq.addEventListener?.('change', onChange)
     return () => mq.removeEventListener?.('change', onChange)
   }, [forcePickerSurface])
+
+  useEffect(() => {
+    setPeopleSurface(resolvePeopleSurface(forcePeopleSurface))
+    if (forcePeopleSurface !== 'auto') return undefined
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined
+    const mq = window.matchMedia('(max-width: 640px)')
+    const onChange = () => setPeopleSurface(resolvePeopleSurface('auto'))
+    mq.addEventListener?.('change', onChange)
+    return () => mq.removeEventListener?.('change', onChange)
+  }, [forcePeopleSurface])
 
   useEffect(() => {
     if (defaultOpen) setOpen(true)
@@ -207,7 +223,7 @@ export function ReactionsMount({
   }
 
   function handleOpen() {
-    // CR-12: React affordance opens picker. CR-17/18: people path is separate.
+    // CR-12: React affordance opens picker. CR-17/18/19: people path is separate.
     setPeopleOpen(false)
     setDialogOpen(false)
     setAggregateActive(false)
@@ -218,27 +234,34 @@ export function ReactionsMount({
     }
   }
 
-  /** CR-17 — Reactions zone / aggregate → people popover (NOT ReactionPicker). */
-  function handleOpenPeople() {
-    setOpen(false)
-    setDialogOpen(false)
-    setPeopleOpen(true)
-    setAggregateActive(true)
+  function loadPeopleFromAdapter() {
     const result =
       typeof onAggregateActivate === 'function' ? onAggregateActivate() : null
     applyPeopleResult(result)
   }
 
-  /** CR-18 — popover «View all» → full ReactionsDialog. */
+  /** CR-17/19 — Reactions zone / aggregate → people (NOT ReactionPicker). Narrow → sheet. */
+  function handleOpenPeople() {
+    setOpen(false)
+    setAggregateActive(true)
+    loadPeopleFromAdapter()
+    if (peopleSurface === 'sheet') {
+      setPeopleOpen(false)
+      setDialogOpen(true)
+      return
+    }
+    setDialogOpen(false)
+    setPeopleOpen(true)
+  }
+
+  /** CR-18 — popover «View all» → full ReactionsDialog (desktop). */
   function handleOpenDialog() {
     setOpen(false)
     setPeopleOpen(false)
     setDialogOpen(true)
     setAggregateActive(true)
     if (!people.length && peopleState === 'ready') {
-      const result =
-        typeof onAggregateActivate === 'function' ? onAggregateActivate() : null
-      applyPeopleResult(result)
+      loadPeopleFromAdapter()
     }
   }
 
@@ -271,9 +294,7 @@ export function ReactionsMount({
   }
 
   function handlePeopleRetry() {
-    const result =
-      typeof onAggregateActivate === 'function' ? onAggregateActivate() : null
-    applyPeopleResult(result)
+    loadPeopleFromAdapter()
   }
 
   /**
@@ -409,6 +430,7 @@ export function ReactionsMount({
       data-rm-picker-open={open ? 'true' : 'false'}
       data-rm-people-open={peopleOpen ? 'true' : 'false'}
       data-rm-dialog-open={dialogOpen ? 'true' : 'false'}
+      data-rm-people-surface={peopleSurface}
       data-rm-aggregate-placement={placement}
       data-rm-react-always={reactAlways ? 'true' : 'false'}
       data-catalog="reactions.v1"
@@ -416,6 +438,7 @@ export function ReactionsMount({
       data-enabled-count={String(enabledIds.length)}
       data-m155-people="true"
       data-m155-dialog="true"
+      data-m155-sheet="true"
     >
       <div
         ref={anchorRef}
@@ -463,7 +486,7 @@ export function ReactionsMount({
           onClose={handleClose}
         />
         <ReactorsPopover
-          open={peopleOpen}
+          open={peopleOpen && peopleSurface !== 'sheet'}
           panelId={peoplePanelId}
           state={peopleState}
           people={people}
@@ -478,6 +501,7 @@ export function ReactionsMount({
         <ReactionsDialog
           open={dialogOpen}
           panelId={dialogPanelId}
+          surface={peopleSurface === 'sheet' ? 'sheet' : 'dialog'}
           state={peopleState}
           people={people}
           summaryMarks={marks}

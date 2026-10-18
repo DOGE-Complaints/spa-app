@@ -24,6 +24,8 @@ export function FeedLabReactionsMount({
   aggregatePlacement = 'inline',
   aggregateHost = null,
   apiRef = null,
+  /** @type {'auto'|'popover'|'sheet'} CR-19 people surface */
+  forcePeopleSurface = 'auto',
 }) {
   const adapter = useMemo(
     () => createFixtureAdapter({ initialState, target }),
@@ -59,11 +61,13 @@ export function FeedLabReactionsMount({
       data-lab-locale={locale}
       data-lab-aggregate-placement={aggregatePlacement}
       data-lab-cr15-wire="true"
+      data-lab-cr19-people="true"
       data-m155-people="true"
+      data-m155-sheet="true"
       data-rm-adapter="fixture"
     >
       <ReactionsMount
-        key={`fl-rm-${target}-${commentId ?? 'root'}-${locale}-${openEpoch}-${initialState}`}
+        key={`fl-rm-${target}-${commentId ?? 'root'}-${locale}-${openEpoch}-${initialState}-${forcePeopleSurface}`}
         target={target}
         commentId={commentId}
         density="compact"
@@ -83,6 +87,7 @@ export function FeedLabReactionsMount({
         aggregateHost={aggregateHost}
         apiRef={apiRef}
         reactAlways
+        forcePeopleSurface={forcePeopleSurface}
       />
     </div>
   )

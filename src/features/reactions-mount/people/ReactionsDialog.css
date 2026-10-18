@@ -10,6 +10,13 @@
   box-sizing: border-box;
 }
 
+/* CR-19 / M155 C — bottom sheet · ≤88dvh · safe-area */
+.rm-dialog-backdrop--sheet {
+  align-items: flex-end;
+  justify-content: stretch;
+  padding: 0;
+}
+
 .rm-dialog {
   box-sizing: border-box;
   width: min(560px, calc(100vw - 32px));
@@ -22,6 +29,16 @@
   border-radius: 12px;
   box-shadow: 0 16px 40px rgba(16, 24, 40, 0.2);
   overflow: hidden;
+}
+
+.rm-dialog--sheet {
+  width: 100%;
+  max-width: none;
+  max-height: 88dvh;
+  border-radius: 16px 16px 0 0;
+  border-bottom: 0;
+  box-shadow: 0 -8px 28px rgba(16, 24, 40, 0.18);
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
 }
 
 .rm-dialog__header {

@@ -6,11 +6,14 @@ import './ReactionsDialog.css'
 
 /**
  * CR-18 / M155 Panel B — ReactionsDialog (~560px).
+ * CR-19 / M155 Panel C — same full-distribution UI as bottom sheet (≤88dvh) when surface=sheet.
  * Tabs All + types · Connect stub / You · no picker catalog · Escape + focus trap.
  */
 export function ReactionsDialog({
   open,
   panelId,
+  /** @type {'dialog'|'sheet'} */
+  surface = 'dialog',
   state = 'ready',
   people = [],
   /** Optional summary marks — adds type tabs even when people list empty for that type (B2). */
@@ -20,6 +23,7 @@ export function ReactionsDialog({
   onClose = null,
   onRetry = null,
 }) {
+  const isSheet = surface === 'sheet'
   const rootRef = useRef(null)
   const closeRef = useRef(null)
   const [activeTab, setActiveTab] = useState('all')
@@ -189,13 +193,23 @@ export function ReactionsDialog({
   }
 
   const node = (
-    <div className="rm-dialog-backdrop" data-testid="rm-dialog-backdrop">
+    <div
+      className={[
+        'rm-dialog-backdrop',
+        isSheet ? 'rm-dialog-backdrop--sheet' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      data-testid="rm-dialog-backdrop"
+      data-rm-people-surface={isSheet ? 'sheet' : 'dialog'}
+    >
       <div
         ref={rootRef}
-        className="rm-dialog"
-        data-testid="rm-reactions-dialog"
+        className={['rm-dialog', isSheet ? 'rm-dialog--sheet' : ''].filter(Boolean).join(' ')}
+        data-testid={isSheet ? 'rm-reactions-people-sheet' : 'rm-reactions-dialog'}
         data-rm-portal="body"
         data-rm-people-state={state}
+        data-rm-people-surface={isSheet ? 'sheet' : 'dialog'}
         data-rm-active-tab={activeTab}
         data-rm-picker="absent"
         id={panelId}

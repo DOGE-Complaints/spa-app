@@ -23,6 +23,8 @@ function Cr15CompositionStand({
   snap,
   defaultOpen = false,
   testId = 'rm-lab-cr15-composition',
+  forcePeopleSurface = 'auto',
+  issueNote = null,
 }) {
   const [aggregateHost, setAggregateHost] = useState(null)
   const apiRef = useRef(null)
@@ -32,13 +34,16 @@ function Cr15CompositionStand({
       className="rm-lab-canvas__card"
       data-testid={testId}
       data-lab-cr15-wire="true"
+      data-lab-cr19-people={forcePeopleSurface !== 'auto' ? forcePeopleSurface : 'auto'}
       data-lab-strip-composition="four-zone"
       data-lab-aggregate="below"
       data-lab-picker-default-open={defaultOpen ? 'true' : 'false'}
     >
       <p className="rm-lab-canvas__issue">
-        CR-15 M154 wire — four-zone strip · React-always · aggregate below · FixtureAdapter
-        {defaultOpen ? ' · picker open (tiles + accents)' : ''}.
+        {issueNote ||
+          `CR-15 M154 wire — four-zone strip · React-always · aggregate below · FixtureAdapter${
+            defaultOpen ? ' · picker open (tiles + accents)' : ''
+          }.`}
       </p>
       <FeedPostActionStrip
         onZone={(zoneId) => {
@@ -46,7 +51,7 @@ function Cr15CompositionStand({
         }}
         reactSlot={
           <ReactionsMount
-            key={`cr15-${testId}-${locale}-${defaultOpen ? 'open' : 'closed'}`}
+            key={`cr15-${testId}-${locale}-${defaultOpen ? 'open' : 'closed'}-${forcePeopleSurface}`}
             target="thread-root"
             density="compact"
             slot={REACTIONS_MOUNT_SLOT_KINDS.POST_ACTION_STRIP}
@@ -63,6 +68,7 @@ function Cr15CompositionStand({
             reactAlways
             defaultOpen={defaultOpen}
             forcePickerSurface={defaultOpen ? 'popover' : 'auto'}
+            forcePeopleSurface={forcePeopleSurface}
           />
         }
       />
@@ -292,6 +298,32 @@ export function ReactionsLabCanvas() {
 
       <section
         className="rm-lab-canvas__section"
+        data-testid="rm-lab-cr19-people"
+        aria-label="CR-19 M155 people wire"
+      >
+        <h2>CR-19 — M155 people (Reactions/aggregate ≠ picker)</h2>
+        <Cr15CompositionStand
+          t={t}
+          locale={locale}
+          adapter={rootAdapter}
+          snap={STRIP_STATE_FIXTURES.populated}
+          forcePeopleSurface="popover"
+          testId="rm-lab-cr19-people-popover"
+          issueNote="CR-19 people popover — Reactions/aggregate → fixtures · not picker · FixtureAdapter."
+        />
+        <Cr15CompositionStand
+          t={t}
+          locale={locale}
+          adapter={rootAdapter}
+          snap={STRIP_STATE_FIXTURES.populated}
+          forcePeopleSurface="sheet"
+          testId="rm-lab-cr19-people-sheet"
+          issueNote="CR-19 people sheet ≤88dvh — Reactions/aggregate → sheet · FixtureAdapter · no invent HTTP."
+        />
+      </section>
+
+      <section
+        className="rm-lab-canvas__section"
         data-testid="rm-lab-strip-states"
         aria-label="Strip states"
       >
@@ -340,6 +372,7 @@ export function ReactionsLabCanvas() {
               onReact={activeRootOnReact}
               onRetry={() => setDemoState('populated')}
               onAggregateActivate={rootAdapter.onAggregateActivate}
+              forcePeopleSurface={viewport === '320' ? 'sheet' : 'popover'}
             />
           </div>
         </div>
@@ -367,6 +400,8 @@ export function ReactionsLabCanvas() {
               selected={['support']}
               t={t}
               onReact={activeRootOnReact}
+              onAggregateActivate={rootAdapter.onAggregateActivate}
+              forcePeopleSurface={viewport === '320' ? 'sheet' : 'popover'}
             />
           </div>
           <div className="rm-lab-canvas__card" data-testid="rm-lab-host-comment">
@@ -391,6 +426,8 @@ export function ReactionsLabCanvas() {
               selected={['agree']}
               t={t}
               onReact={activeCommentOnReact}
+              onAggregateActivate={commentAdapter.onAggregateActivate}
+              forcePeopleSurface={viewport === '320' ? 'sheet' : 'popover'}
             />
           </div>
         </div>
