@@ -3,13 +3,15 @@ import { IssueThreadBlock } from './IssueThreadBlock.jsx'
 import {
   DEFAULT_MAX_ATTACHMENTS,
   DEFAULT_MAX_DEPTH,
+  VISUAL_INDENT_CAP,
   resolveMaxAttachments,
   resolveMaxDepth,
+  resolveVisualIndentCap,
 } from './config/threadMountConfig.js'
 import './ThreadMount.css'
 
 /**
- * CT-01/CT-02 ThreadMount — status chrome + apiRef { expand, focusComposer }.
+ * CT-01…03 ThreadMount — status chrome + apiRef + CommentTree knobs.
  * Hold reactions-mount apiRef pattern for host Comment zone.
  */
 export function ThreadMount({
@@ -20,6 +22,7 @@ export function ThreadMount({
   onRetry = null,
   writeCapability = 'denied-unknown',
   maxDepth = DEFAULT_MAX_DEPTH,
+  visualIndentCap = VISUAL_INDENT_CAP,
   maxAttachments = DEFAULT_MAX_ATTACHMENTS,
   narrow = false,
   apiRef = null,
@@ -49,6 +52,7 @@ export function ThreadMount({
   }, [focusSignal])
 
   const resolvedDepth = resolveMaxDepth(maxDepth)
+  const resolvedCap = resolveVisualIndentCap(visualIndentCap)
   const resolvedAttach = resolveMaxAttachments(maxAttachments)
   const composerEntry = writeCapability === 'allowed'
 
@@ -81,10 +85,12 @@ export function ThreadMount({
       data-tm-status={status}
       data-tm-expanded={expanded ? 'true' : 'false'}
       data-tm-max-depth={String(resolvedDepth)}
+      data-tm-visual-indent-cap={String(resolvedCap)}
       data-tm-max-attachments={String(resolvedAttach)}
       data-tm-write={writeCapability}
       data-lab-ct01="true"
       data-lab-ct02="true"
+      data-lab-ct03="true"
       data-lab-narrow={narrow ? 'true' : 'false'}
       data-tm-focus-signal={String(focusSignal)}
     >
@@ -92,6 +98,8 @@ export function ThreadMount({
         status={status}
         comments={comments}
         expanded={expanded}
+        maxDepth={resolvedDepth}
+        visualIndentCap={resolvedCap}
         onViewDiscussion={() => setExpanded(true)}
         onRetry={onRetry}
         composerEntry={composerEntry}

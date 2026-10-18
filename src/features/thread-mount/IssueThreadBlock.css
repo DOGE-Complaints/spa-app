@@ -124,6 +124,13 @@
   color: var(--color-text-secondary, #667085);
 }
 
+.tm-issue-thread-block__expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
 /* CT-01 T04 — narrow stack · no horizontal overflow */
 .tm-issue-thread-block--narrow {
   padding-left: 1rem;

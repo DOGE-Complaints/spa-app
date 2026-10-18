@@ -1,0 +1,98 @@
+/* CT-03 CommentNode — connectors · indent via --tm-indent-level · no author chrome */
+.tm-comment-node {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.tm-comment-node__row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  margin-left: calc(var(--tm-indent-level, 0) * var(--tm-indent-step, 2.75rem));
+}
+
+.tm-comment-node--flat .tm-comment-node__row {
+  margin-left: 0;
+}
+
+.tm-lab-stand--narrow .tm-comment-node__row,
+.tm-thread-mount--narrow .tm-comment-node__row {
+  --tm-indent-step: 1.5rem;
+}
+
+.tm-comment-node__connector {
+  flex: 0 0 0.75rem;
+  margin-right: 0.5rem;
+  border-left: 2px solid var(--color-border-default, #e7e4dc);
+  border-bottom: 2px solid var(--color-border-default, #e7e4dc);
+  border-bottom-left-radius: 6px;
+  align-self: stretch;
+  min-height: 1.25rem;
+  margin-top: 0.35rem;
+  opacity: 0.85;
+}
+
+.tm-comment-node__bubble {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 10px;
+  background: var(--color-surface-elevated, #fff);
+}
+
+.tm-comment-node__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--color-text-primary, #101828);
+  user-select: text;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.tm-comment-node__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tm-comment-node__reply {
+  margin: 0;
+  padding: 0.2rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tm-comment-node__reply:focus-visible {
+  outline: 2px solid var(--color-border-focus, #98a2b3);
+  outline-offset: 2px;
+}
+
+.tm-comment-node__max-depth {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-comment-node__children {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

@@ -10,6 +10,37 @@ const STANDS = /** @type {const} */ ([
   { id: 'C', status: 'populated', label: 'THR-P-C populated-collapsed' },
   { id: 'D', status: 'unavailable', label: 'THR-P-D unavailable' },
   { id: 'E', status: 'populated', label: 'THR-P-E narrow-390', narrow: true },
+  /** CT-03 Path A */
+  {
+    id: 'F',
+    status: 'populated',
+    label: 'THR-T-A nested A→A1→A1a',
+    initiallyExpanded: true,
+    commentSet: 'default',
+  },
+  {
+    id: 'G',
+    status: 'populated',
+    label: 'THR-T-B maxDepth=2 · no Reply at depth 2',
+    initiallyExpanded: true,
+    maxDepth: 2,
+    commentSet: 'default',
+  },
+  {
+    id: 'H',
+    status: 'populated',
+    label: 'depth vs VISUAL_INDENT_CAP · maxDepth=5',
+    initiallyExpanded: true,
+    maxDepth: 5,
+    commentSet: 'depthVsCap',
+  },
+  {
+    id: 'I',
+    status: 'populated',
+    label: 'orphan → flat fallback',
+    initiallyExpanded: true,
+    commentSet: 'orphan',
+  },
 ])
 
 /**
@@ -42,9 +73,13 @@ function CivicChromeStub({ standId }) {
 
 function StandCard({ stand }) {
   const fixture = THREAD_STATE_FIXTURES[stand.status]
-  const adapter = useMemo(() => createFixtureAdapter(stand.status), [stand.status])
+  const adapter = useMemo(() => {
+    const a = createFixtureAdapter(stand.status)
+    if (stand.commentSet) a.setCommentSet(stand.commentSet)
+    return a
+  }, [stand.status, stand.commentSet])
   const [snap, setSnap] = useState(() => adapter.snapshot())
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(Boolean(stand.initiallyExpanded))
 
   return (
     <article
@@ -53,6 +88,7 @@ function StandCard({ stand }) {
       data-tm-stand={stand.id}
       data-tm-status={stand.status}
       data-lab-narrow={stand.narrow ? 'true' : 'false'}
+      data-lab-ct03={stand.id === 'F' || stand.id === 'G' || stand.id === 'H' || stand.id === 'I' ? 'true' : undefined}
     >
       <p className="tm-lab-stand__label">{stand.label}</p>
       <div className="tm-lab-card" data-testid={`tm-lab-card-${stand.id}`}>
@@ -64,6 +100,7 @@ function StandCard({ stand }) {
           expanded={expanded}
           onExpandedChange={setExpanded}
           narrow={Boolean(stand.narrow)}
+          maxDepth={stand.maxDepth}
           onRetry={() => {
             adapter.retry().then((next) => setSnap(next))
           }}
@@ -74,7 +111,7 @@ function StandCard({ stand }) {
 }
 
 /**
- * CT-01 Path A canvas — M152 A–E fixture stands · `#/lab/thread`.
+ * CT-01/CT-03 Path A canvas — M152 A–E + M153 F–I · `#/lab/thread`.
  * Partial visual BLOCK until OP eye · no invent OP PASS.
  */
 export function ThreadLabCanvas() {
@@ -85,11 +122,12 @@ export function ThreadLabCanvas() {
       className="tm-lab-canvas"
       data-testid="tm-lab-canvas"
       data-lab-ct01="true"
+      data-lab-ct03="true"
       data-lab-visual-done="false"
       data-lab-theme={theme}
     >
       <header className="tm-lab-canvas__header">
-        <h1 className="tm-lab-canvas__title">CT-01 · M152 IssueThreadBlock states</h1>
+        <h1 className="tm-lab-canvas__title">CT-01/03 · ThreadMount states + CommentTree nest</h1>
         <p className="tm-lab-canvas__meta">
           FixtureAdapter · Path A · Partial visual = BLOCK until OP eye · no invent HTTP
         </p>

@@ -1,12 +1,16 @@
+import { CommentTree } from './tree/CommentTree.jsx'
+import { DEFAULT_MAX_DEPTH, VISUAL_INDENT_CAP } from './config/threadMountConfig.js'
 import './IssueThreadBlock.css'
 
 /**
- * CT-01 — M152 IssueThreadBlock status chrome (loading / empty / populated-collapsed / unavailable).
+ * CT-01/CT-03 — M152 status chrome + M153 expanded CommentTree.
  * Greenfield under thread-mount · no reactions ownership · no invent authors/HTTP.
  *
  * @param {'loading'|'empty'|'populated'|'unavailable'} status
- * @param {Array<{ id?: string, body?: string }>} [comments]
- * @param {boolean} [expanded] populated tree expand (M153 OOS — collapsed summary default)
+ * @param {Array<{ id?: string, body?: string, parentId?: string|null, depth?: number }>} [comments]
+ * @param {boolean} [expanded] populated tree expand
+ * @param {number} [maxDepth]
+ * @param {number} [visualIndentCap]
  * @param {() => void} [onViewDiscussion]
  * @param {() => void} [onRetry]
  * @param {boolean} [composerEntry] show Write a comment affordance when capability permits
@@ -15,6 +19,8 @@ export function IssueThreadBlock({
   status = 'empty',
   comments = [],
   expanded = false,
+  maxDepth = DEFAULT_MAX_DEPTH,
+  visualIndentCap = VISUAL_INDENT_CAP,
   onViewDiscussion = null,
   onRetry = null,
   composerEntry = false,
@@ -110,9 +116,24 @@ export function IssueThreadBlock({
               ) : null}
             </>
           ) : (
-            <p className="tm-issue-thread-block__expanded-note" data-testid="tm-thread-expanded-stub">
-              Expanded tree — M153 / CT-03
-            </p>
+            <div className="tm-issue-thread-block__expanded" data-testid="tm-thread-expanded">
+              <CommentTree
+                comments={comments}
+                maxDepth={maxDepth}
+                visualIndentCap={visualIndentCap}
+              />
+              {composerEntry ? (
+                <button
+                  type="button"
+                  ref={composerEntryRef}
+                  className="tm-issue-thread-block__composer-entry"
+                  data-testid="tm-thread-composer-entry"
+                  onClick={() => onComposerEntry?.()}
+                >
+                  Write a comment
+                </button>
+              ) : null}
+            </div>
           )}
         </div>
       ) : null}
