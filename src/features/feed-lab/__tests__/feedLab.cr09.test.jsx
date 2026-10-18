@@ -49,18 +49,28 @@ describe('CR-09 strip slot composition A+C+B', () => {
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     expect(within(card).queryByTestId('feed-post-discussion-reaction-slot')).toBeNull()
     expect(within(card).getByTestId('feed-lab-thread-mount')).toBeTruthy()
-    expect(within(card).getAllByTestId('feed-lab-reactions-mount')).toHaveLength(1)
+    const strip = within(card).getByTestId('feed-post-action-strip')
+    expect(within(strip).getAllByTestId('feed-lab-reactions-mount')).toHaveLength(1)
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
     expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
-    // comment-target ReactionsMount lands with CT-09 plug — root strip mount remains sole Present mount
-    expect(within(card).getAllByTestId('feed-lab-reactions-mount')).toHaveLength(1)
+    // CT-09: comment-target mounts appear under tree · strip root remains single thread-root
+    expect(within(strip).getAllByTestId('feed-lab-reactions-mount')).toHaveLength(1)
+    expect(
+      within(card).getAllByTestId('feed-lab-reactions-mount').length,
+    ).toBeGreaterThanOrEqual(2)
+    expect(
+      within(card)
+        .getAllByTestId('reactions-mount')
+        .some((el) => el.getAttribute('data-rm-target') === 'comment'),
+    ).toBe(true)
   })
 
   it('picker opens from zone-1 summary React · Comment/Share still work', () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
-    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
+    const strip = within(card).getByTestId('feed-post-action-strip')
+    fireEvent.click(within(strip).getByTestId('reaction-summary-react'))
     expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))

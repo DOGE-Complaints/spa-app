@@ -102,7 +102,11 @@ describe('FeedLab greenfield NF-LAB-08 reactions (CR-07 cutover)', () => {
   it('keeps #/lab visual Done false (Partial = BLOCK until OP eye)', () => {
     renderLab()
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
-    expect(screen.getAllByTestId('feed-lab-reactions-mount')).toHaveLength(5)
+    expect(
+      screen.getAllByTestId('feed-lab-reactions-mount').filter(
+        (el) => el.getAttribute('data-lab-reaction-target') === 'thread-root',
+      ),
+    ).toHaveLength(5)
     expect(screen.queryAllByTestId('feed-reaction-plane')).toHaveLength(0)
   })
 })

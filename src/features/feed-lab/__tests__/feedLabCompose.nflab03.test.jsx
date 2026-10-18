@@ -103,7 +103,12 @@ describe('FeedLab compose NF-LAB-03 (superseded mount → LAB-10 greenfield)', (
     renderLab()
     expect(screen.queryAllByTestId('lab-reaction-chrome')).toHaveLength(0)
     expect(screen.queryAllByTestId('feed-reaction-plane')).toHaveLength(0)
-    expect(screen.getAllByTestId('feed-lab-reactions-mount')).toHaveLength(5)
+    // 5 card strip roots + CT-09 comment plugs on expanded CT-08 stands
+    expect(
+      screen.getAllByTestId('feed-lab-reactions-mount').filter(
+        (el) => el.getAttribute('data-lab-reaction-target') === 'thread-root',
+      ),
+    ).toHaveLength(5)
     expect(screen.getAllByTestId('reactions-mount').length).toBeGreaterThanOrEqual(5)
   })
 })
