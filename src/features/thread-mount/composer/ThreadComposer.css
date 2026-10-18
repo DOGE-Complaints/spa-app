@@ -1,4 +1,4 @@
-/* CT-04 ThreadComposer — M153 C/F/G · no Attach (CT-05) */
+/* CT-04/05 ThreadComposer — M153 C/F/G + Attach / AttachmentRef */
 .tm-thread-composer {
   box-sizing: border-box;
   display: flex;
@@ -92,10 +92,44 @@
   opacity: 0.7;
 }
 
+.tm-thread-composer__attachments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.tm-thread-composer__attach-unavailable {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary, #667085);
+}
+
 .tm-thread-composer__actions {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+.tm-thread-composer__attach {
+  min-height: 44px;
+  min-width: 5.5rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tm-thread-composer__attach:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .tm-thread-composer__post {

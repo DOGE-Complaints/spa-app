@@ -1,11 +1,18 @@
 import { useEffect, useRef } from 'react'
+import {
+  ATTACH_UNAVAILABLE_COPY,
+  DEFAULT_MAX_ATTACHMENTS,
+  canAddAttachment,
+  resolveMaxAttachments,
+} from '../config/threadMountConfig.js'
+import { AttachmentRef } from './AttachmentRef.jsx'
 import './ThreadComposer.css'
 
 export const M153_ILLUSTRATIVE_DRAFT = 'I can help draft the sign-up list this week.'
 
 /**
- * CT-04 ThreadComposer — root/reply · draft · fail F · mobile sticky.
- * Fixture write only · no invent HTTP · no Attach (CT-05).
+ * CT-04/05 ThreadComposer — root/reply · draft · fail F · attachments local-intent.
+ * Fixture write only · no invent HTTP.
  *
  * @param {object} props
  * @param {'root'|'reply'} [props.mode]
@@ -21,6 +28,11 @@ export const M153_ILLUSTRATIVE_DRAFT = 'I can help draft the sign-up list this w
  * @param {number} [props.focusSignal]
  * @param {boolean} [props.stickyKeyboard]
  * @param {import('react').Ref} [props.textareaRef]
+ * @param {Array<{ id: string, label?: string, status: 'ready'|'denied', kind?: string }>} [props.attachments]
+ * @param {number} [props.maxAttachments]
+ * @param {boolean} [props.attachmentsAvailable]
+ * @param {() => void} [props.onAttach]
+ * @param {(id: string) => void} [props.onRemoveAttachment]
  */
 export function ThreadComposer({
   mode = 'root',
@@ -36,10 +48,20 @@ export function ThreadComposer({
   focusSignal = 0,
   stickyKeyboard = false,
   textareaRef = null,
+  attachments = [],
+  maxAttachments = DEFAULT_MAX_ATTACHMENTS,
+  attachmentsAvailable = true,
+  onAttach = null,
+  onRemoveAttachment = null,
 }) {
   const localRef = useRef(null)
   const ref = textareaRef || localRef
   const canPost = Boolean(draft?.trim()) && !posting
+  const resolvedMax = resolveMaxAttachments(maxAttachments)
+  const list = Array.isArray(attachments) ? attachments : []
+  const atMax = !canAddAttachment(list.length, resolvedMax)
+  const showAttach = Boolean(attachmentsAvailable)
+  const attachDisabled = posting || atMax || typeof onAttach !== 'function'
 
   useEffect(() => {
     if (!focusSignal) return undefined
@@ -62,7 +84,12 @@ export function ThreadComposer({
       data-tm-composer-mode={mode}
       data-tm-composer-fail={failState ? 'true' : 'false'}
       data-tm-composer-posting={posting ? 'true' : 'false'}
+      data-tm-max-attachments={String(resolvedMax)}
+      data-tm-attach-count={String(list.length)}
+      data-tm-attach-at-max={atMax ? 'true' : 'false'}
+      data-tm-attachments-available={showAttach ? 'true' : 'false'}
       data-lab-ct04="true"
+      data-lab-ct05="true"
       data-lab-sticky-keyboard={stickyKeyboard ? 'true' : 'false'}
     >
       {isReply ? (
@@ -102,6 +129,24 @@ export function ThreadComposer({
         />
       </label>
 
+      {list.length > 0 ? (
+        <div className="tm-thread-composer__attachments" data-testid="tm-composer-attachments">
+          {list.map((intent) => (
+            <AttachmentRef
+              key={intent.id}
+              intent={intent}
+              onRemove={() => onRemoveAttachment?.(intent.id)}
+            />
+          ))}
+        </div>
+      ) : null}
+
+      {!showAttach ? (
+        <p className="tm-thread-composer__attach-unavailable" data-testid="tm-composer-attach-unavailable">
+          {ATTACH_UNAVAILABLE_COPY}
+        </p>
+      ) : null}
+
       {failState ? (
         <div className="tm-thread-composer__fail" data-testid="tm-composer-fail" role="alert">
           <p className="tm-thread-composer__fail-title" data-testid="tm-composer-fail-title">
@@ -132,6 +177,21 @@ export function ThreadComposer({
       ) : null}
 
       <div className="tm-thread-composer__actions">
+        {showAttach ? (
+          <button
+            type="button"
+            className="tm-thread-composer__attach"
+            data-testid="tm-composer-attach"
+            disabled={attachDisabled}
+            aria-disabled={attachDisabled}
+            onClick={() => {
+              if (attachDisabled) return
+              onAttach?.()
+            }}
+          >
+            Attach
+          </button>
+        ) : null}
         <button
           type="button"
           className="tm-thread-composer__post"

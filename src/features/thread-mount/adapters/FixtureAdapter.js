@@ -1,7 +1,19 @@
 /**
- * CT-01 / CT-03 / CT-04 FixtureAdapter — M152/M153 nest + composer write stub · no HTTP.
+ * CT-01 / CT-03 / CT-04 / CT-05 FixtureAdapter — nest + composer + attach intents · no HTTP.
  * Illustrative bodies from M152/M153 · no author/avatar/time invent.
+ * AttachmentRef = local intent only · never published media claim.
  */
+
+/** @param {'ready'|'denied'} [status] */
+export function createFixtureAttachmentIntent(status = 'ready', kind = 'image') {
+  const id = `fx-attach-${status}-${kind}`
+  return {
+    id,
+    kind,
+    label: kind === 'image' ? 'Selected image' : 'Attached file',
+    status,
+  }
+}
 
 /** @typedef {'loading'|'empty'|'populated'|'unavailable'} ThreadFixtureStatus */
 

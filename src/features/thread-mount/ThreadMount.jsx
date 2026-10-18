@@ -4,7 +4,10 @@ import { ThreadComposer } from './composer/ThreadComposer.jsx'
 import {
   DEFAULT_MAX_ATTACHMENTS,
   DEFAULT_MAX_DEPTH,
+  DEFAULT_MEDIA_ALLOWED_TYPES,
   VISUAL_INDENT_CAP,
+  canAddAttachment,
+  clampAttachmentIntents,
   resolveMaxAttachments,
   resolveMaxDepth,
   resolveVisualIndentCap,
@@ -19,8 +22,10 @@ function excerptOf(comments, parentId) {
   return body.length > 120 ? `${body.slice(0, 117)}…` : body
 }
 
+let attachSeq = 0
+
 /**
- * CT-01…04 ThreadMount — status chrome + apiRef + CommentTree + ThreadComposer.
+ * CT-01…05 ThreadMount — status chrome + apiRef + CommentTree + ThreadComposer + attachments.
  */
 export function ThreadMount({
   status = 'empty',
@@ -34,13 +39,18 @@ export function ThreadMount({
   maxDepth = DEFAULT_MAX_DEPTH,
   visualIndentCap = VISUAL_INDENT_CAP,
   maxAttachments = DEFAULT_MAX_ATTACHMENTS,
+  mediaAllowedTypes = DEFAULT_MEDIA_ALLOWED_TYPES,
+  attachmentsAvailable = true,
   narrow = false,
   apiRef = null,
   className = '',
   initialDraft = '',
   initialReplyParentId = null,
+  initialAttachments = null,
   forcePostFail = false,
   autoFailOnMount = false,
+  /** @type {'ready'|'denied'|null} lab fixture Attach outcome */
+  attachOutcome = 'ready',
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expandedProp))
   const [focusSignal, setFocusSignal] = useState(0)
@@ -48,6 +58,12 @@ export function ThreadMount({
   const [replyParentId, setReplyParentId] = useState(initialReplyParentId || null)
   const [failState, setFailState] = useState(null)
   const [posting, setPosting] = useState(false)
+  const [attachments, setAttachments] = useState(() =>
+    clampAttachmentIntents(
+      Array.isArray(initialAttachments) ? initialAttachments.map((a) => ({ ...a })) : [],
+      maxAttachments,
+    ),
+  )
   const [localComments, setLocalComments] = useState(() =>
     Array.isArray(comments) ? comments.map((c) => ({ ...c })) : [],
   )
@@ -77,6 +93,11 @@ export function ThreadMount({
   const collapsedEntry = writeAllowed && status === 'populated' && !expanded
   const mode = replyParentId ? 'reply' : 'root'
   const parentExcerpt = excerptOf(localComments, replyParentId)
+  const allowList = Array.isArray(mediaAllowedTypes) ? mediaAllowedTypes : DEFAULT_MEDIA_ALLOWED_TYPES
+
+  useEffect(() => {
+    setAttachments((prev) => clampAttachmentIntents(prev, resolvedAttach))
+  }, [resolvedAttach])
 
   useImperativeHandle(
     apiRef,
@@ -90,9 +111,11 @@ export function ThreadMount({
       getStatus: () => status,
       getDraft: () => draft,
       getReplyParentId: () => replyParentId,
+      getAttachments: () => attachments.map((a) => ({ ...a })),
+      getMaxAttachments: () => resolvedAttach,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps -- api surface
-    [status, controlled, draft, replyParentId],
+    [status, controlled, draft, replyParentId, attachments, resolvedAttach],
   )
 
   function focusComposerField() {
@@ -118,10 +141,52 @@ export function ThreadMount({
   function handleCancelReply() {
     setReplyParentId(null)
     setFailState(null)
-    // draft kept — no silent destroy
     requestAnimationFrame(() => {
       lastReplyButtonRef.current?.focus?.()
     })
+  }
+
+  function handleAttach() {
+    if (!attachmentsAvailable) return
+    if (!canAddAttachment(attachments.length, resolvedAttach)) return
+    const kind = allowList.includes('image') ? 'image' : allowList[0] || 'file'
+    attachSeq += 1
+    const id = `fx-attach-${attachSeq}`
+    if (attachOutcome === 'denied') {
+      setAttachments((prev) =>
+        clampAttachmentIntents(
+          [
+            ...prev,
+            {
+              id,
+              kind,
+              label: kind === 'image' ? 'Selected image' : 'Attached file',
+              status: 'denied',
+            },
+          ],
+          resolvedAttach,
+        ),
+      )
+      return
+    }
+    setAttachments((prev) =>
+      clampAttachmentIntents(
+        [
+          ...prev,
+          {
+            id,
+            kind,
+            label: kind === 'image' ? 'Selected image' : 'Attached file',
+            status: 'ready',
+          },
+        ],
+        resolvedAttach,
+      ),
+    )
+  }
+
+  function handleRemoveAttachment(id) {
+    setAttachments((prev) => prev.filter((a) => a.id !== id))
   }
 
   async function runPost() {
@@ -131,7 +196,11 @@ export function ThreadMount({
     setFailState(null)
     try {
       const result = onPostComment
-        ? await onPostComment({ body, parentId: replyParentId })
+        ? await onPostComment({
+            body,
+            parentId: replyParentId,
+            attachments: attachments.map((a) => ({ ...a })),
+          })
         : {
             ok: false,
             reason: 'no-adapter',
@@ -147,6 +216,7 @@ export function ThreadMount({
         }
         setDraft('')
         setReplyParentId(null)
+        setAttachments([])
         setFailState(null)
         if (status === 'empty') setExpanded(true)
       } else {
@@ -154,6 +224,7 @@ export function ThreadMount({
           title: result?.title || 'Comment wasn’t posted.',
           detail: result?.detail || 'Your text is still here. Try again.',
         })
+        /* keep local attachment intents — never claim published */
       }
     } finally {
       setPosting(false)
@@ -165,7 +236,6 @@ export function ThreadMount({
     if (!autoFailOnMount || autoFailStarted.current) return
     if (!draft.trim()) return
     autoFailStarted.current = true
-    // lab Path A stand L — one soft-fail on mount for shot (no invent HTTP)
     void runPost()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoFailOnMount, draft])
@@ -186,6 +256,8 @@ export function ThreadMount({
       data-tm-max-depth={String(resolvedDepth)}
       data-tm-visual-indent-cap={String(resolvedCap)}
       data-tm-max-attachments={String(resolvedAttach)}
+      data-tm-attach-count={String(attachments.length)}
+      data-tm-attachments-available={attachmentsAvailable ? 'true' : 'false'}
       data-tm-write={writeCapability}
       data-tm-reply-parent={replyParentId || ''}
       data-tm-has-draft={draft.trim() ? 'true' : 'false'}
@@ -193,6 +265,7 @@ export function ThreadMount({
       data-lab-ct02="true"
       data-lab-ct03="true"
       data-lab-ct04="true"
+      data-lab-ct05="true"
       data-lab-narrow={narrow ? 'true' : 'false'}
       data-tm-focus-signal={String(focusSignal)}
       data-tm-force-post-fail={forcePostFail ? 'true' : 'false'}
@@ -228,6 +301,11 @@ export function ThreadMount({
           focusSignal={focusSignal}
           stickyKeyboard={Boolean(narrow)}
           textareaRef={composerTextareaRef}
+          attachments={attachments}
+          maxAttachments={resolvedAttach}
+          attachmentsAvailable={Boolean(attachmentsAvailable)}
+          onAttach={handleAttach}
+          onRemoveAttachment={handleRemoveAttachment}
         />
       ) : null}
     </div>

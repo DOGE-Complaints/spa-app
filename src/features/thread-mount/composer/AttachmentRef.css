@@ -1,0 +1,97 @@
+/* CT-05 AttachmentRef — M153 D/E local intent · not published */
+.tm-attachment-ref {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 10px;
+  background: var(--color-page-bg, #f7f6f2);
+  min-width: 0;
+}
+
+.tm-attachment-ref--ready {
+  border-color: #d0d5dd;
+  background: #fff;
+}
+
+.tm-attachment-ref--denied {
+  border-color: #f9dbaf;
+  background: #fff8f1;
+}
+
+.tm-attachment-ref__main {
+  display: flex;
+  gap: 0.55rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.tm-attachment-ref__icon {
+  flex: 0 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-attachment-ref__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.tm-attachment-ref__label {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #101828);
+  word-break: break-word;
+}
+
+.tm-attachment-ref__ready {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #067647;
+}
+
+.tm-attachment-ref__local {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-attachment-ref__denied-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #101828);
+}
+
+.tm-attachment-ref__denied-detail {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-attachment-ref__remove {
+  flex: 0 0 auto;
+  min-height: 44px;
+  min-width: 44px;
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}

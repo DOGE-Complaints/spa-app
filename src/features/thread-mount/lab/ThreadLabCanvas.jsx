@@ -2,7 +2,11 @@ import { useMemo, useState } from 'react'
 import { setThemeAttribute } from '../../../theme/bootTheme.js'
 import { ThreadMount } from '../ThreadMount.jsx'
 import { M153_ILLUSTRATIVE_DRAFT } from '../composer/ThreadComposer.jsx'
-import { THREAD_STATE_FIXTURES, createFixtureAdapter } from '../adapters/FixtureAdapter.js'
+import {
+  THREAD_STATE_FIXTURES,
+  createFixtureAdapter,
+  createFixtureAttachmentIntent,
+} from '../adapters/FixtureAdapter.js'
 import './ThreadLabCanvas.css'
 
 const STANDS = /** @type {const} */ ([
@@ -77,6 +81,52 @@ const STANDS = /** @type {const} */ ([
     initialDraft: M153_ILLUSTRATIVE_DRAFT,
     initialReplyParentId: 'fx-a1',
   },
+  /** CT-05 Path A — M153 D/E / maxAttachments */
+  {
+    id: 'N',
+    status: 'populated',
+    label: 'THR-T-D attachment ready chip',
+    initiallyExpanded: true,
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialAttachments: [createFixtureAttachmentIntent('ready', 'image')],
+    maxAttachments: 1,
+  },
+  {
+    id: 'O',
+    status: 'populated',
+    label: 'THR-T-E attachment denied · draft intact',
+    initiallyExpanded: true,
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialAttachments: [createFixtureAttachmentIntent('denied', 'file')],
+    maxAttachments: 1,
+  },
+  {
+    id: 'P',
+    status: 'populated',
+    label: 'THR-T-maxA clamp maxAttachments=1',
+    initiallyExpanded: true,
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialAttachments: [createFixtureAttachmentIntent('ready', 'image')],
+    maxAttachments: 1,
+  },
+  {
+    id: 'Q',
+    status: 'populated',
+    label: 'attachments unavailable honesty',
+    initiallyExpanded: true,
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    attachmentsAvailable: false,
+    maxAttachments: 1,
+  },
+  {
+    id: 'R',
+    status: 'populated',
+    label: 'local intent · not published',
+    initiallyExpanded: true,
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialAttachments: [createFixtureAttachmentIntent('ready', 'file')],
+    maxAttachments: 1,
+  },
 ])
 
 /**
@@ -118,6 +168,8 @@ function StandCard({ stand }) {
   const [snap, setSnap] = useState(() => adapter.snapshot())
   const [expanded, setExpanded] = useState(Boolean(stand.initiallyExpanded))
   const ct04 = stand.id === 'J' || stand.id === 'K' || stand.id === 'L' || stand.id === 'M'
+  const ct05 =
+    stand.id === 'N' || stand.id === 'O' || stand.id === 'P' || stand.id === 'Q' || stand.id === 'R'
 
   return (
     <article
@@ -128,6 +180,7 @@ function StandCard({ stand }) {
       data-lab-narrow={stand.narrow ? 'true' : 'false'}
       data-lab-ct03={stand.id === 'F' || stand.id === 'G' || stand.id === 'H' || stand.id === 'I' ? 'true' : undefined}
       data-lab-ct04={ct04 ? 'true' : undefined}
+      data-lab-ct05={ct05 ? 'true' : undefined}
     >
       <p className="tm-lab-stand__label">{stand.label}</p>
       <div className="tm-lab-card" data-testid={`tm-lab-card-${stand.id}`}>
@@ -140,8 +193,11 @@ function StandCard({ stand }) {
           onExpandedChange={setExpanded}
           narrow={Boolean(stand.narrow)}
           maxDepth={stand.maxDepth}
+          maxAttachments={stand.maxAttachments}
+          attachmentsAvailable={stand.attachmentsAvailable !== false}
           initialDraft={stand.initialDraft || ''}
           initialReplyParentId={stand.initialReplyParentId || null}
+          initialAttachments={stand.initialAttachments || null}
           forcePostFail={Boolean(stand.failNextPost)}
           autoFailOnMount={Boolean(stand.autoFail)}
           onPostComment={async (payload) => {
@@ -159,7 +215,7 @@ function StandCard({ stand }) {
 }
 
 /**
- * CT-01/03/04 Path A canvas — M152 A–E + M153 F–I + composer J–M · `#/lab/thread`.
+ * CT-01/03/04/05 Path A canvas — nest · composer · attachments · `#/lab/thread`.
  * Partial visual BLOCK until OP eye · no invent OP PASS.
  */
 export function ThreadLabCanvas() {
@@ -172,11 +228,12 @@ export function ThreadLabCanvas() {
       data-lab-ct01="true"
       data-lab-ct03="true"
       data-lab-ct04="true"
+      data-lab-ct05="true"
       data-lab-visual-done="false"
       data-lab-theme={theme}
     >
       <header className="tm-lab-canvas__header">
-        <h1 className="tm-lab-canvas__title">CT-01/03/04 · ThreadMount · nest · composer</h1>
+        <h1 className="tm-lab-canvas__title">CT-01/03/04/05 · ThreadMount · nest · composer · attach</h1>
         <p className="tm-lab-canvas__meta">
           FixtureAdapter · Path A · Partial visual = BLOCK until OP eye · no invent HTTP
         </p>
