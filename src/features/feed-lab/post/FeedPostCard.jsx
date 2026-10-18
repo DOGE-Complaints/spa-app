@@ -18,6 +18,7 @@ import './FeedPostCard.css'
  * CR-21: Reactions zone → people with peopleAnchor = Reactions control · chip parity.
  * CR-22: measure-then-fix media plate bg · layout gap already 0 (see measure-cause).
  * CT-02: Comment zone → ThreadMount apiRef · flush under strip · strip stays dumb.
+ * CT-08: L-cut ThreadMount host · data-lab-thread-mount · no dual discussion plane.
  */
 export function FeedPostCard({
   fixture,
@@ -68,6 +69,8 @@ export function FeedPostCard({
       data-lab-cr21-affordance="true"
       data-lab-cr22-flush="true"
       data-lab-ct02="true"
+      data-lab-ct08="true"
+      data-lab-thread-mount="true"
       data-lab-media-flush="true"
     >
       <div className="feed-post-card__body">
@@ -112,6 +115,8 @@ export function FeedPostCard({
         data-testid="feed-post-thread-host"
         data-lab-thread-flush="true"
         data-lab-ct02="true"
+        data-lab-ct08="true"
+        data-lab-thread-mount="true"
       >
         <FeedLabThreadMount
           comments={fixture.comments}

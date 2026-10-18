@@ -9,6 +9,8 @@ import { resolveLabMediaStub } from './labMediaStub.js'
  * @typedef {object} LabFixtureComment
  * @property {string} id
  * @property {string} body
+ * @property {string|null} [parentId]
+ * @property {number} [depth]
  * @property {true} fixtureOnly
  */
 
@@ -53,6 +55,13 @@ const LAB_FEED_FIXTURE_DRAFTS = [
     reactionStripState: 'populated',
     comments: [
       { id: 'lab-c-002-a', body: 'Bike lane is unsafe here.', fixtureOnly: true },
+      {
+        id: 'lab-c-002-a1',
+        parentId: 'lab-c-002-a',
+        depth: 1,
+        body: 'City should patch the approach lane soon.',
+        fixtureOnly: true,
+      },
     ],
     fixtureOnly: true,
     dataFixture: true,
@@ -108,7 +117,13 @@ export function loadLabFeedFixtures() {
   return LAB_FEED_FIXTURE_DRAFTS.map((draft) =>
     Object.freeze({
       ...draft,
-      comments: draft.comments.map((c) => Object.freeze({ ...c })),
+      comments: draft.comments.map((c) =>
+        Object.freeze({
+          ...c,
+          parentId: c.parentId == null ? null : c.parentId,
+          depth: Number.isFinite(c.depth) ? c.depth : 0,
+        }),
+      ),
       media: Object.freeze(resolveLabMediaStub(draft.publicId)),
     }),
   )

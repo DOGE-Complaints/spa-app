@@ -16,6 +16,7 @@ import './FeedIssueDetailBody.css'
  * CR-16: media flush above strip (parity with FeedPostCard).
  * CR-22: transparent media plate · flush lock parity.
  * CT-02: Comment → ThreadMount apiRef · detail parity with card composition.
+ * CT-08: L-cut ThreadMount host · data-lab-thread-mount.
  */
 export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false, t = null, locale = 'en' }) {
   const [aggregateHost, setAggregateHost] = useState(null)
@@ -48,6 +49,8 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
       data-lab-cr16-polish="true"
       data-lab-cr22-flush="true"
       data-lab-ct02="true"
+      data-lab-ct08="true"
+      data-lab-thread-mount="true"
       data-lab-media-flush="true"
     >
       <div className="feed-issue-detail-body__copy">
@@ -87,6 +90,8 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
         data-testid="feed-issue-detail-thread-host"
         data-lab-thread-flush="true"
         data-lab-ct02="true"
+        data-lab-ct08="true"
+        data-lab-thread-mount="true"
       >
         <FeedLabThreadMount
           comments={fixture.comments}

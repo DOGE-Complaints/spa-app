@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { LAB_FEED_FIXTURES } from '../features/feed-lab/index.js'
 import { makeLabFeedT } from '../features/feed-lab/labI18n.js'
 import { FeedPostCard, FeedIssueDetailOverlay } from '../features/feed-lab/post/index.js'
+import { FeedLabCt08Stands } from '../features/feed-lab/post/thread/FeedLabCt08Stands.jsx'
 import { setThemeAttribute } from '../theme/bootTheme.js'
 import './FeedLabPage.css'
 
@@ -16,6 +17,7 @@ const TEXT_ZOOMS = /** @type {const} */ (['100', '200'])
  * Theme via `setThemeAttribute(..., { persist: false })` — do not write localStorage.
  * `data-lab-plane=greenfield` · `data-lab-visual-done=false` until OP eye PASS.
  * CR-15: M154 strip+picker wire held under M160 stress · Gap v2 residual → visual BLOCK.
+ * CT-08: ThreadMount cutover on cards + Path A stands A–E/TREE/GATE · Partial=BLOCK.
  */
 export function FeedLabPage() {
   const [detailId, setDetailId] = useState(null)
@@ -60,6 +62,7 @@ export function FeedLabPage() {
       data-lab-text-zoom={textZoom}
       data-lab-stress="m160"
       data-lab-cr15-wire="true"
+      data-lab-ct08="true"
       data-m155-oos="true"
     >
       <div className="feed-lab-page__canvas" data-testid="feed-lab-canvas" aria-label="Feed lab canvas">
@@ -170,6 +173,8 @@ export function FeedLabPage() {
             </div>
           </div>
         </header>
+
+        <FeedLabCt08Stands />
 
         <section
           className="feed-lab-page__section"
