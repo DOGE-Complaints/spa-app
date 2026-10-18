@@ -16,6 +16,7 @@ import './FeedPostCard.css'
  * CR-15: M154 composition wire marker for OP eye (CR-11…14 held).
  * CR-16: media flush above strip · React chip hover (strip CSS).
  * CR-21: Reactions zone → people with peopleAnchor = Reactions control · chip parity.
+ * CR-22: measure-then-fix media plate bg · layout gap already 0 (see measure-cause).
  */
 export function FeedPostCard({
   fixture,
@@ -64,6 +65,7 @@ export function FeedPostCard({
       data-lab-cr15-wire="true"
       data-lab-cr16-polish="true"
       data-lab-cr21-affordance="true"
+      data-lab-cr22-flush="true"
       data-lab-media-flush="true"
     >
       <div className="feed-post-card__body">

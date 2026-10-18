@@ -22,13 +22,21 @@
   min-width: 0;
 }
 
-/* CR-16 §3.2 — media full-bleed · strip border-top hugs media bottom */
+/* CR-16 §3.2 / CR-22 — media full-bleed · strip border-top hugs media bottom */
 .feed-post-card__media {
+  display: block;
   margin: 0;
   padding: 0;
   min-width: 0;
+  line-height: 0;
 }
 
+/*
+ * CR-22 measure: layout gap media→strip = 0 · letterbox = 0.
+ * Remove light plate bg (token border color) that can read as a band at edges.
+ */
 .feed-post-card__media .feed-post-media {
   border-radius: 0;
+  background: transparent;
+  margin: 0;
 }

@@ -17,13 +17,18 @@
 }
 
 .feed-issue-detail-body__media {
+  display: block;
   margin: 0;
   padding: 0;
   min-width: 0;
+  line-height: 0;
 }
 
+/* CR-22 parity with FeedPostCard — transparent plate · flush under media */
 .feed-issue-detail-body__media .feed-post-media {
   border-radius: 0;
+  background: transparent;
+  margin: 0;
 }
 
 .feed-issue-detail-body .feed-post-title {

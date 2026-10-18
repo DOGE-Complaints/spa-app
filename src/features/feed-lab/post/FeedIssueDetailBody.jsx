@@ -14,6 +14,7 @@ import './FeedIssueDetailBody.css'
  * CR-12: React-always · aggregate below strip · Reactions zone wire.
  * CR-15: M154 composition wire marker (CR-11…14 held).
  * CR-16: media flush above strip (parity with FeedPostCard).
+ * CR-22: transparent media plate · flush lock parity.
  */
 export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false, t = null, locale = 'en' }) {
   const [discussionExpanded, setDiscussionExpanded] = useState(Boolean(initiallyExpandDiscussion))
@@ -45,6 +46,7 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
       data-lab-aggregate="below"
       data-lab-cr15-wire="true"
       data-lab-cr16-polish="true"
+      data-lab-cr22-flush="true"
       data-lab-media-flush="true"
     >
       <div className="feed-issue-detail-body__copy">
