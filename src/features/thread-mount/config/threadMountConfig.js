@@ -17,6 +17,32 @@ export const BRANCH_ERROR_TITLE = 'Couldn’t load replies'
 export const BRANCH_ERROR_RETRY = 'Try again'
 export const BRANCH_EXPAND_DELAY_MS = 400
 
+/** CT-07 M157 VerifyWriteGate lab — literal copy · no invent Identity methods */
+export const VERIFY_GATE_TITLE = 'Verify to participate'
+export const VERIFY_GATE_BODY =
+  'Verification is required before you can write in this discussion.'
+export const VERIFY_GO_CTA = 'Go to verification'
+export const VERIFY_NOT_NOW = 'Not now'
+export const VERIFY_CIVIC_LINE = 'Civic node · DOGEstonia Identity'
+export const VERIFY_CONTINUE_CTA = 'Verify to continue'
+export const VERIFY_TRY_AGAIN = 'Try verification again'
+export const VERIFY_CANCELLED_TITLE = 'Verification not completed'
+export const VERIFY_FAILED_TITLE = 'Verification could not be completed'
+export const VERIFY_DENIED_UNKNOWN =
+  'Writing is unavailable right now. Try again later.'
+export const VERIFY_STALE_COPY =
+  'This discussion changed while you were away. Your draft is still here.'
+export const VERIFY_STALE_STATUS = 'Issue closed'
+export const VERIFY_SUCCESS_BADGE = 'Verified'
+export const VERIFY_SUCCESS_HINT = 'You can continue your reply.'
+export const VERIFY_HANDOFF_ROUTE = '/verify'
+export const VERIFY_HANDOFF_HEADING = 'Verify your identity'
+export const VERIFY_HANDOFF_RETURN =
+  'After verification, you’ll return to Issue UV-024 and continue your reply.'
+/** Session keys for lab stub handoff — not URL/analytics */
+export const VERIFY_DRAFT_SESSION_KEY = 'tm-lab-verify-draft'
+export const VERIFY_TARGET_SESSION_KEY = 'tm-lab-verify-target'
+
 /**
  * View N replies — only when count derivable from complete local tree.
  * @param {number} count

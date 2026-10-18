@@ -21,6 +21,9 @@ export {
   ATTACH_UNAVAILABLE_COPY,
   BRANCH_LOADING_COPY,
   BRANCH_ERROR_TITLE,
+  VERIFY_GATE_TITLE,
+  VERIFY_GO_CTA,
+  VERIFY_SUCCESS_BADGE,
   viewRepliesLabel,
   resolveMaxDepth,
   resolveMaxAttachments,
@@ -35,4 +38,11 @@ export { CommentNode } from './tree/CommentNode.jsx'
 export { buildCommentForest } from './tree/buildCommentForest.js'
 export { ThreadComposer, M153_ILLUSTRATIVE_DRAFT } from './composer/ThreadComposer.jsx'
 export { AttachmentRef } from './composer/AttachmentRef.jsx'
+export { VerifyWriteGate } from './verify/VerifyWriteGate.jsx'
+export { StubVerifyHandoff } from './verify/StubVerifyHandoff.jsx'
+export {
+  persistVerifyIntent,
+  readVerifyIntent,
+  clearVerifyIntent,
+} from './verify/verifySession.js'
 export { ThreadLabCanvas } from './lab/ThreadLabCanvas.jsx'

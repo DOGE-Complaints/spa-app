@@ -1,0 +1,112 @@
+/* CT-07 VerifyWriteGate + stub handoff — lab chrome · no invent Identity UI */
+
+.tm-verify-write-gate,
+.tm-verify-handoff {
+  margin-top: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 12px;
+  background: var(--color-bg-elevated, #fffef9);
+  min-width: 0;
+}
+
+.tm-verify-write-gate__title,
+.tm-verify-handoff__heading {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #101828);
+}
+
+.tm-verify-write-gate__body,
+.tm-verify-write-gate__civic,
+.tm-verify-handoff__return,
+.tm-verify-handoff__honesty {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-verify-write-gate__target,
+.tm-verify-write-gate__draft {
+  margin: 0 0 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  background: var(--color-bg-subtle, #f5f3eb);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--color-text-primary, #101828);
+}
+
+.tm-verify-write-gate__target-label {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-verify-write-gate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.tm-verify-write-gate__primary,
+.tm-verify-handoff__back {
+  margin: 0;
+  padding: 0.55rem 1rem;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-accent-primary, #f5c518);
+  color: var(--color-text-primary, #101828);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tm-verify-write-gate__secondary {
+  margin: 0;
+  padding: 0.55rem 1rem;
+  min-height: 44px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tm-verify-handoff__route {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-verify-return {
+  margin: 0 0 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  background: var(--color-bg-subtle, #f5f3eb);
+}
+
+.tm-verify-return__badge {
+  margin: 0 0 0.2rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #101828);
+}
+
+.tm-verify-return__hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary, #667085);
+}

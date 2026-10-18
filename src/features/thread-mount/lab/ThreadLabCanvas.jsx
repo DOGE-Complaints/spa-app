@@ -179,20 +179,89 @@ const STANDS = /** @type {const} */ ([
     branchExpandMode: 'sync',
     initialBranchStates: { 'fx-a': 'expanded', 'fx-a1': 'expanded' },
   },
+  /** CT-07 Path A — M157 V-A…V-F · lab fixture + stub · no invent Identity */
+  {
+    id: 'VA',
+    status: 'populated',
+    label: 'THR-V-A gate blocked · draft+target',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    writeCapability: 'unverified',
+    verifyGateVariant: 'blocked',
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialReplyParentId: 'fx-a1',
+    showCivicLine: true,
+  },
+  {
+    id: 'VB',
+    status: 'populated',
+    label: 'THR-V-B stub /verify handoff · no methods',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    writeCapability: 'unverified',
+    verifyGateVariant: 'handoff',
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialReplyParentId: 'fx-a1',
+  },
+  {
+    id: 'VC',
+    status: 'populated',
+    label: 'THR-V-C verified return · no auto-post',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    writeCapability: 'allowed',
+    verifiedReturn: true,
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialReplyParentId: 'fx-a1',
+  },
+  {
+    id: 'VD',
+    status: 'populated',
+    label: 'THR-V-D cancel/fail · still blocked',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    writeCapability: 'unverified',
+    verifyGateVariant: 'cancelled',
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialReplyParentId: 'fx-a1',
+  },
+  {
+    id: 'VE',
+    status: 'populated',
+    label: 'THR-V-E stale / WRITE-DENIED-UNKNOWN',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    writeCapability: 'denied-unknown',
+    verifyGateVariant: 'denied-unknown',
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialReplyParentId: 'fx-a1',
+  },
+  {
+    id: 'VF',
+    status: 'populated',
+    label: 'THR-V-F mobile gate 390',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    narrow: true,
+    writeCapability: 'unverified',
+    verifyGateVariant: 'blocked',
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialReplyParentId: 'fx-a1',
+  },
 ])
 
 /**
  * Minimal civic chrome — proves Issue remains interactive while thread status changes.
  * Fixture labels only · no invent HTTP / Identity.
  */
-function CivicChromeStub({ standId }) {
+function CivicChromeStub({ standId, issueClosed = false }) {
   return (
     <div className="tm-lab-civic" data-testid={`tm-lab-civic-${standId}`}>
       <div className="tm-lab-civic__identity">
-        <span className="tm-lab-civic__id">ISSUE-CT01-DEMO</span>
-        <span className="tm-lab-civic__status">Open</span>
+        <span className="tm-lab-civic__id">ISSUE-UV-024</span>
+        <span className="tm-lab-civic__status">{issueClosed ? 'Closed' : 'Open'}</span>
       </div>
-      <h2 className="tm-lab-civic__title">Shared pet-care coordination on Uus-Veerenni</h2>
+      <h2 className="tm-lab-civic__title">A trusted neighbour network for pet care</h2>
       <p className="tm-lab-civic__summary">
         Neighbours want a simple signup list. Civic Issue chrome stays usable in every thread state.
       </p>
@@ -200,9 +269,13 @@ function CivicChromeStub({ standId }) {
         Open issue
       </button>
       <div className="tm-lab-strip" data-testid={`tm-lab-strip-${standId}`} role="group" aria-label="Post actions">
-        <button type="button">React</button>
+        <button type="button" data-testid={`tm-lab-react-${standId}`}>
+          React
+        </button>
         <button type="button">Comment</button>
-        <button type="button">Share</button>
+        <button type="button" data-testid={`tm-lab-share-${standId}`}>
+          Share
+        </button>
         <button type="button">Reactions</button>
       </div>
     </div>
@@ -219,11 +292,20 @@ function StandCard({ stand }) {
   }, [stand.status, stand.commentSet, stand.failNextPost])
   const [snap, setSnap] = useState(() => adapter.snapshot())
   const [expanded, setExpanded] = useState(Boolean(stand.initiallyExpanded))
+  const [gateVariant, setGateVariant] = useState(stand.verifyGateVariant || null)
   const ct04 = stand.id === 'J' || stand.id === 'K' || stand.id === 'L' || stand.id === 'M'
   const ct05 =
     stand.id === 'N' || stand.id === 'O' || stand.id === 'P' || stand.id === 'Q' || stand.id === 'R'
   const ct06 =
     stand.id === 'S' || stand.id === 'T' || stand.id === 'U' || stand.id === 'V' || stand.id === 'W'
+  const ct07 =
+    stand.id === 'VA' ||
+    stand.id === 'VB' ||
+    stand.id === 'VC' ||
+    stand.id === 'VD' ||
+    stand.id === 'VE' ||
+    stand.id === 'VF'
+  const writeCap = stand.writeCapability || fixture.writeCapability
 
   return (
     <article
@@ -236,14 +318,15 @@ function StandCard({ stand }) {
       data-lab-ct04={ct04 ? 'true' : undefined}
       data-lab-ct05={ct05 ? 'true' : undefined}
       data-lab-ct06={ct06 ? 'true' : undefined}
+      data-lab-ct07={ct07 ? 'true' : undefined}
     >
       <p className="tm-lab-stand__label">{stand.label}</p>
       <div className="tm-lab-card" data-testid={`tm-lab-card-${stand.id}`}>
-        <CivicChromeStub standId={stand.id} />
+        <CivicChromeStub standId={stand.id} issueClosed={stand.writeCapability === 'stale'} />
         <ThreadMount
           status={snap.status}
           comments={snap.comments}
-          writeCapability={fixture.writeCapability}
+          writeCapability={writeCap}
           expanded={expanded}
           onExpandedChange={setExpanded}
           narrow={Boolean(stand.narrow)}
@@ -259,6 +342,12 @@ function StandCard({ stand }) {
           branchExpandMode={stand.branchExpandMode || 'sync'}
           initialBranchStates={stand.initialBranchStates || null}
           branchExpandDelayMs={stand.branchExpandDelayMs}
+          verifyGateVariant={gateVariant}
+          verifiedReturn={Boolean(stand.verifiedReturn)}
+          showCivicLine={Boolean(stand.showCivicLine)}
+          onGoVerify={() => setGateVariant('handoff')}
+          onVerifyDismiss={() => {}}
+          onHandoffBack={() => setGateVariant(stand.verifyGateVariant || 'blocked')}
           onPostComment={async (payload) => {
             const result = await adapter.postComment(payload)
             if (result.ok) setSnap(adapter.snapshot())
@@ -274,8 +363,8 @@ function StandCard({ stand }) {
 }
 
 /**
- * CT-01/03/04/05/06 Path A canvas — nest · composer · attach · branch · `#/lab/thread`.
- * Partial visual BLOCK until OP eye · no invent OP PASS / branch HTTP.
+ * CT-01…07 Path A canvas — nest · composer · attach · branch · verify · `#/lab/thread`.
+ * Partial visual BLOCK until OP eye · no invent OP PASS / Identity / HTTP.
  */
 export function ThreadLabCanvas() {
   const [theme, setTheme] = useState('light')
@@ -289,13 +378,14 @@ export function ThreadLabCanvas() {
       data-lab-ct04="true"
       data-lab-ct05="true"
       data-lab-ct06="true"
+      data-lab-ct07="true"
       data-lab-visual-done="false"
       data-lab-theme={theme}
     >
       <header className="tm-lab-canvas__header">
-        <h1 className="tm-lab-canvas__title">CT-01…06 · ThreadMount · nest · composer · attach · branch</h1>
+        <h1 className="tm-lab-canvas__title">CT-01…07 · ThreadMount · nest · composer · attach · branch · verify</h1>
         <p className="tm-lab-canvas__meta">
-          FixtureAdapter · Path A · Partial visual = BLOCK until OP eye · no invent HTTP
+          FixtureAdapter · Path A · Partial visual = BLOCK until OP eye · no invent HTTP/Identity
         </p>
         <div className="tm-lab-canvas__theme" role="group" aria-label="Theme">
           {(['light', 'dark']).map((code) => (

@@ -12,6 +12,9 @@ import {
   resolveMaxDepth,
   resolveVisualIndentCap,
 } from './config/threadMountConfig.js'
+import { StubVerifyHandoff } from './verify/StubVerifyHandoff.jsx'
+import { VerifyWriteGate } from './verify/VerifyWriteGate.jsx'
+import { persistVerifyIntent } from './verify/verifySession.js'
 import './ThreadMount.css'
 
 function excerptOf(comments, parentId) {
@@ -25,7 +28,7 @@ function excerptOf(comments, parentId) {
 let attachSeq = 0
 
 /**
- * CT-01…05 ThreadMount — status chrome + apiRef + CommentTree + ThreadComposer + attachments.
+ * CT-01…07 ThreadMount — nest · composer · attach · branch · VerifyWriteGate lab.
  */
 export function ThreadMount({
   status = 'empty',
@@ -35,6 +38,7 @@ export function ThreadMount({
   onRetry = null,
   onPostComment = null,
   onCommentsChange = null,
+  /** @type {'allowed'|'unverified'|'denied-unknown'|'stale'} */
   writeCapability = 'denied-unknown',
   maxDepth = DEFAULT_MAX_DEPTH,
   visualIndentCap = VISUAL_INDENT_CAP,
@@ -55,6 +59,17 @@ export function ThreadMount({
   branchExpandMode = 'sync',
   initialBranchStates = null,
   branchExpandDelayMs = undefined,
+  /**
+   * CT-07 gate chrome phase · lab Path A.
+   * @type {'blocked'|'handoff'|'cancelled'|'failed'|'denied-unknown'|'stale'|null}
+   */
+  verifyGateVariant = null,
+  /** V-C opaque Verified chrome on composer · never auto-post */
+  verifiedReturn = false,
+  showCivicLine = false,
+  onGoVerify = null,
+  onVerifyDismiss = null,
+  onHandoffBack = null,
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expandedProp))
   const [focusSignal, setFocusSignal] = useState(0)
@@ -93,6 +108,24 @@ export function ThreadMount({
   const resolvedCap = resolveVisualIndentCap(visualIndentCap)
   const resolvedAttach = resolveMaxAttachments(maxAttachments)
   const writeAllowed = writeCapability === 'allowed'
+  const resolvedGate =
+    verifyGateVariant ||
+    (writeCapability === 'unverified'
+      ? 'blocked'
+      : writeCapability === 'denied-unknown'
+        ? 'denied-unknown'
+        : writeCapability === 'stale'
+          ? 'stale'
+          : null)
+  const showHandoff = resolvedGate === 'handoff'
+  const showGate =
+    !writeAllowed &&
+    !showHandoff &&
+    (resolvedGate === 'blocked' ||
+      resolvedGate === 'cancelled' ||
+      resolvedGate === 'failed' ||
+      resolvedGate === 'denied-unknown' ||
+      resolvedGate === 'stale')
   const showComposer = writeAllowed && (expanded || status === 'empty')
   const collapsedEntry = writeAllowed && status === 'populated' && !expanded
   const mode = replyParentId ? 'reply' : 'root'
@@ -139,7 +172,12 @@ export function ThreadMount({
     }
     setReplyParentId(parentId)
     setFailState(null)
-    setFocusSignal((n) => n + 1)
+    if (writeAllowed) setFocusSignal((n) => n + 1)
+  }
+
+  function handleGoVerify() {
+    persistVerifyIntent({ draft, targetId: replyParentId })
+    if (typeof onGoVerify === 'function') onGoVerify({ draft, targetId: replyParentId })
   }
 
   function handleCancelReply() {
@@ -196,6 +234,7 @@ export function ThreadMount({
   async function runPost() {
     const body = draft.trim()
     if (!body || posting) return
+    if (!writeAllowed) return
     setPosting(true)
     setFailState(null)
     try {
@@ -271,10 +310,15 @@ export function ThreadMount({
       data-lab-ct04="true"
       data-lab-ct05="true"
       data-lab-ct06={branchDisclosure ? 'true' : undefined}
+      data-lab-ct07={showGate || showHandoff || verifiedReturn ? 'true' : undefined}
       data-lab-narrow={narrow ? 'true' : 'false'}
       data-tm-focus-signal={String(focusSignal)}
       data-tm-force-post-fail={forcePostFail ? 'true' : 'false'}
       data-tm-branch-disclosure={branchDisclosure ? 'true' : 'false'}
+      data-tm-gate-variant={resolvedGate || ''}
+      data-tm-verified-return={verifiedReturn ? 'true' : 'false'}
+      data-tm-autopost="false"
+      data-tm-identity-methods="false"
     >
       <IssueThreadBlock
         status={localComments.length > 0 && status === 'empty' ? 'populated' : status}
@@ -293,6 +337,24 @@ export function ThreadMount({
         initialBranchStates={initialBranchStates}
         branchExpandDelayMs={branchExpandDelayMs}
       />
+      {showHandoff ? <StubVerifyHandoff onBack={onHandoffBack} /> : null}
+      {showGate ? (
+        <VerifyWriteGate
+          variant={
+            resolvedGate === 'cancelled' ||
+            resolvedGate === 'failed' ||
+            resolvedGate === 'denied-unknown' ||
+            resolvedGate === 'stale'
+              ? resolvedGate
+              : 'blocked'
+          }
+          parentExcerpt={parentExcerpt}
+          draft={draft}
+          showCivicLine={Boolean(showCivicLine)}
+          onGoVerify={handleGoVerify}
+          onDismiss={onVerifyDismiss}
+        />
+      ) : null}
       {showComposer ? (
         <ThreadComposer
           mode={mode}
@@ -316,6 +378,7 @@ export function ThreadMount({
           attachmentsAvailable={Boolean(attachmentsAvailable)}
           onAttach={handleAttach}
           onRemoveAttachment={handleRemoveAttachment}
+          verifiedReturn={Boolean(verifiedReturn)}
         />
       ) : null}
     </div>

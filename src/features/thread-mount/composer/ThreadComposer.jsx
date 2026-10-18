@@ -2,10 +2,13 @@ import { useEffect, useRef } from 'react'
 import {
   ATTACH_UNAVAILABLE_COPY,
   DEFAULT_MAX_ATTACHMENTS,
+  VERIFY_SUCCESS_BADGE,
+  VERIFY_SUCCESS_HINT,
   canAddAttachment,
   resolveMaxAttachments,
 } from '../config/threadMountConfig.js'
 import { AttachmentRef } from './AttachmentRef.jsx'
+import '../verify/VerifyWriteGate.css'
 import './ThreadComposer.css'
 
 export const M153_ILLUSTRATIVE_DRAFT = 'I can help draft the sign-up list this week.'
@@ -53,6 +56,8 @@ export function ThreadComposer({
   attachmentsAvailable = true,
   onAttach = null,
   onRemoveAttachment = null,
+  /** CT-07 V-C — opaque Verified chrome · never implies auto-post */
+  verifiedReturn = false,
 }) {
   const localRef = useRef(null)
   const ref = textareaRef || localRef
@@ -88,10 +93,23 @@ export function ThreadComposer({
       data-tm-attach-count={String(list.length)}
       data-tm-attach-at-max={atMax ? 'true' : 'false'}
       data-tm-attachments-available={showAttach ? 'true' : 'false'}
+      data-tm-verified-return={verifiedReturn ? 'true' : 'false'}
+      data-tm-autopost="false"
       data-lab-ct04="true"
       data-lab-ct05="true"
+      data-lab-ct07={verifiedReturn ? 'true' : undefined}
       data-lab-sticky-keyboard={stickyKeyboard ? 'true' : 'false'}
     >
+      {verifiedReturn ? (
+        <div className="tm-verify-return" data-testid="tm-verify-return" role="status">
+          <p className="tm-verify-return__badge" data-testid="tm-verify-result-opaque">
+            {VERIFY_SUCCESS_BADGE}
+          </p>
+          <p className="tm-verify-return__hint" data-testid="tm-verify-continue-helper">
+            {VERIFY_SUCCESS_HINT}
+          </p>
+        </div>
+      ) : null}
       {isReply ? (
         <div className="tm-thread-composer__reply-ctx" data-testid="tm-composer-reply-context">
           <p className="tm-thread-composer__reply-label">Replying to this comment</p>
