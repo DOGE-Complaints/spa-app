@@ -162,9 +162,12 @@ describe('CR-17 ReactorsPopover · people ≠ picker', () => {
     expect(screen.queryByTestId('rm-reactors-popover')).toBeNull()
   })
 
-  it('Gap v2 reactions.svg Runtime URL declared · file Absent (no invent)', () => {
+  it('Gap v2 reactions.svg Present · Runtime URL still wired (CR-20)', () => {
     const iconPath = path.join(spaRoot, 'public/icons/next-feed/actions/reactions.svg')
-    expect(existsSync(iconPath)).toBe(false)
+    expect(existsSync(iconPath)).toBe(true)
+    const body = readFileSync(iconPath, 'utf8')
+    expect(body).toContain('circle')
+    expect(body).toContain('currentColor')
     const src = readFileSync(
       path.join(spaRoot, 'src/features/feed-lab/post/FeedPostActionStrip.jsx'),
       'utf8',
