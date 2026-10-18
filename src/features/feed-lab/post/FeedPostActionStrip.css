@@ -57,7 +57,7 @@
   width: 18px;
   height: 18px;
   object-fit: contain;
-  /* Gap v2: broken img for Absent reactions.svg is OK — no invent SVG */
+  /* Gap v2 closed (CR-20): reactions.svg Present dual-circle */
 }
 
 .feed-post-action-strip__label {

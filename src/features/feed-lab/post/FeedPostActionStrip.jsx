@@ -1,6 +1,6 @@
 import './FeedPostActionStrip.css'
 
-/** Runtime URLs — Gap v2: react.svg Present (wrong glyph) · reactions.svg Absent · no invent SVG */
+/** Runtime URLs — Gap v2 closed (CR-20): react.svg thumbs-up · reactions.svg dual-circle Present */
 export const FEED_POST_ACTION_ICON_URLS = Object.freeze({
   react: '/icons/next-feed/actions/react.svg',
   comment: '/icons/next-feed/actions/comment.svg',
