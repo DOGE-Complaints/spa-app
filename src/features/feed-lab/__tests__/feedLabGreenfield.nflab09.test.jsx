@@ -90,7 +90,7 @@ describe('FeedLab greenfield NF-LAB-09 discussion', () => {
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
     expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
     expect(within(card).getByTestId('tm-thread-heading').textContent).not.toMatch(/DISCUSSION/)
-    expect(within(card).getByTestId('tm-thread-expanded-stub')).toBeTruthy()
+    expect(within(card).getByTestId('tm-comment-tree')).toBeTruthy()
   })
 
   it('keeps visual Done false until OP eye', () => {
