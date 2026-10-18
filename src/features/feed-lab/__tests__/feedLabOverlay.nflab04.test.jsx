@@ -86,12 +86,13 @@ describe('FeedLab overlay NF-LAB-04 (superseded → LAB-10 greenfield)', () => {
     renderLab()
     fireEvent.click(screen.getAllByTestId('feed-post-media')[2])
     expect(screen.getByTestId('feed-issue-detail-panel')).toBeTruthy()
-    const headers = within(screen.getByTestId('feed-issue-detail-body')).getAllByTestId(
-      'feed-post-discussion-summary-title',
-    )
+    const body = screen.getByTestId('feed-issue-detail-body')
+    expect(within(body).queryByTestId('feed-post-discussion-summary-title')).toBeNull()
+    const headers = within(body).getAllByTestId('tm-thread-heading')
     expect(headers.length).toBeGreaterThan(0)
     for (const h of headers) {
-      expect(h.textContent?.trim().toUpperCase()).not.toBe('DISCUSSION')
+      expect(h.textContent?.trim()).toBe('Discussion')
+      expect(h.textContent?.trim()).not.toBe('DISCUSSION')
     }
   })
 })

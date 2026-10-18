@@ -72,38 +72,30 @@ describe('FeedLab greenfield NF-LAB-09 discussion', () => {
     }
   })
 
-  it('Comment strip expands discussion · literal bodies · reaction adjacency', () => {
+  it('Comment strip expands ThreadMount · literal bodies · reaction adjacency (CT-02)', () => {
     renderLab()
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     expect(card.getAttribute('data-lab-discussion')).toBe('m152')
-    const plane = within(card).getByTestId('feed-post-discussion-plane')
-    expect(plane.getAttribute('data-lab-discussion')).toBe('collapsed')
-    expect(plane.getAttribute('data-lab-root-reaction-slot')).toBe('strip')
+    const mount = within(card).getByTestId('tm-thread-mount')
+    expect(mount.getAttribute('data-tm-expanded')).toBe('false')
     expect(within(card).queryByTestId('feed-post-discussion-reaction-slot')).toBeNull()
     const strip = within(card).getByTestId('feed-post-action-strip')
     expect(within(strip).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
     expect(within(strip).getByTestId('reactions-mount')).toBeTruthy()
     expect(within(card).queryByTestId('feed-reaction-plane')).toBeNull()
-    expect(within(card).getByTestId('feed-post-discussion-summary-title').textContent).toMatch(/Thread/)
+    expect(within(card).getByTestId('tm-thread-heading').textContent).toMatch(/Discussion/i)
     expect(within(card).getByText('Noise after 23:00 again.')).toBeTruthy()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
-    expect(within(card).getByTestId('feed-post-discussion-plane').getAttribute('data-lab-discussion')).toBe(
-      'expanded',
-    )
-    expect(within(card).getByTestId('feed-post-discussion-header').textContent).toContain('Thread')
-    expect(within(card).getByTestId('feed-post-discussion-header').textContent).not.toMatch(/DISCUSSION/)
-    expect(within(card).getByTestId('feed-post-comment-tree')).toBeTruthy()
-    expect(within(card).getByTestId('feed-post-comment-node-lab-c-001-a').textContent).toContain(
-      'Noise after 23:00 again.',
-    )
-    expect(within(card).getByTestId('feed-post-composer-entry')).toBeTruthy()
+    expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
+    expect(within(card).getByTestId('tm-thread-heading').textContent).not.toMatch(/DISCUSSION/)
+    expect(within(card).getByTestId('tm-thread-expanded-stub')).toBeTruthy()
   })
 
   it('keeps visual Done false until OP eye', () => {
     renderLab()
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
-    expect(screen.getAllByTestId('feed-post-discussion-plane')).toHaveLength(5)
+    expect(screen.getAllByTestId('feed-lab-thread-mount')).toHaveLength(5)
   })
 })

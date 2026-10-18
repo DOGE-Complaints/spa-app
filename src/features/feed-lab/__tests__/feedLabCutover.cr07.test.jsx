@@ -21,7 +21,7 @@ function renderLab() {
 describe('CR-07 `#/lab/feed` cutover → ReactionsMount', () => {
   afterEach(() => cleanup())
 
-  it('root + comment slots use ReactionsMount · no live FeedReactionPlane', () => {
+  it('root slot uses ReactionsMount · Comment expands ThreadMount · no live FeedReactionPlane', () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     const rootMount = within(card).getByTestId('reactions-mount')
@@ -30,14 +30,12 @@ describe('CR-07 `#/lab/feed` cutover → ReactionsMount', () => {
     expect(within(card).queryByTestId('feed-reaction-plane')).toBeNull()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
-    const commentNode = within(card).getByTestId('feed-post-comment-node-lab-c-001-a')
-    const commentMount = within(commentNode).getByTestId('reactions-mount')
-    expect(commentMount.getAttribute('data-rm-target')).toBe('comment')
-    expect(commentMount.getAttribute('data-rm-moderation')).toBe('eligible')
-
-    fireEvent.click(within(commentNode).getByTestId('reaction-summary-react'))
+    expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
+    // comment-target ReactionsMount + moderation layer → CT-09; root strip React has no mod layer
+    expect(rootMount.getAttribute('data-rm-moderation')).toBe('absent')
+    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
     expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
-    expect(screen.getByTestId('rm-picker-layer-moderation')).toBeTruthy()
+    expect(screen.queryByTestId('rm-picker-layer-moderation')).toBeNull()
   })
 
   it('CR-05/06 chrome: strip opens picker · icon-only close · root hint footer', async () => {

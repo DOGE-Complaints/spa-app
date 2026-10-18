@@ -89,10 +89,13 @@ describe('FeedLab compose NF-LAB-03 (superseded mount → LAB-10 greenfield)', (
 
   it('discussion header is not classic DISCUSSION Done copy', () => {
     renderLab()
-    const headers = screen.getAllByTestId('feed-post-discussion-summary-title')
+    expect(screen.queryByTestId('feed-post-discussion-summary-title')).toBeNull()
+    const headers = screen.getAllByTestId('tm-thread-heading')
     expect(headers.length).toBeGreaterThan(0)
     for (const h of headers) {
-      expect(h.textContent?.trim().toUpperCase()).not.toBe('DISCUSSION')
+      // ThreadMount title-case · classic was ALL-CAPS DISCUSSION badge
+      expect(h.textContent?.trim()).toBe('Discussion')
+      expect(h.textContent?.trim()).not.toBe('DISCUSSION')
     }
   })
 

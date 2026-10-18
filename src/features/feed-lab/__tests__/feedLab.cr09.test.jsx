@@ -44,19 +44,17 @@ describe('CR-09 strip slot composition A+C+B', () => {
     expect(within(zone1).getByTestId('reaction-summary-react')).toBeTruthy()
   })
 
-  it('no under-strip root duplicate · comment mounts kept after expand', () => {
+  it('no under-strip root duplicate · CT-02 ThreadMount expand (comment-node reactions → CT-09)', () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     expect(within(card).queryByTestId('feed-post-discussion-reaction-slot')).toBeNull()
-    expect(within(card).getByTestId('feed-post-discussion-plane').getAttribute('data-lab-root-reaction-slot')).toBe(
-      'strip',
-    )
+    expect(within(card).getByTestId('feed-lab-thread-mount')).toBeTruthy()
     expect(within(card).getAllByTestId('feed-lab-reactions-mount')).toHaveLength(1)
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
-    const commentNode = within(card).getByTestId('feed-post-comment-node-lab-c-001-a')
-    expect(within(commentNode).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
-    expect(within(commentNode).getByTestId('reactions-mount').getAttribute('data-rm-target')).toBe('comment')
+    expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
+    // comment-target ReactionsMount lands with CT-09 plug — root strip mount remains sole Present mount
+    expect(within(card).getAllByTestId('feed-lab-reactions-mount')).toHaveLength(1)
   })
 
   it('picker opens from zone-1 summary React · Comment/Share still work', () => {
@@ -66,13 +64,11 @@ describe('CR-09 strip slot composition A+C+B', () => {
     expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
-    expect(within(card).getByTestId('feed-post-discussion-plane').getAttribute('data-lab-discussion')).toBe(
-      'expanded',
-    )
+    expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
     expect(within(card).getByTestId('feed-post-action-share')).toBeTruthy()
   })
 
-  it('source: reactSlot wire · discussion plane drops root mount', () => {
+  it('source: reactSlot wire · ThreadMount host · plane module keeps no root mount', () => {
     const cardSrc = readFileSync(path.resolve(dir, '../post/FeedPostCard.jsx'), 'utf8')
     const stripSrc = readFileSync(path.resolve(dir, '../post/FeedPostActionStrip.jsx'), 'utf8')
     const planeSrc = readFileSync(path.resolve(dir, '../post/discussion/FeedDiscussionPlane.jsx'), 'utf8')
@@ -81,6 +77,7 @@ describe('CR-09 strip slot composition A+C+B', () => {
     expect(stripSrc).toMatch(/id:\s*'reactions'/)
     expect(cardSrc).toMatch(/reactSlot=/)
     expect(cardSrc).toMatch(/FeedLabReactionsMount/)
+    expect(cardSrc).toMatch(/FeedLabThreadMount/)
     expect(planeSrc).not.toMatch(/FeedLabReactionsMount/)
     expect(planeSrc).not.toMatch(/feed-post-discussion-reaction-slot/)
   })
