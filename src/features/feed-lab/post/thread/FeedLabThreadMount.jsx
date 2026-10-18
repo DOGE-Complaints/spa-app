@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   ThreadMount,
   createFixtureAdapter,
   THREAD_STATE_FIXTURES,
 } from '../../../thread-mount/index.js'
+import { FeedLabReactionsMount } from '../reactions/FeedLabReactionsMount.jsx'
 
 /**
  * Map lab feed fixture comments → ThreadMount nodes (body-only · no invent Identity).
@@ -23,8 +24,9 @@ export function mapLabCommentsToThread(comments) {
 }
 
 /**
- * Feed-lab host for ThreadMount (CT-01/02/08).
- * FixtureAdapter default · no invent HTTP / Live / Identity methods.
+ * Feed-lab host for ThreadMount (CT-01/02/08/09).
+ * FixtureAdapter default · CT-09 plugs FeedLabReactionsMount target=comment per node.
+ * No invent HTTP / Live / Identity · no CR package rewrite · no people ownership in thread.
  *
  * @param {'loading'|'empty'|'populated'|'unavailable'|null} [status]
  * @param {Array|null} [comments] lab fixture comments
@@ -42,6 +44,8 @@ export function FeedLabThreadMount({
   initiallyExpanded = false,
   initialDraft = '',
   branchDisclosure = false,
+  /** @type {'empty'|'populated'} lab fixture reaction strip on comments */
+  commentReactionInitialState = 'empty',
 }) {
   const fromComments = comments != null
   const mapped = useMemo(() => mapLabCommentsToThread(comments), [comments])
@@ -69,6 +73,18 @@ export function FeedLabThreadMount({
       setSnap({ ...next, writeCapability: writeCapability || next.writeCapability })
     }
   }, [fromComments, derivedStatus, mapped, adapter, resolvedWrite, writeCapability])
+
+  const renderCommentReactions = useCallback(
+    ({ commentId }) => (
+      <FeedLabReactionsMount
+        target="comment"
+        commentId={commentId}
+        initialState={commentReactionInitialState}
+        aggregatePlacement="inline"
+      />
+    ),
+    [commentReactionInitialState],
+  )
 
   async function handlePostComment(payload) {
     if (fromComments) {
@@ -107,10 +123,12 @@ export function FeedLabThreadMount({
       data-lab-ct01="true"
       data-lab-ct02="true"
       data-lab-ct08="true"
+      data-lab-ct09="true"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"
       data-lab-thread-status={snap.status}
       data-lab-write={resolvedWrite}
+      data-lab-reactions-plug="comment"
     >
       <ThreadMount
         status={snap.status}
@@ -124,6 +142,7 @@ export function FeedLabThreadMount({
         apiRef={apiRef}
         initialDraft={initialDraft}
         branchDisclosure={Boolean(branchDisclosure)}
+        renderCommentReactions={renderCommentReactions}
         onPostComment={handlePostComment}
         onRetry={() => {
           if (fromComments) return

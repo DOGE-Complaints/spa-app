@@ -62,6 +62,19 @@
   margin-top: 0.5rem;
 }
 
+/* CT-09: host-plugged reactions-mount · React + Reply only · no Share strip */
+.tm-comment-node__reactions {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.tm-comment-node__reactions .feed-lab-reactions-mount,
+.tm-comment-node__reactions [data-testid='reactions-mount'] {
+  min-width: 0;
+}
+
 .tm-comment-node__reply {
   margin: 0;
   padding: 0.2rem 0;

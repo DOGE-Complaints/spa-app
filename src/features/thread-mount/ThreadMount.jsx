@@ -28,7 +28,7 @@ function excerptOf(comments, parentId) {
 let attachSeq = 0
 
 /**
- * CT-01…07 ThreadMount — nest · composer · attach · branch · VerifyWriteGate lab.
+ * CT-01…09 ThreadMount — nest · composer · attach · branch · gate · reactions slot prop.
  */
 export function ThreadMount({
   status = 'empty',
@@ -70,6 +70,8 @@ export function ThreadMount({
   onGoVerify = null,
   onVerifyDismiss = null,
   onHandoffBack = null,
+  /** CT-09 host plug — reactions-mount peer · thread never owns people */
+  renderCommentReactions = null,
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expandedProp))
   const [focusSignal, setFocusSignal] = useState(0)
@@ -319,6 +321,8 @@ export function ThreadMount({
       data-tm-verified-return={verifiedReturn ? 'true' : 'false'}
       data-tm-autopost="false"
       data-tm-identity-methods="false"
+      data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
+      data-tm-reactions-plug={typeof renderCommentReactions === 'function' ? 'host' : 'none'}
     >
       <IssueThreadBlock
         status={localComments.length > 0 && status === 'empty' ? 'populated' : status}
@@ -336,6 +340,7 @@ export function ThreadMount({
         branchExpandMode={branchExpandMode || 'sync'}
         initialBranchStates={initialBranchStates}
         branchExpandDelayMs={branchExpandDelayMs}
+        renderCommentReactions={renderCommentReactions}
       />
       {showHandoff ? <StubVerifyHandoff onBack={onHandoffBack} /> : null}
       {showGate ? (
