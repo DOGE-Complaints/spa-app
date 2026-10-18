@@ -1,0 +1,135 @@
+/* CT-01 M152 IssueThreadBlock — hairline region under strip · not a second card */
+.tm-issue-thread-block {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 1rem 1.25rem 1.25rem;
+  min-width: 0;
+  border-top: 1px solid var(--color-border-default, #e7e4dc);
+  background: transparent;
+  color: var(--color-text-primary, #101828);
+}
+
+.tm-issue-thread-block__heading {
+  margin: 0;
+}
+
+.tm-issue-thread-block__title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-issue-thread-block__state {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 4.5rem;
+  min-width: 0;
+}
+
+.tm-issue-thread-block__status-copy,
+.tm-issue-thread-block__lead {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.tm-issue-thread-block__helper {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary, #667085);
+}
+
+/* Skeletons only for loading — never for populated bodies */
+.tm-issue-thread-block__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.tm-issue-thread-block__skeleton span {
+  display: block;
+  height: 0.625rem;
+  border-radius: 4px;
+  background: var(--color-border-default, #e7e4dc);
+}
+
+.tm-issue-thread-block__skeleton span:nth-child(1) {
+  width: 92%;
+}
+.tm-issue-thread-block__skeleton span:nth-child(2) {
+  width: 78%;
+}
+.tm-issue-thread-block__skeleton span:nth-child(3) {
+  width: 64%;
+}
+
+.tm-issue-thread-block__previews {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tm-issue-thread-block__preview-body {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--color-text-primary, #101828);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.tm-issue-thread-block__view,
+.tm-issue-thread-block__composer-entry,
+.tm-issue-thread-block__retry {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  min-height: 44px;
+  padding: 0.5rem 0.875rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  background: var(--color-surface-elevated, #fffdf8);
+  color: var(--color-text-primary, #101828);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tm-issue-thread-block__view {
+  color: var(--color-text-link, #b54708);
+  border-color: transparent;
+  background: transparent;
+  padding-left: 0;
+}
+
+.tm-issue-thread-block__retry {
+  background: var(--color-action-yellow, #f5c542);
+  border-color: transparent;
+}
+
+.tm-issue-thread-block__expanded-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary, #667085);
+}
+
+/* CT-01 T04 — narrow stack · no horizontal overflow */
+.tm-issue-thread-block--narrow {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tm-issue-thread-block--narrow .tm-issue-thread-block__preview-body {
+  max-width: 100%;
+}

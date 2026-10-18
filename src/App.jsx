@@ -7,6 +7,7 @@ import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
 import { FeedLabPage } from './pages/FeedLabPage.jsx'
 import { ReactionsLabPage } from './pages/ReactionsLabPage.jsx'
+import { ThreadLabPage } from './pages/ThreadLabPage.jsx'
 import { HowItWorksPage } from './pages/HowItWorksPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
@@ -41,6 +42,8 @@ function App() {
         <Route path="/lab/feed" element={<FeedLabPage />} />
         {/* CR-03: #/lab/reactions — FixtureAdapter default · two hosts · not #/next/feed */}
         <Route path="/lab/reactions" element={<ReactionsLabPage />} />
+        {/* CT-01: #/lab/thread — M152 IssueThreadBlock states · FixtureAdapter · feed cutover CT-08 */}
+        <Route path="/lab/thread" element={<ThreadLabPage />} />
         <Route path="*" element={<Navigate to="/next/feed" replace />} />
       </Route>
     </Routes>
