@@ -5,7 +5,7 @@ import { FeedPostSummary } from './FeedPostSummary.jsx'
 import { FeedPostMedia } from './FeedPostMedia.jsx'
 import { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
 import { FeedLabReactionsMount } from './reactions/FeedLabReactionsMount.jsx'
-import { FeedDiscussionPlane } from './discussion/index.js'
+import { FeedLabThreadMount } from './thread/FeedLabThreadMount.jsx'
 import './FeedIssueDetailBody.css'
 
 /**
@@ -15,17 +15,17 @@ import './FeedIssueDetailBody.css'
  * CR-15: M154 composition wire marker (CR-11…14 held).
  * CR-16: media flush above strip (parity with FeedPostCard).
  * CR-22: transparent media plate · flush lock parity.
+ * CT-02: Comment → ThreadMount apiRef · detail parity with card composition.
  */
 export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false, t = null, locale = 'en' }) {
-  const [discussionExpanded, setDiscussionExpanded] = useState(Boolean(initiallyExpandDiscussion))
-  const [composerFocusSignal, setComposerFocusSignal] = useState(0)
   const [aggregateHost, setAggregateHost] = useState(null)
   const reactionsApiRef = useRef(null)
+  const threadApiRef = useRef(null)
 
   function handleZone(zoneId, event) {
     if (zoneId === 'comment') {
-      setDiscussionExpanded(true)
-      setComposerFocusSignal((n) => n + 1)
+      threadApiRef.current?.expand?.()
+      threadApiRef.current?.focusComposer?.()
     }
     if (zoneId === 'reactions') {
       reactionsApiRef.current?.activateAggregate?.({
@@ -47,6 +47,7 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
       data-lab-cr15-wire="true"
       data-lab-cr16-polish="true"
       data-lab-cr22-flush="true"
+      data-lab-ct02="true"
       data-lab-media-flush="true"
     >
       <div className="feed-issue-detail-body__copy">
@@ -81,14 +82,18 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
         data-testid="feed-post-aggregate-host"
         data-lab-aggregate-host="true"
       />
-      <FeedDiscussionPlane
-        fixture={fixture}
-        expanded={discussionExpanded}
-        onExpandedChange={setDiscussionExpanded}
-        focusComposerSignal={composerFocusSignal}
-        t={t}
-        locale={locale}
-      />
+      <div
+        className="feed-issue-detail-body__thread-host"
+        data-testid="feed-issue-detail-thread-host"
+        data-lab-thread-flush="true"
+        data-lab-ct02="true"
+      >
+        <FeedLabThreadMount
+          comments={fixture.comments}
+          apiRef={threadApiRef}
+          initiallyExpanded={Boolean(initiallyExpandDiscussion)}
+        />
+      </div>
     </div>
   )
 }

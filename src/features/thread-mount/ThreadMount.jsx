@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useMemo, useState } from 'react'
+import { useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { IssueThreadBlock } from './IssueThreadBlock.jsx'
 import {
   DEFAULT_MAX_ATTACHMENTS,
@@ -9,16 +9,8 @@ import {
 import './ThreadMount.css'
 
 /**
- * CT-01 ThreadMount — owns status + collapsed summary slot (IssueThreadBlock).
- * Tree/composer/verify surfaces land in later CT stories.
- *
- * @param {'loading'|'empty'|'populated'|'unavailable'} [status]
- * @param {Array} [comments]
- * @param {boolean} [expanded]
- * @param {(next: boolean) => void} [onExpandedChange]
- * @param {() => void} [onRetry]
- * @param {'allowed'|'unverified'|'denied-unknown'|string} [writeCapability]
- * @param {import('react').Ref} [apiRef]
+ * CT-01/CT-02 ThreadMount — status chrome + apiRef { expand, focusComposer }.
+ * Hold reactions-mount apiRef pattern for host Comment zone.
  */
 export function ThreadMount({
   status = 'empty',
@@ -34,6 +26,8 @@ export function ThreadMount({
   className = '',
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expandedProp))
+  const [focusSignal, setFocusSignal] = useState(0)
+  const composerEntryRef = useRef(null)
   const controlled = typeof onExpandedChange === 'function'
   const expanded = controlled ? Boolean(expandedProp) : internalExpanded
 
@@ -46,6 +40,14 @@ export function ThreadMount({
     if (controlled) setInternalExpanded(Boolean(expandedProp))
   }, [controlled, expandedProp])
 
+  useEffect(() => {
+    if (!focusSignal) return undefined
+    const id = requestAnimationFrame(() => {
+      composerEntryRef.current?.focus?.()
+    })
+    return () => cancelAnimationFrame(id)
+  }, [focusSignal])
+
   const resolvedDepth = resolveMaxDepth(maxDepth)
   const resolvedAttach = resolveMaxAttachments(maxAttachments)
   const composerEntry = writeCapability === 'allowed'
@@ -55,7 +57,10 @@ export function ThreadMount({
     () => ({
       expand: () => setExpanded(true),
       collapse: () => setExpanded(false),
-      focusComposer: () => setExpanded(true),
+      focusComposer: () => {
+        setExpanded(true)
+        setFocusSignal((n) => n + 1)
+      },
       getStatus: () => status,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps -- api surface
@@ -79,7 +84,9 @@ export function ThreadMount({
       data-tm-max-attachments={String(resolvedAttach)}
       data-tm-write={writeCapability}
       data-lab-ct01="true"
+      data-lab-ct02="true"
       data-lab-narrow={narrow ? 'true' : 'false'}
+      data-tm-focus-signal={String(focusSignal)}
     >
       <IssueThreadBlock
         status={status}
@@ -88,7 +95,11 @@ export function ThreadMount({
         onViewDiscussion={() => setExpanded(true)}
         onRetry={onRetry}
         composerEntry={composerEntry}
-        onComposerEntry={() => setExpanded(true)}
+        onComposerEntry={() => {
+          setExpanded(true)
+          setFocusSignal((n) => n + 1)
+        }}
+        composerEntryRef={composerEntryRef}
       />
     </div>
   )

@@ -44,3 +44,15 @@
   color: var(--color-text-secondary, #667085);
   text-align: left;
 }
+
+/* CT-02 detail parity — thread flush under strip · same shell */
+.feed-issue-detail-body__thread-host {
+  display: block;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.feed-issue-detail-body__aggregate-host:empty {
+  display: none;
+}

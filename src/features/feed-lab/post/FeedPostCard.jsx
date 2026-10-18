@@ -6,7 +6,7 @@ import { FeedPostOpenIssue } from './FeedPostOpenIssue.jsx'
 import { FeedPostMedia } from './FeedPostMedia.jsx'
 import { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
 import { FeedLabReactionsMount } from './reactions/FeedLabReactionsMount.jsx'
-import { FeedDiscussionPlane } from './discussion/index.js'
+import { FeedLabThreadMount } from './thread/FeedLabThreadMount.jsx'
 import './FeedPostCard.css'
 
 /**
@@ -17,6 +17,7 @@ import './FeedPostCard.css'
  * CR-16: media flush above strip · React chip hover (strip CSS).
  * CR-21: Reactions zone → people with peopleAnchor = Reactions control · chip parity.
  * CR-22: measure-then-fix media plate bg · layout gap already 0 (see measure-cause).
+ * CT-02: Comment zone → ThreadMount apiRef · flush under strip · strip stays dumb.
  */
 export function FeedPostCard({
   fixture,
@@ -25,10 +26,9 @@ export function FeedPostCard({
   t = null,
   locale = 'en',
 }) {
-  const [discussionExpanded, setDiscussionExpanded] = useState(false)
-  const [composerFocusSignal, setComposerFocusSignal] = useState(0)
   const [aggregateHost, setAggregateHost] = useState(null)
   const reactionsApiRef = useRef(null)
+  const threadApiRef = useRef(null)
 
   function openDetail(event) {
     if (typeof onOpenDetail !== 'function') return
@@ -37,8 +37,9 @@ export function FeedPostCard({
 
   function handleZone(zoneId, event) {
     if (zoneId === 'comment') {
-      setDiscussionExpanded(true)
-      setComposerFocusSignal((n) => n + 1)
+      // CT-02: same orchestration grammar as Reactions → people (apiRef)
+      threadApiRef.current?.expand?.()
+      threadApiRef.current?.focusComposer?.()
     }
     if (zoneId === 'reactions') {
       reactionsApiRef.current?.activateAggregate?.({
@@ -66,6 +67,7 @@ export function FeedPostCard({
       data-lab-cr16-polish="true"
       data-lab-cr21-affordance="true"
       data-lab-cr22-flush="true"
+      data-lab-ct02="true"
       data-lab-media-flush="true"
     >
       <div className="feed-post-card__body">
@@ -105,14 +107,17 @@ export function FeedPostCard({
         data-testid="feed-post-aggregate-host"
         data-lab-aggregate-host="true"
       />
-      <FeedDiscussionPlane
-        fixture={fixture}
-        expanded={discussionExpanded}
-        onExpandedChange={setDiscussionExpanded}
-        focusComposerSignal={composerFocusSignal}
-        t={t}
-        locale={locale}
-      />
+      <div
+        className="feed-post-card__thread-host"
+        data-testid="feed-post-thread-host"
+        data-lab-thread-flush="true"
+        data-lab-ct02="true"
+      >
+        <FeedLabThreadMount
+          comments={fixture.comments}
+          apiRef={threadApiRef}
+        />
+      </div>
     </article>
   )
 }
