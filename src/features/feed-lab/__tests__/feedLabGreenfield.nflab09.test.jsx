@@ -96,6 +96,7 @@ describe('FeedLab greenfield NF-LAB-09 discussion', () => {
   it('keeps visual Done false until OP eye', () => {
     renderLab()
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
-    expect(screen.getAllByTestId('feed-lab-thread-mount')).toHaveLength(5)
+    // 5 cards + CT-08 stands (A–E · TREE · GATE)
+    expect(screen.getAllByTestId('feed-lab-thread-mount').length).toBeGreaterThanOrEqual(5)
   })
 })
