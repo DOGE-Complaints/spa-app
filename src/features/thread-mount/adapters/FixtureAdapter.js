@@ -1,5 +1,5 @@
 /**
- * CT-01 / CT-03 FixtureAdapter — M152 A–D + M153 nest · no HTTP.
+ * CT-01 / CT-03 / CT-04 FixtureAdapter — M152/M153 nest + composer write stub · no HTTP.
  * Illustrative bodies from M152/M153 · no author/avatar/time invent.
  */
 
@@ -89,34 +89,85 @@ export function createFixtureAdapter(initialStatus = 'populated') {
   let status = THREAD_STATE_FIXTURES[initialStatus] ? initialStatus : 'populated'
   /** @type {'default'|'depthVsCap'|'orphan'} */
   let commentSet = 'default'
+  /** @type {Array<{ id: string, parentId: string|null, depth: number, body: string }>|null} */
+  let liveComments = null
+  let failNextPost = false
+  let postSeq = 0
+
+  function baseComments() {
+    const stand = THREAD_STATE_FIXTURES[status]
+    if (status === 'populated' && commentSet === 'depthVsCap') {
+      return THREAD_DEPTH_VS_CAP_COMMENTS.map((c) => ({ ...c }))
+    }
+    if (status === 'populated' && commentSet === 'orphan') {
+      return THREAD_ORPHAN_COMMENTS.map((c) => ({ ...c }))
+    }
+    return stand.comments.map((c) => ({ ...c }))
+  }
 
   return {
     kind: 'fixture',
     /** @returns {{ status: ThreadFixtureStatus, comments: Array<{id:string,parentId:string|null,depth:number,body:string}>, writeCapability: string }} */
     snapshot() {
       const stand = THREAD_STATE_FIXTURES[status]
-      let comments = stand.comments.map((c) => ({ ...c }))
-      if (status === 'populated' && commentSet === 'depthVsCap') {
-        comments = THREAD_DEPTH_VS_CAP_COMMENTS.map((c) => ({ ...c }))
-      } else if (status === 'populated' && commentSet === 'orphan') {
-        comments = THREAD_ORPHAN_COMMENTS.map((c) => ({ ...c }))
-      }
+      const comments = liveComments ? liveComments.map((c) => ({ ...c })) : baseComments()
       return {
-        status: stand.status,
+        status: stand.status === 'empty' && comments.length > 0 ? 'populated' : stand.status,
         comments,
         writeCapability: stand.writeCapability,
       }
     },
     /** @param {ThreadFixtureStatus} next */
     setStatus(next) {
-      if (THREAD_STATE_FIXTURES[next]) status = next
+      if (THREAD_STATE_FIXTURES[next]) {
+        status = next
+        liveComments = null
+      }
     },
     /** @param {'default'|'depthVsCap'|'orphan'} next */
     setCommentSet(next) {
-      if (next === 'default' || next === 'depthVsCap' || next === 'orphan') commentSet = next
+      if (next === 'default' || next === 'depthVsCap' || next === 'orphan') {
+        commentSet = next
+        liveComments = null
+      }
     },
-    async postComment() {
-      return { ok: false, reason: 'ct-03-oos-composer-write' }
+    /** @param {boolean} next */
+    setFailNextPost(next) {
+      failNextPost = Boolean(next)
+    },
+    /**
+     * Fixture write only — no HTTP. Soft-fail when failNextPost.
+     * @param {{ body?: string, parentId?: string|null }} [payload]
+     */
+    async postComment(payload = {}) {
+      const body = typeof payload.body === 'string' ? payload.body.trim() : ''
+      if (!body) return { ok: false, reason: 'empty-body' }
+      if (failNextPost) {
+        return {
+          ok: false,
+          reason: 'fixture-soft-fail',
+          title: 'Comment wasn’t posted.',
+          detail: 'Your text is still here. Try again.',
+        }
+      }
+      const parentId =
+        payload.parentId == null || payload.parentId === '' ? null : String(payload.parentId)
+      const current = liveComments || baseComments()
+      let depth = 0
+      if (parentId) {
+        const parent = current.find((c) => c.id === parentId)
+        depth = parent ? Number(parent.depth) + 1 : 0
+      }
+      postSeq += 1
+      const comment = {
+        id: `fx-posted-${postSeq}`,
+        parentId,
+        depth,
+        body,
+      }
+      liveComments = [...current, comment]
+      if (status === 'empty') status = 'populated'
+      return { ok: true, comment }
     },
     async retry() {
       if (status === 'unavailable') status = 'loading'

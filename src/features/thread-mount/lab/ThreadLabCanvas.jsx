@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { setThemeAttribute } from '../../../theme/bootTheme.js'
 import { ThreadMount } from '../ThreadMount.jsx'
+import { M153_ILLUSTRATIVE_DRAFT } from '../composer/ThreadComposer.jsx'
 import { THREAD_STATE_FIXTURES, createFixtureAdapter } from '../adapters/FixtureAdapter.js'
 import './ThreadLabCanvas.css'
 
@@ -41,6 +42,41 @@ const STANDS = /** @type {const} */ ([
     initiallyExpanded: true,
     commentSet: 'orphan',
   },
+  /** CT-04 Path A */
+  {
+    id: 'J',
+    status: 'empty',
+    label: 'THR-T-C root composer',
+    initiallyExpanded: true,
+    initialDraft: '',
+  },
+  {
+    id: 'K',
+    status: 'populated',
+    label: 'THR-T-C reply context + draft',
+    initiallyExpanded: true,
+    initialReplyParentId: 'fx-a',
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+  },
+  {
+    id: 'L',
+    status: 'populated',
+    label: 'THR-T-F post fail · draft kept',
+    initiallyExpanded: true,
+    initialReplyParentId: 'fx-a',
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    failNextPost: true,
+    autoFail: true,
+  },
+  {
+    id: 'M',
+    status: 'populated',
+    label: 'THR-T-G mobile 390 keyboard composer',
+    initiallyExpanded: true,
+    narrow: true,
+    initialDraft: M153_ILLUSTRATIVE_DRAFT,
+    initialReplyParentId: 'fx-a1',
+  },
 ])
 
 /**
@@ -76,10 +112,12 @@ function StandCard({ stand }) {
   const adapter = useMemo(() => {
     const a = createFixtureAdapter(stand.status)
     if (stand.commentSet) a.setCommentSet(stand.commentSet)
+    if (stand.failNextPost) a.setFailNextPost(true)
     return a
-  }, [stand.status, stand.commentSet])
+  }, [stand.status, stand.commentSet, stand.failNextPost])
   const [snap, setSnap] = useState(() => adapter.snapshot())
   const [expanded, setExpanded] = useState(Boolean(stand.initiallyExpanded))
+  const ct04 = stand.id === 'J' || stand.id === 'K' || stand.id === 'L' || stand.id === 'M'
 
   return (
     <article
@@ -89,6 +127,7 @@ function StandCard({ stand }) {
       data-tm-status={stand.status}
       data-lab-narrow={stand.narrow ? 'true' : 'false'}
       data-lab-ct03={stand.id === 'F' || stand.id === 'G' || stand.id === 'H' || stand.id === 'I' ? 'true' : undefined}
+      data-lab-ct04={ct04 ? 'true' : undefined}
     >
       <p className="tm-lab-stand__label">{stand.label}</p>
       <div className="tm-lab-card" data-testid={`tm-lab-card-${stand.id}`}>
@@ -101,6 +140,15 @@ function StandCard({ stand }) {
           onExpandedChange={setExpanded}
           narrow={Boolean(stand.narrow)}
           maxDepth={stand.maxDepth}
+          initialDraft={stand.initialDraft || ''}
+          initialReplyParentId={stand.initialReplyParentId || null}
+          forcePostFail={Boolean(stand.failNextPost)}
+          autoFailOnMount={Boolean(stand.autoFail)}
+          onPostComment={async (payload) => {
+            const result = await adapter.postComment(payload)
+            if (result.ok) setSnap(adapter.snapshot())
+            return result
+          }}
           onRetry={() => {
             adapter.retry().then((next) => setSnap(next))
           }}
@@ -111,7 +159,7 @@ function StandCard({ stand }) {
 }
 
 /**
- * CT-01/CT-03 Path A canvas — M152 A–E + M153 F–I · `#/lab/thread`.
+ * CT-01/03/04 Path A canvas — M152 A–E + M153 F–I + composer J–M · `#/lab/thread`.
  * Partial visual BLOCK until OP eye · no invent OP PASS.
  */
 export function ThreadLabCanvas() {
@@ -123,11 +171,12 @@ export function ThreadLabCanvas() {
       data-testid="tm-lab-canvas"
       data-lab-ct01="true"
       data-lab-ct03="true"
+      data-lab-ct04="true"
       data-lab-visual-done="false"
       data-lab-theme={theme}
     >
       <header className="tm-lab-canvas__header">
-        <h1 className="tm-lab-canvas__title">CT-01/03 · ThreadMount states + CommentTree nest</h1>
+        <h1 className="tm-lab-canvas__title">CT-01/03/04 · ThreadMount · nest · composer</h1>
         <p className="tm-lab-canvas__meta">
           FixtureAdapter · Path A · Partial visual = BLOCK until OP eye · no invent HTTP
         </p>

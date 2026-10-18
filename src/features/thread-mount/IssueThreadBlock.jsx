@@ -26,6 +26,7 @@ export function IssueThreadBlock({
   composerEntry = false,
   onComposerEntry = null,
   composerEntryRef = null,
+  onReply = null,
 }) {
   const bodies = (Array.isArray(comments) ? comments : [])
     .map((c) => (typeof c?.body === 'string' ? c.body.trim() : ''))
@@ -121,18 +122,8 @@ export function IssueThreadBlock({
                 comments={comments}
                 maxDepth={maxDepth}
                 visualIndentCap={visualIndentCap}
+                onReply={onReply}
               />
-              {composerEntry ? (
-                <button
-                  type="button"
-                  ref={composerEntryRef}
-                  className="tm-issue-thread-block__composer-entry"
-                  data-testid="tm-thread-composer-entry"
-                  onClick={() => onComposerEntry?.()}
-                >
-                  Write a comment
-                </button>
-              ) : null}
             </div>
           )}
         </div>

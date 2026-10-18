@@ -55,7 +55,7 @@ export function CommentNode({
                 type="button"
                 className="tm-comment-node__reply"
                 data-testid="tm-comment-reply"
-                onClick={() => onReply?.(node.id)}
+                onClick={(e) => onReply?.(node.id, e.currentTarget)}
               >
                 Reply
               </button>

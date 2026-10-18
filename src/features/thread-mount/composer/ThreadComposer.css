@@ -1,0 +1,183 @@
+/* CT-04 ThreadComposer — M153 C/F/G · no Attach (CT-05) */
+.tm-thread-composer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0.85rem 1.25rem 1.1rem;
+  border-top: 1px solid var(--color-border-default, #e7e4dc);
+  background: var(--color-surface-elevated, #fffdf8);
+  min-width: 0;
+}
+
+.tm-thread-composer--sticky-keyboard {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  box-shadow: 0 -6px 16px rgba(16, 24, 40, 0.06);
+  padding-bottom: calc(1.1rem + env(safe-area-inset-bottom, 0px));
+}
+
+.tm-thread-composer__root-label,
+.tm-thread-composer__reply-label {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-thread-composer__reply-ctx {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.tm-thread-composer__excerpt {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-text-primary, #101828);
+  padding: 0.45rem 0.65rem;
+  border-left: 3px solid var(--color-border-default, #e7e4dc);
+  background: var(--color-page-bg, #f7f6f2);
+  word-break: break-word;
+}
+
+.tm-thread-composer__cancel {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.25rem 0;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.tm-thread-composer__field {
+  display: block;
+  margin: 0;
+  min-width: 0;
+}
+
+.tm-thread-composer__textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 5.5rem;
+  resize: vertical;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--color-text-primary, #101828);
+  font: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.tm-thread-composer__textarea:focus-visible {
+  outline: 2px solid var(--color-border-focus, #98a2b3);
+  outline-offset: 2px;
+}
+
+.tm-thread-composer__textarea:disabled {
+  opacity: 0.7;
+}
+
+.tm-thread-composer__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.tm-thread-composer__post {
+  min-height: 44px;
+  min-width: 7.5rem;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-action-yellow, #f5c542);
+  color: var(--color-text-primary, #101828);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tm-thread-composer__post:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tm-thread-composer__fail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 10px;
+  background: #fff8f1;
+}
+
+.tm-thread-composer__fail-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.tm-thread-composer__fail-detail {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary, #667085);
+}
+
+.tm-thread-composer__fail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.tm-thread-composer__try-again,
+.tm-thread-composer__keep-editing {
+  min-height: 44px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tm-thread-composer__try-again {
+  border: 0;
+  background: var(--color-action-yellow, #f5c542);
+  color: var(--color-text-primary, #101828);
+}
+
+.tm-thread-composer__keep-editing {
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

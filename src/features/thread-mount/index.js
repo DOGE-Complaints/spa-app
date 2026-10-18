@@ -24,4 +24,5 @@ export {
 export { CommentTree } from './tree/CommentTree.jsx'
 export { CommentNode } from './tree/CommentNode.jsx'
 export { buildCommentForest } from './tree/buildCommentForest.js'
+export { ThreadComposer, M153_ILLUSTRATIVE_DRAFT } from './composer/ThreadComposer.jsx'
 export { ThreadLabCanvas } from './lab/ThreadLabCanvas.jsx'
