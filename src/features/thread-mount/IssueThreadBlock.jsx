@@ -27,6 +27,10 @@ export function IssueThreadBlock({
   onComposerEntry = null,
   composerEntryRef = null,
   onReply = null,
+  branchDisclosure = false,
+  branchExpandMode = 'sync',
+  initialBranchStates = null,
+  branchExpandDelayMs = undefined,
 }) {
   const bodies = (Array.isArray(comments) ? comments : [])
     .map((c) => (typeof c?.body === 'string' ? c.body.trim() : ''))
@@ -123,6 +127,10 @@ export function IssueThreadBlock({
                 maxDepth={maxDepth}
                 visualIndentCap={visualIndentCap}
                 onReply={onReply}
+                branchDisclosure={Boolean(branchDisclosure)}
+                branchExpandMode={branchExpandMode || 'sync'}
+                initialBranchStates={initialBranchStates}
+                branchExpandDelayMs={branchExpandDelayMs}
               />
             </div>
           )}

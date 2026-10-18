@@ -51,6 +51,10 @@ export function ThreadMount({
   autoFailOnMount = false,
   /** @type {'ready'|'denied'|null} lab fixture Attach outcome */
   attachOutcome = 'ready',
+  branchDisclosure = false,
+  branchExpandMode = 'sync',
+  initialBranchStates = null,
+  branchExpandDelayMs = undefined,
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expandedProp))
   const [focusSignal, setFocusSignal] = useState(0)
@@ -266,9 +270,11 @@ export function ThreadMount({
       data-lab-ct03="true"
       data-lab-ct04="true"
       data-lab-ct05="true"
+      data-lab-ct06={branchDisclosure ? 'true' : undefined}
       data-lab-narrow={narrow ? 'true' : 'false'}
       data-tm-focus-signal={String(focusSignal)}
       data-tm-force-post-fail={forcePostFail ? 'true' : 'false'}
+      data-tm-branch-disclosure={branchDisclosure ? 'true' : 'false'}
     >
       <IssueThreadBlock
         status={localComments.length > 0 && status === 'empty' ? 'populated' : status}
@@ -282,6 +288,10 @@ export function ThreadMount({
         composerEntry={collapsedEntry}
         onComposerEntry={focusComposerField}
         composerEntryRef={null}
+        branchDisclosure={Boolean(branchDisclosure)}
+        branchExpandMode={branchExpandMode || 'sync'}
+        initialBranchStates={initialBranchStates}
+        branchExpandDelayMs={branchExpandDelayMs}
       />
       {showComposer ? (
         <ThreadComposer

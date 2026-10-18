@@ -11,6 +11,23 @@ export const VISUAL_INDENT_CAP = 3
 
 export const MAX_DEPTH_REACHED_COPY = 'Maximum reply depth reached'
 
+/** CT-06 M153 local branch disclosure — no invent branch-fetch HTTP */
+export const BRANCH_LOADING_COPY = 'Loading replies…'
+export const BRANCH_ERROR_TITLE = 'Couldn’t load replies'
+export const BRANCH_ERROR_RETRY = 'Try again'
+export const BRANCH_EXPAND_DELAY_MS = 400
+
+/**
+ * View N replies — only when count derivable from complete local tree.
+ * @param {number} count
+ */
+export function viewRepliesLabel(count) {
+  const n = Math.floor(Number(count))
+  if (!Number.isFinite(n) || n <= 0) return 'View replies'
+  if (n === 1) return 'View replies'
+  return `View ${n} replies`
+}
+
 /** M153 E — denied item copy (fixture / legal floor honesty) */
 export const ATTACH_DENIED_TITLE = 'This attachment can’t be added.'
 export const ATTACH_DENIED_DETAIL = 'It does not meet the required media safety rules.'

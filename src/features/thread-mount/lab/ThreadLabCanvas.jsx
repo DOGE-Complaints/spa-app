@@ -127,6 +127,58 @@ const STANDS = /** @type {const} */ ([
     initialAttachments: [createFixtureAttachmentIntent('ready', 'file')],
     maxAttachments: 1,
   },
+  /** CT-06 Path A — M153 T-coll / T-exp / T-err · local disclosure only */
+  {
+    id: 'S',
+    status: 'populated',
+    label: 'THR-T-coll branch collapsed · View replies',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    branchDisclosure: true,
+    branchExpandMode: 'sync',
+  },
+  {
+    id: 'T',
+    status: 'populated',
+    label: 'THR-T-exp expanding local · no invent HTTP',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    branchDisclosure: true,
+    branchExpandMode: 'delayed',
+    branchExpandDelayMs: 60_000,
+    initialBranchStates: { 'fx-a': 'expanding' },
+  },
+  {
+    id: 'U',
+    status: 'populated',
+    label: 'THR-T-err branch error · Try again',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    branchDisclosure: true,
+    branchExpandMode: 'error',
+    branchExpandDelayMs: 80,
+    initialBranchStates: { 'fx-a': 'error' },
+  },
+  {
+    id: 'V',
+    status: 'populated',
+    label: 'THR-T sync expand · children local',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    branchDisclosure: true,
+    branchExpandMode: 'sync',
+    initialBranchStates: { 'fx-a': 'expanded', 'fx-a1': 'collapsed' },
+  },
+  {
+    id: 'W',
+    status: 'populated',
+    label: 'THR-T sync full local · no fake loader',
+    initiallyExpanded: true,
+    commentSet: 'default',
+    branchDisclosure: true,
+    branchExpandMode: 'sync',
+    initialBranchStates: { 'fx-a': 'expanded', 'fx-a1': 'expanded' },
+  },
 ])
 
 /**
@@ -170,6 +222,8 @@ function StandCard({ stand }) {
   const ct04 = stand.id === 'J' || stand.id === 'K' || stand.id === 'L' || stand.id === 'M'
   const ct05 =
     stand.id === 'N' || stand.id === 'O' || stand.id === 'P' || stand.id === 'Q' || stand.id === 'R'
+  const ct06 =
+    stand.id === 'S' || stand.id === 'T' || stand.id === 'U' || stand.id === 'V' || stand.id === 'W'
 
   return (
     <article
@@ -181,6 +235,7 @@ function StandCard({ stand }) {
       data-lab-ct03={stand.id === 'F' || stand.id === 'G' || stand.id === 'H' || stand.id === 'I' ? 'true' : undefined}
       data-lab-ct04={ct04 ? 'true' : undefined}
       data-lab-ct05={ct05 ? 'true' : undefined}
+      data-lab-ct06={ct06 ? 'true' : undefined}
     >
       <p className="tm-lab-stand__label">{stand.label}</p>
       <div className="tm-lab-card" data-testid={`tm-lab-card-${stand.id}`}>
@@ -200,6 +255,10 @@ function StandCard({ stand }) {
           initialAttachments={stand.initialAttachments || null}
           forcePostFail={Boolean(stand.failNextPost)}
           autoFailOnMount={Boolean(stand.autoFail)}
+          branchDisclosure={Boolean(stand.branchDisclosure)}
+          branchExpandMode={stand.branchExpandMode || 'sync'}
+          initialBranchStates={stand.initialBranchStates || null}
+          branchExpandDelayMs={stand.branchExpandDelayMs}
           onPostComment={async (payload) => {
             const result = await adapter.postComment(payload)
             if (result.ok) setSnap(adapter.snapshot())
@@ -215,8 +274,8 @@ function StandCard({ stand }) {
 }
 
 /**
- * CT-01/03/04/05 Path A canvas — nest · composer · attachments · `#/lab/thread`.
- * Partial visual BLOCK until OP eye · no invent OP PASS.
+ * CT-01/03/04/05/06 Path A canvas — nest · composer · attach · branch · `#/lab/thread`.
+ * Partial visual BLOCK until OP eye · no invent OP PASS / branch HTTP.
  */
 export function ThreadLabCanvas() {
   const [theme, setTheme] = useState('light')
@@ -229,11 +288,12 @@ export function ThreadLabCanvas() {
       data-lab-ct03="true"
       data-lab-ct04="true"
       data-lab-ct05="true"
+      data-lab-ct06="true"
       data-lab-visual-done="false"
       data-lab-theme={theme}
     >
       <header className="tm-lab-canvas__header">
-        <h1 className="tm-lab-canvas__title">CT-01/03/04/05 · ThreadMount · nest · composer · attach</h1>
+        <h1 className="tm-lab-canvas__title">CT-01…06 · ThreadMount · nest · composer · attach · branch</h1>
         <p className="tm-lab-canvas__meta">
           FixtureAdapter · Path A · Partial visual = BLOCK until OP eye · no invent HTTP
         </p>
