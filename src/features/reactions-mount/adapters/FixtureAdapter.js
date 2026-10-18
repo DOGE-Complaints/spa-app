@@ -71,6 +71,13 @@ export const PEOPLE_STATE_FIXTURES = Object.freeze({
       reaction_id: 'agree',
       fixture: true,
     },
+    {
+      id: 'member-c',
+      name: 'Member C',
+      reaction_id: 'acknowledge',
+      connectionUnavailable: true,
+      fixture: true,
+    },
   ]),
   loading: Object.freeze([]),
   error: Object.freeze([]),

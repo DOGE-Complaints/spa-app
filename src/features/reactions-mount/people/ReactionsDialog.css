@@ -1,0 +1,274 @@
+.rm-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(16, 24, 40, 0.45);
+  box-sizing: border-box;
+}
+
+.rm-dialog {
+  box-sizing: border-box;
+  width: min(560px, calc(100vw - 32px));
+  max-height: min(80vh, 640px);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-elevated, #fffdf8);
+  color: var(--color-text-primary, #101828);
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(16, 24, 40, 0.2);
+  overflow: hidden;
+}
+
+.rm-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--color-border-default, #e7e4dc);
+}
+
+.rm-dialog__title {
+  margin: 0;
+  font: 650 1.0625rem/1.3 system-ui, sans-serif;
+}
+
+.rm-dialog__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  cursor: pointer;
+}
+
+.rm-dialog__close:focus-visible {
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
+  outline-offset: 2px;
+}
+
+.rm-dialog__tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--color-border-default, #e7e4dc);
+}
+
+.rm-dialog__tab {
+  flex: 0 0 auto;
+  min-height: 44px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  font: 600 0.875rem/1.2 system-ui, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.rm-dialog__tab--active {
+  color: var(--color-text-primary, #101828);
+  border-bottom-color: var(--color-accent-primary, var(--doge-accent, #f5c542));
+}
+
+.rm-dialog__tab:focus-visible {
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
+  outline-offset: -2px;
+}
+
+.rm-dialog__connect-msg {
+  margin: 0;
+  padding: 8px 16px;
+  font: 500 0.8125rem/1.4 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+  background: var(--color-surface-muted, #f2f0ea);
+}
+
+.rm-dialog__body {
+  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 120px;
+  padding: 4px 0 12px;
+}
+
+.rm-dialog__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rm-dialog__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 8px 16px;
+}
+
+.rm-dialog__avatar {
+  position: relative;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-muted, #f2f0ea);
+  color: var(--color-text-secondary, #667085);
+  font: 650 0.75rem/1 system-ui, sans-serif;
+}
+
+.rm-dialog__badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-surface-elevated, #fffdf8);
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rm-mark-accent, var(--color-accent-primary, #f5a623));
+}
+
+.rm-dialog__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: 600 0.9375rem/1.3 system-ui, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rm-dialog__you {
+  flex: 0 0 auto;
+  font: 600 0.8125rem/1.2 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+}
+
+.rm-dialog__unavailable {
+  flex: 0 0 auto;
+  max-width: 40%;
+  font: 500 0.75rem/1.2 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+  text-align: right;
+}
+
+.rm-dialog__connect {
+  flex: 0 0 auto;
+  min-height: 36px;
+  min-width: 44px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 8px;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #101828);
+  font: 600 0.8125rem/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.rm-dialog__connect:focus-visible {
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
+  outline-offset: 2px;
+}
+
+.rm-dialog__loading,
+.rm-dialog__error,
+.rm-dialog__empty {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+.rm-dialog__skeleton {
+  height: 48px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-muted, #f2f0ea) 25%,
+    var(--color-border-default, #e7e4dc) 50%,
+    var(--color-surface-muted, #f2f0ea) 75%
+  );
+  background-size: 200% 100%;
+}
+
+.rm-dialog__status-text {
+  margin: 0;
+  font: 500 0.875rem/1.4 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+}
+
+.rm-dialog__retry {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 8px;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #101828);
+  font: 600 0.8125rem/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+[data-theme='dark'] .rm-dialog-backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme='dark'] .rm-dialog {
+  background: var(--color-surface-elevated, #1a1d24);
+  color: var(--color-text-primary, #f2f4f7);
+  border-color: var(--color-border-default, #2e3440);
+}
+
+[data-theme='dark'] .rm-dialog__header,
+[data-theme='dark'] .rm-dialog__tabs {
+  border-bottom-color: var(--color-border-default, #2e3440);
+}
+
+[data-theme='dark'] .rm-dialog__avatar {
+  background: var(--color-surface-muted, #252a33);
+}
+
+[data-theme='dark'] .rm-dialog__badge {
+  background: var(--color-surface-elevated, #1a1d24);
+  border-color: var(--color-border-default, #2e3440);
+}
+
+[data-theme='dark'] .rm-dialog__connect,
+[data-theme='dark'] .rm-dialog__retry {
+  background: var(--color-surface, #12151a);
+  color: var(--color-text-primary, #f2f4f7);
+  border-color: var(--color-border-default, #2e3440);
+}
+
+[data-theme='dark'] .rm-dialog__connect-msg {
+  background: var(--color-surface-muted, #252a33);
+}
+
+[data-theme='dark'] .rm-dialog__skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-muted, #252a33) 25%,
+    var(--color-border-default, #2e3440) 50%,
+    var(--color-surface-muted, #252a33) 75%
+  );
+  background-size: 200% 100%;
+}

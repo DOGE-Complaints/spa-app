@@ -17,6 +17,7 @@ export function ReactorsPopover({
   t = (k) => k,
   onClose = null,
   onRetry = null,
+  onViewAll = null,
   anchorRef = null,
   popoverStyle = null,
 }) {
@@ -162,6 +163,18 @@ export function ReactorsPopover({
         </button>
       </header>
       <div className="rm-reactors__body">{body}</div>
+      {typeof onViewAll === 'function' && state === 'ready' ? (
+        <footer className="rm-reactors__footer">
+          <button
+            type="button"
+            className="rm-reactors__view-all"
+            data-testid="rm-reactors-view-all"
+            onClick={() => onViewAll()}
+          >
+            {t('threadsFeed.reactions.viewAll')}
+          </button>
+        </footer>
+      ) : null}
     </div>
   )
 

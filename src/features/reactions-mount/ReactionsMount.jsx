@@ -9,6 +9,7 @@ import { ReactionSummaryStrip } from './ReactionSummaryStrip.jsx'
 import { ReactionAggregateRow } from './ReactionAggregateRow.jsx'
 import { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
 import { ReactorsPopover } from './people/ReactorsPopover.jsx'
+import { ReactionsDialog } from './people/ReactionsDialog.jsx'
 import { CR_REACTION_ICON_PACK, CR_OMIT_SELECTABLE_IDS } from './icons/crReactionIcons.js'
 import {
   REACTIONS_MOUNT_SLOT_KINDS,
@@ -47,7 +48,8 @@ export function measurePopoverPosition(el) {
 
 /**
  * Greenfield ReactionsMount — strip (CR-01) + picker (CR-02) + portal escape (CR-10)
- * + people popover (CR-17 / M155 A). People open ≠ picker open.
+ * + people popover (CR-17 / M155 A) + dialog (CR-18 / M155 B).
+ * People open ≠ picker open · View all → dialog.
  *
  * Extra CR-02 props: defaultOpen, forcePickerSurface ('auto'|'popover'|'sheet')
  */
@@ -82,9 +84,11 @@ export function ReactionsMount({
 }) {
   const panelId = useId()
   const peoplePanelId = `${panelId}-people`
+  const dialogPanelId = `${panelId}-dialog`
   const anchorRef = useRef(null)
   const [open, setOpen] = useState(Boolean(defaultOpen))
   const [peopleOpen, setPeopleOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
   /** @type {'ready'|'loading'|'error'} */
   const [peopleState, setPeopleState] = useState('ready')
   const [people, setPeople] = useState(/** @type {object[]} */ ([]))
@@ -203,8 +207,9 @@ export function ReactionsMount({
   }
 
   function handleOpen() {
-    // CR-12: React affordance opens picker. CR-17: people path is separate.
+    // CR-12: React affordance opens picker. CR-17/18: people path is separate.
     setPeopleOpen(false)
+    setDialogOpen(false)
     setAggregateActive(false)
     setOpen(true)
     setSaveError(false)
@@ -216,11 +221,25 @@ export function ReactionsMount({
   /** CR-17 — Reactions zone / aggregate → people popover (NOT ReactionPicker). */
   function handleOpenPeople() {
     setOpen(false)
+    setDialogOpen(false)
     setPeopleOpen(true)
     setAggregateActive(true)
     const result =
       typeof onAggregateActivate === 'function' ? onAggregateActivate() : null
     applyPeopleResult(result)
+  }
+
+  /** CR-18 — popover «View all» → full ReactionsDialog. */
+  function handleOpenDialog() {
+    setOpen(false)
+    setPeopleOpen(false)
+    setDialogOpen(true)
+    setAggregateActive(true)
+    if (!people.length && peopleState === 'ready') {
+      const result =
+        typeof onAggregateActivate === 'function' ? onAggregateActivate() : null
+      applyPeopleResult(result)
+    }
   }
 
   function activateAggregate() {
@@ -243,6 +262,11 @@ export function ReactionsMount({
 
   function handleClosePeople() {
     setPeopleOpen(false)
+    if (!dialogOpen) setAggregateActive(false)
+  }
+
+  function handleCloseDialog() {
+    setDialogOpen(false)
     setAggregateActive(false)
   }
 
@@ -384,12 +408,14 @@ export function ReactionsMount({
       data-rm-onreact={typeof onReact === 'function' ? 'wired' : 'local'}
       data-rm-picker-open={open ? 'true' : 'false'}
       data-rm-people-open={peopleOpen ? 'true' : 'false'}
+      data-rm-dialog-open={dialogOpen ? 'true' : 'false'}
       data-rm-aggregate-placement={placement}
       data-rm-react-always={reactAlways ? 'true' : 'false'}
       data-catalog="reactions.v1"
       data-max-reactions={String(capacity)}
       data-enabled-count={String(enabledIds.length)}
       data-m155-people="true"
+      data-m155-dialog="true"
     >
       <div
         ref={anchorRef}
@@ -446,6 +472,18 @@ export function ReactionsMount({
           anchorRef={anchorRef}
           popoverStyle={peoplePopoverStyle}
           onClose={handleClosePeople}
+          onRetry={handlePeopleRetry}
+          onViewAll={handleOpenDialog}
+        />
+        <ReactionsDialog
+          open={dialogOpen}
+          panelId={dialogPanelId}
+          state={peopleState}
+          people={people}
+          summaryMarks={marks}
+          icons={icons}
+          t={t}
+          onClose={handleCloseDialog}
           onRetry={handlePeopleRetry}
         />
       </div>

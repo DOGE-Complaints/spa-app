@@ -7,6 +7,7 @@ export { ReactionSummaryStrip } from './ReactionSummaryStrip.jsx'
 export { ReactionAggregateRow } from './ReactionAggregateRow.jsx'
 export { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
 export { ReactorsPopover } from './people/ReactorsPopover.jsx'
+export { ReactionsDialog } from './people/ReactionsDialog.jsx'
 export {
   CR_REACTION_ICON_PACK,
   CR_REACTION_MARK_ICONS,
