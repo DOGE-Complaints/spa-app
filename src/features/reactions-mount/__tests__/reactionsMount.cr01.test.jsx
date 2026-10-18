@@ -148,7 +148,10 @@ describe('CR-01 reactions-mount package', () => {
     expect(result.data.summary_marks).toEqual(
       expect.arrayContaining([expect.objectContaining({ reaction_id: 'acknowledge' })]),
     )
-    expect(adapter.onAggregateActivate().data.oos).toBe('M155')
+    const people = adapter.onAggregateActivate()
+    expect(people.status).toBe('ok')
+    expect(people.data.fixture).toBe(true)
+    expect(Array.isArray(people.data.people)).toBe(true)
   })
 
   it('onOpen seam fires from React affordance', () => {

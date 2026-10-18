@@ -43,8 +43,15 @@ describe('CR-05 strip open / dismiss', () => {
     expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
   })
 
-  it('populated: React still visible (CR-12); aggregate hover + click open picker', () => {
-    const onAggregate = vi.fn(() => ({ status: 'ok', data: { oos: 'M155' } }))
+  it('populated: React still visible (CR-12); aggregate hover + click open people (CR-17)', () => {
+    const onAggregate = vi.fn(() => ({
+      status: 'ok',
+      data: {
+        state: 'ready',
+        people: [{ id: 'you', name: 'You', reaction_id: 'acknowledge', fixture: true }],
+        fixture: true,
+      },
+    }))
     render(
       <ReactionsMount
         target="thread-root"
@@ -60,11 +67,13 @@ describe('CR-05 strip open / dismiss', () => {
     const agg = screen.getByTestId('reaction-summary-aggregate')
     expect(screen.queryByTestId('rm-reaction-picker')).toBeNull()
     fireEvent.mouseEnter(agg)
-    expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
+    expect(screen.getByTestId('rm-reactors-popover')).toBeTruthy()
+    expect(screen.queryByTestId('rm-reaction-picker')).toBeNull()
     expect(agg.className).toMatch(/rm-summary-strip__aggregate--open/)
     fireEvent.click(agg)
     expect(onAggregate).toHaveBeenCalled()
-    expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
+    expect(screen.getByTestId('rm-reactors-popover')).toBeTruthy()
+    expect(screen.queryByTestId('rm-reaction-picker')).toBeNull()
   })
 
   it('dismiss: outside pointerdown closes picker', () => {
@@ -127,8 +136,11 @@ describe('CR-05 strip open / dismiss', () => {
     expect(screen.getByTestId('reaction-summary-aggregate')).toBeTruthy()
   })
 
-  it('FixtureAdapter aggregate still reports M155 OOS (no invent people UI)', () => {
+  it('FixtureAdapter aggregate returns listReactors people (CR-17)', () => {
     const adapter = createFixtureAdapter({ initialState: 'populated' })
-    expect(adapter.onAggregateActivate().data.oos).toBe('M155')
+    const result = adapter.onAggregateActivate()
+    expect(result.status).toBe('ok')
+    expect(result.data.fixture).toBe(true)
+    expect(result.data.people.length).toBeGreaterThan(0)
   })
 })

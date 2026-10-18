@@ -26,7 +26,7 @@ describe('CR-07 `#/lab/feed` cutover → ReactionsMount', () => {
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     const rootMount = within(card).getByTestId('reactions-mount')
     expect(rootMount.getAttribute('data-rm-target')).toBe('thread-root')
-    expect(rootMount.getAttribute('data-m155-oos')).toBe('true')
+    expect(rootMount.getAttribute('data-m155-people')).toBe('true')
     expect(within(card).queryByTestId('feed-reaction-plane')).toBeNull()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))

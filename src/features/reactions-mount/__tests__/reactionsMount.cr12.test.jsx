@@ -36,7 +36,14 @@ function SplitHost({ summaryMarks, aggregateCount }) {
         aggregatePlacement="below"
         aggregateHost={host}
         apiRef={apiRef}
-        onAggregateActivate={vi.fn(() => ({ status: 'ok', data: { oos: 'M155' } }))}
+        onAggregateActivate={vi.fn(() => ({
+          status: 'ok',
+          data: {
+            state: 'ready',
+            people: [{ id: 'you', name: 'You', reaction_id: 'acknowledge', fixture: true }],
+            fixture: true,
+          },
+        }))}
       />
       <div ref={setHost} data-testid="test-aggregate-host" />
       <button
@@ -93,7 +100,7 @@ describe('CR-12 react-always + aggregate below', () => {
     ).toBeNull()
   })
 
-  it('Reactions zone api activates aggregate / opens picker', () => {
+  it('Reactions zone api activates aggregate / opens people (CR-17)', () => {
     render(
       <SplitHost
         summaryMarks={populated.summaryMarks}
@@ -101,7 +108,8 @@ describe('CR-12 react-always + aggregate below', () => {
       />,
     )
     fireEvent.click(screen.getByTestId('test-reactions-zone'))
-    expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
+    expect(screen.getByTestId('rm-reactors-popover')).toBeTruthy()
+    expect(screen.queryByTestId('rm-reaction-picker')).toBeNull()
     expect(screen.getByTestId('reaction-aggregate-row').getAttribute('data-rm-aggregate-active')).toBe(
       'true',
     )

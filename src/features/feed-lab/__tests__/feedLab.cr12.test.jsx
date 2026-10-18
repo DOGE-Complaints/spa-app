@@ -57,7 +57,8 @@ describe('CR-12 lab feed react-always + aggregate under strip', () => {
     ).toBeNull()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-reactions'))
-    expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
+    expect(screen.getByTestId('rm-reactors-popover')).toBeTruthy()
+    expect(screen.queryByTestId('rm-reaction-picker')).toBeNull()
   })
 
   it('source: no dual under-strip mount · below placement · Reactions zone', () => {
