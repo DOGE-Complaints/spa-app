@@ -15,6 +15,7 @@ import './FeedPostCard.css'
  * CR-12: React-always · aggregate row below strip · Reactions zone → activateAggregate.
  * CR-15: M154 composition wire marker for OP eye (CR-11…14 held).
  * CR-16: media flush above strip · React chip hover (strip CSS).
+ * CR-21: Reactions zone → people with peopleAnchor = Reactions control · chip parity.
  */
 export function FeedPostCard({
   fixture,
@@ -39,7 +40,9 @@ export function FeedPostCard({
       setComposerFocusSignal((n) => n + 1)
     }
     if (zoneId === 'reactions') {
-      reactionsApiRef.current?.activateAggregate?.()
+      reactionsApiRef.current?.activateAggregate?.({
+        anchorEl: event?.currentTarget ?? null,
+      })
     }
     if (typeof onActionZone === 'function') onActionZone(zoneId, event)
   }
@@ -60,6 +63,7 @@ export function FeedPostCard({
       data-lab-aggregate="below"
       data-lab-cr15-wire="true"
       data-lab-cr16-polish="true"
+      data-lab-cr21-affordance="true"
       data-lab-media-flush="true"
     >
       <div className="feed-post-card__body">

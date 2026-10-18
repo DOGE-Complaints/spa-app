@@ -46,8 +46,12 @@ function Cr15CompositionStand({
           }.`}
       </p>
       <FeedPostActionStrip
-        onZone={(zoneId) => {
-          if (zoneId === 'reactions') apiRef.current?.activateAggregate?.()
+        onZone={(zoneId, event) => {
+          if (zoneId === 'reactions') {
+            apiRef.current?.activateAggregate?.({
+              anchorEl: event?.currentTarget ?? null,
+            })
+          }
         }}
         reactSlot={
           <ReactionsMount

@@ -17,7 +17,7 @@ const ZONES = Object.freeze([
 
 /**
  * CR-11 four-zone strip — React | Comment | Share | Reactions · icon+label · ~56px.
- * CR-16: React hover/selected/focus paints inner chip only (not full grid cell).
+ * CR-16/21: hover/selected/focus paints inner chip only (not full grid cell) for all zones.
  */
 export function FeedPostActionStrip({
   onZone = null,
@@ -34,7 +34,9 @@ export function FeedPostActionStrip({
       data-lab-strip-zones="4"
       data-lab-strip-slot={hasSlot ? 'react' : 'none'}
       data-lab-react-chip="true"
+      data-lab-reactions-chip="true"
       data-lab-cr16-polish="true"
+      data-lab-cr21-affordance="true"
       role="group"
       aria-label="Post actions"
     >
@@ -57,6 +59,12 @@ export function FeedPostActionStrip({
 
         const iconSrc = FEED_POST_ACTION_ICON_URLS[z.id]
         const isReact = z.id === 'react'
+        const chipTestId =
+          z.id === 'react'
+            ? 'feed-post-action-react-chip'
+            : z.id === 'reactions'
+              ? 'feed-post-action-reactions-chip'
+              : `feed-post-action-${z.id}-chip`
 
         return (
           <button
@@ -73,37 +81,23 @@ export function FeedPostActionStrip({
               if (typeof onZone === 'function') onZone(z.id, e)
             }}
           >
-            {isReact ? (
-              <span
-                className="feed-post-action-strip__chip"
-                data-testid="feed-post-action-react-chip"
-                data-lab-react-chip="true"
-              >
-                <img
-                  className="feed-post-action-strip__icon"
-                  src={iconSrc}
-                  alt=""
-                  width={18}
-                  height={18}
-                  aria-hidden="true"
-                  data-testid={`feed-post-action-icon-${z.id}`}
-                />
-                <span className="feed-post-action-strip__label">{z.label}</span>
-              </span>
-            ) : (
-              <>
-                <img
-                  className="feed-post-action-strip__icon"
-                  src={iconSrc}
-                  alt=""
-                  width={18}
-                  height={18}
-                  aria-hidden="true"
-                  data-testid={`feed-post-action-icon-${z.id}`}
-                />
-                <span className="feed-post-action-strip__label">{z.label}</span>
-              </>
-            )}
+            <span
+              className="feed-post-action-strip__chip"
+              data-testid={chipTestId}
+              data-lab-react-chip={isReact ? 'true' : undefined}
+              data-lab-zone-chip="true"
+            >
+              <img
+                className="feed-post-action-strip__icon"
+                src={iconSrc}
+                alt=""
+                width={18}
+                height={18}
+                aria-hidden="true"
+                data-testid={`feed-post-action-icon-${z.id}`}
+              />
+              <span className="feed-post-action-strip__label">{z.label}</span>
+            </span>
           </button>
         )
       })}

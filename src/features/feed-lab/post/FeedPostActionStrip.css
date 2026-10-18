@@ -102,13 +102,14 @@
 }
 
 /*
- * CR-16 / OP-UX-MIRROR-strip-polish §3.1 —
- * Hover / selected / focus paint the chip only · never the full 56px cell.
+ * CR-16 / CR-21 / OP-UX-MIRROR residual §4 —
+ * Hover / selected / focus paint the chip only · never the full 56px cell
+ * (React · Reactions · Comment · Share).
  */
-.feed-post-action-strip__zone[data-zone='react']:hover,
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='hover'],
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='selected'],
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='focus'],
+.feed-post-action-strip__zone:hover,
+.feed-post-action-strip__zone[data-rm-react-state='hover'],
+.feed-post-action-strip__zone[data-rm-react-state='selected'],
+.feed-post-action-strip__zone[data-rm-react-state='focus'],
 .feed-post-action-strip__zone--slot:hover,
 .feed-post-action-strip__zone--slot[data-rm-react-state='hover'],
 .feed-post-action-strip__zone--slot[data-rm-react-state='selected'],
@@ -119,16 +120,16 @@
   outline: none;
 }
 
-.feed-post-action-strip__zone[data-zone='react']:hover .feed-post-action-strip__chip,
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='hover'] .feed-post-action-strip__chip,
+.feed-post-action-strip__zone:hover .feed-post-action-strip__chip,
+.feed-post-action-strip__zone[data-rm-react-state='hover'] .feed-post-action-strip__chip,
 .feed-post-action-strip__zone--slot:hover .rm-summary-strip__react,
 .feed-post-action-strip__zone--slot[data-rm-react-state='hover'] .rm-summary-strip__react {
   background: var(--color-accent-soft, rgba(245, 166, 35, 0.14));
   color: var(--color-accent-primary, var(--doge-accent, #f5a623));
 }
 
-.feed-post-action-strip__zone[data-zone='react']:focus-visible .feed-post-action-strip__chip,
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='focus'] .feed-post-action-strip__chip,
+.feed-post-action-strip__zone:focus-visible .feed-post-action-strip__chip,
+.feed-post-action-strip__zone[data-rm-react-state='focus'] .feed-post-action-strip__chip,
 .feed-post-action-strip__zone--slot .rm-summary-strip__react:focus-visible,
 .feed-post-action-strip__zone--slot[data-rm-react-state='focus'] .rm-summary-strip__react {
   outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
@@ -137,13 +138,13 @@
   color: var(--color-accent-primary, var(--doge-accent, #f5a623));
 }
 
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='selected'] .feed-post-action-strip__chip,
+.feed-post-action-strip__zone[data-rm-react-state='selected'] .feed-post-action-strip__chip,
 .feed-post-action-strip__zone--slot[data-rm-react-state='selected'] .rm-summary-strip__react {
   background: var(--color-accent-soft, rgba(245, 166, 35, 0.14));
   color: var(--color-accent-primary, var(--doge-accent, #f5a623));
 }
 
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='disabled'],
+.feed-post-action-strip__zone[data-rm-react-state='disabled'],
 .feed-post-action-strip__zone--slot[data-rm-react-state='disabled'],
 .feed-post-action-strip__zone--slot[data-rm-react-state='disabled'] .rm-summary-strip__react {
   opacity: 0.45;
@@ -152,11 +153,6 @@
   background: transparent;
 }
 
-.feed-post-action-strip__zone[data-zone='react'][data-rm-react-state='disabled'] .feed-post-action-strip__chip {
+.feed-post-action-strip__zone[data-rm-react-state='disabled'] .feed-post-action-strip__chip {
   background: transparent;
-}
-
-.feed-post-action-strip__zone:not([data-zone='react']):focus-visible {
-  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
-  outline-offset: -2px;
 }

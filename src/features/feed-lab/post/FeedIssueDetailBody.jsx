@@ -21,13 +21,15 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
   const [aggregateHost, setAggregateHost] = useState(null)
   const reactionsApiRef = useRef(null)
 
-  function handleZone(zoneId) {
+  function handleZone(zoneId, event) {
     if (zoneId === 'comment') {
       setDiscussionExpanded(true)
       setComposerFocusSignal((n) => n + 1)
     }
     if (zoneId === 'reactions') {
-      reactionsApiRef.current?.activateAggregate?.()
+      reactionsApiRef.current?.activateAggregate?.({
+        anchorEl: event?.currentTarget ?? null,
+      })
     }
   }
 

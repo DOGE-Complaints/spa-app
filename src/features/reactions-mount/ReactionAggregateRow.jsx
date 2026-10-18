@@ -80,8 +80,11 @@ export function ReactionAggregateRow({
 
   const showCount = Number.isFinite(count) && count > 0
 
-  function handleActivate() {
-    if (typeof onAggregateActivate === 'function') onAggregateActivate()
+  /** @param {import('react').SyntheticEvent} [event] */
+  function handleActivate(event) {
+    if (typeof onAggregateActivate !== 'function') return
+    const anchorEl = event?.currentTarget ?? null
+    onAggregateActivate(anchorEl ? { anchorEl } : undefined)
   }
 
   const expanded = Boolean(open || active)

@@ -34,8 +34,11 @@ export function ReactionSummaryStrip({
     if (typeof onOpen === 'function') onOpen()
   }
 
-  function handleAggregateActivate() {
-    if (typeof onAggregateActivate === 'function') onAggregateActivate()
+  /** @param {import('react').SyntheticEvent} [event] */
+  function handleAggregateActivate(event) {
+    if (typeof onAggregateActivate !== 'function') return
+    const anchorEl = event?.currentTarget ?? null
+    onAggregateActivate(anchorEl ? { anchorEl } : undefined)
   }
 
   const aggregateExpanded = Boolean(peopleOpen)

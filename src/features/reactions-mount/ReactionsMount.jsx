@@ -88,7 +88,15 @@ export function ReactionsMount({
   const panelId = useId()
   const peoplePanelId = `${panelId}-people`
   const dialogPanelId = `${panelId}-dialog`
+  /** Picker / React strip slot anchor (CR-10). */
   const anchorRef = useRef(null)
+  /**
+   * CR-21 — people popover measures from Reactions zone / aggregate trigger,
+   * not the React slot alone. Falls back to strip anchor when unset.
+   */
+  const peopleAnchorRef = useRef(null)
+  /** @type {'idle'|'trigger'|'strip-fallback'} */
+  const [peopleAnchorKind, setPeopleAnchorKind] = useState('idle')
   const [open, setOpen] = useState(Boolean(defaultOpen))
   const [peopleOpen, setPeopleOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -155,7 +163,8 @@ export function ReactionsMount({
       return undefined
     }
     function update() {
-      setPeoplePopoverStyle(measurePopoverPosition(anchorRef.current))
+      const el = peopleAnchorRef.current || anchorRef.current
+      setPeoplePopoverStyle(measurePopoverPosition(el))
     }
     update()
     // Second frame: feed scroll/layout can settle after activateAggregate
@@ -240,8 +249,18 @@ export function ReactionsMount({
     applyPeopleResult(result)
   }
 
-  /** CR-17/19 — Reactions zone / aggregate → people (NOT ReactionPicker). Narrow → sheet. */
-  function handleOpenPeople() {
+  /**
+   * CR-17/19/21 — Reactions zone / aggregate → people (NOT ReactionPicker). Narrow → sheet.
+   * @param {{ anchorEl?: Element|null }|undefined} opts — CR-21 measure from Reactions/aggregate trigger
+   */
+  function handleOpenPeople(opts) {
+    const el = opts && opts.anchorEl
+    if (el && typeof el.getBoundingClientRect === 'function') {
+      peopleAnchorRef.current = el
+      setPeopleAnchorKind('trigger')
+    } else {
+      setPeopleAnchorKind('strip-fallback')
+    }
     setOpen(false)
     setAggregateActive(true)
     loadPeopleFromAdapter()
@@ -265,8 +284,9 @@ export function ReactionsMount({
     }
   }
 
-  function activateAggregate() {
-    handleOpenPeople()
+  /** @param {{ anchorEl?: Element|null }|undefined} opts */
+  function activateAggregate(opts) {
+    handleOpenPeople(opts)
   }
 
   useEffect(() => {
@@ -285,11 +305,15 @@ export function ReactionsMount({
 
   function handleClosePeople() {
     setPeopleOpen(false)
+    peopleAnchorRef.current = null
+    setPeopleAnchorKind('idle')
     if (!dialogOpen) setAggregateActive(false)
   }
 
   function handleCloseDialog() {
     setDialogOpen(false)
+    peopleAnchorRef.current = null
+    setPeopleAnchorKind('idle')
     setAggregateActive(false)
   }
 
@@ -430,6 +454,7 @@ export function ReactionsMount({
       data-rm-picker-open={open ? 'true' : 'false'}
       data-rm-people-open={peopleOpen ? 'true' : 'false'}
       data-rm-dialog-open={dialogOpen ? 'true' : 'false'}
+      data-rm-people-anchor={peopleAnchorKind}
       data-rm-people-surface={peopleSurface}
       data-rm-aggregate-placement={placement}
       data-rm-react-always={reactAlways ? 'true' : 'false'}
@@ -492,7 +517,7 @@ export function ReactionsMount({
           people={people}
           icons={icons}
           t={t}
-          anchorRef={anchorRef}
+          anchorRef={peopleAnchorRef.current ? peopleAnchorRef : anchorRef}
           popoverStyle={peoplePopoverStyle}
           onClose={handleClosePeople}
           onRetry={handlePeopleRetry}
