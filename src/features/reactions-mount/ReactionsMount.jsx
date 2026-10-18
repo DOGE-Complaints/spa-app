@@ -8,6 +8,7 @@ import {
 import { ReactionSummaryStrip } from './ReactionSummaryStrip.jsx'
 import { ReactionAggregateRow } from './ReactionAggregateRow.jsx'
 import { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
+import { ReactorsPopover } from './people/ReactorsPopover.jsx'
 import { CR_REACTION_ICON_PACK, CR_OMIT_SELECTABLE_IDS } from './icons/crReactionIcons.js'
 import {
   REACTIONS_MOUNT_SLOT_KINDS,
@@ -45,8 +46,8 @@ export function measurePopoverPosition(el) {
 }
 
 /**
- * Greenfield ReactionsMount — strip (CR-01) + picker (CR-02) + portal escape (CR-10).
- * Props seam host-agnostic. Live HTTP → ThreadsSocialClient only later.
+ * Greenfield ReactionsMount — strip (CR-01) + picker (CR-02) + portal escape (CR-10)
+ * + people popover (CR-17 / M155 A). People open ≠ picker open.
  *
  * Extra CR-02 props: defaultOpen, forcePickerSurface ('auto'|'popover'|'sheet')
  */
@@ -80,8 +81,13 @@ export function ReactionsMount({
   reactAlways = true,
 }) {
   const panelId = useId()
+  const peoplePanelId = `${panelId}-people`
   const anchorRef = useRef(null)
   const [open, setOpen] = useState(Boolean(defaultOpen))
+  const [peopleOpen, setPeopleOpen] = useState(false)
+  /** @type {'ready'|'loading'|'error'} */
+  const [peopleState, setPeopleState] = useState('ready')
+  const [people, setPeople] = useState(/** @type {object[]} */ ([]))
   const [aggregateActive, setAggregateActive] = useState(false)
   const [busy, setBusy] = useState(false)
   const [writeSnapshot, setWriteSnapshot] = useState(null)
@@ -90,6 +96,7 @@ export function ReactionsMount({
   const [saveError, setSaveError] = useState(false)
   const [surface, setSurface] = useState(() => resolvePickerSurface(forcePickerSurface))
   const [popoverStyle, setPopoverStyle] = useState(null)
+  const [peoplePopoverStyle, setPeoplePopoverStyle] = useState(null)
 
   useEffect(() => {
     setSurface(resolvePickerSurface(forcePickerSurface))
@@ -121,6 +128,26 @@ export function ReactionsMount({
       window.removeEventListener('resize', update)
     }
   }, [open, surface])
+
+  useLayoutEffect(() => {
+    if (!peopleOpen) {
+      setPeoplePopoverStyle(null)
+      return undefined
+    }
+    function update() {
+      setPeoplePopoverStyle(measurePopoverPosition(anchorRef.current))
+    }
+    update()
+    // Second frame: feed scroll/layout can settle after activateAggregate
+    const raf = requestAnimationFrame(() => update())
+    window.addEventListener('scroll', update, true)
+    window.addEventListener('resize', update)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', update, true)
+      window.removeEventListener('resize', update)
+    }
+  }, [peopleOpen])
 
   const capacity =
     Number.isFinite(Number(maxReactions)) && Number(maxReactions) > 0
@@ -157,8 +184,28 @@ export function ReactionsMount({
       : aggregateCount
   const status = writeSnapshot?.stripStatus ?? stripStatus
 
+  function applyPeopleResult(result) {
+    if (!result || typeof result !== 'object') {
+      setPeopleState('error')
+      setPeople([])
+      return
+    }
+    const data = result.data && typeof result.data === 'object' ? result.data : {}
+    if (result.status === 'fail') {
+      setPeopleState(data.state === 'loading' ? 'loading' : 'error')
+      setPeople([])
+      return
+    }
+    const nextState =
+      data.state === 'loading' || data.state === 'error' ? data.state : 'ready'
+    setPeopleState(nextState)
+    setPeople(Array.isArray(data.people) ? data.people.map((p) => ({ ...p })) : [])
+  }
+
   function handleOpen() {
-    // CR-12: React always opens picker (empty and populated). Aggregate also activates picker.
+    // CR-12: React affordance opens picker. CR-17: people path is separate.
+    setPeopleOpen(false)
+    setAggregateActive(false)
     setOpen(true)
     setSaveError(false)
     if (typeof onOpen === 'function') {
@@ -166,10 +213,18 @@ export function ReactionsMount({
     }
   }
 
-  function activateAggregate() {
+  /** CR-17 — Reactions zone / aggregate → people popover (NOT ReactionPicker). */
+  function handleOpenPeople() {
+    setOpen(false)
+    setPeopleOpen(true)
     setAggregateActive(true)
-    handleOpen()
-    if (typeof onAggregateActivate === 'function') onAggregateActivate()
+    const result =
+      typeof onAggregateActivate === 'function' ? onAggregateActivate() : null
+    applyPeopleResult(result)
+  }
+
+  function activateAggregate() {
+    handleOpenPeople()
   }
 
   useEffect(() => {
@@ -183,8 +238,18 @@ export function ReactionsMount({
   })
 
   function handleClose() {
-    setAggregateActive(false)
     setOpen(false)
+  }
+
+  function handleClosePeople() {
+    setPeopleOpen(false)
+    setAggregateActive(false)
+  }
+
+  function handlePeopleRetry() {
+    const result =
+      typeof onAggregateActivate === 'function' ? onAggregateActivate() : null
+    applyPeopleResult(result)
   }
 
   /**
@@ -299,14 +364,11 @@ export function ReactionsMount({
         icons={icons}
         t={t}
         density={density}
-        open={open}
+        open={peopleOpen}
         active={aggregateActive}
-        panelId={panelId}
-        onOpen={handleOpen}
+        panelId={peoplePanelId}
         onRetry={retryHandler}
-        onAggregateActivate={
-          typeof onAggregateActivate === 'function' ? onAggregateActivate : undefined
-        }
+        onAggregateActivate={handleOpenPeople}
       />
     ) : null
 
@@ -321,12 +383,13 @@ export function ReactionsMount({
       data-rm-moderation={targetConfig.moderationSelectable ? 'eligible' : 'absent'}
       data-rm-onreact={typeof onReact === 'function' ? 'wired' : 'local'}
       data-rm-picker-open={open ? 'true' : 'false'}
+      data-rm-people-open={peopleOpen ? 'true' : 'false'}
       data-rm-aggregate-placement={placement}
       data-rm-react-always={reactAlways ? 'true' : 'false'}
       data-catalog="reactions.v1"
       data-max-reactions={String(capacity)}
       data-enabled-count={String(enabledIds.length)}
-      data-m155-oos="true"
+      data-m155-people="true"
     >
       <div
         ref={anchorRef}
@@ -343,12 +406,12 @@ export function ReactionsMount({
           density={density}
           busy={busy}
           open={open}
+          peopleOpen={peopleOpen}
           panelId={panelId}
+          peoplePanelId={peoplePanelId}
           onOpen={handleOpen}
           onRetry={retryHandler}
-          onAggregateActivate={
-            typeof onAggregateActivate === 'function' ? onAggregateActivate : undefined
-          }
+          onAggregateActivate={handleOpenPeople}
           aggregatePlacement={stripAggregatePlacement}
           reactAlways={reactAlways}
         />
@@ -372,6 +435,18 @@ export function ReactionsMount({
             void handleSelect(rid)
           }}
           onClose={handleClose}
+        />
+        <ReactorsPopover
+          open={peopleOpen}
+          panelId={peoplePanelId}
+          state={peopleState}
+          people={people}
+          icons={icons}
+          t={t}
+          anchorRef={anchorRef}
+          popoverStyle={peoplePopoverStyle}
+          onClose={handleClosePeople}
+          onRetry={handlePeopleRetry}
         />
       </div>
       {placement === 'below' && aggregateHost

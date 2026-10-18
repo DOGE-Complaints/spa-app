@@ -66,6 +66,18 @@ export function createLiveAdapter(opts = {}) {
     return result
   }
 
+  /**
+   * CR-17 — Live people fail-closed until real API (DUI-Q08).
+   * Never fabricate people from aggregate counts · no invent /threads people HTTP.
+   */
+  function listReactors() {
+    return {
+      status: 'fail',
+      failKind: 'unavailable',
+      data: { state: 'error', people: [], live: true, inventHttp: false },
+    }
+  }
+
   return {
     kind: 'live',
     issueId,
@@ -74,9 +86,10 @@ export function createLiveAdapter(opts = {}) {
     },
     onReact,
     loadKnobs,
-    /** Aggregate activate — M155 OOS no-op */
+    listReactors,
+    /** Aggregate / Reactions zone → people path fail-closed */
     onAggregateActivate() {
-      return { status: 'ok', data: { oos: 'M155' } }
+      return listReactors()
     },
   }
 }

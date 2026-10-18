@@ -6,6 +6,7 @@ export {
 export { ReactionSummaryStrip } from './ReactionSummaryStrip.jsx'
 export { ReactionAggregateRow } from './ReactionAggregateRow.jsx'
 export { ReactionPicker, resolvePickerSurface } from './picker/ReactionPicker.jsx'
+export { ReactorsPopover } from './people/ReactorsPopover.jsx'
 export {
   CR_REACTION_ICON_PACK,
   CR_REACTION_MARK_ICONS,
@@ -23,6 +24,7 @@ export { CrReactionIcon } from './icons/CrReactionIcon.jsx'
 export {
   createFixtureAdapter,
   STRIP_STATE_FIXTURES,
+  PEOPLE_STATE_FIXTURES,
 } from './adapters/FixtureAdapter.js'
 export { createLiveAdapter } from './adapters/LiveAdapter.js'
 export {

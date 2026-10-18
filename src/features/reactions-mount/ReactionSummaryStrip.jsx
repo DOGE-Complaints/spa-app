@@ -8,6 +8,7 @@ import './ReactionSummaryStrip.css'
  * Greenfield ReactionSummaryStrip (M154 / CR-12 React-always).
  * React affordance always Present when ready (supersedes CR-05 hide-React for strip).
  * Aggregate: `inline` (legacy in-strip) or `external` (CR-12 row via ReactionAggregateRow below strip).
+ * CR-17: aggregate → people path (onAggregateActivate) · NOT ReactionPicker.
  */
 export function ReactionSummaryStrip({
   stripStatus = 'ready',
@@ -19,7 +20,9 @@ export function ReactionSummaryStrip({
   density = 'compact',
   busy = false,
   open = false,
+  peopleOpen = false,
   panelId = undefined,
+  peoplePanelId = undefined,
   onOpen = null,
   onRetry = null,
   onAggregateActivate = null,
@@ -32,9 +35,10 @@ export function ReactionSummaryStrip({
   }
 
   function handleAggregateActivate() {
-    openPicker()
     if (typeof onAggregateActivate === 'function') onAggregateActivate()
   }
+
+  const aggregateExpanded = Boolean(peopleOpen)
 
   // External: loading/error live on under-strip aggregate row; strip keeps React.
   if (aggregatePlacement === 'inline' && stripStatus === 'loading') {
@@ -125,17 +129,17 @@ export function ReactionSummaryStrip({
           type="button"
           className={[
             'rm-summary-strip__aggregate',
-            open ? 'rm-summary-strip__aggregate--open' : '',
+            aggregateExpanded ? 'rm-summary-strip__aggregate--open' : '',
           ]
             .filter(Boolean)
             .join(' ')}
           data-testid="reaction-summary-aggregate"
-          data-rm-aggregate-active={open ? 'true' : 'false'}
-          aria-expanded={Boolean(open)}
-          aria-controls={panelId}
+          data-rm-aggregate-active={aggregateExpanded ? 'true' : 'false'}
+          aria-expanded={aggregateExpanded}
+          aria-controls={peoplePanelId || panelId}
           aria-label={t('threadsFeed.reactions.viewReactions')}
-          onMouseEnter={openPicker}
-          onFocus={openPicker}
+          onMouseEnter={handleAggregateActivate}
+          onFocus={handleAggregateActivate}
           onClick={handleAggregateActivate}
         >
           <span className="rm-summary-strip__marks" aria-hidden="true">

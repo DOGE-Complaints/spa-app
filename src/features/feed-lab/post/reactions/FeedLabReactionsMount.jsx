@@ -59,7 +59,7 @@ export function FeedLabReactionsMount({
       data-lab-locale={locale}
       data-lab-aggregate-placement={aggregatePlacement}
       data-lab-cr15-wire="true"
-      data-m155-oos="true"
+      data-m155-people="true"
       data-rm-adapter="fixture"
     >
       <ReactionsMount

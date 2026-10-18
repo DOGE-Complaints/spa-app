@@ -15,6 +15,10 @@ const LAB_STRINGS = Object.freeze({
   'threadsFeed.reactions.chooseUpTo': 'Choose up to 3 reactions',
   'threadsFeed.reactions.capacityFull': 'Deselect one to choose another',
   'threadsFeed.reactions.unavailable': 'Reactions unavailable',
+  'threadsFeed.reactions.peopleWhoReacted': 'People who reacted',
+  'threadsFeed.reactions.loadingPeople': 'Loading people…',
+  'threadsFeed.reactions.peopleUnavailable': 'People list unavailable',
+  'threadsFeed.reactions.tryAgain': 'Try again',
   'threadsFeed.reactions.agreeDisagreeExclusive': 'Agree and Disagree can’t be selected together',
   'threadsFeed.reactions.rootModerationHint':
     'Thread root: Moderation reactions are available on comments only.',

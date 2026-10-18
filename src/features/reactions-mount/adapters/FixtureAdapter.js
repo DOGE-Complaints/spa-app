@@ -47,12 +47,43 @@ export const STRIP_STATE_FIXTURES = Object.freeze({
   },
 })
 
+/** @typedef {'ready'|'loading'|'error'} PeopleFixtureState */
+
+/** Illustrative lab people — labeled fixture · never for Live fabricate-from-counts */
+export const PEOPLE_STATE_FIXTURES = Object.freeze({
+  ready: Object.freeze([
+    {
+      id: 'you',
+      name: 'You',
+      reaction_id: 'acknowledge',
+      isYou: true,
+      fixture: true,
+    },
+    {
+      id: 'member-a',
+      name: 'Member A',
+      reaction_id: 'support',
+      fixture: true,
+    },
+    {
+      id: 'member-b',
+      name: 'Member B',
+      reaction_id: 'agree',
+      fixture: true,
+    },
+  ]),
+  loading: Object.freeze([]),
+  error: Object.freeze([]),
+})
+
 /**
  * Create a mutable lab fixture adapter (local selection + aggregate).
  * @param {{
  *   initialState?: StripFixtureState,
+ *   peopleState?: PeopleFixtureState,
  *   maxReactions?: number,
  *   target?: 'thread-root'|'comment',
+ *   failNext?: boolean,
  * }} [opts]
  */
 export function createFixtureAdapter(opts = {}) {
@@ -69,6 +100,9 @@ export function createFixtureAdapter(opts = {}) {
   let selected = [...seed.selected]
   /** When true, next onReact returns fail (CR-02 save-error restore lab). */
   let failNext = Boolean(opts.failNext)
+  /** @type {PeopleFixtureState} */
+  let peopleState =
+    opts.peopleState === 'loading' || opts.peopleState === 'error' ? opts.peopleState : 'ready'
 
   function snapshot() {
     return {
@@ -134,6 +168,38 @@ export function createFixtureAdapter(opts = {}) {
     return snapshot()
   }
 
+  function setPeopleState(/** @type {PeopleFixtureState} */ state) {
+    if (state === 'loading' || state === 'error' || state === 'ready') {
+      peopleState = state
+    }
+    return peopleState
+  }
+
+  /**
+   * CR-17 — lab people list (FixtureAdapter only · labeled fixture).
+   * @returns {{ status: 'ok'|'fail', failKind?: string, data: { state: PeopleFixtureState, people: object[], fixture: true } }}
+   */
+  function listReactors() {
+    if (peopleState === 'loading') {
+      return {
+        status: 'ok',
+        data: { state: 'loading', people: [], fixture: true },
+      }
+    }
+    if (peopleState === 'error') {
+      return {
+        status: 'fail',
+        failKind: 'unavailable',
+        data: { state: 'error', people: [], fixture: true },
+      }
+    }
+    const people = (PEOPLE_STATE_FIXTURES.ready || []).map((p) => ({ ...p }))
+    return {
+      status: 'ok',
+      data: { state: 'ready', people, fixture: true },
+    }
+  }
+
   return {
     kind: 'fixture',
     maxReactions,
@@ -142,9 +208,11 @@ export function createFixtureAdapter(opts = {}) {
     onReact,
     setStripState,
     setFailNext,
-    /** Aggregate activate — M155 OOS no-op */
+    setPeopleState,
+    listReactors,
+    /** Aggregate / Reactions zone → people path (not picker) */
     onAggregateActivate() {
-      return { status: 'ok', data: { oos: 'M155' } }
+      return listReactors()
     },
   }
 }

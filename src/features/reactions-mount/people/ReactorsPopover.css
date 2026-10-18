@@ -1,0 +1,191 @@
+.rm-reactors {
+  box-sizing: border-box;
+  width: min(320px, calc(100vw - 16px));
+  max-height: 440px;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-elevated, #fffdf8);
+  color: var(--color-text-primary, #101828);
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
+  overflow: hidden;
+}
+
+[data-theme='dark'] .rm-reactors {
+  background: var(--color-surface-elevated, #1a1d24);
+  color: var(--color-text-primary, #f2f4f7);
+  border-color: var(--color-border-default, #2e3440);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='dark'] .rm-reactors__header {
+  border-bottom-color: var(--color-border-default, #2e3440);
+}
+
+[data-theme='dark'] .rm-reactors__avatar {
+  background: var(--color-surface-muted, #252a33);
+  color: var(--color-text-secondary, #98a2b3);
+}
+
+[data-theme='dark'] .rm-reactors__badge {
+  background: var(--color-surface-elevated, #1a1d24);
+  border-color: var(--color-border-default, #2e3440);
+}
+
+[data-theme='dark'] .rm-reactors__retry {
+  background: var(--color-surface, #12151a);
+  color: var(--color-text-primary, #f2f4f7);
+  border-color: var(--color-border-default, #2e3440);
+}
+
+[data-theme='dark'] .rm-reactors__skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-muted, #252a33) 25%,
+    var(--color-border-default, #2e3440) 50%,
+    var(--color-surface-muted, #252a33) 75%
+  );
+  background-size: 200% 100%;
+}
+
+.rm-reactors__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 12px 8px;
+  border-bottom: 1px solid var(--color-border-default, #e7e4dc);
+}
+
+.rm-reactors__title {
+  margin: 0;
+  font: 650 0.9375rem/1.3 system-ui, sans-serif;
+}
+
+.rm-reactors__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  cursor: pointer;
+}
+
+.rm-reactors__close:focus-visible {
+  outline: 2px solid var(--color-accent-primary, var(--doge-accent, #f5c542));
+  outline-offset: 2px;
+}
+
+.rm-reactors__body {
+  overflow: auto;
+  max-height: 380px;
+  padding: 4px 0 8px;
+}
+
+.rm-reactors__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rm-reactors__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 6px 12px;
+}
+
+.rm-reactors__avatar {
+  position: relative;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-muted, #f2f0ea);
+  color: var(--color-text-secondary, #667085);
+  font: 650 0.75rem/1 system-ui, sans-serif;
+}
+
+.rm-reactors__badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-surface-elevated, #fffdf8);
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rm-mark-accent, var(--color-accent-primary, #f5a623));
+}
+
+.rm-reactors__name {
+  min-width: 0;
+  font: 600 0.875rem/1.3 system-ui, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rm-reactors__loading,
+.rm-reactors__error {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+}
+
+.rm-reactors__skeleton {
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-muted, #f2f0ea) 25%,
+    var(--color-border-default, #e7e4dc) 50%,
+    var(--color-surface-muted, #f2f0ea) 75%
+  );
+  background-size: 200% 100%;
+}
+
+.rm-reactors__status-text {
+  margin: 0;
+  font: 500 0.875rem/1.4 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+}
+
+.rm-reactors__retry {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  border-radius: 8px;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #101828);
+  font: 600 0.8125rem/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.rm-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
