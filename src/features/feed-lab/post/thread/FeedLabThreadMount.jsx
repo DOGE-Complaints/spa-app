@@ -124,6 +124,7 @@ export function FeedLabThreadMount({
       data-lab-ct02="true"
       data-lab-ct08="true"
       data-lab-ct09="true"
+      data-lab-ct10="true"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"
       data-lab-thread-status={snap.status}

@@ -32,6 +32,25 @@
   min-width: 0;
 }
 
+/* CT-10 G-M1 — large speech-bubble empty icon (artboard B) */
+.tm-issue-thread-block__empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.25rem 0 0.15rem;
+  color: var(--color-text-secondary, #667085);
+  opacity: 0.72;
+}
+
+.tm-issue-thread-block__empty-icon-img {
+  display: block;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+}
+
 .tm-issue-thread-block__status-copy,
 .tm-issue-thread-block__lead {
   margin: 0;

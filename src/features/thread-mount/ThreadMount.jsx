@@ -28,7 +28,7 @@ function excerptOf(comments, parentId) {
 let attachSeq = 0
 
 /**
- * CT-01…09 ThreadMount — nest · composer · attach · branch · gate · reactions slot prop.
+ * CT-01…10 ThreadMount — nest · composer · attach · branch · gate · reactions · empty entry.
  */
 export function ThreadMount({
   status = 'empty',
@@ -128,8 +128,11 @@ export function ThreadMount({
       resolvedGate === 'failed' ||
       resolvedGate === 'denied-unknown' ||
       resolvedGate === 'stale')
-  const showComposer = writeAllowed && (expanded || status === 'empty')
+  /* CT-10: empty first paint = entry-only · full ThreadComposer only when expanded */
+  const showComposer = writeAllowed && expanded
+  const emptyEntry = writeAllowed && status === 'empty' && !expanded
   const collapsedEntry = writeAllowed && status === 'populated' && !expanded
+  const composerEntry = emptyEntry || collapsedEntry
   const mode = replyParentId ? 'reply' : 'root'
   const parentExcerpt = excerptOf(localComments, replyParentId)
   const allowList = Array.isArray(mediaAllowedTypes) ? mediaAllowedTypes : DEFAULT_MEDIA_ALLOWED_TYPES
@@ -322,6 +325,9 @@ export function ThreadMount({
       data-tm-autopost="false"
       data-tm-identity-methods="false"
       data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
+      data-lab-ct10="true"
+      data-tm-empty-entry={emptyEntry ? 'true' : 'false'}
+      data-tm-composer-open={showComposer ? 'true' : 'false'}
       data-tm-reactions-plug={typeof renderCommentReactions === 'function' ? 'host' : 'none'}
     >
       <IssueThreadBlock
@@ -333,7 +339,7 @@ export function ThreadMount({
         onViewDiscussion={() => setExpanded(true)}
         onRetry={onRetry}
         onReply={handleReply}
-        composerEntry={collapsedEntry}
+        composerEntry={composerEntry}
         onComposerEntry={focusComposerField}
         composerEntryRef={null}
         branchDisclosure={Boolean(branchDisclosure)}

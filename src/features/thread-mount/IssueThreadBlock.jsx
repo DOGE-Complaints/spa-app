@@ -64,6 +64,20 @@ export function IssueThreadBlock({
 
       {status === 'empty' ? (
         <div className="tm-issue-thread-block__state" data-testid="tm-thread-empty" role="status">
+          {/* CT-10 G-M1 · artboard B speech-bubble empty icon · decorative */}
+          <div
+            className="tm-issue-thread-block__empty-icon"
+            data-testid="tm-thread-empty-icon"
+            aria-hidden="true"
+          >
+            <img
+              className="tm-issue-thread-block__empty-icon-img"
+              src="/icons/next-feed/actions/comment.svg"
+              alt=""
+              width={56}
+              height={56}
+            />
+          </div>
           <p className="tm-issue-thread-block__lead">No comments yet</p>
           <p className="tm-issue-thread-block__helper">
             Start a constructive discussion about this Issue.

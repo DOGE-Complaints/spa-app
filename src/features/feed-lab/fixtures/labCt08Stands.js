@@ -36,7 +36,8 @@ export const LAB_CT08_STANDS = Object.freeze([
     status: 'empty',
     comments: [],
     writeCapability: 'allowed',
-    initiallyExpanded: true,
+    /* CT-10: entry-only first paint · activate opens composer */
+    initiallyExpanded: false,
   },
   {
     id: 'C',
