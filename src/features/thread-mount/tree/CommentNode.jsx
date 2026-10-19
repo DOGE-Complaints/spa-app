@@ -25,6 +25,7 @@ export const TM_REPLY_ICON_SRC = '/icons/next-feed/actions/reply.svg'
  * @param {(id: string, childCount: number) => 'collapsed'|'expanded'|'expanding'|'error'|null} [props.getBranchState]
  * @param {(id: string) => void} [props.onBranchExpand]
  * @param {(id: string) => void} [props.onBranchRetry]
+ * @param {number} [props.parentIndent] visual indent of parent (CT-14 spine step)
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderCommentReactions]
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderReplyComposer]
  */
@@ -34,6 +35,7 @@ export function CommentNode({
   visualIndentCap,
   onReply = null,
   flat = false,
+  parentIndent = 0,
   getBranchState = null,
   onBranchExpand = null,
   onBranchRetry = null,
@@ -42,6 +44,7 @@ export function CommentNode({
 }) {
   const depth = Number.isFinite(Number(node?.depth)) ? Math.floor(Number(node.depth)) : 0
   const indent = flat ? 0 : visualIndentLevel(depth, visualIndentCap)
+  const atVisualCap = !flat && indent >= visualIndentCap
   const replyOk = canReplyAtDepth(depth, maxDepth)
   const body = typeof node?.body === 'string' ? node.body : ''
   const children = Array.isArray(node?.children) ? node.children : []
@@ -56,6 +59,12 @@ export function CommentNode({
       : null
   const hasReactPlug = typeof renderCommentReactions === 'function'
   const showActionPills = hasReactPlug || replyOk
+  const showElbow = !flat && indent > 0
+  const childrenSpineClass = [
+    'tm-comment-node__children',
+    'tm-comment-node__children--spine',
+    atVisualCap ? 'tm-comment-node__children--cap' : 'tm-comment-node__children--step',
+  ].join(' ')
 
   return (
     <li
@@ -64,6 +73,7 @@ export function CommentNode({
       data-tm-comment-id={node.id}
       data-tm-depth={String(depth)}
       data-tm-indent={String(indent)}
+      data-tm-parent-indent={flat ? undefined : String(parentIndent)}
       data-tm-reply={replyOk ? 'eligible' : 'blocked'}
       data-tm-visual-capped={!flat && depth > indent ? 'true' : 'false'}
       data-tm-branch={branchState || ''}
@@ -71,11 +81,18 @@ export function CommentNode({
       data-lab-ct09={hasReactPlug ? 'true' : undefined}
       data-lab-ct12={typeof renderReplyComposer === 'function' ? 'true' : undefined}
       data-lab-ct13={showActionPills ? 'true' : undefined}
+      data-lab-ct14={!flat ? 'true' : undefined}
       style={flat ? undefined : { ['--tm-indent-level']: String(indent) }}
     >
       <div className="tm-comment-node__row">
-        {!flat && indent > 0 ? (
-          <span className="tm-comment-node__connector" aria-hidden="true" data-testid="tm-comment-connector" />
+        {showElbow ? (
+          <span
+            className="tm-comment-node__connector"
+            aria-hidden="true"
+            data-testid="tm-comment-connector"
+            data-tm-spine-elbow="true"
+            data-lab-ct14="true"
+          />
         ) : null}
         <article
           className="tm-comment-node__bubble"
@@ -217,13 +234,21 @@ export function CommentNode({
         </div>
       ) : null}
       {showChildren ? (
-        <ul className="tm-comment-node__children" data-testid={`tm-comment-children-${node.id}`}>
+        <ul
+          className={childrenSpineClass}
+          data-testid={`tm-comment-children-${node.id}`}
+          data-tm-spine="true"
+          data-tm-spine-step={atVisualCap ? 'cap' : 'step'}
+          data-lab-ct14="true"
+          style={{ ['--tm-indent-level']: String(indent) }}
+        >
           {children.map((child) => (
             <CommentNode
               key={child.id}
               node={child}
               maxDepth={maxDepth}
               visualIndentCap={visualIndentCap}
+              parentIndent={indent}
               onReply={onReply}
               getBranchState={getBranchState}
               onBranchExpand={onBranchExpand}

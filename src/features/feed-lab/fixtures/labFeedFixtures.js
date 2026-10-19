@@ -53,6 +53,7 @@ const LAB_FEED_FIXTURE_DRAFTS = [
     type: 'INCIDENT',
     /** CR-12 lab: populated aggregate under strip (fixture-only) */
     reactionStripState: 'populated',
+    /** CT-14 G-L2: default feed nest depth ≥1 (spine OP-eye) · ≤2 comments · no invent HTTP */
     comments: [
       { id: 'lab-c-002-a', body: 'Bike lane is unsafe here.', fixtureOnly: true },
       {

@@ -1,5 +1,9 @@
-/* CT-03 CommentNode — connectors · indent via --tm-indent-level · no author chrome */
+/* CT-03/14 CommentNode — continuous spine · bubble wash · indent via nest step (cap held) */
 .tm-comment-node {
+  --tm-indent-step: 2.75rem;
+  --tm-spine-color: var(--color-text-tertiary, #98a2b3);
+  --tm-bubble-wash: color-mix(in srgb, #d8e0ea 55%, var(--color-surface-elevated, #fffdf8) 45%);
+  --tm-bubble-border: color-mix(in srgb, #98a2b3 35%, var(--color-border-default, #e7e4dc) 65%);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -11,37 +15,42 @@
   align-items: stretch;
   gap: 0;
   min-width: 0;
-  margin-left: calc(var(--tm-indent-level, 0) * var(--tm-indent-step, 2.75rem));
+  margin-left: 0;
 }
 
 .tm-comment-node--flat .tm-comment-node__row {
   margin-left: 0;
 }
 
-.tm-lab-stand--narrow .tm-comment-node__row,
-.tm-thread-mount--narrow .tm-comment-node__row {
+.tm-lab-stand--narrow .tm-comment-node,
+.tm-thread-mount--narrow .tm-comment-node {
   --tm-indent-step: 1.5rem;
 }
 
+/* CT-14 G-H7: L-elbow from continuous rail into bubble (not indent>0 fragment-only) */
 .tm-comment-node__connector {
-  flex: 0 0 0.75rem;
-  margin-right: 0.5rem;
-  border-left: 2px solid var(--color-border-default, #e7e4dc);
-  border-bottom: 2px solid var(--color-border-default, #e7e4dc);
-  border-bottom-left-radius: 6px;
-  align-self: stretch;
-  min-height: 1.25rem;
-  margin-top: 0.35rem;
-  opacity: 0.85;
+  flex: 0 0 calc(var(--tm-indent-step) * 0.28);
+  width: calc(var(--tm-indent-step) * 0.28);
+  margin-left: calc(var(--tm-indent-step) * -0.28);
+  margin-right: 0.35rem;
+  border-left: none;
+  border-bottom: 2px solid var(--tm-spine-color);
+  border-bottom-left-radius: 0;
+  align-self: flex-start;
+  height: 1.05rem;
+  min-height: 0.9rem;
+  margin-top: 0.95rem;
+  opacity: 1;
 }
 
+/* CT-14 G-H8: M153 light blue-grey wash (not white elevated / warm #e7e4dc card) */
 .tm-comment-node__bubble {
   flex: 1 1 auto;
   min-width: 0;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid var(--color-border-default, #e7e4dc);
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--tm-bubble-border);
   border-radius: 10px;
-  background: var(--color-surface-elevated, #fff);
+  background: var(--tm-bubble-wash);
 }
 
 .tm-comment-node__text {
@@ -54,12 +63,13 @@
   word-break: break-word;
 }
 
+/* CT-14 denser action rhythm · CT-13 pill chrome held */
 .tm-comment-node__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
 }
 
 /* CT-13 G-H5: paired React | Reply pills · blue grammar via Present insightful token */
@@ -97,7 +107,7 @@
   align-self: stretch;
   width: 1px;
   min-height: 1.15rem;
-  margin: 0 0.4rem;
+  margin: 0 0.25rem;
   background: var(--color-border-default, #e7e4dc);
 }
 
@@ -177,11 +187,27 @@
 
 .tm-comment-node__children {
   list-style: none;
-  margin: 0.5rem 0 0;
+  margin: 0.35rem 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
+}
+
+/* CT-14 G-H7 continuous left grey spine under parent into nested bubbles */
+.tm-comment-node__children--spine {
+  position: relative;
+  border-left: 2px solid var(--tm-spine-color);
+  padding-left: 0.85rem;
+}
+
+.tm-comment-node__children--step {
+  margin-left: calc(var(--tm-indent-step) * 0.28);
+}
+
+/* VISUAL_INDENT_CAP held — no further horizontal step; spine may continue */
+.tm-comment-node__children--cap {
+  margin-left: 0;
 }
 
 /* CT-06 local branch disclosure */
@@ -252,19 +278,15 @@
 }
 
 /* CT-12 G-H4: reply composer under parent · same indent column as bubble */
+/* CT-12 G-H4 + CT-14: reply under parent · same column (relative nest) */
 .tm-comment-node__reply-slot {
   margin: 0.4rem 0 0.55rem;
-  margin-left: calc(var(--tm-indent-level, 0) * var(--tm-indent-step, 2.75rem));
+  margin-left: 0;
   min-width: 0;
 }
 
 .tm-comment-node--flat .tm-comment-node__reply-slot {
   margin-left: 0;
-}
-
-.tm-lab-stand--narrow .tm-comment-node__reply-slot,
-.tm-thread-mount--narrow .tm-comment-node__reply-slot {
-  --tm-indent-step: 1.5rem;
 }
 
 .tm-comment-node__reply-composer {

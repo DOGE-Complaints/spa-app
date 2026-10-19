@@ -1,4 +1,5 @@
 .tm-comment-tree {
+  --tm-spine-color: var(--color-text-tertiary, #98a2b3);
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
