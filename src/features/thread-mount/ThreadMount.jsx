@@ -377,6 +377,7 @@ export function ThreadMount({
       data-lab-ct10="true"
       data-lab-ct11={showComposer ? 'true' : undefined}
       data-lab-ct12="true"
+      data-lab-ct13="true"
       data-tm-empty-entry={emptyEntry ? 'true' : 'false'}
       data-tm-composer-open={showComposer ? 'true' : 'false'}
       data-tm-reply-inline={inlineReply ? 'true' : 'false'}

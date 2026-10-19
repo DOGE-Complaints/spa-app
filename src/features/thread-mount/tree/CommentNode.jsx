@@ -9,8 +9,11 @@ import {
 } from '../config/threadMountConfig.js'
 import './CommentNode.css'
 
+/** Present runtime icon · CT-13 · no invent SVG body */
+export const TM_REPLY_ICON_SRC = '/icons/next-feed/actions/reply.svg'
+
 /**
- * CT-03/06/09 CommentNode — literal body · Reply gate · local branch · reactions slot.
+ * CT-03/06/09/13 CommentNode — literal body · Reply gate · local branch · reactions slot · action pills.
  * No invent branch-fetch HTTP · React via host render prop (no CR ownership).
  *
  * @param {object} props
@@ -51,6 +54,8 @@ export function CommentNode({
     typeof renderReplyComposer === 'function'
       ? renderReplyComposer({ commentId: node.id, node })
       : null
+  const hasReactPlug = typeof renderCommentReactions === 'function'
+  const showActionPills = hasReactPlug || replyOk
 
   return (
     <li
@@ -63,8 +68,9 @@ export function CommentNode({
       data-tm-visual-capped={!flat && depth > indent ? 'true' : 'false'}
       data-tm-branch={branchState || ''}
       data-tm-branch-count={childCount > 0 ? String(childCount) : ''}
-      data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
+      data-lab-ct09={hasReactPlug ? 'true' : undefined}
       data-lab-ct12={typeof renderReplyComposer === 'function' ? 'true' : undefined}
+      data-lab-ct13={showActionPills ? 'true' : undefined}
       style={flat ? undefined : { ['--tm-indent-level']: String(indent) }}
     >
       <div className="tm-comment-node__row">
@@ -77,26 +83,67 @@ export function CommentNode({
           aria-label={depth === 0 ? 'Comment' : 'Reply'}
         >
           <p className="tm-comment-node__text">{body}</p>
-          <div className="tm-comment-node__actions" data-testid="tm-comment-actions">
-            {typeof renderCommentReactions === 'function' ? (
+          <div
+            className="tm-comment-node__actions"
+            data-testid="tm-comment-actions"
+            data-lab-ct13={showActionPills ? 'true' : undefined}
+          >
+            {showActionPills ? (
               <div
-                className="tm-comment-node__reactions"
-                data-testid={`tm-comment-reaction-slot-${node.id}`}
-                data-lab-ct09="true"
+                className="tm-comment-node__action-pills"
+                data-testid="tm-comment-action-pills"
+                data-lab-ct13="true"
               >
-                {renderCommentReactions({ commentId: node.id, node })}
+                {hasReactPlug ? (
+                  <div
+                    className="tm-comment-node__react-pill tm-comment-node__pill"
+                    data-testid="tm-comment-react-pill"
+                    data-lab-ct13="true"
+                  >
+                    <div
+                      className="tm-comment-node__reactions tm-comment-node__reactions--density"
+                      data-testid={`tm-comment-reaction-slot-${node.id}`}
+                      data-lab-ct09="true"
+                      data-lab-ct13="true"
+                      data-tm-react-density="compact"
+                    >
+                      {renderCommentReactions({ commentId: node.id, node })}
+                    </div>
+                  </div>
+                ) : null}
+                {hasReactPlug && replyOk ? (
+                  <span
+                    className="tm-comment-node__action-sep"
+                    data-testid="tm-comment-action-sep"
+                    aria-hidden="true"
+                  />
+                ) : null}
+                {replyOk ? (
+                  <button
+                    type="button"
+                    className="tm-comment-node__reply tm-comment-node__pill"
+                    data-testid="tm-comment-reply"
+                    data-lab-ct13="true"
+                    data-tm-reply-chrome="pill"
+                    onClick={(e) => onReply?.(node.id, e.currentTarget)}
+                  >
+                    <img
+                      className="tm-comment-node__reply-icon"
+                      src={TM_REPLY_ICON_SRC}
+                      alt=""
+                      width={16}
+                      height={16}
+                      data-testid="tm-comment-reply-icon"
+                      aria-hidden="true"
+                    />
+                    <span className="tm-comment-node__reply-label" data-testid="tm-comment-reply-label">
+                      Reply
+                    </span>
+                  </button>
+                ) : null}
               </div>
             ) : null}
-            {replyOk ? (
-              <button
-                type="button"
-                className="tm-comment-node__reply"
-                data-testid="tm-comment-reply"
-                onClick={(e) => onReply?.(node.id, e.currentTarget)}
-              >
-                Reply
-              </button>
-            ) : (
+            {!replyOk ? (
               <p
                 className="tm-comment-node__max-depth"
                 data-testid="tm-comment-max-depth"
@@ -104,7 +151,7 @@ export function CommentNode({
               >
                 {MAX_DEPTH_REACHED_COPY}
               </p>
-            )}
+            ) : null}
           </div>
           {showBranchChrome ? (
             <div

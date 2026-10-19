@@ -62,7 +62,51 @@
   margin-top: 0.5rem;
 }
 
-/* CT-09: host-plugged reactions-mount · React + Reply only · no Share strip */
+/* CT-13 G-H5: paired React | Reply pills · blue grammar via Present insightful token */
+.tm-comment-node__action-pills {
+  --tm-action-pill-fg: var(--rm-mark-accent-insightful, #2e90fa);
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.tm-comment-node__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 32px;
+  margin: 0;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--tm-action-pill-fg) 38%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tm-action-pill-fg) 12%, transparent);
+  color: var(--tm-action-pill-fg);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tm-comment-node__action-sep {
+  flex: 0 0 1px;
+  align-self: stretch;
+  width: 1px;
+  min-height: 1.15rem;
+  margin: 0 0.4rem;
+  background: var(--color-border-default, #e7e4dc);
+}
+
+/* CT-09/13: host-plugged reactions-mount · density wrap · no strip DNA width */
+.tm-comment-node__react-pill {
+  max-width: max-content;
+  padding: 0.1rem 0.25rem;
+}
+
 .tm-comment-node__reactions {
   display: inline-flex;
   align-items: center;
@@ -70,27 +114,57 @@
   max-width: 100%;
 }
 
+.tm-comment-node__reactions--density {
+  max-width: max-content;
+  width: auto;
+}
+
 .tm-comment-node__reactions .feed-lab-reactions-mount,
 .tm-comment-node__reactions [data-testid='reactions-mount'] {
   min-width: 0;
+  width: auto;
+  max-width: max-content;
 }
 
-.tm-comment-node__reply {
+.tm-comment-node__reactions--density .rm-summary-strip,
+.tm-comment-node__reactions--density .feed-lab-reactions-mount {
+  width: auto;
+  max-width: max-content;
+}
+
+.tm-comment-node__reactions--density .rm-summary-strip__react {
   margin: 0;
-  padding: 0.2rem 0;
+  padding: 0.15rem 0.45rem;
+  min-height: 28px;
   border: 0;
+  border-radius: 999px;
   background: transparent;
-  color: var(--color-text-secondary, #667085);
+  color: var(--tm-action-pill-fg);
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  gap: 0.3rem;
 }
 
-.tm-comment-node__reply:focus-visible {
-  outline: 2px solid var(--color-border-focus, #98a2b3);
+.tm-comment-node__reply {
+  text-decoration: none;
+}
+
+.tm-comment-node__reply-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  color: inherit;
+}
+
+.tm-comment-node__reply-label {
+  display: inline;
+}
+
+.tm-comment-node__reply:focus-visible,
+.tm-comment-node__pill:focus-visible {
+  outline: 2px solid var(--tm-action-pill-fg, #2e90fa);
   outline-offset: 2px;
 }
 

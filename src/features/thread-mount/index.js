@@ -34,7 +34,7 @@ export {
   visualIndentLevel,
 } from './config/threadMountConfig.js'
 export { CommentTree } from './tree/CommentTree.jsx'
-export { CommentNode } from './tree/CommentNode.jsx'
+export { CommentNode, TM_REPLY_ICON_SRC } from './tree/CommentNode.jsx'
 export { buildCommentForest } from './tree/buildCommentForest.js'
 export { ThreadComposer, M153_ILLUSTRATIVE_DRAFT } from './composer/ThreadComposer.jsx'
 export { AttachmentRef } from './composer/AttachmentRef.jsx'
