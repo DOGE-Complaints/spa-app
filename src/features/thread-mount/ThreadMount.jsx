@@ -326,6 +326,7 @@ export function ThreadMount({
       data-tm-identity-methods="false"
       data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
       data-lab-ct10="true"
+      data-lab-ct11={showComposer ? 'true' : undefined}
       data-tm-empty-entry={emptyEntry ? 'true' : 'false'}
       data-tm-composer-open={showComposer ? 'true' : 'false'}
       data-tm-reactions-plug={typeof renderCommentReactions === 'function' ? 'host' : 'none'}
@@ -390,6 +391,8 @@ export function ThreadMount({
           onAttach={handleAttach}
           onRemoveAttachment={handleRemoveAttachment}
           verifiedReturn={Boolean(verifiedReturn)}
+          /* CT-11 G-H2: empty/first-send circle · else labelled Post+plane */
+          sendChrome={status === 'empty' && !replyParentId ? 'circle' : 'labelled'}
         />
       ) : null}
     </div>

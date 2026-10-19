@@ -13,9 +13,13 @@ import './ThreadComposer.css'
 
 export const M153_ILLUSTRATIVE_DRAFT = 'I can help draft the sign-up list this week.'
 
+/** Present runtime icons · CT-11 · no invent SVG bodies */
+export const TM_ATTACH_ICON_SRC = '/icons/next-feed/actions/attach.svg'
+export const TM_SEND_ICON_SRC = '/icons/next-feed/actions/send.svg'
+
 /**
- * CT-04/05 ThreadComposer — root/reply · draft · fail F · attachments local-intent.
- * Fixture write only · no invent HTTP.
+ * CT-04/05/11 ThreadComposer — root/reply · draft · fail F · attachments · icon chrome.
+ * Fixture write only · no invent HTTP · reuse Present attach/send.svg.
  *
  * @param {object} props
  * @param {'root'|'reply'} [props.mode]
@@ -36,6 +40,7 @@ export const M153_ILLUSTRATIVE_DRAFT = 'I can help draft the sign-up list this w
  * @param {boolean} [props.attachmentsAvailable]
  * @param {() => void} [props.onAttach]
  * @param {(id: string) => void} [props.onRemoveAttachment]
+ * @param {'circle'|'labelled'} [props.sendChrome] CT-11 G-H2 circle · G-H6 labelled+plane
  */
 export function ThreadComposer({
   mode = 'root',
@@ -58,6 +63,8 @@ export function ThreadComposer({
   onRemoveAttachment = null,
   /** CT-07 V-C — opaque Verified chrome · never implies auto-post */
   verifiedReturn = false,
+  /** CT-11 — empty/first-send circle vs labelled Post+plane */
+  sendChrome = 'labelled',
 }) {
   const localRef = useRef(null)
   const ref = textareaRef || localRef
@@ -67,6 +74,7 @@ export function ThreadComposer({
   const atMax = !canAddAttachment(list.length, resolvedMax)
   const showAttach = Boolean(attachmentsAvailable)
   const attachDisabled = posting || atMax || typeof onAttach !== 'function'
+  const circleSend = sendChrome === 'circle'
 
   useEffect(() => {
     if (!focusSignal) return undefined
@@ -94,10 +102,12 @@ export function ThreadComposer({
       data-tm-attach-at-max={atMax ? 'true' : 'false'}
       data-tm-attachments-available={showAttach ? 'true' : 'false'}
       data-tm-verified-return={verifiedReturn ? 'true' : 'false'}
+      data-tm-send-chrome={circleSend ? 'circle' : 'labelled'}
       data-tm-autopost="false"
       data-lab-ct04="true"
       data-lab-ct05="true"
       data-lab-ct07={verifiedReturn ? 'true' : undefined}
+      data-lab-ct11="true"
       data-lab-sticky-keyboard={stickyKeyboard ? 'true' : 'false'}
     >
       {verifiedReturn ? (
@@ -202,26 +212,54 @@ export function ThreadComposer({
             data-testid="tm-composer-attach"
             disabled={attachDisabled}
             aria-disabled={attachDisabled}
+            aria-label="Attach"
             onClick={() => {
               if (attachDisabled) return
               onAttach?.()
             }}
           >
-            Attach
+            <img
+              className="tm-thread-composer__icon tm-thread-composer__icon--attach"
+              data-testid="tm-composer-attach-icon"
+              src={TM_ATTACH_ICON_SRC}
+              alt=""
+              width={20}
+              height={20}
+              aria-hidden="true"
+            />
+            <span className="tm-thread-composer__attach-label">Attach</span>
           </button>
         ) : null}
         <button
           type="button"
-          className="tm-thread-composer__post"
+          className={`tm-thread-composer__post${
+            circleSend ? ' tm-thread-composer__post--circle' : ' tm-thread-composer__post--labelled'
+          }`}
           data-testid="tm-composer-post"
           disabled={!canPost}
           aria-disabled={!canPost}
+          aria-label={postLabel}
           onClick={() => {
             if (!canPost) return
             onPost?.()
           }}
         >
-          {posting ? 'Posting…' : postLabel}
+          <img
+            className="tm-thread-composer__icon tm-thread-composer__icon--send"
+            data-testid="tm-composer-send-icon"
+            src={TM_SEND_ICON_SRC}
+            alt=""
+            width={circleSend ? 22 : 18}
+            height={circleSend ? 22 : 18}
+            aria-hidden="true"
+          />
+          {circleSend ? (
+            <span className="visually-hidden">{posting ? 'Posting…' : postLabel}</span>
+          ) : (
+            <span className="tm-thread-composer__post-label" data-testid="tm-composer-post-label">
+              {posting ? 'Posting…' : postLabel}
+            </span>
+          )}
         </button>
       </div>
     </div>

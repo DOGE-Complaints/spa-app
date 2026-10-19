@@ -108,15 +108,21 @@
 
 .tm-thread-composer__actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
+/* CT-11 — paperclip Attach left · Post primary right */
 .tm-thread-composer__attach {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-right: auto;
   min-height: 44px;
-  min-width: 5.5rem;
-  padding: 0.5rem 0.9rem;
+  min-width: 44px;
+  padding: 0.5rem 0.85rem;
   border: 1px solid var(--color-border-default, #e7e4dc);
   border-radius: 999px;
   background: transparent;
@@ -132,18 +138,48 @@
   cursor: not-allowed;
 }
 
+.tm-thread-composer__attach-label {
+  line-height: 1;
+}
+
+.tm-thread-composer__icon {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
 .tm-thread-composer__post {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   min-height: 44px;
-  min-width: 7.5rem;
-  padding: 0.5rem 1rem;
   border: 0;
-  border-radius: 999px;
   background: var(--color-action-yellow, #f5c542);
   color: var(--color-text-primary, #101828);
   font: inherit;
   font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+/* G-H6 — labelled Post + plane */
+.tm-thread-composer__post--labelled {
+  min-width: 7.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+}
+
+/* G-H2 — yellow circular send (empty/first-send) */
+.tm-thread-composer__post--circle {
+  width: 48px;
+  min-width: 48px;
+  padding: 0;
+  border-radius: 999px;
+}
+
+.tm-thread-composer__post-label {
+  line-height: 1;
 }
 
 .tm-thread-composer__post:disabled {
