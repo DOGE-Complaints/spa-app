@@ -32,6 +32,7 @@ export function IssueThreadBlock({
   initialBranchStates = null,
   branchExpandDelayMs = undefined,
   renderCommentReactions = null,
+  renderReplyComposer = null,
 }) {
   const bodies = (Array.isArray(comments) ? comments : [])
     .map((c) => (typeof c?.body === 'string' ? c.body.trim() : ''))
@@ -147,6 +148,7 @@ export function IssueThreadBlock({
                 initialBranchStates={initialBranchStates}
                 branchExpandDelayMs={branchExpandDelayMs}
                 renderCommentReactions={renderCommentReactions}
+                renderReplyComposer={renderReplyComposer}
               />
             </div>
           )}

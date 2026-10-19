@@ -28,7 +28,7 @@ function excerptOf(comments, parentId) {
 let attachSeq = 0
 
 /**
- * CT-01…10 ThreadMount — nest · composer · attach · branch · gate · reactions · empty entry.
+ * CT-01…12 ThreadMount — nest · composer · attach · branch · gate · reactions · empty · inline reply.
  */
 export function ThreadMount({
   status = 'empty',
@@ -130,12 +130,61 @@ export function ThreadMount({
       resolvedGate === 'stale')
   /* CT-10: empty first paint = entry-only · full ThreadComposer only when expanded */
   const showComposer = writeAllowed && expanded
+  /* CT-12 G-H4: reply mounts under parent · root stays bottom after IssueThreadBlock */
+  const inlineReply = Boolean(showComposer && replyParentId)
+  const showRootComposer = Boolean(showComposer && !replyParentId)
   const emptyEntry = writeAllowed && status === 'empty' && !expanded
   const collapsedEntry = writeAllowed && status === 'populated' && !expanded
   const composerEntry = emptyEntry || collapsedEntry
   const mode = replyParentId ? 'reply' : 'root'
   const parentExcerpt = excerptOf(localComments, replyParentId)
   const allowList = Array.isArray(mediaAllowedTypes) ? mediaAllowedTypes : DEFAULT_MEDIA_ALLOWED_TYPES
+
+  function renderComposer() {
+    if (!showComposer) return null
+    return (
+      <ThreadComposer
+        mode={mode}
+        draft={draft}
+        onDraftChange={(v) => {
+          setDraft(v)
+          if (failState) setFailState(null)
+        }}
+        parentExcerpt={parentExcerpt}
+        onCancelReply={handleCancelReply}
+        onPost={runPost}
+        posting={posting}
+        failState={failState}
+        onTryAgain={runPost}
+        onKeepEditing={() => setFailState(null)}
+        focusSignal={focusSignal}
+        stickyKeyboard={Boolean(narrow)}
+        textareaRef={composerTextareaRef}
+        attachments={attachments}
+        maxAttachments={resolvedAttach}
+        attachmentsAvailable={Boolean(attachmentsAvailable)}
+        onAttach={handleAttach}
+        onRemoveAttachment={handleRemoveAttachment}
+        verifiedReturn={Boolean(verifiedReturn)}
+        /* CT-11 G-H2: empty/first-send circle · else labelled Post+plane */
+        sendChrome={status === 'empty' && !replyParentId ? 'circle' : 'labelled'}
+      />
+    )
+  }
+
+  function renderReplyComposerSlot({ commentId }) {
+    if (!inlineReply || commentId !== replyParentId) return null
+    return (
+      <div
+        className="tm-comment-node__reply-composer"
+        data-testid="tm-inline-reply-composer"
+        data-lab-ct12="true"
+        data-tm-reply-inline="true"
+      >
+        {renderComposer()}
+      </div>
+    )
+  }
 
   useEffect(() => {
     setAttachments((prev) => clampAttachmentIntents(prev, resolvedAttach))
@@ -327,8 +376,10 @@ export function ThreadMount({
       data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
       data-lab-ct10="true"
       data-lab-ct11={showComposer ? 'true' : undefined}
+      data-lab-ct12="true"
       data-tm-empty-entry={emptyEntry ? 'true' : 'false'}
       data-tm-composer-open={showComposer ? 'true' : 'false'}
+      data-tm-reply-inline={inlineReply ? 'true' : 'false'}
       data-tm-reactions-plug={typeof renderCommentReactions === 'function' ? 'host' : 'none'}
     >
       <IssueThreadBlock
@@ -348,6 +399,7 @@ export function ThreadMount({
         initialBranchStates={initialBranchStates}
         branchExpandDelayMs={branchExpandDelayMs}
         renderCommentReactions={renderCommentReactions}
+        renderReplyComposer={inlineReply ? renderReplyComposerSlot : null}
       />
       {showHandoff ? <StubVerifyHandoff onBack={onHandoffBack} /> : null}
       {showGate ? (
@@ -367,34 +419,7 @@ export function ThreadMount({
           onDismiss={onVerifyDismiss}
         />
       ) : null}
-      {showComposer ? (
-        <ThreadComposer
-          mode={mode}
-          draft={draft}
-          onDraftChange={(v) => {
-            setDraft(v)
-            if (failState) setFailState(null)
-          }}
-          parentExcerpt={parentExcerpt}
-          onCancelReply={handleCancelReply}
-          onPost={runPost}
-          posting={posting}
-          failState={failState}
-          onTryAgain={runPost}
-          onKeepEditing={() => setFailState(null)}
-          focusSignal={focusSignal}
-          stickyKeyboard={Boolean(narrow)}
-          textareaRef={composerTextareaRef}
-          attachments={attachments}
-          maxAttachments={resolvedAttach}
-          attachmentsAvailable={Boolean(attachmentsAvailable)}
-          onAttach={handleAttach}
-          onRemoveAttachment={handleRemoveAttachment}
-          verifiedReturn={Boolean(verifiedReturn)}
-          /* CT-11 G-H2: empty/first-send circle · else labelled Post+plane */
-          sendChrome={status === 'empty' && !replyParentId ? 'circle' : 'labelled'}
-        />
-      ) : null}
+      {showRootComposer ? renderComposer() : null}
     </div>
   )
 }

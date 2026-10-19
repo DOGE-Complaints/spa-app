@@ -23,6 +23,7 @@ import './CommentNode.css'
  * @param {(id: string) => void} [props.onBranchExpand]
  * @param {(id: string) => void} [props.onBranchRetry]
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderCommentReactions]
+ * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderReplyComposer]
  */
 export function CommentNode({
   node,
@@ -34,6 +35,7 @@ export function CommentNode({
   onBranchExpand = null,
   onBranchRetry = null,
   renderCommentReactions = null,
+  renderReplyComposer = null,
 }) {
   const depth = Number.isFinite(Number(node?.depth)) ? Math.floor(Number(node.depth)) : 0
   const indent = flat ? 0 : visualIndentLevel(depth, visualIndentCap)
@@ -45,6 +47,10 @@ export function CommentNode({
     typeof getBranchState === 'function' ? getBranchState(node.id, childCount) : null
   const showChildren = !flat && childCount > 0 && (branchState == null || branchState === 'expanded')
   const showBranchChrome = !flat && childCount > 0 && branchState != null
+  const replyComposer =
+    typeof renderReplyComposer === 'function'
+      ? renderReplyComposer({ commentId: node.id, node })
+      : null
 
   return (
     <li
@@ -58,6 +64,7 @@ export function CommentNode({
       data-tm-branch={branchState || ''}
       data-tm-branch-count={childCount > 0 ? String(childCount) : ''}
       data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
+      data-lab-ct12={typeof renderReplyComposer === 'function' ? 'true' : undefined}
       style={flat ? undefined : { ['--tm-indent-level']: String(indent) }}
     >
       <div className="tm-comment-node__row">
@@ -151,6 +158,17 @@ export function CommentNode({
           ) : null}
         </article>
       </div>
+      {/* CT-12 G-H4: inline reply slot under this parent · host owns composer */}
+      {replyComposer ? (
+        <div
+          className="tm-comment-node__reply-slot"
+          data-testid={`tm-comment-reply-slot-${node.id}`}
+          data-lab-ct12="true"
+          style={flat ? undefined : { ['--tm-indent-level']: String(indent) }}
+        >
+          {replyComposer}
+        </div>
+      ) : null}
       {showChildren ? (
         <ul className="tm-comment-node__children" data-testid={`tm-comment-children-${node.id}`}>
           {children.map((child) => (
@@ -164,6 +182,7 @@ export function CommentNode({
               onBranchExpand={onBranchExpand}
               onBranchRetry={onBranchRetry}
               renderCommentReactions={renderCommentReactions}
+              renderReplyComposer={renderReplyComposer}
             />
           ))}
         </ul>

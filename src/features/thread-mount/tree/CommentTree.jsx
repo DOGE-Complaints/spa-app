@@ -42,6 +42,7 @@ function collectBranchIds(roots) {
  * @param {Record<string, 'collapsed'|'expanded'|'expanding'|'error'>|null} [props.initialBranchStates]
  * @param {number} [props.branchExpandDelayMs]
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderCommentReactions]
+ * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderReplyComposer]
  */
 export function CommentTree({
   comments = [],
@@ -53,6 +54,7 @@ export function CommentTree({
   initialBranchStates = null,
   branchExpandDelayMs = BRANCH_EXPAND_DELAY_MS,
   renderCommentReactions = null,
+  renderReplyComposer = null,
 }) {
   const resolvedMax = resolveMaxDepth(maxDepth)
   const resolvedCap = resolveVisualIndentCap(visualIndentCap)
@@ -140,6 +142,7 @@ export function CommentTree({
       data-lab-ct03="true"
       data-lab-ct06={branchDisclosure ? 'true' : undefined}
       data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
+      data-lab-ct12={typeof renderReplyComposer === 'function' ? 'true' : undefined}
       data-tm-fallback-reason={forest.reason || ''}
     >
       {forest.mode === 'flat' ? (
@@ -160,6 +163,7 @@ export function CommentTree({
                 onBranchExpand={runExpand}
                 onBranchRetry={runExpand}
                 renderCommentReactions={renderCommentReactions}
+                renderReplyComposer={renderReplyComposer}
               />
             ))
           : forest.flat.map((node) => (
@@ -171,6 +175,7 @@ export function CommentTree({
                 onReply={onReply}
                 flat
                 renderCommentReactions={renderCommentReactions}
+                renderReplyComposer={renderReplyComposer}
               />
             ))}
       </ul>
