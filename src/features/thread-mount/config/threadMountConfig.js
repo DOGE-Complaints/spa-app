@@ -65,6 +65,67 @@ export const ATTACH_LOCAL_INTENT_COPY = 'Local intent · not published'
 /** Default allow-list for fixture Attach control (not invent HTTP) */
 export const DEFAULT_MEDIA_ALLOWED_TYPES = Object.freeze(['image', 'file'])
 
+/**
+ * CT-17 M153a — operator family allow-list hook (images · PDF · Office).
+ * Exact MIME/extensions remain TBD (§18) — do not invent concrete MIME tables here.
+ */
+export const ATTACHMENT_FAMILY_ALLOWLIST = Object.freeze(['images', 'pdf', 'office'])
+/** Placeholder for OP-approved MIME/extension table · null = fail-closed for non-image */
+export const ATTACHMENT_MIME_TABLE_TBD = null
+
+/**
+ * Coarse family probe only · no invented MIME allow-list.
+ * `image/*` → images; without ATTACHMENT_MIME_TABLE_TBD, pdf/office stay unknown (fail-closed).
+ * @param {File|{ type?: string, name?: string }|null|undefined} file
+ * @returns {'images'|'pdf'|'office'|'unknown'}
+ */
+export function inferAttachmentFamily(file) {
+  if (!file) return 'unknown'
+  const type = typeof file.type === 'string' ? file.type.toLowerCase().trim() : ''
+  if (type.startsWith('image/')) return 'images'
+  const table = ATTACHMENT_MIME_TABLE_TBD
+  if (table && typeof table === 'object') {
+    const hit = table[type]
+    if (hit === 'pdf' || hit === 'office' || hit === 'images') return hit
+  }
+  return 'unknown'
+}
+
+/**
+ * Map a native picker File → local AttachmentRef intent (origin=picker · never published).
+ * @param {File|{ type?: string, name?: string }} file
+ * @param {{ id: string, forceStatus?: 'ready'|'denied'|null }} opts
+ */
+export function buildAttachmentIntentFromPick(file, opts) {
+  const id = opts?.id
+  const family = inferAttachmentFamily(file)
+  const allowed = ATTACHMENT_FAMILY_ALLOWLIST.includes(family)
+  const status =
+    opts?.forceStatus === 'ready' || opts?.forceStatus === 'denied'
+      ? opts.forceStatus
+      : allowed
+        ? 'ready'
+        : 'denied'
+  const kind =
+    family === 'images' ? 'image' : family === 'pdf' ? 'pdf' : family === 'office' ? 'office' : 'file'
+  const label =
+    family === 'images'
+      ? 'Selected image'
+      : family === 'pdf'
+        ? 'PDF document'
+        : family === 'office'
+          ? 'Office document'
+          : 'Selected file'
+  return {
+    id,
+    kind,
+    label,
+    status,
+    family,
+    origin: 'picker',
+  }
+}
+
 /** @typedef {'loading'|'empty'|'populated'|'unavailable'} ThreadMountStatus */
 
 /**

@@ -4,8 +4,8 @@ import { ThreadComposer } from './composer/ThreadComposer.jsx'
 import {
   DEFAULT_MAX_ATTACHMENTS,
   DEFAULT_MAX_DEPTH,
-  DEFAULT_MEDIA_ALLOWED_TYPES,
   VISUAL_INDENT_CAP,
+  buildAttachmentIntentFromPick,
   canAddAttachment,
   clampAttachmentIntents,
   resolveMaxAttachments,
@@ -51,7 +51,7 @@ export function ThreadMount({
   maxDepth = DEFAULT_MAX_DEPTH,
   visualIndentCap = VISUAL_INDENT_CAP,
   maxAttachments = DEFAULT_MAX_ATTACHMENTS,
-  mediaAllowedTypes = DEFAULT_MEDIA_ALLOWED_TYPES,
+  mediaAllowedTypes = undefined,
   attachmentsAvailable = true,
   narrow = false,
   apiRef = null,
@@ -61,8 +61,12 @@ export function ThreadMount({
   initialAttachments = null,
   forcePostFail = false,
   autoFailOnMount = false,
-  /** @type {'ready'|'denied'|null} lab fixture Attach outcome */
-  attachOutcome = 'ready',
+  /**
+   * CT-17 lab override after native pick only · never seeds chips without a File.
+   * `null` = classify via family hook (fail-closed when MIME table TBD).
+   * @type {'ready'|'denied'|null}
+   */
+  attachOutcome = null,
   branchDisclosure = false,
   branchExpandMode = 'sync',
   initialBranchStates = null,
@@ -150,7 +154,8 @@ export function ThreadMount({
   const composerEntry = emptyEntry || collapsedEntry
   const mode = replyParentId ? 'reply' : 'root'
   const parentExcerpt = excerptOf(localComments, replyParentId)
-  const allowList = Array.isArray(mediaAllowedTypes) ? mediaAllowedTypes : DEFAULT_MEDIA_ALLOWED_TYPES
+  /* mediaAllowedTypes kept for host API compatibility · CT-17 family hook is ATTACHMENT_FAMILY_ALLOWLIST */
+  void mediaAllowedTypes
 
   function renderComposer() {
     if (!showComposer) return null
@@ -175,7 +180,7 @@ export function ThreadMount({
         attachments={attachments}
         maxAttachments={resolvedAttach}
         attachmentsAvailable={Boolean(attachmentsAvailable)}
-        onAttach={handleAttach}
+        onFilesSelected={handleFilesSelected}
         onRemoveAttachment={handleRemoveAttachment}
         verifiedReturn={Boolean(verifiedReturn)}
         /* CT-11 G-H2: empty/first-send circle · else labelled Post+plane */
@@ -254,43 +259,18 @@ export function ThreadMount({
     })
   }
 
-  function handleAttach() {
+  /** CT-17 — native picker selection only · no synthetic Ready seed */
+  function handleFilesSelected(files) {
     if (!attachmentsAvailable) return
     if (!canAddAttachment(attachments.length, resolvedAttach)) return
-    const kind = allowList.includes('image') ? 'image' : allowList[0] || 'file'
+    const file = Array.isArray(files) && files.length ? files[0] : null
+    if (!file) return
     attachSeq += 1
-    const id = `fx-attach-${attachSeq}`
-    if (attachOutcome === 'denied') {
-      setAttachments((prev) =>
-        clampAttachmentIntents(
-          [
-            ...prev,
-            {
-              id,
-              kind,
-              label: kind === 'image' ? 'Selected image' : 'Attached file',
-              status: 'denied',
-            },
-          ],
-          resolvedAttach,
-        ),
-      )
-      return
-    }
-    setAttachments((prev) =>
-      clampAttachmentIntents(
-        [
-          ...prev,
-          {
-            id,
-            kind,
-            label: kind === 'image' ? 'Selected image' : 'Attached file',
-            status: 'ready',
-          },
-        ],
-        resolvedAttach,
-      ),
-    )
+    const id = `pick-attach-${attachSeq}`
+    const forceStatus =
+      attachOutcome === 'ready' || attachOutcome === 'denied' ? attachOutcome : null
+    const intent = buildAttachmentIntentFromPick(file, { id, forceStatus })
+    setAttachments((prev) => clampAttachmentIntents([...prev, intent], resolvedAttach))
   }
 
   function handleRemoveAttachment(id) {

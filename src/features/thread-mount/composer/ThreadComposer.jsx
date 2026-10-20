@@ -38,7 +38,8 @@ export const TM_SEND_ICON_SRC = '/icons/next-feed/actions/send.svg'
  * @param {Array<{ id: string, label?: string, status: 'ready'|'denied', kind?: string }>} [props.attachments]
  * @param {number} [props.maxAttachments]
  * @param {boolean} [props.attachmentsAvailable]
- * @param {() => void} [props.onAttach]
+ * @param {() => void} [props.onAttach] optional notify when Attach opens native picker
+ * @param {(files: File[]) => void} [props.onFilesSelected] CT-17 · after native picker selection
  * @param {(id: string) => void} [props.onRemoveAttachment]
  * @param {'circle'|'labelled'} [props.sendChrome] CT-11 G-H2 circle · G-H6 labelled+plane
  */
@@ -60,6 +61,7 @@ export function ThreadComposer({
   maxAttachments = DEFAULT_MAX_ATTACHMENTS,
   attachmentsAvailable = true,
   onAttach = null,
+  onFilesSelected = null,
   onRemoveAttachment = null,
   /** CT-07 V-C — opaque Verified chrome · never implies auto-post */
   verifiedReturn = false,
@@ -67,14 +69,29 @@ export function ThreadComposer({
   sendChrome = 'labelled',
 }) {
   const localRef = useRef(null)
+  const fileInputRef = useRef(null)
   const ref = textareaRef || localRef
   const canPost = Boolean(draft?.trim()) && !posting
   const resolvedMax = resolveMaxAttachments(maxAttachments)
   const list = Array.isArray(attachments) ? attachments : []
   const atMax = !canAddAttachment(list.length, resolvedMax)
   const showAttach = Boolean(attachmentsAvailable)
-  const attachDisabled = posting || atMax || typeof onAttach !== 'function'
+  const canOpenPicker = typeof onFilesSelected === 'function'
+  const attachDisabled = posting || atMax || !canOpenPicker
   const circleSend = sendChrome === 'circle'
+
+  function openNativePicker() {
+    if (attachDisabled) return
+    onAttach?.()
+    fileInputRef.current?.click?.()
+  }
+
+  function handleNativePick(e) {
+    const picked = e?.target?.files
+    const files = picked && picked.length ? Array.from(picked) : []
+    if (files.length && typeof onFilesSelected === 'function') onFilesSelected(files)
+    if (e?.target) e.target.value = ''
+  }
 
   useEffect(() => {
     if (!focusSignal) return undefined
@@ -108,8 +125,22 @@ export function ThreadComposer({
       data-lab-ct05="true"
       data-lab-ct07={verifiedReturn ? 'true' : undefined}
       data-lab-ct11="true"
+      data-lab-ct17={showAttach ? 'true' : undefined}
       data-lab-sticky-keyboard={stickyKeyboard ? 'true' : 'false'}
     >
+      {showAttach ? (
+        <input
+          ref={fileInputRef}
+          type="file"
+          className="visually-hidden"
+          data-testid="tm-composer-file-input"
+          data-tm-native-picker="true"
+          tabIndex={-1}
+          aria-hidden="true"
+          disabled={attachDisabled}
+          onChange={handleNativePick}
+        />
+      ) : null}
       {verifiedReturn ? (
         <div className="tm-verify-return" data-testid="tm-verify-return" role="status">
           <p className="tm-verify-return__badge" data-testid="tm-verify-result-opaque">
@@ -213,10 +244,7 @@ export function ThreadComposer({
             disabled={attachDisabled}
             aria-disabled={attachDisabled}
             aria-label="Attach"
-            onClick={() => {
-              if (attachDisabled) return
-              onAttach?.()
-            }}
+            onClick={openNativePicker}
           >
             <img
               className="tm-thread-composer__icon tm-thread-composer__icon--attach"
