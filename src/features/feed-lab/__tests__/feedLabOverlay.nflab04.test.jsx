@@ -91,8 +91,10 @@ describe('FeedLab overlay NF-LAB-04 (superseded → LAB-10 greenfield)', () => {
     const headers = within(body).getAllByTestId('tm-thread-heading')
     expect(headers.length).toBeGreaterThan(0)
     for (const h of headers) {
-      expect(h.textContent?.trim()).toBe('Discussion')
-      expect(h.textContent?.trim()).not.toBe('DISCUSSION')
+      // CT-15 may append · Issue {id} · classic was ALL-CAPS DISCUSSION
+      const text = h.textContent?.trim() || ''
+      expect(text.startsWith('Discussion')).toBe(true)
+      expect(text).not.toBe('DISCUSSION')
     }
   })
 })
