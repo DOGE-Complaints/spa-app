@@ -57,9 +57,11 @@ describe('CT-24 Share Issue link sheet', () => {
     }
     expect(screen.getByTestId('feed-post-share-row-copy')).toBeTruthy()
     expect(SHARE_ROWS).toHaveLength(6)
-    expect(screen.getByTestId('feed-post-share-row-instagram').getAttribute('data-share-copy-fallback')).toBe(
-      'true',
-    )
+    /* CT-27 supersedes Instagram copy-fallback · row still Present in list */
+    expect(screen.getByTestId('feed-post-share-row-instagram')).toBeTruthy()
+    expect(
+      screen.getByTestId('feed-post-share-row-instagram').getAttribute('data-share-copy-fallback'),
+    ).toBeNull()
   })
 
   it('narrow MQ → bottom sheet', async () => {
