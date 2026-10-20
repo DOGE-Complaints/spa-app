@@ -5,7 +5,10 @@ import { FeedPostSummary } from './FeedPostSummary.jsx'
 import { FeedPostMedia } from './FeedPostMedia.jsx'
 import { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
 import { FeedLabReactionsMount } from './reactions/FeedLabReactionsMount.jsx'
-import { FeedLabThreadMount } from './thread/FeedLabThreadMount.jsx'
+import {
+  FeedLabThreadMount,
+  fixtureNeedsBranchDisclosure,
+} from './thread/FeedLabThreadMount.jsx'
 import './FeedIssueDetailBody.css'
 
 /**
@@ -97,6 +100,15 @@ export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false
           comments={fixture.comments}
           apiRef={threadApiRef}
           initiallyExpanded={Boolean(initiallyExpandDiscussion)}
+          narrow={Boolean(fixture.narrow)}
+          branchDisclosure={
+            fixture.branchDisclosure === true || fixtureNeedsBranchDisclosure(fixture.comments)
+          }
+          issueId={typeof fixture.publicId === 'string' ? fixture.publicId : null}
+          reactionsAggregateConfirmed={fixture.reactionStripState === 'populated'}
+          commentReactionInitialState={
+            fixture.reactionStripState === 'populated' ? 'populated' : 'empty'
+          }
         />
       </div>
     </div>

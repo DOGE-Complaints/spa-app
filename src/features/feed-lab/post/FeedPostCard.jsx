@@ -6,7 +6,10 @@ import { FeedPostOpenIssue } from './FeedPostOpenIssue.jsx'
 import { FeedPostMedia } from './FeedPostMedia.jsx'
 import { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
 import { FeedLabReactionsMount } from './reactions/FeedLabReactionsMount.jsx'
-import { FeedLabThreadMount } from './thread/FeedLabThreadMount.jsx'
+import {
+  FeedLabThreadMount,
+  fixtureNeedsBranchDisclosure,
+} from './thread/FeedLabThreadMount.jsx'
 import './FeedPostCard.css'
 
 /**
@@ -70,8 +73,10 @@ export function FeedPostCard({
       data-lab-cr22-flush="true"
       data-lab-ct02="true"
       data-lab-ct08="true"
+      data-lab-ct15="true"
       data-lab-thread-mount="true"
       data-lab-media-flush="true"
+      data-lab-narrow={fixture.narrow ? 'true' : 'false'}
     >
       <div className="feed-post-card__body">
         <FeedPostIdentity fixture={fixture} />
@@ -121,6 +126,15 @@ export function FeedPostCard({
         <FeedLabThreadMount
           comments={fixture.comments}
           apiRef={threadApiRef}
+          narrow={Boolean(fixture.narrow)}
+          branchDisclosure={
+            fixture.branchDisclosure === true || fixtureNeedsBranchDisclosure(fixture.comments)
+          }
+          issueId={typeof fixture.publicId === 'string' ? fixture.publicId : null}
+          reactionsAggregateConfirmed={fixture.reactionStripState === 'populated'}
+          commentReactionInitialState={
+            fixture.reactionStripState === 'populated' ? 'populated' : 'empty'
+          }
         />
       </div>
     </article>

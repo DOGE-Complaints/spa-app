@@ -14,6 +14,8 @@ import './IssueThreadBlock.css'
  * @param {() => void} [onViewDiscussion]
  * @param {() => void} [onRetry]
  * @param {boolean} [composerEntry] show Write a comment affordance when capability permits
+ * @param {string|null} [issueId] CT-15 G-L5 · Discussion · Issue {id} when host provides
+ * @param {boolean} [reactionsAggregateConfirmed] CT-15 G-M2 · residents row only if confirmed
  */
 export function IssueThreadBlock({
   status = 'empty',
@@ -33,11 +35,17 @@ export function IssueThreadBlock({
   branchExpandDelayMs = undefined,
   renderCommentReactions = null,
   renderReplyComposer = null,
+  issueId = null,
+  reactionsAggregateConfirmed = false,
 }) {
   const bodies = (Array.isArray(comments) ? comments : [])
     .map((c) => (typeof c?.body === 'string' ? c.body.trim() : ''))
     .filter(Boolean)
   const previews = bodies.slice(0, 2)
+  const idLabel = typeof issueId === 'string' && issueId.trim() ? issueId.trim() : ''
+  const headingTitle = idLabel ? `Discussion · Issue ${idLabel}` : 'Discussion'
+  const showResidentsRow =
+    status === 'populated' && !expanded && Boolean(reactionsAggregateConfirmed)
 
   return (
     <section
@@ -45,11 +53,15 @@ export function IssueThreadBlock({
       data-testid="tm-issue-thread-block"
       data-tm-status={status}
       data-tm-expanded={expanded ? 'true' : 'false'}
+      data-tm-issue-id={idLabel || undefined}
       data-lab-ct01="true"
-      aria-label="Discussion"
+      data-lab-ct15="true"
+      aria-label={headingTitle}
     >
-      <header className="tm-issue-thread-block__heading" data-testid="tm-thread-heading">
-        <h3 className="tm-issue-thread-block__title">Discussion</h3>
+      <header className="tm-issue-thread-block__heading" data-testid="tm-thread-heading" data-lab-ct15="true">
+        <h3 className="tm-issue-thread-block__title" data-testid="tm-thread-heading-title">
+          {headingTitle}
+        </h3>
       </header>
 
       {status === 'loading' ? (
@@ -104,6 +116,16 @@ export function IssueThreadBlock({
         >
           {!expanded ? (
             <>
+              {showResidentsRow ? (
+                <p
+                  className="tm-issue-thread-block__residents"
+                  data-testid="tm-thread-residents-row"
+                  data-lab-ct15="true"
+                  data-tm-residents="confirmed"
+                >
+                  Reactions from residents
+                </p>
+              ) : null}
               <ul
                 className="tm-issue-thread-block__previews"
                 data-testid="tm-thread-previews"

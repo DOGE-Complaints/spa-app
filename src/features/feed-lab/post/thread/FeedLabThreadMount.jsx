@@ -23,6 +23,12 @@ export function mapLabCommentsToThread(comments) {
     .filter((c) => c.body)
 }
 
+/** CT-15 G-M4 — nest fixtures need local branch disclosure (CT-06 Present). */
+export function fixtureNeedsBranchDisclosure(comments) {
+  if (!Array.isArray(comments)) return false
+  return comments.some((c) => c?.parentId != null && c.parentId !== '')
+}
+
 /**
  * Feed-lab host for ThreadMount (CT-01/02/08/09).
  * FixtureAdapter default · CT-09 plugs FeedLabReactionsMount target=comment per node.
@@ -46,6 +52,10 @@ export function FeedLabThreadMount({
   branchDisclosure = false,
   /** @type {'empty'|'populated'} lab fixture reaction strip on comments */
   commentReactionInitialState = 'empty',
+  /** CT-15 G-L5 */
+  issueId = null,
+  /** CT-15 G-M2 · soft CR aggregate confirmed only */
+  reactionsAggregateConfirmed = false,
 }) {
   const fromComments = comments != null
   const mapped = useMemo(() => mapLabCommentsToThread(comments), [comments])
@@ -125,11 +135,16 @@ export function FeedLabThreadMount({
       data-lab-ct08="true"
       data-lab-ct09="true"
       data-lab-ct10="true"
+      data-lab-ct15="true"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"
       data-lab-thread-status={snap.status}
       data-lab-write={resolvedWrite}
       data-lab-reactions-plug="comment"
+      data-lab-narrow={narrow ? 'true' : 'false'}
+      data-lab-branch-disclosure={branchDisclosure ? 'true' : 'false'}
+      data-lab-issue-id={typeof issueId === 'string' && issueId.trim() ? issueId.trim() : undefined}
+      data-lab-residents-aggregate={reactionsAggregateConfirmed ? 'confirmed' : 'absent'}
     >
       <ThreadMount
         status={snap.status}
@@ -143,6 +158,8 @@ export function FeedLabThreadMount({
         apiRef={apiRef}
         initialDraft={initialDraft}
         branchDisclosure={Boolean(branchDisclosure)}
+        issueId={issueId}
+        reactionsAggregateConfirmed={Boolean(reactionsAggregateConfirmed)}
         renderCommentReactions={renderCommentReactions}
         onPostComment={handlePostComment}
         onRetry={() => {

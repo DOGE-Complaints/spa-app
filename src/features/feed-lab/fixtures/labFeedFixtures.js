@@ -88,6 +88,8 @@ const LAB_FEED_FIXTURE_DRAFTS = [
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',
+    /** CT-15 G-M3: greenfield card wires narrow · sticky composer (not only CT08 E) */
+    narrow: true,
     comments: [
       { id: 'lab-c-004-a', body: 'Dark corner near the corner shop.', fixtureOnly: true },
     ],
@@ -118,6 +120,9 @@ export function loadLabFeedFixtures() {
   return LAB_FEED_FIXTURE_DRAFTS.map((draft) =>
     Object.freeze({
       ...draft,
+      narrow: Boolean(draft.narrow),
+      branchDisclosure: draft.branchDisclosure === true ? true : undefined,
+      reactionStripState: draft.reactionStripState || 'empty',
       comments: draft.comments.map((c) =>
         Object.freeze({
           ...c,

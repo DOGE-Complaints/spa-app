@@ -72,6 +72,10 @@ export function ThreadMount({
   onHandoffBack = null,
   /** CT-09 host plug — reactions-mount peer · thread never owns people */
   renderCommentReactions = null,
+  /** CT-15 G-L5 — Discussion · Issue {id} when host provides */
+  issueId = null,
+  /** CT-15 G-M2 — residents row only if aggregate confirmed (soft CR) */
+  reactionsAggregateConfirmed = false,
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expandedProp))
   const [focusSignal, setFocusSignal] = useState(0)
@@ -379,10 +383,13 @@ export function ThreadMount({
       data-lab-ct12="true"
       data-lab-ct13="true"
       data-lab-ct14="true"
+      data-lab-ct15="true"
       data-tm-empty-entry={emptyEntry ? 'true' : 'false'}
       data-tm-composer-open={showComposer ? 'true' : 'false'}
       data-tm-reply-inline={inlineReply ? 'true' : 'false'}
       data-tm-reactions-plug={typeof renderCommentReactions === 'function' ? 'host' : 'none'}
+      data-tm-issue-id={typeof issueId === 'string' && issueId.trim() ? issueId.trim() : undefined}
+      data-tm-residents-aggregate={reactionsAggregateConfirmed ? 'confirmed' : 'absent'}
     >
       <IssueThreadBlock
         status={localComments.length > 0 && status === 'empty' ? 'populated' : status}
@@ -402,6 +409,8 @@ export function ThreadMount({
         branchExpandDelayMs={branchExpandDelayMs}
         renderCommentReactions={renderCommentReactions}
         renderReplyComposer={inlineReply ? renderReplyComposerSlot : null}
+        issueId={issueId}
+        reactionsAggregateConfirmed={Boolean(reactionsAggregateConfirmed)}
       />
       {showHandoff ? <StubVerifyHandoff onBack={onHandoffBack} /> : null}
       {showGate ? (

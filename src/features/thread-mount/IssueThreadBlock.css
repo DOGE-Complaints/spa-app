@@ -91,6 +91,15 @@
   width: 64%;
 }
 
+/* CT-15 G-M2 — collapsed residents affordance · no invent counts/names */
+.tm-issue-thread-block__residents {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text-secondary, #667085);
+}
+
 .tm-issue-thread-block__previews {
   list-style: none;
   margin: 0;
