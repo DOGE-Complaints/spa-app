@@ -15,7 +15,12 @@ describe('CT-17 native picker · family hook · no synthetic seed', () => {
   afterEach(() => cleanup())
 
   it('family allow-list hook Present · MIME table TBD null (fail-closed)', () => {
-    expect([...ATTACHMENT_FAMILY_ALLOWLIST]).toEqual(['images', 'pdf', 'office'])
+    expect([...ATTACHMENT_FAMILY_ALLOWLIST]).toEqual([
+      'images',
+      'pdf',
+      'office',
+      'markdown',
+    ])
     expect(ATTACHMENT_MIME_TABLE_TBD).toBeNull()
     expect(inferAttachmentFamily({ type: 'image/png' })).toBe('images')
     expect(inferAttachmentFamily({ type: 'application/pdf' })).toBe('unknown')
