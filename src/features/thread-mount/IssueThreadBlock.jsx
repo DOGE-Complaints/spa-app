@@ -65,6 +65,8 @@ export function IssueThreadBlock({
       data-lab-ct01="true"
       data-lab-ct15="true"
       data-lab-ct21="true"
+      data-lab-ct23="true"
+      data-tm-density="artboard"
       aria-label={idLabel ? `Issue discussion ${idLabel}` : 'Issue discussion'}
     >
       {status === 'loading' ? (

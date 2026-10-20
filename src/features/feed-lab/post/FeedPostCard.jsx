@@ -121,6 +121,7 @@ export function FeedPostCard({
         data-lab-thread-flush="true"
         data-lab-ct02="true"
         data-lab-ct08="true"
+        data-lab-ct23="true"
         data-lab-thread-mount="true"
       >
         <FeedLabThreadMount

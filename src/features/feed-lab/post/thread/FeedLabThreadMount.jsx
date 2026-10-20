@@ -188,6 +188,7 @@ export function FeedLabThreadMount({
       data-lab-ct20="true"
       data-lab-ct21="true"
       data-lab-ct22="true"
+      data-lab-ct23="true"
       data-lab-comment-write-owner="host"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"
