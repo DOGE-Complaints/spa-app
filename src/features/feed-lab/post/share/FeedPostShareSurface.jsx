@@ -10,7 +10,8 @@ import {
 import './FeedPostShareSurface.css'
 
 /**
- * CT-24 M152d Share surface — desktop popover · narrow bottom sheet.
+ * CT-24 / CT-27 M152d Share surface — desktop popover · narrow bottom sheet.
+ * CT-27: Instagram disabled (no copy) · Copy link text-only.
  * Custom UI only · no OS share-sheet hybrid · no invent gateway HTTP.
  */
 export function FeedPostShareSurface({
@@ -67,7 +68,8 @@ export function FeedPostShareSurface({
 
   function handleNetwork(row) {
     if (!hasUrl) return
-    if (row.copyFallback || row.id === 'instagram') {
+    if (row.disabled || row.id === 'instagram') return
+    if (row.copyFallback) {
       void handleCopy()
       return
     }
@@ -102,6 +104,7 @@ export function FeedPostShareSurface({
         data-lab-share-surface={surface}
         data-lab-share-url={hasUrl ? 'present' : 'absent'}
         data-lab-ct24="true"
+        data-lab-ct27="true"
       >
         <div className="feed-post-share-surface__header">
           <h2 id="feed-post-share-title" className="feed-post-share-surface__title">
@@ -128,14 +131,12 @@ export function FeedPostShareSurface({
                       <hr className="feed-post-share-surface__sep" />
                       <button
                         type="button"
-                        className="feed-post-share-surface__row"
+                        className="feed-post-share-surface__row feed-post-share-surface__row--copy-text"
                         data-testid="feed-post-share-row-copy"
                         data-share-row="copy"
+                        data-share-copy-text-only="true"
                         onClick={() => void handleCopy()}
                       >
-                        <span className="feed-post-share-surface__row-icon--copy" aria-hidden="true">
-                          ⎘
-                        </span>
                         <span className="feed-post-share-surface__row-text">
                           <span>{row.label}</span>
                         </span>
@@ -143,14 +144,20 @@ export function FeedPostShareSurface({
                     </li>
                   )
                 }
+                const igDisabled = Boolean(row.disabled) || row.id === 'instagram'
                 return (
                   <li key={row.id}>
                     <button
                       type="button"
-                      className="feed-post-share-surface__row"
+                      className={`feed-post-share-surface__row${
+                        igDisabled ? ' feed-post-share-surface__row--disabled' : ''
+                      }`}
                       data-testid={`feed-post-share-row-${row.id}`}
                       data-share-row={row.id}
+                      data-share-disabled={igDisabled ? 'true' : undefined}
                       data-share-copy-fallback={row.copyFallback ? 'true' : undefined}
+                      aria-disabled={igDisabled ? 'true' : undefined}
+                      disabled={igDisabled}
                       onClick={() => handleNetwork(row)}
                     >
                       <img

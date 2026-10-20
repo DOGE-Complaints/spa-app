@@ -1,6 +1,7 @@
 /**
- * CT-24 — resolve canonical public Issue URL for Share surface.
+ * CT-24 / CT-27 — resolve canonical public Issue URL for Share surface.
  * Lab: honesty when Absent · no invent production domain / gateway HTTP.
+ * CT-27: Instagram listed but disabled (no copy / no share intent) · Copy link text-only.
  */
 
 /** Narrow share surface — M152d E (~390 CSS px). */
@@ -22,13 +23,14 @@ export const SHARE_ROWS = Object.freeze([
     label: 'Instagram',
     kind: 'network',
     iconSrc: SHARE_ICON_URLS.instagram,
-    hint: 'Copy link fallback',
-    copyFallback: true,
+    hint: 'Needs image · unavailable for now',
+    disabled: true,
+    copyFallback: false,
   },
   { id: 'x', label: 'X', kind: 'network', iconSrc: SHARE_ICON_URLS.x },
   { id: 'whatsapp', label: 'WhatsApp', kind: 'network', iconSrc: SHARE_ICON_URLS.whatsapp },
   { id: 'facebook', label: 'Facebook', kind: 'network', iconSrc: SHARE_ICON_URLS.facebook },
-  { id: 'copy', label: 'Copy link', kind: 'copy', iconSrc: null },
+  { id: 'copy', label: 'Copy link', kind: 'copy', iconSrc: null, textOnly: true },
 ])
 
 export const SHARE_UNAVAILABLE_TITLE = 'Sharing is unavailable here.'
@@ -48,13 +50,14 @@ export function resolvePublicIssueUrl(fixture) {
 }
 
 /**
- * Open-intent URLs for networks · Instagram uses copy fallback (no private API).
- * @param {'telegram'|'x'|'whatsapp'|'facebook'} networkId
+ * Open-intent URLs for networks · Instagram disabled (CT-27) · no Graph/upload invent.
+ * @param {'telegram'|'x'|'whatsapp'|'facebook'|'instagram'} networkId
  * @param {string} url
  * @returns {string|null}
  */
 export function buildNetworkShareHref(networkId, url) {
   if (typeof url !== 'string' || !url) return null
+  if (networkId === 'instagram') return null
   const enc = encodeURIComponent(url)
   switch (networkId) {
     case 'telegram':

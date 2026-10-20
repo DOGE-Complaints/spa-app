@@ -114,24 +114,31 @@
   outline: none;
 }
 
+/* CT-27 — Instagram visually disabled · not a primary action */
+.feed-post-share-surface__row--disabled,
+.feed-post-share-surface__row--disabled:hover,
+.feed-post-share-surface__row--disabled:focus-visible {
+  opacity: 0.48;
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+}
+
+.feed-post-share-surface__row--disabled .feed-post-share-surface__row-icon {
+  opacity: 0.85;
+  filter: grayscale(0.35);
+}
+
+/* CT-27 — Copy link text-only · no icon / ⎘ */
+.feed-post-share-surface__row--copy-text {
+  padding-left: 12px;
+}
+
 .feed-post-share-surface__row-icon {
   flex: 0 0 22px;
   width: 22px;
   height: 22px;
   object-fit: contain;
-}
-
-.feed-post-share-surface__row-icon--copy {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
-  border: 1px solid var(--color-border-default, #e7e4dc);
-  font-size: 11px;
-  line-height: 1;
-  color: var(--color-text-secondary, #667085);
 }
 
 .feed-post-share-surface__row-text {
