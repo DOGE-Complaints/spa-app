@@ -11,6 +11,7 @@ import { topicIconForLabel } from '../../i18n/issueTopicIcons.js'
 import { formatIssueDate, formatGeoLabel } from './semantics/index.js'
 import { IssueIdentityHeader } from './identity/index.js'
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
+import { CIVIC_MEDIA_STUB_PATH } from './civicMediaStub.js'
 import './FeedCivicPost.css'
 
 /** Reactions zone affordance marks — catalog glyphs only; no invent orb (AD-VP-01 / icon catalog gap). */
@@ -21,8 +22,9 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
 ])
 
 /**
- * Next-feed civic issue-as-post (M150 ISSUE-CARD-NO-MEDIA / SSR-C-civic).
- * Four-zone strip per AD-VP-01 · no SchemaCardOverlay · no media production slot.
+ * Next-feed civic issue-as-post (SSR-C-civic · AD-VP-01).
+ * CT-29: interim media stub `/assets/dogefeed.png` (supersedes M150 ISSUE-CARD-NO-MEDIA Done).
+ * Four-zone strip · no SchemaCardOverlay · no invent image-gen HTTP.
  * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → aggregate.
  * Civic paw identity icon: honest omit (catalog gap) — no invent SVG.
  *
@@ -72,7 +74,8 @@ export function FeedCivicPost({
     <article
       className="feed-civic-post"
       data-testid="feed-civic-post"
-      data-civic-variant="no-media"
+      data-civic-variant="media-stub"
+      data-civic-media-stub={CIVIC_MEDIA_STUB_PATH}
       data-civic-identity-icon="omit-catalog-gap"
       data-identity-surface="IssueIdentityHeader"
       data-status-wire={String(issue.status ?? '')}
@@ -130,7 +133,23 @@ export function FeedCivicPost({
       ) : null}
 
       {/* M150 SSR-C-civic: no SchemaCardOverlay / Additional details chrome */}
-      {/* M150 ISSUE-CARD-NO-MEDIA: no media frame / blank slot */}
+      {/* CT-29: interim dogefeed stub until image-gen — same path list + detail */}
+      <div
+        className="feed-civic-post-media"
+        data-testid="feed-civic-post-media"
+        data-civic-media="stub"
+        data-media-src={CIVIC_MEDIA_STUB_PATH}
+      >
+        <img
+          className="feed-civic-post-media-img"
+          src={CIVIC_MEDIA_STUB_PATH}
+          alt={titleText || cardText || t('nextFeed.post.noMedia')}
+          data-testid="feed-civic-post-media-img"
+          data-civic-media-stub="true"
+          width={1600}
+          height={900}
+        />
+      </div>
 
       {to ? (
         <Link
