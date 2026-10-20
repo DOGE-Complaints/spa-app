@@ -38,6 +38,14 @@ export function ThreadMount({
   onRetry = null,
   onPostComment = null,
   onCommentsChange = null,
+  /**
+   * CT-16 · Arch §12.1 — single write-owner for successful post/reply append.
+   * `host` — parent owns list (FeedLab snap / onCommentsChange); ThreadMount must not local-append.
+   * `mount` — ThreadMount owns localComments.
+   * `auto` — onCommentsChange → host; else onPostComment → dedupe-safe local append (static-prop hosts).
+   * @type {'host'|'mount'|'auto'}
+   */
+  commentWriteOwner = 'auto',
   /** @type {'allowed'|'unverified'|'denied-unknown'|'stale'} */
   writeCapability = 'denied-unknown',
   maxDepth = DEFAULT_MAX_DEPTH,
@@ -310,11 +318,21 @@ export function ThreadMount({
           }
       if (result?.ok) {
         const nextComment = result.comment
-        if (nextComment && !onCommentsChange) {
-          setLocalComments((prev) => [...prev, nextComment])
-        } else if (typeof onCommentsChange === 'function' && nextComment) {
+        const resolvedOwner =
+          commentWriteOwner === 'host' || commentWriteOwner === 'mount'
+            ? commentWriteOwner
+            : typeof onCommentsChange === 'function'
+              ? 'host'
+              : 'mount'
+        if (typeof onCommentsChange === 'function' && nextComment) {
           onCommentsChange([...localComments, nextComment])
+        } else if (nextComment && resolvedOwner === 'mount') {
+          /* Dedupe: host may have already flushed the same id into `comments` before we resume. */
+          setLocalComments((prev) =>
+            prev.some((c) => c?.id === nextComment.id) ? prev : [...prev, nextComment],
+          )
         }
+        /* resolvedOwner === 'host' without onCommentsChange: rely on comments prop sync only */
         setDraft('')
         setReplyParentId(null)
         setAttachments([])
@@ -384,6 +402,14 @@ export function ThreadMount({
       data-lab-ct13="true"
       data-lab-ct14="true"
       data-lab-ct15="true"
+      data-lab-ct16="true"
+      data-tm-comment-write-owner={
+        commentWriteOwner === 'host' || commentWriteOwner === 'mount'
+          ? commentWriteOwner
+          : typeof onCommentsChange === 'function'
+            ? 'host'
+            : 'mount'
+      }
       data-tm-empty-entry={emptyEntry ? 'true' : 'false'}
       data-tm-composer-open={showComposer ? 'true' : 'false'}
       data-tm-reply-inline={inlineReply ? 'true' : 'false'}

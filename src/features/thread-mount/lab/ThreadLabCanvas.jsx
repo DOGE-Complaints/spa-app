@@ -348,6 +348,7 @@ function StandCard({ stand }) {
           onGoVerify={() => setGateVariant('handoff')}
           onVerifyDismiss={() => {}}
           onHandoffBack={() => setGateVariant(stand.verifyGateVariant || 'blocked')}
+          commentWriteOwner="host"
           onPostComment={async (payload) => {
             const result = await adapter.postComment(payload)
             if (result.ok) setSnap(adapter.snapshot())

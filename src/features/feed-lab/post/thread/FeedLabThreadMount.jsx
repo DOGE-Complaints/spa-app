@@ -136,6 +136,8 @@ export function FeedLabThreadMount({
       data-lab-ct09="true"
       data-lab-ct10="true"
       data-lab-ct15="true"
+      data-lab-ct16="true"
+      data-lab-comment-write-owner="host"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"
       data-lab-thread-status={snap.status}
@@ -161,6 +163,7 @@ export function FeedLabThreadMount({
         issueId={issueId}
         reactionsAggregateConfirmed={Boolean(reactionsAggregateConfirmed)}
         renderCommentReactions={renderCommentReactions}
+        commentWriteOwner="host"
         onPostComment={handlePostComment}
         onRetry={() => {
           if (fromComments) return
