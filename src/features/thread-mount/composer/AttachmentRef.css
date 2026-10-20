@@ -1,31 +1,34 @@
-/* CT-05 AttachmentRef — M153 D/E local intent · not published */
+/* CT-05 structure · CT-19 M153b §7 Ready/Denied paint (px · no green/red wash) */
+
 .tm-attachment-ref {
   box-sizing: border-box;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 12px;
   margin: 0;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--color-border-default, #e7e4dc);
-  border-radius: 10px;
-  background: var(--color-page-bg, #f7f6f2);
+  padding: 12px;
+  border: 1px solid #e7e4dc;
+  border-radius: 12px;
+  background: #fffdf8;
   min-width: 0;
 }
 
+/* M153b §7 Ready */
 .tm-attachment-ref--ready {
-  border-color: #d0d5dd;
-  background: #fff;
+  border-color: #e7e4dc;
+  background: #fffdf8;
 }
 
+/* M153b §7 Denied · fill #F7F6F2 · border #B54708 · no pink wash */
 .tm-attachment-ref--denied {
-  border-color: #f9dbaf;
-  background: #fff8f1;
+  border-color: #b54708;
+  background: #f7f6f2;
 }
 
 .tm-attachment-ref__main {
   display: flex;
-  gap: 0.55rem;
+  gap: 8px;
   min-width: 0;
   flex: 1;
 }
@@ -40,7 +43,7 @@
 .tm-attachment-ref__text {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 4px;
   min-width: 0;
 }
 
@@ -48,15 +51,16 @@
   margin: 0;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-text-primary, #101828);
+  color: #101828;
   word-break: break-word;
 }
 
+/* Ready status · #101828 600 · never green */
 .tm-attachment-ref__ready {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  color: #067647;
+  color: #101828;
 }
 
 .tm-attachment-ref__local {
@@ -65,33 +69,42 @@
   color: var(--color-text-secondary, #667085);
 }
 
+/* Denied title · #B54708 600 */
 .tm-attachment-ref__denied-title {
   margin: 0;
   font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--color-text-primary, #101828);
+  font-weight: 600;
+  color: #b54708;
 }
 
+/* Explanatory body · #101828 */
 .tm-attachment-ref__denied-detail {
   margin: 0.15rem 0 0;
   font-size: 0.75rem;
   line-height: 1.4;
-  color: var(--color-text-secondary, #667085);
+  font-weight: 400;
+  color: #101828;
 }
 
+/* Remove · #B54708 · ≥44px */
 .tm-attachment-ref__remove {
   flex: 0 0 auto;
   min-height: 44px;
   min-width: 44px;
   margin: 0;
-  padding: 0.35rem 0.65rem;
+  padding: 8px 12px;
   border: 0;
   background: transparent;
-  color: var(--color-text-secondary, #667085);
+  color: #b54708;
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
   cursor: pointer;
+}
+
+.tm-attachment-ref__remove:focus-visible {
+  outline: 2px solid #b54708;
+  outline-offset: 2px;
 }

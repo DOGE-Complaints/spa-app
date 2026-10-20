@@ -97,7 +97,7 @@ const STANDS = /** @type {const} */ ([
     label: 'THR-T-E attachment denied · draft intact',
     initiallyExpanded: true,
     initialDraft: M153_ILLUSTRATIVE_DRAFT,
-    initialAttachments: [createFixtureAttachmentIntent('denied', 'file')],
+    initialAttachments: [createFixtureAttachmentIntent('denied', 'file', { denyReason: 'safety' })],
     maxAttachments: 1,
   },
   {

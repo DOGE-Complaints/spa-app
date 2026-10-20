@@ -5,13 +5,29 @@
  */
 
 /** @param {'ready'|'denied'} [status] */
-export function createFixtureAttachmentIntent(status = 'ready', kind = 'image') {
+/**
+ * @param {'ready'|'denied'} [status]
+ * @param {'image'|'file'|'pdf'|'office'} [kind]
+ * @param {{ denyReason?: 'type'|'safety' }} [opts]
+ */
+export function createFixtureAttachmentIntent(status = 'ready', kind = 'image', opts = {}) {
   const id = `fx-attach-${status}-${kind}`
+  const label =
+    kind === 'image'
+      ? 'Selected image'
+      : kind === 'pdf'
+        ? 'PDF document'
+        : kind === 'office'
+          ? 'Word document'
+          : 'Selected file'
   return {
     id,
     kind,
-    label: kind === 'image' ? 'Selected image' : 'Attached file',
+    label,
     status,
+    ...(status === 'denied'
+      ? { denyReason: opts.denyReason === 'safety' ? 'safety' : 'type' }
+      : {}),
   }
 }
 

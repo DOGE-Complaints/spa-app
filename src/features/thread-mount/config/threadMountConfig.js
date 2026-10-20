@@ -54,9 +54,14 @@ export function viewRepliesLabel(count) {
   return `View ${n} replies`
 }
 
-/** M153 E — denied item copy (fixture / legal floor honesty) */
+/** M153b §7 / M153a D–E — denied item copy (local intent · no invent MIME) */
 export const ATTACH_DENIED_TITLE = 'This attachment can’t be added.'
+/** @deprecated alias — prefer ATTACH_DENIED_SAFETY_DETAIL for E only */
 export const ATTACH_DENIED_DETAIL = 'It does not meet the required media safety rules.'
+/** M153a E — only when safety decision known */
+export const ATTACH_DENIED_SAFETY_DETAIL = 'It does not meet the required media safety rules.'
+/** M153a D — type outside allow-list helper */
+export const ATTACH_DENIED_TYPE_HELPER = 'Allowed: images · PDF · Microsoft Office'
 /** When node capability unavailable — omit/disable Attach */
 export const ATTACH_UNAVAILABLE_COPY = 'Attachments are unavailable here.'
 export const ATTACH_READY_STATUS_COPY = 'Ready to post'
@@ -116,6 +121,8 @@ export function buildAttachmentIntentFromPick(file, opts) {
         : family === 'office'
           ? 'Office document'
           : 'Selected file'
+  /** D type mismatch vs E safety — never invent safety without known decision */
+  const denyReason = status === 'denied' ? opts?.denyReason || 'type' : undefined
   return {
     id,
     kind,
@@ -123,6 +130,7 @@ export function buildAttachmentIntentFromPick(file, opts) {
     status,
     family,
     origin: 'picker',
+    ...(denyReason ? { denyReason } : {}),
   }
 }
 

@@ -1,17 +1,24 @@
 import {
-  ATTACH_DENIED_DETAIL,
+  ATTACH_DENIED_SAFETY_DETAIL,
   ATTACH_DENIED_TITLE,
+  ATTACH_DENIED_TYPE_HELPER,
   ATTACH_LOCAL_INTENT_COPY,
   ATTACH_READY_STATUS_COPY,
 } from '../config/threadMountConfig.js'
 import './AttachmentRef.css'
 
 /**
- * CT-05 AttachmentRef — local pending intent chip (M153 D/E).
- * Never claims published media · no invent upload HTTP.
+ * CT-05 AttachmentRef · CT-19 M153b §7 paint + M153a D/E copy.
+ * Never claims published media · no invent upload HTTP · no green Ready.
  *
  * @param {object} props
- * @param {{ id: string, label?: string, status: 'ready'|'denied', kind?: string }} props.intent
+ * @param {{
+ *   id: string,
+ *   label?: string,
+ *   status: 'ready'|'denied',
+ *   kind?: string,
+ *   denyReason?: 'type'|'safety',
+ * }} props.intent
  * @param {() => void} [props.onRemove]
  */
 export function AttachmentRef({ intent, onRemove = null }) {
@@ -23,7 +30,15 @@ export function AttachmentRef({ intent, onRemove = null }) {
       ? intent.label.trim()
       : intent.kind === 'image'
         ? 'Selected image'
-        : 'Attached file'
+        : intent.kind === 'pdf'
+          ? 'PDF document'
+          : intent.kind === 'office'
+            ? 'Word document'
+            : 'Attached file'
+
+  const denyReason = intent.denyReason === 'safety' ? 'safety' : denied ? 'type' : null
+  const deniedDetail =
+    denyReason === 'safety' ? ATTACH_DENIED_SAFETY_DETAIL : ATTACH_DENIED_TYPE_HELPER
 
   return (
     <div
@@ -33,13 +48,15 @@ export function AttachmentRef({ intent, onRemove = null }) {
       data-testid={`tm-attachment-ref-${intent.id}`}
       data-tm-attach-status={intent.status}
       data-tm-attach-published="false"
+      data-tm-attach-deny-reason={denied ? denyReason || 'type' : ''}
       data-lab-ct05="true"
+      data-lab-ct19="true"
       role="group"
       aria-label={denied ? 'Denied attachment intent' : 'Pending attachment intent'}
     >
       <div className="tm-attachment-ref__main">
         <span className="tm-attachment-ref__icon" aria-hidden="true">
-          {intent.kind === 'image' ? '▣' : '▤'}
+          {intent.kind === 'image' ? '▣' : intent.kind === 'pdf' ? '▦' : '▤'}
         </span>
         <div className="tm-attachment-ref__text">
           <p className="tm-attachment-ref__label" data-testid="tm-attachment-label">
@@ -60,7 +77,12 @@ export function AttachmentRef({ intent, onRemove = null }) {
               <p className="tm-attachment-ref__denied-title" data-testid="tm-attachment-denied-title">
                 {ATTACH_DENIED_TITLE}
               </p>
-              <p className="tm-attachment-ref__denied-detail">{ATTACH_DENIED_DETAIL}</p>
+              <p
+                className="tm-attachment-ref__denied-detail"
+                data-testid="tm-attachment-denied-detail"
+              >
+                {deniedDetail}
+              </p>
             </div>
           ) : null}
         </div>
