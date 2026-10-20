@@ -8,6 +8,13 @@ export { FeedPostSummary } from './FeedPostSummary.jsx'
 export { FeedPostOpenIssue } from './FeedPostOpenIssue.jsx'
 export { FeedPostMedia } from './FeedPostMedia.jsx'
 export { FeedPostActionStrip } from './FeedPostActionStrip.jsx'
+export {
+  FeedPostShareSurface,
+  FeedPostShareCopiedToast,
+  resolvePublicIssueUrl,
+  SHARE_ROWS,
+  SHARE_ICON_URLS,
+} from './share/index.js'
 export { FeedLabReactionsMount } from './reactions/index.js'
 export {
   FeedDiscussionPlane,

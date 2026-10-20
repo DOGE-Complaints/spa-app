@@ -37,6 +37,8 @@ const LAB_FEED_FIXTURE_DRAFTS = [
     geoHint: 'Tallinn',
     status: 'PUBLISHED',
     type: 'INCIDENT',
+    /** CT-24 lab stub URL — not production domain invent · honesty when Absent on other fixtures */
+    publicIssueUrl: 'https://lab.local/issues/DOGEstonia-UusVeerenni-001',
     comments: [
       { id: 'lab-c-001-a', body: 'Noise after 23:00 again.', fixtureOnly: true },
       { id: 'lab-c-001-b', body: 'Kas keegi juba teatas?', fixtureOnly: true },
@@ -123,6 +125,10 @@ export function loadLabFeedFixtures() {
       narrow: Boolean(draft.narrow),
       branchDisclosure: draft.branchDisclosure === true ? true : undefined,
       reactionStripState: draft.reactionStripState || 'empty',
+      publicIssueUrl:
+        typeof draft.publicIssueUrl === 'string' && draft.publicIssueUrl.trim()
+          ? draft.publicIssueUrl.trim()
+          : null,
       comments: draft.comments.map((c) =>
         Object.freeze({
           ...c,

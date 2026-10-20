@@ -23,6 +23,8 @@ export function FeedPostActionStrip({
   onZone = null,
   reactSlot = null,
   reactState = 'rest',
+  /** CT-24: highlight Share while surface open (strip stays dumb otherwise) */
+  activeZone = null,
 }) {
   const hasSlot = reactSlot != null
   const reactStateAttr = reactState || 'rest'
@@ -66,15 +68,23 @@ export function FeedPostActionStrip({
               ? 'feed-post-action-reactions-chip'
               : `feed-post-action-${z.id}-chip`
 
+        const zoneOpen = activeZone === z.id
         return (
           <button
             key={z.id}
             type="button"
-            className="feed-post-action-strip__zone"
+            className={[
+              'feed-post-action-strip__zone',
+              zoneOpen ? `feed-post-action-strip__zone--${z.id}-open` : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
             data-testid={`feed-post-action-${z.id}`}
             data-zone={z.id}
             data-lab-icon-src={iconSrc}
+            data-lab-zone-open={zoneOpen ? 'true' : undefined}
             data-rm-react-state={isReact ? reactStateAttr : undefined}
+            aria-expanded={z.id === 'share' ? zoneOpen : undefined}
             disabled={isReact && reactStateAttr === 'disabled'}
             onClick={(e) => {
               e.stopPropagation()

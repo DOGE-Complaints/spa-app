@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FeedPostIdentity } from './FeedPostIdentity.jsx'
 import { FeedPostTitle } from './FeedPostTitle.jsx'
 import { FeedPostSummary } from './FeedPostSummary.jsx'
@@ -10,6 +10,12 @@ import {
   FeedLabThreadMount,
   fixtureNeedsBranchDisclosure,
 } from './thread/FeedLabThreadMount.jsx'
+import {
+  FeedPostShareCopiedToast,
+  FeedPostShareSurface,
+  resolvePublicIssueUrl,
+  useShareSurfaceMode,
+} from './share/index.js'
 import './FeedPostCard.css'
 
 /**
@@ -22,6 +28,7 @@ import './FeedPostCard.css'
  * CR-22: measure-then-fix media plate bg · layout gap already 0 (see measure-cause).
  * CT-02: Comment zone → ThreadMount apiRef · flush under strip · strip stays dumb.
  * CT-08: L-cut ThreadMount host · data-lab-thread-mount · no dual discussion plane.
+ * CT-24: Share → M152d popover/sheet · resolvePublicIssueUrl · no invent HTTP.
  */
 export function FeedPostCard({
   fixture,
@@ -31,8 +38,19 @@ export function FeedPostCard({
   locale = 'en',
 }) {
   const [aggregateHost, setAggregateHost] = useState(null)
+  const [shareOpen, setShareOpen] = useState(false)
+  const [shareAnchor, setShareAnchor] = useState(null)
+  const [shareCopied, setShareCopied] = useState(false)
   const reactionsApiRef = useRef(null)
   const threadApiRef = useRef(null)
+  const shareMode = useShareSurfaceMode()
+  const issueUrl = resolvePublicIssueUrl(fixture)
+
+  useEffect(() => {
+    if (!shareCopied) return undefined
+    const tmr = window.setTimeout(() => setShareCopied(false), 2000)
+    return () => window.clearTimeout(tmr)
+  }, [shareCopied])
 
   function openDetail(event) {
     if (typeof onOpenDetail !== 'function') return
@@ -49,6 +67,11 @@ export function FeedPostCard({
       reactionsApiRef.current?.activateAggregate?.({
         anchorEl: event?.currentTarget ?? null,
       })
+    }
+    if (zoneId === 'share') {
+      setShareAnchor(event?.currentTarget ?? null)
+      setShareOpen(true)
+      setShareCopied(false)
     }
     if (typeof onActionZone === 'function') onActionZone(zoneId, event)
   }
@@ -74,6 +97,7 @@ export function FeedPostCard({
       data-lab-ct02="true"
       data-lab-ct08="true"
       data-lab-ct15="true"
+      data-lab-ct24="true"
       data-lab-thread-mount="true"
       data-lab-media-flush="true"
       data-lab-narrow={fixture.narrow ? 'true' : 'false'}
@@ -95,20 +119,32 @@ export function FeedPostCard({
       >
         <FeedPostMedia media={fixture.media} onOpenDetail={onOpenDetail ? openDetail : null} />
       </div>
-      <FeedPostActionStrip
-        onZone={handleZone}
-        reactSlot={
-          <FeedLabReactionsMount
-            target="thread-root"
-            initialState={reactionInitialState}
-            t={t}
-            locale={locale}
-            aggregatePlacement="below"
-            aggregateHost={aggregateHost}
-            apiRef={reactionsApiRef}
-          />
-        }
-      />
+      <div className="feed-post-card__strip-share-wrap" data-testid="feed-post-strip-share-wrap">
+        <FeedPostActionStrip
+          onZone={handleZone}
+          activeZone={shareOpen ? 'share' : null}
+          reactSlot={
+            <FeedLabReactionsMount
+              target="thread-root"
+              initialState={reactionInitialState}
+              t={t}
+              locale={locale}
+              aggregatePlacement="below"
+              aggregateHost={aggregateHost}
+              apiRef={reactionsApiRef}
+            />
+          }
+        />
+        <FeedPostShareSurface
+          open={shareOpen}
+          mode={shareMode}
+          issueUrl={issueUrl}
+          anchorEl={shareAnchor}
+          onClose={() => setShareOpen(false)}
+          onCopied={() => setShareCopied(true)}
+        />
+        <FeedPostShareCopiedToast open={shareCopied} />
+      </div>
       <div
         ref={setAggregateHost}
         className="feed-post-card__aggregate-host"

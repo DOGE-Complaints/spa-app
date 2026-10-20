@@ -1,0 +1,193 @@
+/* CT-24 M152d — Share Issue popover (desktop) / bottom sheet (~390) */
+
+.feed-post-share-surface {
+  box-sizing: border-box;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-elevated, #fffdf8);
+  color: var(--color-text-primary, #101828);
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
+}
+
+.feed-post-share-surface--popover {
+  width: min(280px, calc(100vw - 24px));
+  border-radius: 12px;
+}
+
+.feed-post-share-surface--sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-height: min(70vh, 480px);
+  border-radius: 16px 16px 0 0;
+  border-bottom: 0;
+}
+
+.feed-post-share-surface__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(16, 24, 40, 0.28);
+  cursor: pointer;
+}
+
+.feed-post-share-surface__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 12px 8px;
+}
+
+.feed-post-share-surface__title {
+  margin: 0;
+  font: 650 0.9375rem/1.3 system-ui, sans-serif;
+}
+
+.feed-post-share-surface__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  margin: 0;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #d92d20;
+  font: 600 0.8125rem/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.feed-post-share-surface__desc {
+  margin: 0;
+  padding: 0 12px 10px;
+  font: 400 0.8125rem/1.35 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+}
+
+.feed-post-share-surface__honesty {
+  margin: 0;
+  padding: 8px 12px 16px;
+  font: 400 0.875rem/1.4 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+}
+
+.feed-post-share-surface__honesty strong {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 650;
+  color: var(--color-text-primary, #101828);
+}
+
+.feed-post-share-surface__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 8px;
+}
+
+.feed-post-share-surface__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: 500 0.875rem/1.3 system-ui, sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.feed-post-share-surface__row:hover,
+.feed-post-share-surface__row:focus-visible {
+  background: var(--color-surface-muted, #f7f6f2);
+  outline: none;
+}
+
+.feed-post-share-surface__row-icon {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.feed-post-share-surface__row-icon--copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--color-text-secondary, #667085);
+}
+
+.feed-post-share-surface__row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.feed-post-share-surface__row-hint {
+  font: 400 0.75rem/1.25 system-ui, sans-serif;
+  color: var(--color-text-secondary, #667085);
+}
+
+.feed-post-share-surface__sep {
+  height: 1px;
+  margin: 4px 12px;
+  background: var(--color-border-default, #e7e4dc);
+  border: 0;
+}
+
+.feed-post-share-toast {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 10px);
+  transform: translateX(-50%);
+  z-index: 41;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  background: var(--color-surface-elevated, #fffdf8);
+  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.12);
+  font: 600 0.8125rem/1.3 system-ui, sans-serif;
+  color: var(--color-text-primary, #101828);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.feed-post-share-host {
+  position: relative;
+  display: contents;
+}
+
+.feed-post-share-anchor {
+  position: relative;
+  display: inline-flex;
+  align-self: stretch;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.feed-post-action-strip__zone--share-open .feed-post-action-strip__chip {
+  background: #f79009;
+  color: #fff;
+}
+
+.feed-post-action-strip__zone--share-open .feed-post-action-strip__icon {
+  filter: brightness(0) invert(1);
+}

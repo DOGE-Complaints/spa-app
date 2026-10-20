@@ -56,3 +56,7 @@
 .feed-issue-detail-body__aggregate-host:empty {
   display: none;
 }
+
+.feed-issue-detail-body__strip-share-wrap {
+  position: relative;
+}

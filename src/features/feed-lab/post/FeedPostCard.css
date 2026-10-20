@@ -66,3 +66,8 @@
 .feed-post-card__aggregate-host:empty {
   display: none;
 }
+
+.feed-post-card__strip-share-wrap,
+.feed-issue-detail-body__strip-share-wrap {
+  position: relative;
+}
