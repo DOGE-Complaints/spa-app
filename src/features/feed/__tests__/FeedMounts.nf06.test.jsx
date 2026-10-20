@@ -99,7 +99,11 @@ describe('NF-06 mounts + verify', () => {
     expect(html).toContain('data-issue-status="ready"')
     expect(html).toContain('DEMO-NF06-1')
     expect(html).toContain('data-testid="feed-civic-post"')
-    expect(html).toContain('data-testid="feed-discussion-block"')
+    /* CT-28: ThreadMount Live host · FeedDiscussionBlock no longer Done surface */
+    expect(html).toContain('data-testid="feed-thread-mount"')
+    expect(html).toContain('data-feed-ct28="true"')
+    expect(html).toContain('data-testid="tm-thread-mount"')
+    expect(html).not.toContain('data-testid="feed-discussion-block"')
   })
 
   it('modal presentation exposes dialog chrome and close icon reuse', () => {
