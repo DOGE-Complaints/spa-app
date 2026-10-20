@@ -1,9 +1,9 @@
-/* CT-23 — artboard rhythm 12px · no invent denser rem gaps */
+/* CT-23 frame rhythm · CT-26 M153d node→next bubble 8px · no invent denser rem */
 .tm-comment-tree {
   --tm-spine-color: var(--color-text-tertiary, #98a2b3);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   min-width: 0;
 }
 
@@ -13,7 +13,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .tm-comment-tree__fallback-note {
