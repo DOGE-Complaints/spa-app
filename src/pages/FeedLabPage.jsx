@@ -5,6 +5,7 @@ import { FeedPostCard, FeedIssueDetailOverlay } from '../features/feed-lab/post/
 import { FeedLabCt08Stands } from '../features/feed-lab/post/thread/FeedLabCt08Stands.jsx'
 import { FeedLabCt20Stands } from '../features/feed-lab/post/thread/FeedLabCt20Stands.jsx'
 import { FeedLabCt21Stands } from '../features/feed-lab/post/thread/FeedLabCt21Stands.jsx'
+import { FeedLabCt22Stands } from '../features/feed-lab/post/thread/FeedLabCt22Stands.jsx'
 import { setThemeAttribute } from '../theme/bootTheme.js'
 import './FeedLabPage.css'
 
@@ -181,6 +182,7 @@ export function FeedLabPage() {
         <FeedLabCt08Stands />
         <FeedLabCt20Stands />
         <FeedLabCt21Stands />
+        <FeedLabCt22Stands />
 
         <section
           className="feed-lab-page__section"

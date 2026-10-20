@@ -65,7 +65,8 @@ export const ATTACH_DENIED_DETAIL = 'It does not meet the required media safety 
 /** M153a E — only when safety decision known */
 export const ATTACH_DENIED_SAFETY_DETAIL = 'It does not meet the required media safety rules.'
 /** M153a D — type outside allow-list helper */
-export const ATTACH_DENIED_TYPE_HELPER = 'Allowed: images · PDF · Microsoft Office'
+export const ATTACH_DENIED_TYPE_HELPER =
+  'Allowed: images · PDF · Microsoft Office · Markdown (.md)'
 /** When node capability unavailable — omit/disable Attach */
 export const ATTACH_UNAVAILABLE_COPY = 'Attachments are unavailable here.'
 export const ATTACH_READY_STATUS_COPY = 'Ready to post'
@@ -75,35 +76,50 @@ export const ATTACH_LOCAL_INTENT_COPY = 'Local intent · not published'
 export const DEFAULT_MEDIA_ALLOWED_TYPES = Object.freeze(['image', 'file'])
 
 /**
- * CT-17 M153a — operator family allow-list hook (images · PDF · Office).
- * Exact MIME/extensions remain TBD (§18) — do not invent concrete MIME tables here.
+ * CT-17/CT-22 M153a — operator family allow-list hook (images · PDF · Office · Markdown).
+ * Exact MIME tables remain TBD — do not invent concrete MIME tables here.
+ * CT-22: `.md` via family + extension (not invent full MIME).
  */
-export const ATTACHMENT_FAMILY_ALLOWLIST = Object.freeze(['images', 'pdf', 'office'])
-/** Placeholder for OP-approved MIME/extension table · null = fail-closed for non-image */
+export const ATTACHMENT_FAMILY_ALLOWLIST = Object.freeze([
+  'images',
+  'pdf',
+  'office',
+  'markdown',
+])
+/** Placeholder for OP-approved MIME/extension table · null = fail-closed for non-image/non-.md */
 export const ATTACHMENT_MIME_TABLE_TBD = null
+
+/** CT-22 node preview honesty when no published URL */
+export const ATTACH_NODE_LOCAL_PREVIEW_COPY = 'Local preview · not published'
 
 /**
  * Coarse family probe only · no invented MIME allow-list.
- * `image/*` → images; without ATTACHMENT_MIME_TABLE_TBD, pdf/office stay unknown (fail-closed).
+ * `image/*` → images; `.md` / text/markdown → markdown;
+ * without ATTACHMENT_MIME_TABLE_TBD, pdf/office stay unknown (fail-closed).
  * @param {File|{ type?: string, name?: string }|null|undefined} file
- * @returns {'images'|'pdf'|'office'|'unknown'}
+ * @returns {'images'|'pdf'|'office'|'markdown'|'unknown'}
  */
 export function inferAttachmentFamily(file) {
   if (!file) return 'unknown'
   const type = typeof file.type === 'string' ? file.type.toLowerCase().trim() : ''
+  const name = typeof file.name === 'string' ? file.name.toLowerCase().trim() : ''
   if (type.startsWith('image/')) return 'images'
+  if (name.endsWith('.md') || type === 'text/markdown' || type === 'text/x-markdown') {
+    return 'markdown'
+  }
   const table = ATTACHMENT_MIME_TABLE_TBD
   if (table && typeof table === 'object') {
     const hit = table[type]
-    if (hit === 'pdf' || hit === 'office' || hit === 'images') return hit
+    if (hit === 'pdf' || hit === 'office' || hit === 'images' || hit === 'markdown') return hit
   }
   return 'unknown'
 }
 
 /**
  * Map a native picker File → local AttachmentRef intent (origin=picker · never published).
+ * Retains `file` for CT-22 local node preview (object URL) · no invent CDN.
  * @param {File|{ type?: string, name?: string }} file
- * @param {{ id: string, forceStatus?: 'ready'|'denied'|null }} opts
+ * @param {{ id: string, forceStatus?: 'ready'|'denied'|null, denyReason?: 'type'|'safety' }} opts
  */
 export function buildAttachmentIntentFromPick(file, opts) {
   const id = opts?.id
@@ -116,7 +132,15 @@ export function buildAttachmentIntentFromPick(file, opts) {
         ? 'ready'
         : 'denied'
   const kind =
-    family === 'images' ? 'image' : family === 'pdf' ? 'pdf' : family === 'office' ? 'office' : 'file'
+    family === 'images'
+      ? 'image'
+      : family === 'pdf'
+        ? 'pdf'
+        : family === 'office'
+          ? 'office'
+          : family === 'markdown'
+            ? 'markdown'
+            : 'file'
   const label =
     family === 'images'
       ? 'Selected image'
@@ -124,9 +148,14 @@ export function buildAttachmentIntentFromPick(file, opts) {
         ? 'PDF document'
         : family === 'office'
           ? 'Office document'
-          : 'Selected file'
+          : family === 'markdown'
+            ? 'Markdown file'
+            : 'Selected file'
   /** D type mismatch vs E safety — never invent safety without known decision */
   const denyReason = status === 'denied' ? opts?.denyReason || 'type' : undefined
+  const fileName =
+    typeof file?.name === 'string' && file.name.trim() ? file.name.trim() : undefined
+  const hasFile = typeof File !== 'undefined' && file instanceof File
   return {
     id,
     kind,
@@ -134,8 +163,21 @@ export function buildAttachmentIntentFromPick(file, opts) {
     status,
     family,
     origin: 'picker',
+    ...(fileName ? { fileName } : {}),
+    ...(hasFile ? { file } : {}),
     ...(denyReason ? { denyReason } : {}),
   }
+}
+
+/**
+ * CT-22 — ready intents only for comment-node media (Denied stays composer-side).
+ * @param {unknown} list
+ */
+export function readyAttachmentIntents(list) {
+  if (!Array.isArray(list)) return []
+  return list
+    .filter((a) => a && typeof a === 'object' && a.status === 'ready' && a.id)
+    .map((a) => ({ ...a }))
 }
 
 /** @typedef {'loading'|'empty'|'populated'|'unavailable'} ThreadMountStatus */

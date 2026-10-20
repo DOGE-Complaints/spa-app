@@ -7,6 +7,7 @@ import {
   viewRepliesLabel,
   visualIndentLevel,
 } from '../config/threadMountConfig.js'
+import { CommentAttachmentPreview } from './CommentAttachmentPreview.jsx'
 import './CommentNode.css'
 
 /** Present runtime icon · CT-13 · no invent SVG body */
@@ -109,6 +110,7 @@ export function CommentNode({
           aria-label={depth === 0 ? 'Comment' : 'Reply'}
         >
           <p className="tm-comment-node__text">{body}</p>
+          <CommentAttachmentPreview attachments={node.attachments} />
           <div
             className="tm-comment-node__actions"
             data-testid="tm-comment-actions"

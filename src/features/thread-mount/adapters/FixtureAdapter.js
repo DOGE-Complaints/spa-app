@@ -7,11 +7,11 @@
 /** @param {'ready'|'denied'} [status] */
 /**
  * @param {'ready'|'denied'} [status]
- * @param {'image'|'file'|'pdf'|'office'} [kind]
- * @param {{ denyReason?: 'type'|'safety' }} [opts]
+ * @param {'image'|'file'|'pdf'|'office'|'markdown'} [kind]
+ * @param {{ denyReason?: 'type'|'safety', file?: File, publishedUrl?: string, fileName?: string }} [opts]
  */
 export function createFixtureAttachmentIntent(status = 'ready', kind = 'image', opts = {}) {
-  const id = `fx-attach-${status}-${kind}`
+  const id = opts.id || `fx-attach-${status}-${kind}`
   const label =
     kind === 'image'
       ? 'Selected image'
@@ -19,12 +19,19 @@ export function createFixtureAttachmentIntent(status = 'ready', kind = 'image', 
         ? 'PDF document'
         : kind === 'office'
           ? 'Word document'
-          : 'Selected file'
+          : kind === 'markdown'
+            ? 'Markdown file'
+            : 'Selected file'
   return {
     id,
     kind,
     label,
     status,
+    ...(opts.fileName ? { fileName: opts.fileName } : {}),
+    ...(typeof File !== 'undefined' && opts.file instanceof File ? { file: opts.file } : {}),
+    ...(typeof opts.publishedUrl === 'string' && opts.publishedUrl.trim()
+      ? { publishedUrl: opts.publishedUrl.trim() }
+      : {}),
     ...(status === 'denied'
       ? { denyReason: opts.denyReason === 'safety' ? 'safety' : 'type' }
       : {}),
@@ -165,7 +172,7 @@ export function createFixtureAdapter(initialStatus = 'populated') {
     },
     /**
      * Fixture write only — no HTTP. Soft-fail when failNextPost.
-     * @param {{ body?: string, parentId?: string|null }} [payload]
+     * @param {{ body?: string, parentId?: string|null, attachments?: Array }} [payload]
      */
     async postComment(payload = {}) {
       const body = typeof payload.body === 'string' ? payload.body.trim() : ''
@@ -186,12 +193,18 @@ export function createFixtureAdapter(initialStatus = 'populated') {
         const parent = current.find((c) => c.id === parentId)
         depth = parent ? Number(parent.depth) + 1 : 0
       }
+      const readyAttach = Array.isArray(payload.attachments)
+        ? payload.attachments
+            .filter((a) => a && a.status === 'ready' && a.id)
+            .map((a) => ({ ...a }))
+        : []
       postSeq += 1
       const comment = {
         id: `fx-posted-${postSeq}`,
         parentId,
         depth,
         body,
+        ...(readyAttach.length > 0 ? { attachments: readyAttach } : {}),
       }
       liveComments = [...current, comment]
       if (status === 'empty') status = 'populated'

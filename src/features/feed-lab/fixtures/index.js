@@ -10,6 +10,16 @@ export {
   CT21_OVER_BUDGET,
 } from './labCt21Stands.js'
 export {
+  LAB_CT22_STANDS,
+  CT22_IMAGE_LOCAL,
+  CT22_IMAGE_PUBLISHED,
+  CT22_MARKDOWN,
+  CT22_PDF,
+  CT22_DENIED_OMIT,
+  makeTinyPngFile,
+  CT22_PUBLISHED_ICON,
+} from './labCt22Stands.js'
+export {
   LAB_MEDIA_ALT_BY_PUBLIC_ID,
   LAB_MEDIA_STUB_PATH,
   LAB_MEDIA_STUB_TARGET,

@@ -19,6 +19,9 @@ export function mapLabCommentsToThread(comments) {
       parentId: c?.parentId == null || c?.parentId === '' ? null : String(c.parentId),
       depth: Number.isFinite(c?.depth) ? Number(c.depth) : 0,
       body: typeof c?.body === 'string' ? c.body : '',
+      ...(Array.isArray(c?.attachments) && c.attachments.length > 0
+        ? { attachments: c.attachments.map((a) => ({ ...a })) }
+        : {}),
     }))
     .filter((c) => c.body)
 }
@@ -146,11 +149,17 @@ export function FeedLabThreadMount({
         const parent = snap.comments.find((c) => c.id === parentId)
         depth = parent ? Number(parent.depth) + 1 : 0
       }
+      const readyAttach = Array.isArray(payload?.attachments)
+        ? payload.attachments
+            .filter((a) => a && a.status === 'ready' && a.id)
+            .map((a) => ({ ...a }))
+        : []
       const comment = {
         id: `lab-posted-${Date.now()}`,
         parentId,
         depth,
         body,
+        ...(readyAttach.length > 0 ? { attachments: readyAttach } : {}),
       }
       setSnap((prev) => ({
         ...prev,
@@ -178,6 +187,7 @@ export function FeedLabThreadMount({
       data-lab-ct16="true"
       data-lab-ct20="true"
       data-lab-ct21="true"
+      data-lab-ct22="true"
       data-lab-comment-write-owner="host"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"

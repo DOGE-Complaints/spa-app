@@ -1,0 +1,42 @@
+.feed-lab-ct22-stands {
+  margin: 0 0 1.75rem;
+}
+
+.feed-lab-ct22-stands__title {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #101828);
+}
+
+.feed-lab-ct22-stands__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feed-lab-ct22-stands__item {
+  margin: 0;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--color-border-subtle, #d0d5dd);
+  border-radius: 8px;
+  background: var(--color-surface-elevated, #fff);
+}
+
+.feed-lab-ct22-stands__label {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary, #475467);
+}
+
+.feed-lab-ct22-stands__card {
+  min-width: 0;
+}
+
+.feed-lab-ct22-stands__card--narrow {
+  max-width: 390px;
+}

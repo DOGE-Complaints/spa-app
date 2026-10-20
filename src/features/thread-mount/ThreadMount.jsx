@@ -302,7 +302,19 @@ export function ThreadMount({
             detail: 'Your text is still here. Try again.',
           }
       if (result?.ok) {
+        const readyAttach = attachments
+          .filter((a) => a && a.status === 'ready' && a.id)
+          .map((a) => ({ ...a }))
         const nextComment = result.comment
+          ? {
+              ...result.comment,
+              attachments: Array.isArray(result.comment.attachments)
+                ? result.comment.attachments
+                : readyAttach.length > 0
+                  ? readyAttach
+                  : undefined,
+            }
+          : null
         const resolvedOwner =
           commentWriteOwner === 'host' || commentWriteOwner === 'mount'
             ? commentWriteOwner

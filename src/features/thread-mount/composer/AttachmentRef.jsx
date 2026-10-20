@@ -34,7 +34,9 @@ export function AttachmentRef({ intent, onRemove = null }) {
           ? 'PDF document'
           : intent.kind === 'office'
             ? 'Word document'
-            : 'Attached file'
+            : intent.kind === 'markdown'
+              ? 'Markdown file'
+              : 'Attached file'
 
   const denyReason = intent.denyReason === 'safety' ? 'safety' : denied ? 'type' : null
   const deniedDetail =
@@ -56,7 +58,13 @@ export function AttachmentRef({ intent, onRemove = null }) {
     >
       <div className="tm-attachment-ref__main">
         <span className="tm-attachment-ref__icon" aria-hidden="true">
-          {intent.kind === 'image' ? '▣' : intent.kind === 'pdf' ? '▦' : '▤'}
+          {intent.kind === 'image'
+            ? '▣'
+            : intent.kind === 'pdf'
+              ? '▦'
+              : intent.kind === 'markdown'
+                ? 'MD'
+                : '▤'}
         </span>
         <div className="tm-attachment-ref__text">
           <p className="tm-attachment-ref__label" data-testid="tm-attachment-label">

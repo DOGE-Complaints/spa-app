@@ -4,7 +4,7 @@
  */
 
 /**
- * @typedef {{ id: string, parentId?: string|null, depth?: number, body?: string }} RawComment
+ * @typedef {{ id: string, parentId?: string|null, depth?: number, body?: string, attachments?: Array }} RawComment
  * @typedef {RawComment & { children: TreeNode[] }} TreeNode
  */
 
@@ -20,6 +20,10 @@ export function buildCommentForest(comments) {
       parentId: c.parentId == null || c.parentId === '' ? null : String(c.parentId),
       depth: Number.isFinite(Number(c.depth)) ? Math.floor(Number(c.depth)) : 0,
       body: typeof c.body === 'string' ? c.body : '',
+      /* CT-22 — preserve ready/local attachment intents for CommentNode preview */
+      ...(Array.isArray(c.attachments) && c.attachments.length > 0
+        ? { attachments: c.attachments.map((a) => ({ ...a })) }
+        : {}),
     }))
 
   if (list.length === 0) {
