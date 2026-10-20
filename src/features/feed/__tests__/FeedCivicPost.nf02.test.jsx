@@ -66,7 +66,7 @@ describe('NF-02 FeedCivicPost', () => {
     expect(NEXT_FEED_FLAT_KEYS).toContain('nextFeed.post.schemaUnavailable')
   })
 
-  it('renders no-media civic chrome without schema overlay', () => {
+  it('renders media-stub civic chrome without schema overlay (CT-29)', () => {
     const html = renderPost(
       <FeedCivicPost
         issue={baseIssue}
@@ -79,7 +79,10 @@ describe('NF-02 FeedCivicPost', () => {
       />,
     )
     expect(html).toContain('data-testid="feed-civic-post"')
-    expect(html).toContain('data-civic-variant="no-media"')
+    expect(html).toContain('data-civic-variant="media-stub"')
+    expect(html).toContain('data-testid="feed-civic-post-media"')
+    expect(html).toContain('src="/assets/dogefeed.png"')
+    expect(html).not.toContain('data-civic-variant="no-media"')
     expect(html).toContain('Courtyard lighting')
     expect(html).toContain('Need safer lights')
     expect(html).toContain('DEMO-NF02-1')
@@ -87,11 +90,9 @@ describe('NF-02 FeedCivicPost', () => {
     expect(html).toContain('/icons/next-shell/actions/location.svg')
     expect(html).toContain('/icons/next-feed/actions/open-issue.svg')
     expect(html).toContain('/icons/next-feed/actions/more.svg')
-    expect(html).toContain('/icons/next-feed/actions/react.svg')
     expect(html).toContain('/icons/next-feed/actions/comment.svg')
     expect(html).toContain('/icons/next-feed/actions/share.svg')
     expect(html).toContain('Open issue')
-    expect(html).toContain('React')
     expect(html).toContain('Comment')
     expect(html).toContain('Share')
     expect(html).toContain('Reactions')
@@ -99,7 +100,6 @@ describe('NF-02 FeedCivicPost', () => {
     expect(html).not.toContain('schema-card-overlay')
     expect(html).not.toContain('SchemaCardOverlay')
     expect(html).not.toContain('Additional details')
-    expect(html).not.toContain('feed-civic-post-media')
   })
 
   it('collapses missing geo and summary honestly', () => {

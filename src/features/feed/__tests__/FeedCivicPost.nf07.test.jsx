@@ -92,7 +92,9 @@ describe('NF-07 FeedCivicPost visual parity (M150 / AD-VP-01)', () => {
     expect(html).toContain('/icons/next-feed/reactions/support.svg')
     expect(html).toContain('/icons/next-feed/reactions/agree.svg')
     expect(html).not.toContain('schema-card-overlay')
-    expect(html).not.toContain('feed-civic-post-media')
+    expect(html).toContain('data-testid="feed-civic-post-media"')
+    expect(html).toContain('src="/assets/dogefeed.png"')
+    expect(html).toContain('data-civic-variant="media-stub"')
   })
 
   it('keeps API status honesty — PUBLISHED wire, no invent OPEN/UV', () => {
