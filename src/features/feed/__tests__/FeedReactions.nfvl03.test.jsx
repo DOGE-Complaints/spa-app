@@ -64,7 +64,7 @@ describe('NF-VL-03 reactions chrome atoms (AD-VL-01/02/03 · DS §8)', () => {
     expect(html).not.toContain('data-testid="reaction-controls"')
   })
 
-  it('FeedReactionsStrip Done path uses ReactionChrome', () => {
+  it('FeedReactionsStrip retired (CR-23) · not Done surface on next/feed', () => {
     const html = renderUi(
       <FeedReactionsStrip
         t={makeT()}
@@ -74,7 +74,9 @@ describe('NF-VL-03 reactions chrome atoms (AD-VL-01/02/03 · DS §8)', () => {
         summaryMarks={[]}
       />,
     )
-    expect(html).toContain('data-vl-done-surface="ReactionChrome"')
+    expect(html).toContain('data-vl-done-claim="false"')
+    expect(html).toContain('data-cr23-retired="true"')
+    expect(html).not.toContain('data-vl-done-surface="ReactionChrome"')
     expect(html).toContain('data-testid="reaction-aggregate-strip"')
     expect(html).not.toContain('data-testid="reaction-controls"')
     expect(html).not.toContain('people-list')
