@@ -20,13 +20,13 @@ const cardCss = readFileSync(
 describe('CT-23 thread density · artboard frames only', () => {
   afterEach(() => cleanup())
 
-  it('T04 keep M153b bubble/spine/pills tokens unchanged', () => {
+  it('T04 spine/fill held · CT-26 supersedes bubble/pill outer borders', () => {
     expect(nodeCss).toMatch(/--tm-bubble-fill:\s*#f7f6f2/i)
-    expect(nodeCss).toMatch(/--tm-bubble-border:\s*#e7e4dc/i)
     expect(nodeCss).toMatch(/--tm-spine-color:\s*#667085/i)
     expect(nodeCss).toMatch(/--tm-action-group-fill:\s*#fffdf8/i)
-    expect(nodeCss).toMatch(/padding:\s*12px\s+16px/)
-    expect(nodeCss).toMatch(/border:\s*1px\s+solid\s+var\(--tm-bubble-border\)/)
+    /* CT-26 M153d · borderless bubble + pills · pad 8v/12h */
+    expect(nodeCss).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*padding:\s*8px\s+12px/s)
+    expect(nodeCss).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*border:\s*0/s)
     expect(nodeCss).not.toMatch(/#2[Ee]90[Ff][Aa]/)
   })
 
@@ -42,8 +42,8 @@ describe('CT-23 thread density · artboard frames only', () => {
     expect(blockCss).not.toMatch(/\.tm-issue-thread-block\s*\{[^}]*border:\s*1px\s+solid/s)
   })
 
-  it('T03 spacing · tree/composer artboard px rhythm · no denser invent', () => {
-    expect(treeCss).toMatch(/gap:\s*12px/)
+  it('T03 spacing · tree M153d 8px · composer artboard held · no denser invent', () => {
+    expect(treeCss).toMatch(/gap:\s*8px/)
     expect(treeCss).not.toMatch(/gap:\s*0\.65rem/)
     expect(composerCss).toMatch(/gap:\s*12px/)
     expect(composerCss).toMatch(/padding:\s*12px\s+16px\s+16px/)
@@ -64,6 +64,7 @@ describe('CT-23 thread density · artboard frames only', () => {
     )
     const block = screen.getByTestId('tm-issue-thread-block')
     expect(block.getAttribute('data-lab-ct23')).toBe('true')
-    expect(block.getAttribute('data-tm-density')).toBe('artboard')
+    expect(block.getAttribute('data-lab-ct26')).toBe('true')
+    expect(block.getAttribute('data-tm-density')).toBe('m153d')
   })
 })

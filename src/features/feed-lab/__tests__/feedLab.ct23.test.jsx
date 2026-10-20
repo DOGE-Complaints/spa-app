@@ -26,6 +26,6 @@ describe('CT-23 Path A density on feed lab', () => {
     const mount = within(card).getByTestId('feed-lab-thread-mount')
     expect(mount.getAttribute('data-lab-ct23')).toBe('true')
     const block = within(card).getByTestId('tm-issue-thread-block')
-    expect(block.getAttribute('data-tm-density')).toBe('artboard')
+    expect(block.getAttribute('data-tm-density')).toBe('m153d')
   })
 })

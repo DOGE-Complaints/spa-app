@@ -16,7 +16,8 @@ describe('CT-18 M153b depth-2 token chrome · A–D', () => {
 
   it('CSS register · px tokens · no #2E90FA · M153b A–C literals', () => {
     expect(css).toMatch(/--tm-bubble-fill:\s*#f7f6f2/i)
-    expect(css).toMatch(/--tm-bubble-border:\s*#e7e4dc/i)
+    /* CT-26 M153d · bubble outer stroke removed · border token no longer #E7E4DC stroke */
+    expect(css).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*border:\s*0/s)
     expect(css).toMatch(/--tm-spine-color:\s*#667085/i)
     expect(css).toMatch(/--tm-action-group-fill:\s*#fffdf8/i)
     expect(css).toMatch(/--tm-action-text:\s*#b54708/i)
@@ -25,7 +26,7 @@ describe('CT-18 M153b depth-2 token chrome · A–D', () => {
     expect(css).toMatch(/--tm-indent-step:\s*24px/)
     expect(css).toMatch(/min-height:\s*44px/)
     expect(css).toMatch(/border-radius:\s*12px/)
-    expect(css).toMatch(/padding:\s*12px\s+16px/)
+    expect(css).toMatch(/padding:\s*8px\s+12px/)
     expect(css).toMatch(/border-bottom-left-radius:\s*6px/)
     expect(css).not.toMatch(/#2[Ee]90[Ff][Aa]/)
     expect(css).not.toMatch(/--tm-action-pill-fg/)
