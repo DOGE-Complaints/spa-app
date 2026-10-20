@@ -9,7 +9,7 @@ describe('CT-10 empty entry-only · speech icon · activate', () => {
   afterEach(() => cleanup())
 
   it('empty + writeAllowed · first paint = entry only · no full composer', () => {
-    render(<ThreadMount status="empty" writeCapability="allowed" comments={[]} />)
+    render(<ThreadMount status="empty" writeCapability="allowed" comments={[]}  previewNodeBudget={99} />)
     const mount = screen.getByTestId('tm-thread-mount')
     expect(mount.getAttribute('data-lab-ct10')).toBe('true')
     expect(mount.getAttribute('data-tm-empty-entry')).toBe('true')
@@ -21,7 +21,7 @@ describe('CT-10 empty entry-only · speech icon · activate', () => {
   })
 
   it('entry activate opens composer · entry leaves first-paint path', () => {
-    render(<ThreadMount status="empty" writeCapability="allowed" comments={[]} />)
+    render(<ThreadMount status="empty" writeCapability="allowed" comments={[]}  previewNodeBudget={99} />)
     fireEvent.click(screen.getByTestId('tm-thread-composer-entry'))
     const mount = screen.getByTestId('tm-thread-mount')
     expect(mount.getAttribute('data-tm-expanded')).toBe('true')
@@ -46,7 +46,7 @@ describe('CT-10 empty entry-only · speech icon · activate', () => {
         status="populated"
         writeCapability="allowed"
         comments={[{ id: 'a', body: 'hello', parentId: null, depth: 0 }]}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-thread-composer-entry')).toBeTruthy()
     expect(screen.queryByTestId('tm-thread-composer')).toBeNull()

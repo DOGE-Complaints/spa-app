@@ -14,7 +14,7 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
 
   it('Attach shows paperclip icon from Present attach.svg', () => {
     render(
-      <ThreadMount status="populated" writeCapability="allowed" comments={THREAD_NEST_COMMENTS} expanded />,
+      <ThreadMount status="populated" writeCapability="allowed" comments={THREAD_NEST_COMMENTS} expanded  previewNodeBudget={99} />,
     )
     const attach = screen.getByTestId('tm-composer-attach')
     const icon = screen.getByTestId('tm-composer-attach-icon')
@@ -24,7 +24,7 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
   })
 
   it('empty/first-send path uses circular yellow send + send.svg', () => {
-    render(<ThreadMount status="empty" writeCapability="allowed" comments={[]} expanded />)
+    render(<ThreadMount status="empty" writeCapability="allowed" comments={[]} expanded  previewNodeBudget={99} />)
     const composer = screen.getByTestId('tm-thread-composer')
     expect(composer.getAttribute('data-tm-send-chrome')).toBe('circle')
     const post = screen.getByTestId('tm-composer-post')
@@ -36,7 +36,7 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
 
   it('populated root Post keeps label + plane icon', () => {
     render(
-      <ThreadMount status="populated" writeCapability="allowed" comments={THREAD_NEST_COMMENTS} expanded />,
+      <ThreadMount status="populated" writeCapability="allowed" comments={THREAD_NEST_COMMENTS} expanded  previewNodeBudget={99} />,
     )
     const composer = screen.getByTestId('tm-thread-composer')
     expect(composer.getAttribute('data-tm-send-chrome')).toBe('labelled')
@@ -54,7 +54,7 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
         expanded
         initialDraft="x"
         maxAttachments={2}
-      />,
+       previewNodeBudget={99} />,
     )
     const rootReply = screen
       .getByTestId('tm-comment-node-fx-a')

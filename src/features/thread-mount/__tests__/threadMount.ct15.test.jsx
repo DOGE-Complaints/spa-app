@@ -8,7 +8,7 @@ import { THREAD_NEST_COMMENTS } from '../adapters/FixtureAdapter.js'
 describe('CT-15 lab host residual · IssueThreadBlock chrome', () => {
   afterEach(() => cleanup())
 
-  it('heading shows Discussion · Issue {id} when issueId provided', () => {
+  it('CT-21 omits Discussion heading · issueId still on block marker', () => {
     render(
       <IssueThreadBlock
         status="populated"
@@ -16,16 +16,16 @@ describe('CT-15 lab host residual · IssueThreadBlock chrome', () => {
         issueId="DOGEstonia-UusVeerenni-002"
       />,
     )
-    const title = screen.getByTestId('tm-thread-heading-title')
-    expect(title.textContent).toBe('Discussion · Issue DOGEstonia-UusVeerenni-002')
+    expect(screen.queryByTestId('tm-thread-heading')).toBeNull()
+    expect(screen.queryByTestId('tm-thread-heading-title')).toBeNull()
     expect(screen.getByTestId('tm-issue-thread-block').getAttribute('data-tm-issue-id')).toBe(
       'DOGEstonia-UusVeerenni-002',
     )
   })
 
-  it('heading stays Discussion when issueId Absent', () => {
+  it('CT-21 omits plain Discussion heading when issueId Absent', () => {
     render(<IssueThreadBlock status="populated" comments={THREAD_NEST_COMMENTS} />)
-    expect(screen.getByTestId('tm-thread-heading-title').textContent).toBe('Discussion')
+    expect(screen.queryByTestId('tm-thread-heading-title')).toBeNull()
   })
 
   it('residents row Present only when aggregate confirmed · collapsed', () => {
@@ -74,7 +74,7 @@ describe('CT-15 lab host residual · IssueThreadBlock chrome', () => {
         issueId="fx-issue"
         reactionsAggregateConfirmed
         branchDisclosure
-      />,
+       previewNodeBudget={99} />,
     )
     const mount = screen.getByTestId('tm-thread-mount')
     expect(mount.getAttribute('data-lab-ct15')).toBe('true')

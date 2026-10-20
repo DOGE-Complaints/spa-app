@@ -30,7 +30,7 @@ describe('CT-17 native picker · family hook · no synthetic seed', () => {
         writeCapability="allowed"
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.queryByTestId('tm-composer-attachments')).toBeNull()
     const input = screen.getByTestId('tm-composer-file-input')
@@ -47,7 +47,7 @@ describe('CT-17 native picker · family hook · no synthetic seed', () => {
         writeCapability="allowed"
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
-      />,
+       previewNodeBudget={99} />,
     )
     fireEvent.click(screen.getByTestId('tm-composer-attach'))
     expect(screen.queryByTestId('tm-composer-attachments')).toBeNull()
@@ -67,7 +67,7 @@ describe('CT-17 native picker · family hook · no synthetic seed', () => {
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     const file = new File(['img'], 'shot.png', { type: 'image/png' })
     fireEvent.change(screen.getByTestId('tm-composer-file-input'), {
@@ -95,7 +95,7 @@ describe('CT-17 native picker · family hook · no synthetic seed', () => {
         writeCapability="allowed"
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
-      />,
+       previewNodeBudget={99} />,
     )
     const file = new File(['bin'], 'blob.bin', { type: 'application/octet-stream' })
     fireEvent.change(screen.getByTestId('tm-composer-file-input'), {
@@ -122,7 +122,7 @@ describe('CT-17 native picker · family hook · no synthetic seed', () => {
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         attachmentsAvailable={false}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.queryByTestId('tm-composer-attach')).toBeNull()
     expect(screen.queryByTestId('tm-composer-file-input')).toBeNull()

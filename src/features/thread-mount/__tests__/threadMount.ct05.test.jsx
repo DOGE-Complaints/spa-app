@@ -38,7 +38,7 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialAttachments={[ready]}
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     const chip = screen.getByTestId(`tm-attachment-ref-${ready.id}`)
     expect(chip.getAttribute('data-tm-attach-status')).toBe('ready')
@@ -62,7 +62,7 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialAttachments={[denied]}
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-attachment-denied-title').textContent).toMatch(
       /can’t be added/i,
@@ -83,7 +83,7 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialAttachments={[ready]}
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-thread-composer').getAttribute('data-tm-attach-at-max')).toBe(
       'true',
@@ -98,7 +98,7 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialAttachments={[ready]}
         maxAttachments={0}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-thread-mount').getAttribute('data-tm-max-attachments')).toBe('0')
     expect(screen.queryByTestId(`tm-attachment-ref-${ready.id}`)).toBeNull()
@@ -113,7 +113,7 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         attachmentsAvailable={false}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.queryByTestId('tm-composer-attach')).toBeNull()
     expect(screen.getByTestId('tm-composer-attach-unavailable').textContent).toMatch(
@@ -131,7 +131,7 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
         expanded
         initialDraft="x"
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-composer-file-input').getAttribute('type')).toBe('file')
     const file = new File(['x'], 'photo.png', { type: 'image/png' })

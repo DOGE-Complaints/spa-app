@@ -45,14 +45,14 @@ describe('CR-15 lab feed M154 composition wire', () => {
     expect(card.getAttribute('data-lab-aggregate')).toBe('below')
     const strip = within(card).getByTestId('feed-post-action-strip')
     expect(strip.getAttribute('data-lab-strip-zones')).toBe('4')
-    expect(within(card).getByTestId('reaction-summary-react')).toBeTruthy()
+    expect(within(strip).getByTestId('reaction-summary-react')).toBeTruthy()
     const host = within(card).getByTestId('feed-post-aggregate-host')
     expect(host.contains(within(card).getByTestId('reaction-aggregate-row'))).toBe(true)
-    expect(within(card).getByTestId('feed-lab-reactions-mount').getAttribute('data-rm-adapter')).toBe(
+    expect(within(strip).getByTestId('feed-lab-reactions-mount').getAttribute('data-rm-adapter')).toBe(
       'fixture',
     )
 
-    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
+    fireEvent.click(within(strip).getByTestId('reaction-summary-react'))
     expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
   })
 

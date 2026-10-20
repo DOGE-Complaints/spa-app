@@ -73,7 +73,7 @@ describe('CT-09 CommentNode reactions plug slot', () => {
             React
           </button>
         )}
-      />,
+       previewNodeBudget={99} />,
     )
     const mount = screen.getByTestId('tm-thread-mount')
     expect(mount.getAttribute('data-lab-ct09')).toBe('true')

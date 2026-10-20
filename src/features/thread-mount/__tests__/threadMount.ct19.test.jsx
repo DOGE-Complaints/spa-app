@@ -44,7 +44,7 @@ describe('CT-19 AttachmentRef M153b §7 paint · M153a D/E copy', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialAttachments={[ready]}
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     const chip = screen.getByTestId(`tm-attachment-ref-${ready.id}`)
     expect(chip.getAttribute('data-lab-ct19')).toBe('true')
@@ -65,7 +65,7 @@ describe('CT-19 AttachmentRef M153b §7 paint · M153a D/E copy', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialAttachments={[denied]}
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     const chip = screen.getByTestId(`tm-attachment-ref-${denied.id}`)
     expect(chip.getAttribute('data-tm-attach-deny-reason')).toBe('type')
@@ -87,7 +87,7 @@ describe('CT-19 AttachmentRef M153b §7 paint · M153a D/E copy', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialAttachments={[denied]}
         maxAttachments={1}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId(`tm-attachment-ref-${denied.id}`).getAttribute('data-tm-attach-deny-reason')).toBe(
       'safety',
@@ -105,7 +105,7 @@ describe('CT-19 AttachmentRef M153b §7 paint · M153a D/E copy', () => {
         writeCapability="allowed"
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
-      />,
+       previewNodeBudget={99} />,
     )
     const file = new File(['bin'], 'blob.bin', { type: 'application/octet-stream' })
     fireEvent.change(screen.getByTestId('tm-composer-file-input'), {

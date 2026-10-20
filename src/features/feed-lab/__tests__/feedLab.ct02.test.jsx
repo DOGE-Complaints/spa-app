@@ -32,7 +32,8 @@ describe('CT-02 host Comment strip → ThreadMount', () => {
     const card = screen.getByTestId(`feed-post-card-${populated.publicId}`)
     expect(card.getAttribute('data-lab-ct02')).toBe('true')
     const mount = within(card).getByTestId('tm-thread-mount')
-    expect(mount.getAttribute('data-tm-expanded')).toBe('false')
+    /* CT-21 · populated first paint expanded */
+    expect(mount.getAttribute('data-tm-expanded')).toBe('true')
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
     expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
     const signal = Number(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-focus-signal'))
@@ -54,7 +55,8 @@ describe('CT-02 host Comment strip → ThreadMount', () => {
       'true',
     )
     expect(within(card).getByTestId('feed-post-action-strip')).toBeTruthy()
-    expect(within(card).getByTestId('feed-lab-reactions-mount') || within(card).queryByTestId('rm-mount') || true).toBeTruthy()
+    const strip = within(card).getByTestId('feed-post-action-strip')
+    expect(within(strip).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
     const css = readFileSync(path.resolve(dir, '../post/FeedPostCard.css'), 'utf8')
     expect(css).toMatch(/feed-post-card__thread-host/)
     expect(css).toMatch(/CT-02/)

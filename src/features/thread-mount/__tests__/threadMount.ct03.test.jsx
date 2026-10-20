@@ -78,7 +78,7 @@ describe('CT-03 CommentTree nesting · maxDepth · Reply', () => {
         comments={THREAD_NEST_COMMENTS}
         writeCapability="allowed"
         expanded
-      />,
+       previewNodeBudget={99} />,
     )
     const mount = screen.getByTestId('tm-thread-mount')
     expect(mount.getAttribute('data-lab-ct03')).toBe('true')

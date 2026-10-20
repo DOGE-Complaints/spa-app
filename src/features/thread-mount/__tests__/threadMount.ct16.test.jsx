@@ -24,7 +24,7 @@ function HostOwnedMount({ initial = THREAD_NEST_COMMENTS }) {
         setComments((prev) => [...prev, comment])
         return { ok: true, comment }
       }}
-    />
+     previewNodeBudget={99} />
   )
 }
 
@@ -39,7 +39,7 @@ describe('CT-16 dual-append post ownership · Arch §12.1', () => {
         writeCapability="allowed"
         expanded
         commentWriteOwner="host"
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-thread-mount').getAttribute('data-tm-comment-write-owner')).toBe(
       'host',
@@ -93,7 +93,7 @@ describe('CT-16 dual-append post ownership · Arch §12.1', () => {
         expanded
         commentWriteOwner="mount"
         onPostComment={onPost}
-      />,
+       previewNodeBudget={99} />,
     )
     fireEvent.change(screen.getByTestId('tm-composer-textarea'), {
       target: { value: 'Mount owned body' },

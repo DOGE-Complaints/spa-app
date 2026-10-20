@@ -87,17 +87,11 @@ describe('FeedLab compose NF-LAB-03 (superseded mount → LAB-10 greenfield)', (
     }
   })
 
-  it('discussion header is not classic DISCUSSION Done copy', () => {
+  it('discussion omits Discussion heading chrome (CT-21)', () => {
     renderLab()
     expect(screen.queryByTestId('feed-post-discussion-summary-title')).toBeNull()
-    const headers = screen.getAllByTestId('tm-thread-heading')
-    expect(headers.length).toBeGreaterThan(0)
-    for (const h of headers) {
-      // ThreadMount title-case · CT-15 may append · Issue {id} · classic was ALL-CAPS DISCUSSION
-      const text = h.textContent?.trim() || ''
-      expect(text.startsWith('Discussion')).toBe(true)
-      expect(text).not.toBe('DISCUSSION')
-    }
+    expect(screen.queryByTestId('tm-thread-heading')).toBeNull()
+    expect(screen.getAllByTestId('tm-thread-mount').length).toBeGreaterThan(0)
   })
 
   it('mounts ReactionsMount cutover (not Deprecated chrome / FeedReactionPlane)', () => {

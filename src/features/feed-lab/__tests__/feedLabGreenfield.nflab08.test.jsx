@@ -83,18 +83,19 @@ describe('FeedLab greenfield NF-LAB-08 reactions (CR-07 cutover)', () => {
     expect(screen.getByTestId('feed-lab-page').getAttribute('data-lab-visual-done')).toBe('false')
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     expect(card.getAttribute('data-lab-reactions')).toBe('m154')
-    expect(within(card).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
-    expect(within(card).getByTestId('reactions-mount')).toBeTruthy()
+    const strip = within(card).getByTestId('feed-post-action-strip')
+    expect(within(strip).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
+    expect(within(strip).getByTestId('reactions-mount')).toBeTruthy()
     expect(within(card).queryByTestId('feed-reaction-plane')).toBeNull()
     expect(within(card).queryAllByTestId('rm-reaction-picker')).toHaveLength(0)
 
-    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
+    fireEvent.click(within(strip).getByTestId('reaction-summary-react'))
     const picker = screen.getByTestId('rm-reaction-picker')
     expect(picker).toBeTruthy()
     expect(screen.getByTestId('rm-picker-layer-emotional')).toBeTruthy()
     expect(screen.getByTestId('rm-picker-layer-epistemic')).toBeTruthy()
     expect(screen.queryByTestId('rm-picker-layer-moderation')).toBeNull()
-    expect(within(card).getByTestId('reactions-mount').getAttribute('data-rm-moderation')).toBe(
+    expect(within(strip).getByTestId('reactions-mount').getAttribute('data-rm-moderation')).toBe(
       'absent',
     )
   })

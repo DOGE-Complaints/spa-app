@@ -78,18 +78,15 @@ describe('FeedLab greenfield NF-LAB-09 discussion', () => {
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
     expect(card.getAttribute('data-lab-discussion')).toBe('m152')
     const mount = within(card).getByTestId('tm-thread-mount')
-    expect(mount.getAttribute('data-tm-expanded')).toBe('false')
+    /* CT-21 · populated first paint expanded · no Discussion heading */
+    expect(mount.getAttribute('data-tm-expanded')).toBe('true')
     expect(within(card).queryByTestId('feed-post-discussion-reaction-slot')).toBeNull()
     const strip = within(card).getByTestId('feed-post-action-strip')
     expect(within(strip).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
     expect(within(strip).getByTestId('reactions-mount')).toBeTruthy()
     expect(within(card).queryByTestId('feed-reaction-plane')).toBeNull()
-    expect(within(card).getByTestId('tm-thread-heading').textContent).toMatch(/Discussion/i)
+    expect(within(card).queryByTestId('tm-thread-heading')).toBeNull()
     expect(within(card).getByText('Noise after 23:00 again.')).toBeTruthy()
-
-    fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
-    expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
-    expect(within(card).getByTestId('tm-thread-heading').textContent).not.toMatch(/DISCUSSION/)
     expect(within(card).getByTestId('tm-comment-tree')).toBeTruthy()
   })
 

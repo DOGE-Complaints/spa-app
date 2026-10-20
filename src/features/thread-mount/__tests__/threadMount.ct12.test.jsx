@@ -15,7 +15,7 @@ describe('CT-12 inline reply under parent · G-H4', () => {
         comments={THREAD_NEST_COMMENTS}
         writeCapability="allowed"
         expanded
-      />,
+       previewNodeBudget={99} />,
     )
     const nested = screen.getByTestId('tm-comment-node-fx-a1')
     const replyBtn = nested.querySelector(
@@ -46,7 +46,7 @@ describe('CT-12 inline reply under parent · G-H4', () => {
         comments={THREAD_NEST_COMMENTS}
         writeCapability="allowed"
         expanded
-      />,
+       previewNodeBudget={99} />,
     )
     const mount = screen.getByTestId('tm-thread-mount')
     const block = screen.getByTestId('tm-issue-thread-block')
@@ -67,7 +67,7 @@ describe('CT-12 inline reply under parent · G-H4', () => {
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialReplyParentId="fx-a"
-      />,
+       previewNodeBudget={99} />,
     )
     const parent = screen.getByTestId('tm-comment-node-fx-a')
     expect(within(parent).getByTestId('tm-thread-composer')).toBeTruthy()
@@ -97,7 +97,7 @@ describe('CT-12 inline reply under parent · G-H4', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialReplyParentId="fx-a1"
         onPostComment={(p) => adapter.postComment(p)}
-      />,
+       previewNodeBudget={99} />,
     )
     const parent = screen.getByTestId('tm-comment-node-fx-a1')
     expect(within(parent).getByTestId('tm-thread-composer')).toBeTruthy()

@@ -45,16 +45,13 @@ describe('CR-12 lab feed react-always + aggregate under strip', () => {
     const populated = LAB_FEED_FIXTURES.find((f) => f.reactionStripState === 'populated')
     expect(populated).toBeTruthy()
     const card = screen.getByTestId(`feed-post-card-${populated.publicId}`)
-    expect(within(card).getByTestId('reaction-summary-react')).toBeTruthy()
+    const zone1 = within(card).getByTestId('feed-post-action-react')
+    expect(within(zone1).getByTestId('reaction-summary-react')).toBeTruthy()
     const host = within(card).getByTestId('feed-post-aggregate-host')
     const row = within(card).getByTestId('reaction-aggregate-row')
     expect(host.contains(row)).toBe(true)
     // aggregate not inside strip zone
-    expect(
-      within(card)
-        .getByTestId('feed-post-action-react')
-        .querySelector('[data-testid="reaction-aggregate-row"]'),
-    ).toBeNull()
+    expect(zone1.querySelector('[data-testid="reaction-aggregate-row"]')).toBeNull()
 
     fireEvent.click(within(card).getByTestId('feed-post-action-reactions'))
     expect(screen.getByTestId('rm-reactors-popover')).toBeTruthy()

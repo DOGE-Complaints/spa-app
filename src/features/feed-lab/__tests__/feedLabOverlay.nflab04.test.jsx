@@ -82,19 +82,13 @@ describe('FeedLab overlay NF-LAB-04 (superseded → LAB-10 greenfield)', () => {
     }
   })
 
-  it('discussion in overlay is not classic DISCUSSION', () => {
+  it('discussion in overlay omits Discussion heading (CT-21)', () => {
     renderLab()
     fireEvent.click(screen.getAllByTestId('feed-post-media')[2])
     expect(screen.getByTestId('feed-issue-detail-panel')).toBeTruthy()
     const body = screen.getByTestId('feed-issue-detail-body')
     expect(within(body).queryByTestId('feed-post-discussion-summary-title')).toBeNull()
-    const headers = within(body).getAllByTestId('tm-thread-heading')
-    expect(headers.length).toBeGreaterThan(0)
-    for (const h of headers) {
-      // CT-15 may append · Issue {id} · classic was ALL-CAPS DISCUSSION
-      const text = h.textContent?.trim() || ''
-      expect(text.startsWith('Discussion')).toBe(true)
-      expect(text).not.toBe('DISCUSSION')
-    }
+    expect(within(body).queryByTestId('tm-thread-heading')).toBeNull()
+    expect(within(body).getByTestId('tm-thread-mount')).toBeTruthy()
   })
 })

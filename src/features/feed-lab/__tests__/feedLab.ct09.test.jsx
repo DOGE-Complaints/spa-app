@@ -61,7 +61,8 @@ describe('CT-09 lab wire · comment target reactions plug', () => {
   it('card cutover host keeps root strip reactSlot · comment plugs Present when expanded', () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
-    expect(within(card).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
+    const strip = within(card).getByTestId('feed-post-action-strip')
+    expect(within(strip).getByTestId('feed-lab-reactions-mount')).toBeTruthy()
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
     const firstCommentId = LAB_FEED_FIXTURES[0].comments[0].id
     const slot = within(card).getByTestId(`tm-comment-reaction-slot-${firstCommentId}`)

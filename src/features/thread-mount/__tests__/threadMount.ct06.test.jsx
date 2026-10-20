@@ -26,7 +26,7 @@ describe('CT-06 local branch disclosure · no invent HTTP', () => {
   })
 
   it('default branchDisclosure off · children still visible (CT-03)', () => {
-    render(<CommentTree comments={THREAD_NEST_COMMENTS} />)
+    render(<CommentTree comments={THREAD_NEST_COMMENTS} previewNodeBudget={99} />)
     expect(screen.getByTestId('tm-comment-tree').getAttribute('data-tm-branch-disclosure')).toBe(
       'false',
     )
@@ -37,7 +37,12 @@ describe('CT-06 local branch disclosure · no invent HTTP', () => {
 
   it('collapsed · View replies · sync expand shows local children', () => {
     render(
-      <CommentTree comments={THREAD_NEST_COMMENTS} branchDisclosure branchExpandMode="sync" />,
+      <CommentTree
+        comments={THREAD_NEST_COMMENTS}
+        branchDisclosure
+        branchExpandMode="sync"
+        previewNodeBudget={99}
+      />,
     )
     const tree = screen.getByTestId('tm-comment-tree')
     expect(tree.getAttribute('data-tm-branch-disclosure')).toBe('true')
@@ -63,6 +68,7 @@ describe('CT-06 local branch disclosure · no invent HTTP', () => {
         branchDisclosure
         branchExpandMode="delayed"
         branchExpandDelayMs={200}
+        previewNodeBudget={99}
       />,
     )
     fireEvent.click(screen.getByTestId('tm-comment-view-replies-fx-a'))
@@ -85,6 +91,7 @@ describe('CT-06 local branch disclosure · no invent HTTP', () => {
         branchExpandMode="error"
         branchExpandDelayMs={50}
         initialBranchStates={{ 'fx-a': 'error' }}
+        previewNodeBudget={99}
       />,
     )
     const err = screen.getByTestId('tm-comment-branch-error-fx-a')
@@ -110,6 +117,7 @@ describe('CT-06 local branch disclosure · no invent HTTP', () => {
         expanded
         branchDisclosure
         branchExpandMode="sync"
+        previewNodeBudget={99}
       />,
     )
     const mount = screen.getByTestId('tm-thread-mount')

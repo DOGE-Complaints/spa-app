@@ -64,7 +64,7 @@ describe('CT-01 IssueThreadBlock / ThreadMount states', () => {
           status={snap.status}
           comments={snap.comments}
           writeCapability={THREAD_STATE_FIXTURES[status].writeCapability}
-        />,
+         previewNodeBudget={99} />,
       )
       const mount = screen.getByTestId('tm-thread-mount')
       expect(mount.getAttribute('data-tm-status')).toBe(status)
@@ -85,7 +85,7 @@ describe('CT-01 IssueThreadBlock / ThreadMount states', () => {
         comments={populated.comments}
         writeCapability="allowed"
         narrow
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-thread-mount').getAttribute('data-lab-narrow')).toBe('true')
   })

@@ -59,7 +59,8 @@ describe('CT-08 lab feed cutover → ThreadMount', () => {
   it('Comment zone still expands/focuses ThreadMount', () => {
     renderLab()
     const card = screen.getByTestId(`feed-post-card-${LAB_FEED_FIXTURES[0].publicId}`)
-    expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('false')
+    /* CT-21 · populated first paint expanded · Comment still focuses composer */
+    expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
     fireEvent.click(within(card).getByTestId('feed-post-action-comment'))
     expect(within(card).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe('true')
   })

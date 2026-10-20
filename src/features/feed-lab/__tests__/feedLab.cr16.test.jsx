@@ -37,7 +37,7 @@ describe('CR-16 strip chip hover + media flush', () => {
     expect(strip.getAttribute('data-lab-strip-zones')).toBe('4')
     expect(strip.getAttribute('data-lab-react-chip')).toBe('true')
     expect(strip.getAttribute('data-lab-cr16-polish')).toBe('true')
-    expect(within(card).getByTestId('reaction-summary-react')).toBeTruthy()
+    expect(within(strip).getByTestId('reaction-summary-react')).toBeTruthy()
   })
 
   it('media segment is outside padded body · flush marker Present', () => {
@@ -88,7 +88,8 @@ describe('CR-16 strip chip hover + media flush', () => {
     renderLab()
     const populated = LAB_FEED_FIXTURES.find((f) => f.reactionStripState === 'populated')
     const card = screen.getByTestId(`feed-post-card-${populated.publicId}`)
-    fireEvent.click(within(card).getByTestId('reaction-summary-react'))
+    const strip = within(card).getByTestId('feed-post-action-strip')
+    fireEvent.click(within(strip).getByTestId('reaction-summary-react'))
     expect(screen.getByTestId('rm-reaction-picker')).toBeTruthy()
   })
 })

@@ -10,7 +10,7 @@ describe('CT-04 ThreadComposer · draft · fail · focus', () => {
 
   it('root mode labels Write a comment / Post comment', () => {
     render(
-      <ThreadMount status="empty" writeCapability="allowed" comments={[]} expanded />,
+      <ThreadMount status="empty" writeCapability="allowed" comments={[]} expanded  previewNodeBudget={99} />,
     )
     const composer = screen.getByTestId('tm-thread-composer')
     expect(composer.getAttribute('data-tm-composer-mode')).toBe('root')
@@ -26,7 +26,7 @@ describe('CT-04 ThreadComposer · draft · fail · focus', () => {
         writeCapability="allowed"
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
-      />,
+       previewNodeBudget={99} />,
     )
     const rootReply = screen
       .getByTestId('tm-comment-node-fx-a')
@@ -58,7 +58,7 @@ describe('CT-04 ThreadComposer · draft · fail · focus', () => {
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialReplyParentId="fx-a"
         onPostComment={(p) => adapter.postComment(p)}
-      />,
+       previewNodeBudget={99} />,
     )
     fireEvent.click(screen.getByTestId('tm-composer-post'))
     await waitFor(() => expect(screen.getByTestId('tm-composer-fail')).toBeTruthy())
@@ -80,7 +80,7 @@ describe('CT-04 ThreadComposer · draft · fail · focus', () => {
         expanded
         initialDraft="Fresh fixture body"
         onPostComment={(p) => adapter.postComment(p)}
-      />,
+       previewNodeBudget={99} />,
     )
     const before = screen.queryByText('Fresh fixture body')
     expect(before).toBeTruthy() // in textarea only
@@ -109,7 +109,7 @@ describe('CT-04 ThreadComposer · draft · fail · focus', () => {
         comments={[]}
         expanded
         apiRef={apiRef}
-      />,
+       previewNodeBudget={99} />,
     )
     apiRef.current.focusComposer()
     await waitFor(() =>

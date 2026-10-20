@@ -30,7 +30,7 @@ describe('CT-07 VerifyWriteGate lab · no invent Identity/HTTP · no autopost', 
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialReplyParentId="fx-a1"
-      />,
+       previewNodeBudget={99} />,
     )
     const gate = screen.getByTestId('tm-verify-write-gate')
     expect(gate.getAttribute('data-tm-gate-variant')).toBe('blocked')
@@ -54,7 +54,7 @@ describe('CT-07 VerifyWriteGate lab · no invent Identity/HTTP · no autopost', 
         verifyGateVariant="handoff"
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-verify-handoff').getAttribute('data-tm-verify-route')).toBe(
       VERIFY_HANDOFF_ROUTE,
@@ -77,7 +77,7 @@ describe('CT-07 VerifyWriteGate lab · no invent Identity/HTTP · no autopost', 
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialReplyParentId="fx-a1"
         onPostComment={onPost}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-verify-result-opaque').textContent).toBe(VERIFY_SUCCESS_BADGE)
     expect(screen.getByTestId('tm-composer-textarea').value).toBe(M153_ILLUSTRATIVE_DRAFT)
@@ -96,7 +96,7 @@ describe('CT-07 VerifyWriteGate lab · no invent Identity/HTTP · no autopost', 
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialReplyParentId="fx-a1"
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-verify-write-gate').getAttribute('data-tm-gate-variant')).toBe(
       'cancelled',
@@ -114,7 +114,7 @@ describe('CT-07 VerifyWriteGate lab · no invent Identity/HTTP · no autopost', 
         verifyGateVariant="denied-unknown"
         expanded
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
-      />,
+       previewNodeBudget={99} />,
     )
     expect(screen.getByTestId('tm-verify-gate-title').textContent).toBe(VERIFY_DENIED_UNKNOWN)
     expect(screen.queryByTestId('tm-verify-go-cta')).toBeNull()
@@ -133,7 +133,7 @@ describe('CT-07 VerifyWriteGate lab · no invent Identity/HTTP · no autopost', 
         initialDraft={M153_ILLUSTRATIVE_DRAFT}
         initialReplyParentId="fx-a1"
         onGoVerify={onGo}
-      />,
+       previewNodeBudget={99} />,
     )
     fireEvent.click(screen.getByTestId('tm-verify-go-cta'))
     expect(onGo).toHaveBeenCalled()

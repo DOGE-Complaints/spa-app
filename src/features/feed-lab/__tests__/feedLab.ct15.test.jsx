@@ -36,18 +36,18 @@ describe('CT-15 lab host residual on #/lab/feed', () => {
     expect(mount.getAttribute('data-lab-narrow')).toBe('true')
   })
 
-  it('nest fixture card passes branchDisclosure · issue heading id', () => {
+  it('nest fixture card passes branchDisclosure · issue id · CT-21 no heading', () => {
     renderLab()
     const card002 = LAB_FEED_FIXTURES.find((f) => f.publicId.includes('002'))
     const card = screen.getByTestId(`feed-post-card-${card002.publicId}`)
     const host = within(card).getByTestId('feed-lab-thread-mount')
     expect(host.getAttribute('data-lab-branch-disclosure')).toBe('true')
     expect(host.getAttribute('data-lab-issue-id')).toBe(card002.publicId)
-    const title = within(card).getByTestId('tm-thread-heading-title')
-    expect(title.textContent).toBe(`Discussion · Issue ${card002.publicId}`)
+    expect(within(card).queryByTestId('tm-thread-heading')).toBeNull()
+    expect(within(card).queryByTestId('tm-thread-heading-title')).toBeNull()
   })
 
-  it('residents row only on aggregate-confirmed card · omitted otherwise', () => {
+  it('CT-21 default expanded · residents row omitted on first paint · aggregate marker held', () => {
     renderLab()
     const withAgg = LAB_FEED_FIXTURES.find((f) => f.reactionStripState === 'populated')
     const without = LAB_FEED_FIXTURES.find((f) => f.reactionStripState !== 'populated')
@@ -55,7 +55,10 @@ describe('CT-15 lab host residual on #/lab/feed', () => {
     expect(without).toBeTruthy()
 
     const cardAgg = screen.getByTestId(`feed-post-card-${withAgg.publicId}`)
-    expect(within(cardAgg).getByTestId('tm-thread-residents-row')).toBeTruthy()
+    expect(within(cardAgg).getByTestId('tm-thread-mount').getAttribute('data-tm-expanded')).toBe(
+      'true',
+    )
+    expect(within(cardAgg).queryByTestId('tm-thread-residents-row')).toBeNull()
     expect(
       within(cardAgg).getByTestId('feed-lab-thread-mount').getAttribute('data-lab-residents-aggregate'),
     ).toBe('confirmed')
