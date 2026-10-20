@@ -3,6 +3,7 @@ export {
   loadLabFeedFixtures,
 } from './labFeedFixtures.js'
 export { LAB_CT08_STANDS } from './labCt08Stands.js'
+export { LAB_CT20_STANDS } from './labCt20Stands.js'
 export {
   LAB_MEDIA_ALT_BY_PUBLIC_ID,
   LAB_MEDIA_STUB_PATH,

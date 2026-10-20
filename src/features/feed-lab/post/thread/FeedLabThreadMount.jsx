@@ -30,7 +30,7 @@ export function fixtureNeedsBranchDisclosure(comments) {
 }
 
 /**
- * Feed-lab host for ThreadMount (CT-01/02/08/09).
+ * Feed-lab host for ThreadMount (CT-01/02/08/09/20).
  * FixtureAdapter default · CT-09 plugs FeedLabReactionsMount target=comment per node.
  * No invent HTTP / Live / Identity · no CR package rewrite · no people ownership in thread.
  *
@@ -38,6 +38,9 @@ export function fixtureNeedsBranchDisclosure(comments) {
  * @param {Array|null} [comments] lab fixture comments
  * @param {'allowed'|'unverified'|'denied-unknown'|'stale'|null} [writeCapability]
  * @param {import('react').Ref} [apiRef]
+ * @param {number} [maxDepth] CT-20 LAB-4
+ * @param {boolean} [attachmentsAvailable] CT-20 LAB-3
+ * @param {boolean} [forcePostFail] CT-20 LAB-2 · fixture soft-fail · no invent HTTP
  */
 export function FeedLabThreadMount({
   status = null,
@@ -56,6 +59,9 @@ export function FeedLabThreadMount({
   issueId = null,
   /** CT-15 G-M2 · soft CR aggregate confirmed only */
   reactionsAggregateConfirmed = false,
+  maxDepth = undefined,
+  attachmentsAvailable = true,
+  forcePostFail = false,
 }) {
   const fromComments = comments != null
   const mapped = useMemo(() => mapLabCommentsToThread(comments), [comments])
@@ -67,6 +73,12 @@ export function FeedLabThreadMount({
   const fixture = THREAD_STATE_FIXTURES[derivedStatus] || THREAD_STATE_FIXTURES.populated
   const resolvedWrite =
     writeCapability || (fromComments ? 'allowed' : fixture.writeCapability || 'allowed')
+
+  useEffect(() => {
+    if (!fromComments && typeof adapter.setFailNextPost === 'function') {
+      adapter.setFailNextPost(Boolean(forcePostFail))
+    }
+  }, [adapter, forcePostFail, fromComments])
 
   const [snap, setSnap] = useState(() =>
     fromComments
@@ -100,6 +112,14 @@ export function FeedLabThreadMount({
     if (fromComments) {
       const body = typeof payload?.body === 'string' ? payload.body.trim() : ''
       if (!body) return { ok: false, reason: 'empty-body' }
+      if (forcePostFail) {
+        return {
+          ok: false,
+          reason: 'fixture-soft-fail',
+          title: 'Comment wasn’t posted.',
+          detail: 'Your text is still here. Try again.',
+        }
+      }
       const parentId =
         payload?.parentId == null || payload.parentId === '' ? null : String(payload.parentId)
       let depth = 0
@@ -137,6 +157,7 @@ export function FeedLabThreadMount({
       data-lab-ct10="true"
       data-lab-ct15="true"
       data-lab-ct16="true"
+      data-lab-ct20="true"
       data-lab-comment-write-owner="host"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"
@@ -147,6 +168,9 @@ export function FeedLabThreadMount({
       data-lab-branch-disclosure={branchDisclosure ? 'true' : 'false'}
       data-lab-issue-id={typeof issueId === 'string' && issueId.trim() ? issueId.trim() : undefined}
       data-lab-residents-aggregate={reactionsAggregateConfirmed ? 'confirmed' : 'absent'}
+      data-lab-force-post-fail={forcePostFail ? 'true' : 'false'}
+      data-lab-attachments-available={attachmentsAvailable ? 'true' : 'false'}
+      data-lab-max-depth={maxDepth != null ? String(maxDepth) : undefined}
     >
       <ThreadMount
         status={snap.status}
@@ -165,6 +189,9 @@ export function FeedLabThreadMount({
         renderCommentReactions={renderCommentReactions}
         commentWriteOwner="host"
         onPostComment={handlePostComment}
+        maxDepth={maxDepth}
+        attachmentsAvailable={Boolean(attachmentsAvailable)}
+        forcePostFail={Boolean(forcePostFail)}
         onRetry={() => {
           if (fromComments) return
           adapter.retry().then((next) =>
