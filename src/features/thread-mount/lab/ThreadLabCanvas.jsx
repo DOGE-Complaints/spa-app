@@ -331,6 +331,8 @@ function StandCard({ stand }) {
           onExpandedChange={setExpanded}
           narrow={Boolean(stand.narrow)}
           maxDepth={stand.maxDepth}
+          /* Prior Path A stands need full forest · CT-21 budget covered on #/lab/feed */
+          previewNodeBudget={stand.previewNodeBudget ?? 99}
           maxAttachments={stand.maxAttachments}
           attachmentsAvailable={stand.attachmentsAvailable !== false}
           initialDraft={stand.initialDraft || ''}

@@ -21,7 +21,7 @@ import './FeedIssueDetailBody.css'
  * CT-02: Comment → ThreadMount apiRef · detail parity with card composition.
  * CT-08: L-cut ThreadMount host · data-lab-thread-mount.
  */
-export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = false, t = null, locale = 'en' }) {
+export function FeedIssueDetailBody({ fixture, initiallyExpandDiscussion = true, t = null, locale = 'en' }) {
   const [aggregateHost, setAggregateHost] = useState(null)
   const reactionsApiRef = useRef(null)
   const threadApiRef = useRef(null)

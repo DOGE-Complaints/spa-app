@@ -1,20 +1,26 @@
 import { CommentTree } from './tree/CommentTree.jsx'
-import { DEFAULT_MAX_DEPTH, VISUAL_INDENT_CAP } from './config/threadMountConfig.js'
+import {
+  DEFAULT_MAX_DEPTH,
+  DEFAULT_PREVIEW_NODE_BUDGET,
+  VISUAL_INDENT_CAP,
+} from './config/threadMountConfig.js'
 import './IssueThreadBlock.css'
 
 /**
- * CT-01/CT-03 — M152 status chrome + M153 expanded CommentTree.
+ * CT-01/CT-03/CT-21 — M152 status chrome + M153/M152c expanded CommentTree.
  * Greenfield under thread-mount · no reactions ownership · no invent authors/HTTP.
+ * CT-21: omit Discussion heading · pass previewNodeBudget.
  *
  * @param {'loading'|'empty'|'populated'|'unavailable'} status
  * @param {Array<{ id?: string, body?: string, parentId?: string|null, depth?: number }>} [comments]
  * @param {boolean} [expanded] populated tree expand
  * @param {number} [maxDepth]
  * @param {number} [visualIndentCap]
+ * @param {number} [previewNodeBudget] CT-21 M152c DFS first-paint budget
  * @param {() => void} [onViewDiscussion]
  * @param {() => void} [onRetry]
  * @param {boolean} [composerEntry] show Write a comment affordance when capability permits
- * @param {string|null} [issueId] CT-15 G-L5 · Discussion · Issue {id} when host provides
+ * @param {string|null} [issueId] host issue id marker (no Discussion heading chrome)
  * @param {boolean} [reactionsAggregateConfirmed] CT-15 G-M2 · residents row only if confirmed
  */
 export function IssueThreadBlock({
@@ -23,6 +29,7 @@ export function IssueThreadBlock({
   expanded = false,
   maxDepth = DEFAULT_MAX_DEPTH,
   visualIndentCap = VISUAL_INDENT_CAP,
+  previewNodeBudget = DEFAULT_PREVIEW_NODE_BUDGET,
   onViewDiscussion = null,
   onRetry = null,
   composerEntry = false,
@@ -45,7 +52,6 @@ export function IssueThreadBlock({
     .filter(Boolean)
   const previews = bodies.slice(0, 2)
   const idLabel = typeof issueId === 'string' && issueId.trim() ? issueId.trim() : ''
-  const headingTitle = idLabel ? `Discussion · Issue ${idLabel}` : 'Discussion'
   const showResidentsRow =
     status === 'populated' && !expanded && Boolean(reactionsAggregateConfirmed)
 
@@ -58,14 +64,9 @@ export function IssueThreadBlock({
       data-tm-issue-id={idLabel || undefined}
       data-lab-ct01="true"
       data-lab-ct15="true"
-      aria-label={headingTitle}
+      data-lab-ct21="true"
+      aria-label={idLabel ? `Issue discussion ${idLabel}` : 'Issue discussion'}
     >
-      <header className="tm-issue-thread-block__heading" data-testid="tm-thread-heading" data-lab-ct15="true">
-        <h3 className="tm-issue-thread-block__title" data-testid="tm-thread-heading-title">
-          {headingTitle}
-        </h3>
-      </header>
-
       {status === 'loading' ? (
         <div className="tm-issue-thread-block__state" data-testid="tm-thread-loading" role="status">
           <p className="tm-issue-thread-block__status-copy">Loading discussion…</p>
@@ -166,6 +167,7 @@ export function IssueThreadBlock({
                 comments={comments}
                 maxDepth={maxDepth}
                 visualIndentCap={visualIndentCap}
+                previewNodeBudget={previewNodeBudget}
                 onReply={onReply}
                 branchDisclosure={Boolean(branchDisclosure)}
                 branchExpandMode={branchExpandMode || 'sync'}

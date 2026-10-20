@@ -17,7 +17,7 @@ export function FeedIssueDetailOverlay({
   open,
   onDismiss,
   restoreFocusRef = null,
-  initiallyExpandDiscussion = false,
+  initiallyExpandDiscussion = true,
 }) {
   if (!fixture) return null
 

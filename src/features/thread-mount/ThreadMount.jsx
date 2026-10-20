@@ -4,12 +4,14 @@ import { ThreadComposer } from './composer/ThreadComposer.jsx'
 import {
   DEFAULT_MAX_ATTACHMENTS,
   DEFAULT_MAX_DEPTH,
+  DEFAULT_PREVIEW_NODE_BUDGET,
   VISUAL_INDENT_CAP,
   buildAttachmentIntentFromPick,
   canAddAttachment,
   clampAttachmentIntents,
   resolveMaxAttachments,
   resolveMaxDepth,
+  resolvePreviewNodeBudget,
   resolveVisualIndentCap,
 } from './config/threadMountConfig.js'
 import { StubVerifyHandoff } from './verify/StubVerifyHandoff.jsx'
@@ -50,6 +52,8 @@ export function ThreadMount({
   writeCapability = 'denied-unknown',
   maxDepth = DEFAULT_MAX_DEPTH,
   visualIndentCap = VISUAL_INDENT_CAP,
+  /** CT-21 M152c · DFS first-paint node budget */
+  previewNodeBudget = DEFAULT_PREVIEW_NODE_BUDGET,
   maxAttachments = DEFAULT_MAX_ATTACHMENTS,
   mediaAllowedTypes = undefined,
   attachmentsAvailable = true,
@@ -124,6 +128,7 @@ export function ThreadMount({
 
   const resolvedDepth = resolveMaxDepth(maxDepth)
   const resolvedCap = resolveVisualIndentCap(visualIndentCap)
+  const resolvedPreviewBudget = resolvePreviewNodeBudget(previewNodeBudget)
   const resolvedAttach = resolveMaxAttachments(maxAttachments)
   const writeAllowed = writeCapability === 'allowed'
   const resolvedGate =
@@ -354,6 +359,7 @@ export function ThreadMount({
       data-tm-expanded={expanded ? 'true' : 'false'}
       data-tm-max-depth={String(resolvedDepth)}
       data-tm-visual-indent-cap={String(resolvedCap)}
+      data-tm-preview-budget={String(resolvedPreviewBudget)}
       data-tm-max-attachments={String(resolvedAttach)}
       data-tm-attach-count={String(attachments.length)}
       data-tm-attachments-available={attachmentsAvailable ? 'true' : 'false'}
@@ -383,6 +389,7 @@ export function ThreadMount({
       data-lab-ct14="true"
       data-lab-ct15="true"
       data-lab-ct16="true"
+      data-lab-ct21="true"
       data-tm-comment-write-owner={
         commentWriteOwner === 'host' || commentWriteOwner === 'mount'
           ? commentWriteOwner
@@ -403,6 +410,7 @@ export function ThreadMount({
         expanded={expanded}
         maxDepth={resolvedDepth}
         visualIndentCap={resolvedCap}
+        previewNodeBudget={resolvedPreviewBudget}
         onViewDiscussion={() => setExpanded(true)}
         onRetry={onRetry}
         onReply={handleReply}

@@ -2,8 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   BRANCH_EXPAND_DELAY_MS,
   DEFAULT_MAX_DEPTH,
+  SHOW_MORE_COMMENTS_COPY,
   VISUAL_INDENT_CAP,
+  collectDfsPreviewIds,
+  countForestNodes,
+  pruneForestToIds,
   resolveMaxDepth,
+  resolvePreviewNodeBudget,
   resolveVisualIndentCap,
 } from '../config/threadMountConfig.js'
 import { buildCommentForest } from './buildCommentForest.js'
@@ -44,6 +49,7 @@ function collectBranchIds(roots) {
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderCommentReactions]
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderReplyComposer]
  * @param {string|null} [props.selectedReplyParentId] CT-18 M153b §6
+ * @param {number|null} [props.previewNodeBudget] CT-21 M152c DFS budget · null/omit = unlimited (unit/lab trees)
  */
 export function CommentTree({
   comments = [],
@@ -57,14 +63,45 @@ export function CommentTree({
   renderCommentReactions = null,
   renderReplyComposer = null,
   selectedReplyParentId = null,
+  previewNodeBudget = null,
 }) {
   const resolvedMax = resolveMaxDepth(maxDepth)
   const resolvedCap = resolveVisualIndentCap(visualIndentCap)
+  /* Hosts (ThreadMount) pass DEFAULT_PREVIEW_NODE_BUDGET=3 · bare CommentTree stays unlimited */
+  const resolvedBudget =
+    previewNodeBudget == null
+      ? Number.MAX_SAFE_INTEGER
+      : resolvePreviewNodeBudget(previewNodeBudget)
   const forest = useMemo(() => buildCommentForest(comments), [comments])
+  const [previewRevealed, setPreviewRevealed] = useState(false)
   const branchIds = useMemo(
     () => (forest.mode === 'tree' ? collectBranchIds(forest.roots) : []),
     [forest],
   )
+
+  useEffect(() => {
+    setPreviewRevealed(false)
+  }, [comments, resolvedBudget])
+
+  const totalNodes = useMemo(() => {
+    if (forest.mode === 'tree') return countForestNodes(forest.roots)
+    return Array.isArray(forest.flat) ? forest.flat.length : 0
+  }, [forest])
+
+  const truncated = !previewRevealed && totalNodes > resolvedBudget
+
+  const visibleRoots = useMemo(() => {
+    if (forest.mode !== 'tree') return []
+    if (!truncated) return forest.roots
+    const ids = collectDfsPreviewIds(forest.roots, resolvedBudget)
+    return pruneForestToIds(forest.roots, ids)
+  }, [forest, truncated, resolvedBudget])
+
+  const visibleFlat = useMemo(() => {
+    if (forest.mode !== 'flat') return []
+    if (!truncated) return forest.flat
+    return forest.flat.slice(0, resolvedBudget)
+  }, [forest, truncated, resolvedBudget])
 
   const [branchStates, setBranchStates] = useState(() => {
     /** @type {Record<string, 'collapsed'|'expanded'|'expanding'|'error'>} */
@@ -128,7 +165,19 @@ export function CommentTree({
 
   const getBranchState = (id, childCount) => {
     if (!branchDisclosure || childCount <= 0) return null
+    /* CT-21: while DFS preview truncated, paint budget nodes (no collapse hide). */
+    if (truncated) return 'expanded'
     return branchStates[id] || 'collapsed'
+  }
+
+  function revealAllPreview() {
+    setPreviewRevealed(true)
+    if (!branchDisclosure) return
+    setBranchStates((prev) => {
+      const next = { ...prev }
+      for (const id of branchIds) next[id] = 'expanded'
+      return next
+    })
   }
 
   return (
@@ -138,6 +187,11 @@ export function CommentTree({
       data-tm-forest={forest.mode}
       data-tm-max-depth={String(resolvedMax)}
       data-tm-visual-indent-cap={String(resolvedCap)}
+      data-tm-preview-budget={
+        previewNodeBudget == null ? 'unlimited' : String(resolvedBudget)
+      }
+      data-tm-preview-truncated={truncated ? 'true' : 'false'}
+      data-tm-preview-revealed={previewRevealed ? 'true' : 'false'}
       data-tm-branch-disclosure={branchDisclosure ? 'true' : 'false'}
       data-tm-branch-expand-mode={branchDisclosure ? branchExpandMode : ''}
       data-tm-branch-fetch="false"
@@ -146,6 +200,7 @@ export function CommentTree({
       data-lab-ct09={typeof renderCommentReactions === 'function' ? 'true' : undefined}
       data-lab-ct12={typeof renderReplyComposer === 'function' ? 'true' : undefined}
       data-lab-ct18="true"
+      data-lab-ct21="true"
       data-tm-fallback-reason={forest.reason || ''}
     >
       {forest.mode === 'flat' ? (
@@ -155,7 +210,7 @@ export function CommentTree({
       ) : null}
       <ul className="tm-comment-tree__list" data-testid="tm-comment-tree-list">
         {forest.mode === 'tree'
-          ? forest.roots.map((node) => (
+          ? visibleRoots.map((node) => (
               <CommentNode
                 key={node.id}
                 node={node}
@@ -170,7 +225,7 @@ export function CommentTree({
                 selectedReplyParentId={selectedReplyParentId}
               />
             ))
-          : forest.flat.map((node) => (
+          : visibleFlat.map((node) => (
               <CommentNode
                 key={node.id}
                 node={{ ...node, children: [] }}
@@ -184,6 +239,17 @@ export function CommentTree({
               />
             ))}
       </ul>
+      {truncated ? (
+        <button
+          type="button"
+          className="tm-comment-tree__show-more"
+          data-testid="tm-show-more-comments"
+          data-lab-ct21="true"
+          onClick={revealAllPreview}
+        >
+          {SHOW_MORE_COMMENTS_COPY}
+        </button>
+      ) : null}
     </div>
   )
 }

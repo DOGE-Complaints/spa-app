@@ -41,6 +41,7 @@ export function FeedLabCt20Stands() {
                 initialDraft={stand.initialDraft || ''}
                 branchDisclosure={Boolean(stand.branchDisclosure)}
                 maxDepth={stand.maxDepth}
+                previewNodeBudget={99}
                 attachmentsAvailable={stand.attachmentsAvailable !== false}
                 forcePostFail={Boolean(stand.forcePostFail)}
               />

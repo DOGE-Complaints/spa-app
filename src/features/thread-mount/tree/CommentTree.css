@@ -21,3 +21,28 @@
   line-height: 1.35;
   color: var(--color-text-secondary, #667085);
 }
+
+/* CT-21 M152c B/E — Show more comments one-shot */
+.tm-comment-tree__show-more {
+  align-self: flex-start;
+  margin: 0.15rem 0 0;
+  padding: 0.35rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-link, #175cd3);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tm-comment-tree__show-more:hover {
+  text-decoration: underline;
+}
+
+.tm-comment-tree__show-more:focus-visible {
+  outline: 2px solid var(--color-focus-ring, #84caff);
+  outline-offset: 2px;
+}

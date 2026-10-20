@@ -42,6 +42,7 @@ export function FeedLabCt08Stands() {
                 initiallyExpanded={stand.initiallyExpanded !== false}
                 initialDraft={stand.initialDraft || ''}
                 branchDisclosure={Boolean(stand.branchDisclosure)}
+                previewNodeBudget={99}
               />
             </div>
           </li>

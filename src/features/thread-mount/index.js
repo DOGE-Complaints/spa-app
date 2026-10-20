@@ -13,7 +13,9 @@ export {
 export { createLiveAdapter } from './adapters/LiveAdapter.js'
 export {
   DEFAULT_MAX_DEPTH,
+  DEFAULT_PREVIEW_NODE_BUDGET,
   DEFAULT_MAX_ATTACHMENTS,
+  SHOW_MORE_COMMENTS_COPY,
   DEFAULT_MEDIA_ALLOWED_TYPES,
   ATTACHMENT_FAMILY_ALLOWLIST,
   ATTACHMENT_MIME_TABLE_TBD,
@@ -32,8 +34,12 @@ export {
   VERIFY_SUCCESS_BADGE,
   viewRepliesLabel,
   resolveMaxDepth,
+  resolvePreviewNodeBudget,
   resolveMaxAttachments,
   resolveVisualIndentCap,
+  collectDfsPreviewIds,
+  pruneForestToIds,
+  countForestNodes,
   clampAttachmentIntents,
   canAddAttachment,
   canReplyAtDepth,

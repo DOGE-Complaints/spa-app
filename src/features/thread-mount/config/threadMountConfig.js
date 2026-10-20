@@ -8,6 +8,10 @@ export const DEFAULT_MAX_DEPTH = 3
 export const DEFAULT_MAX_ATTACHMENTS = 1
 /** Visual indent columns only — not the reply permission limit. */
 export const VISUAL_INDENT_CAP = 3
+/** CT-21 M152c — forest nodes visible on first paint (DFS). */
+export const DEFAULT_PREVIEW_NODE_BUDGET = 3
+/** CT-21 M152c B/E — one-shot reveal control copy */
+export const SHOW_MORE_COMMENTS_COPY = 'Show more comments'
 
 export const MAX_DEPTH_REACHED_COPY = 'Maximum reply depth reached'
 
@@ -143,6 +147,68 @@ export function buildAttachmentIntentFromPick(file, opts) {
 export function resolveMaxDepth(value, fallback = DEFAULT_MAX_DEPTH) {
   const n = Number(value)
   return Number.isFinite(n) && n >= 0 ? Math.floor(n) : fallback
+}
+
+/**
+ * CT-21 — named previewNodeBudget resolve (like maxDepth · no JSX magic).
+ * @param {unknown} value
+ * @param {number} [fallback]
+ */
+export function resolvePreviewNodeBudget(value, fallback = DEFAULT_PREVIEW_NODE_BUDGET) {
+  const n = Number(value)
+  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : fallback
+}
+
+/**
+ * DFS collect node ids until budget exhausted (parent → children → next root).
+ * @param {Array<{ id: string, children?: unknown[] }>} roots
+ * @param {number} budget
+ * @returns {Set<string>}
+ */
+export function collectDfsPreviewIds(roots, budget) {
+  const visible = new Set()
+  let remaining = resolvePreviewNodeBudget(budget)
+  function walk(nodes) {
+    for (const n of nodes || []) {
+      if (remaining <= 0) return
+      if (!n?.id) continue
+      visible.add(String(n.id))
+      remaining -= 1
+      walk(n.children)
+    }
+  }
+  walk(roots)
+  return visible
+}
+
+/**
+ * Prune tree to visible DFS id set (keeps hierarchy among kept nodes).
+ * @param {Array<{ id: string, children?: unknown[] }>} nodes
+ * @param {Set<string>} visibleIds
+ */
+export function pruneForestToIds(nodes, visibleIds) {
+  return (nodes || [])
+    .filter((n) => visibleIds.has(String(n.id)))
+    .map((n) => ({
+      ...n,
+      children: pruneForestToIds(n.children || [], visibleIds),
+    }))
+}
+
+/**
+ * Count forest nodes (DFS walk).
+ * @param {Array<{ children?: unknown[] }>} roots
+ */
+export function countForestNodes(roots) {
+  let n = 0
+  function walk(nodes) {
+    for (const node of nodes || []) {
+      n += 1
+      walk(node.children)
+    }
+  }
+  walk(roots)
+  return n
 }
 
 /**

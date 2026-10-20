@@ -50,9 +50,15 @@ export function FeedLabThreadMount({
   verifiedReturn = false,
   narrow = false,
   apiRef = null,
-  initiallyExpanded = false,
+  /**
+   * CT-21: `null` = auto-expand when populated; explicit bool overrides.
+   * @type {boolean|null}
+   */
+  initiallyExpanded = null,
   initialDraft = '',
   branchDisclosure = false,
+  /** CT-21 M152c · DFS first-paint budget */
+  previewNodeBudget = undefined,
   /** @type {'empty'|'populated'} lab fixture reaction strip on comments */
   commentReactionInitialState = 'empty',
   /** CT-15 G-L5 */
@@ -85,7 +91,20 @@ export function FeedLabThreadMount({
       ? { status: derivedStatus, comments: mapped, writeCapability: resolvedWrite }
       : { ...adapter.snapshot(), writeCapability: resolvedWrite },
   )
-  const [expanded, setExpanded] = useState(Boolean(initiallyExpanded))
+
+  function resolveInitialExpanded(statusValue, commentList) {
+    if (initiallyExpanded != null) return Boolean(initiallyExpanded)
+    /* CT-21 M152c · populated first paint expanded */
+    if (statusValue === 'populated') return true
+    return Array.isArray(commentList) && commentList.length > 0
+  }
+
+  const [expanded, setExpanded] = useState(() =>
+    resolveInitialExpanded(
+      fromComments ? derivedStatus : adapter.snapshot().status,
+      fromComments ? mapped : adapter.snapshot().comments,
+    ),
+  )
 
   useEffect(() => {
     if (fromComments) {
@@ -158,6 +177,7 @@ export function FeedLabThreadMount({
       data-lab-ct15="true"
       data-lab-ct16="true"
       data-lab-ct20="true"
+      data-lab-ct21="true"
       data-lab-comment-write-owner="host"
       data-lab-thread-host="fixture"
       data-lab-thread-flush="true"
@@ -190,6 +210,7 @@ export function FeedLabThreadMount({
         commentWriteOwner="host"
         onPostComment={handlePostComment}
         maxDepth={maxDepth}
+        previewNodeBudget={previewNodeBudget}
         attachmentsAvailable={Boolean(attachmentsAvailable)}
         forcePostFail={Boolean(forcePostFail)}
         onRetry={() => {
