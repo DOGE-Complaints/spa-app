@@ -107,6 +107,17 @@ export function inferAttachmentFamily(file) {
   if (name.endsWith('.md') || type === 'text/markdown' || type === 'text/x-markdown') {
     return 'markdown'
   }
+  /** Extension probe parallel to `.md` · not a full MIME invent table (ATTACHMENT_MIME_TABLE_TBD remains) */
+  if (name.endsWith('.pdf') || type === 'application/pdf') return 'pdf'
+  if (
+    name.endsWith('.doc') ||
+    name.endsWith('.docx') ||
+    type === 'application/msword' ||
+    type ===
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ) {
+    return 'office'
+  }
   const table = ATTACHMENT_MIME_TABLE_TBD
   if (table && typeof table === 'object') {
     const hit = table[type]

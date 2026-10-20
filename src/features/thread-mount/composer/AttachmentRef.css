@@ -1,4 +1,4 @@
-/* CT-05 structure · CT-19 M153b §7 Ready/Denied paint (px · no green/red wash) */
+/* CT-05 structure · CT-19 M153b §7 Ready/Denied paint · CT-25 M153c thumb/filename */
 
 .tm-attachment-ref {
   box-sizing: border-box;
@@ -14,13 +14,13 @@
   min-width: 0;
 }
 
-/* M153b §7 Ready */
+/* M153b §7 / M153c §7 Ready */
 .tm-attachment-ref--ready {
   border-color: #e7e4dc;
   background: #fffdf8;
 }
 
-/* M153b §7 Denied · fill #F7F6F2 · border #B54708 · no pink wash */
+/* M153b §7 / M153c §7 Denied · fill #F7F6F2 · border #B54708 · no pink wash */
 .tm-attachment-ref--denied {
   border-color: #b54708;
   background: #f7f6f2;
@@ -33,11 +33,36 @@
   flex: 1;
 }
 
-.tm-attachment-ref__icon {
-  flex: 0 0 auto;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  color: var(--color-text-secondary, #667085);
+/* M153c · exactly 48×48 CSS px local thumb */
+.tm-attachment-ref__thumb {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #f7f6f2;
+  border: 1px solid #e7e4dc;
+}
+
+/* Document / image-fallback type cue (MD · PDF · Word · IMG) */
+.tm-attachment-ref__cue {
+  box-sizing: border-box;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid #e7e4dc;
+  background: #f7f6f2;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: #667085;
+  text-transform: none;
 }
 
 .tm-attachment-ref__text {
@@ -45,6 +70,37 @@
   flex-direction: column;
   gap: 4px;
   min-width: 0;
+}
+
+/* Family secondary · above filename · #667085 */
+.tm-attachment-ref__family {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #667085;
+}
+
+/* Filename primary · #101828 · one line (JS middle ellipsis) */
+.tm-attachment-ref__filename {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #101828;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tm-attachment-ref__filename-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .tm-attachment-ref__label {
