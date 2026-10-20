@@ -28,6 +28,7 @@ export const TM_REPLY_ICON_SRC = '/icons/next-feed/actions/reply.svg'
  * @param {number} [props.parentIndent] visual indent of parent (CT-14 spine step)
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderCommentReactions]
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderReplyComposer]
+ * @param {string|null} [props.selectedReplyParentId] CT-18 M153b §6 selected parent marker
  */
 export function CommentNode({
   node,
@@ -41,6 +42,7 @@ export function CommentNode({
   onBranchRetry = null,
   renderCommentReactions = null,
   renderReplyComposer = null,
+  selectedReplyParentId = null,
 }) {
   const depth = Number.isFinite(Number(node?.depth)) ? Math.floor(Number(node.depth)) : 0
   const indent = flat ? 0 : visualIndentLevel(depth, visualIndentCap)
@@ -60,6 +62,8 @@ export function CommentNode({
   const hasReactPlug = typeof renderCommentReactions === 'function'
   const showActionPills = hasReactPlug || replyOk
   const showElbow = !flat && indent > 0
+  const isReplyParent =
+    Boolean(selectedReplyParentId) && selectedReplyParentId === node?.id
   const childrenSpineClass = [
     'tm-comment-node__children',
     'tm-comment-node__children--spine',
@@ -75,6 +79,7 @@ export function CommentNode({
       data-tm-indent={String(indent)}
       data-tm-parent-indent={flat ? undefined : String(parentIndent)}
       data-tm-reply={replyOk ? 'eligible' : 'blocked'}
+      data-tm-reply-parent-selected={isReplyParent ? 'true' : 'false'}
       data-tm-visual-capped={!flat && depth > indent ? 'true' : 'false'}
       data-tm-branch={branchState || ''}
       data-tm-branch-count={childCount > 0 ? String(childCount) : ''}
@@ -82,6 +87,7 @@ export function CommentNode({
       data-lab-ct12={typeof renderReplyComposer === 'function' ? 'true' : undefined}
       data-lab-ct13={showActionPills ? 'true' : undefined}
       data-lab-ct14={!flat ? 'true' : undefined}
+      data-lab-ct18="true"
       style={flat ? undefined : { ['--tm-indent-level']: String(indent) }}
     >
       <div className="tm-comment-node__row">
@@ -95,8 +101,11 @@ export function CommentNode({
           />
         ) : null}
         <article
-          className="tm-comment-node__bubble"
+          className={`tm-comment-node__bubble${
+            isReplyParent ? ' tm-comment-node__bubble--reply-parent' : ''
+          }`}
           data-testid="tm-comment-body"
+          data-tm-reply-parent-marker={isReplyParent ? 'true' : 'false'}
           aria-label={depth === 0 ? 'Comment' : 'Reply'}
         >
           <p className="tm-comment-node__text">{body}</p>
@@ -255,6 +264,7 @@ export function CommentNode({
               onBranchRetry={onBranchRetry}
               renderCommentReactions={renderCommentReactions}
               renderReplyComposer={renderReplyComposer}
+              selectedReplyParentId={selectedReplyParentId}
             />
           ))}
         </ul>

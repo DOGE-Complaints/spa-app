@@ -415,6 +415,7 @@ export function ThreadMount({
         branchExpandDelayMs={branchExpandDelayMs}
         renderCommentReactions={renderCommentReactions}
         renderReplyComposer={inlineReply ? renderReplyComposerSlot : null}
+        selectedReplyParentId={replyParentId}
         issueId={issueId}
         reactionsAggregateConfirmed={Boolean(reactionsAggregateConfirmed)}
       />

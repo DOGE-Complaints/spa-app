@@ -35,6 +35,8 @@ export function IssueThreadBlock({
   branchExpandDelayMs = undefined,
   renderCommentReactions = null,
   renderReplyComposer = null,
+  /** CT-18 M153b §6 */
+  selectedReplyParentId = null,
   issueId = null,
   reactionsAggregateConfirmed = false,
 }) {
@@ -171,6 +173,7 @@ export function IssueThreadBlock({
                 branchExpandDelayMs={branchExpandDelayMs}
                 renderCommentReactions={renderCommentReactions}
                 renderReplyComposer={renderReplyComposer}
+                selectedReplyParentId={selectedReplyParentId}
               />
             </div>
           )}
