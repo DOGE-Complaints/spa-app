@@ -14,7 +14,7 @@ import { THREAD_NEST_COMMENTS } from '../adapters/FixtureAdapter.js'
 describe('CT-17 native picker · family hook · no synthetic seed', () => {
   afterEach(() => cleanup())
 
-  it('family allow-list hook Present · MIME table TBD null (fail-closed)', () => {
+  it('family allow-list hook Present · MIME table TBD null · pdf/md extension probe', () => {
     expect([...ATTACHMENT_FAMILY_ALLOWLIST]).toEqual([
       'images',
       'pdf',
@@ -23,7 +23,8 @@ describe('CT-17 native picker · family hook · no synthetic seed', () => {
     ])
     expect(ATTACHMENT_MIME_TABLE_TBD).toBeNull()
     expect(inferAttachmentFamily({ type: 'image/png' })).toBe('images')
-    expect(inferAttachmentFamily({ type: 'application/pdf' })).toBe('unknown')
+    expect(inferAttachmentFamily({ type: 'application/pdf' })).toBe('pdf')
+    expect(inferAttachmentFamily({ name: 'plan.pdf', type: '' })).toBe('pdf')
     expect(inferAttachmentFamily({ type: 'application/octet-stream' })).toBe('unknown')
   })
 
