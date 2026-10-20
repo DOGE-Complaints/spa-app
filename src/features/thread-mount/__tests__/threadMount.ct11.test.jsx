@@ -65,7 +65,10 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
     )
     expect(screen.getByTestId('tm-composer-post-label').textContent).toMatch(/Post reply/i)
     expect(screen.getByTestId('tm-composer-send-icon').getAttribute('src')).toBe(TM_SEND_ICON_SRC)
-    fireEvent.click(screen.getByTestId('tm-composer-attach'))
+    const file = new File(['x'], 'photo.png', { type: 'image/png' })
+    fireEvent.change(screen.getByTestId('tm-composer-file-input'), {
+      target: { files: [file] },
+    })
     expect(
       screen.getByTestId('tm-composer-attachments').querySelectorAll('[data-tm-attach-status="ready"]')
         .length,
@@ -74,7 +77,13 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
 
   it('ThreadComposer standalone exposes icon markers · no invent paths', () => {
     render(
-      <ThreadComposer mode="root" draft="hi" attachmentsAvailable onAttach={() => {}} onPost={() => {}} />,
+      <ThreadComposer
+        mode="root"
+        draft="hi"
+        attachmentsAvailable
+        onFilesSelected={() => {}}
+        onPost={() => {}}
+      />,
     )
     expect(screen.getByTestId('tm-composer-attach-icon').getAttribute('src')).toContain(
       '/icons/next-feed/actions/attach.svg',

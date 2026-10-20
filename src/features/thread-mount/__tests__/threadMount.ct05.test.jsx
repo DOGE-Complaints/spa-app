@@ -122,7 +122,7 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
     expect(screen.getByTestId('tm-composer-textarea').value).toBe(M153_ILLUSTRATIVE_DRAFT)
   })
 
-  it('Attach adds ready intent when under max', () => {
+  it('Attach opens native picker · image File → ready intent when under max', () => {
     render(
       <ThreadMount
         status="empty"
@@ -131,10 +131,13 @@ describe('CT-05 maxAttachments · AttachmentRef · clamp', () => {
         expanded
         initialDraft="x"
         maxAttachments={1}
-        attachOutcome="ready"
       />,
     )
-    fireEvent.click(screen.getByTestId('tm-composer-attach'))
+    expect(screen.getByTestId('tm-composer-file-input').getAttribute('type')).toBe('file')
+    const file = new File(['x'], 'photo.png', { type: 'image/png' })
+    fireEvent.change(screen.getByTestId('tm-composer-file-input'), {
+      target: { files: [file] },
+    })
     expect(screen.getByTestId('tm-composer-attachments').querySelectorAll('[data-tm-attach-status="ready"]')).toHaveLength(
       1,
     )
