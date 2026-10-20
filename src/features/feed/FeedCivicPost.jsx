@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { resolveLocalizedTextWithMeta } from '../../i18n/core.js'
 import { formatLabelKeyWithMeta } from '../../i18n/labelDisplay.js'
@@ -9,6 +10,7 @@ import { TranslationMarker } from '../../components/TranslationMarker/Translatio
 import { topicIconForLabel } from '../../i18n/issueTopicIcons.js'
 import { formatIssueDate, formatGeoLabel } from './semantics/index.js'
 import { IssueIdentityHeader } from './identity/index.js'
+import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 import './FeedCivicPost.css'
 
 /** Reactions zone affordance marks — catalog glyphs only; no invent orb (AD-VP-01 / icon catalog gap). */
@@ -21,6 +23,7 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
 /**
  * Next-feed civic issue-as-post (M150 ISSUE-CARD-NO-MEDIA / SSR-C-civic).
  * Four-zone strip per AD-VP-01 · no SchemaCardOverlay · no media production slot.
+ * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → aggregate.
  * Civic paw identity icon: honest omit (catalog gap) — no invent SVG.
  *
  * @param {object} props
@@ -29,6 +32,7 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
  * @param {(field: string|{et?:string,ru?:string,en?:string}) => string} props.resolveLocalizedText
  * @param {(k: string) => string} props.t
  * @param {string} [props.to] — open-issue href
+ * @param {Function} [props.onOpenReactions] — legacy bridge (unused when Live mount Present)
  */
 export function FeedCivicPost({
   issue,
@@ -38,6 +42,7 @@ export function FeedCivicPost({
   to,
   onOpenReactions = null,
 }) {
+  const reactionsApiRef = useRef(null)
   const contentField = issue.summary ?? issue.title
   const contentMeta = resolveLocalizedTextWithMeta(contentField, locale)
   const cardText = resolveLocalizedText(contentField)
@@ -147,27 +152,24 @@ export function FeedCivicPost({
         className="feed-civic-post-actions"
         data-testid="feed-civic-post-actions"
         data-action-zones="4"
+        data-feed-cr23-strip="true"
         role="group"
         aria-label={t('nextFeed.post.actions')}
       >
-        <button
-          type="button"
-          className="feed-civic-post-action"
+        <div
+          className="feed-civic-post-action feed-civic-post-actions__react-slot"
           data-testid="feed-civic-action-react"
           data-zone="react"
-          aria-label={t('threadsFeed.post.action.react')}
-          onClick={() => {
-            if (typeof onOpenReactions === 'function') onOpenReactions()
-          }}
+          data-lab-react-slot="true"
         >
-          <img
-            className="feed-civic-post-icon"
-            src="/icons/next-feed/actions/react.svg"
-            alt=""
-            aria-hidden="true"
+          <FeedReactionsMount
+            issueId={issue?.id}
+            target="thread-root"
+            t={t}
+            apiRef={reactionsApiRef}
+            aggregatePlacement="inline"
           />
-          <span>{t('threadsFeed.post.action.react')}</span>
-        </button>
+        </div>
         <button
           type="button"
           className="feed-civic-post-action"
@@ -205,6 +207,10 @@ export function FeedCivicPost({
           data-zone="reactions"
           aria-label={t('threadsFeed.post.reactionSummarySlot')}
           onClick={() => {
+            if (typeof reactionsApiRef.current?.activateAggregate === 'function') {
+              reactionsApiRef.current.activateAggregate()
+              return
+            }
             if (typeof onOpenReactions === 'function') onOpenReactions()
           }}
         >

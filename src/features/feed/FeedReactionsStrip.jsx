@@ -5,8 +5,9 @@ import { useFeedReactionOpen } from './FeedReactionOpenContext.jsx'
 import './FeedReactionsStrip.css'
 
 /**
- * Next-feed reactions presentation (M154 / DS §8) — AD-VL-01/02/03.
- * DS ReactionChrome plane; classic ReactionControls ≠ Done on this path.
+ * Legacy next-feed reactions presentation (M154 / DS §8) — AD-VL-01/02/03.
+ * CR-23: ≠ Done claim on `#/next/feed*` — Done path is FeedReactionsMount / reactions-mount Live.
+ * May remain on disk (FeedDiscussionBlock shelter) · no invent OP PASS.
  *
  * @param {object} props — Closed reaction contract + optional issueId for civic bridge
  */
@@ -76,7 +77,9 @@ export function FeedReactionsStrip({
       data-presentation="m154-strip"
       data-strip-status="ready"
       data-picker-layout={pickerVariant === 'sheet' ? 'sheet' : 'popover'}
-      data-vl-done-surface="ReactionChrome"
+      data-vl-done-surface="retired-cr23"
+      data-vl-done-claim="false"
+      data-cr23-retired="true"
     >
       <ReactionChrome
         {...controlsProps}

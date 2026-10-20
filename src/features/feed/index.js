@@ -88,6 +88,7 @@ export { FeedMapArea } from './FeedMapArea.jsx'
 export { FeedThreadMount } from './FeedThreadMount.jsx'
 export { FeedDiscussionBlock } from './FeedDiscussionBlock.jsx'
 export { FeedReactionsStrip } from './FeedReactionsStrip.jsx'
+export { FeedReactionsMount } from './FeedReactionsMount.jsx'
 export {
   FeedReactionOpenProvider,
   useFeedReactionOpen,

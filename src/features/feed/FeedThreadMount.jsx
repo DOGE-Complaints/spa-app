@@ -1,15 +1,17 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ThreadMount, createLiveAdapter } from '../thread-mount/index.js'
 import { defaultThreadsSocialClient } from '../../repositories/ThreadsSocialClient.js'
+import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 
 /**
  * Next-feed thread mount (CT-28 · Arch §15.1): ThreadMount + LiveAdapter → ThreadsSocialClient.
+ * CR-23: comment-node React plugs ReactionsMount Live (`target=comment`).
  * Replaces FeedDiscussionBlock Done claim on `#/next/feed*`. Lab Fixture path unchanged.
- * No invent HTTP / upload bind · no invent OP PASS · CR-23 reactions OOS.
+ * No invent HTTP / upload bind · no invent OP PASS.
  */
 export function FeedThreadMount({
   issueId = null,
-  t: _t,
+  t = (k) => k,
   profile = null,
   returnTo: _returnTo = '#/next/feed',
   client = defaultThreadsSocialClient,
@@ -53,6 +55,20 @@ export function FeedThreadMount({
     return result
   }
 
+  const renderCommentReactions = useCallback(
+    ({ commentId }) => (
+      <FeedReactionsMount
+        issueId={id || null}
+        target="comment"
+        commentId={commentId}
+        t={t}
+        client={client}
+        aggregatePlacement="inline"
+      />
+    ),
+    [id, t, client],
+  )
+
   const liveBound = Boolean(snap.live) && snap.reason !== 'live-adapter-unwired'
   const maxDepth = Number.isFinite(Number(snap.maxDepth)) ? Number(snap.maxDepth) : adapter.maxDepth
 
@@ -61,11 +77,13 @@ export function FeedThreadMount({
       className="feed-thread-mount"
       data-testid="feed-thread-mount"
       data-feed-ct28="true"
+      data-feed-cr23="true"
       data-feed-thread-host="live"
       data-feed-live-bound={liveBound ? 'true' : 'false'}
       data-feed-live-reason={snap.reason || undefined}
       data-feed-thread-status={snap.status}
       data-feed-issue-id={id || undefined}
+      data-feed-reactions-plug="live"
     >
       <ThreadMount
         status={snap.status}
@@ -78,6 +96,7 @@ export function FeedThreadMount({
         issueId={id || null}
         commentWriteOwner="host"
         onPostComment={handlePostComment}
+        renderCommentReactions={renderCommentReactions}
         onRetry={() => {
           void adapter.retry().then(setSnap)
         }}

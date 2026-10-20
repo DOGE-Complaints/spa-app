@@ -84,8 +84,14 @@ export function FeedDiscussionBlock({
       scene !== 'attach-denied' &&
       scene !== 'post-fail')
 
+  /* CR-23: FeedReactionsStrip ≠ Done on `#/next/feed*` — shelter only if this block remounted */
   const reactionSlot = (
-    <div className="feed-discussion-reaction-slot" data-testid="issue-thread-reaction-slot">
+    <div
+      className="feed-discussion-reaction-slot"
+      data-testid="issue-thread-reaction-slot"
+      data-vl-done-claim="false"
+      data-cr23-retired-strip="true"
+    >
       <FeedReactionsStrip
         issueId={issueId}
         t={t}

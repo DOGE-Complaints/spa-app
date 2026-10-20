@@ -1,0 +1,14 @@
+/* CR-23 Live ReactionsMount host — sit in civic react zone without invent chrome */
+.feed-reactions-mount {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.feed-civic-post-actions__react-slot {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1 1 auto;
+}
