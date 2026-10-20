@@ -48,8 +48,13 @@ describe('CR-16 strip chip hover + media flush', () => {
     expect(mediaSeg.getAttribute('data-lab-media-flush')).toBe('true')
     expect(body.contains(mediaSeg)).toBe(false)
     expect(within(mediaSeg).getByTestId('feed-post-media')).toBeTruthy()
-    // strip immediately follows media segment in DOM
-    expect(mediaSeg.nextElementSibling?.getAttribute('data-testid')).toBe('feed-post-action-strip')
+    // strip follows media segment (CT-24: may be wrapped in strip-share-wrap)
+    const afterMedia = mediaSeg.nextElementSibling
+    const strip =
+      afterMedia?.getAttribute('data-testid') === 'feed-post-action-strip'
+        ? afterMedia
+        : afterMedia?.querySelector?.('[data-testid="feed-post-action-strip"]')
+    expect(strip).toBeTruthy()
   })
 
   it('fallback React zone uses inner chip wrapper (not bare icon+label)', () => {
