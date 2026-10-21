@@ -2,6 +2,7 @@ import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import {
   CLOSED_SOCIAL_PATHS,
   classifyAttachRefResponse,
+  classifyAttachUploadResponse,
   classifyCommentWriteResponse,
   classifyReactionResponse,
   createThreadsSocialClient,
@@ -20,27 +21,34 @@ import {
   resetThreadsKnobsCache,
   resetThreadsKnobsFocusBinding,
 } from '../threadsKnobsCache.js'
-import { mapThreadTreeToBlock, truncateCommentLabel } from '../mapThreadTreeToBlock.js'
+import {
+  mapThreadTreeToBlock,
+  mapTreeAttachmentItem,
+  truncateCommentLabel,
+} from '../mapThreadTreeToBlock.js'
 
 describe('ThreadsSocialClient THR-07/08/09 Close', () => {
   afterEach(() => {
     vi.restoreAllMocks()
   })
 
-  it('closes knobs + tree_read + comment + react + attach_ref', () => {
+  it('closes knobs + tree_read + comment + react + attach_ref + attach_upload', () => {
     expect(isSocialOpClosed('knobs')).toBe(true)
     expect(isSocialOpClosed('tree_read')).toBe(true)
     expect(isSocialOpClosed('comment_create')).toBe(true)
     expect(isSocialOpClosed('comment_reply')).toBe(true)
     expect(isSocialOpClosed('react')).toBe(true)
     expect(isSocialOpClosed('attach_ref')).toBe(true)
+    expect(isSocialOpClosed('attach_upload')).toBe(true)
     expect(CLOSED_SOCIAL_PATHS.knobs).toBe('/threads/knobs')
     expect(CLOSED_SOCIAL_PATHS.tree_read('ISS-1')).toBe('/threads/issues/ISS-1')
     expect(CLOSED_SOCIAL_PATHS.comment_write('ISS-1')).toBe('/threads/issues/ISS-1/comments')
     expect(CLOSED_SOCIAL_PATHS.reactions('ISS-1')).toBe('/threads/issues/ISS-1/reactions')
     expect(CLOSED_SOCIAL_PATHS.attachment_refs('ISS-1')).toBe('/threads/issues/ISS-1/attachment-refs')
+    expect(CLOSED_SOCIAL_PATHS.attachments('ISS-1')).toBe('/threads/issues/ISS-1/attachments')
     expect(CLOSED_SOCIAL_PATHS.comment_write('ISS-1')).not.toMatch(/by-issue/)
     expect(CLOSED_SOCIAL_PATHS.reactions('ISS-1')).not.toMatch(/by-issue/)
+    expect(CLOSED_SOCIAL_PATHS.attachments('ISS-1')).not.toMatch(/by-issue/)
   })
 
   it('unknown reaction id rejected without fetch', async () => {
@@ -465,6 +473,74 @@ describe('ThreadsSocialClient THR-09 react + attach_ref', () => {
     expect(result.data.ref_id).toBe('ref-1')
   })
 
+  it('uploadAttachment POSTs multipart to locked /attachments path', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          data: {
+            ref_id: 'ref-u1',
+            media_type: 'image/png',
+            comment_id: 'c9',
+            published_url: 'http://threads.test/threads/issues/ISS-1/attachments/ref-u1',
+          },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const file = new File(['png'], 'shot.png', { type: 'image/png' })
+    const result = await client.uploadAttachment({
+      issueId: 'ISS-1',
+      commentId: 'c9',
+      file,
+      mediaType: 'image/png',
+    })
+    expect(result.status).toBe('ok')
+    expect(result.data.ref_id).toBe('ref-u1')
+    expect(result.data.published_url).toContain('/attachments/ref-u1')
+    const [url, init] = fetchSpy.mock.calls[0]
+    expect(String(url)).toBe('http://threads.test/threads/issues/ISS-1/attachments')
+    expect(String(url)).not.toMatch(/by-issue|cdn|s3/i)
+    expect(init.method).toBe('POST')
+    expect(init.body).toBeInstanceOf(FormData)
+    expect(init.headers['Content-Type']).toBeUndefined()
+    expect(init.headers.Authorization).toBe('Bearer tok')
+    expect(init.body.get('comment_id')).toBe('c9')
+    expect(init.body.get('media_type')).toBe('image/png')
+    expect(init.body.get('file')).toBeTruthy()
+  })
+
+  it('uploadAttachment soft-fails floor deny without invent CDN', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          error: {
+            code: 'DOMAIN_ERROR',
+            type: 'DOMAIN_ERROR',
+            details: { reason: 'attach-denied' },
+          },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      ),
+    )
+    const client = createThreadsSocialClient({
+      baseUrl: 'http://threads.test',
+      getAccessToken: async () => 'tok',
+    })
+    const result = await client.uploadAttachment({
+      issueId: 'ISS-1',
+      commentId: 'c9',
+      file: new File(['x'], 'x.bin', { type: 'application/octet-stream' }),
+    })
+    expect(result.failKind).toBe('attach_denied')
+    expect(classifyAttachUploadResponse(200, { data: { ref_id: 'r' } }, 'attach_upload').status).toBe(
+      'ok',
+    )
+  })
+
   it('classifyReactionResponse + classifyAttachRefResponse §8', () => {
     expect(
       classifyReactionResponse(
@@ -638,6 +714,53 @@ describe('mapThreadTreeToBlock', () => {
     expect(
       mapThreadTreeToBlock({ status: 'ok', data: { issue_id: 'i', comments: [{ body: 'no id' }] } }).status,
     ).toBe('unavailable')
+  })
+
+  it('maps attachments published_url → publishedUrl · null honesty · no invent CDN', () => {
+    expect(
+      mapTreeAttachmentItem({
+        ref_id: 'r1',
+        media_type: 'image/png',
+        published_url: 'http://threads.test/threads/issues/i/attachments/r1',
+      }),
+    ).toMatchObject({
+      id: 'r1',
+      status: 'ready',
+      kind: 'image',
+      publishedUrl: 'http://threads.test/threads/issues/i/attachments/r1',
+      origin: 'tree',
+    })
+    expect(
+      mapTreeAttachmentItem({ ref_id: 'r2', media_type: 'application/pdf', published_url: null }),
+    ).toMatchObject({ id: 'r2', kind: 'pdf', publishedUrl: null })
+
+    const mapped = mapThreadTreeToBlock({
+      status: 'ok',
+      data: {
+        issue_id: 'i',
+        comments: [
+          {
+            comment_id: 'c1',
+            parent_id: null,
+            depth: 0,
+            body: 'with attach',
+            attachments: [
+              {
+                ref_id: 'r1',
+                media_type: 'image/png',
+                published_url: 'http://threads.test/threads/issues/i/attachments/r1',
+              },
+              { ref_id: 'r2', media_type: 'text/markdown', published_url: null },
+            ],
+          },
+        ],
+      },
+    })
+    expect(mapped.status).toBe('populated')
+    expect(mapped.comments[0].attachments).toHaveLength(2)
+    expect(mapped.comments[0].attachments[0].publishedUrl).toContain('/attachments/r1')
+    expect(mapped.comments[0].attachments[1].publishedUrl).toBeNull()
+    expect(JSON.stringify(mapped.comments[0].attachments)).not.toMatch(/cdn\.|s3\.amazonaws|blob:/i)
   })
 })
 
