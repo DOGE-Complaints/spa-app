@@ -8,6 +8,7 @@ import {
 } from '../../i18n/translationMarkers.js'
 import { TranslationMarker } from '../../components/TranslationMarker/TranslationMarker.jsx'
 import { topicIconForLabel } from '../../i18n/issueTopicIcons.js'
+import { issueTypeIconForType } from '../../i18n/issueTypeIcons.js'
 import { formatIssueDate, formatGeoLabel } from './semantics/index.js'
 import { IssueIdentityHeader } from './identity/index.js'
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
@@ -26,7 +27,7 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
  * CT-29: interim media stub `/assets/dogefeed.png` (supersedes M150 ISSUE-CARD-NO-MEDIA Done).
  * Four-zone strip · no SchemaCardOverlay · no invent image-gen HTTP.
  * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → aggregate.
- * Civic paw identity icon: honest omit (catalog gap) — no invent SVG.
+ * NF-13 / M161: identity icon from exact `issue.type` catalog map · unknown → omit.
  *
  * @param {object} props
  * @param {import('../../domain/types.js').Issue} props.issue
@@ -58,6 +59,7 @@ export function FeedCivicPost({
   const dateText = formatIssueDate(issue.created_at)
   const geoText = formatGeoLabel(issue.geo)
   const typeDisplay = String(issue.type ?? '').toUpperCase()
+  const typeIconSrc = issueTypeIconForType(issue.type)
   // No Closed public_label field on Issue — honest wire id (FR-VL-01.3); no fake ISSUE UV-*.
   const publicLabel = null
   const labelChips = (issue.labels ?? []).map((l) => {
@@ -76,7 +78,7 @@ export function FeedCivicPost({
       data-testid="feed-civic-post"
       data-civic-variant="media-stub"
       data-civic-media-stub={CIVIC_MEDIA_STUB_PATH}
-      data-civic-identity-icon="omit-catalog-gap"
+      data-civic-identity-icon={typeIconSrc ? 'present' : 'omit-catalog-gap'}
       data-identity-surface="IssueIdentityHeader"
       data-status-wire={String(issue.status ?? '')}
       aria-label={`Issue ${issue.id}: ${titleText || cardText}`}
@@ -87,7 +89,7 @@ export function FeedCivicPost({
         typeDisplay={typeDisplay}
         geoText={geoText}
         dateText={dateText}
-        iconSrc={null}
+        iconSrc={typeIconSrc}
         publicLabel={publicLabel}
         moreLabel={t('nextFeed.post.more')}
       />

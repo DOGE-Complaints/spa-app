@@ -1,8 +1,9 @@
 import './IssueTypeIcon.css'
 
 /**
- * Civic category icon slot (DS §5 IssueTypeIcon).
- * No invent SVG masters — Present only when `src` Closed; else honest omit (Q6 lock Absent).
+ * Civic category icon slot (DS §5 · M161 / NF-13).
+ * Present only when `src` Closed; else honest omit — no invent glyph.
+ * Geometry: slot 48×48 · radius 12 · glyph 24×24 centered.
  *
  * @param {{
  *   src?: string | null,
@@ -25,7 +26,7 @@ export function IssueTypeIcon({ src = null, type = '', lockState }) {
       aria-label={hasSrc ? `Issue type ${type}` : undefined}
     >
       {hasSrc ? (
-        <img className="issue-type-icon-img" src={src} alt="" width={28} height={28} />
+        <img className="issue-type-icon-img" src={src} alt="" width={24} height={24} />
       ) : null}
     </span>
   )
