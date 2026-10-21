@@ -64,7 +64,7 @@ describe('CT-22 comment attachment preview · md family · local if no URL', () 
     expect(revokeSpy).toHaveBeenCalledWith('blob:ct22-test')
   })
 
-  it('publishedUrl skips objectURL · no local honesty', () => {
+  it('publishedUrl without getAccessToken · bare src · no objectURL (Lab / pre-A)', () => {
     const createSpy = vi.spyOn(URL, 'createObjectURL')
     render(
       <CommentAttachmentPreview
@@ -78,6 +78,7 @@ describe('CT-22 comment attachment preview · md family · local if no URL', () 
     )
     const fig = screen.getByTestId('tm-comment-attach-img-pub')
     expect(fig.getAttribute('data-tm-attach-local')).toBe('false')
+    expect(fig.getAttribute('data-tm-attach-auth')).toBeNull()
     expect(fig.querySelector('img')?.getAttribute('src')).toBe(
       '/icons/next-feed/actions/reply.svg',
     )
