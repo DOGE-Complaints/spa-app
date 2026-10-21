@@ -16,7 +16,8 @@ import './IssueIdentityHeader.css'
  *   iconSrc?: string | null,
  *   publicLabel?: string | null,
  *   moreLabel: string,
- *   showMore?: boolean — false when parent owns More outside hit Link (NF-14)
+ *   showMore?: boolean — default false for feed civic (NF-16 deferred);
+ *     true only when a surface explicitly restores overflow menu
  * }} props
  */
 export function IssueIdentityHeader({
@@ -28,7 +29,7 @@ export function IssueIdentityHeader({
   iconSrc = null,
   publicLabel = null,
   moreLabel,
-  showMore = true,
+  showMore = false,
 }) {
   const closedPublic =
     typeof publicLabel === 'string' && publicLabel.trim() ? publicLabel.trim() : ''
@@ -61,6 +62,8 @@ export function IssueIdentityHeader({
           typeDisplay={typeDisplay}
         />
       </div>
+      {/* TODO(NF-16 / INTERVIEW-NF-13-plus M4): restore overflow (⋮) menu when product
+          defines actions. Do not delete more.svg. See ARCH-DELTA-live-civic-residual §4. */}
       {showMore ? (
         <button
           type="button"

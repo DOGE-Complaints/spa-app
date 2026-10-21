@@ -30,6 +30,7 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
  * NF-13 / M161: identity icon from exact `issue.type` catalog map · unknown → omit.
  * NF-14: list hit = one Link around identity+content+media · open row retired · strip excluded.
  * NF-15 / M162: strip density + React unframe (host CSS) · CR-23 Live host held.
+ * NF-16: More (⋮) deferred — gated off · keep more.svg · TODO restore when product defines menu.
  *
  * @param {object} props
  * @param {import('../../domain/types.js').Issue} props.issue
@@ -87,7 +88,7 @@ export function FeedCivicPost({
       iconSrc={typeIconSrc}
       publicLabel={publicLabel}
       moreLabel={t('nextFeed.post.more')}
-      showMore={!listNavigate}
+      showMore={false}
     />
   )
 
@@ -157,21 +158,25 @@ export function FeedCivicPost({
     </div>
   )
 
-  const moreOutsideHit = listNavigate ? (
-    <button
-      type="button"
-      className="issue-identity-more feed-civic-post-more feed-civic-post-hit-more"
-      data-testid="feed-civic-post-more"
-      aria-label={t('nextFeed.post.more')}
-    >
-      <img
-        className="issue-identity-more-icon feed-civic-post-icon"
-        src="/icons/next-feed/actions/more.svg"
-        alt=""
-        aria-hidden="true"
-      />
-    </button>
-  ) : null
+  // TODO(NF-16 / INTERVIEW-NF-13-plus M4): restore overflow (⋮) menu when product
+  // defines actions. Do not delete more.svg. See ARCH-DELTA-live-civic-residual §4.
+  const moreOutsideHit =
+    listNavigate &&
+    false && (
+      <button
+        type="button"
+        className="issue-identity-more feed-civic-post-more feed-civic-post-hit-more"
+        data-testid="feed-civic-post-more"
+        aria-label={t('nextFeed.post.more')}
+      >
+        <img
+          className="issue-identity-more-icon feed-civic-post-icon"
+          src="/icons/next-feed/actions/more.svg"
+          alt=""
+          aria-hidden="true"
+        />
+      </button>
+    )
 
   return (
     <article
