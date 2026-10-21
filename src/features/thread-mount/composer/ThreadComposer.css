@@ -47,7 +47,7 @@
   color: var(--color-text-primary, #101828);
   padding: 0.45rem 0.65rem;
   border-left: 3px solid var(--color-border-default, #e7e4dc);
-  background: var(--color-page-bg, #f7f6f2);
+  background: var(--tm-bubble-fill, var(--color-page-bg, #f7f6f2));
   word-break: break-word;
 }
 

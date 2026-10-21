@@ -13,6 +13,7 @@ import { formatIssueDate, formatGeoLabel } from './semantics/index.js'
 import { IssueIdentityHeader } from './identity/index.js'
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 import { CIVIC_MEDIA_STUB_PATH } from './civicMediaStub.js'
+import { ShellChromeIcon } from '../../components/AppShell/ShellChromeIcon.jsx'
 import './FeedCivicPost.css'
 
 /** Reactions zone affordance marks — catalog glyphs only; no invent orb (AD-VP-01 / icon catalog gap). */
@@ -248,11 +249,11 @@ export function FeedCivicPost({
           data-zone="comment"
           aria-label={t('nextFeed.post.comment')}
         >
-          <img
+          <ShellChromeIcon
             className="feed-civic-post-icon"
             src="/icons/next-feed/actions/comment.svg"
-            alt=""
-            aria-hidden="true"
+            size={28}
+            testId="feed-civic-icon-comment"
           />
           <span>{t('nextFeed.post.comment')}</span>
         </button>
@@ -263,11 +264,11 @@ export function FeedCivicPost({
           data-zone="share"
           aria-label={t('nextFeed.post.share')}
         >
-          <img
+          <ShellChromeIcon
             className="feed-civic-post-icon"
             src="/icons/next-feed/actions/share.svg"
-            alt=""
-            aria-hidden="true"
+            size={28}
+            testId="feed-civic-icon-share"
           />
           <span>{t('nextFeed.post.share')}</span>
         </button>

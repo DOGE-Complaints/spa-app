@@ -10,6 +10,7 @@ import {
   toOverlayLayoutVariant,
 } from './presentation/index.js'
 import { useFeedNarrow } from './useFeedNarrow.js'
+import { ShellChromeIcon } from '../../components/AppShell/ShellChromeIcon.jsx'
 import './presentation/PresentationChrome.css'
 import './FeedIssueMount.css'
 
@@ -123,15 +124,15 @@ export function FeedIssueMount({
           type="button"
           className="feed-issue-mount-close"
           data-testid="feed-issue-mount-close"
+          data-ct32-close="mask"
           aria-label={t('nextFeed.mount.close')}
           onClick={onBack}
         >
-          <img
+          <ShellChromeIcon
             src="/icons/next-shell/actions/close.svg"
-            alt=""
-            aria-hidden="true"
-            width={20}
-            height={20}
+            size={20}
+            className="feed-issue-mount-close-icon"
+            testId="feed-issue-mount-close-icon"
           />
           <span>{t('nextFeed.mount.close')}</span>
         </button>

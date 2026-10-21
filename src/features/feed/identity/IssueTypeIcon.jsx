@@ -1,7 +1,8 @@
+import { ShellChromeIcon } from '../../../components/AppShell/ShellChromeIcon.jsx'
 import './IssueTypeIcon.css'
 
 /**
- * Civic category icon slot (DS §5 · M161 / NF-13).
+ * Civic category icon slot (DS §5 · M161 / NF-13 · CT-32 theme-safe mask).
  * Present only when `src` Closed; else honest omit — no invent glyph.
  * Geometry: slot 48×48 · radius 12 · glyph 24×24 centered.
  *
@@ -20,13 +21,14 @@ export function IssueTypeIcon({ src = null, type = '', lockState }) {
       data-testid="issue-type-icon"
       data-icon-state={state}
       data-civic-identity-icon={hasSrc ? 'present' : 'omit-catalog-gap'}
+      data-ct32-type="mask"
       data-issue-type={type || undefined}
       aria-hidden={hasSrc ? undefined : true}
       role={hasSrc ? 'img' : undefined}
       aria-label={hasSrc ? `Issue type ${type}` : undefined}
     >
       {hasSrc ? (
-        <img className="issue-type-icon-img" src={src} alt="" width={24} height={24} />
+        <ShellChromeIcon src={src} size={24} className="issue-type-icon-img" testId="issue-type-icon-glyph" />
       ) : null}
     </span>
   )

@@ -88,6 +88,7 @@ function syncColorScheme(root) {
  * @param {Document} [doc]
  * @returns {ThemeName}
  */
-export function getDocumentTheme(doc = document) {
+export function getDocumentTheme(doc = typeof document !== 'undefined' ? document : undefined) {
+  if (!doc?.documentElement) return 'dark'
   return doc.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'
 }

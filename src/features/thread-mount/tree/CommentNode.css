@@ -3,13 +3,8 @@
 .tm-comment-node {
   /* M153b §4 · desktop ~44px / mobile ~24px indent · honest vs html 14px rem root */
   --tm-indent-step: 44px;
-  --tm-spine-color: #667085;
-  --tm-bubble-fill: #f7f6f2;
-  /* M153d · outer bubble stroke removed · token kept only as hairline reference OOS for bubbles */
+  /* CT-32: --tm-bubble-fill / spine / action from tokens.css [data-theme] (not fixed cream) */
   --tm-bubble-border: transparent;
-  --tm-action-group-fill: #fffdf8;
-  --tm-action-text: #b54708;
-  --tm-reply-parent-marker: #b54708;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -40,7 +35,7 @@
   margin-left: calc(var(--tm-indent-step) * -0.28);
   margin-right: 6px;
   border-left: none;
-  border-bottom: 1px solid var(--tm-spine-color);
+  border-bottom: 1px solid var(--tm-spine-color, #667085);
   border-bottom-left-radius: 6px;
   align-self: flex-start;
   height: 14px;
@@ -57,7 +52,7 @@
   padding: 8px 12px;
   border: 0;
   border-radius: 12px;
-  background: var(--tm-bubble-fill);
+  background: var(--tm-bubble-fill, #f7f6f2);
   box-shadow: none;
   overflow: hidden;
 }
@@ -70,7 +65,7 @@
   top: 0;
   bottom: 0;
   width: 3px;
-  background: var(--tm-reply-parent-marker);
+  background: var(--tm-reply-parent-marker, #b54708);
   border-radius: 12px 0 0 12px;
   pointer-events: none;
 }
@@ -102,7 +97,7 @@
   gap: 0;
   min-width: 0;
   max-width: 100%;
-  background: var(--tm-action-group-fill);
+  background: var(--tm-action-group-fill, #fffdf8);
   border: 0;
   border-radius: 999px;
   box-shadow: none;
@@ -120,7 +115,7 @@
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: var(--tm-action-text);
+  color: var(--tm-action-text, #b54708);
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -179,7 +174,7 @@
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: var(--tm-action-text);
+  color: var(--tm-action-text, #b54708);
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -204,7 +199,7 @@
 
 .tm-comment-node__reply:focus-visible,
 .tm-comment-node__pill:focus-visible {
-  outline: 2px solid var(--tm-action-text);
+  outline: 2px solid var(--tm-action-text, #b54708);
   outline-offset: 2px;
 }
 
@@ -228,7 +223,7 @@
 /* M153b §4 continuous spine · 1px / #667085 */
 .tm-comment-node__children--spine {
   position: relative;
-  border-left: 1px solid var(--tm-spine-color);
+  border-left: 1px solid var(--tm-spine-color, #667085);
   padding-left: 12px;
 }
 

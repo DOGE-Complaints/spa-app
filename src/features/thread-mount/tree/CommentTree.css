@@ -30,7 +30,7 @@
   padding: 0.35rem 0;
   border: 0;
   background: transparent;
-  color: var(--color-text-link, #175cd3);
+  color: var(--color-text-link, var(--color-accent-primary, #175cd3));
   font: inherit;
   font-size: 0.875rem;
   font-weight: 600;

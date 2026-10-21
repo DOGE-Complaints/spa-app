@@ -152,6 +152,15 @@
   --rm-mark-soft-off_topic: rgba(122, 90, 248, 0.28);
   --rm-mark-accent-aggressive: #FF7B7B;
   --rm-mark-soft-aggressive: rgba(180, 35, 24, 0.28);
+
+  /* CT-32 thread dark chrome — bubble/link tokens (dark default / :root) */
+  --tm-bubble-fill: var(--doge-surface-2);
+  --tm-action-group-fill: var(--doge-surface-1);
+  --tm-action-text: var(--doge-accent);
+  --tm-spine-color: var(--doge-muted);
+  --tm-reply-parent-marker: var(--doge-accent);
+  --color-text-link: #53B1FD;
+  --color-page-bg: var(--doge-bg);
 }
 
 /* Explicit dark selector (AC-SPA-REQ2103-01) — same Night column as :root fallback */
@@ -255,6 +264,15 @@
   --rm-mark-soft-off_topic: rgba(122, 90, 248, 0.28);
   --rm-mark-accent-aggressive: #FF7B7B;
   --rm-mark-soft-aggressive: rgba(180, 35, 24, 0.28);
+
+  /* CT-32 thread dark chrome */
+  --tm-bubble-fill: var(--doge-surface-2);
+  --tm-action-group-fill: var(--doge-surface-1);
+  --tm-action-text: var(--doge-accent);
+  --tm-spine-color: var(--doge-muted);
+  --tm-reply-parent-marker: var(--doge-accent);
+  --color-text-link: #53B1FD;
+  --color-page-bg: var(--doge-bg);
 }
 
 /*
@@ -361,4 +379,13 @@
   --rm-mark-soft-off_topic: #F3EFFF;
   --rm-mark-accent-aggressive: #B42318;
   --rm-mark-soft-aggressive: #FFF0EE;
+
+  /* CT-32 thread chrome — light cream bubble held */
+  --tm-bubble-fill: #f7f6f2;
+  --tm-action-group-fill: #fffdf8;
+  --tm-action-text: #b54708;
+  --tm-spine-color: #667085;
+  --tm-reply-parent-marker: #b54708;
+  --color-text-link: #b54708;
+  --color-page-bg: #f7f6f2;
 }
