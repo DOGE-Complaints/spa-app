@@ -222,10 +222,29 @@
   flex-shrink: 0;
 }
 
-/* NF-15/NF-17: primary strip glyphs 24 CSS px (reaction marks tip 20) */
+/* NF-18: primary strip glyphs tip 28 CSS px (supersedes NF-15/17 tip 24) · marks tip 20 held */
 .feed-civic-post-action > .feed-civic-post-icon {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
+}
+
+/*
+ * NF-18 flatten: react-slot is a host wrapper (also .feed-civic-post-action).
+ * Zero outer pad/hover so only .rm-summary-strip__react paints one chrome layer.
+ */
+.feed-civic-post-actions__react-slot.feed-civic-post-action {
+  padding: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.feed-civic-post-actions__react-slot.feed-civic-post-action:hover {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.feed-civic-post-actions__react-slot.feed-civic-post-action:focus-visible {
+  outline: none;
 }
 
 /* Flatten nested card when BoardIssuePost owns outer chrome */
@@ -266,6 +285,10 @@
     font-size: 0.68rem;
     padding: 4px 8px;
     min-height: 56px;
+  }
+
+  .feed-civic-post-actions__react-slot.feed-civic-post-action {
+    padding: 0;
   }
 
   .feed-list .board-issue-post {
