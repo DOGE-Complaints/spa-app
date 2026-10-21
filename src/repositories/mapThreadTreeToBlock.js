@@ -1,7 +1,8 @@
 /**
- * Map threads tree envelope → IssueThreadBlock props (THR-07).
+ * Map threads tree envelope → IssueThreadBlock props (THR-07 · CT-30).
  * comment_id→id, body→label (truncate), parent_id, depth.
  * Reaction summaries (thread_root + per-comment) for reload persistence.
+ * attachments[] → publishedUrl ← published_url (HTTP-07) · null honesty · no invent CDN.
  */
 
 /** Preview label length from body (presentation truncate). */
@@ -67,6 +68,72 @@ export function mapReactionSummaryPayload(raw) {
 }
 
 /**
+ * Coarse kind from tree `media_type` — parallel to CT-22 family probe · no invent MIME table.
+ * @param {string} mediaType
+ * @returns {'image'|'pdf'|'office'|'markdown'|'file'}
+ */
+export function kindFromMediaType(mediaType) {
+  const type = String(mediaType || '').toLowerCase().trim()
+  if (type.startsWith('image/')) return 'image'
+  if (type === 'application/pdf') return 'pdf'
+  if (
+    type === 'application/msword' ||
+    type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ) {
+    return 'office'
+  }
+  if (type === 'text/markdown' || type === 'text/x-markdown') return 'markdown'
+  return 'file'
+}
+
+/**
+ * Map HTTP-07 tree attachment item → CT-22-ready intent (status ready · publishedUrl honesty).
+ * @param {unknown} raw
+ * @returns {{
+ *   id: string,
+ *   status: 'ready',
+ *   kind: string,
+ *   label: string,
+ *   origin: 'tree',
+ *   mediaType?: string,
+ *   publishedUrl: string|null,
+ * }|null}
+ */
+export function mapTreeAttachmentItem(raw) {
+  if (!raw || typeof raw !== 'object') return null
+  const row = /** @type {Record<string, unknown>} */ (raw)
+  const refId = row.ref_id
+  if (refId === undefined || refId === null || String(refId).trim() === '') return null
+  const mediaType =
+    row.media_type === undefined || row.media_type === null ? '' : String(row.media_type).trim()
+  const kind = kindFromMediaType(mediaType)
+  const label =
+    kind === 'image'
+      ? 'Selected image'
+      : kind === 'pdf'
+        ? 'PDF document'
+        : kind === 'office'
+          ? 'Office document'
+          : kind === 'markdown'
+            ? 'Markdown file'
+            : 'Selected file'
+  const pubRaw = row.published_url
+  const publishedUrl =
+    pubRaw === undefined || pubRaw === null || String(pubRaw).trim() === ''
+      ? null
+      : String(pubRaw).trim()
+  return {
+    id: String(refId),
+    status: 'ready',
+    kind,
+    label,
+    origin: 'tree',
+    ...(mediaType ? { mediaType } : {}),
+    publishedUrl,
+  }
+}
+
+/**
  * @param {unknown} raw
  * @returns {{
  *   id: string,
@@ -76,6 +143,7 @@ export function mapReactionSummaryPayload(raw) {
  *   summaryMarks?: Array<{ reaction_id: string, count: number }>|null,
  *   aggregateCount?: number|null,
  *   selected?: string[],
+ *   attachments?: Array,
  * }|null}
  */
 export function mapApiCommentToNode(raw) {
@@ -88,6 +156,14 @@ export function mapApiCommentToNode(raw) {
   const parentId = row.parent_id === undefined ? null : row.parent_id
   const reaction = mapReactionSummaryPayload(row)
   const bodyText = String(row.body ?? '').trim()
+  /** @type {Array} */
+  const attachments = []
+  if (Array.isArray(row.attachments)) {
+    for (const item of row.attachments) {
+      const mapped = mapTreeAttachmentItem(item)
+      if (mapped) attachments.push(mapped)
+    }
+  }
   return {
     id: String(id),
     parentId: parentId === null || parentId === undefined ? null : String(parentId),
@@ -97,6 +173,7 @@ export function mapApiCommentToNode(raw) {
     summaryMarks: reaction.summaryMarks,
     aggregateCount: reaction.aggregateCount,
     selected: reaction.selected,
+    ...(attachments.length > 0 ? { attachments } : {}),
   }
 }
 

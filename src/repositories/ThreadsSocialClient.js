@@ -1,8 +1,8 @@
 /**
- * Threads social client (THR-06…09).
+ * Threads social client (THR-06…09 · CT-30).
  *
- * Closed ops (OpenAPI / HTTP-06): knobs + tree_read + comment + react + attach_ref.
- * **No invent** URLs / no `/threads/by-issue` / no multipart blob.
+ * Closed ops: knobs + tree_read + comment + react + attach_ref + attach_upload.
+ * **No invent** URLs / no `/threads/by-issue` · upload path locked HTTP-08 only.
  */
 
 import { getThreadsBaseUrl, normalizePublicBaseUrl } from '../config/publicEnv.js'
@@ -19,6 +19,7 @@ export const SOCIAL_HTTP_CONTRACT = Object.freeze({
   comment_reply: 'closed',
   react: 'closed',
   attach_ref: 'closed',
+  attach_upload: 'closed',
   knobs: 'closed',
 })
 
@@ -36,6 +37,9 @@ export const CLOSED_SOCIAL_PATHS = Object.freeze({
   /** @param {string} issueId */
   attachment_refs: (issueId) =>
     `/threads/issues/${encodeURIComponent(String(issueId))}/attachment-refs`,
+  /** @param {string} issueId — HTTP-08 multipart upload */
+  attachments: (issueId) =>
+    `/threads/issues/${encodeURIComponent(String(issueId))}/attachments`,
 })
 
 /**
@@ -254,6 +258,18 @@ export function classifyAttachRefResponse(httpStatus, envelope, op = 'attach_ref
 }
 
 /**
+ * Classify multipart attachment upload POST (HTTP-08 / CT-30).
+ * Success requires `ref_id`; `published_url` may be string or null (honesty).
+ * @param {number} httpStatus
+ * @param {unknown} envelope
+ * @param {string} [op='attach_upload']
+ * @returns {SocialOk|SocialWriteFail}
+ */
+export function classifyAttachUploadResponse(httpStatus, envelope, op = 'attach_upload') {
+  return classifyAttachRefResponse(httpStatus, envelope, op)
+}
+
+/**
  * @param {object} [options]
  * @param {string} [options.baseUrl]
  * @param {typeof fetch} [options.fetchImpl]
@@ -374,6 +390,64 @@ export function createThreadsSocialClient(options = {}) {
       }
       const classified = classify(response.status, envelope, op)
       return classified
+    } catch {
+      return writeFailSocialResult(op, 'post_fail', { reason: 'network' })
+    }
+  }
+
+  /**
+   * Bearer multipart write — do not set Content-Type (boundary).
+   * @param {string} op
+   * @param {string} issueId
+   * @param {string} path
+   * @param {FormData} formData
+   * @param {string|null|undefined} explicitToken
+   * @param {(status: number, envelope: unknown, op: string) => SocialOk|SocialWriteFail} classify
+   * @returns {Promise<SocialOk|SocialUnavailable|SocialWriteFail>}
+   */
+  async function runClosedBearerMultipart(op, issueId, path, formData, explicitToken, classify) {
+    if (!isSocialOpClosed(op)) {
+      return runOpen(op)
+    }
+    if (!baseUrl) {
+      return unavailableSocialResult(op, 'missing_base_url')
+    }
+    if (issueId === undefined || issueId === null || String(issueId).trim() === '') {
+      return unavailableSocialResult(op, 'missing_issue_id')
+    }
+    if (path.includes('/threads/by-issue')) {
+      return unavailableSocialResult(op, 'forbidden_path')
+    }
+
+    let accessToken
+    try {
+      accessToken = await resolveToken(explicitToken)
+    } catch {
+      return writeFailSocialResult(op, 'verify', { reason: 'token_resolve_failed' })
+    }
+    if (!accessToken) {
+      return writeFailSocialResult(op, 'verify', { reason: 'missing_bearer' })
+    }
+
+    const url = `${baseUrl}${path}`
+    try {
+      const response = await fetchImpl(url, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      })
+      let envelope
+      try {
+        envelope = await response.json()
+      } catch {
+        return writeFailSocialResult(op, 'post_fail', {
+          reason: 'malformed',
+          httpStatus: response.status,
+        })
+      }
+      return classify(response.status, envelope, op)
     } catch {
       return writeFailSocialResult(op, 'post_fail', { reason: 'network' })
     }
@@ -519,6 +593,44 @@ export function createThreadsSocialClient(options = {}) {
         },
         accessToken,
         classifyAttachRefResponse,
+      )
+    },
+    /**
+     * POST multipart attachment bytes (HTTP-08 / CT-30).
+     * Exact path: `/threads/issues/{issue_id}/attachments` · fields `file` + `comment_id` · optional `media_type`.
+     * Prefer over `attachRef` for Live Ready Files. No invent CDN / alternate upload URL.
+     * @param {{
+     *   issueId: string,
+     *   commentId: string,
+     *   file: File|Blob,
+     *   mediaType?: string|null,
+     *   accessToken?: string|null,
+     * }} args
+     */
+    async uploadAttachment({ issueId, commentId, file, mediaType, accessToken } = {}) {
+      if (commentId === undefined || commentId === null || String(commentId).trim() === '') {
+        return writeFailSocialResult('attach_upload', 'post_fail', { reason: 'missing_comment_id' })
+      }
+      if (file === undefined || file === null) {
+        return writeFailSocialResult('attach_upload', 'post_fail', { reason: 'missing_file' })
+      }
+      const form = new FormData()
+      form.append('file', file)
+      form.append('comment_id', String(commentId))
+      const mt =
+        mediaType === undefined || mediaType === null || String(mediaType).trim() === ''
+          ? typeof file.type === 'string' && file.type.trim()
+            ? file.type.trim()
+            : null
+          : String(mediaType).trim()
+      if (mt) form.append('media_type', mt)
+      return runClosedBearerMultipart(
+        'attach_upload',
+        issueId,
+        CLOSED_SOCIAL_PATHS.attachments(issueId),
+        form,
+        accessToken,
+        classifyAttachUploadResponse,
       )
     },
     async getKnobs() {

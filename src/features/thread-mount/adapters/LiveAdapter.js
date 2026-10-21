@@ -1,6 +1,7 @@
 /**
- * LiveAdapter — thin wrap of ThreadsSocialClient only (CT-28 · Arch §15.1).
+ * LiveAdapter — thin wrap of ThreadsSocialClient only (CT-28 · CT-30 · Arch §15.1 / §16).
  * Replaces live-adapter-unwired · no second HTTP client · no invent paths.
+ * CT-30: after create/reply ok → uploadAttachment per Ready File · soft-fail attach.
  * Lab default remains FixtureAdapter; Live is next/feed host bind.
  */
 
@@ -14,7 +15,13 @@ import {
 
 /**
  * @param {{
- *   client?: { getThreadTree: Function, createComment: Function, replyComment: Function, getKnobs: Function },
+ *   client?: {
+ *     getThreadTree: Function,
+ *     createComment: Function,
+ *     replyComment: Function,
+ *     getKnobs: Function,
+ *     uploadAttachment?: Function,
+ *   },
  *   issueId?: string|null,
  *   profile?: Record<string, unknown>|null,
  * }} [opts]
@@ -131,7 +138,41 @@ export function createLiveAdapter(opts = {}) {
   }
 
   /**
-   * @param {{ body?: string, parentId?: string|null }} [payload]
+   * Soft-fail upload Ready Files after body success (FR-CT-30.1 · 30.5 · 30.9).
+   * @param {string} commentId
+   * @param {Array} attachments
+   */
+  async function uploadReadyAttachments(commentId, attachments) {
+    if (typeof client.uploadAttachment !== 'function') return
+    const readyFiles = Array.isArray(attachments)
+      ? attachments.filter(
+          (a) =>
+            a &&
+            a.status === 'ready' &&
+            typeof File !== 'undefined' &&
+            a.file instanceof File,
+        )
+      : []
+    for (const intent of readyFiles) {
+      try {
+        const mediaType =
+          typeof intent.file.type === 'string' && intent.file.type.trim()
+            ? intent.file.type.trim()
+            : intent.mediaType || undefined
+        await client.uploadAttachment({
+          issueId,
+          commentId: String(commentId),
+          file: intent.file,
+          mediaType,
+        })
+      } catch {
+        /* soft-fail attach — body success held */
+      }
+    }
+  }
+
+  /**
+   * @param {{ body?: string, parentId?: string|null, attachments?: Array }} [payload]
    */
   async function postComment(payload = {}) {
     if (!issueId) {
@@ -145,6 +186,7 @@ export function createLiveAdapter(opts = {}) {
 
     const parentId =
       payload.parentId == null || payload.parentId === '' ? null : String(payload.parentId)
+    const attachments = Array.isArray(payload.attachments) ? payload.attachments : []
 
     if (parentId) {
       const parent = cached.comments.find((c) => c.id === parentId)
@@ -153,6 +195,8 @@ export function createLiveAdapter(opts = {}) {
       }
       const result = await client.replyComment({ issueId, body, parentId })
       if (result?.status === 'ok') {
+        const commentId = result.data?.comment_id
+        if (commentId) await uploadReadyAttachments(String(commentId), attachments)
         await load()
         return { ok: true }
       }
@@ -166,6 +210,8 @@ export function createLiveAdapter(opts = {}) {
 
     const result = await client.createComment({ issueId, body })
     if (result?.status === 'ok') {
+      const commentId = result.data?.comment_id
+      if (commentId) await uploadReadyAttachments(String(commentId), attachments)
       await load()
       return { ok: true }
     }

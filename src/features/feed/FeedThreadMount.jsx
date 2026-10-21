@@ -4,10 +4,11 @@ import { defaultThreadsSocialClient } from '../../repositories/ThreadsSocialClie
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 
 /**
- * Next-feed thread mount (CT-28 · Arch §15.1): ThreadMount + LiveAdapter → ThreadsSocialClient.
+ * Next-feed thread mount (CT-28 · CT-30 · Arch §15.1 / §16): ThreadMount + LiveAdapter → ThreadsSocialClient.
  * CR-23: comment-node React plugs ReactionsMount Live (`target=comment`).
+ * CT-30: host-owned write · post → uploadAttachment → reload map published_url · no invent CDN.
  * Replaces FeedDiscussionBlock Done claim on `#/next/feed*`. Lab Fixture path unchanged.
- * No invent HTTP / upload bind · no invent OP PASS.
+ * No invent OP PASS.
  */
 export function FeedThreadMount({
   issueId = null,
@@ -77,6 +78,7 @@ export function FeedThreadMount({
       className="feed-thread-mount"
       data-testid="feed-thread-mount"
       data-feed-ct28="true"
+      data-feed-ct30="true"
       data-feed-cr23="true"
       data-feed-thread-host="live"
       data-feed-live-bound={liveBound ? 'true' : 'false'}
