@@ -68,7 +68,7 @@ describe('NF-15 FeedCivicPost action strip density (M162)', () => {
     expect(html).not.toContain('data-invent-count')
   })
 
-  it('CSS tip lock: post-strip React unframe · 24px icons · desktop pad/gap · narrow mh 56', () => {
+  it('CSS tip lock: post-strip React unframe · pad/gap · narrow mh 56 (glyph tip → NF-18)', () => {
     const civic = readFileSync(
       path.resolve(__dirname, '../FeedCivicPost.css'),
       'utf8',
@@ -79,12 +79,6 @@ describe('NF-15 FeedCivicPost action strip density (M162)', () => {
     )
     expect(mount).toMatch(
       /\.feed-civic-post-actions \.rm-summary-strip__react[\s\S]*border:\s*none/,
-    )
-    expect(mount).toMatch(
-      /\.feed-civic-post-actions \.rm-summary-strip__react \.rm-icon[\s\S]*width:\s*24px/,
-    )
-    expect(civic).toMatch(
-      /\.feed-civic-post-action\s*>\s*\.feed-civic-post-icon[\s\S]*width:\s*24px/,
     )
     expect(civic).toMatch(/\.feed-civic-post-action[\s\S]*padding:\s*4px 8px/)
     expect(civic).toMatch(/\.feed-civic-post-action[\s\S]*gap:\s*6px/)

@@ -65,7 +65,7 @@ describe('NF-17 FeedCivicPost civic chrome residual', () => {
     expect(html).not.toContain('data-invent-count')
   })
 
-  it('CSS tip lock: no actions border-top · marks 20 · pad/margin · summary 1rem · primary 24', () => {
+  it('CSS tip lock: no actions border-top · marks 20 · pad/margin · summary 1rem · focus held', () => {
     const civic = readFileSync(
       path.resolve(__dirname, '../FeedCivicPost.css'),
       'utf8',
@@ -90,9 +90,6 @@ describe('NF-17 FeedCivicPost civic chrome residual', () => {
     )
     expect(civic).toMatch(
       /\.feed-civic-post-summary\s*\{[\s\S]*?font-size:\s*1rem/,
-    )
-    expect(civic).toMatch(
-      /\.feed-civic-post-action\s*>\s*\.feed-civic-post-icon[\s\S]*width:\s*24px/,
     )
     expect(civic).toMatch(
       /\.feed-civic-post-action:focus-visible\s*\{[\s\S]*outline:\s*2px solid/,
