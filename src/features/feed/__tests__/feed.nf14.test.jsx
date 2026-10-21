@@ -76,7 +76,8 @@ describe('NF-14 FeedCivicPost civic card hit-target', () => {
     expect(html).not.toContain('data-testid="feed-civic-post-hit"')
     expect(html).not.toContain('data-testid="feed-civic-post-open"')
     expect(html).toContain('data-civic-hit="none"')
-    expect(html).toContain('data-testid="feed-civic-post-more"')
+    expect(html).not.toContain('data-testid="feed-civic-post-more"')
     expect(html).toContain('data-action-zones="4"')
   })
 })
+
