@@ -88,11 +88,14 @@ describe('NF-02 FeedCivicPost', () => {
     expect(html).toContain('DEMO-NF02-1')
     expect(html).toContain('Kesklinn, Tallinn')
     expect(html).toContain('/icons/next-shell/actions/location.svg')
-    expect(html).toContain('/icons/next-feed/actions/open-issue.svg')
     expect(html).toContain('/icons/next-feed/actions/more.svg')
     expect(html).toContain('/icons/next-feed/actions/comment.svg')
     expect(html).toContain('/icons/next-feed/actions/share.svg')
-    expect(html).toContain('Open issue')
+    expect(html).toContain('data-testid="feed-civic-post-hit"')
+    expect(html).toContain('href="/next/feed/issue/DEMO-NF02-1"')
+    expect(html).toContain('data-civic-hit="list"')
+    expect(html).not.toContain('data-testid="feed-civic-post-open"')
+    expect(html).not.toContain('/icons/next-feed/actions/open-issue.svg')
     expect(html).toContain('Comment')
     expect(html).toContain('Share')
     expect(html).toContain('Reactions')
@@ -100,6 +103,11 @@ describe('NF-02 FeedCivicPost', () => {
     expect(html).not.toContain('schema-card-overlay')
     expect(html).not.toContain('SchemaCardOverlay')
     expect(html).not.toContain('Additional details')
+    // strip outside hit: actions after hit close
+    const hitEnd = html.indexOf('data-testid="feed-civic-post-hit"')
+    const actionsIdx = html.indexOf('data-testid="feed-civic-post-actions"')
+    expect(hitEnd).toBeGreaterThan(-1)
+    expect(actionsIdx).toBeGreaterThan(hitEnd)
   })
 
   it('collapses missing geo and summary honestly', () => {
@@ -138,8 +146,9 @@ describe('NF-02 FeedCivicPost', () => {
           to="/next/feed/issue/DEMO-NF02-1"
         />,
       )
-      expect(html).toContain(makeT(locale)('nextFeed.post.openIssue'))
       expect(html).toContain(makeT(locale)('nextFeed.post.share'))
+      expect(html).toContain('data-testid="feed-civic-post-hit"')
+      expect(html).not.toContain('data-testid="feed-civic-post-open"')
     }
   })
 })
