@@ -30,6 +30,7 @@ export const TM_REPLY_ICON_SRC = '/icons/next-feed/actions/reply.svg'
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderCommentReactions]
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderReplyComposer]
  * @param {string|null} [props.selectedReplyParentId] CT-18 M153b §6 selected parent marker
+ * @param {(() => Promise<string|null|undefined>)|null} [props.getAccessToken] CT-31 policy A
  */
 export function CommentNode({
   node,
@@ -44,6 +45,7 @@ export function CommentNode({
   renderCommentReactions = null,
   renderReplyComposer = null,
   selectedReplyParentId = null,
+  getAccessToken = null,
 }) {
   const depth = Number.isFinite(Number(node?.depth)) ? Math.floor(Number(node.depth)) : 0
   const indent = flat ? 0 : visualIndentLevel(depth, visualIndentCap)
@@ -110,7 +112,10 @@ export function CommentNode({
           aria-label={depth === 0 ? 'Comment' : 'Reply'}
         >
           <p className="tm-comment-node__text">{body}</p>
-          <CommentAttachmentPreview attachments={node.attachments} />
+          <CommentAttachmentPreview
+            attachments={node.attachments}
+            getAccessToken={getAccessToken}
+          />
           <div
             className="tm-comment-node__actions"
             data-testid="tm-comment-actions"
@@ -267,6 +272,7 @@ export function CommentNode({
               renderCommentReactions={renderCommentReactions}
               renderReplyComposer={renderReplyComposer}
               selectedReplyParentId={selectedReplyParentId}
+              getAccessToken={getAccessToken}
             />
           ))}
         </ul>

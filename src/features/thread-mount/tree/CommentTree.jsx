@@ -50,6 +50,7 @@ function collectBranchIds(roots) {
  * @param {(args: { commentId: string, node: object }) => import('react').ReactNode} [props.renderReplyComposer]
  * @param {string|null} [props.selectedReplyParentId] CT-18 M153b §6
  * @param {number|null} [props.previewNodeBudget] CT-21 M152c DFS budget · null/omit = unlimited (unit/lab trees)
+ * @param {(() => Promise<string|null|undefined>)|null} [props.getAccessToken] CT-31 policy A
  */
 export function CommentTree({
   comments = [],
@@ -64,6 +65,7 @@ export function CommentTree({
   renderReplyComposer = null,
   selectedReplyParentId = null,
   previewNodeBudget = null,
+  getAccessToken = null,
 }) {
   const resolvedMax = resolveMaxDepth(maxDepth)
   const resolvedCap = resolveVisualIndentCap(visualIndentCap)
@@ -223,6 +225,7 @@ export function CommentTree({
                 renderCommentReactions={renderCommentReactions}
                 renderReplyComposer={renderReplyComposer}
                 selectedReplyParentId={selectedReplyParentId}
+                getAccessToken={getAccessToken}
               />
             ))
           : visibleFlat.map((node) => (
@@ -236,6 +239,7 @@ export function CommentTree({
                 renderCommentReactions={renderCommentReactions}
                 renderReplyComposer={renderReplyComposer}
                 selectedReplyParentId={selectedReplyParentId}
+                getAccessToken={getAccessToken}
               />
             ))}
       </ul>

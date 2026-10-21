@@ -92,6 +92,12 @@ export function ThreadMount({
   issueId = null,
   /** CT-15 G-M2 — residents row only if aggregate confirmed (soft CR) */
   reactionsAggregateConfirmed = false,
+  /**
+   * CT-31 policy A — Live host auth for published attach fetch → blob → objectURL.
+   * Lab Fixture omits · bare publishedUrl / local File path held.
+   * @type {(() => Promise<string|null|undefined>)|null}
+   */
+  getAccessToken = null,
 }) {
   const [internalExpanded, setInternalExpanded] = useState(Boolean(expandedProp))
   const [focusSignal, setFocusSignal] = useState(0)
@@ -438,6 +444,7 @@ export function ThreadMount({
         selectedReplyParentId={replyParentId}
         issueId={issueId}
         reactionsAggregateConfirmed={Boolean(reactionsAggregateConfirmed)}
+        getAccessToken={getAccessToken}
       />
       {showHandoff ? <StubVerifyHandoff onBack={onHandoffBack} /> : null}
       {showGate ? (

@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ThreadMount, createLiveAdapter } from '../thread-mount/index.js'
 import { defaultThreadsSocialClient } from '../../repositories/ThreadsSocialClient.js'
+import { getThreadsAccessToken } from '../../auth/threadsAccessToken.js'
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 
 /**
- * Next-feed thread mount (CT-28 · CT-30 · Arch §15.1 / §16): ThreadMount + LiveAdapter → ThreadsSocialClient.
+ * Next-feed thread mount (CT-28 · CT-30 · CT-31 · Arch §15.1 / §16 / §17): ThreadMount + LiveAdapter → ThreadsSocialClient.
  * CR-23: comment-node React plugs ReactionsMount Live (`target=comment`).
  * CT-30: host-owned write · post → uploadAttachment → reload map published_url · no invent CDN.
+ * CT-31 policy A: getAccessToken → CommentAttachmentPreview auth fetch+blob→objectURL.
  * Replaces FeedDiscussionBlock Done claim on `#/next/feed*`. Lab Fixture path unchanged.
- * No invent OP PASS.
+ * No invent OP PASS / HTTP-09.
  */
 export function FeedThreadMount({
   issueId = null,
@@ -79,6 +81,7 @@ export function FeedThreadMount({
       data-testid="feed-thread-mount"
       data-feed-ct28="true"
       data-feed-ct30="true"
+      data-feed-ct31="true"
       data-feed-cr23="true"
       data-feed-thread-host="live"
       data-feed-live-bound={liveBound ? 'true' : 'false'}
@@ -99,6 +102,7 @@ export function FeedThreadMount({
         commentWriteOwner="host"
         onPostComment={handlePostComment}
         renderCommentReactions={renderCommentReactions}
+        getAccessToken={getThreadsAccessToken}
         onRetry={() => {
           void adapter.retry().then(setSnap)
         }}

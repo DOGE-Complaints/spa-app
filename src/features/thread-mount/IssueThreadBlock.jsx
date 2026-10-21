@@ -46,6 +46,8 @@ export function IssueThreadBlock({
   selectedReplyParentId = null,
   issueId = null,
   reactionsAggregateConfirmed = false,
+  /** CT-31 policy A — Live auth fetch for published attach */
+  getAccessToken = null,
 }) {
   const bodies = (Array.isArray(comments) ? comments : [])
     .map((c) => (typeof c?.body === 'string' ? c.body.trim() : ''))
@@ -179,6 +181,7 @@ export function IssueThreadBlock({
                 renderCommentReactions={renderCommentReactions}
                 renderReplyComposer={renderReplyComposer}
                 selectedReplyParentId={selectedReplyParentId}
+                getAccessToken={getAccessToken}
               />
             </div>
           )}

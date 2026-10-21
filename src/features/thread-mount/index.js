@@ -20,6 +20,8 @@ export {
   ATTACHMENT_FAMILY_ALLOWLIST,
   ATTACHMENT_MIME_TABLE_TBD,
   ATTACH_NODE_LOCAL_PREVIEW_COPY,
+  ATTACH_NODE_LOADING_COPY,
+  ATTACH_NODE_UNAVAILABLE_COPY,
   VISUAL_INDENT_CAP,
   MAX_DEPTH_REACHED_COPY,
   ATTACH_DENIED_TITLE,
@@ -50,6 +52,7 @@ export {
 export { CommentTree } from './tree/CommentTree.jsx'
 export { CommentNode, TM_REPLY_ICON_SRC } from './tree/CommentNode.jsx'
 export { CommentAttachmentPreview } from './tree/CommentAttachmentPreview.jsx'
+export { fetchPublishedAttachmentObjectUrl } from './attachments/fetchPublishedAttachmentObjectUrl.js'
 export { buildCommentForest } from './tree/buildCommentForest.js'
 export { ThreadComposer, M153_ILLUSTRATIVE_DRAFT } from './composer/ThreadComposer.jsx'
 export { AttachmentRef } from './composer/AttachmentRef.jsx'

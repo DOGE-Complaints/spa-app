@@ -91,6 +91,10 @@ export const ATTACHMENT_MIME_TABLE_TBD = null
 
 /** CT-22 node preview honesty when no published URL */
 export const ATTACH_NODE_LOCAL_PREVIEW_COPY = 'Local preview · not published'
+/** CT-31 policy A — auth fetch in flight */
+export const ATTACH_NODE_LOADING_COPY = 'Loading attachment…'
+/** CT-31 policy A — auth fetch deny / null bytes */
+export const ATTACH_NODE_UNAVAILABLE_COPY = 'Attachment unavailable'
 
 /**
  * Coarse family probe only · no invented MIME allow-list.
