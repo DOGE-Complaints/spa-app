@@ -30,14 +30,14 @@ describe('NS-04 MobileAppBar + MobileBottomNav', () => {
   it('renders MobileAppBar with menu icon from next-shell catalog', () => {
     wrap(<MobileAppBar />)
     expect(screen.getByTestId('mobile-app-bar')).toBeTruthy()
-    const img = screen.getByTestId('mobile-app-bar-leading').querySelector('img')
-    expect(img?.getAttribute('src')).toBe('/icons/next-shell/navigation/menu.svg')
+    const icon = screen.getByTestId('mobile-app-bar-leading').querySelector('[data-ns07-icon-src]')
+    expect(icon?.getAttribute('data-ns07-icon-src')).toBe('/icons/next-shell/navigation/menu.svg')
   })
 
   it('wires back/close icons', () => {
     const { rerender } = wrap(<MobileAppBar leadingAction="back" />)
     expect(
-      screen.getByTestId('mobile-app-bar-leading').querySelector('img')?.getAttribute('src'),
+      screen.getByTestId('mobile-app-bar-leading').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
     ).toBe('/icons/next-shell/navigation/back.svg')
     rerender(
       <I18nProvider>
@@ -47,7 +47,7 @@ describe('NS-04 MobileAppBar + MobileBottomNav', () => {
       </I18nProvider>,
     )
     expect(
-      screen.getByTestId('mobile-app-bar-leading').querySelector('img')?.getAttribute('src'),
+      screen.getByTestId('mobile-app-bar-leading').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
     ).toBe('/icons/next-shell/actions/close.svg')
   })
 
@@ -56,10 +56,10 @@ describe('NS-04 MobileAppBar + MobileBottomNav', () => {
     expect(screen.getByTestId('mobile-bottom-nav')).toBeTruthy()
     const board = screen.getByTestId('mobile-bottom-nav-board')
     const profile = screen.getByTestId('mobile-bottom-nav-profile')
-    expect(board.querySelector('img')?.getAttribute('src')).toBe(
+    expect(board.querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src')).toBe(
       '/icons/next-shell/navigation/board.svg',
     )
-    expect(profile.querySelector('img')?.getAttribute('src')).toBe(
+    expect(profile.querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src')).toBe(
       '/icons/next-shell/navigation/profile.svg',
     )
     expect(board.getAttribute('href')).toBe('/next/feed')

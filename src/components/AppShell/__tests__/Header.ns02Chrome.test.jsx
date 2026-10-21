@@ -42,24 +42,27 @@ describe('Public Header NS-02 next chrome', () => {
 
   it('wires next-shell menu / search / notifications chrome icons', () => {
     renderHeader()
-    expect(screen.getByTestId('public-header-menu-toggle').querySelector('img')?.getAttribute('src')).toBe(
-      '/icons/next-shell/navigation/menu.svg',
-    )
+    expect(
+      screen.getByTestId('public-header-menu-toggle').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
+    ).toBe('/icons/next-shell/navigation/menu.svg')
     expect(screen.getByTestId('public-header-search-affordance').getAttribute('aria-label')).toMatch(
       /coming later/i,
     )
-    expect(screen.getByTestId('public-header-search-affordance').querySelector('img')?.getAttribute('src')).toBe(
-      '/icons/next-shell/navigation/search.svg',
-    )
     expect(
-      screen.getByTestId('public-header-notifications-chrome').querySelector('img')?.getAttribute('src'),
+      screen.getByTestId('public-header-search-affordance').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
+    ).toBe('/icons/next-shell/navigation/search.svg')
+    expect(
+      screen
+        .getByTestId('public-header-notifications-chrome')
+        .querySelector('[data-ns07-icon-src]')
+        ?.getAttribute('data-ns07-icon-src'),
     ).toBe('/icons/next-shell/navigation/notifications.svg')
   })
 
   it('ThemeToggle uses next-shell theme glyph', () => {
     renderHeader()
     const theme = screen.getByTestId('public-header-theme-toggle')
-    const src = theme.querySelector('img')?.getAttribute('src')
+    const src = theme.querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src')
     expect(src === '/icons/next-shell/navigation/theme-dark.svg' || src === '/icons/next-shell/navigation/theme-light.svg').toBe(
       true,
     )

@@ -36,16 +36,18 @@ describe('ProfileRail NS-03', () => {
     expect(screen.getByTestId('profile-rail')).toBeTruthy()
     const board = screen.getByTestId('profile-rail-nav-board')
     expect(board.getAttribute('href')).toBe('/next/feed')
-    expect(board.querySelector('img')?.getAttribute('src')).toBe('/icons/next-shell/navigation/board.svg')
+    expect(board.querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src')).toBe(
+      '/icons/next-shell/navigation/board.svg',
+    )
     expect(screen.getByTestId('profile-rail-nav-my-stories').getAttribute('href')).toBe('/profile')
-    expect(screen.getByTestId('profile-rail-nav-my-stories').querySelector('img')?.getAttribute('src')).toBe(
-      '/icons/next-shell/navigation/my-stories.svg',
-    )
+    expect(
+      screen.getByTestId('profile-rail-nav-my-stories').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
+    ).toBe('/icons/next-shell/navigation/my-stories.svg')
     expect(screen.getByTestId('profile-rail-nav-profile').getAttribute('href')).toBe('/profile')
-    expect(screen.getByTestId('profile-rail-nav-profile').querySelector('img')?.getAttribute('src')).toBe(
-      '/icons/next-shell/navigation/profile.svg',
-    )
-    expect(screen.getByTestId('profile-rail-verified-glyph').getAttribute('src')).toBe(
+    expect(
+      screen.getByTestId('profile-rail-nav-profile').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
+    ).toBe('/icons/next-shell/navigation/profile.svg')
+    expect(screen.getByTestId('profile-rail-verified-glyph').getAttribute('data-ns07-icon-src')).toBe(
       '/icons/next-shell/status/verified.svg',
     )
   })
