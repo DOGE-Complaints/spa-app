@@ -29,6 +29,7 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
  * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → aggregate.
  * NF-13 / M161: identity icon from exact `issue.type` catalog map · unknown → omit.
  * NF-14: list hit = one Link around identity+content+media · open row retired · strip excluded.
+ * NF-15 / M162: strip density + React unframe (host CSS) · CR-23 Live host held.
  *
  * @param {object} props
  * @param {import('../../domain/types.js').Issue} props.issue
@@ -215,6 +216,7 @@ export function FeedCivicPost({
         data-testid="feed-civic-post-actions"
         data-action-zones="4"
         data-feed-cr23-strip="true"
+        data-nf15-density="m162"
         role="group"
         aria-label={t('nextFeed.post.actions')}
       >

@@ -154,14 +154,14 @@
   margin-left: 0;
 }
 
-/* M150 four-zone action row — equal flex zones · 56px desktop / ≥44px touch */
+/* M150 four-zone · NF-15/M162 density tip lock (desktop 4v/8h · gap 6 · mh 44) */
 .feed-civic-post-actions {
   display: flex;
   align-items: stretch;
   gap: 2px;
-  min-height: 56px;
+  min-height: 44px;
   margin-top: 4px;
-  padding-top: 10px;
+  padding-top: 8px;
   border-top: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
 }
 
@@ -173,7 +173,7 @@
   gap: 6px;
   min-width: 0;
   min-height: 44px;
-  padding: 8px 4px;
+  padding: 4px 8px;
   border: none;
   border-radius: 8px;
   background: transparent;
@@ -222,6 +222,12 @@
   flex-shrink: 0;
 }
 
+/* NF-15: primary strip glyphs 24 CSS px (more / reaction marks stay 16/14) */
+.feed-civic-post-action > .feed-civic-post-icon {
+  width: 24px;
+  height: 24px;
+}
+
 /* Flatten nested card when BoardIssuePost owns outer chrome */
 .board-issue-post .feed-civic-post {
   border: none;
@@ -243,6 +249,7 @@
   background: var(--color-border-default, var(--doge-border, #e7e4dc));
 }
 
+/* NF-15/M162 narrow ~390 — reuse existing 420 feed token · stacked · gap 4 · mh 56 */
 @media (max-width: 420px) {
   .feed-civic-post {
     padding: 16px;
@@ -250,14 +257,15 @@
   }
 
   .feed-civic-post-actions {
-    min-height: 52px;
+    min-height: 56px;
   }
 
   .feed-civic-post-action {
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
     font-size: 0.68rem;
-    padding: 6px 2px;
+    padding: 4px 8px;
+    min-height: 56px;
   }
 
   .feed-list .board-issue-post {

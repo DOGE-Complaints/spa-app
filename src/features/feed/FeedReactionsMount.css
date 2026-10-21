@@ -12,3 +12,50 @@
   min-width: 0;
   flex: 1 1 auto;
 }
+
+/*
+ * NF-15 / M162 — post-strip host only (FR-15.1 · 15.6).
+ * Unframe React pill · match Comment/Share flat · keep focus chrome.
+ * Do not restyle comment-node / feed-lab strip hosts.
+ */
+.feed-civic-post-actions .rm-summary-strip__react {
+  gap: 6px;
+  min-height: 44px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-secondary, #667085);
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.feed-civic-post-actions .rm-summary-strip__react:hover {
+  background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
+  color: var(--color-text-primary, #101828);
+}
+
+.feed-civic-post-actions .rm-summary-strip__react:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doge-accent, #f5c542) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.feed-civic-post-actions .rm-summary-strip__react:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Inline size on CrReactionIcon → override to M162 24 CSS px in post strip only */
+.feed-civic-post-actions .rm-summary-strip__react .rm-icon {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+@media (max-width: 420px) {
+  .feed-civic-post-actions .rm-summary-strip__react {
+    flex-direction: column;
+    gap: 4px;
+    min-height: 56px;
+    padding: 4px 8px;
+  }
+}
