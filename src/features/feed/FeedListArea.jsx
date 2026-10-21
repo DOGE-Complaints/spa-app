@@ -36,6 +36,7 @@ function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, 
           locale={locale}
           resolveLocalizedText={resolveLocalizedText}
           t={t}
+          /* NF-14: same `to` drives hit Link (open row retired) — route shape held */
           to={`/next/feed/issue/${item.id}?from=${encodeURIComponent(feedUrlForBack)}`}
           onOpenReactions={() => bridge?.openThreadRootPicker(item.id)}
         />

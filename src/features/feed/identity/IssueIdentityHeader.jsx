@@ -16,6 +16,7 @@ import './IssueIdentityHeader.css'
  *   iconSrc?: string | null,
  *   publicLabel?: string | null,
  *   moreLabel: string,
+ *   showMore?: boolean — false when parent owns More outside hit Link (NF-14)
  * }} props
  */
 export function IssueIdentityHeader({
@@ -27,6 +28,7 @@ export function IssueIdentityHeader({
   iconSrc = null,
   publicLabel = null,
   moreLabel,
+  showMore = true,
 }) {
   const closedPublic =
     typeof publicLabel === 'string' && publicLabel.trim() ? publicLabel.trim() : ''
@@ -59,19 +61,21 @@ export function IssueIdentityHeader({
           typeDisplay={typeDisplay}
         />
       </div>
-      <button
-        type="button"
-        className="issue-identity-more feed-civic-post-more"
-        data-testid="feed-civic-post-more"
-        aria-label={moreLabel}
-      >
-        <img
-          className="issue-identity-more-icon feed-civic-post-icon"
-          src="/icons/next-feed/actions/more.svg"
-          alt=""
-          aria-hidden="true"
-        />
-      </button>
+      {showMore ? (
+        <button
+          type="button"
+          className="issue-identity-more feed-civic-post-more"
+          data-testid="feed-civic-post-more"
+          aria-label={moreLabel}
+        >
+          <img
+            className="issue-identity-more-icon feed-civic-post-icon"
+            src="/icons/next-feed/actions/more.svg"
+            alt=""
+            aria-hidden="true"
+          />
+        </button>
+      ) : null}
     </header>
   )
 }

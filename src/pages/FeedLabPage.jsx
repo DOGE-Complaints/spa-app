@@ -8,6 +8,7 @@ import { FeedLabCt28Stand } from '../features/feed-lab/post/thread/FeedLabCt28St
 import { FeedLabCt23Stand } from '../features/feed/FeedLabCt23Stand.jsx'
 import { FeedLabCt29Stand } from '../features/feed/FeedLabCt29Stand.jsx'
 import { FeedLabNf13Stand } from '../features/feed/FeedLabNf13Stand.jsx'
+import { FeedLabNf14Stand } from '../features/feed/FeedLabNf14Stand.jsx'
 import { FeedLabCt21Stands } from '../features/feed-lab/post/thread/FeedLabCt21Stands.jsx'
 import { FeedLabCt22Stands } from '../features/feed-lab/post/thread/FeedLabCt22Stands.jsx'
 import { setThemeAttribute } from '../theme/bootTheme.js'
@@ -191,6 +192,7 @@ export function FeedLabPage() {
         <FeedLabCt23Stand />
         <FeedLabCt29Stand />
         <FeedLabNf13Stand />
+        <FeedLabNf14Stand />
 
         <section
           className="feed-lab-page__section"

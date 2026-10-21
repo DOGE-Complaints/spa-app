@@ -28,13 +28,14 @@ const REACTIONS_ZONE_MARKS = Object.freeze([
  * Four-zone strip · no SchemaCardOverlay · no invent image-gen HTTP.
  * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → aggregate.
  * NF-13 / M161: identity icon from exact `issue.type` catalog map · unknown → omit.
+ * NF-14: list hit = one Link around identity+content+media · open row retired · strip excluded.
  *
  * @param {object} props
  * @param {import('../../domain/types.js').Issue} props.issue
  * @param {string} props.locale
  * @param {(field: string|{et?:string,ru?:string,en?:string}) => string} props.resolveLocalizedText
  * @param {(k: string) => string} props.t
- * @param {string} [props.to] — open-issue href
+ * @param {string} [props.to] — list navigate href (`/next/feed/issue/:id?from=…`)
  * @param {Function} [props.onOpenReactions] — legacy bridge (unused when Live mount Present)
  */
 export function FeedCivicPost({
@@ -71,6 +72,105 @@ export function FeedCivicPost({
       usedHumanize: formatted.usedHumanize,
     }
   })
+  const hitName =
+    String(titleText || cardText || '').trim() || t('nextFeed.post.openIssue')
+  const listNavigate = Boolean(to)
+
+  const identity = (
+    <IssueIdentityHeader
+      issueId={issue.id}
+      status={issue.status}
+      typeDisplay={typeDisplay}
+      geoText={geoText}
+      dateText={dateText}
+      iconSrc={typeIconSrc}
+      publicLabel={publicLabel}
+      moreLabel={t('nextFeed.post.more')}
+      showMore={!listNavigate}
+    />
+  )
+
+  const titleBlock = (
+    <h3 className="feed-civic-post-title">
+      {titleText || cardText}
+      {showMtMarker ? <TranslationMarker kind="mt" locale={locale} t={t} /> : null}
+      {!showMtMarker && showFallbackMarker ? (
+        <TranslationMarker
+          kind="fallback"
+          locale={locale}
+          resolvedLocale={contentMeta.resolvedLocale}
+          t={t}
+        />
+      ) : null}
+    </h3>
+  )
+
+  const summaryBlock = showSummary ? (
+    <p className="feed-civic-post-summary">{cardText}</p>
+  ) : null
+
+  const labelsBlock =
+    labelChips.length > 0 ? (
+      <div className="feed-civic-post-labels">
+        {labelChips.map((chip) => {
+          const topicSrc = topicIconForLabel(chip.key)
+          return (
+            <span key={chip.key} className="feed-civic-post-chip">
+              {topicSrc ? (
+                <img
+                  src={topicSrc}
+                  alt=""
+                  className="feed-civic-post-chip-topic"
+                  width={12}
+                  height={12}
+                />
+              ) : null}
+              {chip.text}
+              {chip.usedHumanize ? (
+                <TranslationMarker kind="untranslated-label" locale={locale} t={t} />
+              ) : null}
+            </span>
+          )
+        })}
+      </div>
+    ) : null
+
+  /* M150 SSR-C-civic: no SchemaCardOverlay / Additional details chrome */
+  /* CT-29: interim dogefeed stub until image-gen — same path list + detail */
+  const mediaBlock = (
+    <div
+      className="feed-civic-post-media"
+      data-testid="feed-civic-post-media"
+      data-civic-media="stub"
+      data-media-src={CIVIC_MEDIA_STUB_PATH}
+    >
+      <img
+        className="feed-civic-post-media-img"
+        src={CIVIC_MEDIA_STUB_PATH}
+        alt={titleText || cardText || t('nextFeed.post.noMedia')}
+        data-testid="feed-civic-post-media-img"
+        data-civic-media-stub="true"
+        width={1600}
+        height={900}
+      />
+    </div>
+  )
+
+  const moreOutsideHit = listNavigate ? (
+    <button
+      type="button"
+      className="issue-identity-more feed-civic-post-more feed-civic-post-hit-more"
+      data-testid="feed-civic-post-more"
+      aria-label={t('nextFeed.post.more')}
+    >
+      <img
+        className="issue-identity-more-icon feed-civic-post-icon"
+        src="/icons/next-feed/actions/more.svg"
+        alt=""
+        aria-hidden="true"
+      />
+    </button>
+  ) : null
 
   return (
     <article
@@ -79,95 +179,36 @@ export function FeedCivicPost({
       data-civic-variant="media-stub"
       data-civic-media-stub={CIVIC_MEDIA_STUB_PATH}
       data-civic-identity-icon={typeIconSrc ? 'present' : 'omit-catalog-gap'}
+      data-civic-hit={listNavigate ? 'list' : 'none'}
       data-identity-surface="IssueIdentityHeader"
       data-status-wire={String(issue.status ?? '')}
       aria-label={`Issue ${issue.id}: ${titleText || cardText}`}
     >
-      <IssueIdentityHeader
-        issueId={issue.id}
-        status={issue.status}
-        typeDisplay={typeDisplay}
-        geoText={geoText}
-        dateText={dateText}
-        iconSrc={typeIconSrc}
-        publicLabel={publicLabel}
-        moreLabel={t('nextFeed.post.more')}
-      />
-
-      <h3 className="feed-civic-post-title">
-        {titleText || cardText}
-        {showMtMarker ? <TranslationMarker kind="mt" locale={locale} t={t} /> : null}
-        {!showMtMarker && showFallbackMarker ? (
-          <TranslationMarker
-            kind="fallback"
-            locale={locale}
-            resolvedLocale={contentMeta.resolvedLocale}
-            t={t}
-          />
-        ) : null}
-      </h3>
-
-      {showSummary ? <p className="feed-civic-post-summary">{cardText}</p> : null}
-
-      {labelChips.length > 0 ? (
-        <div className="feed-civic-post-labels">
-          {labelChips.map((chip) => {
-            const topicSrc = topicIconForLabel(chip.key)
-            return (
-              <span key={chip.key} className="feed-civic-post-chip">
-                {topicSrc ? (
-                  <img
-                    src={topicSrc}
-                    alt=""
-                    className="feed-civic-post-chip-topic"
-                    width={12}
-                    height={12}
-                  />
-                ) : null}
-                {chip.text}
-                {chip.usedHumanize ? (
-                  <TranslationMarker kind="untranslated-label" locale={locale} t={t} />
-                ) : null}
-              </span>
-            )
-          })}
-        </div>
-      ) : null}
-
-      {/* M150 SSR-C-civic: no SchemaCardOverlay / Additional details chrome */}
-      {/* CT-29: interim dogefeed stub until image-gen — same path list + detail */}
-      <div
-        className="feed-civic-post-media"
-        data-testid="feed-civic-post-media"
-        data-civic-media="stub"
-        data-media-src={CIVIC_MEDIA_STUB_PATH}
-      >
-        <img
-          className="feed-civic-post-media-img"
-          src={CIVIC_MEDIA_STUB_PATH}
-          alt={titleText || cardText || t('nextFeed.post.noMedia')}
-          data-testid="feed-civic-post-media-img"
-          data-civic-media-stub="true"
-          width={1600}
-          height={900}
-        />
-      </div>
-
-      {to ? (
-        <Link
-          to={to}
-          className="feed-civic-post-open"
-          data-testid="feed-civic-post-open"
-        >
-          <img
-            className="feed-civic-post-icon"
-            src="/icons/next-feed/actions/open-issue.svg"
-            alt=""
-            aria-hidden="true"
-          />
-          <span>{t('nextFeed.post.openIssue')}</span>
-        </Link>
-      ) : null}
+      {listNavigate ? (
+        <>
+          <Link
+            to={to}
+            className="feed-civic-post-hit"
+            data-testid="feed-civic-post-hit"
+            aria-label={hitName}
+          >
+            {identity}
+            {titleBlock}
+            {summaryBlock}
+            {labelsBlock}
+            {mediaBlock}
+          </Link>
+          {moreOutsideHit}
+        </>
+      ) : (
+        <>
+          {identity}
+          {titleBlock}
+          {summaryBlock}
+          {labelsBlock}
+          {mediaBlock}
+        </>
+      )}
 
       <div
         className="feed-civic-post-actions"
