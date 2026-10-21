@@ -69,7 +69,7 @@
 
 .feed-civic-post-summary {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 1rem; /* NF-17 tip · was 0.875rem */
   line-height: 1.45;
   color: var(--color-text-secondary);
 }
@@ -154,15 +154,15 @@
   margin-left: 0;
 }
 
-/* M150 four-zone · NF-15/M162 density tip lock (desktop 4v/8h · gap 6 · mh 44) */
+/* M150 four-zone · NF-15/M162 + NF-17 residual (no hairline · pad-top 4 · margin-top 0 · mh ≥44) */
 .feed-civic-post-actions {
   display: flex;
   align-items: stretch;
   gap: 2px;
   min-height: 44px;
-  margin-top: 4px;
-  padding-top: 8px;
-  border-top: 1px solid var(--color-border-default, var(--doge-border, #e7e4dc));
+  margin-top: 0;
+  padding-top: 4px;
+  border-top: none; /* NF-17: neutralize under-media hairline */
 }
 
 .feed-civic-post-action {
@@ -204,8 +204,8 @@
 }
 
 .feed-civic-post-reaction-mark {
-  width: 14px;
-  height: 14px;
+  width: 20px; /* NF-17 tip · was 14 */
+  height: 20px;
   margin-inline-start: -4px;
   border-radius: 50%;
   background: var(--color-surface-elevated, var(--doge-surface-2, #fffdf8));
@@ -222,7 +222,7 @@
   flex-shrink: 0;
 }
 
-/* NF-15: primary strip glyphs 24 CSS px (more / reaction marks stay 16/14) */
+/* NF-15/NF-17: primary strip glyphs 24 CSS px (reaction marks tip 20) */
 .feed-civic-post-action > .feed-civic-post-icon {
   width: 24px;
   height: 24px;

@@ -222,6 +222,7 @@ export function FeedCivicPost({
         data-action-zones="4"
         data-feed-cr23-strip="true"
         data-nf15-density="m162"
+        data-nf17-chrome="residual"
         role="group"
         aria-label={t('nextFeed.post.actions')}
       >
