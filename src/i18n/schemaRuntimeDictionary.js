@@ -23,6 +23,8 @@ export const SCHEMA_RUNTIME_DICTIONARY_EN = Object.freeze({
       emptyPins: 'No locations to show on the map for this view',
       partialHint: 'Issues without public coordinates remain available in List view.',
       pinOpen: 'Open issue',
+      clusterLeavesTitle: 'Issues in this area',
+      clusterLeavesClose: 'Close list',
     },
   },
 })
@@ -50,6 +52,8 @@ export const SCHEMA_RUNTIME_DICTIONARY_ET = Object.freeze({
       emptyPins: 'Selle vaate jaoks pole kaardil asukohti',
       partialHint: 'Teemad ilma avalike koordinaatideta jäävad Nimekirja vaatesse.',
       pinOpen: 'Ava teema',
+      clusterLeavesTitle: 'Teemad selles piirkonnas',
+      clusterLeavesClose: 'Sulge nimekiri',
     },
   },
 })
@@ -77,6 +81,8 @@ export const SCHEMA_RUNTIME_DICTIONARY_RU = Object.freeze({
       emptyPins: 'Для этого вида нет точек на карте',
       partialHint: 'Темы без публичных координат остаются в виде Список.',
       pinOpen: 'Открыть тему',
+      clusterLeavesTitle: 'Темы в этой области',
+      clusterLeavesClose: 'Закрыть список',
     },
   },
 })
@@ -99,6 +105,8 @@ export const SCHEMA_RUNTIME_FLAT_KEYS = Object.freeze([
   'schemaRuntime.map.emptyPins',
   'schemaRuntime.map.partialHint',
   'schemaRuntime.map.pinOpen',
+  'schemaRuntime.map.clusterLeavesTitle',
+  'schemaRuntime.map.clusterLeavesClose',
 ])
 
 /**
