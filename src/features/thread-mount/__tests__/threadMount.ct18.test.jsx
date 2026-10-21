@@ -9,19 +9,23 @@ import { THREAD_NEST_COMMENTS } from '../adapters/FixtureAdapter.js'
 
 const dir = path.dirname(fileURLToPath(import.meta.url))
 const cssPath = path.resolve(dir, '../tree/CommentNode.css')
+const tokensPath = path.resolve(dir, '../../../styles/tokens.css')
 const css = readFileSync(cssPath, 'utf8')
+const tokens = readFileSync(tokensPath, 'utf8')
 
 describe('CT-18 M153b depth-2 token chrome · A–D', () => {
   afterEach(() => cleanup())
 
   it('CSS register · px tokens · no #2E90FA · M153b A–C literals', () => {
-    expect(css).toMatch(/--tm-bubble-fill:\s*#f7f6f2/i)
+    /* CT-32: bubble/action tokens live in tokens.css [data-theme=light] cream held */
+    expect(css).toMatch(/background:\s*var\(--tm-bubble-fill/i)
+    expect(tokens).toMatch(/\[data-theme=['"]light['"]\][\s\S]*--tm-bubble-fill:\s*#f7f6f2/i)
     /* CT-26 M153d · bubble outer stroke removed · border token no longer #E7E4DC stroke */
     expect(css).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*border:\s*0/s)
-    expect(css).toMatch(/--tm-spine-color:\s*#667085/i)
-    expect(css).toMatch(/--tm-action-group-fill:\s*#fffdf8/i)
-    expect(css).toMatch(/--tm-action-text:\s*#b54708/i)
-    expect(css).toMatch(/--tm-reply-parent-marker:\s*#b54708/i)
+    expect(css).toMatch(/var\(--tm-spine-color/i)
+    expect(css).toMatch(/var\(--tm-action-group-fill/i)
+    expect(css).toMatch(/var\(--tm-action-text/i)
+    expect(css).toMatch(/var\(--tm-reply-parent-marker/i)
     expect(css).toMatch(/--tm-indent-step:\s*44px/)
     expect(css).toMatch(/--tm-indent-step:\s*24px/)
     expect(css).toMatch(/min-height:\s*44px/)

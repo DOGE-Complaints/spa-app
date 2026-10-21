@@ -56,8 +56,10 @@ describe('NF-13 FeedCivicPost issue-type identity icon', () => {
     )
     expect(html).toContain('data-civic-identity-icon="present"')
     expect(html).toContain('src="/icons/next-feed/types/ic-issue-type-INCIDENT.svg"')
-    expect(html).toContain('width="24"')
-    expect(html).toContain('height="24"')
+    /* CT-32: ShellChromeIcon size via style · mask marker */
+    expect(html).toContain('data-ct32-type="mask"')
+    expect(html).toMatch(/width:\s*24px/)
+    expect(html).toMatch(/height:\s*24px/)
   })
 
   it('binds each of five exact keys', () => {
@@ -104,7 +106,10 @@ describe('NF-13 FeedCivicPost issue-type identity icon', () => {
       />,
     )
     expect(html).toContain('data-civic-identity-icon="present"')
-    expect(html).toContain('width="24"')
-    expect(html).toContain('height="24"')
+    /* CT-32: ShellChromeIcon mask · size via style + data attrs */
+    expect(html).toContain('data-ct32-type="mask"')
+    expect(html).toContain('issue-type-icon-glyph')
+    expect(html).toMatch(/width:\s*24px/)
+    expect(html).toMatch(/height:\s*24px/)
   })
 })

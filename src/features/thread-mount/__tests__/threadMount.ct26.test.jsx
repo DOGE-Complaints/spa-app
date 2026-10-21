@@ -10,6 +10,7 @@ import { THREAD_NEST_COMMENTS } from '../adapters/FixtureAdapter.js'
 
 const dir = path.dirname(fileURLToPath(import.meta.url))
 const nodeCss = readFileSync(path.resolve(dir, '../tree/CommentNode.css'), 'utf8')
+const tokensCss = readFileSync(path.resolve(dir, '../../../styles/tokens.css'), 'utf8')
 const treeCss = readFileSync(path.resolve(dir, '../tree/CommentTree.css'), 'utf8')
 const attachCss = readFileSync(path.resolve(dir, '../composer/AttachmentRef.css'), 'utf8')
 
@@ -17,7 +18,9 @@ describe('CT-26 density v2 · M153d borderless fill', () => {
   afterEach(() => cleanup())
 
   it('T01 bubble · no outer stroke · fill · pad 8v/12h', () => {
-    expect(nodeCss).toMatch(/--tm-bubble-fill:\s*#f7f6f2/i)
+    /* CT-32: light cream in tokens.css · cascade via var */
+    expect(nodeCss).toMatch(/background:\s*var\(--tm-bubble-fill/i)
+    expect(tokensCss).toMatch(/\[data-theme=['"]light['"]\][\s\S]*--tm-bubble-fill:\s*#f7f6f2/i)
     expect(nodeCss).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*padding:\s*8px\s+12px/s)
     expect(nodeCss).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*border:\s*0/s)
     expect(nodeCss).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*border-radius:\s*12px/s)
@@ -28,7 +31,8 @@ describe('CT-26 density v2 · M153d borderless fill', () => {
   })
 
   it('T02 action pills · no outer stroke · 4v/8h · min-height 44 · sep held', () => {
-    expect(nodeCss).toMatch(/--tm-action-group-fill:\s*#fffdf8/i)
+    expect(nodeCss).toMatch(/var\(--tm-action-group-fill/i)
+    expect(tokensCss).toMatch(/\[data-theme=['"]light['"]\][\s\S]*--tm-action-group-fill:\s*#fffdf8/i)
     expect(nodeCss).toMatch(/\.tm-comment-node__action-pills\s*\{[^}]*border:\s*0/s)
     expect(nodeCss).toMatch(/\.tm-comment-node__action-pills\s*\{[^}]*box-shadow:\s*none/s)
     expect(nodeCss).toMatch(/\.tm-comment-node__pill\s*\{[^}]*padding:\s*4px\s+8px/s)
@@ -47,12 +51,15 @@ describe('CT-26 density v2 · M153d borderless fill', () => {
   })
 
   it('T04 spine + reply-parent stripe Present', () => {
-    expect(nodeCss).toMatch(/--tm-spine-color:\s*#667085/i)
+    /* CT-32: spine/marker hex in tokens.css light · cascade via var */
+    expect(nodeCss).toMatch(/var\(--tm-spine-color/i)
+    expect(tokensCss).toMatch(/\[data-theme=['"]light['"]\][\s\S]*--tm-spine-color:\s*#667085/i)
     expect(nodeCss).toMatch(/\.tm-comment-node__children--spine\s*\{[^}]*border-left:\s*1px\s+solid/s)
     expect(nodeCss).toMatch(
       /\.tm-comment-node__bubble--reply-parent::before\s*\{[^}]*width:\s*3px/s,
     )
-    expect(nodeCss).toMatch(/--tm-reply-parent-marker:\s*#b54708/i)
+    expect(nodeCss).toMatch(/var\(--tm-reply-parent-marker/i)
+    expect(tokensCss).toMatch(/\[data-theme=['"]light['"]\][\s\S]*--tm-reply-parent-marker:\s*#b54708/i)
   })
 
   it('T04 AttachmentRef chip borders unchanged (M153b §7 / M153c)', () => {

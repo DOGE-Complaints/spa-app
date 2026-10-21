@@ -9,6 +9,7 @@ import { THREAD_NEST_COMMENTS } from '../adapters/FixtureAdapter.js'
 
 const dir = path.dirname(fileURLToPath(import.meta.url))
 const nodeCss = readFileSync(path.resolve(dir, '../tree/CommentNode.css'), 'utf8')
+const tokensCss = readFileSync(path.resolve(dir, '../../../styles/tokens.css'), 'utf8')
 const blockCss = readFileSync(path.resolve(dir, '../IssueThreadBlock.css'), 'utf8')
 const composerCss = readFileSync(path.resolve(dir, '../composer/ThreadComposer.css'), 'utf8')
 const treeCss = readFileSync(path.resolve(dir, '../tree/CommentTree.css'), 'utf8')
@@ -21,9 +22,11 @@ describe('CT-23 thread density · artboard frames only', () => {
   afterEach(() => cleanup())
 
   it('T04 spine/fill held · CT-26 supersedes bubble/pill outer borders', () => {
-    expect(nodeCss).toMatch(/--tm-bubble-fill:\s*#f7f6f2/i)
-    expect(nodeCss).toMatch(/--tm-spine-color:\s*#667085/i)
-    expect(nodeCss).toMatch(/--tm-action-group-fill:\s*#fffdf8/i)
+    /* CT-32: theme tokens · light cream held in tokens.css */
+    expect(nodeCss).toMatch(/background:\s*var\(--tm-bubble-fill/i)
+    expect(tokensCss).toMatch(/\[data-theme=['"]light['"]\][\s\S]*--tm-bubble-fill:\s*#f7f6f2/i)
+    expect(nodeCss).toMatch(/var\(--tm-spine-color/i)
+    expect(nodeCss).toMatch(/var\(--tm-action-group-fill/i)
     /* CT-26 M153d · borderless bubble + pills · pad 8v/12h */
     expect(nodeCss).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*padding:\s*8px\s+12px/s)
     expect(nodeCss).toMatch(/\.tm-comment-node__bubble\s*\{[^}]*border:\s*0/s)
