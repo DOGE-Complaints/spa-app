@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { ShellChromeIcon } from './ShellChromeIcon.jsx'
 import './MobileBottomNav.css'
 
 const ICON_BOARD = '/icons/next-shell/navigation/board.svg'
@@ -12,6 +13,7 @@ function navClass({ isActive }) {
 /**
  * NS-04 — mobile bottom nav chrome-only (Component §11 subset · Board + Profile).
  * Tell-a-story / feed stress OOS → next-feed.
+ * NS-07 — theme-safe mask icons.
  */
 export function MobileBottomNav({ className = '' }) {
   const { t } = useI18n()
@@ -28,11 +30,11 @@ export function MobileBottomNav({ className = '' }) {
         className={navClass}
         data-testid="mobile-bottom-nav-board"
       >
-        <img src={ICON_BOARD} alt="" width={24} height={24} className="mobile-bottom-nav__icon" />
+        <ShellChromeIcon src={ICON_BOARD} size={24} className="mobile-bottom-nav__icon" />
         <span>{t('nextShell.mobile.navBoard')}</span>
       </NavLink>
       <NavLink to="/profile" className={navClass} data-testid="mobile-bottom-nav-profile">
-        <img src={ICON_PROFILE} alt="" width={24} height={24} className="mobile-bottom-nav__icon" />
+        <ShellChromeIcon src={ICON_PROFILE} size={24} className="mobile-bottom-nav__icon" />
         <span>{t('nextShell.mobile.navProfile')}</span>
       </NavLink>
     </nav>

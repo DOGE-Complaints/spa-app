@@ -23,9 +23,6 @@
 }
 
 .header-theme-toggle-icon {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
   flex-shrink: 0;
 }
 

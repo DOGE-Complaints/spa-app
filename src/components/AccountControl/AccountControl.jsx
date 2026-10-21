@@ -5,6 +5,7 @@ import { SESSION_SHELL_STATES } from '../../auth/sessionShellState.js'
 import { supabase } from '../../auth/supabaseClient.js'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { MenuAction } from '../Button'
+import { ShellChromeIcon } from '../AppShell/ShellChromeIcon.jsx'
 import './AccountControl.css'
 
 const PROFILE_ICON = '/icons/next-shell/navigation/account.svg'
@@ -73,7 +74,7 @@ export function AccountControl({ className = '' }) {
           data-testid="account-control-sign-in"
           aria-label={t('publicHome.account.signIn')}
         >
-          <img src={PROFILE_ICON} alt="" className="account-control-icon" />
+          <ShellChromeIcon src={PROFILE_ICON} size={20} className="account-control-icon" />
           <span className="account-control-label">{t('publicHome.account.signIn')}</span>
         </Link>
       </div>
@@ -119,9 +120,13 @@ export function AccountControl({ className = '' }) {
         aria-label={t('publicHome.account.openMenu')}
         onClick={() => setMenuOpen((open) => !open)}
       >
-        <img src={avatarSrc} alt="" className="account-control-avatar" />
+        {avatarSrc === PROFILE_ICON ? (
+          <ShellChromeIcon src={PROFILE_ICON} size={20} className="account-control-avatar" />
+        ) : (
+          <img src={avatarSrc} alt="" className="account-control-avatar" />
+        )}
         {displayName ? <span className="account-control-name">{displayName}</span> : null}
-        <img src={CHEVRON_ICON} alt="" className="account-control-chevron" />
+        <ShellChromeIcon src={CHEVRON_ICON} size={12} className="account-control-chevron" />
       </button>
 
       {menuOpen ? (

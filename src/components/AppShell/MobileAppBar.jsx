@@ -1,4 +1,5 @@
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { ShellChromeIcon } from './ShellChromeIcon.jsx'
 import './MobileAppBar.css'
 
 const ICON_MENU = '/icons/next-shell/navigation/menu.svg'
@@ -8,6 +9,7 @@ const ICON_CLOSE = '/icons/next-shell/actions/close.svg'
 /**
  * NS-04 — compact mobile shell app bar (Component §9 · M149 E / M159 chrome-only).
  * No feed stress body. leadingAction: menu | back | close.
+ * NS-07 — theme-safe mask icons.
  */
 export function MobileAppBar({
   title,
@@ -38,7 +40,7 @@ export function MobileAppBar({
         aria-label={leadingLabel}
         onClick={onLeadingClick}
       >
-        <img src={icon} alt="" width={24} height={24} className="mobile-app-bar__icon" />
+        <ShellChromeIcon src={icon} size={24} className="mobile-app-bar__icon" />
       </button>
       <p className="mobile-app-bar__title" data-testid="mobile-app-bar-title">
         {title ?? t('nextShell.wip.title')}

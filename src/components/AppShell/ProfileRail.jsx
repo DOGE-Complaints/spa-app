@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { ShellChromeIcon } from './ShellChromeIcon.jsx'
 import './ProfileRail.css'
 
 const ICON_BOARD = '/icons/next-shell/navigation/board.svg'
@@ -19,6 +20,7 @@ function navClassName({ isActive }) {
 /**
  * NS-03 ProfileRail — metrics/status + shelter nav (Q15).
  * Feed body OOS. No fake issue cards. SPA `/story-activity` HTTP not wired → honest empty.
+ * NS-07 — theme-safe mask icons.
  *
  * @param {{ activity?: { metrics?: { submitted?: number, published?: number, underReview?: number } | null } | null }} [props]
  */
@@ -32,45 +34,35 @@ export function ProfileRail({ activity = null }) {
       typeof metrics.underReview === 'number')
 
   return (
-    <div className="profile-rail" data-testid="profile-rail">
+    <div className="profile-rail" data-testid="profile-rail" data-ns07-rail="mask">
       <div className="profile-rail__summary" data-testid="profile-rail-summary">
-        <img
-          src={ICON_PROFILE}
-          alt=""
-          className="profile-rail__summary-icon"
-          width={20}
-          height={20}
-          aria-hidden="true"
-        />
+        <ShellChromeIcon src={ICON_PROFILE} size={20} className="profile-rail__summary-icon" />
         <div className="profile-rail__summary-text">
           <span className="profile-rail__summary-label">{t('nextShell.rail.profile')}</span>
           <span className="profile-rail__summary-meta" data-testid="profile-rail-session-meta">
-            <img src={ICON_LOCATION} alt="" width={14} height={14} aria-hidden="true" />
-            <img
+            <ShellChromeIcon src={ICON_LOCATION} size={14} />
+            <ShellChromeIcon
               src={ICON_VERIFIED}
-              alt=""
-              width={14}
-              height={14}
+              size={14}
               className="profile-rail__verified-glyph"
-              data-testid="profile-rail-verified-glyph"
-              aria-hidden="true"
+              testId="profile-rail-verified-glyph"
             />
           </span>
         </div>
-        <img src={ICON_CHEVRON} alt="" width={16} height={16} aria-hidden="true" />
+        <ShellChromeIcon src={ICON_CHEVRON} size={16} />
       </div>
 
       <nav className="profile-rail__nav" aria-label={t('nextShell.rail.navAria')} data-testid="profile-rail-nav">
         <NavLink to={FEED_HOME} className={navClassName} data-testid="profile-rail-nav-board" end>
-          <img src={ICON_BOARD} alt="" width={18} height={18} aria-hidden="true" />
+          <ShellChromeIcon src={ICON_BOARD} size={18} />
           <span>{t('nextShell.rail.board')}</span>
         </NavLink>
         <NavLink to={PROFILE_HOME} className={navClassName} data-testid="profile-rail-nav-my-stories">
-          <img src={ICON_MY_STORIES} alt="" width={18} height={18} aria-hidden="true" />
+          <ShellChromeIcon src={ICON_MY_STORIES} size={18} />
           <span>{t('nextShell.rail.myStories')}</span>
         </NavLink>
         <NavLink to={PROFILE_HOME} className={navClassName} data-testid="profile-rail-nav-profile">
-          <img src={ICON_PROFILE} alt="" width={18} height={18} aria-hidden="true" />
+          <ShellChromeIcon src={ICON_PROFILE} size={18} />
           <span>{t('nextShell.rail.profile')}</span>
         </NavLink>
       </nav>

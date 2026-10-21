@@ -4,6 +4,7 @@ import {
   getDocumentTheme,
   setThemeAttribute,
 } from '../../theme/bootTheme.js'
+import { ShellChromeIcon } from '../AppShell/ShellChromeIcon.jsx'
 import './ThemeToggle.css'
 
 const THEME_LIGHT_ICON = '/icons/next-shell/navigation/theme-light.svg'
@@ -43,7 +44,7 @@ export function ThemeToggle({ className = '' }) {
       title={label}
       onClick={onToggle}
     >
-      <img src={iconSrc} alt="" className="header-theme-toggle-icon" aria-hidden="true" />
+      <ShellChromeIcon src={iconSrc} size={16} className="header-theme-toggle-icon" />
       <span className="header-theme-toggle-text">
         {isDark ? t('appShell.theme.light') : t('appShell.theme.dark')}
       </span>

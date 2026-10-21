@@ -5,6 +5,7 @@ import { ThemeToggle } from '../ThemeToggle/ThemeToggle.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { getStoryGptHref, hasStoryGptUrl } from '../../config/storyGptUrl.js'
 import { LanguageSelector } from './LanguageSelector.jsx'
+import { ShellChromeIcon } from './ShellChromeIcon.jsx'
 import './Header.css'
 
 const NEXT_SHELL_MENU_ICON = '/icons/next-shell/navigation/menu.svg'
@@ -129,7 +130,7 @@ export function Header({ className = '', accountSlot }) {
           aria-label={t('nextShell.header.searchAria')}
           title={t('nextShell.header.searchAria')}
         >
-          <img src={NEXT_SHELL_SEARCH_ICON} alt="" className="header-chrome-icon" aria-hidden="true" />
+          <ShellChromeIcon src={NEXT_SHELL_SEARCH_ICON} size={20} className="header-chrome-icon" />
         </button>
         <LanguageSelector />
         <ThemeToggle />
@@ -140,7 +141,7 @@ export function Header({ className = '', accountSlot }) {
           aria-label={t('nextShell.header.notificationsAria')}
           title={t('nextShell.header.notificationsAria')}
         >
-          <img src={NEXT_SHELL_NOTIFICATIONS_ICON} alt="" className="header-chrome-icon" aria-hidden="true" />
+          <ShellChromeIcon src={NEXT_SHELL_NOTIFICATIONS_ICON} size={20} className="header-chrome-icon" />
         </button>
         <div className="header-account-slot" data-testid="header-account-slot">
           {accountSlot !== undefined ? accountSlot : <AccountControlSlot />}
@@ -154,7 +155,7 @@ export function Header({ className = '', accountSlot }) {
           aria-label={menuOpen ? t('nextShell.header.menuClose') : t('nextShell.header.menuOpen')}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <img src={NEXT_SHELL_MENU_ICON} alt="" className="header-menu-toggle-icon" aria-hidden="true" />
+          <ShellChromeIcon src={NEXT_SHELL_MENU_ICON} size={20} className="header-menu-toggle-icon" />
         </button>
       </div>
 

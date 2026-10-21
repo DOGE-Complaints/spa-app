@@ -14,6 +14,7 @@
   border: 1px solid color-mix(in srgb, var(--color-text-primary) 12%, transparent);
   border-radius: 10px;
   background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
 }
 
 .profile-rail__summary-icon {
