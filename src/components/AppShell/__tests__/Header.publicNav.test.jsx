@@ -8,7 +8,7 @@ import { Header } from '../Header.jsx'
 import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
 import { LOCALE_STORAGE_KEY } from '../../../i18n/core.js'
 
-function renderHeader(initialPath = '/board') {
+function renderHeader(initialPath = '/next/feed') {
   return render(
     <I18nProvider>
       <MemoryRouter initialEntries={[initialPath]}>
@@ -59,9 +59,10 @@ describe('Public Header (PH-01)', () => {
     expect(labels).toEqual(['Dashboard', 'How it works', 'Submit a story'])
   })
 
-  it('marks Dashboard active on /board', () => {
-    renderHeader('/board')
+  it('marks Dashboard active on /next/feed', () => {
+    renderHeader('/next/feed')
     const dashboard = screen.getByTestId('public-nav-dashboard')
+    expect(dashboard.getAttribute('href')).toBe('/next/feed')
     expect(dashboard.className).toContain('header-nav-item-active')
     expect(screen.getByTestId('public-nav-how-it-works').className).not.toContain('header-nav-item-active')
     expect(screen.getByTestId('public-nav-submit').className).not.toContain('header-nav-item-active')
@@ -79,7 +80,7 @@ describe('Public Header (PH-01)', () => {
     const { I18nProvider: I18nFresh } = await import('../../../i18n/I18nProvider.jsx')
     render(
       <I18nFresh>
-        <MemoryRouter initialEntries={['/board']}>
+        <MemoryRouter initialEntries={['/next/feed']}>
           <Routes>
             <Route path="*" element={<HeaderFresh accountSlot={null} />} />
           </Routes>

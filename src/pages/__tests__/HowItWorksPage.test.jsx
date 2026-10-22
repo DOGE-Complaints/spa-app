@@ -74,8 +74,9 @@ describe('HowItWorksPage PH-05/PH-08', () => {
     expect(html).toContain('Understand Civic Issues')
   })
 
-  it('wires dashboard CTAs to /board and submit to env GPT helper', () => {
-    expect(pageSource).toContain("href=\"/board\"")
+  it('wires dashboard CTAs to /next/feed and submit to env GPT helper', () => {
+    expect(pageSource).toContain("href=\"/next/feed\"")
+    expect(pageSource).not.toContain('href="/board"')
     expect(pageSource).toContain('getStoryGptHref')
     expect(pageSource).toContain('howItWorks.cta.submitAccessibleLabel')
     expect(pageSource).toContain('ic-external-link.png')

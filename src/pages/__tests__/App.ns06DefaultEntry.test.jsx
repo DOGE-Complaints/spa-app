@@ -59,20 +59,22 @@ describe('App NS-06 default entry flip', () => {
     })
   })
 
-  it('keeps classic shelter `/board` reachable (not retired)', async () => {
+  it('NF-23: `/board` replace-redirects to `/next/feed` host', async () => {
     renderApp('/board')
     await waitFor(() => {
-      expect(document.querySelector('.next-shell-classic-shelter')).toBeTruthy()
+      expect(screen.getByTestId('next-feed-host')).toBeTruthy()
     })
   })
 
-  it('App.jsx Navigate targets point at /next/feed for / and *', () => {
+  it('App.jsx Navigate targets point at /next/feed for /, /board, and *', () => {
     const appSrc = readFileSync(
       path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../App.jsx'),
       'utf8',
     )
     expect(appSrc).toMatch(/path="\/"\s+element=\{<Navigate to="\/next\/feed"/)
+    expect(appSrc).toMatch(/path="\/board"\s+element=\{<Navigate to="\/next\/feed"/)
     expect(appSrc).toMatch(/path="\*"\s+element=\{<Navigate to="\/next\/feed"/)
     expect(appSrc).not.toMatch(/path="\/"\s+element=\{<Navigate to="\/board"/)
+    expect(appSrc).not.toMatch(/path="\/board"\s+element=\{<BoardPage/)
   })
 })
