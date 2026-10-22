@@ -82,7 +82,7 @@ export function Header({ className = '', accountSlot }) {
   const navItems = (
     <>
       <NavLink
-        to="/board"
+        to="/next/feed"
         end
         className={primaryNavClassName}
         data-testid="public-nav-dashboard"

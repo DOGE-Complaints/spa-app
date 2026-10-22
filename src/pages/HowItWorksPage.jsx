@@ -80,7 +80,7 @@ export function HowItWorksPage() {
                     <div className="how-it-works-inline-action">
                       <Button
                         hierarchy="secondary"
-                        href="/board"
+                        href="/next/feed"
                         data-testid="how-it-works-inline-dashboard"
                       >
                         {t('howItWorks.steps.dashboard.inlineAction')}
@@ -109,7 +109,7 @@ export function HowItWorksPage() {
             <div className="how-it-works-cta">
               <Button
                 hierarchy="primary"
-                href="/board"
+                href="/next/feed"
                 data-testid="how-it-works-cta-dashboard"
               >
                 {t('howItWorks.cta.dashboard')}

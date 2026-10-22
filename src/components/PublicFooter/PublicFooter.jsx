@@ -17,7 +17,7 @@ export function PublicFooter({ className = '' }) {
     >
       <div className="public-footer__inner">
         <div className="public-footer__brand-block" data-testid="public-footer-brand">
-          <Link to="/board" className="public-footer__brand-link">
+          <Link to="/next/feed" className="public-footer__brand-link">
             <img
               src="/assets/DOGEstonia-logo-big.png"
               alt=""

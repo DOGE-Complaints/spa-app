@@ -3,7 +3,6 @@ import {
   AppShellLayout,
   ProtectedProfilePage,
 } from './layout/AppShellLayout.jsx'
-import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
 import { FeedLabPage } from './pages/FeedLabPage.jsx'
 import { ReactionsLabPage } from './pages/ReactionsLabPage.jsx'
@@ -27,7 +26,8 @@ function App() {
       <Route element={<AppShellLayout />}>
         {/* NS-06 Q8: default entry + catch-all → next feed after NS-01…05 shell */}
         <Route path="/" element={<Navigate to="/next/feed" replace />} />
-        <Route path="/board" element={<BoardPage />} />
+        {/* NF-23: classic #/board → #/next/feed (replace) · BoardPage held for inventory/purge later */}
+        <Route path="/board" element={<Navigate to="/next/feed" replace />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/issue/:id" element={<IssuePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />

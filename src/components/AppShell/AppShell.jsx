@@ -67,7 +67,7 @@ export function AppShell({
               <>
                 <p className="board-sidebar-workspace">{t('appShell.nav.workspace')}</p>
                 <nav className="board-nav" aria-label={t('appShell.aria.primaryNav')}>
-                  <NavLink to="/board" className={navItemClassName} data-testid="app-shell-nav-board" end>
+                  <NavLink to="/next/feed" className={navItemClassName} data-testid="app-shell-nav-board" end>
                     {t('appShell.nav.board')}
                   </NavLink>
                   <NavLink to="/profile" className={navItemClassName} data-testid="app-shell-nav-profile">
