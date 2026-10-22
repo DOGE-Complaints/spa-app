@@ -5,6 +5,9 @@ describe('sessionRoutePolicy', () => {
   it('treats board and issue detail as public', () => {
     expect(isPublicPath('/board')).toBe(true)
     expect(isPublicPath('/how-it-works')).toBe(true)
+    expect(isPublicPath('/about')).toBe(true)
+    expect(isPublicPath('/privacy')).toBe(true)
+    expect(isPublicPath('/contact')).toBe(true)
     expect(isPublicPath('/issue/demo-1')).toBe(true)
     expect(isPublicPath('/issue/a/b')).toBe(true)
     expect(isPublicPath('/login')).toBe(true)
