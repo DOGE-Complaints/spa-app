@@ -51,7 +51,7 @@ describe('NS-04 MobileAppBar + MobileBottomNav', () => {
     ).toBe('/icons/next-shell/actions/close.svg')
   })
 
-  it('renders bottom nav Board + Profile with catalog icons', () => {
+  it('renders bottom nav Feed + Profile with catalog icons', () => {
     wrap(<MobileBottomNav />)
     expect(screen.getByTestId('mobile-bottom-nav')).toBeTruthy()
     const board = screen.getByTestId('mobile-bottom-nav-board')
@@ -63,6 +63,7 @@ describe('NS-04 MobileAppBar + MobileBottomNav', () => {
       '/icons/next-shell/navigation/profile.svg',
     )
     expect(board.getAttribute('href')).toBe('/next/feed')
+    expect(board.textContent).toMatch(/Feed/i)
     expect(profile.getAttribute('href')).toBe('/profile')
   })
 })

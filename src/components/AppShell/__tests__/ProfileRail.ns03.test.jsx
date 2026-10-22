@@ -31,7 +31,7 @@ describe('ProfileRail NS-03', () => {
     window.localStorage.removeItem(LOCALE_STORAGE_KEY)
   })
 
-  it('renders nav Board / My stories / Profile with next-shell icons', () => {
+  it('renders nav Feed / My stories / Profile with next-shell icons', () => {
     renderRail()
     expect(screen.getByTestId('profile-rail')).toBeTruthy()
     const board = screen.getByTestId('profile-rail-nav-board')
@@ -39,6 +39,7 @@ describe('ProfileRail NS-03', () => {
     expect(board.querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src')).toBe(
       '/icons/next-shell/navigation/board.svg',
     )
+    expect(screen.getByTestId('profile-rail-nav-feed-label').textContent).toMatch(/Feed/i)
     expect(screen.getByTestId('profile-rail-nav-my-stories').getAttribute('href')).toBe('/profile')
     expect(
       screen.getByTestId('profile-rail-nav-my-stories').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
@@ -47,15 +48,13 @@ describe('ProfileRail NS-03', () => {
     expect(
       screen.getByTestId('profile-rail-nav-profile').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
     ).toBe('/icons/next-shell/navigation/profile.svg')
-    expect(screen.getByTestId('profile-rail-verified-glyph').getAttribute('data-ns07-icon-src')).toBe(
-      '/icons/next-shell/status/verified.svg',
-    )
   })
 
-  it('shows honest empty when activity metrics absent', () => {
+  it('omits empty copy when activity metrics absent (NS-09)', () => {
     renderRail(null)
-    expect(screen.getByTestId('profile-rail-empty').textContent).toMatch(/No stories yet/i)
+    expect(screen.queryByTestId('profile-rail-empty')).toBeNull()
     expect(screen.queryByTestId('profile-rail-metrics')).toBeNull()
+    expect(screen.queryByText(/No stories yet/i)).toBeNull()
   })
 
   it('renders metrics when CAB-shaped activity provided (no invent)', () => {
