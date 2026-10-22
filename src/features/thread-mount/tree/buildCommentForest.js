@@ -4,7 +4,16 @@
  */
 
 /**
- * @typedef {{ id: string, parentId?: string|null, depth?: number, body?: string, attachments?: Array }} RawComment
+ * @typedef {{
+ *   id: string,
+ *   parentId?: string|null,
+ *   depth?: number,
+ *   body?: string,
+ *   attachments?: Array,
+ *   selected?: string[],
+ *   summaryMarks?: Array|null,
+ *   aggregateCount?: number|null,
+ * }} RawComment
  * @typedef {RawComment & { children: TreeNode[] }} TreeNode
  */
 
@@ -24,6 +33,10 @@ export function buildCommentForest(comments) {
       ...(Array.isArray(c.attachments) && c.attachments.length > 0
         ? { attachments: c.attachments.map((a) => ({ ...a })) }
         : {}),
+      /* CR-25 — preserve tree-mapped actor selected / summaries for reaction plugs */
+      ...(Array.isArray(c.selected) ? { selected: c.selected.map(String) } : {}),
+      ...(c.summaryMarks !== undefined ? { summaryMarks: c.summaryMarks } : {}),
+      ...(c.aggregateCount !== undefined ? { aggregateCount: c.aggregateCount } : {}),
     }))
 
   if (list.length === 0) {

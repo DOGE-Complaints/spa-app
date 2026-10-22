@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button } from '../../components/Button'
 import { FeedCivicPost } from './FeedCivicPost.jsx'
 import { FeedThreadMount } from './FeedThreadMount.jsx'
@@ -15,12 +16,15 @@ function FeedIssueDetailReady({
   returnTo,
 }) {
   const bridge = useFeedReactionOpen()
+  /* CR-25: lift thread_root_reactions from FeedThreadMount tree load into civic strip */
+  const [rootRx, setRootRx] = useState(null)
   return (
     <section
       className="feed-issue-detail"
       data-testid="feed-issue-detail"
       data-issue-status="ready"
       data-issue-id={issue.id}
+      data-feed-cr25={rootRx ? 'true' : undefined}
     >
       <FeedCivicPost
         issue={issue}
@@ -28,6 +32,9 @@ function FeedIssueDetailReady({
         resolveLocalizedText={resolveLocalizedText}
         t={t}
         onOpenReactions={() => bridge?.openThreadRootPicker(issue.id)}
+        initialSelected={rootRx?.selected}
+        initialSummaryMarks={rootRx?.summaryMarks}
+        initialAggregateCount={rootRx?.aggregateCount}
       />
       <div className="feed-issue-detail-thread">
         <FeedThreadMount
@@ -35,6 +42,7 @@ function FeedIssueDetailReady({
           t={t}
           profile={meProfile}
           returnTo={returnTo}
+          onThreadRootReactions={setRootRx}
         />
       </div>
     </section>

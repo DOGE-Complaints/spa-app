@@ -7,6 +7,7 @@ import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 /**
  * Next-feed thread mount (CT-28 · CT-30 · CT-31 · Arch §15.1 / §16 / §17): ThreadMount + LiveAdapter → ThreadsSocialClient.
  * CR-23: comment-node React plugs ReactionsMount Live (`target=comment`).
+ * CR-25: pass tree-mapped selected / summaries into comment plugs · emit thread_root_reactions to host.
  * CT-30: host-owned write · post → uploadAttachment → reload map published_url · no invent CDN.
  * CT-31 policy A: getAccessToken → CommentAttachmentPreview auth fetch+blob→objectURL.
  * Replaces FeedDiscussionBlock Done claim on `#/next/feed*`. Lab Fixture path unchanged.
@@ -18,6 +19,8 @@ export function FeedThreadMount({
   profile = null,
   returnTo: _returnTo = '#/next/feed',
   client = defaultThreadsSocialClient,
+  /** CR-25: notify parent of mapped thread_root_reactions after tree load */
+  onThreadRootReactions = null,
 }) {
   const id = issueId === undefined || issueId === null ? '' : String(issueId).trim()
 
@@ -50,6 +53,25 @@ export function FeedThreadMount({
     }
   }, [adapter])
 
+  const rootRx = snap.threadRootReactions
+  const rootSelSig = Array.isArray(rootRx?.selected) ? rootRx.selected.join('\0') : ''
+  const rootMarksSig = JSON.stringify(rootRx?.summaryMarks ?? null)
+  const rootAggSig =
+    rootRx?.aggregateCount === undefined || rootRx?.aggregateCount === null
+      ? 'null'
+      : String(rootRx.aggregateCount)
+
+  useEffect(() => {
+    if (typeof onThreadRootReactions !== 'function') return
+    onThreadRootReactions({
+      summaryMarks: rootRx?.summaryMarks ?? null,
+      aggregateCount: rootRx?.aggregateCount ?? null,
+      selected: rootSelSig === '' ? [] : rootSelSig.split('\0'),
+    })
+    // Intentional: sig deps avoid identity churn from snapshot copies
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- rootSelSig/rootMarksSig/rootAggSig
+  }, [onThreadRootReactions, rootSelSig, rootMarksSig, rootAggSig])
+
   async function handlePostComment(payload) {
     const result = await adapter.postComment(payload)
     if (result?.ok) {
@@ -59,7 +81,7 @@ export function FeedThreadMount({
   }
 
   const renderCommentReactions = useCallback(
-    ({ commentId }) => (
+    ({ commentId, node }) => (
       <FeedReactionsMount
         issueId={id || null}
         target="comment"
@@ -67,6 +89,9 @@ export function FeedThreadMount({
         t={t}
         client={client}
         aggregatePlacement="inline"
+        initialSelected={node?.selected}
+        initialSummaryMarks={node?.summaryMarks}
+        initialAggregateCount={node?.aggregateCount}
       />
     ),
     [id, t, client],
@@ -74,6 +99,9 @@ export function FeedThreadMount({
 
   const liveBound = Boolean(snap.live) && snap.reason !== 'live-adapter-unwired'
   const maxDepth = Number.isFinite(Number(snap.maxDepth)) ? Number(snap.maxDepth) : adapter.maxDepth
+  const rootSelected = Array.isArray(snap.threadRootReactions?.selected)
+    ? snap.threadRootReactions.selected
+    : []
 
   return (
     <div
@@ -83,6 +111,8 @@ export function FeedThreadMount({
       data-feed-ct30="true"
       data-feed-ct31="true"
       data-feed-cr23="true"
+      data-feed-cr25="true"
+      data-feed-cr25-root-selected-count={String(rootSelected.length)}
       data-feed-thread-host="live"
       data-feed-live-bound={liveBound ? 'true' : 'false'}
       data-feed-live-reason={snap.reason || undefined}

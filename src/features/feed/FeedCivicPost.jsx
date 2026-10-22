@@ -34,6 +34,9 @@ import './FeedCivicPost.css'
  * @param {(k: string) => string} props.t
  * @param {string} [props.to] — list navigate href (`/next/feed/issue/:id?from=…`)
  * @param {Function} [props.onOpenReactions] — legacy bridge (unused when Live mount Present)
+ * @param {string[]} [props.initialSelected] — CR-25 tree hydrate actor selected[]
+ * @param {Array<{reaction_id: string, count: number}>|null} [props.initialSummaryMarks] — CR-25
+ * @param {number|null} [props.initialAggregateCount] — CR-25 tree hydrate aggregate_count
  */
 export function FeedCivicPost({
   issue,
@@ -42,6 +45,9 @@ export function FeedCivicPost({
   t,
   to,
   onOpenReactions = null,
+  initialSelected,
+  initialSummaryMarks,
+  initialAggregateCount,
 }) {
   const reactionsApiRef = useRef(null)
   const contentField = issue.summary ?? issue.title
@@ -236,6 +242,9 @@ export function FeedCivicPost({
             t={t}
             apiRef={reactionsApiRef}
             ownInZone
+            initialSelected={initialSelected}
+            initialSummaryMarks={initialSummaryMarks}
+            initialAggregateCount={initialAggregateCount}
           />
         </div>
         <button

@@ -36,6 +36,12 @@ export function createLiveAdapter(opts = {}) {
   /** @type {string[]|null} */
   let mediaAllowedTypes = null
 
+  const emptyRootReactions = () => ({
+    summaryMarks: null,
+    aggregateCount: null,
+    selected: [],
+  })
+
   /** @type {{
    *   status: 'loading'|'empty'|'populated'|'unavailable',
    *   comments: Array,
@@ -43,6 +49,7 @@ export function createLiveAdapter(opts = {}) {
    *   live: boolean,
    *   reason: string|null,
    *   maxDepth: number,
+   *   threadRootReactions: { summaryMarks: Array|null, aggregateCount: number|null, selected: string[] },
    * }} */
   let cached = {
     status: issueId ? 'loading' : 'unavailable',
@@ -51,6 +58,7 @@ export function createLiveAdapter(opts = {}) {
     live: false,
     reason: issueId ? null : 'missing_issue_id',
     maxDepth,
+    threadRootReactions: emptyRootReactions(),
   }
 
   function writeCapabilityFromProfile() {
@@ -59,6 +67,7 @@ export function createLiveAdapter(opts = {}) {
   }
 
   function snapshot() {
+    const root = cached.threadRootReactions || emptyRootReactions()
     return {
       status: cached.status,
       comments: Array.isArray(cached.comments) ? cached.comments.map((c) => ({ ...c })) : [],
@@ -66,6 +75,11 @@ export function createLiveAdapter(opts = {}) {
       live: cached.live,
       reason: cached.reason,
       maxDepth: cached.maxDepth,
+      threadRootReactions: {
+        summaryMarks: root.summaryMarks,
+        aggregateCount: root.aggregateCount,
+        selected: Array.isArray(root.selected) ? root.selected.map(String) : [],
+      },
     }
   }
 
@@ -82,6 +96,7 @@ export function createLiveAdapter(opts = {}) {
         live: false,
         reason: 'missing_issue_id',
         maxDepth,
+        threadRootReactions: emptyRootReactions(),
       }
       return snapshot()
     }
@@ -93,6 +108,7 @@ export function createLiveAdapter(opts = {}) {
       live: true,
       reason: null,
       writeCapability: writeCapabilityFromProfile(),
+      threadRootReactions: emptyRootReactions(),
     }
 
     try {
@@ -105,6 +121,7 @@ export function createLiveAdapter(opts = {}) {
           live: true,
           reason: 'knobs_unavailable',
           maxDepth,
+          threadRootReactions: emptyRootReactions(),
         }
         return snapshot()
       }
@@ -122,6 +139,7 @@ export function createLiveAdapter(opts = {}) {
         live: true,
         reason: null,
         maxDepth,
+        threadRootReactions: mapped.threadRootReactions || emptyRootReactions(),
       }
       return snapshot()
     } catch {
@@ -132,6 +150,7 @@ export function createLiveAdapter(opts = {}) {
         live: true,
         reason: 'tree_unavailable',
         maxDepth,
+        threadRootReactions: emptyRootReactions(),
       }
       return snapshot()
     }
