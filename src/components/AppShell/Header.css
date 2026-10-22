@@ -15,6 +15,24 @@
   text-decoration: none;
   color: var(--color-text-primary);
   flex-shrink: 0;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+/* NS-10: ~44px visible brand band (M165 40–48) · no dark plate / inset tile */
+.public-header .header-brand-logo {
+  width: auto;
+  height: 44px;
+  max-height: 44px;
+  max-width: min(320px, 55vw);
+  object-fit: contain;
+  object-position: left center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
 .header-primary-nav {

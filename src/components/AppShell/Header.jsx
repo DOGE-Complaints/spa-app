@@ -4,6 +4,7 @@ import { AccountControlSlot } from '../AccountControl/AccountControlSlot.jsx'
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle.jsx'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
 import { getStoryGptHref, hasStoryGptUrl } from '../../config/storyGptUrl.js'
+import { getDocumentTheme } from '../../theme/bootTheme.js'
 import { LanguageSelector } from './LanguageSelector.jsx'
 import { ShellChromeIcon } from './ShellChromeIcon.jsx'
 import './Header.css'
@@ -12,6 +13,14 @@ const NEXT_SHELL_MENU_ICON = '/icons/next-shell/navigation/menu.svg'
 const NEXT_SHELL_SEARCH_ICON = '/icons/next-shell/navigation/search.svg'
 const NEXT_SHELL_NOTIFICATIONS_ICON = '/icons/next-shell/navigation/notifications.svg'
 const FEED_HOME = '/next/feed'
+/** NS-10: prepared SVG (transparent plate) — not PNG dark-backed master; fallback ≠ production. */
+const BRAND_LOGO_LIGHT = '/assets/DOGEstonia-logo-horizontal-light.svg'
+const BRAND_LOGO_DARK = '/assets/DOGEstonia-logo-horizontal-dark.svg'
+const BRAND_LOGO_FALLBACK = '/assets/DOGEstonia-logo-fallback.svg'
+
+function resolveBrandLogoSrc(theme) {
+  return theme === 'light' ? BRAND_LOGO_LIGHT : BRAND_LOGO_DARK
+}
 
 function primaryNavClassName({ isActive }) {
   return `header-nav-item${isActive ? ' header-nav-item-active' : ''}`
@@ -23,12 +32,27 @@ function primaryNavClassName({ isActive }) {
  */
 export function Header({ className = '', accountSlot }) {
   const { t } = useI18n()
-  const [logoSrc, setLogoSrc] = useState('/assets/DOGEstonia-logo-horizontal.png')
+  const [documentTheme, setDocumentTheme] = useState(() => getDocumentTheme())
+  const [logoFailed, setLogoFailed] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const rootRef = useRef(null)
   const menuId = useId()
   const submitHref = getStoryGptHref()
   const submitExternal = hasStoryGptUrl()
+  const logoSrc = logoFailed ? BRAND_LOGO_FALLBACK : resolveBrandLogoSrc(documentTheme)
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined
+    const root = document.documentElement
+    const sync = () => {
+      setDocumentTheme(getDocumentTheme())
+      setLogoFailed(false)
+    }
+    sync()
+    const obs = new MutationObserver(sync)
+    obs.observe(root, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => obs.disconnect()
+  }, [])
 
   useEffect(() => {
     if (!menuOpen) return undefined
@@ -107,6 +131,7 @@ export function Header({ className = '', accountSlot }) {
         to={FEED_HOME}
         className="header-brand"
         data-testid="public-header-brand"
+        data-ns10="brand"
         aria-label={t('nextShell.header.homeAria')}
         onClick={closeMenu}
       >
@@ -114,7 +139,9 @@ export function Header({ className = '', accountSlot }) {
           src={logoSrc}
           alt="DOGEstonia logo"
           className="header-brand-logo"
-          onError={() => setLogoSrc('/assets/DOGEstonia-logo-fallback.svg')}
+          data-ns10-logo={documentTheme}
+          data-ns10-src={logoSrc}
+          onError={() => setLogoFailed(true)}
         />
       </Link>
 

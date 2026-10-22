@@ -45,7 +45,8 @@ async function run() {
     const browser = await puppeteer.launch(launchOpts)
     const page = await browser.newPage()
     await page.setViewport({ width: 1536, height: 1024 })
-    await page.goto(BASE_URL, { waitUntil: 'networkidle0' })
+    // Vite HMR websockets keep networkidle0 from settling; DOM ready is enough for shell smoke.
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded', timeout: 60000 })
 
     const pageUrl = page.url()
     if (pageUrl.includes('/login')) {
