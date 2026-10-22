@@ -35,8 +35,8 @@ describe('Public Header NS-02 next chrome', () => {
     const brand = screen.getByTestId('public-header-brand')
     expect(brand.getAttribute('href')).toBe('/next/feed')
     expect(brand.getAttribute('aria-label')).toBe('Go to feed home')
-    expect(brand.querySelector('img.header-brand-logo')?.getAttribute('src')).toBe(
-      '/assets/DOGEstonia-logo-horizontal.png',
+    expect(brand.querySelector('img.header-brand-logo')?.getAttribute('src')).toMatch(
+      /DOGEstonia-logo-horizontal-(light|dark)\.svg$/,
     )
   })
 

@@ -36,7 +36,7 @@ describe('Public Header (PH-01)', () => {
     expect(brand.getAttribute('href')).toBe('/next/feed')
     const logo = brand.querySelector('img.header-brand-logo')
     expect(logo).toBeTruthy()
-    expect(logo.getAttribute('src')).toBe('/assets/DOGEstonia-logo-horizontal.png')
+    expect(logo.getAttribute('src')).toMatch(/DOGEstonia-logo-horizontal-(light|dark)\.svg$/)
     expect(logo.getAttribute('alt')).toMatch(/DOGEstonia/i)
     expect(brand.querySelector('.header-brand-name')).toBeNull()
     expect(brand.textContent.trim()).toBe('')
