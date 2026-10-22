@@ -1,4 +1,4 @@
-/* How It Works — M133 / PH-05 · composition polish PH-08 */
+/* How It Works — M133 / PH-05 · composition polish PH-08 · M168 / PH-13 density */
 
 /* Soften workspace tray feel on this route only (not global board). */
 .how-it-works-shell .board-workspace {
@@ -65,7 +65,7 @@
 .how-it-works-step-head {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 12px; /* M168 proposal · review before hard lock */
   flex-wrap: wrap;
   margin-bottom: 12px;
 }
@@ -74,20 +74,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 8px;
+  box-sizing: border-box;
+  width: 40px; /* M168 proposal · review before hard lock */
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
   border-radius: 8px;
   background: color-mix(in srgb, var(--doge-accent) 22%, transparent);
   color: var(--color-accent-active);
   font-weight: 700;
   font-size: 0.9rem;
-}
-
-.how-it-works-step-icon {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
 }
 
 .how-it-works-step-title {
@@ -120,6 +116,10 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+}
+
+.how-it-works-submit-block {
+  gap: 12px;
 }
 
 .how-it-works-privacy,
