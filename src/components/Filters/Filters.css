@@ -338,6 +338,16 @@
   border: 0;
   opacity: 0;
   cursor: pointer;
+  /* NF-21: color-scheme follows data-theme — not hardcoded dark as sole rule */
+}
+
+/* Native date picker chrome follows document theme (Interview F3 · ARCH-DELTA §9) */
+[data-theme='light'] .board-filter-date-native {
+  color-scheme: light;
+}
+
+[data-theme='dark'] .board-filter-date-native,
+:root:not([data-theme]) .board-filter-date-native {
   color-scheme: dark;
 }
 
