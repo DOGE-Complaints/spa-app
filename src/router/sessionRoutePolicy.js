@@ -1,4 +1,13 @@
-const PUBLIC_PATHS = new Set(['/', '/board', '/how-it-works', '/login', '/next/feed'])
+const PUBLIC_PATHS = new Set([
+  '/',
+  '/board',
+  '/how-it-works',
+  '/about',
+  '/privacy',
+  '/contact',
+  '/login',
+  '/next/feed',
+])
 
 const PROTECTED_PREFIXES = ['/dashboard', '/profile', '/story/submit', '/story/compose', '/verify']
 

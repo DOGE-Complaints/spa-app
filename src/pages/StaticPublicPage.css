@@ -1,0 +1,26 @@
+/* PH-11 — static About/Privacy/Contact shells (M166) */
+
+.public-static-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  color: var(--color-text-primary);
+}
+
+.public-static-page__title {
+  margin: 0 0 16px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.public-static-page__pending {
+  margin: 0;
+  padding: 16px;
+  border: 1px dashed color-mix(in srgb, var(--color-text-secondary) 45%, transparent);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: transparent;
+}

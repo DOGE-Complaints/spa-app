@@ -73,6 +73,10 @@ export function AppShellLayout() {
 
   if (publicRoute && !loginRoute) {
     const isHowItWorks = location.pathname === '/how-it-works'
+    const isStaticPublic =
+      location.pathname === '/about' ||
+      location.pathname === '/privacy' ||
+      location.pathname === '/contact'
     const isIssue = location.pathname.startsWith('/issue/')
     const isNextFeed =
       location.pathname === '/next/feed' || location.pathname.startsWith('/next/feed/')
@@ -82,6 +86,7 @@ export function AppShellLayout() {
     const showSidebar = useNextShellChrome ? true : PUBLIC_SHELL_SHOW_SIDEBAR
     const shellClass = [
       isHowItWorks ? 'how-it-works-shell' : null,
+      isStaticPublic ? 'public-static-shell' : null,
       useNextShellChrome ? 'next-shell-route' : null,
       isClassicShelter ? 'next-shell-classic-shelter' : null,
     ]

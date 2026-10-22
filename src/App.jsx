@@ -8,6 +8,7 @@ import { FeedLabPage } from './pages/FeedLabPage.jsx'
 import { ReactionsLabPage } from './pages/ReactionsLabPage.jsx'
 import { ThreadLabPage } from './pages/ThreadLabPage.jsx'
 import { HowItWorksPage } from './pages/HowItWorksPage.jsx'
+import { AboutPage, ContactPage, PrivacyPage } from './pages/StaticPublicPage.jsx'
 import { IssuePage } from './pages/IssuePage.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
 import { NextFeedHostPage } from './pages/NextFeedHostPage.jsx'
@@ -29,6 +30,10 @@ function App() {
         {/* NF-23: classic #/board → #/next/feed (replace) · BoardPage held for inventory/purge later */}
         <Route path="/board" element={<Navigate to="/next/feed" replace />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
+        {/* PH-11: static public shells — H1 + OP-pending body (no invent legal) */}
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/issue/:id" element={<IssuePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/profile" element={<ProtectedProfilePage />} />

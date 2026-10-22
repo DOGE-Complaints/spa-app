@@ -22,10 +22,26 @@ export const PUBLIC_HOME_DICTIONARY_EN = Object.freeze({
     },
     footer: {
       brand: 'DOGEstonia',
-      tagline: '[TAGLINE_TBD]',
+      brandHomeAccessible: 'DOGEstonia — go to feed',
+      tagline: 'Civic issues, structured.',
+      navLabel: 'Site information',
       about: 'About',
       privacy: 'Privacy',
       contact: 'Contact',
+    },
+    static: {
+      about: {
+        title: 'About',
+        pending: 'About copy — OP to supply (placeholder)',
+      },
+      privacy: {
+        title: 'Privacy',
+        pending: 'Privacy policy — OP to supply (placeholder)',
+      },
+      contact: {
+        title: 'Contact',
+        pending: 'Contact details — OP to supply (placeholder)',
+      },
     },
     board: {
       empty: {
@@ -68,10 +84,26 @@ export const PUBLIC_HOME_DICTIONARY_ET = Object.freeze({
     },
     footer: {
       brand: 'DOGEstonia',
-      tagline: '[TAGLINE_TBD]',
+      brandHomeAccessible: 'DOGEstonia — mine voogu',
+      tagline: 'Kodanikuteemad, struktureeritult.',
+      navLabel: 'Saiditeave',
       about: 'Meist',
       privacy: 'Privaatsus',
       contact: 'Kontakt',
+    },
+    static: {
+      about: {
+        title: 'Meist',
+        pending: 'About-tekst — OP täidab (placeholder)',
+      },
+      privacy: {
+        title: 'Privaatsus',
+        pending: 'Privaatsuspoliitika — OP täidab (placeholder)',
+      },
+      contact: {
+        title: 'Kontakt',
+        pending: 'Kontaktandmed — OP täidab (placeholder)',
+      },
     },
     board: {
       empty: {
@@ -114,10 +146,26 @@ export const PUBLIC_HOME_DICTIONARY_RU = Object.freeze({
     },
     footer: {
       brand: 'DOGEstonia',
-      tagline: '[TAGLINE_TBD]',
+      brandHomeAccessible: 'DOGEstonia — к ленте',
+      tagline: 'Гражданские темы — структурировано.',
+      navLabel: 'Информация о сайте',
       about: 'О проекте',
       privacy: 'Конфиденциальность',
       contact: 'Контакты',
+    },
+    static: {
+      about: {
+        title: 'О проекте',
+        pending: 'Текст About — OP заполнит (placeholder)',
+      },
+      privacy: {
+        title: 'Конфиденциальность',
+        pending: 'Политика конфиденциальности — OP заполнит (placeholder)',
+      },
+      contact: {
+        title: 'Контакты',
+        pending: 'Контактные данные — OP заполнит (placeholder)',
+      },
     },
     board: {
       empty: {
@@ -160,10 +208,18 @@ export const PUBLIC_HOME_FLAT_KEYS = Object.freeze([
   'publicHome.account.logOut',
   'publicHome.account.openMenu',
   'publicHome.footer.brand',
+  'publicHome.footer.brandHomeAccessible',
   'publicHome.footer.tagline',
+  'publicHome.footer.navLabel',
   'publicHome.footer.about',
   'publicHome.footer.privacy',
   'publicHome.footer.contact',
+  'publicHome.static.about.title',
+  'publicHome.static.about.pending',
+  'publicHome.static.privacy.title',
+  'publicHome.static.privacy.pending',
+  'publicHome.static.contact.title',
+  'publicHome.static.contact.pending',
   'publicHome.board.empty.title',
   'publicHome.board.empty.message',
   'publicHome.board.filteredEmpty.title',
