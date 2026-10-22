@@ -90,17 +90,21 @@ describe('NF-18 FeedCivicPost strip React density residual', () => {
     expect(civic).toMatch(
       /\.feed-civic-post-action\s*>\s*\.feed-civic-post-icon[\s\S]*height:\s*28px/,
     )
+    /* CR-24 M163 supersedes NF-18 transparent React → wide underlay · entry glyph 28 held */
     expect(mount).toMatch(
-      /\.feed-civic-post-actions \.rm-summary-strip__react \.rm-icon[\s\S]*width:\s*28px/,
+      /\.feed-civic-post-actions \.rm-summary-strip__react-entry \.rm-icon[\s\S]*width:\s*28px|\.feed-civic-post-actions \.rm-summary-strip__react \.rm-icon[\s\S]*width:\s*28px/,
     )
     expect(mount).toMatch(
-      /\.feed-civic-post-actions \.rm-summary-strip__react[\s\S]*padding:\s*4px 8px/,
+      /\.feed-civic-post-actions \.rm-summary-strip__react[\s\S]*padding:\s*6px 8px/,
     )
     expect(mount).toMatch(
-      /\.feed-civic-post-actions \.rm-summary-strip__react[\s\S]*min-height:\s*44px/,
+      /\.feed-civic-post-actions \.rm-summary-strip__react[\s\S]*min-height:\s*72px/,
     )
     expect(mount).toMatch(
-      /\.feed-civic-post-actions \.rm-summary-strip__react:focus-visible\s*\{[\s\S]*outline:\s*2px solid/,
+      /\.feed-civic-post-actions \.rm-summary-strip__react[\s\S]*background:\s*var\(--color-bg-primary/,
+    )
+    expect(mount).toMatch(
+      /\.feed-civic-post-actions \.rm-summary-strip__react:focus-visible[\s\S]*?\{[\s\S]*?outline:\s*2px solid/,
     )
     expect(civic).toMatch(
       /\.feed-civic-post-actions\s*\{[\s\S]*?min-height:\s*44px/,
