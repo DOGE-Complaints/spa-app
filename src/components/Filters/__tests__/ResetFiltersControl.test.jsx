@@ -11,18 +11,26 @@ describe('ResetFiltersControl', () => {
     )
     expect(html).toContain('Reset Filters')
     expect(html).toContain('ds-btn--link')
+    expect(html).toContain('board-filter-reset')
   })
 
-  it('includes disabled attribute when no active filters', () => {
+  it('includes disabled attribute when neither dirty nor active', () => {
     const html = renderToStaticMarkup(
-      <ResetFiltersControl hasActiveFilters={false} onReset={() => {}} t={t} />,
+      <ResetFiltersControl hasActiveFilters={false} isDirty={false} onReset={() => {}} t={t} />,
     )
     expect(html).toContain('disabled')
   })
 
   it('does not include disabled when has active filters', () => {
     const html = renderToStaticMarkup(
-      <ResetFiltersControl hasActiveFilters={true} onReset={() => {}} t={t} />,
+      <ResetFiltersControl hasActiveFilters={true} isDirty={false} onReset={() => {}} t={t} />,
+    )
+    expect(html).not.toContain('disabled')
+  })
+
+  it('does not include disabled when panel is dirty only', () => {
+    const html = renderToStaticMarkup(
+      <ResetFiltersControl hasActiveFilters={false} isDirty={true} onReset={() => {}} t={t} />,
     )
     expect(html).not.toContain('disabled')
   })
