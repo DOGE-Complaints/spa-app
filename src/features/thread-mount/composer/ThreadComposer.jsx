@@ -7,6 +7,7 @@ import {
   canAddAttachment,
   resolveMaxAttachments,
 } from '../config/threadMountConfig.js'
+import { ShellChromeIcon } from '../../../components/AppShell/ShellChromeIcon.jsx'
 import { AttachmentRef } from './AttachmentRef.jsx'
 import '../verify/VerifyWriteGate.css'
 import './ThreadComposer.css'
@@ -246,14 +247,11 @@ export function ThreadComposer({
             aria-label="Attach"
             onClick={openNativePicker}
           >
-            <img
+            <ShellChromeIcon
               className="tm-thread-composer__icon tm-thread-composer__icon--attach"
-              data-testid="tm-composer-attach-icon"
+              testId="tm-composer-attach-icon"
               src={TM_ATTACH_ICON_SRC}
-              alt=""
-              width={20}
-              height={20}
-              aria-hidden="true"
+              size={20}
             />
             <span className="tm-thread-composer__attach-label">Attach</span>
           </button>

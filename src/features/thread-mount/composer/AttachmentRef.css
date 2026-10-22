@@ -1,4 +1,4 @@
-/* CT-05 structure · CT-19 M153b §7 Ready/Denied paint · CT-25 M153c thumb/filename */
+/* CT-05 structure · CT-19 M153b §7 Ready/Denied paint · CT-25 M153c thumb/filename · CT-33 theme fills */
 
 .tm-attachment-ref {
   box-sizing: border-box;
@@ -8,22 +8,22 @@
   gap: 12px;
   margin: 0;
   padding: 12px;
-  border: 1px solid #e7e4dc;
+  border: 1px solid var(--color-border-default, #e7e4dc);
   border-radius: 12px;
-  background: #fffdf8;
+  background: var(--color-surface-elevated, #fffdf8);
   min-width: 0;
 }
 
 /* M153b §7 / M153c §7 Ready */
 .tm-attachment-ref--ready {
-  border-color: #e7e4dc;
-  background: #fffdf8;
+  border-color: var(--color-border-default, #e7e4dc);
+  background: var(--color-surface-elevated, #fffdf8);
 }
 
-/* M153b §7 / M153c §7 Denied · fill #F7F6F2 · border #B54708 · no pink wash */
+/* M153b §7 / M153c §7 Denied · themed fill · border warning · no pink wash */
 .tm-attachment-ref--denied {
-  border-color: #b54708;
-  background: #f7f6f2;
+  border-color: var(--color-danger, #b54708);
+  background: var(--tm-bubble-fill, var(--color-page-bg, #f7f6f2));
 }
 
 .tm-attachment-ref__main {
@@ -41,8 +41,8 @@
   margin: 0;
   border-radius: 8px;
   object-fit: cover;
-  background: #f7f6f2;
-  border: 1px solid #e7e4dc;
+  background: var(--tm-bubble-fill, #f7f6f2);
+  border: 1px solid var(--color-border-default, #e7e4dc);
 }
 
 /* Document / image-fallback type cue (MD · PDF · Word · IMG) */
@@ -55,13 +55,13 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  border: 1px solid #e7e4dc;
-  background: #f7f6f2;
+  border: 1px solid var(--color-border-default, #e7e4dc);
+  background: var(--tm-bubble-fill, #f7f6f2);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1;
-  color: #667085;
+  color: var(--color-text-secondary, #667085);
   text-transform: none;
 }
 
@@ -72,20 +72,20 @@
   min-width: 0;
 }
 
-/* Family secondary · above filename · #667085 */
+/* Family secondary · above filename */
 .tm-attachment-ref__family {
   margin: 0;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #667085;
+  color: var(--color-text-secondary, #667085);
 }
 
-/* Filename primary · #101828 · one line (JS middle ellipsis) */
+/* Filename primary · one line (JS middle ellipsis) */
 .tm-attachment-ref__filename {
   margin: 0;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #101828;
+  color: var(--color-text-primary, #101828);
   min-width: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -107,16 +107,16 @@
   margin: 0;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #101828;
+  color: var(--color-text-primary, #101828);
   word-break: break-word;
 }
 
-/* Ready status · #101828 600 · never green */
+/* Ready status · never green */
 .tm-attachment-ref__ready {
   margin: 0;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #101828;
+  color: var(--color-text-primary, #101828);
 }
 
 .tm-attachment-ref__local {
@@ -125,24 +125,24 @@
   color: var(--color-text-secondary, #667085);
 }
 
-/* Denied title · #B54708 600 */
+/* Denied title · warning accent */
 .tm-attachment-ref__denied-title {
   margin: 0;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #b54708;
+  color: var(--color-danger, #b54708);
 }
 
-/* Explanatory body · #101828 */
+/* Explanatory body */
 .tm-attachment-ref__denied-detail {
   margin: 0.15rem 0 0;
   font-size: 0.75rem;
   line-height: 1.4;
   font-weight: 400;
-  color: #101828;
+  color: var(--color-text-primary, #101828);
 }
 
-/* Remove · #B54708 · ≥44px */
+/* Remove · warning · ≥44px */
 .tm-attachment-ref__remove {
   flex: 0 0 auto;
   min-height: 44px;
@@ -151,7 +151,7 @@
   padding: 8px 12px;
   border: 0;
   background: transparent;
-  color: #b54708;
+  color: var(--color-danger, #b54708);
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -161,6 +161,6 @@
 }
 
 .tm-attachment-ref__remove:focus-visible {
-  outline: 2px solid #b54708;
+  outline: 2px solid var(--color-danger, #b54708);
   outline-offset: 2px;
 }
