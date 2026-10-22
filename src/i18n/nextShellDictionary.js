@@ -3,7 +3,7 @@
 const RAIL_EN = Object.freeze({
   profile: 'Profile',
   myStories: 'My stories',
-  board: 'Board',
+  board: 'Feed',
   metricsSubmitted: 'Submitted',
   metricsPublished: 'Published',
   metricsUnderReview: 'Under review',
@@ -14,7 +14,7 @@ const RAIL_EN = Object.freeze({
 const RAIL_ET = Object.freeze({
   profile: 'Profiil',
   myStories: 'Minu lood',
-  board: 'Tahvel',
+  board: 'Voog',
   metricsSubmitted: 'Esitatud',
   metricsPublished: 'Avaldatud',
   metricsUnderReview: 'Ülevaatamisel',
@@ -25,7 +25,7 @@ const RAIL_ET = Object.freeze({
 const RAIL_RU = Object.freeze({
   profile: 'Профиль',
   myStories: 'Мои истории',
-  board: 'Доска',
+  board: 'Лента',
   metricsSubmitted: 'Отправлено',
   metricsPublished: 'Опубликовано',
   metricsUnderReview: 'На проверке',
@@ -36,7 +36,7 @@ const RAIL_RU = Object.freeze({
 const MOBILE_EN = Object.freeze({
   back: 'Back',
   close: 'Close',
-  navBoard: 'Board',
+  navBoard: 'Feed',
   navProfile: 'Profile',
   navAria: 'Mobile shell navigation',
 })
@@ -44,7 +44,7 @@ const MOBILE_EN = Object.freeze({
 const MOBILE_ET = Object.freeze({
   back: 'Tagasi',
   close: 'Sulge',
-  navBoard: 'Tahvel',
+  navBoard: 'Voog',
   navProfile: 'Profiil',
   navAria: 'Mobiilse ümbrise navigatsioon',
 })
@@ -52,7 +52,7 @@ const MOBILE_ET = Object.freeze({
 const MOBILE_RU = Object.freeze({
   back: 'Назад',
   close: 'Закрыть',
-  navBoard: 'Доска',
+  navBoard: 'Лента',
   navProfile: 'Профиль',
   navAria: 'Навигация мобильной оболочки',
 })

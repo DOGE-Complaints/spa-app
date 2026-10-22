@@ -11,8 +11,8 @@ function navClass({ isActive }) {
 }
 
 /**
- * NS-04 — mobile bottom nav chrome-only (Component §11 subset · Board + Profile).
- * Tell-a-story / feed stress OOS → next-feed.
+ * NS-04 — mobile bottom nav chrome-only (Component §11 subset · Feed + Profile).
+ * NS-09 — soft label Feed (was Board). Tell-a-story / feed stress OOS → next-feed.
  * NS-07 — theme-safe mask icons.
  */
 export function MobileBottomNav({ className = '' }) {

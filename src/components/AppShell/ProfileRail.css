@@ -5,43 +5,6 @@
   min-width: 0;
 }
 
-.profile-rail__summary {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 8px 10px;
-  border: 1px solid color-mix(in srgb, var(--color-text-primary) 12%, transparent);
-  border-radius: 10px;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-}
-
-.profile-rail__summary-icon {
-  flex-shrink: 0;
-}
-
-.profile-rail__summary-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-  flex: 1;
-}
-
-.profile-rail__summary-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
-
-.profile-rail__summary-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  opacity: 0.75;
-}
-
 .profile-rail__nav {
   display: flex;
   flex-direction: column;
@@ -93,13 +56,6 @@
 .profile-rail__metrics strong {
   color: var(--color-text-primary);
   font-weight: 600;
-}
-
-.profile-rail__empty {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
-  line-height: 1.4;
 }
 
 /* M149 left rail ~240px + empty right slot (Component §10 / layout SSOT / Q16) */
