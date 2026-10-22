@@ -14,6 +14,7 @@ describe('nextShell dictionary SSOT (NS-01…05)', () => {
       'nextShell.header.menuOpen',
       'nextShell.header.menuClose',
       'nextShell.header.notificationsAria',
+      'nextShell.locale.esFrozenTooltip',
       'nextShell.rail.profile',
       'nextShell.rail.myStories',
       'nextShell.rail.board',

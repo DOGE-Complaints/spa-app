@@ -31,6 +31,7 @@ describe('i18n core helpers', () => {
         value: code,
         nativeLabel: endonym,
         flagSrc: flag,
+        frozen: false,
       })),
     )
   })
