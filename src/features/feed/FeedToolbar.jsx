@@ -136,7 +136,12 @@ export function FeedToolbar({
                 <Button type="button" hierarchy="primary" disabled={!isDirty} onClick={apply}>
                   {t('filterApply')}
                 </Button>
-                <ResetFiltersControl hasActiveFilters={hasActiveFilters} onReset={reset} t={t} />
+                <ResetFiltersControl
+                  hasActiveFilters={hasActiveFilters}
+                  isDirty={isDirty}
+                  onReset={reset}
+                  t={t}
+                />
               </>
             }
           >
@@ -155,7 +160,12 @@ export function FeedToolbar({
               variant="panel"
             />
           </FilterPanel>
-          <ResetFiltersControl hasActiveFilters={hasActiveFilters} onReset={reset} t={t} />
+          <ResetFiltersControl
+            hasActiveFilters={hasActiveFilters}
+            isDirty={isDirty}
+            onReset={reset}
+            t={t}
+          />
         </div>
         <ActiveFilterChips chips={activeFilterChips} onRemove={removeChip} />
         {showResults ? (

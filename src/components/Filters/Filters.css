@@ -388,6 +388,16 @@
   cursor: default;
 }
 
+/* NF-22: pointer whenever Reset is actionable (dirty∨active); not-allowed only when disabled */
+.board-filter-reset.ds-btn:not(:disabled):not([aria-disabled='true']) {
+  cursor: pointer;
+}
+
+.board-filter-reset.ds-btn:disabled,
+.board-filter-reset.ds-btn[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
 .board-filter-wrap-panel .board-filter-dropdown {
   position: static;
   margin-top: 6px;

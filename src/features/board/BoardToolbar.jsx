@@ -113,6 +113,7 @@ export function BoardToolbar({
                 </Button>
                 <ResetFiltersControl
                   hasActiveFilters={hasActiveFilters}
+                  isDirty={isDirty}
                   onReset={reset}
                   t={t}
                 />
@@ -143,6 +144,7 @@ export function BoardToolbar({
           </FilterPanel>
           <ResetFiltersControl
             hasActiveFilters={hasActiveFilters}
+            isDirty={isDirty}
             onReset={reset}
             t={t}
           />
