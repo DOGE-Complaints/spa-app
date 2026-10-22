@@ -16,21 +16,15 @@ import { CIVIC_MEDIA_STUB_PATH } from './civicMediaStub.js'
 import { ShellChromeIcon } from '../../components/AppShell/ShellChromeIcon.jsx'
 import './FeedCivicPost.css'
 
-/** Reactions zone affordance marks — catalog glyphs only; no invent orb (AD-VP-01 / icon catalog gap). */
-const REACTIONS_ZONE_MARKS = Object.freeze([
-  { id: 'acknowledge', src: '/icons/next-feed/reactions/acknowledge.svg' },
-  { id: 'support', src: '/icons/next-feed/reactions/support.svg' },
-  { id: 'agree', src: '/icons/next-feed/reactions/agree.svg' },
-])
-
 /**
  * Next-feed civic issue-as-post (SSR-C-civic · AD-VP-01).
  * CT-29: interim media stub `/assets/dogefeed.png` (supersedes M150 ISSUE-CARD-NO-MEDIA Done).
  * Four-zone strip · no SchemaCardOverlay · no invent image-gen HTTP.
- * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → aggregate.
+ * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → people.
+ * CR-24 M163/M164: wide React underlay · own icons in-zone · Reactions text only (no glyph stack).
  * NF-13 / M161: identity icon from exact `issue.type` catalog map · unknown → omit.
  * NF-14: list hit = one Link around identity+content+media · open row retired · strip excluded.
- * NF-15 / M162: strip density + React unframe (host CSS) · CR-23 Live host held.
+ * NF-15 / M162: strip density · CR-23 Live host held · CR-24 underlay supersedes NF-18 flat React.
  * NF-16: More (⋮) deferred — gated off · keep more.svg · TODO restore when product defines menu.
  *
  * @param {object} props
@@ -225,6 +219,7 @@ export function FeedCivicPost({
         data-nf15-density="m162"
         data-nf17-chrome="residual"
         data-nf18-density="residual"
+        data-cr24-underlay="m163"
         role="group"
         aria-label={t('nextFeed.post.actions')}
       >
@@ -233,13 +228,14 @@ export function FeedCivicPost({
           data-testid="feed-civic-action-react"
           data-zone="react"
           data-lab-react-slot="true"
+          data-rm-react-underlay="wide"
         >
           <FeedReactionsMount
             issueId={issue?.id}
             target="thread-root"
             t={t}
             apiRef={reactionsApiRef}
-            aggregatePlacement="inline"
+            ownInZone
           />
         </div>
         <button
@@ -277,25 +273,19 @@ export function FeedCivicPost({
           className="feed-civic-post-action feed-civic-post-action-reactions"
           data-testid="feed-civic-action-reactions"
           data-zone="reactions"
+          data-rm-reactions-text-only="true"
           aria-label={t('threadsFeed.post.reactionSummarySlot')}
-          onClick={() => {
+          onClick={(event) => {
+            const anchorEl = event?.currentTarget ?? null
             if (typeof reactionsApiRef.current?.activateAggregate === 'function') {
-              reactionsApiRef.current.activateAggregate()
+              reactionsApiRef.current.activateAggregate(
+                anchorEl ? { anchorEl } : undefined,
+              )
               return
             }
             if (typeof onOpenReactions === 'function') onOpenReactions()
           }}
         >
-          <span className="feed-civic-post-reaction-marks" aria-hidden="true">
-            {REACTIONS_ZONE_MARKS.map((mark) => (
-              <img
-                key={mark.id}
-                className="feed-civic-post-reaction-mark"
-                src={mark.src}
-                alt=""
-              />
-            ))}
-          </span>
           <span>{t('threadsFeed.post.reactionSummarySlot')}</span>
         </button>
       </div>

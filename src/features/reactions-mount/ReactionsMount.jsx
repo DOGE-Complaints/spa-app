@@ -84,6 +84,8 @@ export function ReactionsMount({
   /** @type {React.MutableRefObject<{ activateAggregate: () => void }|null>|null} */
   apiRef = null,
   reactAlways = true,
+  /** CR-24 M164 — own icons inside React · suppress strip aggregate / below-row on next/feed */
+  ownInZone = false,
 }) {
   const panelId = useId()
   const peoplePanelId = `${panelId}-people`
@@ -412,8 +414,11 @@ export function ReactionsMount({
   }
 
   const rootClass = ['reactions-mount', className].filter(Boolean).join(' ')
-  const placement = aggregatePlacement === 'below' ? 'below' : 'inline'
-  const stripAggregatePlacement = placement === 'below' ? 'external' : 'inline'
+  // CR-24: ownInZone → no page-wide below-row (M164 supersedes draft below on civic strip)
+  const placement =
+    ownInZone ? 'inline' : aggregatePlacement === 'below' ? 'below' : 'inline'
+  const stripAggregatePlacement =
+    ownInZone || placement === 'below' ? 'external' : 'inline'
 
   const retryHandler =
     typeof onRetry === 'function'
@@ -458,6 +463,8 @@ export function ReactionsMount({
       data-rm-people-surface={peopleSurface}
       data-rm-aggregate-placement={placement}
       data-rm-react-always={reactAlways ? 'true' : 'false'}
+      data-rm-own-in-zone={ownInZone ? 'true' : 'false'}
+      data-rm-cr24={ownInZone ? 'true' : undefined}
       data-catalog="reactions.v1"
       data-max-reactions={String(capacity)}
       data-enabled-count={String(enabledIds.length)}
@@ -488,6 +495,7 @@ export function ReactionsMount({
           onAggregateActivate={handleOpenPeople}
           aggregatePlacement={stripAggregatePlacement}
           reactAlways={reactAlways}
+          ownInZone={ownInZone}
         />
         <ReactionPicker
           open={open}

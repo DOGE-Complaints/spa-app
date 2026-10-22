@@ -1,14 +1,16 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 import { FeedThreadMount } from './FeedThreadMount.jsx'
 
 /**
  * CR-23 Path A stand — next/feed ReactionsMount Live (civic strip + comment plug).
+ * CR-24: wide underlay · ownInZone · Reactions text-only (M163/M164).
  * Avoids FeedCivicPost/StatusBadge so lab stress tests without I18nProvider still pass.
  * Lab FixtureAdapter path stays on FeedLabReactionsMount · this stand proves Live host only.
  * No invent HTTP · OP eye Absent → visual BLOCK.
  */
 export function FeedLabCt23Stand() {
+  const reactionsApiRef = useRef(null)
   const client = useMemo(
     () => ({
       getKnobs: async () => ({
@@ -39,7 +41,15 @@ export function FeedLabCt23Stand() {
     [],
   )
 
-  const t = (k) => k
+  const t = (k) => {
+    const map = {
+      'threadsFeed.reactions.react': 'React',
+      'threadsFeed.post.reactionSummarySlot': 'Reactions',
+      'nextFeed.post.comment': 'Comment',
+      'nextFeed.post.share': 'Share',
+    }
+    return map[k] ?? k
+  }
 
   return (
     <section
@@ -58,6 +68,7 @@ export function FeedLabCt23Stand() {
           data-testid="feed-civic-post-actions"
           data-action-zones="4"
           data-feed-cr23-strip="true"
+          data-cr24-underlay="m163"
           role="group"
           aria-label="CR-23 civic strip stand"
         >
@@ -65,15 +76,48 @@ export function FeedLabCt23Stand() {
             className="feed-civic-post-action feed-civic-post-actions__react-slot"
             data-testid="feed-civic-action-react"
             data-zone="react"
+            data-rm-react-underlay="wide"
           >
             <FeedReactionsMount
               issueId="CR23-PATH-A"
               target="thread-root"
               t={t}
               client={client}
-              aggregatePlacement="inline"
+              apiRef={reactionsApiRef}
+              ownInZone
             />
           </div>
+          <button
+            type="button"
+            className="feed-civic-post-action"
+            data-testid="feed-civic-action-comment"
+            data-zone="comment"
+          >
+            <span>Comment</span>
+          </button>
+          <button
+            type="button"
+            className="feed-civic-post-action"
+            data-testid="feed-civic-action-share"
+            data-zone="share"
+          >
+            <span>Share</span>
+          </button>
+          <button
+            type="button"
+            className="feed-civic-post-action feed-civic-post-action-reactions"
+            data-testid="feed-civic-action-reactions"
+            data-zone="reactions"
+            data-rm-reactions-text-only="true"
+            onClick={(event) => {
+              const anchorEl = event?.currentTarget ?? null
+              reactionsApiRef.current?.activateAggregate?.(
+                anchorEl ? { anchorEl } : undefined,
+              )
+            }}
+          >
+            <span>Reactions</span>
+          </button>
         </div>
         <div data-testid="feed-lab-ct23-thread">
           <FeedThreadMount

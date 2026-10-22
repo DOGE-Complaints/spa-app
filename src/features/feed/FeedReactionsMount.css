@@ -4,6 +4,7 @@
   align-items: center;
   min-width: 0;
   max-width: 100%;
+  width: 100%;
 }
 
 .feed-civic-post-actions__react-slot {
@@ -14,30 +15,37 @@
 }
 
 /*
- * NF-15 / M162 + NF-18 residual — post-strip host only.
- * Unframe React pill · single pad level (slot padding 0) · match Comment/Share flat.
+ * CR-24 M163 — one wide React underlay spanning zone (supersedes NF-18 transparent React).
+ * Comment/Share stay flat (FeedCivicPost.css). No inner pill / double nest.
  * Keep focus chrome. Do not restyle comment-node / bare lab strip hosts.
  */
-.feed-civic-post-actions .rm-summary-strip__react {
-  gap: 6px;
-  min-height: 44px;
-  padding: 4px 8px; /* sole pad stack on React path (NF-18) */
+.feed-civic-post-actions .rm-summary-strip {
+  width: 100%;
+}
+
+.feed-civic-post-actions .rm-summary-strip__react,
+.feed-civic-post-actions .rm-summary-strip__react--own-in-zone {
+  gap: 4px;
+  min-height: 72px;
+  padding: 6px 8px; /* sole pad stack on React path (CR-24 / was NF-18 4px 8px) */
   border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--color-text-secondary, #667085);
+  border-radius: 10px;
+  background: var(--color-bg-primary, #f7f6f2);
+  color: var(--color-text-primary, #101828);
   font-weight: 500;
   box-shadow: none;
   width: 100%;
   justify-content: center;
 }
 
-.feed-civic-post-actions .rm-summary-strip__react:hover {
-  background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
+.feed-civic-post-actions .rm-summary-strip__react:hover,
+.feed-civic-post-actions .rm-summary-strip__react--own-in-zone:hover {
+  background: color-mix(in srgb, var(--color-bg-primary, #f7f6f2) 88%, var(--color-text-secondary, #667085));
   color: var(--color-text-primary, #101828);
 }
 
-.feed-civic-post-actions .rm-summary-strip__react:focus-visible {
+.feed-civic-post-actions .rm-summary-strip__react:focus-visible,
+.feed-civic-post-actions .rm-summary-strip__react--own-in-zone:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--doge-accent, #f5c542) 80%, transparent);
   outline-offset: 2px;
 }
@@ -47,17 +55,22 @@
   cursor: not-allowed;
 }
 
-/* Inline size on CrReactionIcon → NF-18 tip 28 CSS px in post strip only */
+/* Inline size on CrReactionIcon → tip 28 CSS px entry glyph in post strip */
+.feed-civic-post-actions .rm-summary-strip__react-entry .rm-icon,
 .feed-civic-post-actions .rm-summary-strip__react .rm-icon {
   width: 28px !important;
   height: 28px !important;
 }
 
+.feed-civic-post-actions .rm-summary-strip__react-own-mark .rm-icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
 @media (max-width: 420px) {
-  .feed-civic-post-actions .rm-summary-strip__react {
-    flex-direction: column;
-    gap: 4px;
-    min-height: 56px;
-    padding: 4px 8px;
+  .feed-civic-post-actions .rm-summary-strip__react,
+  .feed-civic-post-actions .rm-summary-strip__react--own-in-zone {
+    min-height: 80px;
+    padding: 6px 8px;
   }
 }

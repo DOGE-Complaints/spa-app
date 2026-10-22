@@ -9,6 +9,7 @@ import './FeedReactionsMount.css'
 
 /**
  * CR-23 next/feed host — ReactionsMount + LiveAdapter → ThreadsSocialClient.react.
+ * CR-24: ownInZone (M163/M164) — wide React underlay · own icons in-zone · no below-row.
  * Lab Fixture path stays on FeedLabReactionsMount · this host is Live only.
  * People Live fail-closed (adapter.listReactors) · no invent HTTP · OP eye Absent → visual BLOCK.
  */
@@ -23,6 +24,8 @@ export function FeedReactionsMount({
   aggregateHost = null,
   apiRef = null,
   defaultOpen = false,
+  /** CR-24 default true on next/feed civic host */
+  ownInZone = true,
 }) {
   const id = issueId === undefined || issueId === null ? '' : String(issueId).trim()
   const adapter = useMemo(
@@ -77,6 +80,8 @@ export function FeedReactionsMount({
       data-feed-reaction-target={target}
       data-rm-adapter="live"
       data-rm-adapter-kind={adapter.kind}
+      data-rm-own-in-zone={ownInZone ? 'true' : 'false'}
+      data-rm-cr24={ownInZone ? 'true' : undefined}
       data-feed-issue-id={id || undefined}
     >
       <ReactionsMount
@@ -94,10 +99,11 @@ export function FeedReactionsMount({
         t={t}
         onReact={handleReact}
         onAggregateActivate={() => adapter.onAggregateActivate?.()}
-        aggregatePlacement={aggregatePlacement}
-        aggregateHost={aggregateHost}
+        aggregatePlacement={ownInZone ? 'inline' : aggregatePlacement}
+        aggregateHost={ownInZone ? null : aggregateHost}
         apiRef={mergedApiRef}
         reactAlways
+        ownInZone={ownInZone}
       />
     </div>
   )

@@ -133,6 +133,86 @@
   cursor: not-allowed;
 }
 
+/* CR-24 M163/M164 — one wide React underlay · own icons in-zone · stable 0/1/2/3 */
+.rm-summary-strip__react--own-in-zone {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 72px;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 10px;
+  /* M163: sole wide underlay — theme bg-primary (light #F7F6F2 continuity) */
+  background: var(--color-bg-primary, #f7f6f2);
+  color: var(--color-text-primary, #101828);
+  box-shadow: none;
+}
+
+.rm-summary-strip__react--own-in-zone:hover {
+  background: color-mix(in srgb, var(--color-bg-primary, #f7f6f2) 88%, var(--color-text-secondary, #667085));
+}
+
+.rm-summary-strip__react--own-in-zone:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--focus-ring-color, #b54708) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.rm-summary-strip__react-entry {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* M164 §4.1 — zero: thumb above React label · peer-aligned */
+.rm-summary-strip__react--zero .rm-summary-strip__react-entry {
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rm-summary-strip__react-own {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 22px;
+  width: 100%;
+  /* Reserve 3-slot row so 0/1/2/3 share outer geometry */
+  min-width: calc(3 * 22px + 2 * 4px);
+}
+
+.rm-summary-strip__react--zero .rm-summary-strip__react-own {
+  visibility: hidden;
+}
+
+.rm-summary-strip__react-own-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--rm-mark-soft, var(--color-surface-elevated, #fffdf8));
+  border: 1px solid var(--rm-mark-accent, var(--color-border-default, #e7e4dc));
+  overflow: hidden;
+  color: var(--rm-mark-accent, var(--color-text-primary, #101828));
+}
+
+/* No inner pill / double nest on entry chrome */
+.rm-summary-strip__react--own-in-zone .rm-summary-strip__react-entry {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
 .rm-summary-strip__status-icon {
   flex: 0 0 auto;
 }
