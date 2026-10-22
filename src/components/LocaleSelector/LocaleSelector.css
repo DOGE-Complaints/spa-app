@@ -45,6 +45,28 @@
   height: auto;
 }
 
+.locale-selector__flag--omit {
+  display: inline-block;
+  width: 1.25rem;
+  height: 0.9rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--color-border, #e7e4dc) 70%, transparent);
+}
+
+.locale-selector__chevron {
+  color: inherit;
+  transition: transform 0.15s ease;
+}
+
+.locale-selector__chevron--open {
+  transform: rotate(180deg);
+}
+
+.locale-selector__option--frozen {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 /* REQ21-02: header-locale chrome moved from index.css (behavior-preserving) */
 .header-locale {
   position: relative;
@@ -117,5 +139,33 @@
 .header-locale-option-active {
   border-color: color-mix(in srgb, var(--doge-accent) 65%, transparent);
   background: var(--color-accent-soft);
+}
+
+.header-locale-flag--omit {
+  display: inline-block;
+  width: 24px;
+  height: 18px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--color-border, rgba(255, 255, 255, 0.2)) 70%, transparent);
+  flex: 0 0 auto;
+}
+
+.header-locale-chevron {
+  color: inherit;
+  transition: transform 0.15s ease;
+}
+
+.header-locale-chevron--open {
+  transform: rotate(180deg);
+}
+
+.header-locale-option-frozen {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.header-locale-option-frozen:hover {
+  border-color: transparent;
+  background: transparent;
 }
 

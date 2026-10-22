@@ -82,6 +82,9 @@ export const NEXT_SHELL_DICTIONARY_EN = Object.freeze({
       menuClose: 'Close menu',
       notificationsAria: 'Notifications (coming later)',
     },
+    locale: {
+      esFrozenTooltip: 'Request this language — we can add it',
+    },
     rail: RAIL_EN,
     mobile: MOBILE_EN,
     shelter: SHELTER_EN,
@@ -101,6 +104,9 @@ export const NEXT_SHELL_DICTIONARY_ET = Object.freeze({
       menuClose: 'Sulge menüü',
       notificationsAria: 'Teavitused (hiljem)',
     },
+    locale: {
+      esFrozenTooltip: 'Taotle seda keelt — saame lisada',
+    },
     rail: RAIL_ET,
     mobile: MOBILE_ET,
     shelter: SHELTER_ET,
@@ -119,6 +125,9 @@ export const NEXT_SHELL_DICTIONARY_RU = Object.freeze({
       menuOpen: 'Открыть меню',
       menuClose: 'Закрыть меню',
       notificationsAria: 'Уведомления (позже)',
+    },
+    locale: {
+      esFrozenTooltip: 'Запросите этот язык — мы можем добавить',
     },
     rail: RAIL_RU,
     mobile: MOBILE_RU,
@@ -140,6 +149,7 @@ export const NEXT_SHELL_FLAT_KEYS = Object.freeze([
   'nextShell.header.menuOpen',
   'nextShell.header.menuClose',
   'nextShell.header.notificationsAria',
+  'nextShell.locale.esFrozenTooltip',
   'nextShell.rail.profile',
   'nextShell.rail.myStories',
   'nextShell.rail.board',

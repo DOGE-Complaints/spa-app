@@ -16,9 +16,29 @@ export const LOCALE_SELECTOR_OPTIONS = Object.freeze(
       value: code,
       nativeLabel: endonym,
       flagSrc: flag,
+      frozen: false,
     }),
   ),
 )
+
+/**
+ * NS-08: frozen menu-only rows (not in SUPPORTED_LOCALES / normalizeLocale).
+ * Endonym only — no full ES product dictionary.
+ */
+export const FROZEN_LOCALE_SELECTOR_OPTIONS = Object.freeze([
+  Object.freeze({
+    value: 'es',
+    nativeLabel: 'Español',
+    flagSrc: null,
+    frozen: true,
+  }),
+])
+
+/** Menu list = active locales + frozen rows (order: et / ru / en / es). */
+export const LOCALE_SELECTOR_MENU_OPTIONS = Object.freeze([
+  ...LOCALE_SELECTOR_OPTIONS,
+  ...FROZEN_LOCALE_SELECTOR_OPTIONS,
+])
 
 export const LOCALE_STORAGE_KEY = 'doge.locale'
 
