@@ -18,7 +18,9 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
     )
     const attach = screen.getByTestId('tm-composer-attach')
     const icon = screen.getByTestId('tm-composer-attach-icon')
-    expect(icon.getAttribute('src')).toBe(TM_ATTACH_ICON_SRC)
+    /* CT-33: Attach uses ShellChromeIcon mask · src via data-ns07-icon-src */
+    expect(icon.getAttribute('data-ns07')).toBe('mask')
+    expect(icon.getAttribute('data-ns07-icon-src')).toBe(TM_ATTACH_ICON_SRC)
     expect(attach.getAttribute('aria-label')).toMatch(/Attach/i)
     expect(screen.getByTestId('tm-thread-composer').getAttribute('data-lab-ct11')).toBe('true')
   })
@@ -85,7 +87,7 @@ describe('CT-11 composer icon chrome · attach/send reuse', () => {
         onPost={() => {}}
       />,
     )
-    expect(screen.getByTestId('tm-composer-attach-icon').getAttribute('src')).toContain(
+    expect(screen.getByTestId('tm-composer-attach-icon').getAttribute('data-ns07-icon-src')).toContain(
       '/icons/next-feed/actions/attach.svg',
     )
     expect(screen.getByTestId('tm-composer-send-icon').getAttribute('src')).toContain(
