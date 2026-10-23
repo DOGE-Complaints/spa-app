@@ -31,7 +31,7 @@ describe('ProfileRail NS-03', () => {
     window.localStorage.removeItem(LOCALE_STORAGE_KEY)
   })
 
-  it('renders nav Feed / My stories / Profile with next-shell icons', () => {
+  it('renders nav Feed / Profile with next-shell icons (NS-12 My stories gated)', () => {
     renderRail()
     expect(screen.getByTestId('profile-rail')).toBeTruthy()
     const board = screen.getByTestId('profile-rail-nav-board')
@@ -40,10 +40,7 @@ describe('ProfileRail NS-03', () => {
       '/icons/next-shell/navigation/board.svg',
     )
     expect(screen.getByTestId('profile-rail-nav-feed-label').textContent).toMatch(/Feed/i)
-    expect(screen.getByTestId('profile-rail-nav-my-stories').getAttribute('href')).toBe('/profile')
-    expect(
-      screen.getByTestId('profile-rail-nav-my-stories').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
-    ).toBe('/icons/next-shell/navigation/my-stories.svg')
+    expect(screen.queryByTestId('profile-rail-nav-my-stories')).toBeNull()
     expect(screen.getByTestId('profile-rail-nav-profile').getAttribute('href')).toBe('/profile')
     expect(
       screen.getByTestId('profile-rail-nav-profile').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
