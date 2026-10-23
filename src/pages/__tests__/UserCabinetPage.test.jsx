@@ -13,9 +13,13 @@ import { DashboardPage } from '../DashboardPage.jsx'
 
 const mockUseSessionShell = vi.fn()
 
-vi.mock('../../auth/SessionShellContext.jsx', () => ({
-  useSessionShell: () => mockUseSessionShell(),
-}))
+vi.mock('../../auth/SessionShellContext.jsx', async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual,
+    useSessionShell: () => mockUseSessionShell(),
+  }
+})
 
 function renderProfileInShell(initialPath = '/profile') {
   return render(
@@ -73,9 +77,14 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     expect(contribSlot.querySelector('[data-contrib-receipts-state="empty"]')).toBeTruthy()
     expect(contribSlot.querySelector('[data-contrib-reputation-state="later"]')).toBeTruthy()
     expect(contribSlot.textContent).not.toMatch(/Submit Story/i)
-    // PH-09: protected AppShellLayout keeps default sidebar
+    // NS-11: /profile next-shell — ProfileRail sidebar host, not WORKSPACE defaults
     expect(document.querySelector('.board-sidebar')).toBeTruthy()
     expect(document.querySelector('.board-main--no-sidebar')).toBeNull()
+    expect(document.querySelector('.board-sidebar-workspace')).toBeNull()
+    expect(screen.getByTestId('profile-rail')).toBeTruthy()
+    expect(screen.getByTestId('public-header')).toBeTruthy()
+    expect(screen.getByTestId('public-footer')).toBeTruthy()
+    expect(document.querySelector('.next-shell-route.next-shell-profile')).toBeTruthy()
   })
 
   it('wires Verify CTA to /verify and shows verified without re-prompt', () => {
@@ -123,16 +132,16 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     expect(screen.getByTestId('dashboard-page').querySelector('[data-civic-status-card]')).toBeTruthy()
   })
 
-  it('marks Profile nav active on /profile', () => {
+  it('marks Profile rail nav active on /profile (NS-11)', () => {
     mockUseSessionShell.mockReturnValue({
       shellState: SESSION_SHELL_STATES.AUTHENTICATED,
       profile: { display_name: 'Demo User', role: 'citizen' },
       retry: vi.fn(),
     })
     renderProfileInShell()
-    const profileNav = screen.getByTestId('app-shell-nav-profile')
-    expect(profileNav.textContent).toBe(IDENTITY_DICTIONARY_EN.appShell.nav.profile)
-    expect(profileNav.className).toContain('board-nav-item-active')
+    expect(screen.queryByTestId('app-shell-nav-profile')).toBeNull()
+    const profileNav = screen.getByTestId('profile-rail-nav-profile')
+    expect(profileNav.className).toContain('profile-rail__nav-item--active')
   })
 
   it('shows shell skeleton before profile blocks mount', () => {
@@ -170,7 +179,7 @@ describe('ProtectedProfilePage / UserCabinetPage', () => {
     })
     renderProfileInShell()
     expect(screen.queryByTestId('session-shell-overlay')).toBeNull()
-    expect(screen.getByTestId('app-shell-nav-profile')).toBeTruthy()
+    expect(screen.getByTestId('profile-rail-nav-profile')).toBeTruthy()
     const panel = screen.getByTestId('cabinet-profile-error')
     expect(panel).toBeTruthy()
     expect(panel.textContent).toContain(CABINET_DICTIONARY_EN.cabinet.error.profileLoad.title)
