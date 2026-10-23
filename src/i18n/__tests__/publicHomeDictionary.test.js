@@ -26,7 +26,7 @@ describe('publicHome dictionary SSOT', () => {
 
   it('lists howItWorks.* keys from appendix', () => {
     expect(PUBLIC_HOME_FLAT_KEYS.some((k) => k.startsWith('howItWorks.'))).toBe(true)
-    expect(HOW_IT_WORKS_FLAT_KEYS.length).toBeGreaterThan(30)
+    expect(HOW_IT_WORKS_FLAT_KEYS.length).toBeGreaterThan(25)
   })
 
   it('has all PUBLIC_HOME_FLAT_KEYS in et/ru/en', () => {

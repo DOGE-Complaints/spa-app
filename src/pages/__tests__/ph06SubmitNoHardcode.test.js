@@ -35,10 +35,15 @@ describe('PH-06 Submit paths — env helper, no hardcode', () => {
     expect(src).not.toMatch(HARDCODED)
   })
 
-  it('HowItWorksPage Submit uses helper', () => {
+  it('HowItWorksPage M171: no GPT hardcode · Telegram env helper (PH-14)', () => {
     const src = readSrc('pages/HowItWorksPage.jsx')
-    expect(src).toContain('getStoryGptHref')
+    const tg = readSrc('config/telegramInterviewUrl.js')
+    expect(src).not.toContain('getStoryGptHref')
+    expect(src).toContain('getTelegramInterviewHref')
     expect(src).not.toMatch(HARDCODED)
+    expect(src).not.toMatch(/t\.me\//i)
+    expect(tg).toContain('VITE_TELEGRAM_INTERVIEW_URL')
+    expect(tg).not.toMatch(/t\.me\//i)
   })
 
   it('storyGptUrl helper has no GPT-id fallback', () => {
