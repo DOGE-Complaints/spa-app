@@ -51,6 +51,7 @@ function formatVerifiedAt(iso) {
 
 function CivicStatusPanel({
   state,
+  compact = false,
   statusLabel,
   title,
   description,
@@ -61,11 +62,13 @@ function CivicStatusPanel({
   primaryAction,
   secondaryAction,
 }) {
+  const compactClass = compact ? ' civic-status-card--compact' : ''
   return (
     <article
-      className={`civic-status-card civic-status-card--${state.replace(/_/g, '-')}`}
+      className={`civic-status-card civic-status-card--${state.replace(/_/g, '-')}${compactClass}`}
       data-civic-status-card
       data-civic-status-state={state}
+      data-civic-compact={compact ? 'true' : 'false'}
       role="status"
       aria-live="polite"
     >
@@ -73,8 +76,8 @@ function CivicStatusPanel({
         <CivicStatusIcon state={state} />
       </div>
       {statusLabel ? <p className="civic-status-card__status-label">{statusLabel}</p> : null}
-      <h2 className="civic-status-card__title">{title}</h2>
-      <p className="civic-status-card__description">{description}</p>
+      {title ? <h2 className="civic-status-card__title">{title}</h2> : null}
+      {description ? <p className="civic-status-card__description">{description}</p> : null}
       {contextBlock ? <div className="civic-status-card__context-block">{contextBlock}</div> : null}
       {walletInfo}
       {errorCode ? (
@@ -104,6 +107,8 @@ export function CivicStatusCard({
   verificationContext = CIVIC_VERIFICATION_CONTEXT.DEFAULT,
   errorCode = null,
   protectedActionLabel = null,
+  /** CAB-08 / M170: slim verified badge — no wallet plate */
+  compact = false,
   onVerify,
   onCancel,
   onRetry,
@@ -129,17 +134,20 @@ export function CivicStatusCard({
     return (
       <CivicStatusPanel
         state={state}
+        compact={compact}
         statusLabel={t(CIVIC_STATUS_LABEL_VERIFIED_KEY)}
         title={t('civic.verified.title')}
-        description={t('civic.verified.desc')}
+        description={compact ? null : t('civic.verified.desc')}
         metadata={metadataParts.join(' · ')}
         walletInfo={
-          <div className="civic-status-card__wallet-info" data-testid="civic-status-wallet-info">
-            <p className="civic-status-card__wallet-info-label">{t('civic.wallet.future')}</p>
-            <p className="civic-status-card__wallet-info-value">
-              {t(CIVIC_STATUS_LABEL_WALLET_NOT_LINKED_KEY)}
-            </p>
-          </div>
+          compact ? null : (
+            <div className="civic-status-card__wallet-info" data-testid="civic-status-wallet-info">
+              <p className="civic-status-card__wallet-info-label">{t('civic.wallet.future')}</p>
+              <p className="civic-status-card__wallet-info-value">
+                {t(CIVIC_STATUS_LABEL_WALLET_NOT_LINKED_KEY)}
+              </p>
+            </div>
+          )
         }
       />
     )

@@ -1,8 +1,8 @@
 /**
  * NS-03 T02 — own-story rail data for ProfileRail.
  *
- * CAB/gateway `GET /story-activity` exists (BE ✅). SPA HTTP client is **not** wired.
- * Returns honest empty — no invented gateway fields / fake story cards.
+ * Cabinet SPA wire lives in `useCabinetStoryActivity` (CAB-08). ProfileRail stays
+ * honest-empty until a dedicated rail wire story — no invent rows here.
  *
  * @returns {{ status: 'empty', metrics: null, stories: [] }}
  */

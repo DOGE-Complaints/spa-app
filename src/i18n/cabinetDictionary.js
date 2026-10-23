@@ -69,6 +69,7 @@ export const CABINET_DICTIONARY_EN = Object.freeze({
       empty: {
         message: 'No stories submitted yet.',
         description: 'Your submitted stories will appear here.',
+        goToFeed: 'Go to Feed',
       },
       draft: {
         title: 'Draft Available',
@@ -209,6 +210,7 @@ export const CABINET_DICTIONARY_ET = Object.freeze({
       empty: {
         message: 'Ühtegi lugu pole veel esitatud.',
         description: 'Sinu esitatud lood kuvatakse siin.',
+        goToFeed: 'Mine voogu',
       },
       draft: {
         title: 'Mustand saadaval',
@@ -348,6 +350,7 @@ export const CABINET_DICTIONARY_RU = Object.freeze({
       empty: {
         message: 'Истории ещё не отправлялись.',
         description: 'Здесь появятся ваши отправленные истории.',
+        goToFeed: 'К ленте',
       },
       draft: {
         title: 'Черновик доступен',
@@ -464,6 +467,7 @@ export const CABINET_FLAT_KEYS = Object.freeze([
   'cabinet.story.status.underReview',
   'cabinet.story.empty.message',
   'cabinet.story.empty.description',
+  'cabinet.story.empty.goToFeed',
   'cabinet.story.draft.title',
   'cabinet.story.draft.description',
   'cabinet.story.draft.lastEdited',

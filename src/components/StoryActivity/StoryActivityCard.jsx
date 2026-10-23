@@ -37,6 +37,9 @@ function StatusIcon({ status }) {
  *   errorCode?: string,
  *   onVerify?: () => void,
  *   onGoToBoard?: () => void,
+ *   onGoToFeed?: () => void,
+ *   onRetry?: () => void,
+ *   loading?: boolean,
  * }} props
  */
 export function StoryActivityCard({
@@ -48,13 +51,26 @@ export function StoryActivityCard({
   errorCode = 'ACTIVITY_LOAD_FAILED',
   onVerify,
   onGoToBoard,
+  onGoToFeed,
+  onRetry,
+  loading = false,
 }) {
   const { t } = useI18n()
   const [notice, setNotice] = useState(null)
-  const resolved = resolveStoryActivityState({ state, previewFlag })
+  const resolved = loading
+    ? STORY_ACTIVITY_STATES.EMPTY
+    : resolveStoryActivityState({ state, previewFlag })
 
   const showComingSoon = () => {
     setNotice(t('cabinet.common.comingSoon'))
+  }
+
+  const goToFeed = () => {
+    if (onGoToFeed) {
+      onGoToFeed()
+      return
+    }
+    onGoToBoard?.()
   }
 
   const headerIcon =
@@ -74,6 +90,8 @@ export function StoryActivityCard({
       data-testid="story-activity-card"
       data-story-activity-card
       data-story-activity-state={resolved}
+      data-story-activity-loading={loading ? 'true' : 'false'}
+      aria-busy={loading ? true : undefined}
       aria-label={t('cabinet.story.title')}
     >
       <header className="story-activity-card__header">
@@ -154,7 +172,7 @@ export function StoryActivityCard({
         </>
       ) : null}
 
-      {resolved === STORY_ACTIVITY_STATES.EMPTY ? (
+      {resolved === STORY_ACTIVITY_STATES.EMPTY && !loading ? (
         <>
           <p className="story-activity-card__message" data-testid="story-activity-empty-message">
             {t('cabinet.story.empty.message')}
@@ -163,12 +181,18 @@ export function StoryActivityCard({
           <Button
             type="button"
             hierarchy="primary"
-            data-testid="story-activity-go-to-board"
-            onClick={() => onGoToBoard?.()}
+            data-testid="story-activity-go-to-feed"
+            onClick={goToFeed}
           >
-            {t('storyHandoff.cta.goToBoard')}
+            {t('cabinet.story.empty.goToFeed')}
           </Button>
         </>
+      ) : null}
+
+      {loading ? (
+        <p className="story-activity-card__description" data-testid="story-activity-loading">
+          {t('cabinet.shell.loading')}
+        </p>
       ) : null}
 
       {resolved === STORY_ACTIVITY_STATES.DRAFT ? (
@@ -227,7 +251,7 @@ export function StoryActivityCard({
             hierarchy="primary"
             intent="retry"
             data-testid="story-activity-retry"
-            onClick={showComingSoon}
+            onClick={() => (onRetry ? onRetry() : showComingSoon())}
             leadingIcon={<img src={ICONS.retry} alt="" width={16} height={16} />}
           >
             {t('cabinet.common.retry')}

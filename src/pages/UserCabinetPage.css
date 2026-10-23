@@ -98,6 +98,28 @@
   min-height: 9rem;
 }
 
+/* CAB-08 / M170 — wallet+contrib gated: account → compact civic → full-width story */
+.user-cabinet-page[data-cab08='wallet-contrib-gated'] .user-cabinet-page__slot--account {
+  grid-column: 1 / span 12;
+  grid-row: 1;
+}
+
+.user-cabinet-page[data-cab08='wallet-contrib-gated'] .user-cabinet-page__slot--civic {
+  grid-column: 1 / span 12;
+  grid-row: 2;
+  min-height: 0;
+  border: none;
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0;
+}
+
+.user-cabinet-page[data-cab08='wallet-contrib-gated'] .user-cabinet-page__slot--story {
+  grid-column: 1 / span 12;
+  grid-row: 3;
+  min-height: 11rem;
+}
+
 .user-cabinet-page__slot--account .account-summary {
   max-width: none;
 }

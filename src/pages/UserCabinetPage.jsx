@@ -15,16 +15,24 @@ import { CivicStatusCard } from '../components/CivicStatus/index.js'
 import { StoryActivityCard } from '../components/StoryActivity/index.js'
 import { ContributionLayer } from '../components/ContributionLayer/index.js'
 import { WalletStatusCard } from '../components/WalletStatus/index.js'
+import { useCabinetStoryActivity } from '../hooks/useCabinetStoryActivity.js'
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import './UserCabinetPage.css'
 
-const SECTION_SLOTS = [
+/** CAB-08 / M170 — hide wallet + contribution (keep components for later). */
+export const CAB08_SHOW_WALLET_CONTRIB = false
+
+const SECTION_SLOTS_ALL = [
+  { id: 'account', testId: 'cabinet-slot-account', labelKey: 'cabinet.section.account' },
   { id: 'civic', testId: 'cabinet-slot-civic', labelKey: 'cabinet.section.civicStatus' },
   { id: 'story', testId: 'cabinet-slot-story', labelKey: 'cabinet.section.storyActivity' },
   { id: 'contribution', testId: 'cabinet-slot-contribution', labelKey: 'cabinet.section.contribution' },
-  { id: 'account', testId: 'cabinet-slot-account', labelKey: 'cabinet.section.account' },
   { id: 'wallet', testId: 'cabinet-slot-wallet', labelKey: 'cabinet.section.wallet' },
 ]
+
+const SECTION_SLOTS = CAB08_SHOW_WALLET_CONTRIB
+  ? SECTION_SLOTS_ALL
+  : SECTION_SLOTS_ALL.filter((s) => s.id !== 'wallet' && s.id !== 'contribution')
 
 /**
  * DEV-only: sessionStorage['doge.wallet-preview']
@@ -178,9 +186,21 @@ export function UserCabinetPage() {
   const walletPreviewFlag = isNewUserPreview ? 'unlinked' : readWalletPreviewFlag()
   const contribPreviewFlag = isNewUserPreview ? null : readContribPreviewFlag()
   const phoneVerified = isNewUserPreview ? false : Boolean(profile?.phone_verified)
+  const liveEnabled =
+    !isLoading && !isProfileLoadError && shellState === SESSION_SHELL_STATES.AUTHENTICATED
+  const storyLive = useCabinetStoryActivity({
+    enabled: liveEnabled,
+    previewFlag: storyPreviewFlag,
+  })
+
+  const cab08Attr = CAB08_SHOW_WALLET_CONTRIB ? 'wallet-contrib-on' : 'wallet-contrib-gated'
 
   return (
-    <div className="user-cabinet-page" data-testid="user-cabinet-page">
+    <div
+      className="user-cabinet-page"
+      data-testid="user-cabinet-page"
+      data-cab08={cab08Attr}
+    >
       <header className="user-cabinet-page__header">
         <h1 className="user-cabinet-page__title">{t('cabinet.page.title')}</h1>
       </header>
@@ -226,6 +246,7 @@ export function UserCabinetPage() {
                       preview?.verificationContext ?? CIVIC_VERIFICATION_CONTEXT.DEFAULT
                     }
                     errorCode={preview?.errorCode ?? null}
+                    compact={!CAB08_SHOW_WALLET_CONTRIB && phoneVerified}
                     onVerify={() => navigate('/verify')}
                   />
                 </section>
@@ -233,6 +254,7 @@ export function UserCabinetPage() {
             }
             if (slot.id === 'story') {
               // No slot-header: StoryActivityCard owns title (M45)
+              const liveActive = !storyPreviewFlag && storyLive.state === 'active'
               return (
                 <section
                   key={slot.id}
@@ -242,8 +264,22 @@ export function UserCabinetPage() {
                 >
                   <StoryActivityCard
                     previewFlag={storyPreviewFlag}
+                    state={storyPreviewFlag ? null : storyLive.state}
+                    loading={!storyPreviewFlag && storyLive.loading}
+                    metrics={
+                      liveActive || (!storyPreviewFlag && storyLive.state)
+                        ? storyLive.metrics
+                        : undefined
+                    }
+                    rows={
+                      liveActive || (!storyPreviewFlag && storyLive.state === 'active')
+                        ? storyLive.rows
+                        : undefined
+                    }
+                    errorCode={storyLive.errorCode}
                     onVerify={() => navigate('/verify')}
-                    onGoToBoard={() => navigate('/board')}
+                    onGoToFeed={() => navigate('/next/feed')}
+                    onRetry={storyLive.reload}
                   />
                 </section>
               )
