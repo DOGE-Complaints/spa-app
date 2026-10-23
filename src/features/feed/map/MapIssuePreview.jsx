@@ -26,6 +26,7 @@ export function MapIssuePreview({
       className={`map-issue-preview${className ? ` ${className}` : ''}`}
       data-ds-surface="MapIssuePreview"
       data-vl-done-surface="MapIssuePreview"
+      data-nf24="true"
       data-testid="map-issue-preview"
       role="dialog"
       aria-label={title}

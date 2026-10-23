@@ -71,6 +71,7 @@
   pointer-events: none;
 }
 
+/* NF-24 — MapIssuePreview: no dark-only navy fallback on light (ARCH-DELTA §12) */
 .map-issue-preview {
   position: absolute;
   z-index: 4;
@@ -79,10 +80,10 @@
   max-width: min(320px, calc(100% - 32px));
   padding: 14px 36px 14px 14px;
   border-radius: 10px;
-  background: var(--color-bg-elevated, rgba(12, 18, 30, 0.94));
-  border: 1px solid color-mix(in srgb, var(--color-text-primary, #fff) 12%, transparent);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  color: var(--color-text-primary, #f2f4f8);
+  background: var(--color-surface-elevated, var(--color-bg-secondary, #fffdf8));
+  border: 1px solid var(--color-border-default, color-mix(in srgb, var(--color-text-primary, #111) 12%, transparent));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-text-primary, #000) 18%, transparent);
+  color: var(--color-text-primary, #101828);
 }
 
 .map-issue-preview__title {

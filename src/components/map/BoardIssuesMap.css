@@ -19,6 +19,7 @@
   font-size: 0.9rem;
 }
 
+/* NF-24 — pin popup / leaves sheet follow data-theme (ARCH-DELTA §12) */
 .board-issues-map-popup {
   position: absolute;
   z-index: 2;
@@ -27,25 +28,26 @@
   max-width: min(320px, calc(100% - 32px));
   padding: 14px 36px 14px 14px;
   border-radius: 10px;
-  background: rgba(12, 18, 30, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background: var(--color-surface-elevated, var(--color-bg-secondary, #fffdf8));
+  border: 1px solid var(--color-border-default, var(--color-border, rgba(255, 255, 255, 0.12)));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-text-primary, #000) 18%, transparent);
+  color: var(--color-text-primary, #101828);
 }
 
 .board-issues-map-popup h3 {
   margin: 0 0 6px;
   font-size: 0.95rem;
-  color: #f2f4f8;
+  color: var(--color-text-primary, #101828);
 }
 
 .board-issues-map-popup-label {
   margin: 0 0 10px;
   font-size: 0.8rem;
-  color: #a8b0bd;
+  color: var(--color-text-secondary, #667085);
 }
 
 .board-issues-map-popup-open {
-  color: #f5a623;
+  color: var(--color-accent-primary, #f5a623);
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
@@ -57,13 +59,13 @@
   right: 8px;
   border: 0;
   background: transparent;
-  color: #a8b0bd;
+  color: var(--color-text-secondary, #667085);
   font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
 }
 
-/* NF-20 cluster leaves sheet */
+/* NF-20 cluster leaves sheet · NF-24 theme bind */
 .board-issues-map-leaves {
   position: absolute;
   z-index: 2;
@@ -75,15 +77,16 @@
   flex-direction: column;
   padding: 14px 36px 14px 14px;
   border-radius: 10px;
-  background: rgba(12, 18, 30, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background: var(--color-surface-elevated, var(--color-bg-secondary, #fffdf8));
+  border: 1px solid var(--color-border-default, var(--color-border, rgba(255, 255, 255, 0.12)));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-text-primary, #000) 18%, transparent);
+  color: var(--color-text-primary, #101828);
 }
 
 .board-issues-map-leaves h3 {
   margin: 0 0 10px;
   font-size: 0.95rem;
-  color: #f2f4f8;
+  color: var(--color-text-primary, #101828);
 }
 
 .board-issues-map-leaves-list {
@@ -103,13 +106,13 @@
   padding: 8px 10px;
   border-radius: 8px;
   text-decoration: none;
-  color: #f2f4f8;
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-primary, #101828);
+  background: color-mix(in srgb, var(--color-text-primary, #000) 4%, transparent);
 }
 
 .board-issues-map-leaves-link:hover,
 .board-issues-map-leaves-link:focus-visible {
-  background: rgba(245, 166, 35, 0.16);
+  background: var(--color-accent-soft, rgba(245, 166, 35, 0.16));
   outline: none;
 }
 
@@ -120,5 +123,5 @@
 
 .board-issues-map-leaves-label {
   font-size: 0.75rem;
-  color: #a8b0bd;
+  color: var(--color-text-secondary, #667085);
 }

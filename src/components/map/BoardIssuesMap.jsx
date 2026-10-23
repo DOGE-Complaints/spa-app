@@ -372,6 +372,7 @@ export function BoardIssuesMap({
         {leavesSheet ? (
           <div
             className="board-issues-map-leaves"
+            data-nf24="true"
             data-testid="board-map-cluster-leaves"
             data-nf20-basemap="leaves-sheet"
             role="dialog"
@@ -415,7 +416,12 @@ export function BoardIssuesMap({
                 openLabel,
               })
             : (
-              <div className="board-issues-map-popup" data-testid="board-map-pin-popup" role="dialog">
+              <div
+                className="board-issues-map-popup"
+                data-testid="board-map-pin-popup"
+                data-nf24="true"
+                role="dialog"
+              >
                 <h3>{popup.title}</h3>
                 {popup.label ? <p className="board-issues-map-popup-label">{popup.label}</p> : null}
                 <Link className="board-issues-map-popup-open" to={openHref}>
