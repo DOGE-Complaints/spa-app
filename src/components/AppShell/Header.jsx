@@ -12,6 +12,8 @@ import './Header.css'
 const NEXT_SHELL_MENU_ICON = '/icons/next-shell/navigation/menu.svg'
 const NEXT_SHELL_SEARCH_ICON = '/icons/next-shell/navigation/search.svg'
 const NEXT_SHELL_NOTIFICATIONS_ICON = '/icons/next-shell/navigation/notifications.svg'
+/** NS-13: hide search + notifications chrome; keep markup/handlers behind gate (do not delete). */
+export const NS13_SHOW_SEARCH_NOTIFICATIONS = false
 const FEED_HOME = '/next/feed'
 /** NS-10: prepared SVG (transparent plate) — not PNG dark-backed master; fallback ≠ production. */
 const BRAND_LOGO_LIGHT = '/assets/DOGEstonia-logo-horizontal-light.svg'
@@ -126,6 +128,7 @@ export function Header({ className = '', accountSlot }) {
       className={`public-header ${className}`.trim()}
       data-testid="public-header"
       data-menu-open={menuOpen ? 'yes' : 'no'}
+      data-ns13={NS13_SHOW_SEARCH_NOTIFICATIONS ? 'search-notifications-on' : 'search-notifications-gated'}
     >
       <Link
         to={FEED_HOME}
@@ -150,26 +153,30 @@ export function Header({ className = '', accountSlot }) {
       </nav>
 
       <div className="header-controls">
-        <button
-          type="button"
-          className="header-chrome-icon-btn"
-          data-testid="public-header-search-affordance"
-          aria-label={t('nextShell.header.searchAria')}
-          title={t('nextShell.header.searchAria')}
-        >
-          <ShellChromeIcon src={NEXT_SHELL_SEARCH_ICON} size={20} className="header-chrome-icon" />
-        </button>
+        {NS13_SHOW_SEARCH_NOTIFICATIONS ? (
+          <button
+            type="button"
+            className="header-chrome-icon-btn"
+            data-testid="public-header-search-affordance"
+            aria-label={t('nextShell.header.searchAria')}
+            title={t('nextShell.header.searchAria')}
+          >
+            <ShellChromeIcon src={NEXT_SHELL_SEARCH_ICON} size={20} className="header-chrome-icon" />
+          </button>
+        ) : null}
         <LanguageSelector />
         <ThemeToggle />
-        <button
-          type="button"
-          className="header-chrome-icon-btn"
-          data-testid="public-header-notifications-chrome"
-          aria-label={t('nextShell.header.notificationsAria')}
-          title={t('nextShell.header.notificationsAria')}
-        >
-          <ShellChromeIcon src={NEXT_SHELL_NOTIFICATIONS_ICON} size={20} className="header-chrome-icon" />
-        </button>
+        {NS13_SHOW_SEARCH_NOTIFICATIONS ? (
+          <button
+            type="button"
+            className="header-chrome-icon-btn"
+            data-testid="public-header-notifications-chrome"
+            aria-label={t('nextShell.header.notificationsAria')}
+            title={t('nextShell.header.notificationsAria')}
+          >
+            <ShellChromeIcon src={NEXT_SHELL_NOTIFICATIONS_ICON} size={20} className="header-chrome-icon" />
+          </button>
+        ) : null}
         <div className="header-account-slot" data-testid="header-account-slot">
           {accountSlot !== undefined ? accountSlot : <AccountControlSlot />}
         </div>
