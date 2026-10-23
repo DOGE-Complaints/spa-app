@@ -48,14 +48,12 @@ describe('NS-07 ShellChromeIcon mask + currentColor', () => {
     expect(el.style.maskImage || el.style.webkitMaskImage).toMatch(/search\.svg/)
   })
 
-  it('Header chrome icons use ShellChromeIcon on dark', () => {
+  it('Header chrome icons use ShellChromeIcon on dark (menu Present · search/notif NS-13 gated)', () => {
     wrap(<Header accountSlot={null} />)
-    const search = screen.getByTestId('public-header-search-affordance').querySelector('[data-ns07="mask"]')
-    const notif = screen.getByTestId('public-header-notifications-chrome').querySelector('[data-ns07="mask"]')
     const menu = screen.getByTestId('public-header-menu-toggle').querySelector('[data-ns07="mask"]')
-    expect(search?.getAttribute('data-ns07-icon-src')).toBe('/icons/next-shell/navigation/search.svg')
-    expect(notif?.getAttribute('data-ns07-icon-src')).toBe('/icons/next-shell/navigation/notifications.svg')
     expect(menu?.getAttribute('data-ns07-icon-src')).toBe('/icons/next-shell/navigation/menu.svg')
+    expect(screen.queryByTestId('public-header-search-affordance')).toBeNull()
+    expect(screen.queryByTestId('public-header-notifications-chrome')).toBeNull()
   })
 
   it('ThemeToggle glyph stays mask under light theme (no invert-only)', () => {

@@ -4,7 +4,15 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { Header } from '../Header.jsx'
+
+const headerSrc = readFileSync(
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../Header.jsx'),
+  'utf8',
+)
 import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
 import { LOCALE_STORAGE_KEY } from '../../../i18n/core.js'
 
@@ -40,23 +48,17 @@ describe('Public Header NS-02 next chrome', () => {
     )
   })
 
-  it('wires next-shell menu / search / notifications chrome icons', () => {
+  it('wires next-shell menu chrome; search/notifications kept in source (NS-13 gated)', () => {
     renderHeader()
     expect(
       screen.getByTestId('public-header-menu-toggle').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
     ).toBe('/icons/next-shell/navigation/menu.svg')
-    expect(screen.getByTestId('public-header-search-affordance').getAttribute('aria-label')).toMatch(
-      /coming later/i,
-    )
-    expect(
-      screen.getByTestId('public-header-search-affordance').querySelector('[data-ns07-icon-src]')?.getAttribute('data-ns07-icon-src'),
-    ).toBe('/icons/next-shell/navigation/search.svg')
-    expect(
-      screen
-        .getByTestId('public-header-notifications-chrome')
-        .querySelector('[data-ns07-icon-src]')
-        ?.getAttribute('data-ns07-icon-src'),
-    ).toBe('/icons/next-shell/navigation/notifications.svg')
+    expect(screen.queryByTestId('public-header-search-affordance')).toBeNull()
+    expect(screen.queryByTestId('public-header-notifications-chrome')).toBeNull()
+    expect(headerSrc).toContain("'/icons/next-shell/navigation/search.svg'")
+    expect(headerSrc).toContain("'/icons/next-shell/navigation/notifications.svg'")
+    expect(headerSrc).toContain('public-header-search-affordance')
+    expect(headerSrc).toContain('public-header-notifications-chrome')
   })
 
   it('ThemeToggle uses next-shell theme glyph', () => {
