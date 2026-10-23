@@ -13,6 +13,7 @@ function navClass({ isActive }) {
 /**
  * NS-04 — mobile bottom nav chrome-only (Component §11 subset · Feed + Profile).
  * NS-09 — soft label Feed (was Board). Tell-a-story / feed stress OOS → next-feed.
+ * NS-12 — soft: no My stories affordance (Feed + Profile only · held).
  * NS-07 — theme-safe mask icons.
  */
 export function MobileBottomNav({ className = '' }) {
@@ -22,6 +23,7 @@ export function MobileBottomNav({ className = '' }) {
     <nav
       className={`mobile-bottom-nav ${className}`.trim()}
       data-testid="mobile-bottom-nav"
+      data-ns12="no-my-stories"
       aria-label={t('nextShell.mobile.navAria')}
     >
       <NavLink
