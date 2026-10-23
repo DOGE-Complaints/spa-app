@@ -3,7 +3,8 @@ import { useI18n } from '../../i18n/I18nProvider.jsx'
 import './PublicFooter.css'
 
 /**
- * Public Footer (M131 / PH-03 · M166 / PH-11): brand ≥40px · preview tagline · About/Privacy/Contact routes.
+ * Public Footer (M131 / PH-03 · M166 / PH-11 · M169 / NS-14): brand ≥40px · no tagline beside brand · About/Privacy/Contact.
+ * NS-14: footer tagline omitted (M169). Dual transparent brand PNG masters still soft-BLOCK until clean assets Present.
  */
 export function PublicFooter({ className = '' }) {
   const { t } = useI18n()
@@ -13,6 +14,7 @@ export function PublicFooter({ className = '' }) {
       className={`public-footer app-shell__footer board-footer ${className}`.trim()}
       data-testid="public-footer"
       data-ph11="true"
+      data-ns14="no-tagline"
       aria-label={t('publicHome.footer.brand')}
     >
       <div className="public-footer__inner">
@@ -36,9 +38,6 @@ export function PublicFooter({ className = '' }) {
             />
             <span className="public-footer__brand-text">
               <span className="public-footer__brand-name">{t('publicHome.footer.brand')}</span>
-              <span className="public-footer__tagline" data-testid="public-footer-tagline">
-                {t('publicHome.footer.tagline')}
-              </span>
             </span>
           </Link>
         </div>
