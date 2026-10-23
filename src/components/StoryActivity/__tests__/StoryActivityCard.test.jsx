@@ -40,14 +40,15 @@ describe('StoryActivityCard', () => {
     }
   })
 
-  it('empty state primary is Go to Board, not Submit', () => {
-    const onGoToBoard = vi.fn()
-    renderCard({ state: STORY_ACTIVITY_STATES.EMPTY, onGoToBoard })
-    const cta = screen.getByTestId('story-activity-go-to-board')
-    expect(cta.textContent).toBe(IDENTITY_DICTIONARY_EN.storyHandoff.cta.goToBoard)
+  it('empty state primary is Go to Feed, not Submit / board', () => {
+    const onGoToFeed = vi.fn()
+    renderCard({ state: STORY_ACTIVITY_STATES.EMPTY, onGoToFeed })
+    const cta = screen.getByTestId('story-activity-go-to-feed')
+    expect(cta.textContent).toBe(CABINET_DICTIONARY_EN.cabinet.story.empty.goToFeed)
     expect(cta.textContent).not.toMatch(/Submit/i)
+    expect(cta.textContent).not.toMatch(/Board/i)
     fireEvent.click(cta)
-    expect(onGoToBoard).toHaveBeenCalledTimes(1)
+    expect(onGoToFeed).toHaveBeenCalledTimes(1)
   })
 
   it('resume draft and retry show comingSoon (no navigation)', () => {
