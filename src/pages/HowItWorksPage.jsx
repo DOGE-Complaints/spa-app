@@ -1,46 +1,51 @@
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { Button } from '../components/Button/Button.jsx'
-import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
-import { HOW_IT_WORKS_LANDING_FAQ_HREF } from '../i18n/howItWorksDictionary.js'
+import {
+  getTelegramInterviewHref,
+  hasTelegramInterviewUrl,
+} from '../config/telegramInterviewUrl.js'
+import {
+  HOW_IT_WORKS_LANDING_FAQ_HREF,
+  HOW_IT_WORKS_STEP_VISUALS,
+} from '../i18n/howItWorksDictionary.js'
 import './HowItWorksPage.css'
 
 const STEPS = [
   {
-    id: 'civicIssues',
-    pointKeys: ['point1', 'point2', 'point3'],
+    id: 'observation',
+    bodyKeys: ['body1'],
   },
   {
-    id: 'dashboard',
-    pointKeys: ['point1', 'point2', 'point3'],
+    id: 'telegramStory',
+    bodyKeys: ['body1', 'body2'],
+    telegramCta: true,
+  },
+  {
+    id: 'publicIssue',
+    bodyKeys: ['body1', 'body2'],
     inlineFeed: true,
   },
   {
-    id: 'story',
-    pointKeys: ['point1', 'point2', 'point3'],
-    privacyNote: true,
-  },
-  {
-    id: 'submit',
-    pointKeys: [],
-    submitCta: true,
+    id: 'profileDialogue',
+    bodyKeys: ['body1', 'body2'],
   },
 ]
 
 /**
- * Public How It Works tutorial (M133 / PH-05 · M168 / PH-13 content+CTA).
+ * Public How It Works tutorial (M171 / PH-14 deep redesign · soft PH-13 routes).
  */
 export function HowItWorksPage() {
   const { t } = useI18n()
-  const submitHref = getStoryGptHref()
-  const submitExternal = hasStoryGptUrl()
+  const telegramHref = getTelegramInterviewHref()
+  const telegramExternal = hasTelegramInterviewUrl()
 
   return (
     <div className="board-shell how-it-works-route">
       <div
         className="how-it-works"
         data-testid="how-it-works-page"
-        data-ph13="true"
-        data-feed-ph13="hydrate"
+        data-ph14="true"
+        data-feed-ph14="hydrate"
       >
         <header className="how-it-works-intro">
           <p className="how-it-works-eyebrow">{t('howItWorks.eyebrow')}</p>
@@ -51,6 +56,7 @@ export function HowItWorksPage() {
         <ol className="how-it-works-steps" data-testid="how-it-works-steps">
           {STEPS.map((step) => {
             const base = `howItWorks.steps.${step.id}`
+            const visualSrc = HOW_IT_WORKS_STEP_VISUALS[step.id]
             return (
               <li
                 key={step.id}
@@ -58,66 +64,74 @@ export function HowItWorksPage() {
                 data-testid="how-it-works-step"
                 data-step={step.id}
               >
-                <div className="how-it-works-step-head">
-                  <span className="how-it-works-step-number" aria-hidden="true">
-                    {t(`${base}.number`)}
-                  </span>
-                  <h2 className="how-it-works-step-title">{t(`${base}.title`)}</h2>
-                </div>
-                <p className="how-it-works-step-body">{t(`${base}.body`)}</p>
-                {step.pointKeys.length > 0 ? (
-                  <ul className="how-it-works-step-points">
-                    {step.pointKeys.map((pk) => (
-                      <li key={pk}>{t(`${base}.${pk}`)}</li>
+                <div className="how-it-works-step-grid">
+                  <div className="how-it-works-step-copy">
+                    <div className="how-it-works-step-head">
+                      <span className="how-it-works-step-number" aria-hidden="true">
+                        {t(`${base}.number`)}
+                      </span>
+                      <h2 className="how-it-works-step-title">{t(`${base}.title`)}</h2>
+                    </div>
+                    {step.bodyKeys.map((bk) => (
+                      <p key={bk} className="how-it-works-step-body">
+                        {t(`${base}.${bk}`)}
+                      </p>
                     ))}
-                  </ul>
-                ) : null}
-                {step.inlineFeed ? (
-                  <div className="how-it-works-inline-action">
-                    <Button
-                      hierarchy="secondary"
-                      href="/next/feed"
-                      data-testid="how-it-works-inline-feed"
-                    >
-                      {t('howItWorks.steps.dashboard.inlineAction')}
-                    </Button>
+                    {step.telegramCta ? (
+                      <div className="how-it-works-inline-action">
+                        <Button
+                          hierarchy="secondary"
+                          href={telegramHref}
+                          external={telegramExternal}
+                          ariaLabel={t('howItWorks.cta.telegramAccessibleLabel')}
+                          trailingIcon={
+                            telegramExternal ? (
+                              <img
+                                className="how-it-works-external-icon"
+                                src="/icons/public-home/ic-external-link.png"
+                                alt=""
+                                aria-hidden="true"
+                              />
+                            ) : null
+                          }
+                          data-testid="how-it-works-cta-telegram"
+                        >
+                          {t('howItWorks.cta.telegram')}
+                        </Button>
+                      </div>
+                    ) : null}
+                    {step.inlineFeed ? (
+                      <div className="how-it-works-inline-action">
+                        <Button
+                          hierarchy="secondary"
+                          href="/next/feed"
+                          data-testid="how-it-works-inline-feed"
+                        >
+                          {t('howItWorks.steps.publicIssue.inlineAction')}
+                        </Button>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-                {step.privacyNote ? (
-                  <p className="how-it-works-privacy" role="note">
-                    {t('howItWorks.steps.story.privacyNote')}
-                  </p>
-                ) : null}
-                {step.submitCta ? (
-                  <div className="how-it-works-inline-action how-it-works-submit-block">
-                    <p className="how-it-works-warning" role="note">
-                      {t('howItWorks.steps.submit.warning')}
-                    </p>
-                    <Button
-                      hierarchy="secondary"
-                      href={submitHref}
-                      external={submitExternal}
-                      ariaLabel={t('howItWorks.cta.submitAccessibleLabel')}
-                      trailingIcon={
-                        <img
-                          className="how-it-works-external-icon"
-                          src="/icons/public-home/ic-external-link.png"
-                          alt=""
-                          aria-hidden="true"
-                        />
-                      }
-                      data-testid="how-it-works-cta-submit"
-                    >
-                      {t('howItWorks.cta.submit')}
-                    </Button>
-                  </div>
-                ) : null}
+                  {visualSrc ? (
+                    <figure className="how-it-works-step-visual">
+                      <img
+                        src={visualSrc}
+                        alt=""
+                        className="how-it-works-step-visual-img"
+                        data-testid={`how-it-works-visual-${step.id}`}
+                      />
+                    </figure>
+                  ) : null}
+                </div>
               </li>
             )
           })}
         </ol>
 
-        <div className="how-it-works-cta-row" data-testid="how-it-works-cta-row">
+        <div
+          className="how-it-works-cta-row how-it-works-cta-row--left"
+          data-testid="how-it-works-cta-row"
+        >
           <div className="how-it-works-cta">
             <Button
               hierarchy="primary"

@@ -1,4 +1,4 @@
-/* How It Works — M133 / PH-05 · composition polish PH-08 · M168 / PH-13 density */
+/* How It Works — M171 / PH-14 deep redesign · soft PH-13 density */
 
 /* Soften workspace tray feel on this route only (not global board). */
 .how-it-works-shell .board-workspace {
@@ -7,7 +7,7 @@
 }
 
 .how-it-works {
-  max-width: 760px;
+  max-width: 920px;
   margin: 0 auto;
   padding: 20px 12px 48px;
   color: var(--color-text-primary);
@@ -45,10 +45,9 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 32px;
 }
 
-/* PH-08: continuous tutorial steps — not marketing cards in a panel (M133). */
 .how-it-works-step {
   padding: 4px 0 28px;
   border: none;
@@ -62,10 +61,17 @@
   padding-bottom: 8px;
 }
 
+.how-it-works-step-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 280px);
+  gap: 20px 28px;
+  align-items: start;
+}
+
 .how-it-works-step-head {
   display: flex;
   align-items: center;
-  gap: 12px; /* M168 proposal · review before hard lock */
+  gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 12px;
 }
@@ -75,7 +81,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 40px; /* M168 proposal · review before hard lock */
+  width: 40px;
   height: 40px;
   min-width: 40px;
   padding: 0;
@@ -100,14 +106,24 @@
   color: var(--color-text-secondary);
 }
 
-.how-it-works-step-points {
+.how-it-works-step-body:last-of-type {
+  margin-bottom: 0;
+}
+
+.how-it-works-step-visual {
   margin: 0;
-  padding-left: 1.15rem;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  color: var(--color-text-secondary);
-  line-height: 1.45;
+  padding: 10px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--doge-accent) 10%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.how-it-works-step-visual-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .how-it-works-inline-action {
@@ -118,27 +134,18 @@
   gap: 8px;
 }
 
-.how-it-works-submit-block {
-  gap: 12px;
-}
-
-.how-it-works-privacy,
-.how-it-works-warning {
-  margin: 14px 0 0;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: var(--color-text-secondary);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
+/* Final CTA pair — left-aligned group · compact gap (M171 §6). */
 .how-it-works-cta-row {
   margin-top: 36px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 12px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.how-it-works-cta-row--left {
+  justify-content: flex-start;
 }
 
 .how-it-works-cta {
@@ -146,18 +153,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  min-width: 220px;
-}
-
-.how-it-works-hint {
-  margin: 0;
-  font-size: 0.78rem;
-  color: var(--color-text-secondary);
-  line-height: 1.4;
-}
-
-.how-it-works-handoff {
-  max-width: 280px;
 }
 
 .how-it-works-external-icon {
@@ -166,7 +161,7 @@
   opacity: 0.85;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .how-it-works {
     padding: 20px 14px 40px;
   }
@@ -175,7 +170,16 @@
     font-size: 1.5rem;
   }
 
+  .how-it-works-step-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .how-it-works-step-visual {
+    order: 2;
+  }
+
   .how-it-works-cta-row {
     flex-direction: column;
+    align-items: flex-start;
   }
 }
