@@ -48,7 +48,8 @@ function NextFeedProfileRailSlot() {
 /**
  * Single chrome owner for public + workspace routes (REQ21-01 / AC-21-01).
  * Public: Header + PublicFooter + PH-09 sidebar flag.
- * Protected: default AppShell workspace chrome (sidebar on).
+ * NS-11: `/profile` uses next-shell chrome (Header + ProfileRail + PublicFooter).
+ * Other protected: default AppShell workspace chrome (sidebar on) — soft OOS.
  */
 export function AppShellLayout() {
   const location = useLocation()
@@ -57,9 +58,11 @@ export function AppShellLayout() {
   const loginRoute = isLoginPath(location.pathname)
   const publicRoute = isPublicPath(location.pathname)
   const useFullShell = protectedRoute || !publicRoute
+  // NS-11: exact /profile only (soft: /profile/edit and other protected stay workspace)
+  const isProfileNextShell = location.pathname === '/profile'
 
   const cabinetInPageProfileError =
-    location.pathname === '/profile' && isCabinetProfileLoadErrorState(shellState)
+    isProfileNextShell && isCabinetProfileLoadErrorState(shellState)
   const showOverlay = shouldShowSessionShellOverlay(shellState, protectedRoute, loginRoute, {
     cabinetInPageProfileError,
   })
@@ -112,6 +115,25 @@ export function AppShellLayout() {
         rightSlot={null}
         mobileTop={useNextShellChrome ? <MobileAppBar leadingAction="menu" /> : null}
         mobileBottom={useNextShellChrome ? <MobileBottomNav /> : null}
+        footer={<PublicFooter />}
+      >
+        {content}
+      </AppShell>
+    )
+  }
+
+  // NS-11: /profile → Header + ProfileRail + PublicFooter (next/feed parity); cabinet in main
+  if (isProfileNextShell) {
+    return (
+      <AppShell
+        className="next-shell-route next-shell-profile"
+        header={<Header />}
+        sidebar={<NextFeedProfileRailSlot />}
+        showSidebar
+        showRightSlot
+        rightSlot={null}
+        mobileTop={<MobileAppBar leadingAction="menu" />}
+        mobileBottom={<MobileBottomNav />}
         footer={<PublicFooter />}
       >
         {content}
