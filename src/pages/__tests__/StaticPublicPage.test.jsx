@@ -4,14 +4,28 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import path from 'node:path'
 import { AboutPage, ContactPage, PrivacyPage } from '../StaticPublicPage.jsx'
 import { I18nProvider } from '../../i18n/I18nProvider.jsx'
 import { LOCALE_STORAGE_KEY } from '../../i18n/core.js'
+import {
+  STATIC_PAGES_DOCS,
+  STATIC_PAGES_LINKS,
+  STATIC_PAGES_RU,
+  STATIC_PAGES_EN,
+} from '../../i18n/staticPagesDictionary.js'
 
-function renderAt(path) {
+const pageSource = readFileSync(
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../StaticPublicPage.jsx'),
+  'utf8',
+)
+
+function renderAt(pathName) {
   return render(
     <I18nProvider>
-      <MemoryRouter initialEntries={[path]}>
+      <MemoryRouter initialEntries={[pathName]}>
         <Routes>
           <Route path="/about" element={<AboutPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
@@ -22,7 +36,7 @@ function renderAt(path) {
   )
 }
 
-describe('StaticPublicPage shells (PH-11)', () => {
+describe('StaticPublicPage PH-15 (M172)', () => {
   beforeEach(() => {
     window.localStorage.setItem(LOCALE_STORAGE_KEY, 'en')
   })
@@ -31,15 +45,59 @@ describe('StaticPublicPage shells (PH-11)', () => {
     cleanup()
   })
 
-  it.each([
-    ['/about', 'about', 'About'],
-    ['/privacy', 'privacy', 'Privacy'],
-    ['/contact', 'contact', 'Contact'],
-  ])('%s renders H1 + OP-pending honesty', (path, key, title) => {
-    renderAt(path)
-    expect(screen.getByTestId(`public-static-${key}`)).toBeTruthy()
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(title)
-    const pending = screen.getByTestId(`public-static-${key}-pending`)
-    expect(pending.textContent).toMatch(/OP to supply|placeholder/i)
+  it('About: M172 sections · no pending stub', () => {
+    renderAt('/about')
+    expect(screen.getByTestId('public-static-about')).toBeTruthy()
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('About DOGEstonia')
+    expect(screen.queryByTestId('public-static-about-pending')).toBeNull()
+    expect(screen.getByTestId('public-static-about-local')).toBeTruthy()
+    expect(screen.getByTestId('public-static-about-dogeos').getAttribute('href')).toBe(
+      STATIC_PAGES_LINKS.dogeos,
+    )
+    expect(pageSource).not.toMatch(/OP to supply|placeholder/i)
+  })
+
+  it('Privacy: three PDF cards · no invent legal body', () => {
+    renderAt('/privacy')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Privacy')
+    expect(screen.getByTestId('public-static-privacy-docs')).toBeTruthy()
+    expect(screen.getByTestId('public-static-privacy-download-privacy').getAttribute('href')).toBe(
+      STATIC_PAGES_DOCS.privacy.href,
+    )
+    expect(screen.getByTestId('public-static-privacy-download-terms').getAttribute('href')).toBe(
+      STATIC_PAGES_DOCS.terms.href,
+    )
+    expect(
+      screen.getByTestId('public-static-privacy-download-participation').getAttribute('href'),
+    ).toBe(STATIC_PAGES_DOCS.participation.href)
+    expect(screen.getByText('Privacy Notice')).toBeTruthy()
+    expect(screen.getAllByText('Download PDF').length).toBe(3)
+    expect(screen.queryByTestId('public-static-privacy-pending')).toBeNull()
+    expect(pageSource).not.toMatch(/\bGDPR\b/)
+  })
+
+  it('Contact: outline + direct links · no form POST invent', () => {
+    renderAt('/contact')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Contact')
+    expect(screen.getByTestId('public-static-contact-site').getAttribute('href')).toBe(
+      STATIC_PAGES_LINKS.site,
+    )
+    expect(screen.getByTestId('public-static-contact-telegram').getAttribute('href')).toBe(
+      STATIC_PAGES_LINKS.telegram,
+    )
+    expect(screen.getByTestId('public-static-contact-email').getAttribute('href')).toBe(
+      STATIC_PAGES_LINKS.email,
+    )
+    expect(screen.getByTestId('public-static-contact-story-hint')).toBeTruthy()
+    expect(pageSource).not.toMatch(/\bonSubmit\b|\bfetch\s*\(|method=["']post["']/i)
+    expect(pageSource).not.toContain('<form')
+  })
+
+  it('RU About title + Web3 rewards sentence verbatim (M172)', () => {
+    expect(STATIC_PAGES_RU.about.title).toBe('О DOGEstonia')
+    expect(STATIC_PAGES_RU.about.rewards.p2).toBe(
+      'Для этого мы и планируем использовать технологии Web3 — как инструменты для прозрачного учёта и совместных правил.',
+    )
+    expect(STATIC_PAGES_EN.privacy.downloads.downloadCta).toBe('Download PDF')
   })
 })
