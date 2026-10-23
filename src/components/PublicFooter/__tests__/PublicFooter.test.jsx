@@ -31,11 +31,11 @@ describe('PublicFooter (PH-03 · PH-11)', () => {
     cleanup()
   })
 
-  it('renders brand, preview tagline, and About/Privacy/Contact links', () => {
+  it('renders brand (no tagline · NS-14/M169) and About/Privacy/Contact links', () => {
     renderFooter()
     expect(screen.getByTestId('public-footer')).toBeTruthy()
     expect(screen.getByTestId('public-footer-brand').textContent).toContain('DOGEstonia')
-    expect(screen.getByTestId('public-footer-tagline').textContent).toBe('Civic issues, structured.')
+    expect(screen.queryByTestId('public-footer-tagline')).toBeNull()
     expect(screen.getByTestId('public-footer-about').textContent).toBe('About')
     expect(screen.getByTestId('public-footer-privacy').textContent).toBe('Privacy')
     expect(screen.getByTestId('public-footer-contact').textContent).toBe('Contact')
@@ -62,17 +62,13 @@ describe('PublicFooter (PH-03 · PH-11)', () => {
     expect(container.querySelectorAll('[data-testid^="public-footer-social"]').length).toBe(0)
   })
 
-  it('keeps localized preview tagline in et and ru (no TAGLINE_TBD)', () => {
-    const expected = {
-      et: 'Kodanikuteemad, struktureeritult.',
-      ru: 'Гражданские темы — структурировано.',
-    }
+  it('omits tagline in et and ru UI (NS-14 · dict key may remain soft)', () => {
     for (const locale of ['et', 'ru']) {
       window.localStorage.setItem(LOCALE_STORAGE_KEY, locale)
       cleanup()
       renderFooter()
-      expect(screen.getByTestId('public-footer-tagline').textContent).toBe(expected[locale])
-      expect(screen.getByTestId('public-footer-tagline').textContent).not.toContain('TAGLINE_TBD')
+      expect(screen.queryByTestId('public-footer-tagline')).toBeNull()
+      expect(screen.getByTestId('public-footer-brand').textContent).toContain('DOGEstonia')
     }
   })
 })
