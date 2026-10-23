@@ -4,6 +4,12 @@ import {
   HOW_IT_WORKS_RU,
   HOW_IT_WORKS_FLAT_KEYS,
 } from './howItWorksDictionary.js'
+import {
+  STATIC_PAGES_EN,
+  STATIC_PAGES_ET,
+  STATIC_PAGES_RU,
+  STATIC_PAGES_FLAT_KEYS,
+} from './staticPagesDictionary.js'
 
 export const PUBLIC_HOME_DICTIONARY_EN = Object.freeze({
   publicHome: {
@@ -29,20 +35,7 @@ export const PUBLIC_HOME_DICTIONARY_EN = Object.freeze({
       privacy: 'Privacy',
       contact: 'Contact',
     },
-    static: {
-      about: {
-        title: 'About',
-        pending: 'About copy — OP to supply (placeholder)',
-      },
-      privacy: {
-        title: 'Privacy',
-        pending: 'Privacy policy — OP to supply (placeholder)',
-      },
-      contact: {
-        title: 'Contact',
-        pending: 'Contact details — OP to supply (placeholder)',
-      },
-    },
+    static: STATIC_PAGES_EN,
     board: {
       empty: {
         title: 'No Issues Yet',
@@ -91,20 +84,7 @@ export const PUBLIC_HOME_DICTIONARY_ET = Object.freeze({
       privacy: 'Privaatsus',
       contact: 'Kontakt',
     },
-    static: {
-      about: {
-        title: 'Meist',
-        pending: 'About-tekst — OP täidab (placeholder)',
-      },
-      privacy: {
-        title: 'Privaatsus',
-        pending: 'Privaatsuspoliitika — OP täidab (placeholder)',
-      },
-      contact: {
-        title: 'Kontakt',
-        pending: 'Kontaktandmed — OP täidab (placeholder)',
-      },
-    },
+    static: STATIC_PAGES_ET,
     board: {
       empty: {
         title: 'Teemasid veel pole',
@@ -153,20 +133,7 @@ export const PUBLIC_HOME_DICTIONARY_RU = Object.freeze({
       privacy: 'Конфиденциальность',
       contact: 'Контакты',
     },
-    static: {
-      about: {
-        title: 'О проекте',
-        pending: 'Текст About — OP заполнит (placeholder)',
-      },
-      privacy: {
-        title: 'Конфиденциальность',
-        pending: 'Политика конфиденциальности — OP заполнит (placeholder)',
-      },
-      contact: {
-        title: 'Контакты',
-        pending: 'Контактные данные — OP заполнит (placeholder)',
-      },
-    },
+    static: STATIC_PAGES_RU,
     board: {
       empty: {
         title: 'Тем пока нет',
@@ -214,12 +181,7 @@ export const PUBLIC_HOME_FLAT_KEYS = Object.freeze([
   'publicHome.footer.about',
   'publicHome.footer.privacy',
   'publicHome.footer.contact',
-  'publicHome.static.about.title',
-  'publicHome.static.about.pending',
-  'publicHome.static.privacy.title',
-  'publicHome.static.privacy.pending',
-  'publicHome.static.contact.title',
-  'publicHome.static.contact.pending',
+  ...STATIC_PAGES_FLAT_KEYS,
   'publicHome.board.empty.title',
   'publicHome.board.empty.message',
   'publicHome.board.filteredEmpty.title',
