@@ -100,6 +100,15 @@
   display: block;
   width: 24px;
   height: 24px;
+  /* PH-17: <img> SVG uses currentColor→black; theme-tint via filter (no invent art). */
+  color: var(--color-text-primary);
+}
+
+/* Dark: invert black stroke SVGs so card + download glyphs stay readable */
+[data-theme='dark'] .public-static-privacy-card__icon,
+[data-theme='dark'] .public-static-privacy-card__dl-icon {
+  filter: invert(1);
+  opacity: 0.95;
 }
 
 .public-static-privacy-card__title {
@@ -142,6 +151,11 @@
   display: block;
   width: 20px;
   height: 20px;
+  color: var(--color-text-primary);
+}
+
+.public-static-contact-story-cta {
+  margin: 16px 0 0;
 }
 
 .public-static-contact-links {

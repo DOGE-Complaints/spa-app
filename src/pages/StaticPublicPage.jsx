@@ -1,4 +1,6 @@
 import { useI18n } from '../i18n/I18nProvider.jsx'
+import { Button } from '../components/Button/Button.jsx'
+import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
 import {
   STATIC_PAGES_DOCS,
   STATIC_PAGES_LINKS,
@@ -55,7 +57,8 @@ function ExternalTextLink({ href, children, testId }) {
 
 /**
  * PH-15 — About / Privacy / Contact (M172 + privacy downloads).
- * No invent in-page legal · no invent RU/ET download labels · no invent form POST.
+ * PH-17 — Privacy dark-readable icons · Contact story CTA → VITE_STORY_GPT_URL.
+ * No invent in-page legal · no invent RU/ET · no invent form POST / GPT URL / OP PASS.
  */
 export function AboutPage() {
   const { t } = useI18n()
@@ -97,7 +100,12 @@ export function PrivacyPage() {
   const cta = t('publicHome.static.privacy.downloads.downloadCta')
 
   return (
-    <div className="board-shell public-static-route" data-testid="public-static-page" data-ph15-page="privacy">
+    <div
+      className="board-shell public-static-route"
+      data-testid="public-static-page"
+      data-ph15-page="privacy"
+      data-ph17="privacy-icons"
+    >
       <main className="public-static-page" data-testid="public-static-privacy">
         <h1 className="public-static-page__title">{t('publicHome.static.privacy.title')}</h1>
         <ul className="public-static-privacy-docs" data-testid="public-static-privacy-docs">
@@ -116,6 +124,7 @@ export function PrivacyPage() {
                   aria-hidden="true"
                   width={24}
                   height={24}
+                  data-ph17-icon="card"
                 />
                 <div className="public-static-privacy-card__copy">
                   <p className="public-static-privacy-card__title">{title}</p>
@@ -135,6 +144,7 @@ export function PrivacyPage() {
                     aria-hidden="true"
                     width={20}
                     height={20}
+                    data-ph17-icon="download"
                   />
                   <span>{cta}</span>
                 </a>
@@ -150,9 +160,16 @@ export function PrivacyPage() {
 export function ContactPage() {
   const { t } = useI18n()
   const base = 'publicHome.static.contact'
+  const storyHref = getStoryGptHref()
+  const storyExternal = hasStoryGptUrl()
 
   return (
-    <div className="board-shell public-static-route" data-testid="public-static-page" data-ph15-page="contact">
+    <div
+      className="board-shell public-static-route"
+      data-testid="public-static-page"
+      data-ph15-page="contact"
+      data-ph17="contact-cta"
+    >
       <main className="public-static-page" data-testid="public-static-contact">
         <h1 className="public-static-page__title">{t(`${base}.title`)}</h1>
         <p className="public-static-page__lead">{t(`${base}.lead`)}</p>
@@ -186,6 +203,18 @@ export function ContactPage() {
         <p className="public-static-page__hint" role="note" data-testid="public-static-contact-story-hint">
           {t(`${base}.storyHint`)}
         </p>
+        <div className="public-static-contact-story-cta">
+          <Button
+            hierarchy="primary"
+            href={storyHref}
+            external
+            target={storyExternal ? '_blank' : '_self'}
+            ariaLabel={t('howItWorks.cta.submitAccessibleLabel')}
+            data-testid="public-static-contact-story-cta"
+          >
+            {t('publicHome.nav.submitStory')}
+          </Button>
+        </div>
       </main>
     </div>
   )
