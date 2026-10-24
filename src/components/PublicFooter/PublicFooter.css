@@ -28,17 +28,21 @@
 .public-footer__brand-link {
   display: inline-flex;
   align-items: center;
-  gap: 12px; /* M166 proposal mark-to-text */
+  gap: 0; /* NS-15: wordmark inside PNG · no adjacent text */
   text-decoration: none;
   color: var(--color-text-primary, inherit);
   min-height: 44px;
 }
 
+/* NS-15: OP tip lockup · height ≥40px · width auto (not square crest crop) */
 .public-footer__logo {
-  width: 40px; /* M166 locked minimum · proposed square */
+  width: auto;
   height: 40px;
-  min-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  max-width: min(280px, 60vw);
   object-fit: contain;
+  object-position: left center;
   opacity: 1;
 }
 

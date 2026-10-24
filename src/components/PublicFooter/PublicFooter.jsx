@@ -1,13 +1,40 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useI18n } from '../../i18n/I18nProvider.jsx'
+import { getDocumentTheme } from '../../theme/bootTheme.js'
 import './PublicFooter.css'
 
+/** NS-15: same OP tip family as Header · copy-only masters · no invent PNG. */
+const BRAND_LOGO_LIGHT = '/assets/dogestonia-brand-light.png'
+const BRAND_LOGO_DARK = '/assets/dogestonia-brand-dark.png'
+const BRAND_LOGO_FALLBACK = '/assets/DOGEstonia-logo-fallback.svg'
+
+function resolveBrandLogoSrc(theme) {
+  return theme === 'light' ? BRAND_LOGO_LIGHT : BRAND_LOGO_DARK
+}
+
 /**
- * Public Footer (M131 / PH-03 · M166 / PH-11 · M169 / NS-14): brand ≥40px · no tagline beside brand · About/Privacy/Contact.
- * NS-14: footer tagline omitted (M169). Dual transparent brand PNG masters still soft-BLOCK until clean assets Present.
+ * Public Footer (M131 / PH-03 · M166 / PH-11 · M169 / NS-14 · NS-15):
+ * dual PNG brand · no adjacent text/tagline · About/Privacy/Contact.
  */
 export function PublicFooter({ className = '' }) {
   const { t } = useI18n()
+  const [documentTheme, setDocumentTheme] = useState(() => getDocumentTheme())
+  const [logoFailed, setLogoFailed] = useState(false)
+  const logoSrc = logoFailed ? BRAND_LOGO_FALLBACK : resolveBrandLogoSrc(documentTheme)
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined
+    const root = document.documentElement
+    const sync = () => {
+      setDocumentTheme(getDocumentTheme())
+      setLogoFailed(false)
+    }
+    sync()
+    const obs = new MutationObserver(sync)
+    obs.observe(root, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => obs.disconnect()
+  }, [])
 
   return (
     <footer
@@ -15,6 +42,7 @@ export function PublicFooter({ className = '' }) {
       data-testid="public-footer"
       data-ph11="true"
       data-ns14="no-tagline"
+      data-ns15="brand-png-dual"
       aria-label={t('publicHome.footer.brand')}
     >
       <div className="public-footer__inner">
@@ -26,19 +54,15 @@ export function PublicFooter({ className = '' }) {
             aria-label={t('publicHome.footer.brandHomeAccessible')}
           >
             <img
-              src="/assets/DOGEstonia-logo-big.png"
+              src={logoSrc}
               alt=""
               className="public-footer__logo"
-              width={40}
               height={40}
               data-testid="public-footer-logo"
-              onError={(event) => {
-                event.currentTarget.src = '/assets/DOGEstonia-logo-fallback.svg'
-              }}
+              data-ns15-logo={documentTheme}
+              data-ns15-src={logoSrc}
+              onError={() => setLogoFailed(true)}
             />
-            <span className="public-footer__brand-text">
-              <span className="public-footer__brand-name">{t('publicHome.footer.brand')}</span>
-            </span>
           </Link>
         </div>
 

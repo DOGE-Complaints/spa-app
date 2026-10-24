@@ -15,9 +15,9 @@ const NEXT_SHELL_NOTIFICATIONS_ICON = '/icons/next-shell/navigation/notification
 /** NS-13: hide search + notifications chrome; keep markup/handlers behind gate (do not delete). */
 export const NS13_SHOW_SEARCH_NOTIFICATIONS = false
 const FEED_HOME = '/next/feed'
-/** NS-10: prepared SVG (transparent plate) — not PNG dark-backed master; fallback ≠ production. */
-const BRAND_LOGO_LIGHT = '/assets/DOGEstonia-logo-horizontal-light.svg'
-const BRAND_LOGO_DARK = '/assets/DOGEstonia-logo-horizontal-dark.svg'
+/** NS-15: OP tip masters promoted to public/assets (copy only · no invent PNG). */
+const BRAND_LOGO_LIGHT = '/assets/dogestonia-brand-light.png'
+const BRAND_LOGO_DARK = '/assets/dogestonia-brand-dark.png'
 const BRAND_LOGO_FALLBACK = '/assets/DOGEstonia-logo-fallback.svg'
 
 function resolveBrandLogoSrc(theme) {
@@ -144,6 +144,8 @@ export function Header({ className = '', accountSlot }) {
           className="header-brand-logo"
           data-ns10-logo={documentTheme}
           data-ns10-src={logoSrc}
+          data-ns15-logo={documentTheme}
+          data-ns15-src={logoSrc}
           onError={() => setLogoFailed(true)}
         />
       </Link>
