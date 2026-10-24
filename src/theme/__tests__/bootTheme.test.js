@@ -33,21 +33,28 @@ describe('REQ21-03/04 theme scheme + boot + persistence', () => {
     expect(tokensCss).not.toMatch(/prefers-color-scheme/)
   })
 
-  it('index.html FOUC reads dogestonia.theme or defaults dark', () => {
+  it('index.html FOUC reads dogestonia.theme or defaults light (NS-16)', () => {
     expect(indexHtml).toMatch(/dogestonia\.theme/)
     expect(indexHtml).toMatch(/localStorage/)
+    expect(indexHtml).toMatch(/data-theme',\s*'light'/)
     expect(indexHtml).not.toMatch(/prefers-color-scheme/)
   })
 
-  it('applyDefaultTheme sets dark when unset and no storage', () => {
-    expect(applyDefaultTheme(document)).toBe('dark')
-    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+  it('applyDefaultTheme sets light when unset and no storage (NS-16 / M8)', () => {
+    expect(applyDefaultTheme(document)).toBe('light')
+    expect(document.documentElement.getAttribute('data-theme')).toBe('light')
   })
 
   it('applyDefaultTheme prefers stored light', () => {
     localStorage.setItem(THEME_STORAGE_KEY, 'light')
     expect(applyDefaultTheme(document)).toBe('light')
     expect(getDocumentTheme(document)).toBe('light')
+  })
+
+  it('applyDefaultTheme prefers stored dark (NS-16 FR-16.2)', () => {
+    localStorage.setItem(THEME_STORAGE_KEY, 'dark')
+    expect(applyDefaultTheme(document)).toBe('dark')
+    expect(getDocumentTheme(document)).toBe('dark')
   })
 
   it('setThemeAttribute without persist does not write storage', () => {
