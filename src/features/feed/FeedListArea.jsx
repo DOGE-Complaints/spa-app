@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button } from '../../components/Button'
 import { BoardIssuePost } from '../../components/threads/index.js'
 import { BoardFeedState, StaleResultsNotice } from './board/index.js'
@@ -11,8 +12,13 @@ import {
 } from './FeedReactionOpenContext.jsx'
 import './board/BoardChrome.css'
 
+/**
+ * List card — CR-27: lift thread_root_reactions from FeedThreadMount (CR-25 mapping)
+ * into civic strip. No invent list/gateway schema — reuse tree GET path already mounted.
+ */
 function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, meProfile }) {
   const bridge = useFeedReactionOpen()
+  const [rootRx, setRootRx] = useState(null)
   // Shelter: BoardIssuePost remains list chrome until VL layout stories displace it.
   // Not claimable as VL Done identity (AD-VL / ban-matrix) — identity lives in FeedCivicPost.
   return (
@@ -20,6 +26,10 @@ function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, 
       data-testid="feed-list-card-shelter"
       data-vl-shelter="BoardIssuePost"
       data-vl-done-claim="false"
+      data-feed-cr27="true"
+      data-feed-cr27-selected-count={
+        rootRx ? String(Array.isArray(rootRx.selected) ? rootRx.selected.length : 0) : undefined
+      }
     >
       <BoardIssuePost
         thread={
@@ -28,6 +38,7 @@ function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, 
             t={t}
             profile={meProfile}
             returnTo="#/next/feed"
+            onThreadRootReactions={setRootRx}
           />
         }
       >
@@ -39,6 +50,9 @@ function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, 
           /* NF-14: same `to` drives hit Link (open row retired) — route shape held */
           to={`/next/feed/issue/${item.id}?from=${encodeURIComponent(feedUrlForBack)}`}
           onOpenReactions={() => bridge?.openThreadRootPicker(item.id)}
+          initialSelected={rootRx?.selected}
+          initialSummaryMarks={rootRx?.summaryMarks}
+          initialAggregateCount={rootRx?.aggregateCount}
         />
       </BoardIssuePost>
     </div>
@@ -48,6 +62,7 @@ function FeedIssueCard({ item, locale, resolveLocalizedText, t, feedUrlForBack, 
 /**
  * Feed result region: loading / empty / filtered-empty / error / stale / list|map.
  * Shell chrome owned by AppShell — this is content-only (M149/M151 panels).
+ * CR-27: list cards hydrate own React via CR-25 tree lift (no invent gateway schema).
  */
 export function FeedListArea({
   t,
@@ -188,6 +203,7 @@ export function FeedListArea({
           data-testid="feed-list"
           data-presentation="m149-list"
           data-list-state={loading ? 'refreshing' : 'populated'}
+          data-feed-cr27-list="true"
           aria-label={t('nextFeed.list.accessible')}
           aria-busy={loading ? 'true' : undefined}
         >
