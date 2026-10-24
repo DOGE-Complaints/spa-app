@@ -157,14 +157,11 @@ export const HOW_IT_WORKS_FLAT_KEYS = Object.freeze([
   'howItWorks.cta.submitAccessibleLabel',
 ])
 
-/** Landing Concept & FAQ destination (operator-supplied · M168 / M171). */
-export const HOW_IT_WORKS_LANDING_FAQ_HREF =
-  'https://uus-veerenni-civic.dogestonia.me/#how-it-works'
-
-/** Soft M171 step illustration public paths (docs tip → public). */
+/** Soft M171 step illustration public paths (docs tip → public). Landing FAQ SSOT: landingFaqUrl.js (PH-16). */
 export const HOW_IT_WORKS_STEP_VISUALS = Object.freeze({
   observation: '/illustrations/how-it-works/m171-step-01-observation.png',
   telegramStory: '/illustrations/how-it-works/m171-step-02-telegram-story.png',
   publicIssue: '/illustrations/how-it-works/m171-step-03-public-issue.png',
   profileDialogue: '/illustrations/how-it-works/m171-step-04-profile-dialogue.png',
 })
+

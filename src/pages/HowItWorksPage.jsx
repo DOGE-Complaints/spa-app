@@ -1,13 +1,8 @@
 import { useI18n } from '../i18n/I18nProvider.jsx'
 import { Button } from '../components/Button/Button.jsx'
-import {
-  getTelegramInterviewHref,
-  hasTelegramInterviewUrl,
-} from '../config/telegramInterviewUrl.js'
-import {
-  HOW_IT_WORKS_LANDING_FAQ_HREF,
-  HOW_IT_WORKS_STEP_VISUALS,
-} from '../i18n/howItWorksDictionary.js'
+import { getStoryGptHref, hasStoryGptUrl } from '../config/storyGptUrl.js'
+import { getLandingFaqHref, hasLandingFaqUrl } from '../config/landingFaqUrl.js'
+import { HOW_IT_WORKS_STEP_VISUALS } from '../i18n/howItWorksDictionary.js'
 import './HowItWorksPage.css'
 
 const STEPS = [
@@ -32,12 +27,14 @@ const STEPS = [
 ]
 
 /**
- * Public How It Works tutorial (M171 / PH-14 deep redesign · soft PH-13 routes).
+ * Public How It Works tutorial (M171 / PH-14 · PH-16 env CTAs).
  */
 export function HowItWorksPage() {
   const { t } = useI18n()
-  const telegramHref = getTelegramInterviewHref()
-  const telegramExternal = hasTelegramInterviewUrl()
+  const interviewHref = getStoryGptHref()
+  const interviewExternal = hasStoryGptUrl()
+  const landingHref = getLandingFaqHref()
+  const landingExternal = hasLandingFaqUrl()
 
   return (
     <div className="board-shell how-it-works-route">
@@ -45,6 +42,7 @@ export function HowItWorksPage() {
         className="how-it-works"
         data-testid="how-it-works-page"
         data-ph14="true"
+        data-ph16="true"
         data-feed-ph14="hydrate"
       >
         <header className="how-it-works-intro">
@@ -81,11 +79,12 @@ export function HowItWorksPage() {
                       <div className="how-it-works-inline-action">
                         <Button
                           hierarchy="secondary"
-                          href={telegramHref}
-                          external={telegramExternal}
+                          href={interviewHref}
+                          external
+                          target={interviewExternal ? '_blank' : '_self'}
                           ariaLabel={t('howItWorks.cta.telegramAccessibleLabel')}
                           trailingIcon={
-                            telegramExternal ? (
+                            interviewExternal ? (
                               <img
                                 className="how-it-works-external-icon"
                                 src="/icons/public-home/ic-external-link.png"
@@ -144,16 +143,19 @@ export function HowItWorksPage() {
           <div className="how-it-works-cta">
             <Button
               hierarchy="secondary"
-              href={HOW_IT_WORKS_LANDING_FAQ_HREF}
+              href={landingHref}
               external
+              target={landingExternal ? '_blank' : '_self'}
               ariaLabel={t('howItWorks.cta.landingAccessibleLabel')}
               trailingIcon={
-                <img
-                  className="how-it-works-external-icon"
-                  src="/icons/public-home/ic-external-link.png"
-                  alt=""
-                  aria-hidden="true"
-                />
+                landingExternal ? (
+                  <img
+                    className="how-it-works-external-icon"
+                    src="/icons/public-home/ic-external-link.png"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                ) : null
               }
               data-testid="how-it-works-cta-landing"
             >
