@@ -11,7 +11,6 @@ import {
   HOW_IT_WORKS_EN,
   HOW_IT_WORKS_RU,
   HOW_IT_WORKS_ET,
-  HOW_IT_WORKS_LANDING_FAQ_HREF,
 } from '../../i18n/howItWorksDictionary.js'
 import { HowItWorksPage } from '../HowItWorksPage.jsx'
 import { AppShellLayout } from '../../layout/AppShellLayout.jsx'
@@ -78,10 +77,11 @@ describe('HowItWorksPage PH-14 (M171)', () => {
     })
   })
 
-  it('renders four M171 steps with visuals · no GPT submit', () => {
+  it('renders four M171 steps with visuals · no GPT submit button', () => {
     const html = renderPage()
     expect(html).toContain('data-testid="how-it-works-page"')
     expect(html).toContain('data-ph14="true"')
+    expect(html).toContain('data-ph16="true"')
     expect(html).not.toContain('how-it-works-stub')
     expect(html.match(/data-testid="how-it-works-step"/g)?.length).toBe(4)
     expect(html).toContain('How It Works')
@@ -90,27 +90,28 @@ describe('HowItWorksPage PH-14 (M171)', () => {
     expect(html).toContain('data-testid="how-it-works-visual-observation"')
     expect(html).toContain('data-testid="how-it-works-cta-telegram"')
     expect(html).not.toContain('data-testid="how-it-works-cta-submit"')
-    expect(pageSource).not.toMatch(/DOGEstonia GPT|getStoryGptHref/)
+    expect(pageSource).toContain('getStoryGptHref')
+    expect(pageSource).not.toMatch(/DOGEstonia GPT/)
     expect(html).not.toContain('Understand Civic Issues')
   })
 
-  it('PH-14: feed → /next/feed · landing FAQ · telegram helper · no board/GPT invent', () => {
+  it('PH-16: feed → /next/feed · storyGpt + landingFaq helpers · no board/hardcode invent', () => {
     expect(pageSource).toContain('href="/next/feed"')
     expect(pageSource).not.toContain('href="/board"')
-    expect(pageSource).toContain('HOW_IT_WORKS_LANDING_FAQ_HREF')
-    expect(pageSource).toContain('getTelegramInterviewHref')
-    expect(pageSource).not.toContain('getStoryGptHref')
+    expect(pageSource).toContain('getStoryGptHref')
+    expect(pageSource).toContain('getLandingFaqHref')
+    expect(pageSource).not.toContain('getTelegramInterviewHref')
+    expect(pageSource).not.toContain('HOW_IT_WORKS_LANDING_FAQ_HREF')
     expect(pageSource).toContain('howItWorks.cta.telegramAccessibleLabel')
     expect(pageSource).toContain('ic-external-link.png')
     expect(pageSource).not.toMatch(/chatgpt\.com\/g\/g-RkVU9xLWN/i)
     expect(pageSource).not.toMatch(/t\.me\//i)
+    expect(pageSource).not.toMatch(/uus-veerenni-civic\.dogestonia\.me/i)
+    expect(dictSource).not.toContain('HOW_IT_WORKS_LANDING_FAQ_HREF')
     expect(dictSource).not.toMatch(/Opens\s*`?\/board/)
     expect(HOW_IT_WORKS_EN.cta.feed).toBe('Go to Feed')
     expect(HOW_IT_WORKS_EN.cta.landing).toBe('Concept & FAQ on landing')
     expect(HOW_IT_WORKS_EN.cta.telegram).toBe('Start interview in Telegram')
-    expect(HOW_IT_WORKS_LANDING_FAQ_HREF).toContain(
-      'uus-veerenni-civic.dogestonia.me/#how-it-works',
-    )
 
     const html = renderPage()
     expect(html).toContain('data-testid="how-it-works-cta-feed"')
@@ -120,7 +121,6 @@ describe('HowItWorksPage PH-14 (M171)', () => {
     expect(html).toContain('how-it-works-cta-row--left')
     expect(html).toContain('Go to Feed')
     expect(html).toContain('Concept &amp; FAQ on landing')
-    expect(html).toContain(HOW_IT_WORKS_LANDING_FAQ_HREF)
     expect(html).not.toMatch(/Opens\s*`?\/board/)
     expect(html).not.toContain('Go to Dashboard')
   })

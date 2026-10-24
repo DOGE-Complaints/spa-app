@@ -35,15 +35,18 @@ describe('PH-06 Submit paths — env helper, no hardcode', () => {
     expect(src).not.toMatch(HARDCODED)
   })
 
-  it('HowItWorksPage M171: no GPT hardcode · Telegram env helper (PH-14)', () => {
+  it('HowItWorksPage PH-16: storyGpt + landingFaq helpers · no GPT/landing hardcode', () => {
     const src = readSrc('pages/HowItWorksPage.jsx')
-    const tg = readSrc('config/telegramInterviewUrl.js')
-    expect(src).not.toContain('getStoryGptHref')
-    expect(src).toContain('getTelegramInterviewHref')
+    const faq = readSrc('config/landingFaqUrl.js')
+    expect(src).toContain('getStoryGptHref')
+    expect(src).toContain('getLandingFaqHref')
+    expect(src).not.toContain('getTelegramInterviewHref')
+    expect(src).not.toContain('HOW_IT_WORKS_LANDING_FAQ_HREF')
     expect(src).not.toMatch(HARDCODED)
     expect(src).not.toMatch(/t\.me\//i)
-    expect(tg).toContain('VITE_TELEGRAM_INTERVIEW_URL')
-    expect(tg).not.toMatch(/t\.me\//i)
+    expect(src).not.toMatch(/uus-veerenni-civic\.dogestonia\.me/i)
+    expect(faq).toContain('VITE_LANDING_FAQ_URL')
+    expect(faq).not.toMatch(/dogestonia\.me/i)
   })
 
   it('storyGptUrl helper has no GPT-id fallback', () => {
