@@ -82,6 +82,8 @@ describe('CT-30 Live attach upload + tree map', () => {
     const snap = adapter.snapshot()
     expect(snap.status).toBe('populated')
     expect(snap.comments[0].attachments?.[0].publishedUrl).toBeNull()
+    /* CT-34 · File merge after soft-fail so node can objectURL-preview */
+    expect(snap.comments[0].attachments?.[0].file).toBe(file)
   })
 
   it('FeedThreadMount marks CT-30 host · ThreadMount Present', async () => {
