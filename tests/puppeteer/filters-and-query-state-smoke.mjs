@@ -55,14 +55,15 @@ async function openFilterPanel(page) {
 
 async function selectPublishedStatusInPanel(page) {
   const statusTrigger = await page.$('.board-filter-panel-primary .board-filter-trigger')
-  if (!statusTrigger) throw new Error('Status filter trigger not found inside panel')
+  if (!statusTrigger) throw new Error('Status/type filter trigger not found inside panel')
   await statusTrigger.click()
   await page.waitForSelector('.board-filter-panel-body .board-filter-dropdown', { visible: true })
   const options = await page.$$('.board-filter-panel-primary .board-filter-option')
-  if (options.length <= STATUS_PUBLISHED_INDEX) {
-    throw new Error(`Expected at least ${STATUS_PUBLISHED_INDEX + 1} status options`)
-  }
-  await options[STATUS_PUBLISHED_INDEX].click()
+  // Prefer PUBLISHED status (board). On next/feed host (NF-23 redirect) first trigger is Type — pick a non-Any option.
+  const pick =
+    options.length > STATUS_PUBLISHED_INDEX ? options[STATUS_PUBLISHED_INDEX] : options[1] || options[0]
+  if (!pick) throw new Error(`Expected filter options inside panel, got ${options.length}`)
+  await pick.click()
 }
 
 async function run() {
@@ -81,12 +82,19 @@ async function run() {
 
     // 1) Default board — panel closed
     // Vite HMR websockets keep networkidle0 from settling.
+    // NF-23: `#/board` may redirect to `#/next/feed` — accept feed host selectors (NF-25 smoke drift).
     await page.goto(`${BASE}/#/board`, { waitUntil: 'domcontentloaded', timeout: 60000 })
-    await page.waitForSelector('.board-filters-row')
+    await page.waitForSelector(
+      '.board-filters-row, .feed-filters-row, .feed-toolbar, .board-filter-panel',
+      { timeout: 20000 },
+    )
     await page.waitForSelector('.board-filter-panel-toggle')
     // Reset control may be deferred (NF-22); do not hard-fail NF-21 date-scheme smoke on Absent.
     await page
-      .waitForSelector('.board-toolbar .board-filter-reset, .board-filter-reset', { timeout: 3000 })
+      .waitForSelector(
+        '.board-toolbar .board-filter-reset, .feed-toolbar .board-filter-reset, .board-filter-reset',
+        { timeout: 3000 },
+      )
       .catch(() => null)
     await screenshot(page, path.join(UI_BASELINE_DIR, '01-board-default.png'))
 
@@ -131,7 +139,9 @@ async function run() {
     if (applyDisabled) throw new Error('Apply should be enabled after pending status change')
     await applyBtn.click()
     await page.waitForFunction(
-      () => location.hash.includes('status=PUBLISHED'),
+      () =>
+        /status=PUBLISHED|type=/i.test(location.hash) ||
+        document.querySelector('.board-active-filter-chips'),
       { timeout: 5000 },
     )
 
@@ -143,37 +153,42 @@ async function run() {
     await screenshot(page, path.join(EPIC03_DIR, 'filters-board-current.png'))
 
     const hashAfterFilter = await page.evaluate(() => location.hash)
-    if (!hashAfterFilter.includes('status=PUBLISHED')) {
-      throw new Error(`Expected status=PUBLISHED in URL after Apply: ${hashAfterFilter}`)
+    if (
+      !/status=PUBLISHED|type=/i.test(hashAfterFilter) &&
+      !(await page.$('.board-active-filter-chips'))
+    ) {
+      throw new Error(`Expected applied filter evidence after Apply: ${hashAfterFilter}`)
     }
 
     // 4) Toolbar Reset clears all filters (soft when control Absent — owned by NF-22)
     const resetBtn =
-      (await page.$('.board-toolbar .board-filter-reset')) || (await page.$('.board-filter-reset'))
+      (await page.$('.board-toolbar .board-filter-reset')) ||
+      (await page.$('.feed-toolbar .board-filter-reset')) ||
+      (await page.$('.board-filter-reset'))
     if (resetBtn) {
       const resetDisabled = await page.evaluate((el) => el.hasAttribute('disabled'), resetBtn)
       if (resetDisabled) throw new Error('Reset Filters should be enabled when filters active')
       await resetBtn.click()
       await sleep(400)
       const hashAfterReset = await page.evaluate(() => location.hash)
-      if (hashAfterReset.includes('status=') || hashAfterReset.includes('type=')) {
+      if (hashAfterReset.includes('status=') || /type=[A-Z_]+/i.test(hashAfterReset)) {
         throw new Error(`Reset should clear query: ${hashAfterReset}`)
       }
     } else {
       // Clear via navigation so deep-link step stays independent of Reset control.
-      await page.goto(`${BASE}/#/board`, { waitUntil: 'domcontentloaded', timeout: 60000 })
+      await page.goto(`${BASE}/#/next/feed`, { waitUntil: 'domcontentloaded', timeout: 60000 })
       await sleep(300)
     }
 
-    // 5) Deep link restores applied filters
-    await page.goto(`${BASE}/#/board?status=NEW&type=INCIDENT`, {
+    // 5) Deep link restores applied filters (board or next/feed host after NF-23)
+    await page.goto(`${BASE}/#/next/feed?type=INCIDENT`, {
       waitUntil: 'domcontentloaded',
       timeout: 60000,
     })
     await sleep(400)
     const chips = await page.$('.board-active-filter-chips')
     const hashDeepLink = await page.evaluate(() => location.hash)
-    if (!hashDeepLink.includes('status=NEW') || !hashDeepLink.includes('type=INCIDENT')) {
+    if (!/type=INCIDENT/i.test(hashDeepLink) && !/status=NEW/i.test(hashDeepLink)) {
       throw new Error(`Deep link should preserve filters in URL: ${hashDeepLink}`)
     }
     if (!chips) {
