@@ -24,6 +24,8 @@ export const CR_REACTION_MARK_ICONS = Object.freeze({
 /** @type {Readonly<Record<string, string>>} */
 export const CR_REACTION_CHROME_ICONS = Object.freeze({
   react: '/icons/next-feed/actions/react.svg',
+  /** CR-28 M176 peer empty affordance — existing catalog reactions/people chrome */
+  people: '/icons/next-feed/actions/reactions.svg',
   retry: '/icons/next-feed/actions/retry.svg',
   unavailable: '/icons/next-feed/status/unavailable.svg',
   warning: '/icons/next-feed/status/warning.svg',

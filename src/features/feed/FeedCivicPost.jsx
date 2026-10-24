@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { resolveLocalizedTextWithMeta } from '../../i18n/core.js'
 import { formatLabelKeyWithMeta } from '../../i18n/labelDisplay.js'
@@ -12,6 +12,7 @@ import { issueTypeIconForType } from '../../i18n/issueTypeIcons.js'
 import { formatIssueDate, formatGeoLabel } from './semantics/index.js'
 import { IssueIdentityHeader } from './identity/index.js'
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
+import { FeedPeerReactionsEntry } from './FeedPeerReactionsEntry.jsx'
 import { CIVIC_MEDIA_STUB_PATH } from './civicMediaStub.js'
 import { ShellChromeIcon } from '../../components/AppShell/ShellChromeIcon.jsx'
 import './FeedCivicPost.css'
@@ -21,7 +22,8 @@ import './FeedCivicPost.css'
  * CT-29: interim media stub `/assets/dogefeed.png` (supersedes M150 ISSUE-CARD-NO-MEDIA Done).
  * Four-zone strip · no SchemaCardOverlay · no invent image-gen HTTP.
  * CR-23: React zone = ReactionsMount Live (ThreadsSocialClient) · Reactions zone → people.
- * CR-24 M163/M164: wide React underlay · own icons in-zone · Reactions text only (no glyph stack).
+ * CR-24 M163/M164: wide React underlay · own icons in-zone · peer zone separate.
+ * CR-28 M176: peer empty people icon above label · filled chips · no invent people HTTP.
  * NF-13 / M161: identity icon from exact `issue.type` catalog map · unknown → omit.
  * NF-14: list hit = one Link around identity+content+media · open row retired · strip excluded.
  * NF-15 / M162: strip density · CR-23 Live host held · CR-24 underlay supersedes NF-18 flat React.
@@ -50,6 +52,35 @@ export function FeedCivicPost({
   initialAggregateCount,
 }) {
   const reactionsApiRef = useRef(null)
+  const propPeerKnown =
+    initialSummaryMarks !== undefined || initialAggregateCount !== undefined
+  const [peerKnown, setPeerKnown] = useState(propPeerKnown)
+  const [peerMarks, setPeerMarks] = useState(() =>
+    initialSummaryMarks !== undefined ? initialSummaryMarks : null,
+  )
+  const [peerAgg, setPeerAgg] = useState(() =>
+    initialAggregateCount !== undefined ? initialAggregateCount : null,
+  )
+
+  useEffect(() => {
+    if (initialSummaryMarks === undefined && initialAggregateCount === undefined) return
+    setPeerKnown(true)
+    if (initialSummaryMarks !== undefined) setPeerMarks(initialSummaryMarks)
+    if (initialAggregateCount !== undefined) setPeerAgg(initialAggregateCount)
+  }, [initialSummaryMarks, initialAggregateCount])
+
+  const onSummaryChange = useCallback((next) => {
+    if (!next || typeof next !== 'object') return
+    /* M176: missing data ≠ known empty — ignore uninitialized mount null/null */
+    const hasMarks = Array.isArray(next.summaryMarks)
+    const hasAgg =
+      next.aggregateCount !== undefined && next.aggregateCount !== null
+    if (!hasMarks && !hasAgg) return
+    setPeerKnown(true)
+    if (next.summaryMarks !== undefined) setPeerMarks(next.summaryMarks)
+    if (next.aggregateCount !== undefined) setPeerAgg(next.aggregateCount)
+  }, [])
+
   const contentField = issue.summary ?? issue.title
   const contentMeta = resolveLocalizedTextWithMeta(contentField, locale)
   const cardText = resolveLocalizedText(contentField)
@@ -227,6 +258,7 @@ export function FeedCivicPost({
         data-nf18-density="residual"
         data-cr24-underlay="m163"
         data-cr26-harmony="m173"
+        data-feed-cr28-strip="true"
         role="group"
         aria-label={t('nextFeed.post.actions')}
       >
@@ -246,6 +278,7 @@ export function FeedCivicPost({
             initialSelected={initialSelected}
             initialSummaryMarks={initialSummaryMarks}
             initialAggregateCount={initialAggregateCount}
+            onSummaryChange={onSummaryChange}
           />
         </div>
         <button
@@ -278,14 +311,12 @@ export function FeedCivicPost({
           />
           <span>{t('nextFeed.post.share')}</span>
         </button>
-        <button
-          type="button"
-          className="feed-civic-post-action feed-civic-post-action-reactions"
-          data-testid="feed-civic-action-reactions"
-          data-zone="reactions"
-          data-rm-reactions-text-only="true"
-          aria-label={t('threadsFeed.post.reactionSummarySlot')}
-          onClick={(event) => {
+        <FeedPeerReactionsEntry
+          t={t}
+          known={peerKnown}
+          summaryMarks={peerMarks}
+          aggregateCount={peerAgg}
+          onActivate={(event) => {
             const anchorEl = event?.currentTarget ?? null
             if (typeof reactionsApiRef.current?.activateAggregate === 'function') {
               reactionsApiRef.current.activateAggregate(
@@ -295,9 +326,7 @@ export function FeedCivicPost({
             }
             if (typeof onOpenReactions === 'function') onOpenReactions()
           }}
-        >
-          <span>{t('threadsFeed.post.reactionSummarySlot')}</span>
-        </button>
+        />
       </div>
     </article>
   )

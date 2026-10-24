@@ -54,6 +54,8 @@ export function FeedReactionsMount({
   initialSummaryMarks,
   /** CR-25: aggregate_count from tree */
   initialAggregateCount,
+  /** CR-28: peer zone sync — summary_marks / aggregate_count (no invent people HTTP) */
+  onSummaryChange = null,
 }) {
   const id = issueId === undefined || issueId === null ? '' : String(issueId).trim()
   const adapter = useMemo(
@@ -109,6 +111,11 @@ export function FeedReactionsMount({
     if (aggSig === null) return
     setAggregateCount(initialAggregateCount)
   }, [aggSig, initialAggregateCount])
+
+  useEffect(() => {
+    if (typeof onSummaryChange !== 'function') return
+    onSummaryChange({ summaryMarks, aggregateCount })
+  }, [onSummaryChange, summaryMarks, aggregateCount])
 
   const slot =
     target === 'comment'

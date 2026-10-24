@@ -1,12 +1,15 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { FeedReactionsMount } from './FeedReactionsMount.jsx'
 import { FeedThreadMount } from './FeedThreadMount.jsx'
+import { FeedPeerReactionsEntry } from './FeedPeerReactionsEntry.jsx'
+import { ShellChromeIcon } from '../../components/AppShell/ShellChromeIcon.jsx'
 
 /**
  * CR-23 Path A stand — next/feed ReactionsMount Live (civic strip + comment plug).
- * CR-24: wide underlay · ownInZone · Reactions text-only (M163/M164).
+ * CR-24: wide underlay · ownInZone · peer zone separate (M163/M164).
  * CR-25: tree hydrate selected / summaries (post + comment) · Path A reload honesty.
  * CR-26: M173 empty/filled icon-above-label harmony · Path A empty clear control.
+ * CR-28: M176 peer empty people affordance · filled chips continuity.
  * Avoids FeedCivicPost/StatusBadge so lab stress tests without I18nProvider still pass.
  * Lab FixtureAdapter path stays on FeedLabReactionsMount · this stand proves Live host only.
  * No invent HTTP · OP eye Absent → visual BLOCK.
@@ -39,6 +42,27 @@ export function FeedLabCt23Stand() {
     const s = treeStateRef.current
     s.rootSelected = ['support', 'agree', 'useful_fact']
     s.rootMarks = s.rootSelected.map((id) => ({ reaction_id: id, count: 1 }))
+    s.rootAgg = 3
+    setRootRx(null)
+    setStandKey((k) => k + 1)
+  }, [])
+
+  /** CR-28: known-empty peer summary · own selection held */
+  const clearPeerRoot = useCallback(() => {
+    const s = treeStateRef.current
+    s.rootMarks = []
+    s.rootAgg = 0
+    setRootRx(null)
+    setStandKey((k) => k + 1)
+  }, [])
+
+  /** CR-28: filled peer chips (illustrative density) */
+  const fillPeerRoot = useCallback(() => {
+    const s = treeStateRef.current
+    s.rootMarks = [
+      { reaction_id: 'acknowledge', count: 2 },
+      { reaction_id: 'agree', count: 1 },
+    ]
     s.rootAgg = 3
     setRootRx(null)
     setStandKey((k) => k + 1)
@@ -172,12 +196,13 @@ export function FeedLabCt23Stand() {
       data-lab-ct23="true"
       data-lab-cr25="true"
       data-lab-cr26="true"
+      data-lab-cr28="true"
       data-lab-cr25-anon={anonMode ? 'true' : 'false'}
       data-lab-plane="greenfield"
-      aria-label="CR-23/25/26 next/feed ReactionsMount Live stand"
+      aria-label="CR-23/25/26/28 next/feed ReactionsMount Live stand"
     >
       <h2 className="feed-lab-ct23-stand__title" data-testid="feed-lab-ct23-heading">
-        CR-23/25/26 next/feed ReactionsMount Live hydrate + M173 (Path A)
+        CR-23/25/26/28 next/feed ReactionsMount Live + M173/M176 (Path A)
       </h2>
       <div className="feed-lab-ct23-stand__controls" data-testid="feed-lab-cr25-controls">
         <button
@@ -196,6 +221,12 @@ export function FeedLabCt23Stand() {
         <button type="button" data-testid="feed-lab-cr26-fill-own" onClick={fillOwnRoot}>
           CR-26 fill 3 own
         </button>
+        <button type="button" data-testid="feed-lab-cr28-clear-peer" onClick={clearPeerRoot}>
+          CR-28 empty peer
+        </button>
+        <button type="button" data-testid="feed-lab-cr28-fill-peer" onClick={fillPeerRoot}>
+          CR-28 fill peer
+        </button>
       </div>
       <div className="feed-lab-ct23-stand__card" data-testid="feed-lab-ct23-card">
         <div
@@ -204,10 +235,11 @@ export function FeedLabCt23Stand() {
           data-action-zones="4"
           data-feed-cr23-strip="true"
           data-feed-cr25-strip="true"
+          data-feed-cr28-strip="true"
           data-cr24-underlay="m163"
           data-cr26-harmony="m173"
           role="group"
-          aria-label="CR-23/25/26 civic strip stand"
+          aria-label="CR-23/25/26/28 civic strip stand"
         >
           <div
             className="feed-civic-post-action feed-civic-post-actions__react-slot"
@@ -234,14 +266,11 @@ export function FeedLabCt23Stand() {
             data-testid="feed-civic-action-comment"
             data-zone="comment"
           >
-            <img
+            <ShellChromeIcon
               className="feed-civic-post-icon"
               src="/icons/next-feed/actions/comment.svg"
-              width={24}
-              height={24}
-              alt=""
-              aria-hidden="true"
-              data-testid="feed-civic-icon-comment"
+              size={24}
+              testId="feed-civic-icon-comment"
             />
             <span>Comment</span>
           </button>
@@ -251,23 +280,26 @@ export function FeedLabCt23Stand() {
             data-testid="feed-civic-action-share"
             data-zone="share"
           >
+            <ShellChromeIcon
+              className="feed-civic-post-icon"
+              src="/icons/next-feed/actions/share.svg"
+              size={24}
+              testId="feed-civic-icon-share"
+            />
             <span>Share</span>
           </button>
-          <button
-            type="button"
-            className="feed-civic-post-action feed-civic-post-action-reactions"
-            data-testid="feed-civic-action-reactions"
-            data-zone="reactions"
-            data-rm-reactions-text-only="true"
-            onClick={(event) => {
+          <FeedPeerReactionsEntry
+            t={t}
+            known={rootRx != null}
+            summaryMarks={rootRx?.summaryMarks}
+            aggregateCount={rootRx?.aggregateCount}
+            onActivate={(event) => {
               const anchorEl = event?.currentTarget ?? null
               reactionsApiRef.current?.activateAggregate?.(
                 anchorEl ? { anchorEl } : undefined,
               )
             }}
-          >
-            <span>Reactions</span>
-          </button>
+          />
         </div>
         <div data-testid="feed-lab-ct23-thread">
           <FeedThreadMount
