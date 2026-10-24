@@ -133,12 +133,12 @@
   cursor: not-allowed;
 }
 
-/* CR-24 M163/M164 — one wide React underlay · own icons in-zone · stable 0/1/2/3 */
+/* CR-24 M163/M164 + CR-26 M173 — wide underlay · icon-above-label every own state · stable 0/1/2/3 */
 .rm-summary-strip__react--own-in-zone {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px; /* M173: label ↔ lower lane */
   width: 100%;
   min-height: 72px;
   min-width: 0;
@@ -170,10 +170,15 @@
   min-width: 0;
 }
 
-/* M164 §4.1 — zero: thumb above React label · peer-aligned */
-.rm-summary-strip__react--zero .rm-summary-strip__react-entry {
+/*
+ * CR-26 M173 — icon above label in EVERY selection state (supersedes M164 filled
+ * horizontal thumb+text). Empty + filled share entry geometry with Comment.
+ */
+.rm-summary-strip__react--own-in-zone .rm-summary-strip__react-entry,
+.rm-summary-strip__react--zero .rm-summary-strip__react-entry,
+.rm-summary-strip__react--has-own .rm-summary-strip__react-entry {
   flex-direction: column;
-  gap: 4px;
+  gap: 6px; /* M173: entry icon ↔ label */
 }
 
 .rm-summary-strip__react-own {
@@ -181,11 +186,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-height: 22px;
+  gap: 6px; /* M173: gap between own glyphs */
+  min-height: 18px;
   width: 100%;
-  /* Reserve 3-slot row so 0/1/2/3 share outer geometry */
-  min-width: calc(3 * 22px + 2 * 4px);
+  /* Reserve 3-slot row so 0/1/2/3 share outer geometry (M173 §5) */
+  min-width: calc(3 * 18px + 2 * 6px);
 }
 
 .rm-summary-strip__react--zero .rm-summary-strip__react-own {
@@ -196,8 +201,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 18px; /* M173 selected glyph */
+  height: 18px;
   border-radius: 999px;
   background: var(--rm-mark-soft, var(--color-surface-elevated, #fffdf8));
   border: 1px solid var(--rm-mark-accent, var(--color-border-default, #e7e4dc));

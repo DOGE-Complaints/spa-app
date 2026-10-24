@@ -226,6 +226,7 @@ export function FeedCivicPost({
         data-nf17-chrome="residual"
         data-nf18-density="residual"
         data-cr24-underlay="m163"
+        data-cr26-harmony="m173"
         role="group"
         aria-label={t('nextFeed.post.actions')}
       >

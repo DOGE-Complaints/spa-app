@@ -6,6 +6,7 @@ import { FeedThreadMount } from './FeedThreadMount.jsx'
  * CR-23 Path A stand — next/feed ReactionsMount Live (civic strip + comment plug).
  * CR-24: wide underlay · ownInZone · Reactions text-only (M163/M164).
  * CR-25: tree hydrate selected / summaries (post + comment) · Path A reload honesty.
+ * CR-26: M173 empty/filled icon-above-label harmony · Path A empty clear control.
  * Avoids FeedCivicPost/StatusBadge so lab stress tests without I18nProvider still pass.
  * Lab FixtureAdapter path stays on FeedLabReactionsMount · this stand proves Live host only.
  * No invent HTTP · OP eye Absent → visual BLOCK.
@@ -14,6 +15,7 @@ export function FeedLabCt23Stand() {
   const reactionsApiRef = useRef(null)
   const [rootRx, setRootRx] = useState(null)
   const [anonMode, setAnonMode] = useState(false)
+  const [standKey, setStandKey] = useState(0)
   /** Mutable tree row so PUT → getThreadTree rehydrate stays consistent (CR-25 T03). */
   const treeStateRef = useRef({
     rootSelected: ['acknowledge'],
@@ -23,6 +25,24 @@ export function FeedLabCt23Stand() {
     commentMarks: [{ reaction_id: 'agree', count: 2 }],
     commentAgg: 2,
   })
+
+  const clearOwnRoot = useCallback(() => {
+    const s = treeStateRef.current
+    s.rootSelected = []
+    s.rootMarks = []
+    s.rootAgg = 0
+    setRootRx(null)
+    setStandKey((k) => k + 1)
+  }, [])
+
+  const fillOwnRoot = useCallback(() => {
+    const s = treeStateRef.current
+    s.rootSelected = ['support', 'agree', 'useful_fact']
+    s.rootMarks = s.rootSelected.map((id) => ({ reaction_id: id, count: 1 }))
+    s.rootAgg = 3
+    setRootRx(null)
+    setStandKey((k) => k + 1)
+  }, [])
 
   const buildTree = useCallback(() => {
     const s = treeStateRef.current
@@ -151,12 +171,13 @@ export function FeedLabCt23Stand() {
       data-testid="feed-lab-ct23-stand"
       data-lab-ct23="true"
       data-lab-cr25="true"
+      data-lab-cr26="true"
       data-lab-cr25-anon={anonMode ? 'true' : 'false'}
       data-lab-plane="greenfield"
-      aria-label="CR-23/25 next/feed ReactionsMount Live stand"
+      aria-label="CR-23/25/26 next/feed ReactionsMount Live stand"
     >
       <h2 className="feed-lab-ct23-stand__title" data-testid="feed-lab-ct23-heading">
-        CR-23/25 next/feed ReactionsMount Live hydrate (Path A)
+        CR-23/25/26 next/feed ReactionsMount Live hydrate + M173 (Path A)
       </h2>
       <div className="feed-lab-ct23-stand__controls" data-testid="feed-lab-cr25-controls">
         <button
@@ -169,6 +190,12 @@ export function FeedLabCt23Stand() {
         >
           {anonMode ? 'Bearer hydrate' : 'Anonymous omit'}
         </button>
+        <button type="button" data-testid="feed-lab-cr26-clear-own" onClick={clearOwnRoot}>
+          CR-26 empty own
+        </button>
+        <button type="button" data-testid="feed-lab-cr26-fill-own" onClick={fillOwnRoot}>
+          CR-26 fill 3 own
+        </button>
       </div>
       <div className="feed-lab-ct23-stand__card" data-testid="feed-lab-ct23-card">
         <div
@@ -178,8 +205,9 @@ export function FeedLabCt23Stand() {
           data-feed-cr23-strip="true"
           data-feed-cr25-strip="true"
           data-cr24-underlay="m163"
+          data-cr26-harmony="m173"
           role="group"
-          aria-label="CR-23/25 civic strip stand"
+          aria-label="CR-23/25/26 civic strip stand"
         >
           <div
             className="feed-civic-post-action feed-civic-post-actions__react-slot"
@@ -188,7 +216,7 @@ export function FeedLabCt23Stand() {
             data-rm-react-underlay="wide"
           >
             <FeedReactionsMount
-              key={anonMode ? 'anon' : 'bearer'}
+              key={`${anonMode ? 'anon' : 'bearer'}-${standKey}`}
               issueId="CR23-PATH-A"
               target="thread-root"
               t={t}
@@ -206,6 +234,15 @@ export function FeedLabCt23Stand() {
             data-testid="feed-civic-action-comment"
             data-zone="comment"
           >
+            <img
+              className="feed-civic-post-icon"
+              src="/icons/next-feed/actions/comment.svg"
+              width={24}
+              height={24}
+              alt=""
+              aria-hidden="true"
+              data-testid="feed-civic-icon-comment"
+            />
             <span>Comment</span>
           </button>
           <button
@@ -234,7 +271,7 @@ export function FeedLabCt23Stand() {
         </div>
         <div data-testid="feed-lab-ct23-thread">
           <FeedThreadMount
-            key={anonMode ? 'thread-anon' : 'thread-bearer'}
+            key={`${anonMode ? 'thread-anon' : 'thread-bearer'}-${standKey}`}
             issueId="CR23-PATH-A"
             t={t}
             profile={anonMode ? null : verifiedProfile}

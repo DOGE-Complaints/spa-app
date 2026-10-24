@@ -12,6 +12,7 @@ const OWN_IN_ZONE_MAX = 3
  * Aggregate: `inline` (legacy in-strip) or `external` (CR-12 row via ReactionAggregateRow below strip).
  * CR-17: aggregate → people path (onAggregateActivate) · NOT ReactionPicker.
  * CR-24: `ownInZone` — own selected icons inside React · suppress inline aggregate · stable box.
+ * CR-26 M173: icon-above-label every own state · reserved 3-slot lane empty/filled.
  */
 export function ReactionSummaryStrip({
   stripStatus = 'ready',
@@ -152,6 +153,7 @@ export function ReactionSummaryStrip({
       data-density={density}
       data-selected-count={String(ownCount)}
       data-rm-cr24={ownInZone ? 'true' : undefined}
+      data-rm-cr26={ownInZone ? 'true' : undefined}
     >
       {showInlineAggregate ? (
         <button
@@ -206,13 +208,14 @@ export function ReactionSummaryStrip({
           data-testid="reaction-summary-react"
           data-rm-react-underlay={ownInZone ? 'wide' : undefined}
           data-rm-own-count={String(ownCount)}
+          data-rm-cr26-harmony={ownInZone ? 'm173' : undefined}
           aria-expanded={Boolean(open)}
           aria-controls={panelId}
           disabled={busy || stripStatus === 'loading'}
           onClick={openPicker}
         >
           <span className="rm-summary-strip__react-entry" data-testid="reaction-summary-react-entry">
-            <CrReactionIcon src={icons.react} size={18} />
+            <CrReactionIcon src={icons.react} size={ownInZone ? 24 : 18} />
             <span>{t('threadsFeed.reactions.react')}</span>
           </span>
           {ownInZone ? (
@@ -220,6 +223,7 @@ export function ReactionSummaryStrip({
               className="rm-summary-strip__react-own"
               data-testid="reaction-summary-react-own"
               data-rm-own-slots={String(OWN_IN_ZONE_MAX)}
+              data-rm-own-lane="reserved"
               aria-hidden={isZeroOwn ? 'true' : undefined}
             >
               {selectedIds.map((id) => (
@@ -229,7 +233,7 @@ export function ReactionSummaryStrip({
                   data-reaction-id={id}
                   data-testid={`reaction-summary-own-${id}`}
                 >
-                  <CrReactionIcon src={icons[id]} size={16} />
+                  <CrReactionIcon src={icons[id]} size={18} />
                 </span>
               ))}
             </span>
