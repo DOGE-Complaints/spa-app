@@ -158,11 +158,22 @@ export function createLiveAdapter(opts = {}) {
 
   /**
    * Soft-fail upload Ready Files after body success (FR-CT-30.1 · 30.5 · 30.9).
+   * CT-34: return outcomes so post can merge File / published_url onto tree map
+   * (avoids text-only «Selected image» plate when tree omits bytes or URL).
    * @param {string} commentId
    * @param {Array} attachments
+   * @returns {Promise<Array<{
+   *   file: File,
+   *   publishedUrl: string|null,
+   *   refId: string|null,
+   *   fileName?: string,
+   *   kind?: string,
+   * }>>}
    */
   async function uploadReadyAttachments(commentId, attachments) {
-    if (typeof client.uploadAttachment !== 'function') return
+    /** @type {Array<{ file: File, publishedUrl: string|null, refId: string|null, fileName?: string, kind?: string }>} */
+    const outcomes = []
+    if (typeof client.uploadAttachment !== 'function') return outcomes
     const readyFiles = Array.isArray(attachments)
       ? attachments.filter(
           (a) =>
@@ -173,20 +184,110 @@ export function createLiveAdapter(opts = {}) {
         )
       : []
     for (const intent of readyFiles) {
+      const fileName =
+        typeof intent.fileName === 'string' && intent.fileName.trim()
+          ? intent.fileName.trim()
+          : typeof intent.file.name === 'string' && intent.file.name.trim()
+            ? intent.file.name.trim()
+            : undefined
+      /** @type {{ file: File, publishedUrl: string|null, refId: string|null, fileName?: string, kind?: string }} */
+      const row = {
+        file: intent.file,
+        publishedUrl: null,
+        refId: null,
+        kind: intent.kind || 'image',
+        ...(fileName ? { fileName } : {}),
+      }
       try {
         const mediaType =
           typeof intent.file.type === 'string' && intent.file.type.trim()
             ? intent.file.type.trim()
             : intent.mediaType || undefined
-        await client.uploadAttachment({
+        const result = await client.uploadAttachment({
           issueId,
           commentId: String(commentId),
           file: intent.file,
           mediaType,
         })
+        if (result?.status === 'ok' && result.data) {
+          const pubRaw = result.data.published_url
+          if (pubRaw !== undefined && pubRaw !== null && String(pubRaw).trim()) {
+            row.publishedUrl = String(pubRaw).trim()
+          }
+          const refRaw = result.data.ref_id
+          if (refRaw !== undefined && refRaw !== null && String(refRaw).trim()) {
+            row.refId = String(refRaw).trim()
+          }
+        }
       } catch {
-        /* soft-fail attach — body success held */
+        /* soft-fail attach — body success held · File kept for local preview */
       }
+      outcomes.push(row)
+    }
+    return outcomes
+  }
+
+  /**
+   * CT-34 — after tree reload, keep local File and/or upload published_url on the
+   * posted comment so CommentAttachmentPreview can paint an image (policy A held).
+   * @param {string} commentId
+   * @param {Array<{ file: File, publishedUrl: string|null, refId: string|null, fileName?: string, kind?: string }>} outcomes
+   */
+  function mergeAttachPreviewOutcomes(commentId, outcomes) {
+    if (!Array.isArray(outcomes) || outcomes.length === 0) return
+    const cid = String(commentId)
+    cached = {
+      ...cached,
+      comments: (Array.isArray(cached.comments) ? cached.comments : []).map((c) => {
+        if (!c || String(c.id) !== cid) return c
+        const atts = Array.isArray(c.attachments)
+          ? c.attachments.map((a) => (a && typeof a === 'object' ? { ...a } : a))
+          : []
+        let oi = 0
+        for (let i = 0; i < atts.length && oi < outcomes.length; i += 1) {
+          const a = atts[i]
+          if (!a || typeof a !== 'object') continue
+          const out = outcomes[oi]
+          const kind = a.kind || out.kind || 'image'
+          if (kind !== 'image' && !(typeof File !== 'undefined' && out.file instanceof File)) {
+            continue
+          }
+          oi += 1
+          const hasPub =
+            typeof a.publishedUrl === 'string' && a.publishedUrl.trim() !== ''
+          if (!hasPub && out.publishedUrl) {
+            a.publishedUrl = out.publishedUrl
+          }
+          const hasFile =
+            typeof File !== 'undefined' && a.file instanceof File
+          if (!hasFile && typeof File !== 'undefined' && out.file instanceof File) {
+            a.file = out.file
+          }
+          if (out.fileName && !(typeof a.fileName === 'string' && a.fileName.trim())) {
+            a.fileName = out.fileName
+          }
+          if (out.refId && a.id == null) a.id = out.refId
+          if (!a.status) a.status = 'ready'
+          if (!a.kind) a.kind = kind
+        }
+        if (atts.length === 0) {
+          for (const out of outcomes) {
+            atts.push({
+              id: out.refId || `local-preview-${cid}-${atts.length}`,
+              status: 'ready',
+              kind: out.kind || 'image',
+              label: 'Selected image',
+              origin: 'picker',
+              publishedUrl: out.publishedUrl,
+              ...(out.fileName ? { fileName: out.fileName } : {}),
+              ...(typeof File !== 'undefined' && out.file instanceof File
+                ? { file: out.file }
+                : {}),
+            })
+          }
+        }
+        return { ...c, attachments: atts }
+      }),
     }
   }
 
@@ -215,8 +316,10 @@ export function createLiveAdapter(opts = {}) {
       const result = await client.replyComment({ issueId, body, parentId })
       if (result?.status === 'ok') {
         const commentId = result.data?.comment_id
-        if (commentId) await uploadReadyAttachments(String(commentId), attachments)
+        let outcomes = []
+        if (commentId) outcomes = await uploadReadyAttachments(String(commentId), attachments)
         await load()
+        if (commentId) mergeAttachPreviewOutcomes(String(commentId), outcomes)
         return { ok: true }
       }
       return {
@@ -230,8 +333,10 @@ export function createLiveAdapter(opts = {}) {
     const result = await client.createComment({ issueId, body })
     if (result?.status === 'ok') {
       const commentId = result.data?.comment_id
-      if (commentId) await uploadReadyAttachments(String(commentId), attachments)
+      let outcomes = []
+      if (commentId) outcomes = await uploadReadyAttachments(String(commentId), attachments)
       await load()
+      if (commentId) mergeAttachPreviewOutcomes(String(commentId), outcomes)
       return { ok: true }
     }
     return {
