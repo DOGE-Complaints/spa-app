@@ -31,11 +31,12 @@ describe('PublicFooter (PH-03 · PH-11)', () => {
     cleanup()
   })
 
-  it('renders brand (no tagline · NS-14/M169) and About/Privacy/Contact links', () => {
+  it('renders brand mark (no adjacent text · NS-15) and About/Privacy/Contact links', () => {
     renderFooter()
     expect(screen.getByTestId('public-footer')).toBeTruthy()
-    expect(screen.getByTestId('public-footer-brand').textContent).toContain('DOGEstonia')
+    expect(screen.getByTestId('public-footer').getAttribute('aria-label')).toBe('DOGEstonia')
     expect(screen.queryByTestId('public-footer-tagline')).toBeNull()
+    expect(screen.queryByText('DOGEstonia', { selector: '.public-footer__brand-name' })).toBeNull()
     expect(screen.getByTestId('public-footer-about').textContent).toBe('About')
     expect(screen.getByTestId('public-footer-privacy').textContent).toBe('Privacy')
     expect(screen.getByTestId('public-footer-contact').textContent).toBe('Contact')
@@ -48,11 +49,11 @@ describe('PublicFooter (PH-03 · PH-11)', () => {
     expect(screen.getByTestId('public-footer-contact').getAttribute('href')).toBe('/contact')
   })
 
-  it('brand link targets /next/feed and logo is ≥40px attrs', () => {
+  it('brand link targets /next/feed and logo is ≥40px height (NS-15 tip PNG)', () => {
     renderFooter()
     expect(screen.getByTestId('public-footer-brand-link').getAttribute('href')).toBe('/next/feed')
     const logo = screen.getByTestId('public-footer-logo')
-    expect(Number(logo.getAttribute('width'))).toBeGreaterThanOrEqual(40)
+    expect(logo.getAttribute('src')).toMatch(/dogestonia-brand-(light|dark)\.png$/)
     expect(Number(logo.getAttribute('height'))).toBeGreaterThanOrEqual(40)
   })
 
@@ -68,7 +69,7 @@ describe('PublicFooter (PH-03 · PH-11)', () => {
       cleanup()
       renderFooter()
       expect(screen.queryByTestId('public-footer-tagline')).toBeNull()
-      expect(screen.getByTestId('public-footer-brand').textContent).toContain('DOGEstonia')
+      expect(screen.getByTestId('public-footer').getAttribute('aria-label')).toBe('DOGEstonia')
     }
   })
 })

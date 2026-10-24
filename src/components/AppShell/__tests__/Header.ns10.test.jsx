@@ -1,6 +1,6 @@
 /**
  * @vitest-environment jsdom
- * NS-10 — light/dark SVG brand · ~44px · home /next/feed · no dark-backed PNG master.
+ * NS-10 band CSS held · brand src supersede NS-15 tip PNG dual.
  */
 import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
@@ -11,8 +11,8 @@ import { Header } from '../Header.jsx'
 import { I18nProvider } from '../../../i18n/I18nProvider.jsx'
 import { LOCALE_STORAGE_KEY } from '../../../i18n/core.js'
 
-const LIGHT_SRC = '/assets/DOGEstonia-logo-horizontal-light.svg'
-const DARK_SRC = '/assets/DOGEstonia-logo-horizontal-dark.svg'
+const LIGHT_SRC = '/assets/dogestonia-brand-light.png'
+const DARK_SRC = '/assets/dogestonia-brand-dark.png'
 
 function renderHeader(initialPath = '/next/feed') {
   return render(
@@ -38,7 +38,7 @@ describe('Public Header NS-10 brand logo light/scale', () => {
     document.documentElement.removeAttribute('data-theme')
   })
 
-  it('wires light SVG brand (not PNG dark-backed master) and home /next/feed', () => {
+  it('wires light tip PNG brand and home /next/feed (NS-15 supersede)', () => {
     renderHeader()
     const brand = screen.getByTestId('public-header-brand')
     expect(brand.getAttribute('href')).toBe('/next/feed')
@@ -49,7 +49,7 @@ describe('Public Header NS-10 brand logo light/scale', () => {
     expect(logo?.getAttribute('src')).not.toMatch(/DOGEstonia-logo-horizontal\.png$/)
   })
 
-  it('switches to dark SVG on continuous dark theme', async () => {
+  it('switches to dark tip PNG on continuous dark theme', async () => {
     renderHeader()
     document.documentElement.setAttribute('data-theme', 'dark')
     await waitFor(() => {
@@ -59,23 +59,12 @@ describe('Public Header NS-10 brand logo light/scale', () => {
     })
   })
 
-  it('keeps ~44px brand band CSS and prepared SVG assets Present', () => {
+  it('keeps ~44px brand band CSS and tip PNG masters Present', () => {
     const css = readFileSync(resolve(process.cwd(), 'src/components/AppShell/Header.css'), 'utf8')
     expect(css).toMatch(/\.public-header\s+\.header-brand-logo[\s\S]*height:\s*44px/)
     expect(css).toMatch(/background:\s*transparent/)
-    for (const name of [
-      'DOGEstonia-logo-horizontal-light.svg',
-      'DOGEstonia-logo-horizontal-dark.svg',
-      'DOGEstonia-logo-horizontal-light.png',
-      'DOGEstonia-logo-horizontal-dark.png',
-    ]) {
+    for (const name of ['dogestonia-brand-light.png', 'dogestonia-brand-dark.png']) {
       expect(existsSync(resolve(process.cwd(), 'public/assets', name))).toBe(true)
     }
-    const lightSvg = readFileSync(
-      resolve(process.cwd(), 'public/assets/DOGEstonia-logo-horizontal-light.svg'),
-      'utf8',
-    )
-    expect(lightSvg).toMatch(/<svg[\s\S]*<image[\s\S]*data:image\/png;base64,/)
-    expect(lightSvg).not.toMatch(/DOGEstonia-logo-fallback/)
   })
 })
