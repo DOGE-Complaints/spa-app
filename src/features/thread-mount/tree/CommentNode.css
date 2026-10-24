@@ -90,6 +90,7 @@
 }
 
 /* M153d §4 · shared React | Reply group · borderless fill */
+/* CT-35 M174: equal column heights · Reply centers against React stack · no M173 lane */
 .tm-comment-node__action-pills {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -102,6 +103,11 @@
   border-radius: 999px;
   box-shadow: none;
   overflow: hidden;
+}
+
+.tm-comment-node__action-pills[data-tm-ct35-harmony='m174'] {
+  /* content-driven height · empty stays compact (no reserved chip pocket) */
+  min-height: 44px;
 }
 
 .tm-comment-node__pill {
@@ -137,9 +143,14 @@
 }
 
 .tm-comment-node__react-pill {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   max-width: max-content;
   padding: 4px 8px;
   min-height: 44px;
+  box-sizing: border-box;
 }
 
 .tm-comment-node__reactions {
@@ -167,10 +178,19 @@
   max-width: max-content;
 }
 
+/* CT-35 M174 · chips under React entry · horizontal icon+label · gap 4px */
+.tm-comment-node__reactions--density .rm-summary-strip {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 4px;
+}
+
 .tm-comment-node__reactions--density .rm-summary-strip__react {
+  order: -1;
   margin: 0;
   padding: 0;
-  min-height: 20px;
+  min-height: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -179,6 +199,45 @@
   font-size: 0.8125rem;
   font-weight: 600;
   gap: 6px;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: none;
+}
+
+.tm-comment-node__reactions--density .rm-summary-strip__react-entry {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Neutralize accidental M173 own-in-zone anatomy inside comment pill */
+.tm-comment-node__reactions--density .rm-summary-strip__react--own-in-zone {
+  flex-direction: row;
+  min-height: 0;
+  width: auto;
+  padding: 0;
+  background: transparent;
+}
+
+.tm-comment-node__reactions--density .rm-summary-strip__react--own-in-zone .rm-summary-strip__react-entry {
+  flex-direction: row;
+  gap: 6px;
+}
+
+.tm-comment-node__reactions--density .rm-summary-strip__react-own {
+  display: none;
+}
+
+.tm-comment-node__reactions--density .rm-summary-strip__empty {
+  display: none;
+}
+
+.tm-comment-node__reactions--density .rm-summary-strip__aggregate {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .tm-comment-node__reply {

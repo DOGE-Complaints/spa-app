@@ -126,12 +126,15 @@ export function CommentNode({
                 className="tm-comment-node__action-pills"
                 data-testid="tm-comment-action-pills"
                 data-lab-ct13="true"
+                data-lab-ct35="true"
+                data-tm-ct35-harmony="m174"
               >
                 {hasReactPlug ? (
                   <div
                     className="tm-comment-node__react-pill tm-comment-node__pill"
                     data-testid="tm-comment-react-pill"
                     data-lab-ct13="true"
+                    data-lab-ct35="true"
                   >
                     <div
                       className="tm-comment-node__reactions tm-comment-node__reactions--density"

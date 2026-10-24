@@ -89,6 +89,7 @@ export function FeedThreadMount({
         t={t}
         client={client}
         aggregatePlacement="inline"
+        ownInZone={false}
         initialSelected={node?.selected}
         initialSummaryMarks={node?.summaryMarks}
         initialAggregateCount={node?.aggregateCount}

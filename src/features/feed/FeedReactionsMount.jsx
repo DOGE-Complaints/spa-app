@@ -31,6 +31,7 @@ function selectedSig(raw) {
 /**
  * CR-23 next/feed host — ReactionsMount + LiveAdapter → ThreadsSocialClient.react.
  * CR-24: ownInZone (M163/M164) — wide React underlay · own icons in-zone · no below-row.
+ * CT-35 M174: `target=comment` defaults ownInZone **false** (no M173 reserved lane / icon-above).
  * CR-25: hydrate `initialSelected` / summary props from authenticated tree · PUT→tree reload sync.
  * Lab Fixture path stays on FeedLabReactionsMount · this host is Live only.
  * People Live fail-closed (adapter.listReactors) · no invent HTTP · OP eye Absent → visual BLOCK.
@@ -46,8 +47,11 @@ export function FeedReactionsMount({
   aggregateHost = null,
   apiRef = null,
   defaultOpen = false,
-  /** CR-24 default true on next/feed civic host */
-  ownInZone = true,
+  /**
+   * CR-24: default true for thread-root civic host.
+   * CT-35: omit/false for `target=comment` — M174 horizontal · no M173 lane.
+   */
+  ownInZone: ownInZoneProp,
   /** CR-25: actor selected[] from tree (undefined = no hydrate prop) */
   initialSelected,
   /** CR-25: summary_marks from tree */
@@ -57,6 +61,8 @@ export function FeedReactionsMount({
   /** CR-28: peer zone sync — summary_marks / aggregate_count (no invent people HTTP) */
   onSummaryChange = null,
 }) {
+  const ownInZone =
+    ownInZoneProp !== undefined ? Boolean(ownInZoneProp) : target !== 'comment'
   const id = issueId === undefined || issueId === null ? '' : String(issueId).trim()
   const adapter = useMemo(
     () => createLiveAdapter({ issueId: id || null, client }),
