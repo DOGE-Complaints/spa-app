@@ -38,7 +38,7 @@ export function writeStoredTheme(theme, storage = localStorage) {
 }
 
 /**
- * Apply theme from storage when present; else default dark when unset.
+ * Apply theme from storage when present; else default light when unset (NS-16 / M8).
  * Does not consult OS prefers-color-scheme.
  *
  * @param {Document} [doc]
@@ -51,7 +51,7 @@ export function applyDefaultTheme(doc = document, storage = localStorage) {
   if (stored) {
     root.setAttribute('data-theme', stored)
   } else if (!root.getAttribute('data-theme')) {
-    root.setAttribute('data-theme', 'dark')
+    root.setAttribute('data-theme', 'light')
   }
   return syncColorScheme(root)
 }
