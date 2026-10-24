@@ -49,6 +49,8 @@ export function FilterPanel({
             className="board-filter-panel-body"
             role="region"
             aria-label={title}
+            data-lab-nf25="true"
+            data-nf25-harmony="m175"
           >
             <div className="board-filter-panel-primary">{children}</div>
             <div className="board-filter-panel-extension" data-slot="institution">

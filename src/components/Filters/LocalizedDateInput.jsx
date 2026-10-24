@@ -28,6 +28,7 @@ export function LocalizedDateInput({ value, onChange, locale, t, ariaLabel }) {
       className="board-filter-date-input-wrap"
       role="group"
       aria-label={ariaLabel}
+      data-lab-nf25-date-active="true"
       onClick={openPicker}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {

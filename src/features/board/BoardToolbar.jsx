@@ -103,20 +103,21 @@ export function BoardToolbar({
             }
             footer={
               <>
-                <Button
-                  type="button"
-                  hierarchy="primary"
-                  disabled={!isDirty}
-                  onClick={apply}
-                >
-                  {t('filterApply')}
-                </Button>
                 <ResetFiltersControl
                   hasActiveFilters={hasActiveFilters}
                   isDirty={isDirty}
                   onReset={reset}
                   t={t}
                 />
+                <Button
+                  type="button"
+                  hierarchy="primary"
+                  className="board-filter-apply"
+                  disabled={!isDirty}
+                  onClick={apply}
+                >
+                  {t('filterApply')}
+                </Button>
               </>
             }
           >

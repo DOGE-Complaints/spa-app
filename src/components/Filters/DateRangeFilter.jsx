@@ -22,7 +22,10 @@ export function DateRangeFilter({
   variant = 'inline',
 }) {
   return (
-    <div className={`board-filter-date-range ${variant === 'panel' ? 'board-filter-date-range-panel' : ''}`}>
+    <div
+      className={`board-filter-date-range ${variant === 'panel' ? 'board-filter-date-range-panel' : ''}`}
+      data-lab-nf25-dates={variant === 'panel' ? 'true' : undefined}
+    >
       <span className="board-filter-label">{t('filterDateCreated')}</span>
       <div className="board-filter-date-inputs">
         <label className="board-filter-date-field">
