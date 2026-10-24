@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { cleanup, render, screen } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -19,6 +19,11 @@ import {
 
 const pageSource = readFileSync(
   path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../StaticPublicPage.jsx'),
+  'utf8',
+)
+
+const cssSource = readFileSync(
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../StaticPublicPage.css'),
   'utf8',
 )
 
@@ -91,6 +96,38 @@ describe('StaticPublicPage PH-15 (M172)', () => {
     expect(screen.getByTestId('public-static-contact-story-hint')).toBeTruthy()
     expect(pageSource).not.toMatch(/\bonSubmit\b|\bfetch\s*\(|method=["']post["']/i)
     expect(pageSource).not.toContain('<form')
+  })
+
+  it('PH-17: Privacy dark icon CSS · Contact story CTA via storyGpt helper', () => {
+    expect(cssSource).toMatch(
+      /\[data-theme=['"]dark['"]\][\s\S]*\.public-static-privacy-card__icon[\s\S]*filter:\s*invert\(1\)/,
+    )
+    expect(cssSource).toMatch(
+      /\[data-theme=['"]dark['"]\][\s\S]*\.public-static-privacy-card__dl-icon/,
+    )
+    expect(pageSource).toContain('getStoryGptHref')
+    expect(pageSource).toContain('publicHome.nav.submitStory')
+    expect(pageSource).toContain('howItWorks.cta.submitAccessibleLabel')
+    expect(pageSource).not.toMatch(/chatgpt\.com\/g\/g-RkVU9xLWN/i)
+
+    renderAt('/privacy')
+    expect(screen.getByTestId('public-static-page').getAttribute('data-ph17')).toBe(
+      'privacy-icons',
+    )
+    expect(screen.getAllByTestId(/^public-static-privacy-card-/).length).toBe(3)
+
+    cleanup()
+    vi.stubEnv('VITE_STORY_GPT_URL', 'https://example.test/gpt-contact')
+    renderAt('/contact')
+    expect(screen.getByTestId('public-static-page').getAttribute('data-ph17')).toBe(
+      'contact-cta',
+    )
+    const cta = screen.getByTestId('public-static-contact-story-cta')
+    expect(cta).toBeTruthy()
+    expect(cta.getAttribute('href')).toBeTruthy()
+    expect(cta.textContent).toMatch(/Submit a story/i)
+    expect(screen.getByTestId('public-static-contact-story-hint')).toBeTruthy()
+    vi.unstubAllEnvs()
   })
 
   it('RU About title + Web3 rewards sentence verbatim (M172)', () => {
