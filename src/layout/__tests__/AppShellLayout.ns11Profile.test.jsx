@@ -58,7 +58,9 @@ describe('AppShellLayout NS-11 profile next shell', () => {
     expect(screen.getByTestId('user-cabinet-page')).toBeTruthy()
     expect(screen.getByTestId('mobile-app-bar')).toBeTruthy()
     expect(screen.getByTestId('mobile-bottom-nav')).toBeTruthy()
-    expect(screen.getByTestId('next-shell-right-slot')).toBeTruthy()
+    /* NS-18 / M178: empty right rail released — no reserved track */
+    expect(screen.queryByTestId('next-shell-right-slot')).toBeNull()
+    expect(document.querySelector('.board-main--with-right')).toBeNull()
     expect(document.querySelector('.next-shell-route.next-shell-profile')).toBeTruthy()
   })
 
