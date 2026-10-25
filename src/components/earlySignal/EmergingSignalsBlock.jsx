@@ -7,7 +7,8 @@ export const EMERGING_ICONS = Object.freeze({
   marker: '/icons/early-signal-dashboard/ic-emerging-marker.png',
   empty: '/icons/early-signal-dashboard/ic-emerging-empty.png',
   stories: '/icons/early-signal-dashboard/ic-pulse-stories.png',
-  issueCrest: '/assets/DOGEstonia-logo-big.png',
+  /* NS-17 soft: drop residual logo-big · reuse brand master */
+  issueCrest: '/assets/dogestonia-brand-dark.png',
 })
 
 function formatStoryCount(template, count) {

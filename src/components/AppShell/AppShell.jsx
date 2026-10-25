@@ -43,9 +43,10 @@ export function AppShell({
           <div className="app-shell__header-default">
             <div className="header-brand">
               <img
-                src="/assets/DOGEstonia-logo-big.png"
+                src="/assets/dogestonia-brand-dark.png"
                 alt={t('auth.brand.logoAlt')}
                 className="header-brand-logo"
+                data-ns17-logo-cleanup="true"
                 onError={(event) => {
                   event.currentTarget.src = '/assets/DOGEstonia-logo-fallback.svg'
                 }}
