@@ -77,8 +77,9 @@
 }
 
 @media (max-width: 767px) {
-  .app-shell.next-shell-route .board-main.board-main--with-right,
-  .app-shell.next-shell-route .board-main:not(.board-main--no-sidebar) {
+  /* Match desktop specificity (:not --no-sidebar):not(--with-right) so 240px track does not win */
+  .app-shell.next-shell-route .board-main:not(.board-main--no-sidebar):not(.board-main--with-right),
+  .app-shell.next-shell-route .board-main.board-main--with-right:not(.board-main--no-sidebar) {
     grid-template-columns: 1fr;
   }
   .app-shell.next-shell-route .app-shell__sidebar {
@@ -89,5 +90,19 @@
   }
   .app-shell.next-shell-route .app-shell__footer {
     display: none;
+  }
+
+  /* NS-18 / M178: profile phone — single full-bleed main · no empty rail track */
+  .app-shell.next-shell-profile .board-main:not(.board-main--no-sidebar):not(.board-main--with-right),
+  .app-shell.next-shell-profile .board-main {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .app-shell.next-shell-profile .app-shell__main.board-workspace {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 }

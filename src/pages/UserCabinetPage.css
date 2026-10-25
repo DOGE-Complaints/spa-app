@@ -7,6 +7,19 @@
   padding: 1.25rem 1.25rem 2rem;
 }
 
+/* NS-18 / M178: profile main — full usable width · no reserved empty rail crush */
+.app-shell.next-shell-profile .user-cabinet-page {
+  width: 100%;
+  max-width: 100%;
+}
+
+.app-shell.next-shell-profile .app-shell__main.board-workspace {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
 .user-cabinet-page__header {
   margin-bottom: 1.25rem;
 }
@@ -182,5 +195,27 @@
   .user-cabinet-page__slot--contribution {
     grid-column: 1;
     grid-row: auto;
+  }
+}
+
+/* NS-18 / M178 phone gutters · single-column · CAB-08 slots stay gated */
+@media (max-width: 767px) {
+  .user-cabinet-page {
+    padding: 1rem 1rem 2rem;
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  }
+
+  .user-cabinet-page__grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .user-cabinet-page__slot--account,
+  .user-cabinet-page__slot--civic,
+  .user-cabinet-page__slot--story {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 100%;
   }
 }

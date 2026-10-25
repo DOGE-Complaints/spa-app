@@ -123,6 +123,7 @@ export function AppShellLayout() {
   }
 
   // NS-11: /profile → Header + ProfileRail + PublicFooter (next/feed parity); cabinet in main
+  // NS-18 / M178: no empty right-rail track when slot content Absent (release width)
   if (isProfileNextShell) {
     return (
       <AppShell
@@ -130,8 +131,7 @@ export function AppShellLayout() {
         header={<Header />}
         sidebar={<NextFeedProfileRailSlot />}
         showSidebar
-        showRightSlot
-        rightSlot={null}
+        showRightSlot={false}
         mobileTop={<MobileAppBar leadingAction="menu" />}
         mobileBottom={<MobileBottomNav />}
         footer={<PublicFooter />}

@@ -68,6 +68,8 @@ export function AccountSummary({ profile }) {
       className="account-summary"
       data-testid="account-summary"
       data-state={state}
+      data-lab-ns18="true"
+      data-ns18-harmony="m178"
       aria-label={t('cabinet.account.title')}
     >
       <h2 className="account-summary__title" data-testid="account-summary-title">

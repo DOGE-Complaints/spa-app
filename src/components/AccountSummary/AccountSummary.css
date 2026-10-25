@@ -1,9 +1,13 @@
 .account-summary {
   background: var(--color-surface-elevated);
   border: 1px solid var(--color-border-subtle);
-  border-radius: 8px;
-  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  padding: 1rem;
   color: var(--color-text-primary);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .account-summary__title {
@@ -15,15 +19,19 @@
 
 .account-summary__grid {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
+  min-width: 0;
 }
 
+/* NS-18 / M178: comfortable — label left · value right; children may shrink */
 .account-summary__row {
   display: grid;
-  grid-template-columns: 1.25rem minmax(8rem, 11rem) 1fr;
-  align-items: center;
-  gap: 0.75rem;
+  grid-template-columns: 1.25rem minmax(0, max-content) minmax(0, 1fr);
+  align-items: start;
+  column-gap: 0.75rem;
+  row-gap: 0.5rem;
   min-height: 2rem;
+  min-width: 0;
 }
 
 .account-summary__icon {
@@ -31,22 +39,51 @@
   height: 1.25rem;
   object-fit: contain;
   opacity: 0.9;
+  margin-top: 0.15rem;
 }
 
 .account-summary__label {
   margin: 0;
   font-size: 0.8125rem;
   color: var(--color-text-muted);
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .account-summary__value {
   margin: 0;
   font-size: 0.875rem;
   font-weight: 500;
-  word-break: break-word;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  writing-mode: horizontal-tb;
 }
 
 .account-summary__value--muted {
   color: var(--color-text-muted);
   font-weight: 400;
+}
+
+/* NS-18 / M178: narrow — label above value · full inner width · no vertical char column */
+@media (max-width: 767px) {
+  .account-summary__row {
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    grid-template-areas:
+      'icon label'
+      'icon value';
+  }
+
+  .account-summary__icon {
+    grid-area: icon;
+  }
+
+  .account-summary__label {
+    grid-area: label;
+  }
+
+  .account-summary__value {
+    grid-area: value;
+  }
 }
