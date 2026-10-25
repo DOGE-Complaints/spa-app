@@ -1,3 +1,4 @@
+/* NS-19 / M179 — compact content band (~52px excl. safe-area) · ≥44 tap · frozen Wallet */
 .mobile-bottom-nav {
   display: none;
   /* fixed so chrome stays in viewport (M149 E / Component §11 · P6 F2 evidence) */
@@ -6,30 +7,34 @@
   right: 0;
   bottom: 0;
   z-index: 20;
-  min-height: 64px;
-  padding: 8px 12px;
-  padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  /* content band ~52px; safe-area additional once */
+  min-height: 52px;
+  padding: 6px 8px;
+  padding-bottom: max(6px, env(safe-area-inset-bottom, 0px));
   border-top: 1px solid color-mix(in srgb, var(--color-text-primary) 12%, transparent);
   background: var(--color-bg-secondary);
-  gap: 8px;
+  gap: 4px;
   justify-content: space-around;
   align-items: stretch;
 }
 
 .mobile-bottom-nav__item {
-  flex: 1;
+  flex: 1 1 0;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-height: 48px;
-  min-width: 48px;
+  gap: 2px;
+  min-height: 44px;
+  min-width: 44px;
   text-decoration: none;
   color: var(--color-text-secondary);
-  font-size: 0.72rem;
+  font-size: 11px;
+  line-height: 14px;
   border-radius: 10px;
-  padding: 6px 8px;
+  padding: 4px 6px;
+  box-sizing: border-box;
 }
 
 .mobile-bottom-nav__item--active {
@@ -37,10 +42,23 @@
   background: color-mix(in srgb, var(--doge-accent, var(--color-accent-active)) 14%, transparent);
 }
 
+.mobile-bottom-nav__item--frozen {
+  color: color-mix(in srgb, var(--color-text-secondary) 72%, transparent);
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.72;
+}
+
+.mobile-bottom-nav__item--frozen:focus {
+  outline: none;
+}
+
 .mobile-bottom-nav__icon {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 @media (max-width: 767px) {
@@ -49,6 +67,7 @@
   }
 
   .app-shell.next-shell-route .app-shell__body.board-main {
-    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    /* content 52 + pad ~12 + safe-area — do not reserve old 72px tall clearance */
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
   }
 }
