@@ -228,7 +228,8 @@
 .board-filter-panel-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 15;
+  /* NF-26: above page · below sheet (nav is 20) */
+  z-index: 25;
   background: rgba(0, 0, 0, 0.35);
 }
 
@@ -236,19 +237,33 @@
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
-  z-index: 20;
+  /* NF-26: above MobileBottomNav (z-index 20) */
+  z-index: 30;
   /* NF-25 / M175: usable width · clamp to viewport · preferred min 340 when space permits */
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: min(440px, calc(100vw - 32px));
   min-width: min(340px, calc(100vw - 32px));
   max-width: calc(100vw - 32px);
   max-height: min(70vh, 640px);
-  overflow-y: auto;
+  overflow: hidden;
   padding: 16px;
   border: 1px solid var(--color-border-default);
   border-radius: 10px;
   background: var(--color-bg-secondary);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* NF-26: scrollable rows · footer sticky below */
+.board-filter-panel-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .board-filter-panel-primary {
@@ -382,6 +397,8 @@
 
 .board-filter-panel-footer {
   /* NF-25 / M175: Reset left (secondary) · Apply right (primary) · 44px targets */
+  /* NF-26: sticky under scroll region */
+  flex: 0 0 auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -521,15 +538,22 @@
     position: fixed;
     top: auto;
     right: 16px;
-    bottom: 0;
+    /* NF-26: clear MobileBottomNav (~64 + safe-area) so sheet + scroll stay reachable */
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px));
     left: 16px;
     /* NF-25 / M175: ~358 at 390 viewport · 16px side gutters */
     width: auto;
     min-width: 0;
     max-width: none;
-    max-height: min(70vh, 520px);
-    overflow-y: auto;
+    max-height: min(70vh, calc(100dvh - 64px - env(safe-area-inset-bottom, 0px) - 48px));
+    overflow: hidden;
     border-radius: 14px 14px 0 0;
+  }
+
+  .board-filter-panel-scroll {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
   }
 
   .board-filter-panel-primary {
