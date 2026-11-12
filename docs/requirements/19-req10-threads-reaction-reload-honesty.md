@@ -5,9 +5,9 @@ Parent-id: dogestonia-threads-board-architecture-hardening
 Siblings:  
 - doge-threads/docs/requirements/03-req10-tree-marks-read-and-contract.md (contract: tree summaries + **Option A** optional Bearer `selected[]` — spa must not invent HTTP path) · story [`STORY-THREADS-REQ10-05`](../../../doge-threads/docs/tasks/backlog-stories/req10-tree-marks-read-and-contract/STORY-THREADS-REQ10-05-actor-selected-server.md)  
 - doge-complaints-gateway/docs/requirements/54-req10-lifecycle-status-normalize.md (contract: none for reactions UI)  
-Status: **Done (H1+H5 spa)** · REQ10-01 P3/P6 `pkg-000087` · REQ10-02 P3 Done `pkg-000088` (2026-09-28T18:22:01Z) · P6 H5 SSOT `2026-09-28T18:27:35Z`  
+Status: **Done (H1+H5 spa)** · REQ10-01 P3/P6 `pkg-000087` · REQ10-02 P3 Done `pkg-000088` (2026-09-28T18:22:01Z) · P6 H5 SSOT `2026-09-28T18:27:35Z` · **H5 e2e closed: tree_read optional Bearer** (`2026-09-29`)  
 Justification: docs/analysis/audit-threads-board-persist-clean-vs-hack-2026-09-27.md §§7–9  
-Дата: 2026-09-28 · materialized: 2026-09-28T11:05:54Z · backlog: 2026-09-28T13:38:42Z · H1 As-of-Done SSOT: 2026-09-28T18:12:58Z · H5 As-of-Done SSOT: 2026-09-28T18:27:35Z  
+Дата: 2026-09-28 · materialized: 2026-09-28T11:05:54Z · backlog: 2026-09-28T13:38:42Z · H1 As-of-Done SSOT: 2026-09-28T18:12:58Z · H5 As-of-Done SSOT: 2026-09-28T18:27:35Z · H5 e2e Bearer wire: 2026-09-29  
 Backlog: [req10-threads-reaction-reload-honesty/INDEX.md](../tasks/backlog-stories/req10-threads-reaction-reload-honesty/INDEX.md) · [REQ10-01](../tasks/backlog-stories/req10-threads-reaction-reload-honesty/STORY-SPA-REQ10-01-debug-ingest-cleanup.md) · [REQ10-02](../tasks/backlog-stories/req10-threads-reaction-reload-honesty/STORY-SPA-REQ10-02-reaction-selected-reload.md)  
 Operator locks: **Option A** · `selected` for thread-root **+** comments · REQ10-01 independent of H5  
 Related: docs/requirements/17-issue-thread-feed-ux-and-reactions.md (REQ7 shell — not reopened)
@@ -37,6 +37,7 @@ Related: docs/requirements/17-issue-thread-feed-ux-and-reactions.md (REQ7 shell 
 | Literal `7840/ingest` under `spa-app/src` | **0** (`rg`; mount+client ingest regions removed) |
 | Mount / client control flow without ingest | `LiveIssueThreadMount.jsx` · `ThreadsSocialClient.js` |
 | Closed path set unchanged | `ThreadsSocialClient.js` `CLOSED_SOCIAL_PATHS` |
+| Tree GET optional Bearer (`tree_read` only; knobs bare; 401→anon retry) | `ThreadsSocialClient.js` `runClosedGet` · vitest `ThreadsSocialClient.test.js` |
 | Mapper Option A `selected[]` on root + comments | `mapThreadTreeToBlock.js` `mapActorSelected` |
 | Mount → `threadRootSelected` → root `initialSelected` | `LiveIssueThreadMount.jsx` · `IssueThreadBlock.jsx` |
 | CommentTree `initialSelected={node.selected ?? []}` | `CommentTree.jsx` |

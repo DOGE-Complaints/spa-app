@@ -4,6 +4,11 @@
 **Источник:** Dogecomplaints — Estonia D.O.G.E. — Дизайн система.pdf (S01-6)  
 **Контекст:** spa-app, React + Vite, EPIC-01
 
+> **Deprecated for `#/next/feed*` product chrome (2026-10-12).**  
+> This file remains **classic board / EPIC-01 foundations** reference (tokens, narrative).  
+> Next-feed component catalog SSOT: [`next/feed/DOGEstonia-next-feed-component-design-system-v1.0.md`](next/feed/DOGEstonia-next-feed-component-design-system-v1.0.md) · stories [`../tasks/backlog-stories/next-feed-vl/`](../tasks/backlog-stories/next-feed-vl/INDEX.md).  
+> Classic `#/board` continues to use this plane — do not force-migrate board to next-feed DS in place.
+
 ---
 
 ## 0. Назначение Design System

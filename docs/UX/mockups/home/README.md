@@ -27,6 +27,11 @@
 | M133 | PH-T How it works | PH-05 | [mockup-133-public-how-it-works-page-state-sheet-spec.md](mockup-133-public-how-it-works-page-state-sheet-spec.md) |
 | M133 appendix | PH-T L10N copy (en/et/ru) | PH-05 (+ PH-06 CTA labels) | [mockup-133-public-how-it-works-localized-copy-appendix.md](mockup-133-public-how-it-works-localized-copy-appendix.md) |
 | (affordance in M129 / M133) | Submit GPT CTA | PH-06 | see M129 nav + M133 CTA row |
+| **M165** | Header brand light + scale (vector prefer) | NS-10 | [DOGEstonia-M165-header-brand-logo-light-spec-v1.0.md](DOGEstonia-M165-header-brand-logo-light-spec-v1.0.md) |
+| **M166** | Footer brand + `/about` `/privacy` `/contact` | PH-11 | [DOGEstonia-M166-public-footer-brand-links-spec-v1.0.md](DOGEstonia-M166-public-footer-brand-links-spec-v1.0.md) · [legal PNG](DOGEstonia-M166-legal-pages-shell-overview-v1.0.png) |
+| **M168** | How It Works CTA + landing FAQ | PH-13 | [DOGEstonia-M168-how-it-works-content-cta-spec-v1.0.md](DOGEstonia-M168-how-it-works-content-cta-spec-v1.0.md) |
+
+Wave3 intake: [analysis-wave3-ux-intake-m163-m168-2026-10-22.md](../../analysis/analysis-wave3-ux-intake-m163-m168-2026-10-22.md).
 
 ## PNG artboards
 

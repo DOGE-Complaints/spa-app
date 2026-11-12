@@ -1,8 +1,10 @@
 # Mockup 01 Spec — Dashboard Main
 
+> **Superseded for public home board layout (ADMIN-PH-02):** multi-column kanban body is superseded by [M132 Public Board Home Feed](../home/mockup-132-public-board-home-feed-state-sheet-spec.md). Keep this file for historical / filter-toolbar context; do not use columns as the public `/board` layout target.
+
 **Mockup source:** `docs/UX/mockups/DOGEstonia-Mockup-Dashboard-main.png`  
 **Version:** v1.0  
-**Status:** active SSOT for Board default layout  
+**Status:** active SSOT for Board default layout *(columns layout superseded by M132 for public home)*  
 **Related epic:** `docs/epics/EPIC-03-issue-board-mvp.md`
 
 > **Статус реализации (2026-06-12):** соответствует коду (MVP). Gap G9 — CTA всегда активная ссылка на GPT.
