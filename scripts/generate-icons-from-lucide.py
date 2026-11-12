@@ -35,6 +35,14 @@ CATALOG_ALIASES = {
     "identity": "identity",
     "ph": "ph",
     "public-home": "ph",
+    "es": "es",
+    "early-signal": "es",
+    "early-signal-dashboard": "es",
+    "ssr": "ssr",
+    "semantic-schema": "ssr",
+    "semantic-schema-runtime": "ssr",
+    "thr": "thr",
+    "threads-feed": "thr",
 }
 
 
@@ -126,7 +134,7 @@ def main() -> int:
     parser.add_argument(
         "--catalog",
         default="all",
-        help="handoff|cab|identity|ph|all",
+        help="handoff|cab|identity|ph|es|ssr|thr|all",
     )
     parser.add_argument(
         "--only-stubs",

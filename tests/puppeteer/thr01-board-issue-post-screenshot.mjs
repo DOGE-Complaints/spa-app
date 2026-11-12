@@ -72,10 +72,19 @@ async function waitForServer(url, attempts = 60) {
 async function installRoutes(page) {
   await page.setRequestInterception(true)
   page.removeAllListeners('request')
+  const liveGateway = process.env.LIVE_GATEWAY === '1'
   page.on('request', async (req) => {
     const url = req.url()
     const headers = { 'Access-Control-Allow-Origin': '*' }
     try {
+      if (liveGateway) {
+        if (/basemaps\.cartocdn\.com|demotiles\.maplibre\.org|tile\.openstreetmap\.org/i.test(url)) {
+          await req.abort()
+          return
+        }
+        await req.continue()
+        return
+      }
       if (req.method() === 'GET' && /\/(?:node|tallinn)\/issues(\?|$)/.test(url)) {
         await req.respond({
           status: 200,
@@ -127,6 +136,19 @@ async function gotoBoard(page) {
   await page.goto(`${BASE}/#/how-it-works`, { waitUntil: 'domcontentloaded', timeout: 60000 })
   await page.goto(`${BASE}/#/board`, { waitUntil: 'domcontentloaded', timeout: 90000 })
   await page.waitForSelector('.board-shell', { timeout: 30000 })
+}
+
+async function resolveIssueId(page) {
+  if (process.env.LIVE_GATEWAY !== '1') return ISSUE.id
+  const liveId = await page.evaluate(() => {
+    const a = document.querySelector('a[href*="#/issue/"]')
+    if (!a) return null
+    const href = a.getAttribute('href') || ''
+    const m = href.match(/#\/issue\/([^/?#]+)/)
+    return m ? decodeURIComponent(m[1]) : null
+  })
+  if (!liveId) throw new Error('LIVE_GATEWAY: no #/issue/ link on board')
+  return liveId
 }
 
 async function snap(page, filePath) {
@@ -196,7 +218,8 @@ async function main() {
       const happyBoard = path.join(storyDir, '01-board-issue-post-happy-1536x1024.png')
       await copyFile(boardPath, happyBoard)
 
-      await page.goto(`${BASE}/#/issue/${ISSUE.id}`, {
+      const issueId = await resolveIssueId(page)
+      await page.goto(`${BASE}/#/issue/${issueId}`, {
         waitUntil: 'domcontentloaded',
         timeout: 90000,
       })
@@ -207,7 +230,7 @@ async function main() {
       const happyIssue = path.join(storyDir, '02-issue-thread-happy-1536x1024.png')
       await copyFile(issuePath, happyIssue)
       console.log(`THR01 UI-3 → ${outDir}`)
-      console.log(`story-root → ${happyBoard} · ${happyIssue}`)
+      console.log(`story-root → ${happyBoard} · ${happyIssue} · issueId=${issueId}`)
     }
 
     if (!EDGE_ONLY) {
@@ -253,7 +276,10 @@ async function main() {
         window.__THR01_FORCE_THREAD_STATUS__ = 'populated'
       })
       await installRoutes(edgePage)
-      await edgePage.goto(`${BASE}/#/issue/${ISSUE.id}`, {
+      await gotoBoard(edgePage)
+      await edgePage.waitForSelector('[data-testid="board-issue-post"]', { timeout: 20000 })
+      const issueId = await resolveIssueId(edgePage)
+      await edgePage.goto(`${BASE}/#/issue/${issueId}`, {
         waitUntil: 'domcontentloaded',
         timeout: 90000,
       })
@@ -272,7 +298,10 @@ async function main() {
         window.__THR01_FORCE_THREAD_STATUS__ = 'populated'
       })
       await installRoutes(edgePage)
-      await edgePage.goto(`${BASE}/#/issue/${ISSUE.id}`, {
+      await gotoBoard(edgePage)
+      await edgePage.waitForSelector('[data-testid="board-issue-post"]', { timeout: 20000 })
+      const issueId = await resolveIssueId(edgePage)
+      await edgePage.goto(`${BASE}/#/issue/${issueId}`, {
         waitUntil: 'domcontentloaded',
         timeout: 90000,
       })

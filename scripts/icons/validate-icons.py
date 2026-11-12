@@ -113,6 +113,12 @@ def main() -> int:
             "cab": "cab",
             "identity": "identity",
             "ph": "ph",
+            "es": "es",
+            "ssr": "ssr",
+            "semantic-schema": "ssr",
+            "semantic-schema-runtime": "ssr",
+            "thr": "thr",
+            "threads-feed": "thr",
         }
         key = aliases.get(args.catalog, args.catalog)
         icons = [i for i in icons if i.get("catalog") == key]

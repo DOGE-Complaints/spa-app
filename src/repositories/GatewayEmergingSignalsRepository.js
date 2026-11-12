@@ -20,8 +20,8 @@ async function readJsonOrThrow(response) {
 }
 
 /**
- * Public Emerging L2 client — GET /tallinn/emerging-signals (REQ-50). No invented path.
- * Default top_n=10, clamp [1,50]. Do not reuse GET /tallinn/issues.
+ * Public Emerging L2 client — GET /node/emerging-signals (REQ-50). No invented path.
+ * Default top_n=10, clamp [1,50]. Do not reuse GET /node/issues.
  */
 export function createGatewayEmergingSignalsRepository(baseUrl) {
   const normalizedBaseUrl = assertBaseUrl(baseUrl)
@@ -29,7 +29,7 @@ export function createGatewayEmergingSignalsRepository(baseUrl) {
   return {
     async getEmergingSignals({ topN = 10 } = {}) {
       const clamped = clampEmergingTopN(topN)
-      const url = `${normalizedBaseUrl}/tallinn/emerging-signals?top_n=${clamped}`
+      const url = `${normalizedBaseUrl}/node/emerging-signals?top_n=${clamped}`
       const response = await fetch(url)
       const envelope = await readJsonOrThrow(response)
       return envelope?.data ?? null

@@ -10,7 +10,7 @@ describe('GatewayNetworkPulseRepository', () => {
     expect(() => createGatewayNetworkPulseRepository('')).toThrow('VITE_GATEWAY_BASE_URL is required')
   })
 
-  it('calls GET /tallinn/network-pulse with trimmed base URL', async () => {
+  it('calls GET /node/network-pulse with trimmed base URL', async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ data: { stories_collected: 3 }, trace_id: 't' }),
@@ -20,7 +20,7 @@ describe('GatewayNetworkPulseRepository', () => {
 
     const data = await repo.getNetworkPulse()
 
-    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/network-pulse')
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/node/network-pulse')
     expect(data).toEqual({ stories_collected: 3 })
   })
 

@@ -2,7 +2,7 @@
  * Railway live smoke: story submit handoff page + gateway/identity reachability.
  *
  * Usage:
- *   SPA_BASE_URL=https://spa-app-tallinn-demo.up.railway.app \
+ *   SPA_BASE_URL=https://uus-veerenni-civic-spa.dogestonia.me \
  *   GATEWAY_BASE_URL=https://dogestonia-tallinn.up.railway.app \
  *   IDENTITY_BASE_URL=https://doge-identity-service-tallinn-demo.up.railway.app \
  *   DRAFT_ID=optional-existing-draft \
@@ -11,7 +11,7 @@
  */
 import puppeteer from 'puppeteer'
 
-const SPA_BASE = String(process.env.SPA_BASE_URL ?? 'https://spa-app-tallinn-demo.up.railway.app').replace(/\/+$/, '')
+const SPA_BASE = String(process.env.SPA_BASE_URL ?? 'https://uus-veerenni-civic-spa.dogestonia.me').replace(/\/+$/, '')
 const GATEWAY_BASE = String(process.env.GATEWAY_BASE_URL ?? 'https://dogestonia-tallinn.up.railway.app').replace(/\/+$/, '')
 const IDENTITY_BASE = String(process.env.IDENTITY_BASE_URL ?? 'https://doge-identity-service-tallinn-demo.up.railway.app').replace(/\/+$/, '')
 const DRAFT_ID = String(process.env.DRAFT_ID ?? '1DWMzza5Y2JCQ7Na98FkeA').trim()

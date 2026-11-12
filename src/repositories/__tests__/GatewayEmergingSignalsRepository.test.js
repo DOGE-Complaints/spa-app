@@ -20,7 +20,7 @@ describe('GatewayEmergingSignalsRepository', () => {
     expect(clampEmergingTopN(7)).toBe(7)
   })
 
-  it('calls GET /tallinn/emerging-signals?top_n=10 — not /tallinn/issues', async () => {
+  it('calls GET /node/emerging-signals?top_n=10 — not /node/issues', async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
@@ -33,8 +33,8 @@ describe('GatewayEmergingSignalsRepository', () => {
 
     const data = await repo.getEmergingSignals()
 
-    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/tallinn/emerging-signals?top_n=10')
-    expect(fetchMock.mock.calls[0][0]).not.toContain('/tallinn/issues')
+    expect(fetchMock.mock.calls[0][0]).toBe('http://localhost:8000/node/emerging-signals?top_n=10')
+    expect(fetchMock.mock.calls[0][0]).not.toContain('/node/issues')
     expect(data.signals).toHaveLength(1)
   })
 

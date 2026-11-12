@@ -14,14 +14,14 @@ async function readJsonOrThrow(response) {
 }
 
 /**
- * Public Pulse L1 client — GET /tallinn/network-pulse (REQ-49). No invented path.
+ * Public Pulse L1 client — GET /node/network-pulse (REQ-49). No invented path.
  */
 export function createGatewayNetworkPulseRepository(baseUrl) {
   const normalizedBaseUrl = assertBaseUrl(baseUrl)
 
   return {
     async getNetworkPulse() {
-      const url = `${normalizedBaseUrl}/tallinn/network-pulse`
+      const url = `${normalizedBaseUrl}/node/network-pulse`
       const response = await fetch(url)
       const envelope = await readJsonOrThrow(response)
       return envelope?.data ?? null

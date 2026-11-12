@@ -73,10 +73,19 @@ async function waitForServer(url, attempts = 60) {
 async function installRoutes(page) {
   await page.setRequestInterception(true)
   page.removeAllListeners('request')
+  const liveGateway = process.env.LIVE_GATEWAY === '1'
   page.on('request', async (req) => {
     const url = req.url()
     const headers = { 'Access-Control-Allow-Origin': '*' }
     try {
+      if (liveGateway) {
+        if (/basemaps\.cartocdn\.com|demotiles\.maplibre\.org|tile\.openstreetmap\.org/i.test(url)) {
+          await req.abort()
+          return
+        }
+        await req.continue()
+        return
+      }
       if (req.method() === 'GET' && /\/(?:node|tallinn)\/issues(\?|$)/.test(url)) {
         await req.respond({
           status: 200,

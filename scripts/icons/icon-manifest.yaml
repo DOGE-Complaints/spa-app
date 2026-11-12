@@ -12,7 +12,7 @@ colors:
   error: "#f87171"
   amber: "#fbbf24"
 
-# catalog: handoff | cab | identity | ph
+# catalog: handoff | cab | identity | ph | es | ssr | thr
 icons:
   # --- STORY-SPA-ID-12 → public/icons/story-handoff/ ---
   - catalog: handoff
@@ -312,4 +312,130 @@ icons:
     file: ic-chevron-right.png
     out_dir: public-home
     lucide_id: chevron-right
+    color: neutral
+
+  # --- STORY-SPA-ES → public/icons/early-signal-dashboard/ ---
+  - catalog: es
+    file: ic-pulse-stories.png
+    out_dir: early-signal-dashboard
+    lucide_id: message-square
+    color: neutral
+  - catalog: es
+    file: ic-pulse-activity.png
+    out_dir: early-signal-dashboard
+    lucide_id: activity
+    color: neutral
+  - catalog: es
+    file: ic-pulse-mark.png
+    out_dir: early-signal-dashboard
+    lucide_id: radio
+    color: "#F5A623"
+  - catalog: es
+    file: ic-gap-languages.png
+    out_dir: early-signal-dashboard
+    lucide_id: message-circle
+    color: neutral
+  - catalog: es
+    file: ic-gap-ellipsis.png
+    out_dir: early-signal-dashboard
+    lucide_id: ellipsis
+    color: neutral
+  - catalog: es
+    file: ic-emerging-marker.png
+    out_dir: early-signal-dashboard
+    lucide_id: sparkles
+    color: neutral
+  - catalog: es
+    file: ic-emerging-empty.png
+    out_dir: early-signal-dashboard
+    lucide_id: search
+    color: neutral
+  - catalog: es
+    file: ic-help-share.png
+    out_dir: early-signal-dashboard
+    lucide_id: message-square-plus
+    color: neutral
+  - catalog: es
+    file: ic-help-together.png
+    out_dir: early-signal-dashboard
+    lucide_id: share-2
+    color: neutral
+  - catalog: es
+    file: ic-rail-missing.png
+    out_dir: early-signal-dashboard
+    lucide_id: scan-search
+    color: neutral
+  - catalog: es
+    file: ic-issue-topic-transit.png
+    out_dir: early-signal-dashboard
+    lucide_id: bus
+    color: neutral
+  - catalog: es
+    file: ic-issue-topic-greenspace.png
+    out_dir: early-signal-dashboard
+    lucide_id: tree-deciduous
+    color: neutral
+  - catalog: es
+    file: ic-issue-topic-lighting.png
+    out_dir: early-signal-dashboard
+    lucide_id: lamp-floor
+    color: neutral
+  - catalog: es
+    file: ic-issue-topic-waste.png
+    out_dir: early-signal-dashboard
+    lucide_id: trash-2
+    color: neutral
+  - catalog: es
+    file: ic-issue-topic-housing.png
+    out_dir: early-signal-dashboard
+    lucide_id: home
+    color: neutral
+
+  # --- STORY-SPA-SSR → public/icons/semantic-schema-runtime/ ---
+  - catalog: ssr
+    file: ic-view-list.png
+    out_dir: semantic-schema-runtime
+    lucide_id: list
+    color: neutral
+  - catalog: ssr
+    file: ic-view-map.png
+    out_dir: semantic-schema-runtime
+    lucide_id: map
+    color: neutral
+  - catalog: ssr
+    file: ic-map-pin.png
+    out_dir: semantic-schema-runtime
+    lucide_id: map-pin
+    color: "#F5A623"
+
+  # --- STORY-SPA-THR → public/icons/threads-feed/ ---
+  - catalog: thr
+    file: ic-react.png
+    out_dir: threads-feed
+    lucide_id: smile-plus
+    color: neutral
+  - catalog: thr
+    file: ic-discussion.png
+    out_dir: threads-feed
+    lucide_id: messages-square
+    color: neutral
+  - catalog: thr
+    file: ic-invite-organization.png
+    out_dir: threads-feed
+    lucide_id: users
+    color: neutral
+  - catalog: thr
+    file: ic-reply.png
+    out_dir: threads-feed
+    lucide_id: reply
+    color: neutral
+  - catalog: thr
+    file: ic-attach.png
+    out_dir: threads-feed
+    lucide_id: paperclip
+    color: neutral
+  - catalog: thr
+    file: ic-remove-attachment.png
+    out_dir: threads-feed
+    lucide_id: x
     color: neutral
