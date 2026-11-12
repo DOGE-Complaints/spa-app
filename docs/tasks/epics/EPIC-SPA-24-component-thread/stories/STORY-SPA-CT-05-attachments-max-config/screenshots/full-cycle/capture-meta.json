@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-18T13:39:15.297Z",
+  "base": "http://127.0.0.1:5178",
+  "md5s": [
+    {
+      "file": "01-attach-ready-chip.png",
+      "md5": "65e98338caf3bcc0cdb7ebc3edf5a4d1",
+      "prefix": "65e98338caf3"
+    },
+    {
+      "file": "02-attach-denied.png",
+      "md5": "9d4e88ba6afaef11e700b95c83043a95",
+      "prefix": "9d4e88ba6afa"
+    },
+    {
+      "file": "03-max-attachments-clamp.png",
+      "md5": "65e98338caf3bcc0cdb7ebc3edf5a4d1",
+      "prefix": "65e98338caf3"
+    },
+    {
+      "file": "04-attach-unavailable.png",
+      "md5": "04e4e14dd28b628609bca693be1b4aa0",
+      "prefix": "04e4e14dd28b"
+    },
+    {
+      "file": "05-local-intent-honesty.png",
+      "md5": "f5c2f02537cd65364ed73eba9bbcfb20",
+      "prefix": "f5c2f02537cd"
+    }
+  ],
+  "opEye": "Absent"
+}

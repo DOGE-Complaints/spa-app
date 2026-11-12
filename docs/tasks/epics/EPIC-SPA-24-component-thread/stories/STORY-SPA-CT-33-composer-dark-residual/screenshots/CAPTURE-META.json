@@ -1,0 +1,46 @@
+{
+  "story": "STORY-SPA-CT-33-composer-dark-residual",
+  "captured_at": "2026-10-22T14:48:07.972Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-composer-dark-textarea.png",
+      "md5": "626f9d13ad24e7ca2a250059560cf809",
+      "prefix": "626f9d13ad24"
+    },
+    {
+      "file": "04-attach-control-dark.png",
+      "md5": "882febce64c6b80052939b5b8d0dee7c",
+      "prefix": "882febce64c6"
+    },
+    {
+      "file": "02-attach-plates-themed.png",
+      "md5": "882febce64c6b80052939b5b8d0dee7c",
+      "prefix": "882febce64c6"
+    },
+    {
+      "file": "03-post-label-contrast.png",
+      "md5": "882febce64c6b80052939b5b8d0dee7c",
+      "prefix": "882febce64c6"
+    },
+    {
+      "file": "05-composer-light-hold.png",
+      "md5": "baadb08caf9150714a0e3513606deb81",
+      "prefix": "baadb08caf91"
+    }
+  ],
+  "probe": {
+    "theme": "light",
+    "textareaBg": "rgb(255, 253, 248)",
+    "textareaColor": "rgb(16, 24, 40)",
+    "attachColor": "rgb(16, 24, 40)",
+    "attachMask": true,
+    "postColor": "rgb(16, 24, 40)",
+    "postBg": "rgb(245, 197, 66)",
+    "plateBg": "rgb(255, 253, 248)",
+    "hasComposer": true
+  },
+  "note": "Partial visual=BLOCK · no invent OP PASS · light held"
+}

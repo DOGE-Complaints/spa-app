@@ -1,0 +1,45 @@
+{
+  "story": "STORY-SPA-NF-21-filter-date-color-scheme",
+  "captured_utc": "2026-10-22T13:59:54.217Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "fails": [],
+  "probe": {
+    "theme": "dark",
+    "nativeCount": 2,
+    "schemes": [
+      "dark",
+      "dark"
+    ],
+    "firstScheme": "dark",
+    "panelPresent": true
+  },
+  "md5s": [
+    {
+      "file": "01-host-light.png",
+      "md5": "5571f4a13612aa635e592188442335ca",
+      "prefix": "5571f4a13612"
+    },
+    {
+      "file": "02-date-light-scheme.png",
+      "md5": "e2a51cb84bb6cad1a7b73603ac5dca94",
+      "prefix": "e2a51cb84bb6"
+    },
+    {
+      "file": "03-date-dark-scheme.png",
+      "md5": "dd78e0a2ad2d01d6c3cd57342228bb39",
+      "prefix": "dd78e0a2ad2d"
+    },
+    {
+      "file": "04-host-dark-hold.png",
+      "md5": "98ca563ecf6bc7b4b581bee60e478a06",
+      "prefix": "98ca563ecf6b"
+    },
+    {
+      "file": "05-date-open-soft.png",
+      "md5": "dd78e0a2ad2d01d6c3cd57342228bb39",
+      "prefix": "dd78e0a2ad2d"
+    }
+  ]
+}

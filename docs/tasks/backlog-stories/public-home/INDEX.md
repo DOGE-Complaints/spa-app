@@ -1,7 +1,7 @@
 # public-home — INDEX
 
 > **Пакет:** [README.md](README.md) · [PRODUCT-BRIEF.md](PRODUCT-BRIEF.md)  
-> **Режим:** **PH-10 Done** · **PH-09 Done · P7** · **PH-08 Done · P7 WAVE COMPLETE** (`pkg-000058` · [reaudit](../../../analysis/reaudit-STORY-SPA-PH-08-gap-closure-2026-08-09.md)) · drafts PH-11 / BUG-04 · Admin 6/6 Done
+> **Режим:** tip wave5 **PH-17** P5 APPLY · `pkg-000223` · gate **BLOCK** · Story **BLOCKED** (OP eye) · `activation: none` · Await P8 · soft **PH-16 P8** BLOCKED OP eye · [intake](../../../analysis/analysis-wave5-ux-intake-m173-m176-2026-10-24.md) **PASS** · soft wave4 **PH-15** · soft **PH-14 P8** · soft **PH-11/PH-13 P8** · **PH-12/10/09/08 Done** · Admin 6/6 Done
 
 ## Admin queue
 
@@ -28,15 +28,46 @@
 | PH-08 | [STORY-SPA-PH-08-how-it-works-first-class-page.md](STORY-SPA-PH-08-how-it-works-first-class-page.md) | [pipeline](../../epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-PH-08-how-it-works-first-class-page/STORY-SPA-PH-08-how-it-works-first-class-page.md) | Done · **P7 WAVE COMPLETE** ([reaudit](../../../analysis/reaudit-STORY-SPA-PH-08-gap-closure-2026-08-09.md)) |
 | PH-09 | [STORY-SPA-PH-09-public-sidebar-display-mode.md](STORY-SPA-PH-09-public-sidebar-display-mode.md) | [pipeline](../../epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-PH-09-public-sidebar-display-mode/STORY-SPA-PH-09-public-sidebar-display-mode.md) | Done · **P7 WAVE COMPLETE** ([reaudit](../../../analysis/reaudit-STORY-SPA-PH-09-gap-closure-2026-08-08.md)) |
 | PH-10 | [STORY-SPA-PH-10-header-horizontal-logo-favicon.md](STORY-SPA-PH-10-header-horizontal-logo-favicon.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-10-header-horizontal-logo-favicon/STORY-SPA-PH-10-header-horizontal-logo-favicon.md) | ✅ Done (`pkg-000056`) · **P7 WAVE COMPLETE** ([reaudit](../../analysis/reaudit-STORY-SPA-PH-10-gap-closure-2026-08-08.md)) |
+| PH-12 | [STORY-SPA-PH-12-board-discussion-priority-sort.md](STORY-SPA-PH-12-board-discussion-priority-sort.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-12-board-discussion-priority-sort/STORY-SPA-PH-12-board-discussion-priority-sort.md) | **Done** · P3 `pkg-000091` · gate PASS · **P6 gap CLOSED** F1/F2 · F3 WAIVED |
 
-**Progress (product):** 10/10 Done · 0 Todo  
-**Execute order:** EPIC-SPA-09 PH-01…07/10 Done; PH-09 Done; **PH-08 Done**; PH-10 P7 complete.
+**Progress (product):** 11/11 Done (PH-12 `pkg-000091`) · gap-list OPEN **empty**  
+**Execute order:** EPIC-SPA-09 PH-01…07/10 Done; PH-09 Done; **PH-08 Done**; PH-10 P7 complete; **PH-12 P3 Done** · P6 gap CLOSED 2026-10-03T15:59:58Z.
+
+### OP residual wave 3 (Markstack docs Ready · 2026-10-22 · Await Apply)
+
+| Key | Backlog | Pipeline | Status |
+|-----|---------|----------|--------|
+| PH-11 | [STORY-SPA-PH-11-footer-static-pages.md](STORY-SPA-PH-11-footer-static-pages.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-11-footer-static-pages/STORY-SPA-PH-11-footer-static-pages.md) | P8 local close · structure Present · gate **BLOCK** · Story **BLOCKED** (OP eye) OK · `pkg-000211` closed · Path A M166+intake · [arch](../../../architecture/public-home/11-footer-static-pages.md) · (legacy draft [empty-state](STORY-SPA-PH-11-empty-state-favicon-glyph.md) held OOS) |
+| PH-13 | [STORY-SPA-PH-13-how-it-works-content-cta.md](STORY-SPA-PH-13-how-it-works-content-cta.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-13-how-it-works-content-cta/STORY-SPA-PH-13-how-it-works-content-cta.md) | P8 Done · gate BLOCK · Story **BLOCKED** (OP eye) OK · [disposition](../../analysis/p5-disposition-STORY-SPA-PH-13-2026-10-22.md) · [arch](../../../architecture/public-home/13-how-it-works-content-cta.md) · `pkg-000210` closed · [M168](../../../UX/mockups/home/DOGEstonia-M168-how-it-works-content-cta-spec-v1.0.md) · [intake](../../../analysis/analysis-wave3-ux-intake-m163-m168-2026-10-22.md) |
+
+**Order (wave3):** **PH-11** ‖ **PH-13** (intake PASS) · soft NF-23 board deprecate.
+
+### OP residual wave 4 (Markstack docs Ready · 2026-10-23 · intake PASS · Await Apply)
+
+| Key | Backlog | Pipeline | Status |
+|-----|---------|----------|--------|
+| PH-14 | [STORY-SPA-PH-14-how-it-works-deep-redesign.md](STORY-SPA-PH-14-how-it-works-deep-redesign.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-14-how-it-works-deep-redesign/STORY-SPA-PH-14-how-it-works-deep-redesign.md) | P8 Done · gate **BLOCK** · Story **BLOCKED** (OP eye) OK · `pkg-000218` closed · [disposition](../../run-reports/p5-disposition-STORY-SPA-PH-14-2026-10-23.md) · [arch](../../../architecture/public-home/14-how-it-works-deep-redesign.md) · [M171](../../../UX/mockups/home/DOGEstonia-M171-how-it-works-approved-copy-spec-v1.0.md) |
+| PH-15 | [STORY-SPA-PH-15-static-pages-content.md](STORY-SPA-PH-15-static-pages-content.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-15-static-pages-content/STORY-SPA-PH-15-static-pages-content.md) | P5 APPLY · T01–T04 Done · gate **BLOCK** · Story **BLOCKED** (OP eye) · `pkg-000219` · `activation: none` · Await P8 · [disposition](../../run-reports/p5-disposition-STORY-SPA-PH-15-2026-10-23.md) · [M172](../../../UX/mockups/home/DOGEstonia-M172-static-pages-copy-RU-EN-ET-spec-v2.0.md) |
+
+**Order (wave4):** **PH-15** tip P5 · Await P8 · soft PH-14 P8 closed · soft NS-14 brand masters · CAB-08 P8 closed.
+
+### OP residual wave 5 (Markstack docs Ready · 2026-10-24 · Await Apply)
+
+| Key | Backlog | Pipeline | Status |
+|-----|---------|----------|--------|
+| PH-16 | [STORY-SPA-PH-16-env-cta-story-gpt-landing-faq.md](STORY-SPA-PH-16-env-cta-story-gpt-landing-faq.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq.md) | **P8 Done** · gate **BLOCK** · Story **BLOCKED** (OP eye) OK · `pkg-000222` closed · [disposition](../../run-reports/p5-disposition-STORY-SPA-PH-16-2026-10-24.md) · [arch](../../../architecture/public-home/16-env-cta-story-gpt-landing-faq.md) |
+| PH-17 | [STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta.md](STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta.md) | [pipeline](../../epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta/STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta.md) | **P5 APPLY** · gate **BLOCK** · Story **BLOCKED** (OP eye) · `pkg-000223` · `activation: none` · Await P8 · [disposition](../../run-reports/p5-disposition-STORY-SPA-PH-17-2026-10-24.md) · [arch](../../../architecture/public-home/17-privacy-dark-icons-contact-story-cta.md) |
+
+**Order (wave5):** **PH-17** tip P5 · Await P8 · soft **PH-16** P8 BLOCKED OP eye · soft NS-15/16 P8 BLOCKED OP eye.
 
 ## Cross-links
 
 - Epic: [EPIC-SPA-09-public-shell-home](../../epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md) (Done · PH-01…07)  
 - Epic UAT inbound: [EPIC-SPA-11](../../epics/EPIC-SPA-11-uat-inbound-2026-08/EPIC-SPA-11-uat-inbound-2026-08.md)
-- Cabinet pattern: [../cabinet/README.md](../cabinet/README.md)
+- Cabinet pattern: [../cabinet/INDEX.md](../cabinet/INDEX.md) · [README](../cabinet/README.md)
 - API: [STORY-SPA-PH-api-requirements.md](STORY-SPA-PH-api-requirements.md)
 - Icons: [STORY-SPA-PH-icon-assets.md](STORY-SPA-PH-icon-assets.md) · [ICON-GENERATION-INDEX](../icons/ICON-GENERATION-INDEX.md)
 - G8: [../design-foundation/STORY-SPA-G8-app-shell-refactor.md](../design-foundation/STORY-SPA-G8-app-shell-refactor.md)
+- Wave3: [INTERVIEW-NF-21-plus…](../next-feed/INTERVIEW-NF-21-plus-op-residual-spa-wide-2026-10-22.md) · [evidence](../../../analysis/evidence/op-residual-wave3-2026-10-22/) · [validation](../../../analysis/analysis-markstack-wave3-code-validation-2026-10-23.md)
+- Wave4: [INTERVIEW-NF-24-plus…](../next-feed/INTERVIEW-NF-24-plus-op-residual-wave4-2026-10-23.md) · [evidence](../../../analysis/evidence/op-residual-wave4-2026-10-23/) · [UX intake M169–M172](../../../analysis/analysis-wave4-ux-intake-m169-m172-2026-10-23.md) · [wave4 validation](../../../analysis/analysis-markstack-wave4-code-validation-2026-10-24.md)  
+- Wave5: [INTERVIEW-NF-25-plus…](../next-feed/INTERVIEW-NF-25-plus-op-residual-wave5-2026-10-24.md) · [evidence](../../../analysis/evidence/op-residual-wave5-2026-10-24/) · [UX intake](../../../analysis/analysis-wave5-ux-intake-m173-m176-2026-10-24.md)

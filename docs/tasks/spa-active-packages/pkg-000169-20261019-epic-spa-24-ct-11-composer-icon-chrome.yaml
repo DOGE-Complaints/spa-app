@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 169
+created_at: "2026-10-19T12:12:03Z"
+label: EPIC-SPA-24 CT-11 Composer icon chrome
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-11-composer-icon-chrome.md
+story_groups:
+- story_key: STORY-SPA-CT-11-composer-icon-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-11-composer-icon-chrome/task-spa-ct-11-t01-attach-paperclip/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-11-composer-icon-chrome/task-spa-ct-11-t02-circle-send-empty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-11-composer-icon-chrome/task-spa-ct-11-t03-post-plane-label/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-11-composer-icon-chrome/task-spa-ct-11-t04-vitest-icons/README.md
+notes: |
+  P1.3 APPLY 2026-10-19T12:12:03Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX residual §3 G-H2 · G-H6 · M152-B · M153 C/D · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: reuse attach.svg/send.svg · no invent SVG/HTTP/OP PASS · AttachmentRef D/E held.
+  Prior tip pkg-000168 · CT-10. Await P2 on OP. No P3 yet. No product code this call.

@@ -1,0 +1,46 @@
+{
+  "story": "STORY-SPA-CT-29-next-feed-civic-media-stub",
+  "generated_utc": "2026-10-20T21:34:49.746Z",
+  "base": "http://127.0.0.1:5173",
+  "probe": {
+    "listSrc": "/assets/dogefeed.png",
+    "detailSrc": "/assets/dogefeed.png",
+    "variant": "media-stub",
+    "noMediaPresent": false
+  },
+  "md5s": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "180a71d167edbc1cb187645473d4e67a",
+      "prefix": "180a71d167ed"
+    },
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "180a71d167edbc1cb187645473d4e67a",
+      "prefix": "180a71d167ed"
+    },
+    {
+      "file": "02-list-dogefeed-stub.png",
+      "md5": "1619fbf3d8d626aee3be9c30d4d185e3",
+      "prefix": "1619fbf3d8d6"
+    },
+    {
+      "file": "03-detail-dogefeed-stub.png",
+      "md5": "cb6cd7402a0b7b55173a8710028287f2",
+      "prefix": "cb6cd7402a0b"
+    },
+    {
+      "file": "04-no-media-superseded.png",
+      "md5": "8f57dd27301603096f67173bb53289b4",
+      "prefix": "8f57dd273016"
+    },
+    {
+      "file": "05-narrow-list-stub.png",
+      "md5": "37451973d01fa364ec3ff58949114ec5",
+      "prefix": "37451973d01f"
+    }
+  ],
+  "fails": [],
+  "visual_gate": "BLOCK",
+  "note": "OP eye Absent · Partial visual=BLOCK · no invent OP PASS"
+}

@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 130
+created_at: "2026-10-13T12:59:05Z"
+label: EPIC-SPA-22 NF-LAB-04 modal detail from text media
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-04-modal-detail-from-text-media.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-04-modal-detail-from-text-media
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-04-modal-detail-from-text-media/task-spa-nf-lab-04-t01-hit-targets/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-04-modal-detail-from-text-media/task-spa-nf-lab-04-t02-overlay-compose/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-04-modal-detail-from-text-media/task-spa-nf-lab-04-t03-verify-visual-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T12:59:05Z. input_mode=backlog_story. REUSE EPIC-SPA-22-next-feed-lab.
+  ui_scope: feed-lab · UX ready Path A M158 · Partial visual=BLOCK.
+  Skill react-expert. T01–T03 Todo · ui_anchor all.
+  LAB-03 residual: structure Present · story Blocked · Partial visual · OP eye Absent (do not invent PASS).
+  Ban FeedCivicPost/FeedDiscussionBlock/BoardIssuePost · classic ReactionControls.css.
+  Reuse OverlayHost + IssuePresentationLayout. No invent · no HTTP · #/next/feed unchanged (port LAB-05).
+  Await P2/P3 on OP.

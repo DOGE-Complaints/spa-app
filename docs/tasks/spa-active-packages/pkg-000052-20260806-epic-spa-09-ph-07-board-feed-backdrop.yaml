@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 52
+created_at: "2026-08-06T13:24:06Z"
+label: EPIC-SPA-09 PH-07 board feed backdrop evidence
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-07-board-feed-backdrop-evidence.md
+story_groups:
+- story_key: STORY-SPA-PH-07-board-feed-backdrop-evidence
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/task-spa-ph-07-t01-shared-board-feed-backdrop-helper/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/task-spa-ph-07-t02-wire-chrome-evidence-runners/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/task-spa-ph-07-t03-preserve-labeled-load-error-path/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/task-spa-ph-07-t04-screenshot-indexer-backdrop-labels/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/task-spa-ph-07-t05-vitest-or-runner-assert-no-accidental-error/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/task-spa-ph-07-t06-story-gate-ph-07/README.md

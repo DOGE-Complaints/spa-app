@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 28
+created_at: "2026-07-09T10:37:10Z"
+label: EPIC-SPA-06 DEPLOY-02 static production serve
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/EPIC-SPA-06-railway-deploy.md
+decision_ref: spa-app/docs/tasks/backlog-stories/railway-deploy/STORY-SPA-DEPLOY-02-static-production-serve.md
+story_groups:
+- story_key: STORY-SPA-DEPLOY-02-static-production-serve
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-02-static-production-serve/task-spa-deploy-02-t01-static-serve-start-script/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-02-static-production-serve/task-spa-deploy-02-t02-railway-toml-start-sync/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-02-static-production-serve/task-spa-deploy-02-t03-deploy-docs-serve-contract/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-02-static-production-serve/task-spa-deploy-02-t04-vite-preview-config-cleanup/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-02-static-production-serve/task-spa-deploy-02-t05-railway-live-smoke-static-serve/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-02-static-production-serve/task-spa-deploy-02-t06-story-gate-deploy-02/README.md

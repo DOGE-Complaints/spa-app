@@ -1,0 +1,50 @@
+{
+  "story": "STORY-SPA-NF-16-more-menu-deferred",
+  "captured_at": "2026-10-21T12:52:28.577Z",
+  "base": "http://127.0.0.1:5173",
+  "visual_gate": "BLOCK",
+  "path_a": "code_lock",
+  "more_asset_present": true,
+  "listProbe": {
+    "postCount": 12,
+    "moreCount": 0
+  },
+  "detailProbe": {
+    "moreCount": 0,
+    "hit": "list",
+    "hasPost": true
+  },
+  "fails": [],
+  "shots": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "599c1899a1847099a1bbb7a738145694",
+      "prefix": "599c1899a184"
+    },
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "599c1899a1847099a1bbb7a738145694",
+      "prefix": "599c1899a184"
+    },
+    {
+      "file": "02-more-absent-list.png",
+      "md5": "184371d813c692f910b3c09fc7aaa74c",
+      "prefix": "184371d813c6"
+    },
+    {
+      "file": "03-more-absent-detail.png",
+      "md5": "3b4429f51705f26f9982c251b4f49c44",
+      "prefix": "3b4429f51705"
+    },
+    {
+      "file": "04-header-no-more.png",
+      "md5": "a827bfb3e6e2af1de3421bd356e8385b",
+      "prefix": "a827bfb3e6e2"
+    },
+    {
+      "file": "05-narrow-no-more.png",
+      "md5": "996a7da58cf6002622fd2247a779e202",
+      "prefix": "996a7da58cf6"
+    }
+  ]
+}

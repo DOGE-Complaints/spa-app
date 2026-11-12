@@ -1,0 +1,47 @@
+{
+  "captured_utc": "2026-10-11T15:46:55.800Z",
+  "mode": "harness-thr01-populated+live-gateway",
+  "harness": {
+    "oval": 12,
+    "view": true,
+    "status": "populated",
+    "chrome": [
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry",
+      "oval-entry"
+    ]
+  },
+  "after": {
+    "tree": true,
+    "ovalChrome": "oval",
+    "entry": true,
+    "postText": "Post reply",
+    "br": "50%",
+    "w": "44px",
+    "h": "44px"
+  },
+  "ovalComposer": true,
+  "circular": true,
+  "md5_pairs": {
+    "07_vs_08": {
+      "a": "bff3a2d11848253f5a2090a003214f5c",
+      "b": "c94a2fece0bf00780c2faf639de8d8d6",
+      "distinct": true
+    },
+    "14_vs_15": {
+      "a": "68ac3b781a4bfdf9f6c5414cd81d5bf2",
+      "b": "1ccd7d54e8572d38bc7ad1c928b865ce",
+      "distinct": true
+    }
+  },
+  "note": "visual Match: circular send + clipped label; innerText may still expose a11y name"
+}

@@ -1,0 +1,42 @@
+{
+  "story": "STORY-SPA-NF-23-board-deprecate-redirect",
+  "captured_at": "2026-10-22T14:28:52.820Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-board-hash-redirect.png",
+      "md5": "838e83497a03267886154ab8244bf86a",
+      "prefix": "838e83497a03"
+    },
+    {
+      "file": "02-feed-host-light.png",
+      "md5": "838e83497a03267886154ab8244bf86a",
+      "prefix": "838e83497a03"
+    },
+    {
+      "file": "03-cta-header-soft.png",
+      "md5": "941e5fc12220f94d981ddd4fec295723",
+      "prefix": "941e5fc12220"
+    },
+    {
+      "file": "04-cta-footer-soft.png",
+      "md5": "441a3961132e1de5b0ed48a5c9300f06",
+      "prefix": "441a3961132e"
+    },
+    {
+      "file": "05-feed-host-dark-hold.png",
+      "md5": "16134b5fe9824f979edc3560cb1d881f",
+      "prefix": "16134b5fe982"
+    }
+  ],
+  "probe": {
+    "hash": "#/next/feed",
+    "hasNextFeedHost": true,
+    "hasBoardPage": false,
+    "dashboardHref": "#/next/feed",
+    "footerBrandHref": "#/next/feed"
+  },
+  "note": "Partial visual=BLOCK · no invent OP PASS · inventory Present · no mass-delete"
+}

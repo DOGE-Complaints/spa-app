@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 29
+created_at: "2026-07-12T08:03:15Z"
+label: EPIC-SPA-07 CAB-02 account summary block
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md
+decision_ref: spa-app/docs/tasks/backlog-stories/cabinet/STORY-SPA-CAB-02-account-summary-block.md
+story_groups:
+- story_key: STORY-SPA-CAB-02-account-summary-block
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t01-account-summary-slot-profile-data/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t02-stable-field-grid/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t03-ux-states-not-available/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t04-privacy-no-sensitive-fields/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t05-l10n-cabinet-account-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t06-field-icon-wiring/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t07-vitest-states-privacy-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-02-account-summary-block/task-spa-cab-02-t08-story-gate-cab-02/README.md

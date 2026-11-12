@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 26
+created_at: "2026-07-05T08:01:18Z"
+label: EPIC-SPA-04 ID-12 story draft handoff submit
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-12-story-draft-handoff-submit.md
+story_groups:
+- story_key: STORY-SPA-ID-12-story-draft-handoff-submit
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t01-story-draft-service-gateway-routes/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t02-draft-preview-dto-mapper/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t03-story-handoff-i18n-dictionary/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t04-route-rename-story-submit-cutover/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t05-login-draft-id-session-storage/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t06-story-submit-page-state-machine/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t07-verify-interpose-auto-resubmit/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t08-ui-anchor-m128-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t09-tests-handoff-flow-m128/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-12-story-draft-handoff-submit/task-spa-id-12-t10-story-gate-id-12/README.md

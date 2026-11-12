@@ -1,0 +1,16 @@
+schema_version: 1
+package_sequence: 62
+created_at: "2026-08-09T13:24:26Z"
+label: EPIC-SPA-10 HL-04 prod fail-fast identity URL
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/EPIC-SPA-10-hardening-cto-audit.md
+decision_ref: spa-app/docs/tasks/backlog-stories/hardening-cto-audit-2026-08/STORY-SPA-HL-04-prod-fail-fast-identity-url.md
+story_groups:
+- story_key: STORY-SPA-HL-04-prod-fail-fast-identity-url
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-04-prod-fail-fast-identity-url/task-spa-hl-04-t01-prod-identity-url-contract/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-04-prod-fail-fast-identity-url/task-spa-hl-04-t02-apply-fail-fast-clients/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-04-prod-fail-fast-identity-url/task-spa-hl-04-t03-env-docs-touch/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-04-prod-fail-fast-identity-url/task-spa-hl-04-t04-unit-tests-fail-fast/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-04-prod-fail-fast-identity-url/task-spa-hl-04-t05-story-gate-hl-04/README.md

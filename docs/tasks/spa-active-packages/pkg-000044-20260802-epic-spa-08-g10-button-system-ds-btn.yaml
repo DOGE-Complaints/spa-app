@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 44
+created_at: "2026-08-02T20:13:25Z"
+label: EPIC-SPA-08 G10 button system DS-BTN
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/EPIC-SPA-08-design-foundation.md
+decision_ref: spa-app/docs/tasks/backlog-stories/design-foundation/STORY-SPA-G10-button-system-ds-btn.md
+story_groups:
+- story_key: STORY-SPA-G10-button-system-ds-btn
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t01-button-tokens-tokens-css/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t02-button-component/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t03-icon-button/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t04-button-group/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t05-menu-action/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t06-vitest-button-states-a11y/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t07-confirm-guide-design-system-link/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t08-migrate-identity-auth-ctas/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t09-migrate-cabinet-handoff-ctas/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t10-migrate-board-filters-public-home-ctas/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t11-cleanup-page-local-btn-css/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G10-button-system-ds-btn/task-spa-g10-t12-story-gate-g10/README.md

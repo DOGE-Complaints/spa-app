@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 3
+created_at: "2026-06-16T12:00:00Z"
+label: EPIC-SPA-02 L10N-01 locale registry foundation
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/EPIC-SPA-02-localization-l10n.md
+decision_ref: spa-app/docs/tasks/backlog-stories/localization/STORY-SPA-L10N-01-locale-registry-foundation.md
+story_groups:
+- story_key: STORY-SPA-L10N-01-locale-registry-foundation
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-01-locale-registry-foundation/task-spa-l10n-01-t01-locale-registry-data-model/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-01-locale-registry-foundation/task-spa-l10n-01-t02-core-resolution-from-registry/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-01-locale-registry-foundation/task-spa-l10n-01-t03-dedupe-language-selector-pages/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-01-locale-registry-foundation/task-spa-l10n-01-t04-remove-dead-languages-dictionary/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-01-locale-registry-foundation/task-spa-l10n-01-t05-tests-n-locale-extensibility/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-01-locale-registry-foundation/task-spa-l10n-01-t06-sync-doc-touchpoints-l10n01/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-01-locale-registry-foundation/task-spa-l10n-01-t07-story-acceptance-verification/README.md

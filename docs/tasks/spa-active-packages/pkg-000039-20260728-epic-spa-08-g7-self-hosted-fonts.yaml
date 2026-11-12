@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 39
+created_at: "2026-07-28T21:48:40Z"
+label: EPIC-SPA-08 G7 self-hosted fonts
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/EPIC-SPA-08-design-foundation.md
+decision_ref: spa-app/docs/tasks/backlog-stories/design-foundation/STORY-SPA-G7-self-hosted-fonts.md
+story_groups:
+- story_key: STORY-SPA-G7-self-hosted-fonts
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G7-self-hosted-fonts/task-spa-g7-t01-public-fonts-woff2-ofl/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G7-self-hosted-fonts/task-spa-g7-t02-fonts-css-main-import/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G7-self-hosted-fonts/task-spa-g7-t03-migrate-mono-token-five-sites/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G7-self-hosted-fonts/task-spa-g7-t04-loginpage-weight-700-to-600/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G7-self-hosted-fonts/task-spa-g7-t05-visual-smoke-board-issue-fonts/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G7-self-hosted-fonts/task-spa-g7-t06-story-gate-g7/README.md

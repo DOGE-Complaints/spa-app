@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 4
+created_at: "2026-06-16T14:00:00Z"
+label: EPIC-SPA-02 L10N-02 dynamic label filter
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/EPIC-SPA-02-localization-l10n.md
+decision_ref: spa-app/docs/tasks/backlog-stories/localization/STORY-SPA-L10N-02-dynamic-label-filter.md
+story_groups:
+- story_key: STORY-SPA-L10N-02-dynamic-label-filter
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-02-dynamic-label-filter/task-spa-l10n-02-t01-collect-label-keys-from-issues/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-02-dynamic-label-filter/task-spa-l10n-02-t02-board-page-dynamic-available-labels/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-02-dynamic-label-filter/task-spa-l10n-02-t03-labels-filter-empty-edge-cases/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-02-dynamic-label-filter/task-spa-l10n-02-t04-available-labels-core-role-comment/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-02-dynamic-label-filter/task-spa-l10n-02-t05-tests-dynamic-label-filter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-02-dynamic-label-filter/task-spa-l10n-02-t06-sync-doc-touchpoints-l10n02/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-02-dynamic-label-filter/task-spa-l10n-02-t07-story-acceptance-verification/README.md

@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 99
+created_at: "2026-10-09T16:04:13Z"
+label: EPIC-SPA-19 NS-03 ProfileRail + shelter nav
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-03-profile-rail-shelter-nav.md
+story_groups:
+- story_key: STORY-SPA-NS-03-profile-rail-shelter-nav
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-03-profile-rail-shelter-nav/task-spa-ns-03-t01-profilerail-shell/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-03-profile-rail-shelter-nav/task-spa-ns-03-t02-story-activity-bind-or-empty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-03-profile-rail-shelter-nav/task-spa-ns-03-t03-shelter-nav-links/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-03-profile-rail-shelter-nav/task-spa-ns-03-t04-wire-rail-icons/README.md
+notes: |
+  P1.3 APPLY 2026-10-09T16:04:13Z. input_mode=backlog_story. REUSE EPIC-SPA-19.
+  ui_scope: shell · UX ready M149 ProfileRail §10 · Component §10 · DUI-Q15.
+  Skill react-expert. T01–T04 Todo · no gate T05. Backend UP for later P3.
+  Do not invent BoardFeed/threads/fake cards/new SVG/new HTTP. Do not flip `/` (NS-06).
+  Do not git push. Await P2/P3 on OP.

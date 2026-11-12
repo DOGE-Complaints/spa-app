@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 65
+created_at: "2026-08-16T12:30:27Z"
+label: EPIC-SPA-10 BUG-05 railway-env-bake
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/EPIC-SPA-10-hardening-cto-audit.md
+decision_ref: spa-app/docs/tasks/backlog-stories/bugs/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback.md
+story_groups:
+- story_key: STORY-SPA-BUG-05-railway-env-bake-localhost-fallback
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback/task-spa-bug-05-t01-reconfirm-env-bake-fail/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback/task-spa-bug-05-t02-pin-resolver-fallback-bake/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback/task-spa-bug-05-t03-fix-prod-fallback-bake/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback/task-spa-bug-05-t04-regression-hl04-env-bake/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback/task-spa-bug-05-t05-story-gate-bug-05/README.md
+notes: |
+  P1.3 APPLY 2026-08-16T12:30:27Z. input_mode=backlog_story. ui_scope: none.
+  Reuse EPIC-SPA-10. Do not reopen HL-02/HL-04. Do not disable bake gate.
+  Next: P2 build window. T01–T05 Todo.

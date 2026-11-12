@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 144
+created_at: "2026-10-15T19:27:28Z"
+label: EPIC-SPA-23 CR-08 lab feed theme stress
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-08-lab-feed-theme-stress.md
+story_groups:
+- story_key: STORY-SPA-CR-08-lab-feed-theme-stress
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-08-lab-feed-theme-stress/task-spa-cr-08-t01-feed-lab-stress-controls/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-08-lab-feed-theme-stress/task-spa-cr-08-t02-locale-t-through-mount/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-08-lab-feed-theme-stress/task-spa-cr-08-t03-feed-lab-token-surfaces/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-08-lab-feed-theme-stress/task-spa-cr-08-t04-vitest-feed-lab-stress/README.md
+notes: |
+  P1.3 APPLY 2026-10-15T19:27:28Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: feed-lab · mixed · Path A M160 + OP-UX-MIRROR composition §3.1 · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Theme stress on #/lab/feed · setThemeAttribute persist:false · locale t through mount · feed-lab tokens.
+  Depends CR-07 structure Present · CR-04 pattern Present.
+  CR-09/CR-10 OOS · M155 OOS · invent HTTP OOS · #/next/feed production OOS.
+  Await P2 on OP. No P3 yet. No product code this call.

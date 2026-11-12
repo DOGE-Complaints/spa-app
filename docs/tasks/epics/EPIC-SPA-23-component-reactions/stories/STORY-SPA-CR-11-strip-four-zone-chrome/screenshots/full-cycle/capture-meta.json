@@ -1,0 +1,42 @@
+{
+  "captured_utc": "2026-10-16T10:32:25.069Z",
+  "route": "#/lab/feed",
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  },
+  "zones": "4",
+  "gap_v2_residual": {
+    "react_svg": "Present wrong glyph",
+    "reactions_svg": "Absent"
+  },
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "files": [
+    {
+      "file": "01-lab-feed-cr11-four-zones-1536x1024.png",
+      "md5": "b7447368d77a56e0802c962d09546576",
+      "prefix": "b7447368d77a"
+    },
+    {
+      "file": "02-lab-feed-cr11-react-thumbs-1536x1024.png",
+      "md5": "e9ad5305b9f7d78e7ea985900add459a",
+      "prefix": "e9ad5305b9f7"
+    },
+    {
+      "file": "03-lab-feed-cr11-reactions-zone-1536x1024.png",
+      "md5": "e9ad5305b9f7d78e7ea985900add459a",
+      "prefix": "e9ad5305b9f7"
+    },
+    {
+      "file": "04-lab-feed-cr11-react-selected-1536x1024.png",
+      "md5": "168d804c331ead1c79d85a90882d53fa",
+      "prefix": "168d804c331e"
+    },
+    {
+      "file": "05-lab-feed-cr11-narrow-2x2-1536x1024.png",
+      "md5": "f3e8a6bbc3bc31bea2d0ce260443d347",
+      "prefix": "f3e8a6bbc3bc"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 156
+created_at: "2026-10-18T12:04:08Z"
+label: EPIC-SPA-23 CR-20 Gap v2 icon generate + promote
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-20-gap-v2-icon-generate.md
+story_groups:
+- story_key: STORY-SPA-CR-20-gap-v2-icon-generate
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-20-gap-v2-icon-generate/task-spa-cr-20-t01-master-reactions-svg/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-20-gap-v2-icon-generate/task-spa-cr-20-t02-master-react-thumbs/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-20-gap-v2-icon-generate/task-spa-cr-20-t03-promote-runtime/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-20-gap-v2-icon-generate/task-spa-cr-20-t04-manifest-cr-icon/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-20-gap-v2-icon-generate/task-spa-cr-20-t05-strip-test-hygiene/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T12:04:08Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: feed-lab / icon-system · mixed · Path A residual mirror §3 · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  CONSTRAINT FLIP: P3 WILL Write Gap v2 chrome SVG — reactions NEW dual-circle + react REPLACE thumbs-up + promote.
+  Do NOT Write multicolor marks / Lucide / invent OP PASS / invent people HTTP / #/next/feed.
+  Facts: runtime reactions.svg Absent · react.svg Present smiley · master reactions.svg Absent · CR-11 URL wired.
+  Prior tip pkg-000155 · CR-19 structure Present · Gap v2 residual. Await P2 on OP. No P3 yet. No product/SVG code this call.

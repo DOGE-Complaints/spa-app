@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 145
+created_at: "2026-10-15T19:43:19Z"
+label: EPIC-SPA-23 CR-09 strip slot composition A+C+B
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-09-strip-slot-composition.md
+story_groups:
+- story_key: STORY-SPA-CR-09-strip-slot-composition
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-09-strip-slot-composition/task-spa-cr-09-t01-strip-react-slot-three-zones/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-09-strip-slot-composition/task-spa-cr-09-t02-card-detail-wire-slot/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-09-strip-slot-composition/task-spa-cr-09-t03-remove-root-duplicate-mount/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-09-strip-slot-composition/task-spa-cr-09-t04-vitest-strip-composition/README.md
+notes: |
+  P1.3 APPLY 2026-10-15T19:43:19Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: feed-lab · mixed · Path A M154 + OP-UX-MIRROR composition §3.2 · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  A+C+B strip · 3 zones · live React slot zone1 · no under-strip root duplicate · keep comment mounts.
+  Depends CR-07 · CR-05 · CR-08 structure Present.
+  Portal CR-10 OOS · Theme CR-08 OOS · M155 OOS · invent HTTP OOS · #/next/feed OOS · FeedCivicPost 4-zone OOS.
+  Await P2 on OP. No P3 yet. No product code this call.

@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 16
+created_at: "2026-06-28T08:01:04Z"
+label: EPIC-SPA-04 ID-02 session shell states
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-02-session-shell-states.md
+story_groups:
+- story_key: STORY-SPA-ID-02-session-shell-states
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-02-session-shell-states/task-spa-id-02-t01-session-resolver-state-machine/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-02-session-shell-states/task-spa-id-02-t02-app-shell-layout-m124/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-02-session-shell-states/task-spa-id-02-t03-shell-states-restoring-logged-out/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-02-session-shell-states/task-spa-id-02-t04-shell-states-expired-backend-network/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-02-session-shell-states/task-spa-id-02-t05-app-route-shell-integration/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-02-session-shell-states/task-spa-id-02-t06-tests-session-shell-vitest/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-02-session-shell-states/task-spa-id-02-t07-story-gate-id-02/README.md

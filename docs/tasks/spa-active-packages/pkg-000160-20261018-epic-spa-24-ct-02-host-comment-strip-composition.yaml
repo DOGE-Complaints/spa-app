@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 160
+created_at: "2026-10-18T13:07:07Z"
+label: EPIC-SPA-24 CT-02 host Comment strip composition
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-02-host-comment-strip-composition.md
+story_groups:
+- story_key: STORY-SPA-CT-02-host-comment-strip-composition
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-02-host-comment-strip-composition/task-spa-ct-02-t01-thread-api-ref/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-02-host-comment-strip-composition/task-spa-ct-02-t02-card-handle-zone/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-02-host-comment-strip-composition/task-spa-ct-02-t03-composition-css/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-02-host-comment-strip-composition/task-spa-ct-02-t04-vitest-comment-zone/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T13:07:07Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX-MIRROR §4.1 P-strip/P-compose · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: strip dumb · Comment→apiRef · hold reactions · no invent HTTP/OP PASS.
+  Prior tip pkg-000159 · CT-01 P5 APPLY · activation was none. Await P2 on OP. No P3 yet. No product code this call.

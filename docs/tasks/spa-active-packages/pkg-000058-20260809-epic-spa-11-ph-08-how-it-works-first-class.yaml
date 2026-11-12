@@ -1,0 +1,15 @@
+schema_version: 1
+package_sequence: 58
+created_at: "2026-08-09T07:36:09Z"
+label: EPIC-SPA-11 PH-08 how it works first-class page
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/EPIC-SPA-11-uat-inbound-2026-08.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-08-how-it-works-first-class-page.md
+story_groups:
+- story_key: STORY-SPA-PH-08-how-it-works-first-class-page
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-PH-08-how-it-works-first-class-page/task-spa-ph-08-t01-composition-audit-m133/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-PH-08-how-it-works-first-class-page/task-spa-ph-08-t02-page-layout-reduce-nesting/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-PH-08-how-it-works-first-class-page/task-spa-ph-08-t03-desktop-narrow-regression/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-PH-08-how-it-works-first-class-page/task-spa-ph-08-t04-story-gate-ph-08/README.md

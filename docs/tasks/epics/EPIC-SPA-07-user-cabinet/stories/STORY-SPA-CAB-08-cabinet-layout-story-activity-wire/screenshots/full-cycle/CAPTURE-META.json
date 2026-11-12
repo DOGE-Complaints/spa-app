@@ -1,0 +1,56 @@
+{
+  "story": "STORY-SPA-CAB-08-cabinet-layout-story-activity-wire",
+  "captured_at": "2026-10-23T14:49:26.991Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_contribution_api": false,
+  "cabinet_auth": "Present",
+  "fails": [],
+  "probeDark": {
+    "theme": "dark",
+    "profileShell": true,
+    "header": true,
+    "rail": true,
+    "footer": true,
+    "cabinet": true,
+    "cab08": "wallet-contrib-gated",
+    "wallet": false,
+    "contrib": false,
+    "story": true,
+    "civic": true,
+    "goFeed": true,
+    "goBoard": false,
+    "compact": false,
+    "overlay": true,
+    "storyState": "empty"
+  },
+  "md5s": [
+    {
+      "file": "01-cab08-shell-light.png",
+      "md5": "fab34ea7daa6d9d5a65d933929c4d630",
+      "prefix": "fab34ea7daa6"
+    },
+    {
+      "file": "02-cab08-header-rail.png",
+      "md5": "8039fca1fd9389fdaec3b15302e5f123",
+      "prefix": "8039fca1fd93"
+    },
+    {
+      "file": "03-cab08-cabinet-main.png",
+      "md5": "594c9c495f7186ed5152c8f7d0ef635c",
+      "prefix": "594c9c495f71"
+    },
+    {
+      "file": "04-cab08-footer.png",
+      "md5": "3d5cbfc04f997ee53840ce11acc69137",
+      "prefix": "3d5cbfc04f99"
+    },
+    {
+      "file": "05-cab08-dark-held.png",
+      "md5": "a5f40bd39eefbf09b50f2178475ce673",
+      "prefix": "a5f40bd39eef"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 188
+created_at: "2026-10-20T21:25:23Z"
+label: EPIC-SPA-24 CT-29 next/feed civic media stub dogefeed
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-29-next-feed-civic-media-stub.md
+story_groups:
+- story_key: STORY-SPA-CT-29-next-feed-civic-media-stub
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-29-next-feed-civic-media-stub/task-spa-ct-29-t01-list-media/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-29-next-feed-civic-media-stub/task-spa-ct-29-t02-detail-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-29-next-feed-civic-media-stub/task-spa-ct-29-t03-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T21:25:23Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: feed · mixed · Path A gap analysis + /assets/dogefeed.png Present · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen.
+  Skill react-expert (T01–T03). T01–T03 Todo · CREATE pipeline tree.
+  Hard: list+detail same dogefeed stub · supersede no-media Done · no invent image-gen HTTP/OP PASS.
+  Prior tip pkg-000187 · CR-23. Await P2 on OP. No P3 yet. No product code this call.

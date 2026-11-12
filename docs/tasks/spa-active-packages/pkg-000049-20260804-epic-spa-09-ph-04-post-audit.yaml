@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 49
+created_at: "2026-08-04T12:33:45Z"
+label: EPIC-SPA-09 PH-04 post-audit F1/F3/F4/F6/F7
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/analysis/audit-STORY-SPA-PH-04-execution-2026-08-04.md
+# DRAFT — P5 exceeded safe-override threshold (TASKED=5 > 3).
+# Do NOT point spa-active-package.current.yaml here until operator P1 activate.
+# current.yaml remains pkg-000048 until activate.
+story_groups:
+- story_key: STORY-SPA-PH-04-board-feed-home
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-04-board-feed-home/task-spa-ph-04-t09-commit-ph04-board-feed/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-04-board-feed-home/task-spa-ph-04-t10-as-of-done-ph04-state/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-04-board-feed-home/task-spa-ph-04-t11-relabel-h1-live-load-error/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-04-board-feed-home/task-spa-ph-04-t12-issue-card-open-affordance-m132/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-04-board-feed-home/task-spa-ph-04-t13-remove-legacy-board-empty-keys/README.md

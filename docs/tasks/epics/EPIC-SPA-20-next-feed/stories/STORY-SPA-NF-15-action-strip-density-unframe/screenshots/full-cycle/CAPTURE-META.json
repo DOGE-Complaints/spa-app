@@ -1,0 +1,57 @@
+{
+  "story": "STORY-SPA-NF-15-action-strip-density-unframe",
+  "captured_at": "2026-10-21T12:34:21.063Z",
+  "base": "http://127.0.0.1:5173",
+  "visual_gate": "BLOCK",
+  "path_a": "M162",
+  "probe": {
+    "density": "m162",
+    "zones": "4",
+    "cr23": "true",
+    "reactBorder": "0px",
+    "reactBg": "rgba(0, 0, 0, 0)",
+    "reactPad": "4px/8px",
+    "reactMinH": "44px",
+    "reactIconW": "24px",
+    "commentIconW": "24px",
+    "hostLive": true
+  },
+  "narrow": {
+    "flexDir": "column",
+    "gap": "4px",
+    "minH": "56px"
+  },
+  "fails": [],
+  "shots": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "b3f382b0702d80af961051963a181b47",
+      "prefix": "b3f382b0702d"
+    },
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "b3f382b0702d80af961051963a181b47",
+      "prefix": "b3f382b0702d"
+    },
+    {
+      "file": "02-strip-react-unframe.png",
+      "md5": "2aeba65c8b45796ef33c6ff2221a5d05",
+      "prefix": "2aeba65c8b45"
+    },
+    {
+      "file": "03-strip-icons-24.png",
+      "md5": "1f8a0d8312f9be5baa2908b24e99f761",
+      "prefix": "1f8a0d8312f9"
+    },
+    {
+      "file": "04-desktop-density.png",
+      "md5": "1f8a0d8312f9be5baa2908b24e99f761",
+      "prefix": "1f8a0d8312f9"
+    },
+    {
+      "file": "05-narrow-stacked.png",
+      "md5": "c89555e65b32e31aa72758369515eb0c",
+      "prefix": "c89555e65b32"
+    }
+  ]
+}

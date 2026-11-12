@@ -1,6 +1,6 @@
 # EPIC-SPA-10 — Hardening CTO audit (launch)
 
-> **Статус:** 🟡 In progress — HL-01 **Done** (`pkg-000059` · P7) · HL-02 **Done** (`pkg-000060` · P7) · **HL-03 Done** (`pkg-000061` P3 · P4 Ready) · **HL-04 Done** (`pkg-000062` P7) · **HL-05 Done** (`pkg-000063` P3 2026-08-10T09:42:36Z) · HL-06…08 tech decomp Ready  
+> **Статус:** 🟡 In progress — HL-01 **Done** (`pkg-000059` · P7) · HL-02 **Done** (`pkg-000060` · P7) · **HL-03 Done** (`pkg-000061` P3 · P4 Ready) · **HL-04 Done** (`pkg-000062` P7) · **HL-05 Done** (`pkg-000063`/`000064` P7) · **BUG-05 In Progress** (`pkg-000065`) · **BUG-06 In Progress** (`pkg-000071` · §8.4 PENDING) · **BUG-07 Done** (`pkg-000072` P3) · **BUG-08 Done** (`pkg-000073` P3) · HL-06…08 tech decomp Ready  
 > **Создан:** 2026-08-06  
 > **Источник:** [audit-spa-app-architect-cto-security-2026-08-06.md](../../analysis/audit-spa-app-architect-cto-security-2026-08-06.md) §6 · backlog [hardening-cto-audit-2026-08](../backlog-stories/hardening-cto-audit-2026-08/README.md)
 
@@ -19,11 +19,15 @@
 | 3 | [HL-03](stories/STORY-SPA-HL-03-handoff-return-path-tests/STORY-SPA-HL-03-handoff-return-path-tests.md) | Fix-before-launch | T01–T02 |
 | 4 | [HL-04](stories/STORY-SPA-HL-04-prod-fail-fast-identity-url/STORY-SPA-HL-04-prod-fail-fast-identity-url.md) | Fix-before-launch | T01–T05 |
 | 5 | [HL-05](stories/STORY-SPA-HL-05-orphan-protected-route-redirect/STORY-SPA-HL-05-orphan-protected-route-redirect.md) | Fix-before-launch | T01–T03 |
+| 5a | [BUG-05](stories/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback/STORY-SPA-BUG-05-railway-env-bake-localhost-fallback.md) | Ship unblock · P0 | T01–T05 · `pkg-000065` In Progress |
+| 5b | [BUG-06](stories/STORY-SPA-BUG-06-stale-placeholder-bake-npm-start/STORY-SPA-BUG-06-stale-placeholder-bake-npm-start.md) | Local-DX bake · P0 | T01–T05 Done · `pkg-000071` P3 · §8.4 PENDING |
+| 5c | [BUG-07](stories/STORY-SPA-BUG-07-start-preview-docs-drift/STORY-SPA-BUG-07-start-preview-docs-drift.md) | Docs three lanes · P2 | T01–T08 **Done** · P6 F1–F3 CLOSED · `pkg-000072` |
+| 5d | [BUG-08](stories/STORY-SPA-BUG-08-vite-public-env-normalize-seam/STORY-SPA-BUG-08-vite-public-env-normalize-seam.md) | Config seam · P2 | T01–T07 **Done** · P6 F1–F2 CLOSED · `pkg-000073` unchanged |
 | 6 | [HL-06](stories/STORY-SPA-HL-06-protected-route-guard-model/STORY-SPA-HL-06-protected-route-guard-model.md) | Post-MVP | T01–T04 |
 | 7 | [HL-07](stories/STORY-SPA-HL-07-bundle-size-split/STORY-SPA-HL-07-bundle-size-split.md) | Post-MVP | T01–T05 |
 | 8 | [HL-08](stories/STORY-SPA-HL-08-dual-gpt-operator-clarity/STORY-SPA-HL-08-dual-gpt-operator-clarity.md) | Post-MVP | T01–T04 |
 
-**Рекомендуемый execute order:** HL-01 → HL-02 → HL-03 → HL-04 → HL-05 → (later) HL-06 → HL-07 → HL-08.
+**Рекомендуемый execute order:** HL-01 → HL-02 → HL-03 → HL-04 → HL-05 → **BUG-05** → **BUG-06** (`pkg-000071`) → **BUG-07** (`pkg-000072`) → **BUG-08** (`pkg-000073`) → (later) HL-06 → HL-07 → HL-08. Do not mix BUG-05/06/07 into pkg-000073. Do not reopen HL-02/HL-04.
 
 ## Связь
 

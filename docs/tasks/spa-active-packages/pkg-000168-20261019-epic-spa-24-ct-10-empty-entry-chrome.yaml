@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 168
+created_at: "2026-10-19T12:00:48Z"
+label: EPIC-SPA-24 CT-10 Empty entry-only + speech icon
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-10-empty-entry-chrome.md
+story_groups:
+- story_key: STORY-SPA-CT-10-empty-entry-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-10-empty-entry-chrome/task-spa-ct-10-t01-empty-entry-only/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-10-empty-entry-chrome/task-spa-ct-10-t02-empty-speech-icon/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-10-empty-entry-chrome/task-spa-ct-10-t03-entry-activate/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-10-empty-entry-chrome/task-spa-ct-10-t04-vitest-empty/README.md
+notes: |
+  P1.3 APPLY 2026-10-19T12:00:48Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX residual §3 G-H1 · G-M1 · M152 §8 / artboard B empty · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: empty entry-only · speech empty icon · no invent HTTP/OP PASS · no always-on empty composer.
+  Prior tip pkg-000167 · CT-09. Await P2 on OP. No P3 yet. No product code this call.

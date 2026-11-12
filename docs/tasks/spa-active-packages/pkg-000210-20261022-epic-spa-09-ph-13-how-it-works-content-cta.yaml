@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 210
+created_at: "2026-10-22T17:54:15Z"
+label: EPIC-SPA-09 PH-13 how it works content cta
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-13-how-it-works-content-cta.md
+story_groups:
+- story_key: STORY-SPA-PH-13-how-it-works-content-cta
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-13-how-it-works-content-cta/task-spa-ph-13-t01-copy/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-13-how-it-works-content-cta/task-spa-ph-13-t02-cta/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-13-how-it-works-content-cta/task-spa-ph-13-t03-css/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-13-how-it-works-content-cta/task-spa-ph-13-t04-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-22T17:54:15Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-09-public-shell-home. ui_scope: how-it-works /
+  public-home · mixed · Path A p13UxReady M168 + wave3 intake Present · Interview H10 ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04 Todo).
+  Hard: remove board-open hints · Go to Feed → /next/feed · landing FAQ CTA · compact step-head ·
+  M168 EN + ET/RU i18n · Vitest · OP eye · no invent OP PASS · no invent landing HTML ·
+  no invent GPT URL.
+  OOS PH-11 static pages · invent landing HTML · invent GPT URL.
+  Tip after pkg-000209. activation active. Await P2.

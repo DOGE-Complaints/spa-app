@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 21
+created_at: "2026-06-29T18:55:30Z"
+label: EPIC-SPA-04 ID-06 protected action gate
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-06-protected-action-gate.md
+story_groups:
+- story_key: STORY-SPA-ID-06-protected-action-gate
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-06-protected-action-gate/task-spa-id-06-t01-story-gate-i18n-dictionary-flat-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-06-protected-action-gate/task-spa-id-06-t02-story-draft-gateway-client-flow-state/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-06-protected-action-gate/task-spa-id-06-t03-compose-page-state-a-m122/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-06-protected-action-gate/task-spa-id-06-t04-gate-draft-saved-panels-m122-bc/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-06-protected-action-gate/task-spa-id-06-t05-verify-embed-resume-submit-success-m122-de/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-06-protected-action-gate/task-spa-id-06-t06-tests-story-gate-vitest/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-06-protected-action-gate/task-spa-id-06-t07-story-gate-id-06/README.md

@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 30
+created_at: "2026-07-25T12:34:41Z"
+label: EPIC-SPA-07 CAB-01 profile cabinet shell
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md
+decision_ref: spa-app/docs/tasks/backlog-stories/cabinet/STORY-SPA-CAB-01-profile-cabinet-shell-assembly.md
+story_groups:
+- story_key: STORY-SPA-CAB-01-profile-cabinet-shell-assembly
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-01-profile-cabinet-shell-assembly/task-spa-cab-01-t01-profile-route-user-cabinet-page/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-01-profile-cabinet-shell-assembly/task-spa-cab-01-t02-m99-grid-section-slots/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-01-profile-cabinet-shell-assembly/task-spa-cab-01-t03-l10n-cabinet-shell-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-01-profile-cabinet-shell-assembly/task-spa-cab-01-t04-shell-loading-skeleton/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-01-profile-cabinet-shell-assembly/task-spa-cab-01-t05-protected-overlay-dashboard-unchanged/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-01-profile-cabinet-shell-assembly/task-spa-cab-01-t06-vitest-shell-nav-overlay-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-01-profile-cabinet-shell-assembly/task-spa-cab-01-t07-story-gate-cab-01/README.md

@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 23
+created_at: "2026-06-30T10:51:01Z"
+label: EPIC-SPA-04 ID-10 country selector waitlist routing
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-10-phone-country-selector-waitlist-routing.md
+story_groups:
+- story_key: STORY-SPA-ID-10-phone-country-selector-waitlist-routing
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-10-phone-country-selector-waitlist-routing/task-spa-id-10-t01-countries-dataset-supported-prefixes/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-10-phone-country-selector-waitlist-routing/task-spa-id-10-t02-phone-country-i18n-dictionary/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-10-phone-country-selector-waitlist-routing/task-spa-id-10-t03-country-selector-panel-m126ab/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-10-phone-country-selector-waitlist-routing/task-spa-id-10-t04-unsupported-adaptive-phone-panel-m126c/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-10-phone-country-selector-waitlist-routing/task-spa-id-10-t05-verify-flow-waitlist-routing/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-10-phone-country-selector-waitlist-routing/task-spa-id-10-t06-tests-country-selector-routing/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-10-phone-country-selector-waitlist-routing/task-spa-id-10-t07-story-gate-id-10/README.md

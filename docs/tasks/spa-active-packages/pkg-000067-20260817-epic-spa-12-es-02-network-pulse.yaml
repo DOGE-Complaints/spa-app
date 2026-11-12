@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 67
+created_at: "2026-08-17T11:02:15Z"
+label: EPIC-SPA-12 ES-02 network-pulse
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/EPIC-SPA-12-early-signal-dashboard.md
+decision_ref: spa-app/docs/tasks/backlog-stories/early-signal-dashboard/STORY-SPA-ES-02-network-pulse-block.md
+story_groups:
+- story_key: STORY-SPA-ES-02-network-pulse-block
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-02-network-pulse-block/task-spa-es-02-t01-pulse-repository-service/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-02-network-pulse-block/task-spa-es-02-t02-pulse-omit-bound-ui/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-02-network-pulse-block/task-spa-es-02-t03-pulse-bind-map/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-02-network-pulse-block/task-spa-es-02-t04-pulse-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-02-network-pulse-block/task-spa-es-02-t05-vitest-pulse-honesty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-02-network-pulse-block/task-spa-es-02-t06-story-gate-es-02/README.md
+notes: |
+  P1.3 APPLY 2026-08-17T11:02:15Z. input_mode=backlog_story. ui_scope: visual. Path A M137.
+  Reuse EPIC-SPA-12. ES-02 only (not ES-01 T07–T09, not ES-03…05). No STORY-UX-MOCKUP-BRIEF.
+  Next: P2 build window. T01–T06 Todo.

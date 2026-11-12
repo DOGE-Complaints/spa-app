@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 103
+created_at: "2026-10-10T17:39:48Z"
+label: EPIC-SPA-20 NF-01 feed list + toolbar + query
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-01-feed-list-toolbar-query.md
+story_groups:
+- story_key: STORY-SPA-NF-01-feed-list-toolbar-query
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-01-feed-list-toolbar-query/task-spa-nf-01-t01-features-feed-host/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-01-feed-list-toolbar-query/task-spa-nf-01-t02-list-filters-published-states/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-01-feed-list-toolbar-query/task-spa-nf-01-t03-wire-list-toolbar-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-01-feed-list-toolbar-query/task-spa-nf-01-t04-l10n-nextfeed-list-toolbar/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-01-feed-list-toolbar-query/task-spa-nf-01-t05-vitest-list-smoke/README.md
+notes: |
+  P1.3 APPLY 2026-10-10T17:39:48Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M149 Path A · register NF-F → NF-01.
+  Skill react-expert. T01–T05 Todo · ui_anchor T01 · T05 vitest smoke (+ story acceptance at P3).
+  Do not invent HTTP/BoardFeed beyond AC · shell chrome OOS · no live search until FE enable (REQ-56 Ready / DUI-Q12).
+  Await P2/P3 on OP.

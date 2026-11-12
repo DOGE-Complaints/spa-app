@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 34
+created_at: "2026-07-26T11:17:40Z"
+label: EPIC-SPA-07 CAB-04 story activity card
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md
+decision_ref: spa-app/docs/tasks/backlog-stories/cabinet/STORY-SPA-CAB-04-story-activity-card.md
+story_groups:
+- story_key: STORY-SPA-CAB-04-story-activity-card
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-04-story-activity-card/task-spa-cab-04-t01-mount-story-activity-card/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-04-story-activity-card/task-spa-cab-04-t02-runtime-states-a-e-no-http/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-04-story-activity-card/task-spa-cab-04-t03-icon-wiring-story-activity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-04-story-activity-card/task-spa-cab-04-t04-l10n-cabinet-story-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-04-story-activity-card/task-spa-cab-04-t05-vitest-five-states-privacy/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-04-story-activity-card/task-spa-cab-04-t06-story-gate-cab-04/README.md

@@ -1,6 +1,6 @@
 # EPIC-SPA-07 — User Cabinet (spa-app)
 
-> **ID:** `EPIC-SPA-07` · **Статус:** Done (CAB-01…07 Done; `pkg-000037` gate 2026-07-28T14:05:08Z)
+> **ID:** `EPIC-SPA-07` · **Статус:** In Progress — tip **CAB-08** P5 APPLY · `2026-10-23T14:53:38Z` · `pkg-000217` · gate **BLOCK** · Story **BLOCKED** (OP eye) · `activation: none` · Await P8 · CAB-01…07 Done (`pkg-000037`)
 > **Тип:** Product / UX
 > **source:** [`../../backlog-stories/cabinet/README.md`](../../backlog-stories/cabinet/README.md)
 > **Источник:** [`mvp-integration-plan-2026-07-02.md`](../../../../docs/analysis/mvp-integration-plan-2026-07-02.md) §M-4
@@ -36,6 +36,7 @@
 | [CAB-06 pipeline](stories/STORY-SPA-CAB-06-contribution-layer/STORY-SPA-CAB-06-contribution-layer.md) · [backlog](../../backlog-stories/cabinet/STORY-SPA-CAB-06-contribution-layer.md) | Contribution M53 UI stub | 3 | M53, M23 · `pkg-000036` Done 2026-07-28 |
 | [CAB-04 pipeline](stories/STORY-SPA-CAB-04-story-activity-card/STORY-SPA-CAB-04-story-activity-card.md) · [backlog](../../backlog-stories/cabinet/STORY-SPA-CAB-04-story-activity-card.md) | Story Activity | 3 | M45, M23 §Story · `pkg-000034` Done 2026-07-26 |
 | [CAB-07 pipeline](stories/STORY-SPA-CAB-07-cabinet-page-states/STORY-SPA-CAB-07-cabinet-page-states.md) · [backlog](../../backlog-stories/cabinet/STORY-SPA-CAB-07-cabinet-page-states.md) | New user + load error | 4 | M23, M22 · `pkg-000037` Done 2026-07-28 |
+| [CAB-08 pipeline](stories/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md) · [backlog](../../backlog-stories/cabinet/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md) | Layout · hide wallet/contrib · story-activity wire | wave4 OP residual | M170+M45 · `pkg-000217` P1.3 APPLY 2026-10-23 |
 
 ## Порядок волн
 
@@ -44,6 +45,7 @@ Wave 1: CAB-01 Shell
 Wave 2: CAB-02 + CAB-03 (parallel)
 Wave 3: CAB-05 + CAB-06 + CAB-04 (parallel; CAB-04 after civic for verify-required)
 Wave 4: CAB-07 integration gate
+Wave 4 OP residual: CAB-08 layout + story-activity wire (tip)
 ```
 
 ## Cross-epic references

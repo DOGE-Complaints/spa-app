@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 41
+created_at: "2026-08-01T19:28:37Z"
+label: EPIC-SPA-04 ID-13 public route regression
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-13-public-route-regression.md
+story_groups:
+- story_key: STORY-SPA-ID-13-public-route-regression
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-13-public-route-regression/task-spa-id-13-t01-harden-session-route-policy-matrix/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-13-public-route-regression/task-spa-id-13-t02-cross-test-overlay-public-route/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-13-public-route-regression/task-spa-id-13-t03-assert-issues-fetch-no-authorization/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-13-public-route-regression/task-spa-id-13-t04-board-shell-smoke-no-login/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-13-public-route-regression/task-spa-id-13-t05-doc-touchpoints-m5-spa/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-13-public-route-regression/task-spa-id-13-t06-story-gate-id-13/README.md

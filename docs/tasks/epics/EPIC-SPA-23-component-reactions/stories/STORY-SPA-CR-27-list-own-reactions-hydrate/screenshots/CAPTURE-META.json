@@ -1,0 +1,60 @@
+{
+  "story": "STORY-SPA-CR-27-list-own-reactions-hydrate",
+  "pkg": "pkg-000225",
+  "path": "A",
+  "mapping": "CR-25 thread_root_reactions via FeedThreadMount.onThreadRootReactions → list FeedCivicPost",
+  "inventGatewaySchema": false,
+  "opEye": "Absent",
+  "partialVisual": "BLOCK",
+  "inventPass": false,
+  "probes": {
+    "list": {
+      "listCr27": "true",
+      "cardCount": 12,
+      "cardCr27": "true",
+      "selectedCount": "0",
+      "stripCr25": "true",
+      "stripCount": "0",
+      "hasOwn": false
+    },
+    "listHydrated": {
+      "selectedCount": "0",
+      "stripCount": "0",
+      "hasOwn": false
+    },
+    "lab": {
+      "labCr25": "true",
+      "stripCount": "1",
+      "hasOwn": true
+    }
+  },
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-list-card-hydrate-1536x1024.png",
+      "md5": "f9b2a0934d46b24d858058db14a91b7f",
+      "prefix": "f9b2a0934d46"
+    },
+    {
+      "file": "02-list-strip-own-1536x1024.png",
+      "md5": "0af32ea1a1cfa19fa208d0333f416e50",
+      "prefix": "0af32ea1a1cf"
+    },
+    {
+      "file": "03-lab-cr25-tree-path-regression-1536x1024.png",
+      "md5": "d14106bbd22fe82ed2e7087fc7cfc0a7",
+      "prefix": "d14106bbd22f"
+    },
+    {
+      "file": "04-lab-narrow-390x844.png",
+      "md5": "d7f563607324db5283e3d7de63b784f0",
+      "prefix": "d7f563607324"
+    },
+    {
+      "file": "05-lab-dark-regression-1536x1024.png",
+      "md5": "a7833d11adbabcdee436b35463912753",
+      "prefix": "a7833d11adba"
+    }
+  ],
+  "captured_utc": "2026-10-24T10:33:42.132Z"
+}

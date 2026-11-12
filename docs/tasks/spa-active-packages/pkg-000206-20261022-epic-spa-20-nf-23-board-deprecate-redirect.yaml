@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 206
+created_at: "2026-10-22T14:23:16Z"
+label: EPIC-SPA-20 NF-23 board deprecate redirect next-feed
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-23-board-deprecate-redirect.md
+story_groups:
+- story_key: STORY-SPA-NF-23-board-deprecate-redirect
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-23-board-deprecate-redirect/task-spa-nf-23-t01-inventory/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-23-board-deprecate-redirect/task-spa-nf-23-t02-redirect/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-23-board-deprecate-redirect/task-spa-nf-23-t03-cta/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-23-board-deprecate-redirect/task-spa-nf-23-t04-vitest/README.md
+notes: |
+  P3 Execute Done 2026-10-22T14:32:33Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-20-next-feed. ui_scope: feed/routes · soft public CTAs ·
+  mixed · Path A p13UxReady Interview B11 · ARCH-DELTA §11 · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04 Done).
+  Hard: #/board → #/next/feed replace · inventory Present · soft CTA retarget ·
+  keep shared next-feed modules · BoardPage file held · no invent OP PASS · no invent CDN · no mass-delete.
+  OOS full feed rewrite · invent CDN · purge without inventory.
+  Path A CAPTURE-META fails:[] · gate BLOCK · OP eye Absent · Await P4/P5.
+  Tip. activation active.

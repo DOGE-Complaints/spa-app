@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 108
+created_at: "2026-10-10T19:32:14Z"
+label: EPIC-SPA-20 NF-06 mounts responsive verify
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-06-mounts-responsive-verify.md
+story_groups:
+- story_key: STORY-SPA-NF-06-mounts-responsive-verify
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-06-mounts-responsive-verify/task-spa-nf-06-t01-mounts-modal-sheet-route/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-06-mounts-responsive-verify/task-spa-nf-06-t02-narrow-feed-body/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-06-mounts-responsive-verify/task-spa-nf-06-t03-theme-l10n-stress/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-06-mounts-responsive-verify/task-spa-nf-06-t04-icon-404-verify/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-06-mounts-responsive-verify/task-spa-nf-06-t05-vitest-browser-feed-smoke/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-06-mounts-responsive-verify/task-spa-nf-06-t06-story-epic-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-10T19:32:14Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M158/M159/M160 Path A · register NF-I → NF-06.
+  Skill react-expert. T01–T06 Todo · ui_anchor T01 (M158) · T02 M159 body · T03 M160.
+  No invent mounts APIs · shell chrome OOS · no re-promote icons unless 404 gap.
+  Await P2/P3 on OP.

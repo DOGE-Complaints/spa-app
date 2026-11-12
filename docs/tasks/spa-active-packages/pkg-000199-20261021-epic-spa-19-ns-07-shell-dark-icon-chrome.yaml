@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 199
+created_at: "2026-10-21T20:05:02Z"
+label: EPIC-SPA-19 NS-07 shell dark icon chrome OP D5
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-07-shell-dark-icon-chrome.md
+story_groups:
+- story_key: STORY-SPA-NS-07-shell-dark-icon-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-07-shell-dark-icon-chrome/task-spa-ns-07-t01-header-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-07-shell-dark-icon-chrome/task-spa-ns-07-t02-rail-mobile/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-07-shell-dark-icon-chrome/task-spa-ns-07-t03-light-hold/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-07-shell-dark-icon-chrome/task-spa-ns-07-t04-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-21T20:05:02Z wave OP-spa nf18-20-ns07-ct32-20261021. input_mode=backlog_story.
+  REUSE EPIC-SPA-19-next-shell. ui_scope: shell · soft #/next/feed host · mixed · Path A code lock ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04).
+  Hard: dark shell icons readable (header · rail · mobile) · mask/currentColor (CrReactionIcon) ·
+  light theme held · no invent per-file black SVG masters unless needed · no invent OP PASS ·
+  OOS CT-32 · NF-18 · map · new artboards. Soft after NF-20 P5 · Prior tip pkg-000198.
+  Await P2 on OP. No P3 yet. No product code this call.

@@ -1,0 +1,44 @@
+{
+  "captured_utc": "2026-10-16T10:42:45.051Z",
+  "route": "#/lab/feed",
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  },
+  "facts": {
+    "emptyReact": true,
+    "emptyAgg": false,
+    "popReact": true,
+    "popAggInHost": true,
+    "dualUnderStrip": false
+  },
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "files": [
+    {
+      "file": "01-lab-feed-cr12-empty-react-always-1536x1024.png",
+      "md5": "edb1d41a0e8dd248352061675282b448",
+      "prefix": "edb1d41a0e8d"
+    },
+    {
+      "file": "02-lab-feed-cr12-populated-react-aggregate-1536x1024.png",
+      "md5": "15e4afe683ccbc8f5f4f2a69383cf475",
+      "prefix": "15e4afe683cc"
+    },
+    {
+      "file": "03-lab-feed-cr12-reactions-zone-1536x1024.png",
+      "md5": "54b4659b7577208bae5414965f9bf2a5",
+      "prefix": "54b4659b7577"
+    },
+    {
+      "file": "04-lab-feed-cr12-no-dual-react-1536x1024.png",
+      "md5": "43d7138cf65f70710c45fc87b8cd25b7",
+      "prefix": "43d7138cf65f"
+    },
+    {
+      "file": "05-lab-feed-cr12-picker-dismiss-1536x1024.png",
+      "md5": "2f9e53a93482a924a64b0b8eaa15f153",
+      "prefix": "2f9e53a93482"
+    }
+  ]
+}

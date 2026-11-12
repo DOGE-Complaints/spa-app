@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 7
+created_at: "2026-06-16T12:00:00Z"
+label: EPIC-SPA-03 G3 search input toolbar
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/EPIC-SPA-03-search-and-filters.md
+decision_ref: spa-app/docs/tasks/backlog-stories/search-and-filters/STORY-SPA-G3-search-input-toolbar.md
+story_groups:
+- story_key: STORY-SPA-G3-search-input-toolbar
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/task-spa-g3-t01-search-input-component/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/task-spa-g3-t02-board-page-toolbar-integration/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/task-spa-g3-t03-search-placeholder-i18n/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/task-spa-g3-t04-tests-search-url-and-reset/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/task-spa-g3-t05-sync-doc-touchpoints-g3/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-G3-search-input-toolbar/task-spa-g3-t06-story-acceptance-verification/README.md

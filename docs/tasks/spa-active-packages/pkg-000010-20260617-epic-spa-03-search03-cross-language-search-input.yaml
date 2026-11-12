@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 10
+created_at: "2026-06-17T20:00:00Z"
+label: EPIC-SPA-03 SEARCH-03 cross-language search input
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/EPIC-SPA-03-search-and-filters.md
+decision_ref: spa-app/docs/tasks/backlog-stories/search-and-filters/STORY-SPA-SEARCH-03-cross-language-search-input.md
+story_groups:
+- story_key: STORY-SPA-SEARCH-03-cross-language-search-input
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/task-spa-search-03-t01-cross-locale-match-helper/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/task-spa-search-03-t02-board-page-cross-locale-filter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/task-spa-search-03-t03-debounced-search-url-sync/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/task-spa-search-03-t04-search-input-clear-affordance/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/task-spa-search-03-t05-tests-cross-locale-debounce/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/task-spa-search-03-t06-documentation-touchpoints/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-03-cross-language-search-input/task-spa-search-03-t07-story-gate-search-03/README.md

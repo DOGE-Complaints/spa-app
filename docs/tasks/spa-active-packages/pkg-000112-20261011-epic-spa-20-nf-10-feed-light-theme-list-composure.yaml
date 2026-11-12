@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 112
+created_at: "2026-10-11T14:39:20Z"
+label: EPIC-SPA-20 NF-10 feed light theme list composure
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-10-feed-light-theme-list-composure.md
+story_groups:
+- story_key: STORY-SPA-NF-10-feed-light-theme-list-composure
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-10-feed-light-theme-list-composure/task-spa-nf-10-t01-light-first-tokens/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-10-feed-light-theme-list-composure/task-spa-nf-10-t02-list-loading-composure/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-10-feed-light-theme-list-composure/task-spa-nf-10-t03-theme-smoke/README.md
+notes: |
+  P1.3 APPLY 2026-10-11T14:39:20Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M149/M160 Path A · AD-VP-01/04 · local-five required.
+  Skill react-expert. T01–T03 Todo · ui_anchor T01 (M149) + T03 (M160).
+  No invent AC · no invent batch social API · shell chrome OOS · M155 OOS.
+  Await P2/P3 on OP.

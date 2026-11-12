@@ -1,0 +1,26 @@
+schema_version: 1
+package_sequence: 232
+created_at: "2026-10-25T10:28:33Z"
+label: EPIC-SPA-19 NS-19 mobile bottom nav wallet frozen
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen.md
+story_groups:
+- story_key: STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen/task-spa-ns-19-t01-ux/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen/task-spa-ns-19-t02-density/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen/task-spa-ns-19-t03-wallet/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen/task-spa-ns-19-t04-vitest/README.md
+notes: |
+  P3 Execute Done 2026-10-25T10:33:36Z wave OP-spa nf26-wave6-20261025.
+  input_mode=backlog_story. REUSE EPIC-SPA-19-next-shell. ui_scope: next-shell /
+  MobileBottomNav · mixed · Path A M179 · Interview M4 · structure Pass ·
+  Partial visual=BLOCK · gate BLOCK · CAPTURE-META fails:[] · ns19 4/4 ·
+  soft wallet-doge.svg handoff · no invent OP PASS · no CAB-08 unfreeze ·
+  no invent Wallet API / route / balance UI.
+  Skill react-expert (T01–T04 Done·BLOCK). Await P4.
+  Hard held: compact density · frozen Wallet · Feed/Profile live · CAB-08 held.
+  OOS unfreeze wallet · invent OP PASS.
+  activation active.

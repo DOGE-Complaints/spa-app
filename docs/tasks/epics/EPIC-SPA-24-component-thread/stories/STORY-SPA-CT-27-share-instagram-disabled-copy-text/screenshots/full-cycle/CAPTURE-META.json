@@ -1,0 +1,45 @@
+{
+  "story": "STORY-SPA-CT-27-share-instagram-disabled-copy-text",
+  "mockup": "M152d",
+  "captured_utc": "2026-10-20T19:53:11.333Z",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "probe": {
+    "ct27": "true",
+    "igDisabled": "true",
+    "igAria": "true",
+    "igDisabledProp": true,
+    "copyTextOnly": "true",
+    "copyHasGlyph": false,
+    "copyHasIconClass": false,
+    "copyHasImg": false
+  },
+  "md5s": [
+    {
+      "file": "01-share-ig-disabled-list.png",
+      "md5": "7b8e259fd9f5a920cb1bb35352a0aeba",
+      "prefix": "7b8e259fd9f5"
+    },
+    {
+      "file": "02-ig-click-no-copy.png",
+      "md5": "7b8e259fd9f5a920cb1bb35352a0aeba",
+      "prefix": "7b8e259fd9f5"
+    },
+    {
+      "file": "03-copy-link-text-only.png",
+      "md5": "cec509bf27c30bbde32d082a8e602f69",
+      "prefix": "cec509bf27c3"
+    },
+    {
+      "file": "04-other-networks-unchanged.png",
+      "md5": "7b8e259fd9f5a920cb1bb35352a0aeba",
+      "prefix": "7b8e259fd9f5"
+    },
+    {
+      "file": "05-narrow-sheet.png",
+      "md5": "8bbe108e9a33e93e81cca472603ee771",
+      "prefix": "8bbe108e9a33"
+    }
+  ],
+  "fails": []
+}

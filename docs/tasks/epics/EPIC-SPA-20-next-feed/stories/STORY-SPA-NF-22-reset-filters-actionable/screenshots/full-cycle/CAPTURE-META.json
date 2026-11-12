@@ -1,0 +1,41 @@
+{
+  "story": "STORY-SPA-NF-22-reset-filters-actionable",
+  "captured_at": "2026-10-22T14:14:13.807Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-host-light.png",
+      "md5": "94eeb6c96731a20e632a63f3614f13e7",
+      "prefix": "94eeb6c96731"
+    },
+    {
+      "file": "02-reset-dirty-enabled.png",
+      "md5": "ddcc9158a743961374b4daac284f2a63",
+      "prefix": "ddcc9158a743"
+    },
+    {
+      "file": "03-reset-active-enabled.png",
+      "md5": "ddcc9158a743961374b4daac284f2a63",
+      "prefix": "ddcc9158a743"
+    },
+    {
+      "file": "04-reset-disabled-clean.png",
+      "md5": "ddcc9158a743961374b4daac284f2a63",
+      "prefix": "ddcc9158a743"
+    },
+    {
+      "file": "05-host-dark-hold.png",
+      "md5": "0d556c1027c6a790048669149806c78a",
+      "prefix": "0d556c1027c6"
+    }
+  ],
+  "probe": {
+    "count": 2,
+    "disabled": true,
+    "cursor": "not-allowed",
+    "className": "board-filter-reset ds-btn ds-btn--link ds-btn--medium"
+  },
+  "note": "Partial visual=BLOCK · no invent OP PASS"
+}

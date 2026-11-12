@@ -1,0 +1,32 @@
+{
+  "base": "http://127.0.0.1:5174",
+  "md5s": [
+    {
+      "file": "01-loading.png",
+      "md5": "98feeed4f6974d7f13ee99a6fd2ed626",
+      "prefix": "98feeed4f697"
+    },
+    {
+      "file": "02-empty.png",
+      "md5": "8000acf103c31f387eb19592262aedc6",
+      "prefix": "8000acf103c3"
+    },
+    {
+      "file": "03-populated-collapsed.png",
+      "md5": "262c93f583b91299c5b895a0dbb547b5",
+      "prefix": "262c93f583b9"
+    },
+    {
+      "file": "04-unavailable.png",
+      "md5": "43931341e1d03f99b22f7f8fabacd257",
+      "prefix": "43931341e1d0"
+    },
+    {
+      "file": "05-narrow-390.png",
+      "md5": "1374327a20f8df3d5867223ab966f33d",
+      "prefix": "1374327a20f8"
+    }
+  ],
+  "opEye": "Absent",
+  "utc": "2026-10-18T13:01:13.291Z"
+}

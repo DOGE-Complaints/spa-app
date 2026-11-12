@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 194
+created_at: "2026-10-21T17:41:52Z"
+label: EPIC-SPA-20 NF-17 civic chrome residual OP C1-C3 C5
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-17-civic-chrome-residual.md
+story_groups:
+- story_key: STORY-SPA-NF-17-civic-chrome-residual
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-17-civic-chrome-residual/task-spa-nf-17-t01-border-top/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-17-civic-chrome-residual/task-spa-nf-17-t02-reaction-marks/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-17-civic-chrome-residual/task-spa-nf-17-t03-density-pad/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-17-civic-chrome-residual/task-spa-nf-17-t04-summary-rem/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-17-civic-chrome-residual/task-spa-nf-17-t05-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-21T17:41:52Z wave OP-spa nf17-ct31-20261021. input_mode=backlog_story.
+  REUSE EPIC-SPA-20-next-feed. ui_scope: feed · mixed · Path A M162 md+PNG Present · ARCH-DELTA §5 ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T05).
+  Hard: no border-top hairline · marks 20 · pad-top 4 · margin-top 0 · mh≥44 · summary 1rem ·
+  primary 24 held · CR-23 host held · no invent HTTP/OP PASS · CT-31 OOS.
+  Prior tip pkg-000193 · CT-30. Await P2 on OP. No P3 yet. No product code this call.

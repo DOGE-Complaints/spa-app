@@ -1,0 +1,26 @@
+schema_version: 1
+package_sequence: 214
+created_at: "2026-10-23T13:59:33Z"
+label: EPIC-SPA-19 NS-12 freeze rail My stories
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-12-freeze-rail-my-stories.md
+story_groups:
+- story_key: STORY-SPA-NS-12-freeze-rail-my-stories
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-12-freeze-rail-my-stories/task-spa-ns-12-t01-gate/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-12-freeze-rail-my-stories/task-spa-ns-12-t02-mobile/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-12-freeze-rail-my-stories/task-spa-ns-12-t03-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-23T13:59:33Z wave OP-spa nf24-wave4-20261023.
+  input_mode=backlog_story. REUSE EPIC-SPA-19-next-shell. ui_scope: shell ·
+  mixed · Path A p13UxReady Interview R4 code lock · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T03 Todo).
+  Hard: gate/hide My stories · keep code · Feed+Profile held · soft mobile ·
+  Vitest · OP eye · no invent OP PASS · no invent story list · no invent CAB-08.
+  OOS CAB-08 story HTTP · invent activity API in rail.
+  Tip after pkg-000213. activation active.
+  P3 Execute Done 2026-10-23T14:03:21Z · T01–T03 Done · gate BLOCK · CAPTURE-META fails: [] · Await P4/P5.
+  P5 APPLY 2026-10-23T14:06:29Z · TASKED=0 · activation none · F1/F2 WAIVED · P6 skipped · Await P8.
+  P8 local close 2026-10-23T14:08:51Z · pkg closed · Story BLOCKED (OP eye) · activation none · NO PUSH.

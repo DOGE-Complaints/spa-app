@@ -1,0 +1,56 @@
+{
+  "story": "STORY-SPA-NF-18-strip-react-density-residual",
+  "captured_at": "2026-10-21T19:20:49.042Z",
+  "base": "http://127.0.0.1:5173",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "path_a": "M162 soft · ARCH-DELTA §6",
+  "probe": {
+    "density": "m162",
+    "nf17": "residual",
+    "nf18": "residual",
+    "zones": "4",
+    "cr23": "true",
+    "slotPad": "0px",
+    "slotBg": "rgba(0, 0, 0, 0)",
+    "reactPad": "4px 8px",
+    "reactMinH": "44px",
+    "commentIconW": "28px",
+    "reactIconW": "28px",
+    "hostLive": true
+  },
+  "fails": [],
+  "md5s": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "58536659978a022796629576dcc5e0bf",
+      "prefix": "58536659978a"
+    },
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "58536659978a022796629576dcc5e0bf",
+      "prefix": "58536659978a"
+    },
+    {
+      "file": "02-react-flat-chrome.png",
+      "md5": "0177bd65c1b05fc0faaccf2835e24c31",
+      "prefix": "0177bd65c1b0"
+    },
+    {
+      "file": "03-glyphs-28.png",
+      "md5": "0177bd65c1b05fc0faaccf2835e24c31",
+      "prefix": "0177bd65c1b0"
+    },
+    {
+      "file": "04-pad-stack-mh44.png",
+      "md5": "49a93d853767a91514b692aa1ba0035d",
+      "prefix": "49a93d853767"
+    },
+    {
+      "file": "05-narrow-focus.png",
+      "md5": "2c97b07f5172b6daab0283dda78117d0",
+      "prefix": "2c97b07f5172"
+    }
+  ],
+  "note": "Path A structure · Partial BLOCK · CR-23 held · no invent OP PASS"
+}

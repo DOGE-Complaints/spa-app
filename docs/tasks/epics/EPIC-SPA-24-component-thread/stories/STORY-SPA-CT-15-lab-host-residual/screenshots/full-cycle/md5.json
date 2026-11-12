@@ -1,0 +1,27 @@
+[
+  {
+    "file": "01-narrow-stand.png",
+    "md5": "b98f9c432ccf6486b58f85734078e8b7",
+    "prefix": "b98f9c432ccf"
+  },
+  {
+    "file": "02-branch-disclosure-lab.png",
+    "md5": "cde0cdbe32b545b42ed5697042d3f13a",
+    "prefix": "cde0cdbe32b5"
+  },
+  {
+    "file": "03-residents-omit.png",
+    "md5": "fb2fd10aea90b109f0b2b2bfdff0ceb2",
+    "prefix": "fb2fd10aea90"
+  },
+  {
+    "file": "04-residents-aggregate.png",
+    "md5": "70b92e8cbc66e32c8ef1bd00f653a749",
+    "prefix": "70b92e8cbc66"
+  },
+  {
+    "file": "05-heading-issue-id.png",
+    "md5": "370b470d9a7a776f2264a617e6712249",
+    "prefix": "370b470d9a7a"
+  }
+]

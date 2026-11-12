@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 35
+created_at: "2026-07-26T13:51:04Z"
+label: EPIC-SPA-07 CAB-05 wallet status card
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md
+decision_ref: spa-app/docs/tasks/backlog-stories/cabinet/STORY-SPA-CAB-05-wallet-status-card.md
+story_groups:
+- story_key: STORY-SPA-CAB-05-wallet-status-card
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-05-wallet-status-card/task-spa-cab-05-t01-mount-wallet-status-card/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-05-wallet-status-card/task-spa-cab-05-t02-runtime-states-a-c-stub-no-api/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-05-wallet-status-card/task-spa-cab-05-t03-icon-wiring-wallet/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-05-wallet-status-card/task-spa-cab-05-t04-l10n-cabinet-wallet-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-05-wallet-status-card/task-spa-cab-05-t05-vitest-three-states-privacy/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-05-wallet-status-card/task-spa-cab-05-t06-story-gate-cab-05/README.md

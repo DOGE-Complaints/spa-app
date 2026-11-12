@@ -1,0 +1,57 @@
+{
+  "story": "STORY-SPA-CR-28-peer-reactions-empty-affordance",
+  "pkg": "pkg-000226",
+  "path": "A",
+  "mapping": "M176 rev2 · catalog /icons/next-feed/actions/reactions.svg · no invent people HTTP",
+  "inventPeopleHttp": false,
+  "opEye": "Absent",
+  "partialVisual": "BLOCK",
+  "inventPass": false,
+  "probes": {
+    "empty": {
+      "labCr28": "true",
+      "peerState": "empty",
+      "hasEmptyIcon": true,
+      "labelText": "Reactions",
+      "peerTop": 464,
+      "commentTop": 464,
+      "shareTop": 464
+    },
+    "filled": {
+      "peerState": "filled",
+      "hasEmptyIcon": false,
+      "chipCount": "2",
+      "peerH": 84,
+      "commentH": 84
+    }
+  },
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-peer-empty-icon-above-label-1536x1024.png",
+      "md5": "cf68d5fed670cc02af161301304133e4",
+      "prefix": "cf68d5fed670"
+    },
+    {
+      "file": "02-peer-empty-entry-crop-1536x1024.png",
+      "md5": "08964a158e6dbacae88c4edde11a396b",
+      "prefix": "08964a158e6d"
+    },
+    {
+      "file": "03-peer-filled-chips-1536x1024.png",
+      "md5": "06c7b555b6da7d16058b771fa5c12124",
+      "prefix": "06c7b555b6da"
+    },
+    {
+      "file": "04-peer-narrow-390x844.png",
+      "md5": "c47e5cd077078b4b67edf1eee577421c",
+      "prefix": "c47e5cd07707"
+    },
+    {
+      "file": "05-peer-dark-parity-1536x1024.png",
+      "md5": "c3488e0b6c81a8c3ed9d6ac07c16bf6e",
+      "prefix": "c3488e0b6c81"
+    }
+  ],
+  "captured_utc": "2026-10-24T10:45:00.346Z"
+}

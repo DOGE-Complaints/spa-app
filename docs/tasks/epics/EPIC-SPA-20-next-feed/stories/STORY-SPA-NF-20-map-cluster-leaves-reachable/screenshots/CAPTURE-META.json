@@ -1,0 +1,70 @@
+{
+  "story": "STORY-SPA-NF-20-map-cluster-leaves-reachable",
+  "utc": "2026-10-21T19:56:11.928Z",
+  "visual_gate": "BLOCK",
+  "partial": true,
+  "op_eye": "Absent",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "58536659978a022796629576dcc5e0bf",
+      "prefix": "58536659978a"
+    },
+    {
+      "file": "01-next-feed-map-host.png",
+      "md5": "58536659978a022796629576dcc5e0bf",
+      "prefix": "58536659978a"
+    },
+    {
+      "file": "01-story-root-host.png",
+      "md5": "58536659978a022796629576dcc5e0bf",
+      "prefix": "58536659978a"
+    },
+    {
+      "file": "02-map-with-clusters.png",
+      "md5": "75058aa997a6883328b9026feb0a553f",
+      "prefix": "75058aa997a6"
+    },
+    {
+      "file": "02-story-root-map.png",
+      "md5": "75058aa997a6883328b9026feb0a553f",
+      "prefix": "75058aa997a6"
+    },
+    {
+      "file": "03-cluster-leaves-or-map.png",
+      "md5": "9f0644e0e1b429557a3e4e6ea11dfbe7",
+      "prefix": "9f0644e0e1b4"
+    },
+    {
+      "file": "03-story-root-leaves.png",
+      "md5": "9f0644e0e1b429557a3e4e6ea11dfbe7",
+      "prefix": "9f0644e0e1b4"
+    },
+    {
+      "file": "04-after-leaf-or-map.png",
+      "md5": "4f052002a6fe800adfd19ab7c65964a6",
+      "prefix": "4f052002a6fe"
+    },
+    {
+      "file": "05-narrow-map.png",
+      "md5": "c2454121e48ba23651fd29800413dab3",
+      "prefix": "c2454121e48b"
+    }
+  ],
+  "clickResult": {
+    "ok": true,
+    "reason": "sheet",
+    "x": 607.75375,
+    "y": 485
+  },
+  "probe_final": {
+    "hasMap": true,
+    "hasBoardMap": true,
+    "nf20Leaves": "12",
+    "sheetPresent": true,
+    "leafCount": 12,
+    "listPresent": true
+  },
+  "note": "Structure via vitest getClusterLeaves; live sheet Present when cluster hit. OP eye Absent = BLOCK."
+}

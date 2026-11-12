@@ -1,0 +1,28 @@
+schema_version: 1
+package_sequence: 212
+created_at: "2026-10-23T13:29:56Z"
+label: EPIC-SPA-20 NF-24 map leaves sheet theme
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-24-map-leaves-sheet-theme.md
+story_groups:
+- story_key: STORY-SPA-NF-24-map-leaves-sheet-theme
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-24-map-leaves-sheet-theme/task-spa-nf-24-t01-leaves-css/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-24-map-leaves-sheet-theme/task-spa-nf-24-t02-popup/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-24-map-leaves-sheet-theme/task-spa-nf-24-t03-preview/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-24-map-leaves-sheet-theme/task-spa-nf-24-t04-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-23T13:29:56Z wave OP-spa nf24-wave4-20261023.
+  input_mode=backlog_story. REUSE EPIC-SPA-20-next-feed. ui_scope: map / next-feed ·
+  mixed · Path A p13UxReady ARCH-DELTA §12 + evidence 01 Present · Interview M1 ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert
+  (T01–T04 Todo). Hard: leaves sheet theme tokens · pin popup theme bind · soft
+  MapIssuePreview light honesty · dark held · Vitest · OP eye · no invent OP PASS ·
+  no invent basemap.
+  OOS NF-20 cluster leaves logic · invent basemap · invent OP PASS.
+  Tip after pkg-000211. activation active.
+  P3 Execute Done 2026-10-23T13:36:10Z · T01–T04 Done · gate BLOCK · CAPTURE-META fails: [] · Await P4.
+  P5 APPLY 2026-10-23T13:39:05Z · TASKED=0 · activation none · F1/F2 WAIVED · P6 skipped · Await P8.
+  P8 local close 2026-10-23T13:41:03Z · pkg closed · Story BLOCKED (OP eye) · activation none · NO PUSH.

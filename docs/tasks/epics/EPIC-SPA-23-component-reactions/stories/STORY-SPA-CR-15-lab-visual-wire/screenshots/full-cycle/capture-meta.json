@@ -1,0 +1,58 @@
+{
+  "captured_utc": "2026-10-16T11:13:59.643Z",
+  "routes": [
+    "#/lab/reactions",
+    "#/lab/feed"
+  ],
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  },
+  "facts": {
+    "pageCr15": "true",
+    "cardCr15": "true",
+    "stripZones": "4",
+    "aggregate": true,
+    "pickerOpen": true,
+    "theme": "dark",
+    "pageTheme": "dark",
+    "visualDone": "false"
+  },
+  "reactionsFacts": {
+    "canvasCr15": "true",
+    "stripZones": "4",
+    "aggregate": true,
+    "pickerOpen": true,
+    "visualDone": "false"
+  },
+  "op_eye": "Absent",
+  "gap_v2_residual": true,
+  "partial_visual": "BLOCK",
+  "files": [
+    {
+      "file": "01-lab-reactions-cr15-tiles-accents-1536x1024.png",
+      "md5": "d33258b2fe4ff9fdf24a781baf0143e1",
+      "prefix": "d33258b2fe4f"
+    },
+    {
+      "file": "02-lab-feed-cr15-four-zone-aggregate-1536x1024.png",
+      "md5": "b9127eaf67faafa5862f6fe2b1416af4",
+      "prefix": "b9127eaf67fa"
+    },
+    {
+      "file": "03-lab-feed-cr15-picker-portal-1536x1024.png",
+      "md5": "12fe48fef3a7b7fbb11db46910876201",
+      "prefix": "12fe48fef3a7"
+    },
+    {
+      "file": "04-lab-feed-cr15-stress-dark-1536x1024.png",
+      "md5": "1a3102aa9b84e68a2ad623df8ec77475",
+      "prefix": "1a3102aa9b84"
+    },
+    {
+      "file": "05-lab-both-cr15-composition-1536x1024.png",
+      "md5": "449b902622844e8f2ea853cde406706a",
+      "prefix": "449b90262284"
+    }
+  ]
+}

@@ -1,33 +1,30 @@
-# User Cabinet (EPIC-SPA-07) — backlog package
+# cabinet — INDEX
 
-Roadmap: [UserprofileRoadmap.md](UserprofileRoadmap.md) · Epic: [EPIC-SPA-07](../../epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md)
+> **Пакет:** [README.md](README.md) (MVP CAB-01…07 + L10N)  
+> **Epic:** [EPIC-SPA-07-user-cabinet](../../epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md)  
+> **UX SSOT:** [`docs/UX/mockups/user profile/`](../../../UX/mockups/user%20profile/) · [M170](../../../UX/mockups/user%20profile/DOGEstonia-M170-cabinet-layout-no-wallet-contrib-spec-v1.0.md) · M45 · M28 · M99  
+> **API:** [STORY-SPA-CAB-api-requirements.md](STORY-SPA-CAB-api-requirements.md) — `GET /story-activity` BE Present · SPA wire **CAB-08**  
+> **Wave4 tip:** **CAB-08** P5 APPLY · gate **BLOCK** · Story **BLOCKED** (OP eye) · `pkg-000217` · `activation: none` · Await P8 · [INTERVIEW-NF-24-plus…](../next-feed/INTERVIEW-NF-24-plus-op-residual-wave4-2026-10-23.md) **P5** · [intake](../../../analysis/analysis-wave4-ux-intake-m169-m172-2026-10-23.md) · soft [NS-11](../next-shell/STORY-SPA-NS-11-profile-next-shell.md)
 
-| Wave | Story | Mockups | MVP scope | Субтаски | Иконки (каталог #) | Status |
-|------|-------|---------|-----------|----------|--------------------|--------|
-| 1 | [CAB-01 — Shell assembly](STORY-SPA-CAB-01-profile-cabinet-shell-assembly.md) | M21, M99 (+M22 loading png) | ✅ MVP (identity live) | T01–T07 | reuse assets (logo/flags); опц. `ic-nav-profile` | ✅ Done (`pkg-000030`, gate 2026-07-25) |
-| 2 | [CAB-02 — Account summary](STORY-SPA-CAB-02-account-summary-block.md) | M24, M25, M26 ⚠️(M26 без png) | ✅ MVP (extend `/me`) | T01–T08 | #1–#4 `ic-field-*` | ✅ Done (`pkg-000029`, gate 2026-07-12) |
-| 2 | [CAB-03 — Civic status](STORY-SPA-CAB-03-civic-status-in-cabinet.md) | M28 (epic-04) | ✅ MVP (identity live) | T01–T06 | #5–#9 `ic-civic-*` (замена unicode) | ✅ Done (`pkg-000033`, gate 2026-07-25) |
-| 3 | [CAB-04 — Story activity](STORY-SPA-CAB-04-story-activity-card.md) | M45 ⚠️(png `.md.png`), M23 | ✅ MVP **UI-first** (GW ready; SPA HTTP later) | T01–T10 | #10–#15 + reuse shield/cloud/retry | ✅ Done (`pkg-000034`, gate 2026-07-26) |
-| 3 | [CAB-05 — Wallet](STORY-SPA-CAB-05-wallet-status-card.md) | M50 | 🚫 **POST-MVP** (в MVP = stub «coming soon») | T01–T09 | #16–#18 `ic-wallet-*` (задел post-MVP) | Done (`pkg-000035`) |
-| 3 | [CAB-06 — Contribution](STORY-SPA-CAB-06-contribution-layer.md) | M53, M23 | ✅ MVP **UI stub** (GW-CAB-03 Deferred) | T01–T09 | #19–#21 `ic-contrib-*` + reuse cloud/retry | ✅ Done (`pkg-000036`, gate 2026-07-28) |
-| 4 | [CAB-07 — Page states](STORY-SPA-CAB-07-cabinet-page-states.md) | M23, M22 ⚠️(error без png; #22 png=loading) | ✅ MVP (identity live `/me`) | T01–T08 → pipeline T01–T06 | reuse warning/retry + composite empty CAB-02…06 | ✅ Done — [pipeline](../../epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-07-cabinet-page-states/STORY-SPA-CAB-07-cabinet-page-states.md) (`pkg-000037`, gate 2026-07-28T14:05:08Z) |
+## MVP stories
 
-> **Иконки:** каждая стори имеет секции **## Субтаски** + **## Иконки (из каталога)** с точными именами файлов и путями `/icons/user-cabinet/ic-*.png` (файлы кладутся в `public/icons/user-cabinet/`). SSOT промптов — [STORY-SPA-CAB-icon-assets.md](STORY-SPA-CAB-icon-assets.md); parity имён стори↔каталог: 100%.
->
-> **MVP scope (2026-07-25):** identity `/me` — **go** (CAB-01/02/03/07 live; CAB-02 Done). Gateway `story-activity` + `drafts/current` — **backend ready**, SPA wiring **отложен** (CAB-04 UI + Coming soon). Contribution API — **Deferred** GW-CAB-03 (CAB-06 UI stub). Wallet — POST-MVP stub. SSOT: [STORY-SPA-CAB-api-requirements.md](STORY-SPA-CAB-api-requirements.md) §4–§6.
+See [README.md](README.md) — CAB-01…07.
 
-> **Мокапы (аудит ссылок 2026-07-25):** каждая стори в секции **## Артборд** теперь линкует **и `.md`-спеку, и `.png`-картинку** (реальные имена файлов, dir `docs/UX/mockups/user profile/`; M28 — в `epic-04/`). Открытые gap'ы ассетов (не блокируют вёрстку, но png стоит доложить):
-> - **M26** (account missing-email) — `.png` отсутствует.
-> - **M22** — коллизия номера: `…load-error-spec.md` (error-панель) **без картинки**; единственный `mockup-22-*.png` — это **loading-skeleton** (без своей спеки, отдан CAB-01 loading FR).
-> - **M45** — картинка с двойным расширением `…state-sheet-spec.md.png` (ссылка рабочая; переименование опционально).
-> - **M24** — две картинки (`…complete-spec.png` + `…-1.png`), оба залинкованы как основной/вариант.
+## OP residual wave 4 (Markstack docs Ready · 2026-10-23)
 
-## Assets
+| Key | File | Status | Surface |
+|-----|------|--------|---------|
+| CAB-08 | [STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md](STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md) | P5 APPLY · gate **BLOCK** · Story **BLOCKED** (OP eye) · `pkg-000217` · `activation: none` · Await P8 · [disposition](../../run-reports/p5-disposition-STORY-SPA-CAB-08-2026-10-23.md) · [pipeline](../../epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md) · soft NS-11 · [M170](../../../UX/mockups/user%20profile/DOGEstonia-M170-cabinet-layout-no-wallet-contrib-spec-v1.0.md) | hide wallet/contrib · compact verified · full-width Story Activity · SPA→`GET /story-activity` · CTA `/next/feed` |
 
-| Artifact | Role |
-|----------|------|
-| [STORY-SPA-CAB-icon-assets.md](STORY-SPA-CAB-icon-assets.md) | Icon catalog (21 generate + reuse) |
-| [STORY-SPA-CAB-api-requirements.md](STORY-SPA-CAB-api-requirements.md) | API-требования по бекендам (identity/gateway), сверено с api-reference |
-| [STORY-SPA-CAB-01-profile-from-me.md](STORY-SPA-CAB-01-profile-from-me.md) | **Superseded** → CAB-01 shell |
+**UX tip:** [M170](../../../UX/mockups/user%20profile/DOGEstonia-M170-cabinet-layout-no-wallet-contrib-spec-v1.0.md) · soft [UX-PROMPTS…](UX-PROMPTS-wave4-cabinet-layout-2026-10-23.md)
 
-**Progress:** 7/7 stories Done (100%) — CAB-01 ✅ (`pkg-000030`); CAB-02 ✅ (`pkg-000029`); CAB-03 ✅ (`pkg-000033`); CAB-04 ✅ (`pkg-000034`, 2026-07-26); CAB-05 ✅ (`pkg-000035`, gate 2026-07-26; post-audit T07–T09 closed 2026-07-26T20:35:05Z); CAB-06 ✅ (`pkg-000036`, gate 2026-07-28T09:28:43Z); CAB-07 ✅ (`pkg-000037`, gate 2026-07-28T14:05:08Z)
+**Order (wave4):** soft NS-11 shell first · **CAB-08** tip P5 · Await P8 · no invent endpoint / contribution API / OP PASS.
+
+## Cross-links
+
+- Shell: [next-shell](../next-shell/INDEX.md) · NS-11 · NS-12 · soft wave6 [NS-18](../next-shell/STORY-SPA-NS-18-profile-mobile-layout.md) · [NS-19](../next-shell/STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen.md) (Wallet frozen · no CAB-08 unfreeze)  
+- Feed: [next-feed](../next-feed/INDEX.md) · NF-24  
+- Public: [public-home](../public-home/INDEX.md)  
+- Parent: [../INDEX.md](../INDEX.md)  
+- Wave4 interview: [INTERVIEW-NF-24-plus…](../next-feed/INTERVIEW-NF-24-plus-op-residual-wave4-2026-10-23.md) · [UX intake](../../../analysis/analysis-wave4-ux-intake-m169-m172-2026-10-23.md)  
+- Wave3 validation: [analysis-markstack-wave3…](../../../analysis/analysis-markstack-wave3-code-validation-2026-10-23.md)

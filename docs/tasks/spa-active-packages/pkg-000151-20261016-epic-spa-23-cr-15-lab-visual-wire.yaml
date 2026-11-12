@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 151
+created_at: "2026-10-16T11:09:16Z"
+label: EPIC-SPA-23 CR-15 lab visual wire both labs M154
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-15-lab-visual-wire.md
+story_groups:
+- story_key: STORY-SPA-CR-15-lab-visual-wire
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-15-lab-visual-wire/task-spa-cr-15-t01-lab-reactions-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-15-lab-visual-wire/task-spa-cr-15-t02-lab-feed-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-15-lab-visual-wire/task-spa-cr-15-t03-stress-regression/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-15-lab-visual-wire/task-spa-cr-15-t04-vitest-lab-both/README.md
+notes: |
+  P1.3 APPLY 2026-10-16T11:09:16Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount / feed-lab · mixed · Path A OP-UX-MIRROR-m154 · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Operator queueSpec FORCES runtime (Await «делай» superseded). Wire CR-11…14 both labs · stress CR-08.
+  Gap v2 residual → visual BLOCK fact · no invent HTTP · no M155 · no #/next/feed · no invent OP PASS.
+  Await P2 on OP. No P3 yet. No product code this call.

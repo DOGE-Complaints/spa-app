@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 79
+created_at: "2026-09-22T21:13:34Z"
+label: EPIC-SPA-14 THR-03 reactions.v1 picker
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/EPIC-SPA-14-threads-feed-ux.md
+decision_ref: spa-app/docs/tasks/backlog-stories/threads-feed/STORY-SPA-THR-03-reactions-v1-picker.md
+story_groups:
+- story_key: STORY-SPA-THR-03-reactions-v1-picker
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-03-reactions-v1-picker/task-spa-thr-03-t01-reaction-summary-strip/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-03-reactions-v1-picker/task-spa-thr-03-t02-picker-three-layers/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-03-reactions-v1-picker/task-spa-thr-03-t03-agree-disagree-exclusive/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-03-reactions-v1-picker/task-spa-thr-03-t04-emoji-aids-chrome-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-03-reactions-v1-picker/task-spa-thr-03-t05-l10n-reactions-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-03-reactions-v1-picker/task-spa-thr-03-t06-vitest-reactions-catalog/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-03-reactions-v1-picker/task-spa-thr-03-t07-story-gate-thr-03/README.md
+notes: |
+  P1.3 APPLY 2026-09-22T21:13:34Z. input_mode=backlog_story. ui_scope: visual. UX ready M145 — brief skip.
+  REUSE EPIC-SPA-14 + T01–T07. @mockup on T01–T04 + pipeline story.
+  Only reactions.v1 ids — do not invent. React write Open — no invent HTTP.
+  Do not start THR-04…06. Do not mix BUG/SSR pkgs. Do not retire spa_thr_* / spa_ssr_* / spa_bug_*.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T07 Todo.

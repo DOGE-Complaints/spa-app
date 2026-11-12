@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 89
+created_at: "2026-09-29T13:22:04Z"
+label: EPIC-SPA-17 REQ11-01 board+threads demo verify (runbook)
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-17-req11-demo-life-sim-board-threads-verify/EPIC-SPA-17-req11-demo-life-sim-board-threads-verify.md
+decision_ref: spa-app/docs/tasks/backlog-stories/req11-demo-life-sim-board-threads-verify/STORY-SPA-REQ11-01-board-threads-demo-verify.md
+story_groups:
+- story_key: STORY-SPA-REQ11-01-board-threads-demo-verify
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-17-req11-demo-life-sim-board-threads-verify/stories/STORY-SPA-REQ11-01-board-threads-demo-verify/task-spa-req11-01-t01-runbook-routes-and-profile-origin/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-17-req11-demo-life-sim-board-threads-verify/stories/STORY-SPA-REQ11-01-board-threads-demo-verify/task-spa-req11-01-t02-board-x1101-nonempty-checklist/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-17-req11-demo-life-sim-board-threads-verify/stories/STORY-SPA-REQ11-01-board-threads-demo-verify/task-spa-req11-01-t03-issue-thread-reactions-checklist/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-17-req11-demo-life-sim-board-threads-verify/stories/STORY-SPA-REQ11-01-board-threads-demo-verify/task-spa-req11-01-t04-pass-constraints-anonymous-no-invent/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-17-req11-demo-life-sim-board-threads-verify/stories/STORY-SPA-REQ11-01-board-threads-demo-verify/task-spa-req11-01-t05-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-09-29T13:22:04Z. input_mode=backlog_story. ui_scope: none — UX SKIP.
+  CREATE EPIC-SPA-17 + T01–T05. Verify-only runbook. Locks 1A routes · 2A anonymous.
+  Pass Evidence blocked until gateway 55 + threads 04 wipe+replay Done.
+  Default Pass: no SPA product code. Skill javascript-pro.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T05 Todo. STOP before P3 until OP.

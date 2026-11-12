@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 25
+created_at: "2026-07-02T10:51:50Z"
+label: EPIC-SPA-04 ID-08 GPT verification entry
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-08-gpt-verification-entry.md
+story_groups:
+- story_key: STORY-SPA-ID-08-gpt-verification-entry
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-08-gpt-verification-entry/task-spa-id-08-t01-oauth-authorize-complete-client-flow-state/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-08-gpt-verification-entry/task-spa-id-08-t02-gpt-bridge-i18n-dictionary/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-08-gpt-verification-entry/task-spa-id-08-t03-login-oauth-request-id-entry-complete-handshake/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-08-gpt-verification-entry/task-spa-id-08-t04-verify-context-custom-gpt-resume-complete/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-08-gpt-verification-entry/task-spa-id-08-t05-gpt-bridge-ui-shell-m120-draft-banner-success/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-08-gpt-verification-entry/task-spa-id-08-t06-tests-gpt-bridge-oauth-m120/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-08-gpt-verification-entry/task-spa-id-08-t07-story-gate-id-08/README.md

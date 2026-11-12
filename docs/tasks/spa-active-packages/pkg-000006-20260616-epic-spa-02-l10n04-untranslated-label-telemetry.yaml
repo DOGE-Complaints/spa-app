@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 6
+created_at: "2026-06-16T23:55:00Z"
+label: EPIC-SPA-02 L10N-04 untranslated label telemetry
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/EPIC-SPA-02-localization-l10n.md
+decision_ref: spa-app/docs/tasks/backlog-stories/localization/STORY-SPA-L10N-04-untranslated-label-telemetry.md
+story_groups:
+- story_key: STORY-SPA-L10N-04-untranslated-label-telemetry
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-04-untranslated-label-telemetry/task-spa-l10n-04-t01-privacy-governance-i18n-architecture/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-04-untranslated-label-telemetry/task-spa-l10n-04-t02-label-miss-telemetry-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-04-untranslated-label-telemetry/task-spa-l10n-04-t03-label-display-humanize-telemetry-emit/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-04-untranslated-label-telemetry/task-spa-l10n-04-t04-tests-label-miss-telemetry/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-04-untranslated-label-telemetry/task-spa-l10n-04-t05-sync-doc-touchpoints-l10n04/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-04-untranslated-label-telemetry/task-spa-l10n-04-t06-story-acceptance-verification/README.md

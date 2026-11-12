@@ -1,0 +1,50 @@
+{
+  "story": "STORY-SPA-CR-26-own-react-empty-harmony",
+  "generated_utc": "2026-10-24T10:24:09.262Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "note": "Path A structure · OP eye Absent · no invent PASS",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-own-react-empty-comment-align.png",
+      "md5": "f29f01d2d6e1127370828aedac58717d",
+      "prefix": "f29f01d2d6e1"
+    },
+    {
+      "file": "02-own-react-filled-comment-align.png",
+      "md5": "e10770965566afcf178c755551ea7e93",
+      "prefix": "e10770965566"
+    },
+    {
+      "file": "03-three-slot-lane.png",
+      "md5": "ade422f4be16866762c3da62a8e4cc17",
+      "prefix": "ade422f4be16"
+    },
+    {
+      "file": "04-strip-order.png",
+      "md5": "e10770965566afcf178c755551ea7e93",
+      "prefix": "e10770965566"
+    },
+    {
+      "file": "05-dark-harmony.png",
+      "md5": "2931227e82e1c9099045680fb6ffc1ee",
+      "prefix": "2931227e82e1"
+    }
+  ],
+  "probe0": {
+    "labCr26": "true",
+    "stripHarmony": "m173",
+    "reactHarmony": "m173",
+    "ownInZone": true,
+    "zones": "4"
+  },
+  "geo": {
+    "reactH": 84,
+    "commentH": 84,
+    "entryDir": "column",
+    "ownCount": "3",
+    "hasOwnClass": true
+  }
+}

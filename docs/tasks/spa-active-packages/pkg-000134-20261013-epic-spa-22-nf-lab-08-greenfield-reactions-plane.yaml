@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 134
+created_at: "2026-10-13T16:01:32Z"
+label: EPIC-SPA-22 NF-LAB-08 greenfield reactions plane
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-08-greenfield-reactions-plane.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-08-greenfield-reactions-plane
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-08-greenfield-reactions-plane/task-spa-nf-lab-08-t01-scaffold-reactions-home/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-08-greenfield-reactions-plane/task-spa-nf-lab-08-t02-wire-strip-picker-selection/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-08-greenfield-reactions-plane/task-spa-nf-lab-08-t03-ban-classic-css-leak/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-08-greenfield-reactions-plane/task-spa-nf-lab-08-t04-m154-visual-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T16:01:32Z. input_mode=backlog_story. REUSE EPIC-SPA-22-next-feed-lab.
+  ui_scope: feed-lab · visual|mixed · Path A M154 · Partial visual=BLOCK.
+  Skill react-expert. T01–T04 Todo · NO STORY-UX-MOCKUP-BRIEF.
+  Greenfield features/feed-lab/post/reactions/ only · ban *Deprecated · ReactionChrome · ReactionControls.css · emoji-soup.
+  #/next/feed unchanged. Await P2/P3 on OP.

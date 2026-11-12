@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 111
+created_at: "2026-10-11T13:57:51Z"
+label: EPIC-SPA-20 NF-09 reactions strip picker chrome
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-09-reactions-strip-picker-chrome.md
+story_groups:
+- story_key: STORY-SPA-NF-09-reactions-strip-picker-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-09-reactions-strip-picker-chrome/task-spa-nf-09-t01-compact-strip/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-09-reactions-strip-picker-chrome/task-spa-nf-09-t02-picker-desktop-mobile/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-09-reactions-strip-picker-chrome/task-spa-nf-09-t03-wire-civic-slot/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-09-reactions-strip-picker-chrome/task-spa-nf-09-t04-live-edges/README.md
+notes: |
+  P1.3 APPLY 2026-10-11T13:57:51Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M154 Path A · AD-VP-01/02/04 · local-five required.
+  Skill react-expert. T01–T04 Todo · ui_anchor T01+T02 (M154).
+  No invent AC · no invent reaction ids · shell chrome OOS · M155 OOS · no Path A groups-only narrowing.
+  Await P2/P3 on OP.

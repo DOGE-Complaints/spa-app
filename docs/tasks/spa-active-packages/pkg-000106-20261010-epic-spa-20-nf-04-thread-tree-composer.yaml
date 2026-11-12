@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 106
+created_at: "2026-10-10T19:06:39Z"
+label: EPIC-SPA-20 NF-04 thread tree composer
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-04-thread-tree-composer.md
+story_groups:
+- story_key: STORY-SPA-NF-04-thread-tree-composer
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-04-thread-tree-composer/task-spa-nf-04-t01-compose-closed-thread-tree/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-04-thread-tree-composer/task-spa-nf-04-t02-composer-text-attach-gated/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-04-thread-tree-composer/task-spa-nf-04-t03-wire-thread-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-04-thread-tree-composer/task-spa-nf-04-t04-l10n-reuse-threadsfeed/README.md
+notes: |
+  P1.3 APPLY 2026-10-10T19:06:39Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M152/M153 Path A · register NF-T → NF-04.
+  Skill react-expert. T01–T04 Todo · ui_anchor T01 (M152) · T02 M153 composer.
+  No invent threads URLs · attach gated Q06 text path · shell chrome OOS.
+  Await P2/P3 on OP.

@@ -1,0 +1,48 @@
+{
+  "story": "CT-09",
+  "route": "#/lab/feed",
+  "md5s": [
+    {
+      "file": "01-comment-node-react-plug.png",
+      "md5": "350cb52a768ed45f992a708792056825",
+      "prefix": "350cb52a768e"
+    },
+    {
+      "file": "02-nested-react-picker.png",
+      "md5": "36b73f68759f3c59ac885e5c30eeaf13",
+      "prefix": "36b73f68759f"
+    },
+    {
+      "file": "03-reply-eligible-no-share-strip.png",
+      "md5": "68bd9dca34c100ae5cdd7f94536a37da",
+      "prefix": "68bd9dca34c1"
+    },
+    {
+      "file": "04-root-strip-react-held.png",
+      "md5": "bcce9cddbf51ecf3282d7f2166ff7777",
+      "prefix": "bcce9cddbf51"
+    },
+    {
+      "file": "05-boundary-no-people-from-thread.png",
+      "md5": "78c7cf89d098b2c1b914b94f5dad969b",
+      "prefix": "78c7cf89d098"
+    }
+  ],
+  "metaTree": {
+    "ct09": "true",
+    "plug": "comment",
+    "slotCount": 2,
+    "allComment": true,
+    "hasReply": true,
+    "shareOnNode": false
+  },
+  "metaPicker": {
+    "pickerOpen": "true",
+    "focus": "0",
+    "picker": true
+  },
+  "metaCard": {
+    "rootTarget": "thread-root",
+    "visualDone": "false"
+  }
+}

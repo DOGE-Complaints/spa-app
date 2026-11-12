@@ -1,0 +1,27 @@
+[
+  {
+    "file": "01-empty-entry-only.png",
+    "md5": "9dee744d3e74e7be608dbc7623921691",
+    "prefix": "9dee744d3e74"
+  },
+  {
+    "file": "02-speech-empty-icon.png",
+    "md5": "7aac71ae24f91d333c7f126b5269b2a3",
+    "prefix": "7aac71ae24f9"
+  },
+  {
+    "file": "03-entry-activate-composer.png",
+    "md5": "f8f166dc8b1a763024439437c99cadf3",
+    "prefix": "f8f166dc8b1a"
+  },
+  {
+    "file": "04-populated-no-empty-icon.png",
+    "md5": "16c7ba69b7e4021ba72a67dd6178ee5b",
+    "prefix": "16c7ba69b7e4"
+  },
+  {
+    "file": "05-reload-entry-only-held.png",
+    "md5": "bd98ab0d6dc29912d5f582cac17003bf",
+    "prefix": "bd98ab0d6dc2"
+  }
+]

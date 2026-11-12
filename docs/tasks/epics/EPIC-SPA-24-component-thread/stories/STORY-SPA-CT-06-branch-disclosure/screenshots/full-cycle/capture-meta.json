@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-18T13:47:44.034Z",
+  "base": "http://127.0.0.1:5179",
+  "md5s": [
+    {
+      "file": "01-branch-collapsed.png",
+      "md5": "a8b3bbe011cc2b6069ca49c1d7e5f28e",
+      "prefix": "a8b3bbe011cc"
+    },
+    {
+      "file": "02-branch-expanding.png",
+      "md5": "5651dac1a0cca10b9095ef20195ce49e",
+      "prefix": "5651dac1a0cc"
+    },
+    {
+      "file": "03-branch-sync-expand.png",
+      "md5": "b38b0b162bd8950b4b1f69dc3922f31d",
+      "prefix": "b38b0b162bd8"
+    },
+    {
+      "file": "04-branch-error.png",
+      "md5": "304091abce1d8b8d8dbbb1dc73b534d3",
+      "prefix": "304091abce1d"
+    },
+    {
+      "file": "05-no-invent-fetch.png",
+      "md5": "df3fd27ee197a202558c7cc12e54a7bb",
+      "prefix": "df3fd27ee197"
+    }
+  ],
+  "opEye": "Absent"
+}

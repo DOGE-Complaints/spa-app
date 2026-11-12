@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 221
+created_at: "2026-10-24T09:48:12Z"
+label: EPIC-SPA-19 NS-16 default theme light
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-16-default-theme-light.md
+story_groups:
+- story_key: STORY-SPA-NS-16-default-theme-light
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-16-default-theme-light/task-spa-ns-16-t01-default/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-16-default-theme-light/task-spa-ns-16-t02-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-24T09:48:12Z wave OP-spa nf25-wave5-20261024.
+  input_mode=backlog_story. REUSE EPIC-SPA-19-next-shell. ui_scope: next-shell / theme ·
+  mixed · Path A arch Present · Interview M8 · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T02 Todo).
+  Hard: unset → light · stored dark/light win · no OS prefers invent · Vitest flip ·
+  OP eye · no invent OP PASS. OOS NS-15 brand · account sync.
+  Tip after pkg-000220. activation active.
+  Await P2 on OP. No P3 yet. No product code this call.

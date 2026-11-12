@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 11
+created_at: "2026-06-18T12:00:00Z"
+label: EPIC-SPA-03 SEARCH-04 institution date filters
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/EPIC-SPA-03-search-and-filters.md
+decision_ref: spa-app/docs/tasks/backlog-stories/search-and-filters/STORY-SPA-SEARCH-04-institution-date-filters.md
+story_groups:
+- story_key: STORY-SPA-SEARCH-04-institution-date-filters
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t01-board-query-institution-date/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t02-institution-filter-dynamic-options/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t03-date-range-filter-control/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t04-repository-filter-projection/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t05-filter-panel-board-wiring/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t06-tests-institution-date-filters/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t07-documentation-touchpoints/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-04-institution-date-filters/task-spa-search-04-t08-story-gate-search-04/README.md

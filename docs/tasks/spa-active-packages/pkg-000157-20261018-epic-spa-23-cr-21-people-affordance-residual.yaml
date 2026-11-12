@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 157
+created_at: "2026-10-18T12:11:38Z"
+label: EPIC-SPA-23 CR-21 people affordance residual
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-21-people-affordance-residual.md
+story_groups:
+- story_key: STORY-SPA-CR-21-people-affordance-residual
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-21-people-affordance-residual/task-spa-cr-21-t01-people-anchor-reactions/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-21-people-affordance-residual/task-spa-cr-21-t02-reactions-chip-hover/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-21-people-affordance-residual/task-spa-cr-21-t03-click-path-verify/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-21-people-affordance-residual/task-spa-cr-21-t04-vitest-people-affordance/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T12:11:38Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount / feed-lab · mixed · Path A residual mirror §4 · M155 A · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: people popover anchor Reactions zone · chip hover parity · Reactions≠picker · aggregate→people.
+  Prior CR-20 Gap v2 Present on disk. Do NOT invent SVG / people HTTP / OP PASS / #/next/feed.
+  Prior tip pkg-000156 · CR-20 P8 Done · gate BLOCK. Await P2 on OP. No P3 yet. No product code this call.

@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 165
+created_at: "2026-10-18T13:54:11Z"
+label: EPIC-SPA-24 CT-07 VerifyWriteGate lab fixtures
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-07-verify-write-gate-lab.md
+story_groups:
+- story_key: STORY-SPA-CT-07-verify-write-gate-lab
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-07-verify-write-gate-lab/task-spa-ct-07-t01-verify-gate-ui/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-07-verify-write-gate-lab/task-spa-ct-07-t02-capability-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-07-verify-write-gate-lab/task-spa-ct-07-t03-stub-handoff/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-07-verify-write-gate-lab/task-spa-ct-07-t04-no-autopost/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-07-verify-write-gate-lab/task-spa-ct-07-t05-vitest-gate/README.md
+notes: |
+  P5 APPLY Done 2026-10-18T14:00:35Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX-MIRROR §4.3 V-A…V-F · M157 · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Done · gate BLOCK (OP eye Absent) · Path A shots 01–06 · vitest 105/105.
+  P5: TASKED=0 · activation none · F1 WAIVED operator · F2–F3 WAIVED info · P6 not needed.
+  Hard: no invent HTTP/Identity methods/OP PASS · no auto-post · no bare-403→/verify guess · lab fixture+stub only.
+  data-tm-identity-methods=false · data-tm-autopost=false. Await P8. Do not invent OP PASS.

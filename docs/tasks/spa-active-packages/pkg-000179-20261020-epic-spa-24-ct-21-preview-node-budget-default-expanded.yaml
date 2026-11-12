@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 179
+created_at: "2026-10-20T14:35:27Z"
+label: EPIC-SPA-24 CT-21 Preview node budget default expanded M152c
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-21-preview-node-budget-default-expanded.md
+story_groups:
+- story_key: STORY-SPA-CT-21-preview-node-budget-default-expanded
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-21-preview-node-budget-default-expanded/task-spa-ct-21-t01-knob/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-21-preview-node-budget-default-expanded/task-spa-ct-21-t02-default-expanded/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-21-preview-node-budget-default-expanded/task-spa-ct-21-t03-dfs-truncate/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-21-preview-node-budget-default-expanded/task-spa-ct-21-t04-omit-heading/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-21-preview-node-budget-default-expanded/task-spa-ct-21-t05-vitest/README.md
+notes: |
+  P3 Execute Done 2026-10-20T14:49:17Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A M152c · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF.
+  Skill react-expert (T01–T05). T01–T05 Done · Path A shots 01–05 · gate BLOCK (OP eye Absent).
+  Hard: previewNodeBudget=3 DFS · Show more comments one-shot · omit Discussion heading · no invent HTTP/OP PASS.
+  vitest 187/187 · puppeteer CT-21 exit 0. Await OP residual / P4|P5|P8.

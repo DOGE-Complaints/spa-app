@@ -1,0 +1,27 @@
+[
+  {
+    "file": "01-empty-circle-send-attach.png",
+    "md5": "fa046f28ad6631ff18b0752cf96ea3a6",
+    "prefix": "fa046f28ad66"
+  },
+  {
+    "file": "02-populated-post-plane.png",
+    "md5": "404dd4fb95368cc6579d99bfb3f264b0",
+    "prefix": "404dd4fb9536"
+  },
+  {
+    "file": "03-attach-paperclip.png",
+    "md5": "279ba3a484f6784adf7ef86d62abaf34",
+    "prefix": "279ba3a484f6"
+  },
+  {
+    "file": "04-reply-post-plane.png",
+    "md5": "6e373d5eeb3778bdcbd65f17a818a085",
+    "prefix": "6e373d5eeb37"
+  },
+  {
+    "file": "05-actions-attach-left-post-right.png",
+    "md5": "7b3defb97fc450dd51b6b424958d8a25",
+    "prefix": "7b3defb97fc4"
+  }
+]

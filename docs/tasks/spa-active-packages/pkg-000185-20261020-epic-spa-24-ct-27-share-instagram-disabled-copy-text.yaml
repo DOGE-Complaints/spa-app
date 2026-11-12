@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 185
+created_at: "2026-10-20T19:49:22Z"
+label: EPIC-SPA-24 CT-27 Share Instagram disabled Copy text-only M152d
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-27-share-instagram-disabled-copy-text.md
+story_groups:
+- story_key: STORY-SPA-CT-27-share-instagram-disabled-copy-text
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-27-share-instagram-disabled-copy-text/task-spa-ct-27-t01-ig-disabled/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-27-share-instagram-disabled-copy-text/task-spa-ct-27-t02-copy-text/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-27-share-instagram-disabled-copy-text/task-spa-ct-27-t03-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T19:49:22Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: feed-lab · mixed · Path A M152d list order · Instagram behavior supersede · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen.
+  Skill react-expert (T01–T03). T01–T03 Todo · CREATE pipeline tree.
+  Hard: Instagram disabled no-copy · Copy link text-only no icon · no invent HTTP/OP PASS.
+  Prior tip pkg-000184 · CT-26. Await P2 on OP. No P3 yet. No product code this call.

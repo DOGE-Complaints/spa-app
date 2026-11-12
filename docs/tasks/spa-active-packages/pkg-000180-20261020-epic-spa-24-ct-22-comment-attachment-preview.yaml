@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 180
+created_at: "2026-10-20T14:58:07Z"
+label: EPIC-SPA-24 CT-22 Comment attachment preview md family
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-22-comment-attachment-preview.md
+story_groups:
+- story_key: STORY-SPA-CT-22-comment-attachment-preview
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-22-comment-attachment-preview/task-spa-ct-22-t01-persist-intents/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-22-comment-attachment-preview/task-spa-ct-22-t02-md-family/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-22-comment-attachment-preview/task-spa-ct-22-t03-node-preview/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-22-comment-attachment-preview/task-spa-ct-22-t04-revoke-lifecycle/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-22-comment-attachment-preview/task-spa-ct-22-t05-vitest/README.md
+notes: |
+  P3 Execute 2026-10-20T15:04:03Z. T01–T05 Done · gate BLOCK (OP eye Absent · Partial visual=BLOCK).
+  ui_scope: thread-mount / feed-lab · mixed · Path A M153/M153a · NO BRIEF · no invent HTTP/OP PASS.
+  Skill react-expert. Shots screenshots/full-cycle 01–07 Present · vitest ct22 8/8.
+  Tip remains pkg-000180 until story close / next tip.

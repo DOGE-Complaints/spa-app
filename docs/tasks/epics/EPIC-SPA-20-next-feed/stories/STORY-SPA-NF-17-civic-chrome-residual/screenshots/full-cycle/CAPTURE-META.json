@@ -1,0 +1,57 @@
+{
+  "story": "STORY-SPA-NF-17-civic-chrome-residual",
+  "captured_at": "2026-10-21T17:48:05.735Z",
+  "base": "http://127.0.0.1:5173",
+  "visual_gate": "BLOCK",
+  "path_a": "M162",
+  "probe": {
+    "density": "m162",
+    "nf17": "residual",
+    "zones": "4",
+    "cr23": "true",
+    "borderTop": "0px",
+    "paddingTop": "4px",
+    "marginTop": "0px",
+    "minH": "44px",
+    "markW": "20px",
+    "markH": "20px",
+    "summaryFs": "14px",
+    "rootFs": "14px",
+    "summaryIs1rem": true,
+    "commentIconW": "24px",
+    "hostLive": true
+  },
+  "fails": [],
+  "shots": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "e6ad314f7d84de77d503940942b3f943",
+      "prefix": "e6ad314f7d84"
+    },
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "e6ad314f7d84de77d503940942b3f943",
+      "prefix": "e6ad314f7d84"
+    },
+    {
+      "file": "02-no-hairline.png",
+      "md5": "15103f01956e1db798c42d891d15baf5",
+      "prefix": "15103f01956e"
+    },
+    {
+      "file": "03-reaction-marks-20.png",
+      "md5": "da075f44978b2fc8f5d20fe5d7a8d259",
+      "prefix": "da075f44978b"
+    },
+    {
+      "file": "04-density-pad.png",
+      "md5": "da075f44978b2fc8f5d20fe5d7a8d259",
+      "prefix": "da075f44978b"
+    },
+    {
+      "file": "05-summary-1rem.png",
+      "md5": "15103f01956e1db798c42d891d15baf5",
+      "prefix": "15103f01956e"
+    }
+  ]
+}

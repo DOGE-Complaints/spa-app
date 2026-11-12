@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 163
+created_at: "2026-10-18T13:36:01Z"
+label: EPIC-SPA-24 CT-05 AttachmentRef maxAttachments config
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-05-attachments-max-config.md
+story_groups:
+- story_key: STORY-SPA-CT-05-attachments-max-config
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-05-attachments-max-config/task-spa-ct-05-t01-max-attachments-config/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-05-attachments-max-config/task-spa-ct-05-t02-attachment-ref/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-05-attachments-max-config/task-spa-ct-05-t03-composer-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-05-attachments-max-config/task-spa-ct-05-t04-vitest-clamp/README.md
+notes: |
+  P3 Execute Done 2026-10-18T13:39:15Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX-MIRROR §4.2 T-D/T-E/T-maxA · M153 D/E · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Done · AttachmentRef + clampAttachmentIntents · lab N–R.
+  Hard: no invent upload/bind HTTP/OP PASS · fixture local-intent only · no claim published media · named maxAttachments config.
+  Gate BLOCK · OP eye Absent · Await P4.

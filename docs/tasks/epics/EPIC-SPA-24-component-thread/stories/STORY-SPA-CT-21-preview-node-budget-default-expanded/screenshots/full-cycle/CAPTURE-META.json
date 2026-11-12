@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-20T14:49:13.162Z",
+  "story": "STORY-SPA-CT-21-preview-node-budget-default-expanded",
+  "partialVisual": "BLOCK",
+  "opEye": "Absent",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-within-budget.png",
+      "md5": "f727eaa77dfa126bfb2db8eb4900b327",
+      "prefix": "f727eaa77dfa"
+    },
+    {
+      "file": "02-truncated-show-more.png",
+      "md5": "8ca02cc9c3aafb6b65998f48c11cce8c",
+      "prefix": "8ca02cc9c3aa"
+    },
+    {
+      "file": "03-after-show-more.png",
+      "md5": "1611c9b6e57ac5b55c00b150ed923219",
+      "prefix": "1611c9b6e57a"
+    },
+    {
+      "file": "04-empty-no-heading.png",
+      "md5": "e6e2a3df644d4f543acda83d3b407985",
+      "prefix": "e6e2a3df644d"
+    },
+    {
+      "file": "05-narrow-truncate.png",
+      "md5": "f8b84149db3e358a2f776951c727a7fc",
+      "prefix": "f8b84149db3e"
+    }
+  ]
+}

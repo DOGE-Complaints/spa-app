@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 198
+created_at: "2026-10-21T19:49:59Z"
+label: EPIC-SPA-20 NF-20 map cluster leaves reachable OP M4
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-20-map-cluster-leaves-reachable.md
+story_groups:
+- story_key: STORY-SPA-NF-20-map-cluster-leaves-reachable
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-20-map-cluster-leaves-reachable/task-spa-nf-20-t01-probe-leaves/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-20-map-cluster-leaves-reachable/task-spa-nf-20-t02-leaves-ui/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-20-map-cluster-leaves-reachable/task-spa-nf-20-t03-count-layer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-20-map-cluster-leaves-reachable/task-spa-nf-20-t04-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-21T19:49:59Z wave OP-spa nf18-20-ns07-ct32-20261021. input_mode=backlog_story.
+  REUSE EPIC-SPA-20-next-feed. ui_scope: map · soft feed · mixed · Path A code lock ·
+  ARCH-DELTA §8 · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04).
+  Hard: getClusterLeaves → list/sheet → open issue · zoom-only alone ≠ Done · circle+count same affordance ·
+  co-located N>1 multi-path · no invent spiderfy vendor/OP PASS · OOS NF-19 basemap · NS-07 · CT-32 · strip chrome.
+  Soft after NF-19 · Prior tip pkg-000197. Await P2 on OP. No P3 yet. No product code this call.

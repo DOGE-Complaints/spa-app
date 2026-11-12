@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 167
+created_at: "2026-10-18T14:39:06Z"
+label: EPIC-SPA-24 CT-09 Reactions plug on CommentNode
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-09-reactions-plug-comment-nodes.md
+story_groups:
+- story_key: STORY-SPA-CT-09-reactions-plug-comment-nodes
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-09-reactions-plug-comment-nodes/task-spa-ct-09-t01-node-reaction-slot/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-09-reactions-plug-comment-nodes/task-spa-ct-09-t02-lab-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-09-reactions-plug-comment-nodes/task-spa-ct-09-t03-boundary-guard/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-09-reactions-plug-comment-nodes/task-spa-ct-09-t04-vitest-plug/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T14:39:06Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX-MIRROR §4.2 T-react · §4.4 R-plug/R-bound · M153 React · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: reactions plug on comment nodes only · no rewrite CR package · no invent HTTP/OP PASS · no people import in thread-mount · root strip reactSlot held.
+  Prior tip pkg-000166 · CT-08 P5/P8. Await P2 on OP. No P3 yet. No product code this call.

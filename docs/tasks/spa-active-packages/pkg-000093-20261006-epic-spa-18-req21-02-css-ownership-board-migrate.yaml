@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 93
+created_at: "2026-10-06T19:53:15Z"
+label: EPIC-SPA-18 REQ21-02 CSS ownership board migrate
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/EPIC-SPA-18-ui-modularity-theme-redesign-prep.md
+decision_ref: spa-app/docs/tasks/backlog-stories/ui-modularity-theme-redesign-prep/STORY-SPA-REQ21-02-css-ownership-board-migrate.md
+story_groups:
+- story_key: STORY-SPA-REQ21-02-css-ownership-board-migrate
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-02-css-ownership-board-migrate/task-spa-req21-02-t01-classify-index-board-rules/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-02-css-ownership-board-migrate/task-spa-req21-02-t02-move-shell-rules/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-02-css-ownership-board-migrate/task-spa-req21-02-t03-move-feature-page-rules/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-02-css-ownership-board-migrate/task-spa-req21-02-t04-visual-parity-check/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-02-css-ownership-board-migrate/task-spa-req21-02-t05-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-06T19:53:15Z. input_mode=backlog_story. REUSE EPIC-SPA-18.
+  ui_scope: none · UX SKIP (no brief/artboard). Skill javascript-pro.
+  Behavior-preserving CSS ownership migrate; no visual redesign invent; no theme/toggle.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window → P3 T01–T05. STOP before P3 until OP.

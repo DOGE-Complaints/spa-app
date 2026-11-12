@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 128
+created_at: "2026-10-13T11:40:09Z"
+label: EPIC-SPA-22 NF-LAB-02 fixtures five cards media stub
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-02-fixtures-five-cards-media-stub.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-02-fixtures-five-cards-media-stub
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-02-fixtures-five-cards-media-stub/task-spa-nf-lab-02-t01-fixture-module/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-02-fixtures-five-cards-media-stub/task-spa-nf-lab-02-t02-media-contract/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T11:40:09Z. input_mode=backlog_story. REUSE EPIC-SPA-22-next-feed-lab.
+  ui_scope: feed-lab · UX ready M149+M150 (data-side) · not full visual Done (PASS → LAB-03).
+  Skill react-expert. T01–T02 Todo · ui_anchor T02.
+  Exactly 5 fixtures · ids DOGEstonia-UusVeerenni-001…005 · no HTTP · no invent Closed publicLabel.
+  Media /assets/dogefeed.png · 1600×900 · Absent → honest. Await P2/P3 on OP.

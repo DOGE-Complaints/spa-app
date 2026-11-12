@@ -1,0 +1,39 @@
+{
+  "story": "STORY-SPA-CT-25-composer-attach-chip-preview-filename",
+  "ui_gate": "auto",
+  "path": "A",
+  "mockup": "DOGEstonia-M153c-composer-attachment-filename-chip-spec-v1.0",
+  "partial": "BLOCK",
+  "op_eye": "Absent",
+  "invent_pass": false,
+  "invent_http": false,
+  "md5s": [
+    {
+      "file": "01-ready-image-thumb.png",
+      "md5": "6d06e450235616786411632e9b20c2d3",
+      "prefix": "6d06e4502356"
+    },
+    {
+      "file": "02-ready-markdown.png",
+      "md5": "39fcf21c88f80610b363f60c39a5181d",
+      "prefix": "39fcf21c88f8"
+    },
+    {
+      "file": "03-ready-pdf.png",
+      "md5": "169b8a66a2ca52309ea50440ab6c867c",
+      "prefix": "169b8a66a2ca"
+    },
+    {
+      "file": "04-denied-filename.png",
+      "md5": "7b4ae08f017853e4e715ab70923eb6e8",
+      "prefix": "7b4ae08f0178"
+    },
+    {
+      "file": "05-narrow-ellipsis.png",
+      "md5": "a978bec5ebf0e00264853059fb8256a1",
+      "prefix": "a978bec5ebf0"
+    }
+  ],
+  "fails": [],
+  "capturedAt": "2026-10-20T19:28:49.089Z"
+}

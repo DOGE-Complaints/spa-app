@@ -1,0 +1,32 @@
+{
+  "story": "STORY-SPA-PH-16-env-cta-story-gpt-landing-faq",
+  "utc": "2026-10-24T10:03:36.946Z",
+  "probe": {
+    "ph16": true,
+    "interviewHref": "https://chatgpt.com/g/g-RkVU9xLWN-dogestonia",
+    "landingHref": "#",
+    "feedHref": "#/next/feed",
+    "interviewLabel": "Start interview in Telegram",
+    "landingLabel": "Concept & FAQ on landing",
+    "landingIsCalmHash": true
+  },
+  "md5s": [
+    {
+      "file": "01-hiw-interview-cta.png",
+      "md5": "964c238da6146ea089d5935da65085bb",
+      "prefix": "964c238da614"
+    },
+    {
+      "file": "02-hiw-landing-faq-cta.png",
+      "md5": "3cf1470454bfb637852e3e708bc9f4e6",
+      "prefix": "3cf1470454bf"
+    },
+    {
+      "file": "03-hiw-mobile.png",
+      "md5": "6ad7d0d45b88f06c8407ad65ad08af6e",
+      "prefix": "6ad7d0d45b88"
+    }
+  ],
+  "fails": [],
+  "note": "OP eye Absent · Partial visual=BLOCK · no invent PASS / GPT URL / landing host"
+}

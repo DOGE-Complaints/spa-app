@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 12
+created_at: "2026-06-18T12:00:00Z"
+label: EPIC-SPA-03 SEARCH-05 geo filter
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/EPIC-SPA-03-search-and-filters.md
+decision_ref: spa-app/docs/tasks/backlog-stories/search-and-filters/STORY-SPA-SEARCH-05-geo-filter.md
+story_groups:
+- story_key: STORY-SPA-SEARCH-05-geo-filter
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t01-board-query-geo-admin/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t02-geo-filter-dynamic-options/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t03-issue-read-filters-geo-helpers/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t04-repository-geo-projection/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t05-filter-panel-board-wiring/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t06-tests-geo-filters/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t07-documentation-touchpoints/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-05-geo-filter/task-spa-search-05-t08-story-gate-search-05/README.md

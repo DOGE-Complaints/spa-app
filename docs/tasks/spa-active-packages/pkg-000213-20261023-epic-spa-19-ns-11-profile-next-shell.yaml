@@ -1,0 +1,27 @@
+schema_version: 1
+package_sequence: 213
+created_at: "2026-10-23T13:44:49Z"
+label: EPIC-SPA-19 NS-11 profile next shell
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-11-profile-next-shell.md
+story_groups:
+- story_key: STORY-SPA-NS-11-profile-next-shell
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-11-profile-next-shell/task-spa-ns-11-t01-layout/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-11-profile-next-shell/task-spa-ns-11-t02-footer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-11-profile-next-shell/task-spa-ns-11-t03-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-23T13:44:49Z wave OP-spa nf24-wave4-20261023.
+  input_mode=backlog_story. REUSE EPIC-SPA-19-next-shell. ui_scope: shell ·
+  mixed · Path A p13UxReady evidence 03 + next/feed chrome parity · Interview S3 ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert
+  (T01–T03 Todo). Hard: /profile Header + ProfileRail · no Workspace sidebar ·
+  PublicFooter parity soft · Vitest · OP eye · no invent OP PASS · no invent CDN ·
+  no invent CAB-08 · no invent NS-12.
+  OOS CAB-08 · invent CDN · NS-12 My stories freeze.
+  Tip after pkg-000212. activation active.
+  P3 Execute Done 2026-10-23T13:49:54Z · T01–T03 Done · gate BLOCK · CAPTURE-META fails: [] · Await P4/P5.
+  P5 APPLY 2026-10-23T13:54:17Z · TASKED=0 · activation none · F1/F2 WAIVED · P6 skipped · Await P8.
+  P8 local close 2026-10-23T13:56:51Z · pkg closed · Story BLOCKED (OP eye) · activation none · NO PUSH.

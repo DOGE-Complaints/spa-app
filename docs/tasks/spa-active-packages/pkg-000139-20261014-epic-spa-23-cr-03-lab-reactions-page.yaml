@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 139
+created_at: "2026-10-14T11:36:43Z"
+label: EPIC-SPA-23 CR-03 lab reactions page
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-03-lab-reactions-page.md
+story_groups:
+- story_key: STORY-SPA-CR-03-lab-reactions-page
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-03-lab-reactions-page/task-spa-cr-03-t01-fixture-adapter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-03-lab-reactions-page/task-spa-cr-03-t02-live-adapter-threads-social-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-03-lab-reactions-page/task-spa-cr-03-t03-lab-reactions-route/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-03-lab-reactions-page/task-spa-cr-03-t04-two-fixture-hosts/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-03-lab-reactions-page/task-spa-cr-03-t05-vitest-lab-smoke/README.md
+notes: |
+  P1.3 APPLY 2026-10-14T11:36:43Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount · visual|mixed · Path A M154 · Partial visual=BLOCK.
+  Skill react-expert (T05 test-master). T01–T05 Todo · NO STORY-UX-MOCKUP-BRIEF.
+  Route #/lab/reactions · two hosts · FixtureAdapter required · Depends CR-01/CR-02 structure Present · M155 OOS.
+  REUSE existing pipeline tree (no duplicate). Await P2 on OP. No P3 yet.

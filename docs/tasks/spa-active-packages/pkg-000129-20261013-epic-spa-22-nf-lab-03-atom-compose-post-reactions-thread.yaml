@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 129
+created_at: "2026-10-13T12:29:42Z"
+label: EPIC-SPA-22 NF-LAB-03 atom compose post reactions thread
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-03-atom-compose-post-reactions-thread.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-03-atom-compose-post-reactions-thread
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-03-atom-compose-post-reactions-thread/task-spa-nf-lab-03-t01-lab-card-composer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-03-atom-compose-post-reactions-thread/task-spa-nf-lab-03-t02-reactions-local-seam/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-03-atom-compose-post-reactions-thread/task-spa-nf-lab-03-t03-discussion-atoms/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-03-atom-compose-post-reactions-thread/task-spa-nf-lab-03-t04-visual-gate-pack/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T12:29:42Z. input_mode=backlog_story. REUSE EPIC-SPA-22-next-feed-lab.
+  ui_scope: feed-lab · UX ready Path A M150/M154/M152/M153/M149 · Partial visual=BLOCK.
+  Skill react-expert. T01–T04 Todo · ui_anchor all.
+  Ban FeedCivicPost/FeedDiscussionBlock/BoardIssuePost · classic ReactionControls.css.
+  No invent · no HTTP · #/next/feed unchanged (port LAB-05). Await P2/P3 on OP.

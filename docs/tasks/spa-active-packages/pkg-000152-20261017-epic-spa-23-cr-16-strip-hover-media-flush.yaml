@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 152
+created_at: "2026-10-17T13:55:57Z"
+label: EPIC-SPA-23 CR-16 strip chip hover + media flush
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-16-strip-hover-media-flush.md
+story_groups:
+- story_key: STORY-SPA-CR-16-strip-hover-media-flush
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-16-strip-hover-media-flush/task-spa-cr-16-t01-react-chip-hover/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-16-strip-hover-media-flush/task-spa-cr-16-t02-media-strip-flush/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-16-strip-hover-media-flush/task-spa-cr-16-t03-vitest-polish/README.md
+notes: |
+  P1.3 APPLY 2026-10-17T13:55:57Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: feed-lab · visual · Path A OP-UX-MIRROR-strip-polish §3 · Partial visual=BLOCK.
+  Skill react-expert (T01–T03). T01–T03 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Operator queueSpec FORCES runtime (Await «делай» superseded). Prior tip pkg-000151 activation was none.
+  Chip hover not full-cell · media-strip flush · no invent HTTP · no M155 · no invent SVG · no invent OP PASS.
+  Await P2 on OP. No P3 yet. No product code this call.

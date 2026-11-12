@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-18T13:30:17.080Z",
+  "base": "http://127.0.0.1:5177",
+  "md5s": [
+    {
+      "file": "01-root-composer.png",
+      "md5": "bae63f95cc3b09e54b04f799b48c6888",
+      "prefix": "bae63f95cc3b"
+    },
+    {
+      "file": "02-reply-context.png",
+      "md5": "9aea4e79bdb77d75597a2190c3f43d2f",
+      "prefix": "9aea4e79bdb7"
+    },
+    {
+      "file": "03-draft-survival.png",
+      "md5": "9aea4e79bdb77d75597a2190c3f43d2f",
+      "prefix": "9aea4e79bdb7"
+    },
+    {
+      "file": "04-post-fail-f.png",
+      "md5": "c7b860be00f0d7025b3f6a0923c77acb",
+      "prefix": "c7b860be00f0"
+    },
+    {
+      "file": "05-mobile-keyboard-390.png",
+      "md5": "5c5a89db9705b8c88a9bf8c5d1f7eb41",
+      "prefix": "5c5a89db9705"
+    }
+  ],
+  "opEye": "Absent"
+}

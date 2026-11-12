@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 114
+created_at: "2026-10-11T15:05:17Z"
+label: EPIC-SPA-20 NF-12 text search FE enable
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-12-text-search-fe-enable.md
+story_groups:
+- story_key: STORY-SPA-NF-12-text-search-fe-enable
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-12-text-search-fe-enable/task-spa-nf-12-t01-build-issues-query-search/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-12-text-search-fe-enable/task-spa-nf-12-t02-toolbar-enable/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-12-text-search-fe-enable/task-spa-nf-12-t03-empty-filter-edges/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-12-text-search-fe-enable/task-spa-nf-12-t04-l10n-live/README.md
+notes: |
+  P1.3 APPLY 2026-10-11T15:05:17Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  OP reorder: tip NF-12 before NF-11 gate (NF-11 Depends NF-12 Done).
+  ui_scope: feed · UX ready M149 search · AD-VP-03/06/04 · local-five + gateway search.
+  Skill react-expert. T01–T04 Todo · ui_anchor T02 (M149).
+  No invent search endpoint — gateway param `search` only (REQ-56).
+  pkg-000113 NF-11 parked until NF-12 Done. Await P2/P3 on OP.

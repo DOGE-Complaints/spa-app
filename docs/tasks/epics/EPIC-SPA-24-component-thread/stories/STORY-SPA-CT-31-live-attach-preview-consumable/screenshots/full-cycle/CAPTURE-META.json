@@ -1,0 +1,47 @@
+{
+  "story": "STORY-SPA-CT-31-live-attach-preview-consumable",
+  "policy": "A",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "liveProbe": {
+    "ct31": "true",
+    "ct30": "true",
+    "ct28": "true",
+    "liveHost": "live",
+    "liveBound": "true",
+    "tm": true
+  },
+  "fxProbe": {
+    "fixtureCount": 30,
+    "ct31OnFixture": false
+  },
+  "md5s": [
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "3fbc934f813e2dac3410a5a6ba2916ac",
+      "prefix": "3fbc934f813e"
+    },
+    {
+      "file": "02-attach-published-paint.png",
+      "md5": "e9554158aebc0bd73ea96fbba9e9ad5e",
+      "prefix": "e9554158aebc"
+    },
+    {
+      "file": "03-loading-or-blob.png",
+      "md5": "9f875740c727d1c271062ec441f44ded",
+      "prefix": "9f875740c727"
+    },
+    {
+      "file": "04-honesty-null-deny.png",
+      "md5": "e9554158aebc0bd73ea96fbba9e9ad5e",
+      "prefix": "e9554158aebc"
+    },
+    {
+      "file": "05-lab-fixture-held.png",
+      "md5": "26541e65d27d736057930408136abf03",
+      "prefix": "26541e65d27d"
+    }
+  ],
+  "fails": [],
+  "note": "Path A structure · policy A host wire · Partial BLOCK · no invent OP PASS / CDN / HTTP-09"
+}

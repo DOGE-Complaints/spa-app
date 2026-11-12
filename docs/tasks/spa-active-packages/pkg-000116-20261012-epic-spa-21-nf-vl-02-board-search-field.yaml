@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 116
+created_at: "2026-10-12T13:06:20Z"
+label: EPIC-SPA-21 NF-VL-02 board search field
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/EPIC-SPA-21-next-feed-vl.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-vl/STORY-SPA-NF-VL-02-board-search-field.md
+story_groups:
+- story_key: STORY-SPA-NF-VL-02-board-search-field
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-02-board-search-field/task-spa-nf-vl-02-t01-as-is-shelter-map/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-02-board-search-field/task-spa-nf-vl-02-t02-ds-search-modules/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-02-board-search-field/task-spa-nf-vl-02-t03-semantics-seam/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-02-board-search-field/task-spa-nf-vl-02-t04-wire-displace-shelter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-02-board-search-field/task-spa-nf-vl-02-t05-anti-mixing-verify/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-02-board-search-field/task-spa-nf-vl-02-t06-docs-residual/README.md
+notes: |
+  P1.3 APPLY 2026-10-12T13:06:20Z. input_mode=backlog_story. REUSE EPIC-SPA-21.
+  ui_scope: feed · UX ready M149 + DS SSOT §4 · AD-VL-01/02 · local-five mandatory.
+  Skill react-expert. T01–T06 Todo · ui_anchor T02+T04+T05.
+  No invent search param/API. No mutate #/board. No reopen NF-12 body.
+  Await P2/P3 on OP (this fence stops at P1.3).

@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 83
+created_at: "2026-09-24T07:30:38Z"
+label: EPIC-SPA-14 THR-07 threads client knobs tree wire
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/EPIC-SPA-14-threads-feed-ux.md
+decision_ref: spa-app/docs/tasks/backlog-stories/threads-feed/STORY-SPA-THR-07-threads-client-knobs-tree-wire.md
+story_groups:
+- story_key: STORY-SPA-THR-07-threads-client-knobs-tree-wire
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-07-threads-client-knobs-tree-wire/task-spa-thr-07-t01-vite-threads-base-url/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-07-threads-client-knobs-tree-wire/task-spa-thr-07-t02-close-knobs-tree-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-07-threads-client-knobs-tree-wire/task-spa-thr-07-t03-knobs-cache/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-07-threads-client-knobs-tree-wire/task-spa-thr-07-t04-map-tree-to-block/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-07-threads-client-knobs-tree-wire/task-spa-thr-07-t05-board-issue-mounts/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-07-threads-client-knobs-tree-wire/task-spa-thr-07-t06-vitest-contract/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-07-threads-client-knobs-tree-wire/task-spa-thr-07-t07-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-09-24T07:30:38Z. input_mode=backlog_story. ui_scope: none — console clean (NO UX appendix / NOT p3Ux).
+  REUSE EPIC-SPA-14 + T01–T07. No @mockup.
+  Closed paths only: GET /threads/knobs + GET /threads/issues/{issue_id}. No /threads/by-issue.
+  Do not start THR-08/09 this packet. Do not mix BUG/SSR pkgs. Do not retire spa_thr_* / spa_ssr_* / spa_bug_*.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T07 Todo. STOP before P4 after P3.

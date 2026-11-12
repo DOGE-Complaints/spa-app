@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 166
+created_at: "2026-10-18T14:03:04Z"
+label: EPIC-SPA-24 CT-08 Lab feed cutover ThreadMount
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-08-lab-feed-cutover.md
+story_groups:
+- story_key: STORY-SPA-CT-08-lab-feed-cutover
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-08-lab-feed-cutover/task-spa-ct-08-t01-feed-lab-host/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-08-lab-feed-cutover/task-spa-ct-08-t02-card-cutover/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-08-lab-feed-cutover/task-spa-ct-08-t03-fixtures-stands/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-08-lab-feed-cutover/task-spa-ct-08-t04-vitest-cutover/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T14:03:04Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX-MIRROR §4.4 L-cut/L-fix · #/lab/feed · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: wire ThreadMount on #/lab/feed only · ban FeedDiscussionBlock on lab Done · no invent HTTP/OP PASS · not #/next/feed/#/board.
+  Prior tip pkg-000165 · CT-07 P5. Await P2 on OP. No P3 yet. No product code this call.

@@ -1,0 +1,47 @@
+{
+  "story": "STORY-SPA-NF-19-map-basemap-follows-theme",
+  "utc": "2026-10-21T19:39:20.126Z",
+  "visual_gate": "BLOCK",
+  "partial": true,
+  "op_eye": "Absent",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "58536659978a022796629576dcc5e0bf",
+      "prefix": "58536659978a"
+    },
+    {
+      "file": "01-next-feed-map-host.png",
+      "md5": "58536659978a022796629576dcc5e0bf",
+      "prefix": "58536659978a"
+    },
+    {
+      "file": "02-light-positron.png",
+      "md5": "75058aa997a6883328b9026feb0a553f",
+      "prefix": "75058aa997a6"
+    },
+    {
+      "file": "03-dark-matter.png",
+      "md5": "6d664f60004057c1f999e3b831731cb5",
+      "prefix": "6d664f600040"
+    },
+    {
+      "file": "04-theme-toggle-setstyle.png",
+      "md5": "75058aa997a6883328b9026feb0a553f",
+      "prefix": "75058aa997a6"
+    },
+    {
+      "file": "05-narrow-map.png",
+      "md5": "f1b0d4a853360f78529064fede6a783b",
+      "prefix": "f1b0d4a85336"
+    }
+  ],
+  "probe_final": {
+    "theme": "light",
+    "basemap": "light",
+    "styleUrl": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+    "hasMap": true,
+    "mapArea": true
+  }
+}

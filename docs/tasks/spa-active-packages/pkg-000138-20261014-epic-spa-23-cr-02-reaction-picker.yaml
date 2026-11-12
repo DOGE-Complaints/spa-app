@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 138
+created_at: "2026-10-14T11:16:22Z"
+label: EPIC-SPA-23 CR-02 reaction picker
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-02-reaction-picker.md
+story_groups:
+- story_key: STORY-SPA-CR-02-reaction-picker
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-02-reaction-picker/task-spa-cr-02-t01-desktop-popover/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-02-reaction-picker/task-spa-cr-02-t02-mobile-sheet/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-02-reaction-picker/task-spa-cr-02-t03-capacity-xor-react-opens/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-02-reaction-picker/task-spa-cr-02-t04-save-error-restore/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-02-reaction-picker/task-spa-cr-02-t05-l10n-vitest-picker/README.md
+notes: |
+  P1.3 APPLY 2026-10-14T11:16:22Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount · visual|mixed · Path A M154 panels B–E · Partial visual=BLOCK.
+  Skill react-expert (T05 test-master). T01–T05 Todo · NO STORY-UX-MOCKUP-BRIEF.
+  Code home features/reactions-mount/ picker · Depends CR-01 structure Present · CR-icon/CR-api Done · M155 OOS.
+  REUSE existing pipeline tree (no duplicate). Await P2 on OP. No P3 yet.

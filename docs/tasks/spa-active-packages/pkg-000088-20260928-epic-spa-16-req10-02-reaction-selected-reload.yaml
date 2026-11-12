@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 88
+created_at: "2026-09-28T18:17:14Z"
+label: EPIC-SPA-16 REQ10-02 Option A selected reload (root + comments)
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-16-req10-threads-reaction-reload-honesty/EPIC-SPA-16-req10-threads-reaction-reload-honesty.md
+decision_ref: spa-app/docs/tasks/backlog-stories/req10-threads-reaction-reload-honesty/STORY-SPA-REQ10-02-reaction-selected-reload.md
+story_groups:
+- story_key: STORY-SPA-REQ10-02-reaction-selected-reload
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-16-req10-threads-reaction-reload-honesty/stories/STORY-SPA-REQ10-02-reaction-selected-reload/task-spa-req10-02-t01-mapper-selected-option-a/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-16-req10-threads-reaction-reload-honesty/stories/STORY-SPA-REQ10-02-reaction-selected-reload/task-spa-req10-02-t02-mount-root-initial-selected/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-16-req10-threads-reaction-reload-honesty/stories/STORY-SPA-REQ10-02-reaction-selected-reload/task-spa-req10-02-t03-comment-tree-initial-selected/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-16-req10-threads-reaction-reload-honesty/stories/STORY-SPA-REQ10-02-reaction-selected-reload/task-spa-req10-02-t04-vitest-keep-write-no-invent/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-16-req10-threads-reaction-reload-honesty/stories/STORY-SPA-REQ10-02-reaction-selected-reload/task-spa-req10-02-t05-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-09-28T18:17:14Z. input_mode=backlog_story. ui_scope: none — UX SKIP.
+  REUSE EPIC-SPA-16 + T01–T05. Option A selected → initialSelected (root + comments).
+  Unblock: threads STORY-THREADS-REQ10-05 Status Done (spa Meta Blocked stale).
+  No invent HTTP · no Option B · H9 not Pass · Skill react-expert.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T05 Todo. STOP before P3 until OP.

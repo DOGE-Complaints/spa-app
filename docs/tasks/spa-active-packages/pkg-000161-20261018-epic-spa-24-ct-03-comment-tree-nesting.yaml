@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 161
+created_at: "2026-10-18T13:17:37Z"
+label: EPIC-SPA-24 CT-03 CommentTree nesting max_depth
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-03-comment-tree-nesting.md
+story_groups:
+- story_key: STORY-SPA-CT-03-comment-tree-nesting
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-03-comment-tree-nesting/task-spa-ct-03-t01-config-depth/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-03-comment-tree-nesting/task-spa-ct-03-t02-comment-tree/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-03-comment-tree-nesting/task-spa-ct-03-t03-comment-node/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-03-comment-tree-nesting/task-spa-ct-03-t04-fixture-tree/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-03-comment-tree-nesting/task-spa-ct-03-t05-vitest-nest/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T13:17:37Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX-MIRROR §4.2 T-A/T-cap/T-depth/T-B · M153 A/B · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: no invent HTTP/OP PASS · no fake author chrome · depth only via config/props.
+  Prior tip pkg-000160 · CT-02 P5 APPLY · activation was none after P5. Await P2 on OP. No P3 yet. No product code this call.

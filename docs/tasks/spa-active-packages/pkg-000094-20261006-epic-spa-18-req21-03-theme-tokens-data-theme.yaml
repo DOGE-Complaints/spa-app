@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 94
+created_at: "2026-10-06T20:08:53Z"
+label: EPIC-SPA-18 REQ21-03 theme tokens + data-theme
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/EPIC-SPA-18-ui-modularity-theme-redesign-prep.md
+decision_ref: spa-app/docs/tasks/backlog-stories/ui-modularity-theme-redesign-prep/STORY-SPA-REQ21-03-theme-tokens-data-theme.md
+story_groups:
+- story_key: STORY-SPA-REQ21-03-theme-tokens-data-theme
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-03-theme-tokens-data-theme/task-spa-req21-03-t01-map-package-to-css-vars/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-03-theme-tokens-data-theme/task-spa-req21-03-t02-data-theme-selectors/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-03-theme-tokens-data-theme/task-spa-req21-03-t03-boot-default-dark/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-03-theme-tokens-data-theme/task-spa-req21-03-t04-unit-tests-scheme/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-03-theme-tokens-data-theme/task-spa-req21-03-t05-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-06T20:08:53Z. input_mode=backlog_story. REUSE EPIC-SPA-18.
+  ui_scope: none · UX SKIP (no brief/artboard). Skill javascript-pro.
+  Locks: default dark · data-theme · no OS · dogestonia.theme persistence OOS→REQ21-04.
+  No ThemeToggle · no hex invent beyond tokens package · no MapLibre.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window → P3 T01–T05. STOP before P3 until OP.

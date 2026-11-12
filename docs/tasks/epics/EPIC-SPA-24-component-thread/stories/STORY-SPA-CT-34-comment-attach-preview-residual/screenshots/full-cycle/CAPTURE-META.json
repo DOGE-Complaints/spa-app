@@ -1,0 +1,51 @@
+{
+  "story": "STORY-SPA-CT-34-comment-attach-preview-residual",
+  "pkg": "pkg-000227",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "policy": "A",
+  "probes": {
+    "local": {
+      "ct34": "true",
+      "hasImg": true,
+      "imgSrc": "blob:http://127.0.0.1:5173/72a4a071-897b-4b16-87d6-13c6c52eb1bf",
+      "local": "true",
+      "textPlateOnly": false
+    },
+    "published": {
+      "hasImg": true,
+      "imgSrc": "/icons/next-feed/actions/reply.svg",
+      "local": "false",
+      "textPlateOnly": false
+    }
+  },
+  "md5s": [
+    {
+      "file": "01-local-objecturl-preview-1536x1024.png",
+      "md5": "ceaa5a6403c16616191d03acd5e132ab",
+      "prefix": "ceaa5a6403c1"
+    },
+    {
+      "file": "02-published-preview-1536x1024.png",
+      "md5": "46e8841be139174d2350361a83fbad6e",
+      "prefix": "46e8841be139"
+    },
+    {
+      "file": "03-narrow-local-390x844.png",
+      "md5": "b070572285402262f088909ca6d8922c",
+      "prefix": "b07057228540"
+    },
+    {
+      "file": "04-local-dark-1536x1024.png",
+      "md5": "30133cdccb0e16c39f8af1ae06679ada",
+      "prefix": "30133cdccb0e"
+    },
+    {
+      "file": "05-ct22-stands-overview-1536x1024.png",
+      "md5": "cf2987a1ab1a0dcd66b91c6079e77256",
+      "prefix": "cf2987a1ab1a"
+    }
+  ],
+  "fails": [],
+  "note": "Path A structure · local+published img · Partial BLOCK · no invent OP PASS / CDN / policy B"
+}

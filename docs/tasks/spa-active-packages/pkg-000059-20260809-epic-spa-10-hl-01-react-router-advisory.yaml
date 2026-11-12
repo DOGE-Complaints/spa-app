@@ -1,0 +1,15 @@
+schema_version: 1
+package_sequence: 59
+created_at: "2026-08-09T09:47:19Z"
+label: EPIC-SPA-10 HL-01 react-router advisory triage
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/EPIC-SPA-10-hardening-cto-audit.md
+decision_ref: spa-app/docs/tasks/backlog-stories/hardening-cto-audit-2026-08/STORY-SPA-HL-01-react-router-advisory-triage.md
+story_groups:
+- story_key: STORY-SPA-HL-01-react-router-advisory-triage
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-01-react-router-advisory-triage/task-spa-hl-01-t01-ghsa-applicability-matrix/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-01-react-router-advisory-triage/task-spa-hl-01-t02-upgrade-or-waive/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-01-react-router-advisory-triage/task-spa-hl-01-t03-regression-verify-security/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-01-react-router-advisory-triage/task-spa-hl-01-t04-story-gate-hl-01/README.md

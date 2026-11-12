@@ -1,0 +1,62 @@
+{
+  "story": "STORY-SPA-NS-18-profile-mobile-layout",
+  "pkg": "pkg-000231",
+  "gate": "BLOCK",
+  "reason": "OP eye Absent · Partial visual=BLOCK · structure probes only · no invent PASS · CAB-08 gates held",
+  "op_eye": "Absent",
+  "fails": [],
+  "probes": {
+    "mobile": {
+      "present": true,
+      "lab": "true",
+      "harmony": "m178",
+      "hasEmail": true,
+      "hasCreated": true,
+      "writingMode": "horizontal-tb",
+      "cab08": "wallet-contrib-gated",
+      "hasWalletSlot": false,
+      "hasContribSlot": false,
+      "shellWidth": 390,
+      "mainWidth": 390,
+      "mainMax": "100%",
+      "sidebarDisplay": "none",
+      "rightPresent": false,
+      "boardMainClass": "app-shell__body board-main"
+    },
+    "dark": {
+      "present": true,
+      "lab": "true",
+      "harmony": "m178",
+      "hasEmail": true,
+      "hasCreated": true,
+      "writingMode": "horizontal-tb",
+      "cab08": "wallet-contrib-gated",
+      "hasWalletSlot": false,
+      "hasContribSlot": false,
+      "shellWidth": 390,
+      "mainWidth": 390,
+      "mainMax": "100%",
+      "sidebarDisplay": "none",
+      "rightPresent": false,
+      "boardMainClass": "app-shell__body board-main"
+    }
+  },
+  "md5s": [
+    {
+      "file": "01-profile-account-rows-390x844.png",
+      "md5": "e9079ffaecba66ac1e2232cfddb75d70",
+      "prefix": "e9079ffaecba"
+    },
+    {
+      "file": "02-profile-shell-fullwidth-390x844.png",
+      "md5": "706ec2511cafd52ca29f80b013edb194",
+      "prefix": "706ec2511caf"
+    },
+    {
+      "file": "03-profile-mobile-dark-390x844.png",
+      "md5": "827693d0480c544ec67bbc6cbd4a8afa",
+      "prefix": "827693d0480c"
+    }
+  ],
+  "utc": "2026-10-25T10:21:17.748Z"
+}

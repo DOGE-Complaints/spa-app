@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 170
+created_at: "2026-10-19T12:21:59Z"
+label: EPIC-SPA-24 CT-12 Inline reply placement
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-12-inline-reply-placement.md
+story_groups:
+- story_key: STORY-SPA-CT-12-inline-reply-placement
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-12-inline-reply-placement/task-spa-ct-12-t01-reply-slot-contract/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-12-inline-reply-placement/task-spa-ct-12-t02-mount-split/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-12-inline-reply-placement/task-spa-ct-12-t03-cancel-clear/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-12-inline-reply-placement/task-spa-ct-12-t04-draft-gate-hold/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-12-inline-reply-placement/task-spa-ct-12-t05-vitest-inline/README.md
+notes: |
+  P1.3 APPLY 2026-10-19T12:21:59Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX residual §3 G-H4 · M153-C · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: reply under parent · root bottom · single draft owner · no invent HTTP/OP PASS.
+  Prior tip pkg-000169 · CT-11. Await P2 on OP. No P3 yet. No product code this call.

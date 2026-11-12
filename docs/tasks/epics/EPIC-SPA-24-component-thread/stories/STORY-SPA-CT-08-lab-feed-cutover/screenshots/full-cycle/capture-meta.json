@@ -1,0 +1,53 @@
+{
+  "story": "CT-08",
+  "route": "#/lab/feed",
+  "md5s": [
+    {
+      "file": "01-stand-loading.png",
+      "md5": "e3cb965b5d7e40ba75c69ab46c9ff753",
+      "prefix": "e3cb965b5d7e"
+    },
+    {
+      "file": "02-stand-empty.png",
+      "md5": "c4b74486af3bfaf539a209737a089929",
+      "prefix": "c4b74486af3b"
+    },
+    {
+      "file": "03-stand-populated.png",
+      "md5": "f3084a5baced4e5f429fd19912c6fa78",
+      "prefix": "f3084a5baced"
+    },
+    {
+      "file": "04-stand-unavailable.png",
+      "md5": "61c177cbf15b9a508045ce7987edfe55",
+      "prefix": "61c177cbf15b"
+    },
+    {
+      "file": "05-stand-narrow.png",
+      "md5": "e0ec533d1225c7c100162d39fcc4eb7d",
+      "prefix": "e0ec533d1225"
+    },
+    {
+      "file": "06-stand-tree-nest.png",
+      "md5": "12fc80c2a770cfb6d3f88d017d8a0948",
+      "prefix": "12fc80c2a770"
+    },
+    {
+      "file": "07-stand-gate.png",
+      "md5": "1b9d6d753efd1d972bc295994700bec7",
+      "prefix": "1b9d6d753efd"
+    },
+    {
+      "file": "08-card-thread-cutover.png",
+      "md5": "ac0e5e83d29084682276ff0e62c99941",
+      "prefix": "ac0e5e83d290"
+    }
+  ],
+  "cardMeta": {
+    "ct08": "true",
+    "threadMount": "true",
+    "expanded": "true",
+    "plane": false,
+    "visualDone": "false"
+  }
+}

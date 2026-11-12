@@ -1,0 +1,55 @@
+{
+  "story": "STORY-SPA-PH-14-how-it-works-deep-redesign",
+  "captured_at": "2026-10-23T15:05:43.614Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_et": false,
+  "invent_telegram_url": false,
+  "invent_gpt_url": false,
+  "fails": [],
+  "probe": {
+    "hasBoardHint": false,
+    "hasGptHandoff": false,
+    "feedHref": "#/next/feed",
+    "inlineHref": "#/next/feed",
+    "landingHref": "https://uus-veerenni-civic.dogestonia.me/#how-it-works",
+    "landingLabel": "Concept & FAQ on landing",
+    "telegramLabel": "Start interview in Telegram",
+    "hasTelegram": true,
+    "hasSubmit": false,
+    "stepCount": 4,
+    "visualCount": 4,
+    "ctaJustify": "flex-start",
+    "noticeTitle": true,
+    "feedLabel": "Go to Feed"
+  },
+  "md5s": [
+    {
+      "file": "01-page-desktop.png",
+      "md5": "c90ad5486efccca33214883ff8d6304e",
+      "prefix": "c90ad5486efc"
+    },
+    {
+      "file": "02-cta-leftward.png",
+      "md5": "50402c0625b49b9b51f58fa0470b272d",
+      "prefix": "50402c0625b4"
+    },
+    {
+      "file": "03-step02-telegram.png",
+      "md5": "d292433d900b484de8d726f79a83d050",
+      "prefix": "d292433d900b"
+    },
+    {
+      "file": "04-step03-feed.png",
+      "md5": "8b39660b6fb2c902755f7452effc189a",
+      "prefix": "8b39660b6fb2"
+    },
+    {
+      "file": "05-page-mobile-390.png",
+      "md5": "2ea064b061158b1028eb827fa9fa2f3c",
+      "prefix": "2ea064b06115"
+    }
+  ]
+}

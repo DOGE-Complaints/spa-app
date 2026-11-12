@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 81
+created_at: "2026-09-22T21:53:24Z"
+label: EPIC-SPA-14 THR-05 verify-before-write gate
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/EPIC-SPA-14-threads-feed-ux.md
+decision_ref: spa-app/docs/tasks/backlog-stories/threads-feed/STORY-SPA-THR-05-verify-write-gate.md
+story_groups:
+- story_key: STORY-SPA-THR-05-verify-write-gate
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-05-verify-write-gate/task-spa-thr-05-t01-write-gate-identity-verified/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-05-verify-write-gate/task-spa-thr-05-t02-verify-returnto-handoff/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-05-verify-write-gate/task-spa-thr-05-t03-opaque-verified-chrome/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-05-verify-write-gate/task-spa-thr-05-t04-l10n-verify-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-05-verify-write-gate/task-spa-thr-05-t05-vitest-gate-opaque/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-05-verify-write-gate/task-spa-thr-05-t06-story-gate-thr-05/README.md
+notes: |
+  P1.3 APPLY 2026-09-22T21:53:24Z. input_mode=backlog_story. ui_scope: mixed. UX ready M147 — brief skip.
+  REUSE EPIC-SPA-14 + T01–T06. @mockup on T01–T03/T06 + pipeline story.
+  Gate on identity_verified NOT phone_verified alone. Opaque Verified. No invent pack JSON keys.
+  Do not start THR-06. Do not mix BUG/SSR pkgs. Do not retire spa_thr_* / spa_ssr_* / spa_bug_*.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T06 Todo.

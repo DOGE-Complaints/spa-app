@@ -1,0 +1,26 @@
+schema_version: 1
+package_sequence: 218
+created_at: "2026-10-23T14:58:15Z"
+label: EPIC-SPA-09 PH-14 how it works deep redesign
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-14-how-it-works-deep-redesign.md
+story_groups:
+- story_key: STORY-SPA-PH-14-how-it-works-deep-redesign
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-14-how-it-works-deep-redesign/task-spa-ph-14-t01-layout/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-14-how-it-works-deep-redesign/task-spa-ph-14-t02-copy/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-14-how-it-works-deep-redesign/task-spa-ph-14-t03-cta/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-14-how-it-works-deep-redesign/task-spa-ph-14-t04-vitest/README.md
+notes: |
+  P3 Execute 2026-10-23T15:05:33Z wave OP-spa nf24-wave4-20261023.
+  input_mode=backlog_story. REUSE EPIC-SPA-09-public-shell-home. ui_scope: how-it-works /
+  public-home · mixed · Path A p13UxReady M171 · Interview H6 · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04 Done).
+  Hard: deep layout/visual tip · RU verbatim · EN from M171 · no invent ET ·
+  CTA FAQ leftward with Go to Feed · routes held · Vitest · OP eye ·
+  no invent OP PASS · no invent landing HTML · no invent GPT/Telegram URL.
+  OOS PH-15 static pages · invent landing HTML.
+  Tip after pkg-000217. activation active. gate BLOCK · CAPTURE-META fails:[].
+  Await P4.

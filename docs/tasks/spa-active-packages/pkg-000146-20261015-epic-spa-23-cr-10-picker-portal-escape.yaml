@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 146
+created_at: "2026-10-15T19:54:49Z"
+label: EPIC-SPA-23 CR-10 picker portal escape P1
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-10-picker-portal-escape.md
+story_groups:
+- story_key: STORY-SPA-CR-10-picker-portal-escape
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-10-picker-portal-escape/task-spa-cr-10-t01-popover-portal-fixed/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-10-picker-portal-escape/task-spa-cr-10-t02-anchor-measure-reposition/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-10-picker-portal-escape/task-spa-cr-10-t03-dismiss-zindex-portal/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-10-picker-portal-escape/task-spa-cr-10-t04-vitest-portal-escape/README.md
+notes: |
+  P1.3 APPLY 2026-10-15T19:54:49Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: feed-lab · mixed · Path A M154 + OP-UX-MIRROR composition §3.3 · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Desktop createPortal→body · fixed from zone-1 · CR-05 dismiss · CR-06 layout held.
+  Forbidden primary: remove FeedPostCard overflow:hidden.
+  Depends CR-09 structure Present · CR-05 · CR-06 (visual BLOCK residual Related).
+  Theme CR-08 OOS · strip CR-09 OOS · M155 OOS · invent HTTP OOS · #/next/feed OOS.
+  Await P2 on OP. No P3 yet. No product code this call.

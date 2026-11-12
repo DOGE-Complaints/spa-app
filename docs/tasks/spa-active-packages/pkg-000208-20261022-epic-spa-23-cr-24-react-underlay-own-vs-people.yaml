@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 208
+created_at: "2026-10-22T14:56:25Z"
+label: EPIC-SPA-23 CR-24 react underlay own vs people
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-24-react-underlay-own-vs-people.md
+story_groups:
+- story_key: STORY-SPA-CR-24-react-underlay-own-vs-people
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-24-react-underlay-own-vs-people/task-spa-cr-24-t01-underlay/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-24-react-underlay-own-vs-people/task-spa-cr-24-t02-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-24-react-underlay-own-vs-people/task-spa-cr-24-t03-own-in-zone/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-24-react-underlay-own-vs-people/task-spa-cr-24-t04-vitest/README.md
+notes: |
+  P3 Execute Done 2026-10-22T15:04:21Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions. ui_scope: reactions-mount /
+  next-feed soft host · mixed · Path A p13UxReady M163/M164 · Interview Rx7 · intake Present ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04 Done).
+  Hard: wide underlay · React≠people · Reactions≠picker · own icons in-zone · stable 0/1/2/3 ·
+  no below-row · no invent OP PASS · no invent CDN · no invent M163 PNG · no invent people.
+  OOS CR-25 hydrate · CT-33 · invent CDN · invent M163 PNG.
+  Path A CAPTURE-META fails:[] · gate BLOCK · OP eye Absent · Await P4/P5.
+  Tip. activation active.

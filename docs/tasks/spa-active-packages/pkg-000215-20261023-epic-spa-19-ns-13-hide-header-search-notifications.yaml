@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 215
+created_at: "2026-10-23T14:10:21Z"
+label: EPIC-SPA-19 NS-13 hide header search notifications
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-13-hide-header-search-notifications.md
+story_groups:
+- story_key: STORY-SPA-NS-13-hide-header-search-notifications
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-13-hide-header-search-notifications/task-spa-ns-13-t01-flag/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-13-hide-header-search-notifications/task-spa-ns-13-t02-a11y/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-13-hide-header-search-notifications/task-spa-ns-13-t03-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-23T14:10:21Z wave OP-spa nf24-wave4-20261023.
+  input_mode=backlog_story. REUSE EPIC-SPA-19-next-shell. ui_scope: shell ·
+  mixed · Path A p13UxReady evidence 07 · Interview H7 · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T03 Todo).
+  Hard: gate/hide search+notifications · keep code · a11y no focusable ·
+  locale/theme/account held · Vitest · OP eye · no invent OP PASS / search API.
+  OOS NS-14 Brand PNG · invent notification center.
+  Tip after pkg-000214. activation active.
+  Await P2 on OP. No P3 yet. No product code this call.

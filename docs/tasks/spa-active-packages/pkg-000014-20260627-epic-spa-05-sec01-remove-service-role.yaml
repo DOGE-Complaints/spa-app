@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 14
+created_at: "2026-06-27T19:25:52Z"
+label: EPIC-SPA-05 SEC-01 remove service_role from frontend
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/EPIC-SPA-05-security-hardening.md
+decision_ref: spa-app/docs/tasks/backlog-stories/security-hardening/STORY-SPA-SEC-01-remove-service-role-from-frontend.md
+story_groups:
+- story_key: STORY-SPA-SEC-01-remove-service-role-from-frontend
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-01-remove-service-role-from-frontend/task-spa-sec-01-t01-purge-service-role-from-env/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-01-remove-service-role-from-frontend/task-spa-sec-01-t02-env-example-never-on-frontend-warning/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-01-remove-service-role-from-frontend/task-spa-sec-01-t03-vite-service-role-guard-test/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-01-remove-service-role-from-frontend/task-spa-sec-01-t04-bundle-no-service-role-verification/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-01-remove-service-role-from-frontend/task-spa-sec-01-t05-rotation-decision-sec04-sync/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-01-remove-service-role-from-frontend/task-spa-sec-01-t06-story-gate-sec-01/README.md

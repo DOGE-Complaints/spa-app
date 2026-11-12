@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 8
+created_at: "2026-06-17T12:00:00Z"
+label: EPIC-SPA-03 SEARCH-01 vocabulary alignment
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/EPIC-SPA-03-search-and-filters.md
+decision_ref: spa-app/docs/tasks/backlog-stories/search-and-filters/STORY-SPA-SEARCH-01-vocabulary-alignment.md
+story_groups:
+- story_key: STORY-SPA-SEARCH-01-vocabulary-alignment
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-01-vocabulary-alignment/task-spa-search-01-t01-domain-enums-gateway-alignment/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-01-vocabulary-alignment/task-spa-search-01-t02-i18n-vocabulary-dictionaries/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-01-vocabulary-alignment/task-spa-search-01-t03-status-badge-board-columns/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-01-vocabulary-alignment/task-spa-search-01-t04-board-query-mock-seed-alignment/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-01-vocabulary-alignment/task-spa-search-01-t05-tests-vocabulary-regression/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-01-vocabulary-alignment/task-spa-search-01-t06-sync-doc-touchpoints-search01/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-03-search-and-filters/stories/STORY-SPA-SEARCH-01-vocabulary-alignment/task-spa-search-01-t07-story-acceptance-verification/README.md

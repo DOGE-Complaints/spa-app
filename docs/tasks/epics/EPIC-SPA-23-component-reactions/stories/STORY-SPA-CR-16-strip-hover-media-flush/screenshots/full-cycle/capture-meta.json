@@ -1,0 +1,49 @@
+{
+  "captured_utc": "2026-10-17T13:58:47.217Z",
+  "routes": [
+    "#/lab/feed"
+  ],
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  },
+  "facts": {
+    "cardCr16": "true",
+    "mediaFlush": "true",
+    "stripZones": "4",
+    "reactChip": "true",
+    "mediaNextIsStrip": true,
+    "reactBg": "rgba(0, 0, 0, 0)",
+    "zoneBg": "rgba(0, 0, 0, 0)",
+    "visualDone": "false"
+  },
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "files": [
+    {
+      "file": "01-lab-feed-cr16-chip-hover-1536x1024.png",
+      "md5": "030c50836d897b750b7fccd292ca2ab1",
+      "prefix": "030c50836d89"
+    },
+    {
+      "file": "02-lab-feed-cr16-media-strip-flush-1536x1024.png",
+      "md5": "8210ab0f76ecbcc1c35b665ec70755a2",
+      "prefix": "8210ab0f76ec"
+    },
+    {
+      "file": "03-lab-feed-cr16-selected-chip-1536x1024.png",
+      "md5": "6f920a323c3e80579385a73509f84768",
+      "prefix": "6f920a323c3e"
+    },
+    {
+      "file": "04-lab-feed-cr16-detail-parity-1536x1024.png",
+      "md5": "bb86a45c166d48a4dae5b676f95d1dae",
+      "prefix": "bb86a45c166d"
+    },
+    {
+      "file": "05-lab-feed-cr16-rest-zones-1536x1024.png",
+      "md5": "5afb1c2cc95767e640f53962784fde2e",
+      "prefix": "5afb1c2cc957"
+    }
+  ]
+}

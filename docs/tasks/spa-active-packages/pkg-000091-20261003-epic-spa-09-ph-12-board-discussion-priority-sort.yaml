@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 91
+created_at: "2026-10-03T15:28:25Z"
+label: EPIC-SPA-09 PH-12 board discussion priority sort
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-12-board-discussion-priority-sort.md
+story_groups:
+- story_key: STORY-SPA-PH-12-board-discussion-priority-sort
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-12-board-discussion-priority-sort/task-spa-ph-12-t01-discussion-definition-and-helper/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-12-board-discussion-priority-sort/task-spa-ph-12-t02-prefetch-discussion-flags/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-12-board-discussion-priority-sort/task-spa-ph-12-t03-board-list-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-12-board-discussion-priority-sort/task-spa-ph-12-t04-filter-regression/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-12-board-discussion-priority-sort/task-spa-ph-12-t05-ph04-states/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-12-board-discussion-priority-sort/task-spa-ph-12-t06-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-03T15:28:25Z. input_mode=backlog_story. REUSE EPIC-SPA-09.
+  ui_scope: none · UX brief skipped (logic-only List sort; FR-PH-12.5 no chrome).
+  Spa-owned sort after SEARCH filter via Closed getThreadTree prefetch. Skill javascript-pro.
+  Do not invent HTTP. Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T06 Todo. STOP before P3 until OP.

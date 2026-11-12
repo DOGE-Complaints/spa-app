@@ -1,0 +1,68 @@
+{
+  "story": "STORY-SPA-CT-32-thread-dark-chrome",
+  "captured_at": "2026-10-21T20:26:46.875Z",
+  "base": "http://127.0.0.1:5173",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "fails": [],
+  "soft_fails": [],
+  "probe": {
+    "thread": {
+      "theme": "dark",
+      "bubbleBg": "rgb(23, 37, 56)",
+      "bubbleColor": "rgb(255, 255, 255)",
+      "showMoreColor": "rgb(83, 177, 253)",
+      "typeMask": true,
+      "closeMask": false,
+      "feedMaskCount": 22,
+      "ns07OnPage": 30
+    },
+    "mount": {
+      "theme": "dark",
+      "bubbleBg": null,
+      "bubbleColor": null,
+      "showMoreColor": null,
+      "typeMask": true,
+      "closeMask": true,
+      "feedMaskCount": 26,
+      "ns07OnPage": 55
+    },
+    "light": {
+      "theme": "light",
+      "bubbleBg": null,
+      "bubbleColor": null,
+      "showMoreColor": null,
+      "typeMask": true,
+      "closeMask": false,
+      "feedMaskCount": 24,
+      "ns07OnPage": 51
+    }
+  },
+  "md5s": [
+    {
+      "file": "01-next-feed-host-light.png",
+      "md5": "3c371a4f495f27da3f9c1927cc44ab54",
+      "prefix": "3c371a4f495f"
+    },
+    {
+      "file": "02-feed-icons-dark.png",
+      "md5": "39bedb5a6b75b8e585f85f21c10be212",
+      "prefix": "39bedb5a6b75"
+    },
+    {
+      "file": "03-thread-bubbles-dark.png",
+      "md5": "d593f4928a9e549cd1041527cfd8d75a",
+      "prefix": "d593f4928a9e"
+    },
+    {
+      "file": "04-type-close-dark.png",
+      "md5": "20542f3e166951a48726958c639ababe",
+      "prefix": "20542f3e1669"
+    },
+    {
+      "file": "05-light-theme-hold.png",
+      "md5": "4d0902d5bb08fc1d073f742e628a8a83",
+      "prefix": "4d0902d5bb08"
+    }
+  ]
+}

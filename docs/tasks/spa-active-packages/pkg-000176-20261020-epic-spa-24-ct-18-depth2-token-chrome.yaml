@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 176
+created_at: "2026-10-20T12:12:55Z"
+label: EPIC-SPA-24 CT-18 M153b depth-2 token chrome A-D
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-18-depth2-token-chrome.md
+story_groups:
+- story_key: STORY-SPA-CT-18-depth2-token-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-18-depth2-token-chrome/task-spa-ct-18-t01-bubble/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-18-depth2-token-chrome/task-spa-ct-18-t02-spine/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-18-depth2-token-chrome/task-spa-ct-18-t03-pills-44/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-18-depth2-token-chrome/task-spa-ct-18-t04-reply-parent/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-18-depth2-token-chrome/task-spa-ct-18-t05-depth2-audit/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T12:12:55Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A M153b §§3–6 · §8 · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: px not rem · no invent hex outside M153b · A–D only · no invent OP PASS/HTTP.
+  Prior tip pkg-000175 · CT-17. Await P2 on OP. No P3 yet. No product code this call.

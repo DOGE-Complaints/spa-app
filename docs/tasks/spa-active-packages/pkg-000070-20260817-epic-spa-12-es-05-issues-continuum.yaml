@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 70
+created_at: "2026-08-17T12:26:25Z"
+label: EPIC-SPA-12 ES-05 issues-continuum
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/EPIC-SPA-12-early-signal-dashboard.md
+decision_ref: spa-app/docs/tasks/backlog-stories/early-signal-dashboard/STORY-SPA-ES-05-issues-continuum-regression.md
+story_groups:
+- story_key: STORY-SPA-ES-05-issues-continuum-regression
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-05-issues-continuum-regression/task-spa-es-05-t01-continuum-layout/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-05-issues-continuum-regression/task-spa-es-05-t02-feed-regression/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-05-issues-continuum-regression/task-spa-es-05-t03-residual-compact-slots/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-05-issues-continuum-regression/task-spa-es-05-t04-rail-topic-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-05-issues-continuum-regression/task-spa-es-05-t05-vitest-ac05-ac07/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-05-issues-continuum-regression/task-spa-es-05-t06-story-gate-es-05/README.md
+notes: |
+  P1.3 APPLY 2026-08-17T12:26:25Z. input_mode=backlog_story. ui_scope: visual. Path A M140.
+  Reuse EPIC-SPA-12. ES-05 only (not ES-01/02/03/04). No STORY-UX-MOCKUP-BRIEF.
+  Next: P2 build window. T01–T06 Todo. Do not start P2 from APPLY.

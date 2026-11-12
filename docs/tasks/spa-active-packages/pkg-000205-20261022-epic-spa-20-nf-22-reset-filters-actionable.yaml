@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 205
+created_at: "2026-10-22T14:08:08Z"
+label: EPIC-SPA-20 NF-22 reset filters actionable cursor
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-22-reset-filters-actionable.md
+story_groups:
+- story_key: STORY-SPA-NF-22-reset-filters-actionable
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-22-reset-filters-actionable/task-spa-nf-22-t01-state/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-22-reset-filters-actionable/task-spa-nf-22-t02-cursor/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-22-reset-filters-actionable/task-spa-nf-22-t03-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-22T14:08:08Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-20-next-feed. ui_scope: feed/filters · soft #/next/feed ·
+  mixed · Path A p13UxReady Interview F4 · ARCH-DELTA §10 · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF ·
+  no UX gen. Skill react-expert (T01–T03).
+  Hard: enablement = isDirty || hasActiveFilters · pointer when actionable ·
+  reset clears applied + pending dirty · no invent OP PASS · no invent new filter fields.
+  OOS NF-21 date color-scheme · NF-23 board deprecate · invent filter fields.
+  Tip after pkg-000204 NF-21 P8. Soft ResetFiltersControl/FeedToolbar Present.
+  Await P2 on OP. No P3 yet. No product code this call.

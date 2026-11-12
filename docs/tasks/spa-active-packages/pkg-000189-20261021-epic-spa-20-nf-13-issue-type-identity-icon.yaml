@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 189
+created_at: "2026-10-21T11:28:13Z"
+label: EPIC-SPA-20 NF-13 issue-type identity icon M161
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-13-issue-type-identity-icon.md
+story_groups:
+- story_key: STORY-SPA-NF-13-issue-type-identity-icon
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-13-issue-type-identity-icon/task-spa-nf-13-t01-catalog-docs/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-13-issue-type-identity-icon/task-spa-nf-13-t02-map/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-13-issue-type-identity-icon/task-spa-nf-13-t03-bind/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-13-issue-type-identity-icon/task-spa-nf-13-t04-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-21T11:28:13Z wave OP-spa nf13-16-ct30-20261021. input_mode=backlog_story.
+  REUSE EPIC-SPA-20-next-feed. ui_scope: feed · mixed · Path A M161 md+PNG Present · types SVG Present ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04).
+  Hard: exact type map · 48×48/24 glyph · unknown omit · no invent aliases/HTTP/OP PASS.
+  Prior tip pkg-000188 · CT-29. Await P2 on OP. No P3 yet. No product code this call.

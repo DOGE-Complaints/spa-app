@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 175
+created_at: "2026-10-20T11:54:18Z"
+label: EPIC-SPA-24 CT-17 M153a attachment picker path
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-17-attachment-picker-path.md
+story_groups:
+- story_key: STORY-SPA-CT-17-attachment-picker-path
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-17-attachment-picker-path/task-spa-ct-17-t01-native-picker/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-17-attachment-picker-path/task-spa-ct-17-t02-family-hook/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-17-attachment-picker-path/task-spa-ct-17-t03-ready-denied-from-pick/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-17-attachment-picker-path/task-spa-ct-17-t04-attach-off/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-17-attachment-picker-path/task-spa-ct-17-t05-vitest-picker/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T11:54:18Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A M153a v1.1 · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: no invent MIME · native picker only · no invent HTTP · fail-closed §18 TBD · no invent OP PASS.
+  Prior tip pkg-000174 · CT-16. Await P2 on OP. No P3 yet. No product code this call.

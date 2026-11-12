@@ -1,0 +1,49 @@
+{
+  "story": "STORY-SPA-NS-13-hide-header-search-notifications",
+  "captured_at": "2026-10-23T14:15:30.722Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_search_api": false,
+  "invent_notification_center": false,
+  "fails": [],
+  "probeLight": {
+    "themeAttr": "dark",
+    "header": true,
+    "ns13": "search-notifications-gated",
+    "search": false,
+    "notif": false,
+    "locale": true,
+    "theme": true,
+    "account": true,
+    "brand": true
+  },
+  "md5s": [
+    {
+      "file": "01-header-no-search-notif-light.png",
+      "md5": "6fdc027bc8724b02cbff057721423d99",
+      "prefix": "6fdc027bc872"
+    },
+    {
+      "file": "02-peers-locale-theme-account.png",
+      "md5": "c0b4ea3afaa80fcf13fb73377f74efb1",
+      "prefix": "c0b4ea3afaa8"
+    },
+    {
+      "file": "03-mobile-header-soft.png",
+      "md5": "44422e703c56daf56a7b0e970e5f3a93",
+      "prefix": "44422e703c56"
+    },
+    {
+      "file": "04-header-dark-held.png",
+      "md5": "218e8492a23d2aa1925be863f1101a3f",
+      "prefix": "218e8492a23d"
+    },
+    {
+      "file": "05-header-honesty.png",
+      "md5": "218e8492a23d2aa1925be863f1101a3f",
+      "prefix": "218e8492a23d"
+    }
+  ]
+}

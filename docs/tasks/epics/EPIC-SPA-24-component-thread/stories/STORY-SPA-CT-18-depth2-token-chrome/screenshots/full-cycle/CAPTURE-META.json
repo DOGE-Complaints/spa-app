@@ -1,0 +1,64 @@
+{
+  "utc": "2026-10-20T12:20:10.626Z",
+  "measure": {
+    "ct18": "true",
+    "bubbleBg": "rgb(247, 246, 242)",
+    "bubbleBorder": "rgb(231, 228, 220)",
+    "bubbleBorderW": "1px",
+    "bubbleRadius": "12px",
+    "bubblePadT": "12px",
+    "bubblePadL": "16px",
+    "indentStep": "44px",
+    "spineColor": "rgb(102, 112, 133)",
+    "spineW": "1px",
+    "elbowColor": "rgb(102, 112, 133)",
+    "elbowRadius": "6px",
+    "groupBg": "rgb(255, 253, 248)",
+    "groupBorder": "rgb(231, 228, 220)",
+    "replyColor": "rgb(181, 71, 8)",
+    "replyMinH": "44px",
+    "replyH": 44,
+    "reactH": 44,
+    "sepH": 16,
+    "sepW": 1,
+    "forbiddenBlueOnReply": false
+  },
+  "d": {
+    "selected": "true",
+    "marker": "true",
+    "cls": "tm-comment-node__bubble tm-comment-node__bubble--reply-parent",
+    "beforeW": "3px",
+    "beforeBg": "rgb(181, 71, 8)",
+    "fill": "rgb(247, 246, 242)"
+  },
+  "md5s": [
+    {
+      "file": "01-a-bubble.png",
+      "md5": "038c0c15b72e9ef7d2e90e81ce9817a2",
+      "prefix": "038c0c15b72e"
+    },
+    {
+      "file": "02-b-spine-elbow.png",
+      "md5": "923915bee67ceee639907e9e45c0c320",
+      "prefix": "923915bee67c"
+    },
+    {
+      "file": "03-c-pills-44.png",
+      "md5": "7dc35d9bd31dd7edfc9722833aa6d5aa",
+      "prefix": "7dc35d9bd31d"
+    },
+    {
+      "file": "04-d-reply-parent.png",
+      "md5": "4cb87448f3e32bd179cd7c487dbfff0b",
+      "prefix": "4cb87448f3e3"
+    },
+    {
+      "file": "05-depth2-audit.png",
+      "md5": "133ecf58c616b42aa2d96ed1fb2cfbb6",
+      "prefix": "133ecf58c616"
+    }
+  ],
+  "fails": [],
+  "opEye": "Absent",
+  "partialVisual": "BLOCK"
+}

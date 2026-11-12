@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 13
+created_at: "2026-06-27T11:57:21Z"
+label: EPIC-SPA-04 ID-01 web authentication
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-01-web-authentication.md
+story_groups:
+- story_key: STORY-SPA-ID-01-web-authentication
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t01-env-deps-supabase-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t02-identity-api-me-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t03-login-route-page-shell/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t04-login-signup-password-flows/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t05-magic-link-forgot-password/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t06-auth-errors-success-redirect/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t07-tests-auth-vitest-puppeteer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-01-web-authentication/task-spa-id-01-t08-story-gate-id-01/README.md

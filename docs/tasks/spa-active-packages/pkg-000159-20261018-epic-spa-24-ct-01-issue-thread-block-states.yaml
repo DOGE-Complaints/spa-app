@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 159
+created_at: "2026-10-18T12:56:22Z"
+label: EPIC-SPA-24 CT-01 IssueThreadBlock states M152
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-01-issue-thread-block-states.md
+story_groups:
+- story_key: STORY-SPA-CT-01-issue-thread-block-states
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-01-issue-thread-block-states/task-spa-ct-01-t01-issue-thread-block/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-01-issue-thread-block-states/task-spa-ct-01-t02-thread-mount-status/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-01-issue-thread-block-states/task-spa-ct-01-t03-fixture-states/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-01-issue-thread-block-states/task-spa-ct-01-t04-narrow-e/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-01-issue-thread-block-states/task-spa-ct-01-t05-vitest-states/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T12:56:22Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A M152 + OP-UX-MIRROR §4.1 · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: no invent HTTP/Identity/OP PASS · thread-mount Write only via tasks after APPLY (P3).
+  Prior tip pkg-000158 · CR-22 P5 APPLY · gate BLOCK. Await P2 on OP. No P3 yet. No product code this call.

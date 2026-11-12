@@ -1,0 +1,26 @@
+{
+  "story": "STORY-SPA-CR-24-react-underlay-own-vs-people",
+  "captured_at": "2026-10-22T15:04:11Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "path_a": "M163/M164",
+  "probe": {
+    "cr24": "m163",
+    "ownInZone": "true",
+    "underlay": "wide",
+    "textOnly": "true",
+    "marksAbsent": true,
+    "reactBg": "rgb(247, 246, 242)",
+    "reactMinH": "72px",
+    "zeroClass": true
+  },
+  "fails": [],
+  "md5s": [
+    { "file": "01-react-wide-underlay.png", "prefix": "bc27f8fe30dd" },
+    { "file": "02-react-opens-picker.png", "prefix": "be91f9a93568" },
+    { "file": "03-reactions-opens-people.png", "prefix": "93d0082d897f" },
+    { "file": "04-own-icons-in-zone.png", "prefix": "a6ddceecd990" },
+    { "file": "05-zero-selected-thumb.png", "prefix": "a6ddceecd990" }
+  ]
+}

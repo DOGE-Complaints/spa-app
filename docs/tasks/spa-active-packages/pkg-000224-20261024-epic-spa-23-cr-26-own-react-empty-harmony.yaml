@@ -1,0 +1,26 @@
+schema_version: 1
+package_sequence: 224
+created_at: "2026-10-24T10:18:37Z"
+label: EPIC-SPA-23 CR-26 own React empty/filled harmony
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-26-own-react-empty-harmony.md
+story_groups:
+- story_key: STORY-SPA-CR-26-own-react-empty-harmony
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-26-own-react-empty-harmony/task-spa-cr-26-t01-ux/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-26-own-react-empty-harmony/task-spa-cr-26-t02-layout/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-26-own-react-empty-harmony/task-spa-cr-26-t03-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-24T10:18:37Z wave OP-spa nf25-wave5-20261024.
+  input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions. ui_scope: reactions-mount /
+  next-feed · mixed · Path A M173 intake PASS · Interview M9 · arch Present ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert
+  (T01 Done · T02–T03 Todo).
+  Hard: empty+filled own React rhythm with Comment · icon-above-label · 3-slot lane ·
+  strip order React→Comment→Share→Reactions · light+dark · Vitest · OP eye ·
+  no invent OP PASS · no invent glyph catalog.
+  OOS CR-27 list hydrate · CR-28 peer empty · invent people API.
+  Tip after pkg-000223. activation active.
+  Await P2 on OP. No P3 yet. No product code this call.

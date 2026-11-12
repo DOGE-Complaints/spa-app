@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 197
+created_at: "2026-10-21T19:27:26Z"
+label: EPIC-SPA-20 NF-19 map basemap follows theme OP M3
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-19-map-basemap-follows-theme.md
+story_groups:
+- story_key: STORY-SPA-NF-19-map-basemap-follows-theme
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-19-map-basemap-follows-theme/task-spa-nf-19-t01-positron-const/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-19-map-basemap-follows-theme/task-spa-nf-19-t02-theme-bind/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-19-map-basemap-follows-theme/task-spa-nf-19-t03-setstyle/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-19-map-basemap-follows-theme/task-spa-nf-19-t04-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-21T19:27:26Z wave OP-spa nf18-20-ns07-ct32-20261021. input_mode=backlog_story.
+  REUSE EPIC-SPA-20-next-feed. ui_scope: map · soft feed · mixed · Path A code lock ·
+  ARCH-DELTA §7 · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04).
+  Hard: basemap follows data-theme · tip Carto positron light · dark-matter dark · setStyle/remount on
+  theme change · shared MapLibre helper · no invent tile vendor/OP PASS · OOS NF-20 · NS-07 · CT-32 · NF-18 held.
+  Prior tip pkg-000196 · NF-18. Await P2 on OP. No P3 yet. No product code this call.

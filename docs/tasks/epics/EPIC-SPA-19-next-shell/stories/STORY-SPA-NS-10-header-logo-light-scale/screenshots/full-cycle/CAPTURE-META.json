@@ -1,0 +1,54 @@
+{
+  "story": "STORY-SPA-NS-10-header-logo-light-scale",
+  "captured_utc": "2026-10-22T13:32:34.093Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "fails": [],
+  "probe": {
+    "theme": "dark",
+    "brandPresent": true,
+    "ns10": true,
+    "href": "#/next/feed",
+    "src": "/assets/DOGEstonia-logo-horizontal-dark.svg",
+    "logoTheme": "dark",
+    "heightPx": 44,
+    "isSvg": true,
+    "isMasterPng": false,
+    "isLightAsset": false,
+    "isDarkAsset": true,
+    "canvasProbe": {
+      "logoH": 44,
+      "logoW": 195.640625,
+      "top": 14
+    },
+    "rectH": 44
+  },
+  "md5s": [
+    {
+      "file": "01-host-light.png",
+      "md5": "2e168201d76a11219095851d40aaec49",
+      "prefix": "2e168201d76a"
+    },
+    {
+      "file": "02-logo-light-no-plate.png",
+      "md5": "7b9ee572e5d97488480e568e5028c19e",
+      "prefix": "7b9ee572e5d9"
+    },
+    {
+      "file": "03-logo-scale-band.png",
+      "md5": "7b9ee572e5d97488480e568e5028c19e",
+      "prefix": "7b9ee572e5d9"
+    },
+    {
+      "file": "05-logo-home-href.png",
+      "md5": "7b9ee572e5d97488480e568e5028c19e",
+      "prefix": "7b9ee572e5d9"
+    },
+    {
+      "file": "04-logo-dark-continuous.png",
+      "md5": "f9c866b1eb2c4a8c5abe9609e091c477",
+      "prefix": "f9c866b1eb2c"
+    }
+  ]
+}

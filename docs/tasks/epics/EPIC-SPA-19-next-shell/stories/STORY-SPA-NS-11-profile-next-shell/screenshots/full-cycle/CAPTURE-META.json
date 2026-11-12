@@ -1,0 +1,52 @@
+{
+  "story": "STORY-SPA-NS-11-profile-next-shell",
+  "captured_at": "2026-10-23T13:49:48.359Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_cdn": false,
+  "invent_cab08": false,
+  "invent_ns12": false,
+  "fails": [],
+  "probeLight": {
+    "theme": "dark",
+    "profileShell": true,
+    "header": true,
+    "rail": true,
+    "footer": true,
+    "workspaceLabel": false,
+    "classicBoardNav": false,
+    "classicProfileNav": false,
+    "mainRegion": true,
+    "brandHref": "#/next/feed",
+    "shellClass": "app-shell next-shell-route next-shell-profile"
+  },
+  "md5s": [
+    {
+      "file": "01-profile-next-shell-light.png",
+      "md5": "0a04c4f27d05e204590395c5df90b88f",
+      "prefix": "0a04c4f27d05"
+    },
+    {
+      "file": "02-profile-no-workspace.png",
+      "md5": "da8797c4447cc404f80a2d80ad87eb8e",
+      "prefix": "da8797c4447c"
+    },
+    {
+      "file": "03-profile-cabinet-main.png",
+      "md5": "caa03acb2619d05d2b1121897bc63903",
+      "prefix": "caa03acb2619"
+    },
+    {
+      "file": "04-profile-footer.png",
+      "md5": "d84d6ecb80cb2477fab2048be5e8e4c6",
+      "prefix": "d84d6ecb80cb"
+    },
+    {
+      "file": "05-profile-dark-held.png",
+      "md5": "429b80d6e94aaa1374985928372c6861",
+      "prefix": "429b80d6e94a"
+    }
+  ]
+}

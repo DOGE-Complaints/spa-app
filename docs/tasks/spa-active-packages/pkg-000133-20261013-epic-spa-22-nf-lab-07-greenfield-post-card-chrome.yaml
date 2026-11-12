@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 133
+created_at: "2026-10-13T15:39:17Z"
+label: EPIC-SPA-22 NF-LAB-07 greenfield post card chrome
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-07-greenfield-post-card-chrome.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-07-greenfield-post-card-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-07-greenfield-post-card-chrome/task-spa-nf-lab-07-t01-scaffold-post-home/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-07-greenfield-post-card-chrome/task-spa-nf-lab-07-t02-compose-card-strip-media/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-07-greenfield-post-card-chrome/task-spa-nf-lab-07-t03-lab-preview-mount/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-07-greenfield-post-card-chrome/task-spa-nf-lab-07-t04-m150-visual-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T15:39:17Z. input_mode=backlog_story. REUSE EPIC-SPA-22-next-feed-lab.
+  ui_scope: feed-lab · visual|mixed · Path A M150 (+M149 rhythm) · Partial visual=BLOCK.
+  Skill react-expert. T01–T04 Todo · NO STORY-UX-MOCKUP-BRIEF.
+  Greenfield features/feed-lab/post/ only · ban *Deprecated · ReactionControls.css · product hosts.
+  #/next/feed unchanged. Await P2/P3 on OP.

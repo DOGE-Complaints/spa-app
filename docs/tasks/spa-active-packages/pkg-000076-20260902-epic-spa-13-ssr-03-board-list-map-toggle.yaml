@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 76
+created_at: "2026-09-02T20:36:05Z"
+label: EPIC-SPA-13 SSR-03 board-list-map-toggle
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/EPIC-SPA-13-semantic-schema-runtime.md
+decision_ref: spa-app/docs/tasks/backlog-stories/semantic-schema-runtime/STORY-SPA-SSR-03-board-list-map-toggle.md
+story_groups:
+- story_key: STORY-SPA-SSR-03-board-list-map-toggle
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-03-board-list-map-toggle/task-spa-ssr-03-t00-maplibre-adr-spike/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-03-board-list-map-toggle/task-spa-ssr-03-t01-list-map-toggle-eligibility/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-03-board-list-map-toggle/task-spa-ssr-03-t02-map-pins-cluster-popup/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-03-board-list-map-toggle/task-spa-ssr-03-t03-list-full-resultset/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-03-board-list-map-toggle/task-spa-ssr-03-t04-preserve-geofilter-url/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-03-board-list-map-toggle/task-spa-ssr-03-t05-vitest-story-gate-ssr-03/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-03-board-list-map-toggle/task-spa-ssr-03-t06-ph04-es05-regression/README.md
+notes: |
+  P1.3 APPLY 2026-09-02T20:36:05Z. input_mode=backlog_story. ui_scope: visual. UX ready M142 — brief skip.
+  REUSE EPIC-SPA-13 + T00–T06. ADR-SSR-03 + ARCHITECTURE-SSR-03 cited; no re-interview.
+  Do not mix BUG-05…08 / ES / reopen SSR-01/02. Do not invent bbox. Do not start P2/P3 from APPLY.
+  Path A @mockup M142 md+png. Do not retire spa_ssr_02 / spa_ssr_01 / spa_bug_05…08 run_modes.
+  Next: P2 build window. T00–T06 Todo.

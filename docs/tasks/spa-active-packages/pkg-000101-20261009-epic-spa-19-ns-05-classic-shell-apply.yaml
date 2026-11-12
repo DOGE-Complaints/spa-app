@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 101
+created_at: "2026-10-09T16:42:01Z"
+label: EPIC-SPA-19 NS-05 classic shell apply D2.3
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-05-classic-shell-apply.md
+story_groups:
+- story_key: STORY-SPA-NS-05-classic-shell-apply
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-05-classic-shell-apply/task-spa-ns-05-t01-apply-shell-classic-routes/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-05-classic-shell-apply/task-spa-ns-05-t02-shelter-list-intact/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-05-classic-shell-apply/task-spa-ns-05-t03-brand-home-still-feed/README.md
+notes: |
+  P1.3 APPLY 2026-10-09T16:42:01Z. input_mode=backlog_story. REUSE EPIC-SPA-19.
+  ui_scope: shell · UX ready Arch 01 §3 D2.3 · NS-X · shell chrome reuse M149 (NS-02…04).
+  Skill react-expert. T01–T03 Todo · ui_anchor T01 · no separate gate T04.
+  Do not invent BoardFeed/feed body on classic/dual shell/new SVG/HTTP.
+  Do not flip `/` (NS-06). Do not git push. Await P2/P3 on OP.

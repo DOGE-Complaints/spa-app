@@ -1,0 +1,44 @@
+{
+  "utc": "2026-10-18T13:11:39.872Z",
+  "base": "http://127.0.0.1:5175",
+  "publicId": "DOGEstonia-UusVeerenni-001",
+  "md5s": [
+    {
+      "file": "03-strip-dumb.png",
+      "md5": "b17b1f6519d37627d428ff035c1c115a",
+      "prefix": "b17b1f6519d3"
+    },
+    {
+      "file": "05-reactions-held.png",
+      "md5": "ad797c4f13cb065319fd653b030a1e9f",
+      "prefix": "ad797c4f13cb"
+    },
+    {
+      "file": "01-comment-expand.png",
+      "md5": "bbf279f596c1c4c2650a00df3c4cedb4",
+      "prefix": "bbf279f596c1"
+    },
+    {
+      "file": "02-thread-flush-under-strip.png",
+      "md5": "16d21d0d18998961a7cdd0e4a692c157",
+      "prefix": "16d21d0d1899"
+    },
+    {
+      "file": "04-detail-parity.png",
+      "md5": "5a14d59936c7eafa2f2ee032d2d6eb88",
+      "prefix": "5a14d59936c7"
+    }
+  ],
+  "opEye": "Absent",
+  "expandMeta": {
+    "expanded": "true",
+    "focusSignal": 1,
+    "flush": "true",
+    "ct02": "true",
+    "reactionsCount": 1
+  },
+  "detailMeta": {
+    "ct02": "true",
+    "hasThread": true
+  }
+}

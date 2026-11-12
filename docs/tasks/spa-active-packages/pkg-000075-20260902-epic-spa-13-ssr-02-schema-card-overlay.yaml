@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 75
+created_at: "2026-09-02T19:53:04Z"
+label: EPIC-SPA-13 SSR-02 schema-card-overlay
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/EPIC-SPA-13-semantic-schema-runtime.md
+decision_ref: spa-app/docs/tasks/backlog-stories/semantic-schema-runtime/STORY-SPA-SSR-02-schema-card-overlay.md
+story_groups:
+- story_key: STORY-SPA-SSR-02-schema-card-overlay
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-02-schema-card-overlay/task-spa-ssr-02-t01-overlay-compact-card/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-02-schema-card-overlay/task-spa-ssr-02-t02-overlay-issue-detail/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-02-schema-card-overlay/task-spa-ssr-02-t03-l10n-cardfield-resolver/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-02-schema-card-overlay/task-spa-ssr-02-t04-sec-no-structured-payload/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-13-semantic-schema-runtime/stories/STORY-SPA-SSR-02-schema-card-overlay/task-spa-ssr-02-t05-vitest-story-gate-ssr-02/README.md
+notes: |
+  P1.3 APPLY 2026-09-02T19:53:04Z. input_mode=backlog_story. ui_scope: visual. UX ready M141 — brief skip.
+  REUSE EPIC-SPA-13 + T01–T05. Do not mix BUG-05…08 / ES / SSR-03.
+  Do not start P2/P3 from APPLY. Path A @mockup M141 md+png.
+  Do not retire spa_ssr_01_audit_2026_09_02 / spa_bug_05…08 run_modes.
+  Next: P2 build window. T01–T05 Todo.

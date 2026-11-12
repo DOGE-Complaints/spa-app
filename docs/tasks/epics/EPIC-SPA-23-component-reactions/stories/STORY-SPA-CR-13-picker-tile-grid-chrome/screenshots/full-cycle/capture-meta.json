@@ -1,0 +1,24 @@
+{
+  "captured_utc": "2026-10-16T10:53:17Z",
+  "routes": ["#/lab/reactions", "#/lab/feed"],
+  "viewport": { "width": 1536, "height": 1024 },
+  "facts": {
+    "layout": "tile-grid",
+    "portal": "body",
+    "footer": true,
+    "cancel": true,
+    "add": true,
+    "done": true,
+    "tiles": 11,
+    "desc": true
+  },
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "files": [
+    { "file": "01-lab-reactions-cr13-tile-grid-1536x1024.png", "md5": "2b794d08195da0c304b4e838673299db", "prefix": "2b794d08195d" },
+    { "file": "02-lab-reactions-cr13-selected-tile-1536x1024.png", "md5": "f6e8289cdca22a877dcbcb4d39929afa", "prefix": "f6e8289cdca2" },
+    { "file": "03-lab-reactions-cr13-footer-cancel-add-1536x1024.png", "md5": "8c31985944f0ace8d1e22a6beafa7161", "prefix": "8c31985944f0" },
+    { "file": "04-lab-reactions-cr13-sheet-done-1536x1024.png", "md5": "04ee1282312a19603a8af01728835a5c", "prefix": "04ee1282312a" },
+    { "file": "05-lab-feed-cr13-portal-picker-1536x1024.png", "md5": "8fa6a85b4b2dbfbcb36a4033fd493826", "prefix": "8fa6a85b4b2d" }
+  ]
+}

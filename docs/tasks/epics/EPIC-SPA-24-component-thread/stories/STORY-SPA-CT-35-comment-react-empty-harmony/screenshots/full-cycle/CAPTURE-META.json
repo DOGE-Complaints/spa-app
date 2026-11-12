@@ -1,0 +1,54 @@
+{
+  "story": "STORY-SPA-CT-35-comment-react-empty-harmony",
+  "pkg": "pkg-000228",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "harmony": "m174",
+  "probes": {
+    "empty": {
+      "ct35Count": 39,
+      "harmony": "m174",
+      "hasOwnLane": false,
+      "hasOwnMarks": false,
+      "hasOwnInZone": false,
+      "entryFlexDirection": "row",
+      "hasReply": true,
+      "hasSep": true
+    },
+    "filled": {
+      "found": true,
+      "stripFlex": "column",
+      "reactOrder": "-1",
+      "ownInZone": false
+    }
+  },
+  "md5s": [
+    {
+      "file": "01-empty-react-reply-harmony-1536x1024.png",
+      "md5": "90fe9dccfc1c71426b7785d4e9580b46",
+      "prefix": "90fe9dccfc1c"
+    },
+    {
+      "file": "02-filled-react-stack-reply-1536x1024.png",
+      "md5": "692904c479df5eaaf5e1e941ef1cb0f6",
+      "prefix": "692904c479df"
+    },
+    {
+      "file": "03-narrow-empty-390x844.png",
+      "md5": "05c6d79fac909c25ed04b6b70beb8b60",
+      "prefix": "05c6d79fac90"
+    },
+    {
+      "file": "04-dark-empty-1536x1024.png",
+      "md5": "c1b70435d66be939d15f8264e6268142",
+      "prefix": "c1b70435d66b"
+    },
+    {
+      "file": "05-thread-context-1536x1024.png",
+      "md5": "15147ba05569a16aa35f21ca732823c9",
+      "prefix": "15147ba05569"
+    }
+  ],
+  "fails": [],
+  "note": "Path A structure · M174 · Partial BLOCK · no invent OP PASS · no M173 comment lane"
+}

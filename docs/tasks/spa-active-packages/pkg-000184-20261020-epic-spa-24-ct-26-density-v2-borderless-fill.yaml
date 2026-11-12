@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 184
+created_at: "2026-10-20T19:38:25Z"
+label: EPIC-SPA-24 CT-26 Density v2 borderless fill M153d
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-26-density-v2-borderless-fill.md
+story_groups:
+- story_key: STORY-SPA-CT-26-density-v2-borderless-fill
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-26-density-v2-borderless-fill/task-spa-ct-26-t01-bubble-fill/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-26-density-v2-borderless-fill/task-spa-ct-26-t02-pills-fill/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-26-density-v2-borderless-fill/task-spa-ct-26-t03-spacing/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-26-density-v2-borderless-fill/task-spa-ct-26-t04-regression/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T19:38:25Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount/feed-lab · mixed · Path A M153d (+ PNG) · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree.
+  Hard: supersede CT-23 border-keep · borderless fill · AttachmentRef borders unchanged · no invent HTTP/OP PASS.
+  Prior tip pkg-000183 · CT-25. Await P2 on OP. No P3 yet. No product code this call.

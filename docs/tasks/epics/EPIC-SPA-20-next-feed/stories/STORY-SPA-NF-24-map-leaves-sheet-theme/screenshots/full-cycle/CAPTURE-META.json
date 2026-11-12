@@ -1,0 +1,50 @@
+{
+  "story": "STORY-SPA-NF-24-map-leaves-sheet-theme",
+  "captured_at": "2026-10-23T13:35:18.525Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_basemap": false,
+  "fails": [],
+  "probeLight": {
+    "leavesBg": "rgb(255, 253, 248)",
+    "leavesColor": "rgb(16, 24, 40)",
+    "popupBg": "rgb(255, 253, 248)",
+    "previewBg": "rgb(255, 253, 248)",
+    "leavesNf24": "true",
+    "popupNf24": "true",
+    "previewNf24": "true"
+  },
+  "probeDark": {
+    "leavesBg": "rgb(23, 37, 56)",
+    "leavesColor": "rgb(255, 255, 255)"
+  },
+  "md5s": [
+    {
+      "file": "01-leaves-sheet-light.png",
+      "md5": "4e0992c5ec1dbd19cfe3a2be2d18494b",
+      "prefix": "4e0992c5ec1d"
+    },
+    {
+      "file": "02-pin-popup-theme.png",
+      "md5": "b7b4bf47f3bc6dccc569e19d1374fcf5",
+      "prefix": "b7b4bf47f3bc"
+    },
+    {
+      "file": "03-map-issue-preview-light.png",
+      "md5": "a4aa8be4e94061617b52d002d398244b",
+      "prefix": "a4aa8be4e940"
+    },
+    {
+      "file": "04-leaves-dark-held.png",
+      "md5": "7745236efe1064522f715fd3449ed399",
+      "prefix": "7745236efe10"
+    },
+    {
+      "file": "05-theme-toggle-honesty.png",
+      "md5": "4e0992c5ec1dbd19cfe3a2be2d18494b",
+      "prefix": "4e0992c5ec1d"
+    }
+  ]
+}

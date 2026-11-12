@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 102
+created_at: "2026-10-09T17:35:01Z"
+label: EPIC-SPA-19 NS-06 default entry + shell verify
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-06-default-entry-shell-verify.md
+story_groups:
+- story_key: STORY-SPA-NS-06-default-entry-shell-verify
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-06-default-entry-shell-verify/task-spa-ns-06-t01-default-entry-flip/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-06-default-entry-shell-verify/task-spa-ns-06-t02-spa-url-page-map/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-06-default-entry-shell-verify/task-spa-ns-06-t03-vitest-browser-shell-smoke/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-06-default-entry-shell-verify/task-spa-ns-06-t04-icon-promote-404-check/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-06-default-entry-shell-verify/task-spa-ns-06-t05-story-epic-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-09T17:35:01Z. input_mode=backlog_story. REUSE EPIC-SPA-19.
+  ui_scope: shell · UX ready Arch 03 verify lock · register _(verify)_ → NS-06.
+  Skill react-expert. T01–T05 Todo · ui_anchor T01 · T05 story gate.
+  Do not invent BoardFeed/feed E2E/new SVG/HTTP. Do not retire classic permanently.
+  Await P2/P3 on OP.

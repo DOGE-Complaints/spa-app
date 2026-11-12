@@ -1,0 +1,84 @@
+{
+  "story": "STORY-SPA-NS-17-mobile-appbar-burger-drawer",
+  "pkg": "pkg-000230",
+  "gate": "BLOCK",
+  "reason": "OP eye Absent · Partial visual=BLOCK · structure probes only · no invent PASS · no invent Wallet",
+  "op_eye": "Absent",
+  "fails": [],
+  "probes": {
+    "closed": {
+      "present": true,
+      "lab": "true",
+      "harmony": "m177",
+      "hasBrand": true,
+      "brandSrc": "/assets/dogestonia-brand-light.png",
+      "hasWipTitle": false,
+      "drawerOpen": false,
+      "hasAccount": false,
+      "hasFeed": false,
+      "hasMyStories": false,
+      "hasCta": false,
+      "hasWallet": false,
+      "shellWidth": 390,
+      "mainMax": "100%"
+    },
+    "open": {
+      "present": true,
+      "lab": "true",
+      "harmony": "m177",
+      "hasBrand": true,
+      "brandSrc": "/assets/dogestonia-brand-light.png",
+      "hasWipTitle": false,
+      "drawerOpen": true,
+      "hasAccount": true,
+      "hasFeed": true,
+      "hasMyStories": true,
+      "hasCta": true,
+      "hasWallet": false,
+      "shellWidth": 390,
+      "mainMax": "100%"
+    },
+    "dark": {
+      "present": true,
+      "lab": "true",
+      "harmony": "m177",
+      "hasBrand": true,
+      "brandSrc": "/assets/dogestonia-brand-dark.png",
+      "hasWipTitle": false,
+      "drawerOpen": true,
+      "hasAccount": true,
+      "hasFeed": true,
+      "hasMyStories": true,
+      "hasCta": true,
+      "hasWallet": false,
+      "shellWidth": 390,
+      "mainMax": "100%"
+    },
+    "desktop": {
+      "display": "none"
+    }
+  },
+  "md5s": [
+    {
+      "file": "01-mobile-appbar-brand-closed-390x844.png",
+      "md5": "cce4d2335a5371956fd53c6a450c09d3",
+      "prefix": "cce4d2335a53"
+    },
+    {
+      "file": "02-mobile-drawer-open-ia-390x844.png",
+      "md5": "f21c42923626d024d4264c875a73e1f0",
+      "prefix": "f21c42923626"
+    },
+    {
+      "file": "03-mobile-viewport-fullbleed-390x844.png",
+      "md5": "6e19883bafa370fb447dc6d7021657ba",
+      "prefix": "6e19883bafa3"
+    },
+    {
+      "file": "04-mobile-drawer-dark-390x844.png",
+      "md5": "9ffd62f1d1570912797b9a8d2e6b53c4",
+      "prefix": "9ffd62f1d157"
+    }
+  ],
+  "utc": "2026-10-25T10:06:27.666Z"
+}

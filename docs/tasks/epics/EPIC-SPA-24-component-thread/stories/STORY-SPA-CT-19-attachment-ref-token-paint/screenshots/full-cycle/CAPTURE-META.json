@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-20T12:38:12.527Z",
+  "md5s": [
+    {
+      "file": "01-c-ready.png",
+      "md5": "65ae5db3c4af0f64e8c6d0d10d012fb8",
+      "prefix": "65ae5db3c4af"
+    },
+    {
+      "file": "02-d-denied.png",
+      "md5": "d9b516a282a595d8dc7aa5873434ca00",
+      "prefix": "d9b516a282a5"
+    },
+    {
+      "file": "04-remove.png",
+      "md5": "7dfc21407821dabe19d481d8cb13e78e",
+      "prefix": "7dfc21407821"
+    },
+    {
+      "file": "03-e-denied-safety.png",
+      "md5": "a5f1c81d1e477a34798e5c6ed5555134",
+      "prefix": "a5f1c81d1e47"
+    },
+    {
+      "file": "05-honesty.png",
+      "md5": "9e8f734e508c2791368bcc0276c80e52",
+      "prefix": "9e8f734e508c"
+    }
+  ],
+  "fails": [],
+  "opEye": "Absent",
+  "partialVisual": "BLOCK"
+}

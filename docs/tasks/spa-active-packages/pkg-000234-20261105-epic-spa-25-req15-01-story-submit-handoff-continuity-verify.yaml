@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 234
+created_at: "2026-11-05T12:12:46Z"
+label: EPIC-SPA-25 REQ15-01 story submit handoff continuity verify
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify.md
+decision_ref: spa-app/docs/tasks/backlog-stories/req15-story-submit-handoff-continuity-verify/STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify.md
+story_groups:
+- story_key: STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify/stories/STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify/task-spa-req15-01-t01-route-handoff-inventory/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify/stories/STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify/task-spa-req15-01-t02-continuation-url-shape-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify/stories/STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify/task-spa-req15-01-t03-citizen-session-auth-boundary/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify/stories/STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify/task-spa-req15-01-t04-gateway-draft-client-continuity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify/stories/STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify/task-spa-req15-01-t05-evidence-or-gap-note/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-25-req15-story-submit-handoff-continuity-verify/stories/STORY-SPA-REQ15-01-story-submit-handoff-continuity-verify/task-spa-req15-01-t06-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-11-05T12:12:46Z. input_mode=backlog_story. CREATE EPIC-SPA-25.
+  CLEAN P1.3 (NOT p13UxReady) · ui_scope: none · UX SKIP · NO BRIEF.
+  Verify-only · T01–T06 Todo · Skill javascript-pro.
+  Soft GW-59 / live Unknown · no invent PASS.
+  Default Pass: no SPA redesign if continuity holds.
+  Tip after pkg-000233. activation active.
+  Await P2 on OP. No P3 yet. No product code this call. No git push.

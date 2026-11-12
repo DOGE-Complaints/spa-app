@@ -1,0 +1,19 @@
+builder_project: spa
+op_chat_title: OP-spa
+builder_chat_title: BLD-spa
+validator_chat_title: VAL-spa
+builder_agent_id: 11994ccf-aca8-4b5c-8f37-17bfe7dbf169
+validator_agent_id: 3b466bca-b371-413e-8ef5-b94045bac962
+bind_mode: task
+delivery: subagent
+process_file: spa-app/docs/tasks/run-reports/operator-sessions/OP-spa.process.md
+working_plan: .cursor/plans/OP-spa-req15-01-20261105.plan.md
+status: queue_exhausted
+wave: req15-01-20261105
+overnight: on
+pause_after_story: false
+auto_approve_plan: true
+stop_only_on: explicit operator стоп|stop|pause|halt
+queue: REQ15-01
+next: none
+Updated: 2026-11-05T12:30:00Z

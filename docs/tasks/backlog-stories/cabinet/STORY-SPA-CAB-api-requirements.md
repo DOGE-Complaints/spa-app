@@ -11,7 +11,7 @@
 >
 > ## ⚙️ Режим MVP (решение 2026-07-25)
 > - **Identity — live:** CAB-01 / CAB-02 / CAB-03 / CAB-07 зовут `GET /me` (и CTA → `/verify`). Backend готов.
-> - **Gateway story-activity + drafts/current — backend готов** (GW-CAB-01/02). **SPA-wiring в этой волне отложен** оператором: CAB-04 = UI без HTTP + `cabinet.common.comingSoon` на data-affordance.
+> - **Gateway story-activity + drafts/current — backend готов** (GW-CAB-01/02). CAB-04 = UI без HTTP historically. **SPA HTTP wire → [CAB-08](STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md)** (wave4 Markstack · no new REQ · path held).
 > - **Gateway contribution (receipts/records) — Deferred** (GW-CAB-03 post-MVP). CAB-06 весь слой = UI + Coming soon.
 > - **Wallet/web3 — POST-MVP:** CAB-05 = stub + Coming soon.
 > - **CAB-02:** extend `/me` (не отдельный endpoint) — **Done** на FE (`pkg-000029`).
@@ -20,8 +20,8 @@
 > | Контракт | Бекенд | Форма (data) | Backend | Для стори |
 > |----------|--------|--------------|---------|-----------|
 > | `GET /me` **extended** | identity | `email`, `email_verified`, `created_at`, `account_status`, `display_name`, `role`, `phone_*` | ✅ поставлен | CAB-01/02/03/07 |
-> | `GET /story-activity` | gateway | `{ metrics, stories[] }` | ✅ GW-CAB-01 | CAB-04 A/B/E (SPA wiring later) |
-> | `GET /story-drafts/current` | gateway | `{ draft_id, last_edited_at }` \| `null` | ✅ GW-CAB-02 | CAB-04 C (SPA wiring later) |
+> | `GET /story-activity` | gateway | `{ metrics, stories[] }` | ✅ GW-CAB-01 | CAB-04 UI · **CAB-08 SPA wire** |
+> | `GET /story-drafts/current` | gateway | `{ draft_id, last_edited_at }` \| `null` | ✅ GW-CAB-02 | CAB-04 C · soft CAB-08 if in scope |
 > | `GET /contribution/receipts` | gateway | `{ count, receipts[] }` | ❌ Deferred GW-CAB-03 | CAB-06 A |
 > | `GET /contribution/records` | gateway | `{ count, records[] }` | ❌ Deferred GW-CAB-03 | CAB-06 B |
 >
@@ -72,7 +72,7 @@ CTA «Verify Account» → SPA `/verify` (ID-04) → identity `POST /auth/phone/
 | User-scoped список + metrics | `GET /story-activity` | ✅ **GW-CAB-01** ([API_REFERENCE §story-activity](../../../../../doge-complaints-gateway/docs/runtime-docs/api-reference/API_REFERENCE.md)) |
 | UI statuses `published` / `under_review` | маппинг на gateway | ✅ на стороне gateway projection |
 
-> **Вывод CAB-04 (2026-07-25):** backend **готов**. **SPA HTTP wiring отложен** — FE строит UI states + Coming soon на data-affordance; Go to Board / Verify Account — без gateway.
+> **Вывод CAB-04 (2026-07-25):** backend **готов**. UI states shipped without HTTP. **SPA wire `GET /story-activity` = CAB-08** (wave4 · confirm path held · no invent endpoint).
 
 ### 2.3 CAB-06 Contribution (Receipts / Records / Reputation)
 | Нужно | Реальность | Статус |
@@ -102,10 +102,11 @@ Reputation — post-MVP. Receipts/Records live — после GW-CAB-03 / web3. 
 | CAB-01 | `GET /me` (сессия) | identity | ✅ | **live** | MVP |
 | CAB-02 | `display_name`, `role`, `email`, `created_at`, `account_status` | identity | ✅ 3/3 | **Done** (`pkg-000029`) | MVP |
 | CAB-03 | `phone_verified*`, `phone_dial_prefix` | identity | ✅ | **live** CivicStatusCard | MVP |
-| CAB-04 | `GET /story-activity` | gateway | ✅ GW-CAB-01 | **UI only, no HTTP**; Coming soon на data-affordance; Go to Board / Verify — ок | MVP |
+| CAB-04 | `GET /story-activity` | gateway | ✅ GW-CAB-01 | **UI Present**; HTTP deferred historically | MVP UI |
 | CAB-04 | `GET /story-drafts/current` | gateway | ✅ GW-CAB-02 | **UI only, no HTTP** (Resume → Coming soon until wiring) | MVP |
-| CAB-05 | wallet_* | — | ❌ | **stub + Coming soon** | 🚫 POST-MVP |
-| CAB-06 | receipts / records | gateway | ❌ Deferred GW-CAB-03 | **UI only + Coming soon** | MVP UI / API post |
+| CAB-08 | `GET /story-activity` SPA wire | gateway | ✅ GW-CAB-01 | **Await Apply** · Markstack wave4 · no new REQ | wave4 |
+| CAB-05 | wallet_* | — | ❌ | **stub + Coming soon** · CAB-08 gates hide | 🚫 POST-MVP |
+| CAB-06 | receipts / records | gateway | ❌ Deferred GW-CAB-03 | **UI only + Coming soon** · CAB-08 gates hide | MVP UI / API post |
 | CAB-06 | reputation | — | ❌ | **stub + Coming soon** | 🚫 POST-MVP |
 | CAB-07 | profile load = `/me` | identity | ✅ | **live** M22/M23 | MVP |
 
@@ -114,9 +115,9 @@ Reputation — post-MVP. Receipts/Records live — после GW-CAB-03 / web3. 
 ## §5. Итог для планирования
 
 - **Identity = go:** CAB-01, CAB-03, CAB-07 live на `/me`; CAB-02 Done.
-- **Gateway story-activity/drafts = backend ready; SPA wiring later** (оператор 2026-07-25).
-- **Gateway contribution = Deferred** (GW-CAB-03) — не блокирует старт FE волны.
-- **FE order:** CAB-01 shell → CAB-03 → stubs CAB-04/05/06 → CAB-07.
+- **Gateway story-activity/drafts = backend ready;** SPA wire story-activity = **CAB-08** (wave4).
+- **Gateway contribution = Deferred** (GW-CAB-03) — не блокирует; CAB-08 hides contrib slot.
+- **FE order:** CAB-01 shell → CAB-03 → stubs CAB-04/05/06 → CAB-07 → **CAB-08** wire + layout.
 - Клик data-affordance на stubs → `cabinet.common.comingSoon` («This feature is coming soon»).
 
 ## §6. Readiness gate (запуск cabinet FE)
@@ -125,7 +126,8 @@ Reputation — post-MVP. Receipts/Records live — после GW-CAB-03 / web3. 
 |------|---------|
 | **Go now** | CAB-01 shell — identity ready; CAB-02 Done |
 | **Go next (identity)** | CAB-03, CAB-07 |
-| **Go UI-stub (no GW HTTP)** | CAB-04, CAB-05, CAB-06 |
+| **Go UI-stub (no GW HTTP)** | CAB-04 UI, CAB-05, CAB-06 |
+| **Go SPA wire (GW Present)** | CAB-08 → `GET /story-activity` |
 | **Blocked only on** | live contribution data (post GW-CAB-03 / web3) — **не** блокирует старт |
 | **Не блокер** | G4 / G7 / G8, ID-13 (параллельные пакеты) |
 

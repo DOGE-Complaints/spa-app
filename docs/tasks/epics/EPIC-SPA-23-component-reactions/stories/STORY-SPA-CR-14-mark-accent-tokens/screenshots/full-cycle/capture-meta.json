@@ -1,0 +1,45 @@
+{
+  "captured_utc": "2026-10-16T11:04:20.459Z",
+  "routes": [
+    "#/lab/reactions",
+    "#/lab/feed"
+  ],
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  },
+  "facts": {
+    "markId": "acknowledge",
+    "markColor": "rgb(245, 197, 66)",
+    "theme": "dark"
+  },
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "files": [
+    {
+      "file": "01-lab-reactions-cr14-accents-light-1536x1024.png",
+      "md5": "b7702f0023ac80c860343e67d91947cb",
+      "prefix": "b7702f0023ac"
+    },
+    {
+      "file": "02-lab-reactions-cr14-accents-dark-1536x1024.png",
+      "md5": "160471ac3f50d18f55fc4792c6877bb5",
+      "prefix": "160471ac3f50"
+    },
+    {
+      "file": "03-lab-reactions-cr14-selected-soft-1536x1024.png",
+      "md5": "06d90d978bcdf118ae2c7d48d54048cb",
+      "prefix": "06d90d978bcd"
+    },
+    {
+      "file": "04-lab-feed-cr14-summary-accents-1536x1024.png",
+      "md5": "b9127eaf67faafa5862f6fe2b1416af4",
+      "prefix": "b9127eaf67fa"
+    },
+    {
+      "file": "05-lab-feed-cr14-stress-theme-1536x1024.png",
+      "md5": "279e9b9a9c63b8fd96a28d6c96128563",
+      "prefix": "279e9b9a9c63"
+    }
+  ]
+}

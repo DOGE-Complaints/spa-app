@@ -1,0 +1,39 @@
+{
+  "story": "STORY-SPA-CT-23-thread-density-artboard-frames",
+  "ui_gate": "auto",
+  "path": "A",
+  "partial": "BLOCK",
+  "op_eye": "Absent",
+  "invent_pass": false,
+  "invent_denser": false,
+  "invent_http": false,
+  "md5s": [
+    {
+      "file": "01-discussion-no-extra-plates.png",
+      "md5": "7e98097c4bedd5fd28bc211cd901ea99",
+      "prefix": "7e98097c4bed"
+    },
+    {
+      "file": "02-bubble-spine-pills.png",
+      "md5": "0b0da65e60b894f8aa2068e4f89d9b91",
+      "prefix": "0b0da65e60b8"
+    },
+    {
+      "file": "03-node-composer-gaps.png",
+      "md5": "8bedebcca46f7b43290f5392ffac5ae6",
+      "prefix": "8bedebcca46f"
+    },
+    {
+      "file": "04-host-card-anatomy.png",
+      "md5": "31dfabc44fa75d4efbb7f27536d33329",
+      "prefix": "31dfabc44fa7"
+    },
+    {
+      "file": "05-narrow-density.png",
+      "md5": "5691c9bbfe42eb97f21fad32493f8897",
+      "prefix": "5691c9bbfe42"
+    }
+  ],
+  "fails": [],
+  "capturedAt": "2026-10-20T15:14:11.929Z"
+}

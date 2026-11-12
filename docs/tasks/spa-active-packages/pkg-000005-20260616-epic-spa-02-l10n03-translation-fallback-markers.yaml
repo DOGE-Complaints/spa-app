@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 5
+created_at: "2026-06-16T18:00:00Z"
+label: EPIC-SPA-02 L10N-03 translation fallback markers
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/EPIC-SPA-02-localization-l10n.md
+decision_ref: spa-app/docs/tasks/backlog-stories/localization/STORY-SPA-L10N-03-translation-fallback-markers.md
+story_groups:
+- story_key: STORY-SPA-L10N-03-translation-fallback-markers
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t01-issue-original-locale-domain-and-repository-passthrough/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t02-resolve-localized-text-with-resolved-locale/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t03-label-display-humanize-fallback-metadata/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t04-translation-marker-helpers-and-ui-component/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t05-issue-card-and-details-marker-integration/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t06-tests-translation-fallback-markers/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t07-sync-doc-touchpoints-l10n03/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-02-localization-l10n/stories/STORY-SPA-L10N-03-translation-fallback-markers/task-spa-l10n-03-t08-story-acceptance-verification/README.md

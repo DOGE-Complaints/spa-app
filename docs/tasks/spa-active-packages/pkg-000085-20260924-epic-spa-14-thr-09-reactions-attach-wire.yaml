@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 85
+created_at: "2026-09-24T08:07:05Z"
+label: EPIC-SPA-14 THR-09 reactions attach wire
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/EPIC-SPA-14-threads-feed-ux.md
+decision_ref: spa-app/docs/tasks/backlog-stories/threads-feed/STORY-SPA-THR-09-reactions-attach-wire.md
+story_groups:
+- story_key: STORY-SPA-THR-09-reactions-attach-wire
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-09-reactions-attach-wire/task-spa-thr-09-t01-close-react-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-09-reactions-attach-wire/task-spa-thr-09-t02-wire-reaction-controls/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-09-reactions-attach-wire/task-spa-thr-09-t03-knobs-enable-capacity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-09-reactions-attach-wire/task-spa-thr-09-t04-close-attach-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-09-reactions-attach-wire/task-spa-thr-09-t05-composer-attach-live/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-09-reactions-attach-wire/task-spa-thr-09-t06-vitest-react-attach/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-09-reactions-attach-wire/task-spa-thr-09-t07-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-09-24T08:07:05Z. input_mode=backlog_story. ui_scope: none — console clean (NO UX appendix).
+  REUSE EPIC-SPA-14 + T01–T07. No @mockup.
+  Closed paths: PUT /threads/issues/{issue_id}/reactions · POST /threads/issues/{issue_id}/attachment-refs.
+  No invent catalog ids · no multipart blob · no escalate.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T07 Todo. STOP before P4 after P3.

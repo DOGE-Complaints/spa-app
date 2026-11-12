@@ -1,0 +1,15 @@
+schema_version: 1
+package_sequence: 15
+created_at: "2026-06-28T07:46:37Z"
+label: EPIC-SPA-05 SEC-03 remove debug instrumentation
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/EPIC-SPA-05-security-hardening.md
+decision_ref: spa-app/docs/tasks/backlog-stories/security-hardening/STORY-SPA-SEC-03-remove-debug-instrumentation.md
+story_groups:
+- story_key: STORY-SPA-SEC-03-remove-debug-instrumentation
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-03-remove-debug-instrumentation/task-spa-sec-03-t01-purge-debug-ingest-auth-layer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-03-remove-debug-instrumentation/task-spa-sec-03-t02-debug-ingest-guard-test/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-03-remove-debug-instrumentation/task-spa-sec-03-t03-auth-regression-after-debug-purge/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-05-security-hardening/stories/STORY-SPA-SEC-03-remove-debug-instrumentation/task-spa-sec-03-t04-story-gate-sec-03/README.md

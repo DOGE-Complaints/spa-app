@@ -1,0 +1,27 @@
+[
+  {
+    "file": "01-reply-under-parent.png",
+    "md5": "b08e98e9947e24fe1b4c26f3cb86d257",
+    "prefix": "b08e98e9947e"
+  },
+  {
+    "file": "02-composer-not-after-block.png",
+    "md5": "89ad47171e0d5ebbf27601c81806380b",
+    "prefix": "89ad47171e0d"
+  },
+  {
+    "file": "03-cancel-clears-inline.png",
+    "md5": "97b2e273b94c0ecb7d726d3fea72870a",
+    "prefix": "97b2e273b94c"
+  },
+  {
+    "file": "04-root-composer-bottom.png",
+    "md5": "5dcf9fad8e7da1a5e212ddb4ba2a1c5a",
+    "prefix": "5dcf9fad8e7d"
+  },
+  {
+    "file": "05-in-context-reply-slot.png",
+    "md5": "05dc76f241b040a0a180f487fdbf5bf4",
+    "prefix": "05dc76f241b0"
+  }
+]

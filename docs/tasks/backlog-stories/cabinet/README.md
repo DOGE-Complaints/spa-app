@@ -16,6 +16,7 @@
 | CAB-05 | [STORY-SPA-CAB-05-wallet-status-card.md](STORY-SPA-CAB-05-wallet-status-card.md) | 3 |
 | CAB-06 | [STORY-SPA-CAB-06-contribution-layer.md](STORY-SPA-CAB-06-contribution-layer.md) | 3 |
 | CAB-07 | [STORY-SPA-CAB-07-cabinet-page-states.md](STORY-SPA-CAB-07-cabinet-page-states.md) | 4 |
+| CAB-08 | [STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md](STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md) | OP wave 4 · see [INDEX](INDEX.md) |
 
 ## Legacy
 

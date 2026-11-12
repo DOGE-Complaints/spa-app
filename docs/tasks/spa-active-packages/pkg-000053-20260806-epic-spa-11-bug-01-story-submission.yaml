@@ -1,0 +1,16 @@
+schema_version: 1
+package_sequence: 53
+created_at: "2026-08-06T19:21:54Z"
+label: EPIC-SPA-11 BUG-01 story submission unavailable P0
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/EPIC-SPA-11-uat-inbound-2026-08.md
+decision_ref: spa-app/docs/tasks/backlog-stories/bugs/STORY-SPA-BUG-01-story-submission-unavailable.md
+story_groups:
+- story_key: STORY-SPA-BUG-01-story-submission-unavailable
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-01-story-submission-unavailable/task-spa-bug-01-t01-reproduce-capture-submit-http/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-01-story-submission-unavailable/task-spa-bug-01-t02-root-cause-pin/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-01-story-submission-unavailable/task-spa-bug-01-t03-fix-pinned-layer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-01-story-submission-unavailable/task-spa-bug-01-t04-regression-publish-consumed/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-01-story-submission-unavailable/task-spa-bug-01-t05-story-gate-bug-01/README.md

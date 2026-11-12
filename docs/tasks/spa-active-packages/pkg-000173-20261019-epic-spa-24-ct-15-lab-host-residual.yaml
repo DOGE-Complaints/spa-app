@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 173
+created_at: "2026-10-19T12:58:55Z"
+label: EPIC-SPA-24 CT-15 Lab host residual
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-15-lab-host-residual.md
+story_groups:
+- story_key: STORY-SPA-CT-15-lab-host-residual
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-15-lab-host-residual/task-spa-ct-15-t01-narrow-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-15-lab-host-residual/task-spa-ct-15-t02-branch-disclosure-lab/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-15-lab-host-residual/task-spa-ct-15-t03-residents-row/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-15-lab-host-residual/task-spa-ct-15-t04-heading-issue-id/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-15-lab-host-residual/task-spa-ct-15-t05-vitest-host/README.md
+notes: |
+  P1.3 APPLY 2026-10-19T12:58:55Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX residual §3 G-M2 · G-M3 · G-M4 · G-L5 · M152-C/E · M153 branch/G · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: narrow wire · branchDisclosure lab · residents only if aggregate · issue id heading · no invent HTTP/OP PASS.
+  Prior tip pkg-000172 · CT-14. Await P2 on OP. No P3 yet. No product code this call.

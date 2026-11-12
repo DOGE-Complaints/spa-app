@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-20T13:13:21.183Z",
+  "story": "STORY-SPA-CT-20-lab-audit-fixtures",
+  "partialVisual": "BLOCK",
+  "opEye": "Absent",
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-lab1-status-stands.png",
+      "md5": "116b10957af046f2804bf29f3c9e632e",
+      "prefix": "116b10957af0"
+    },
+    {
+      "file": "02-lab2-force-post-fail.png",
+      "md5": "48263426ee9f6c3a09f2be4469bec1ad",
+      "prefix": "48263426ee9f"
+    },
+    {
+      "file": "03-lab3-attach-off.png",
+      "md5": "66c5f25d9f727235637e5a06917bbafc",
+      "prefix": "66c5f25d9f72"
+    },
+    {
+      "file": "04-lab4-maxdepth-reply-block.png",
+      "md5": "0a0de40827f0731720d83041bf80206b",
+      "prefix": "0a0de40827f0"
+    },
+    {
+      "file": "05-harness-dual-append-picker.png",
+      "md5": "00145d81c4db61c6098581a4c21c5d11",
+      "prefix": "00145d81c4db"
+    }
+  ]
+}

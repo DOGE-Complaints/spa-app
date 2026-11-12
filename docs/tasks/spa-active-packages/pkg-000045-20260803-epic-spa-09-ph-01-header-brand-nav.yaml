@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 45
+created_at: "2026-08-03T13:49:59Z"
+label: EPIC-SPA-09 PH-01 header brand + nav
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-01-header-brand-nav.md
+story_groups:
+- story_key: STORY-SPA-PH-01-header-brand-nav
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t01-public-header-zones/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t02-brand-logo-home-link/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t03-nav-links-active/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t04-locale-reuse/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t05-mobile-nav-menu/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t06-l10n-nav-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t07-vitest-nav-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-01-header-brand-nav/task-spa-ph-01-t08-story-gate-ph-01/README.md

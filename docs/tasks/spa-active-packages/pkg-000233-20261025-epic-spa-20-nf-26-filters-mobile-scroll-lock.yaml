@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 233
+created_at: "2026-10-25T10:41:41Z"
+label: EPIC-SPA-20 NF-26 filters mobile scroll lock
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-26-filters-mobile-scroll-lock.md
+story_groups:
+- story_key: STORY-SPA-NF-26-filters-mobile-scroll-lock
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-26-filters-mobile-scroll-lock/task-spa-nf-26-t01-scroll/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-26-filters-mobile-scroll-lock/task-spa-nf-26-t02-lock/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-26-filters-mobile-scroll-lock/task-spa-nf-26-t03-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-25T10:41:41Z wave OP-spa nf26-wave6-20261025.
+  input_mode=backlog_story. REUSE EPIC-SPA-20-next-feed. ui_scope: next-feed / Filters
+  · mixed · clean P1.3 (NOT p13UxReady) · no UX tip gate · NO STORY-UX-MOCKUP-BRIEF ·
+  no UX gen. Evidence PNG Present · NF-25 M175 held · Interview M2 · arch Present ·
+  Partial visual=BLOCK · Skill react-expert · T01–T03 Todo · gate PENDING.
+  Hard: sheet body scroll · body/document lock while open · NF-25 layout/width/dates
+  held · Vitest · OP eye · no invent OP PASS · no invent filter API keys.
+  OOS Mobile burger (NS-17) · invent custom calendar.
+  Tip after pkg-000232. activation active. Await P2.

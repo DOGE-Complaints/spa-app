@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 127
+created_at: "2026-10-13T11:04:31Z"
+label: EPIC-SPA-22 NF-LAB-01 lab route blank page
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-01-lab-route-blank-page.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-01-lab-route-blank-page
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-01-lab-route-blank-page/task-spa-nf-lab-01-t01-lab-route/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-01-lab-route-blank-page/task-spa-nf-lab-01-t02-blank-page-module/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T11:04:31Z. input_mode=backlog_story. NEW EPIC-SPA-22-next-feed-lab.
+  ui_scope: feed-lab · UX appendix skip (Artboards N/A) · foundation only · not visual PASS.
+  Skill react-expert. T01–T02 Todo · ui_anchor T02.
+  Zero gateway/threads on lab mount. Ban product hosts / classic Controls as lab Done.
+  Do not mutate #/next/feed or #/board. Do not reopen EPIC-20/21. Await P2/P3 on OP.

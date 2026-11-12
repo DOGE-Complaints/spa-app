@@ -1,0 +1,46 @@
+{
+  "story": "STORY-SPA-NS-07-shell-dark-icon-chrome",
+  "captured_at": "2026-10-21T20:10:50.847Z",
+  "base": "http://127.0.0.1:5173",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "fails": [],
+  "soft_fails": [],
+  "probe": {
+    "theme": "light",
+    "maskCount": 15,
+    "headerPresent": true,
+    "headerMasks": 5,
+    "railPresent": true,
+    "railMasks": 7,
+    "bottomPresent": true,
+    "searchSrc": "/icons/next-shell/navigation/search.svg"
+  },
+  "md5s": [
+    {
+      "file": "01-next-feed-host-light.png",
+      "md5": "8dbabc271bf0da2e2a8d2f9f8b0cc5b7",
+      "prefix": "8dbabc271bf0"
+    },
+    {
+      "file": "02-header-icons-dark.png",
+      "md5": "2dd600e0001841f431aa7081478fd2a1",
+      "prefix": "2dd600e00018"
+    },
+    {
+      "file": "03-rail-icons-dark.png",
+      "md5": "6e892a7c5ac073c85a7851b895c34795",
+      "prefix": "6e892a7c5ac0"
+    },
+    {
+      "file": "04-mobile-nav-icons-dark.png",
+      "md5": "9939155b785399cb5c67f7a088641afa",
+      "prefix": "9939155b7853"
+    },
+    {
+      "file": "05-light-theme-hold.png",
+      "md5": "5e781c6600524f3d895b6cdb238514c4",
+      "prefix": "5e781c660052"
+    }
+  ]
+}

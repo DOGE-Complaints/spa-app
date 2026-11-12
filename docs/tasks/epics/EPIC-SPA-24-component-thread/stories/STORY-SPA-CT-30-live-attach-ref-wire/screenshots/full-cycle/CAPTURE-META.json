@@ -1,0 +1,44 @@
+{
+  "story": "STORY-SPA-CT-30-live-attach-ref-wire",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "liveProbe": {
+    "ct30": "true",
+    "ct28": "true",
+    "liveHost": "live",
+    "liveBound": "true",
+    "tm": true
+  },
+  "fxProbe": {
+    "fixtureCount": 30
+  },
+  "md5s": [
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "431adb059e6b33df3ef16a00d1880951",
+      "prefix": "431adb059e6b"
+    },
+    {
+      "file": "02-attach-upload-live.png",
+      "md5": "e9554158aebc0bd73ea96fbba9e9ad5e",
+      "prefix": "e9554158aebc"
+    },
+    {
+      "file": "03-published-url-preview.png",
+      "md5": "9f875740c727d1c271062ec441f44ded",
+      "prefix": "9f875740c727"
+    },
+    {
+      "file": "04-lab-fixture-held.png",
+      "md5": "26541e65d27d736057930408136abf03",
+      "prefix": "26541e65d27d"
+    },
+    {
+      "file": "05-narrow-honesty.png",
+      "md5": "7142fc58e80381b995529dd22c801e1e",
+      "prefix": "7142fc58e803"
+    }
+  ],
+  "fails": [],
+  "note": "Path A structure · Partial BLOCK · no invent OP PASS / CDN"
+}

@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 201
+created_at: "2026-10-22T12:25:23Z"
+label: EPIC-SPA-19 NS-08 locale chevron ES frozen
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-08-locale-chevron-es-frozen.md
+story_groups:
+- story_key: STORY-SPA-NS-08-locale-chevron-es-frozen
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-08-locale-chevron-es-frozen/task-spa-ns-08-t01-chevron/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-08-locale-chevron-es-frozen/task-spa-ns-08-t02-es-frozen/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-08-locale-chevron-es-frozen/task-spa-ns-08-t03-vitest/README.md
+notes: |
+  P8 local close 2026-10-22T13:04:05Z · closed · Story BLOCKED (OP eye) OK · activation none · NO PUSH.
+  P5 APPLY F1 WAIVED operator · F2 WAIVED info · TASKED=0 · P7 wave COMPLETE · P6 not needed.
+  P3 Execute structure Pass · gate BLOCK · LocaleSelector+i18n 74/74 · ns08 3/3 · Path A fails:[].
+  P1.3 APPLY 2026-10-22T12:25:23Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-19-next-shell. ui_scope: shell · soft #/next/feed host ·
+  mixed · Path A code lock · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen.
+  Skill react-expert (T01–T03). Hard: chevron icon (not v/^) · es frozen + tooltip · et/ru/en held ·
+  no full ES dictionary · no invent OP PASS. OOS Rail · logo UX · invent ES translations.
+  Soft after pkg-000200 CT-32 P8. Soft NS-07 ShellChromeIcon.

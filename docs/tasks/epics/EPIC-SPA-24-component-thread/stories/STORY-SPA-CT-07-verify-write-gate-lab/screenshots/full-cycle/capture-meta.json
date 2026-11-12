@@ -1,0 +1,37 @@
+{
+  "utc": "2026-10-18T13:57:31.459Z",
+  "base": "http://127.0.0.1:5180",
+  "md5s": [
+    {
+      "file": "01-gate-blocked.png",
+      "md5": "84902efb0a532908e4b212e542ea977c",
+      "prefix": "84902efb0a53"
+    },
+    {
+      "file": "02-stub-handoff.png",
+      "md5": "73aa3d49a1a143e19d7e45d18aa8207b",
+      "prefix": "73aa3d49a1a1"
+    },
+    {
+      "file": "03-verified-no-autopost.png",
+      "md5": "29cd613dd7513473c2cef45182ef0ed8",
+      "prefix": "29cd613dd751"
+    },
+    {
+      "file": "04-cancel-fail-blocked.png",
+      "md5": "15e05477b679641249983c95686a6ffa",
+      "prefix": "15e05477b679"
+    },
+    {
+      "file": "05-stale-or-unknown.png",
+      "md5": "9d7a46109d3639bcd4396135fe505380",
+      "prefix": "9d7a46109d36"
+    },
+    {
+      "file": "06-mobile-gate.png",
+      "md5": "f9e0513a0500cef5390a5aa9ebf3cb7e",
+      "prefix": "f9e0513a0500"
+    }
+  ],
+  "opEye": "Absent"
+}

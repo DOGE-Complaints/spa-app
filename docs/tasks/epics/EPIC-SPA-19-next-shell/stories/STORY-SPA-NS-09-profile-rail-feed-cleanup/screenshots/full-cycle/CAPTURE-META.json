@@ -1,0 +1,46 @@
+{
+  "story": "STORY-SPA-NS-09-profile-rail-feed-cleanup",
+  "captured_utc": "2026-10-22T13:13:34.912Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "fails": [],
+  "probe": {
+    "theme": "dark",
+    "railPresent": true,
+    "ns09": true,
+    "summaryAbsent": true,
+    "emptyAbsent": true,
+    "noStoriesAbsent": true,
+    "feedLabel": "Feed",
+    "feedHref": "#/next/feed",
+    "profileNavPresent": true
+  },
+  "md5s": [
+    {
+      "file": "01-host-light.png",
+      "md5": "7f2cd2b7aa3d2d6324ef21c71461fe78",
+      "prefix": "7f2cd2b7aa3d"
+    },
+    {
+      "file": "04-host-light-hold.png",
+      "md5": "7f2cd2b7aa3d2d6324ef21c71461fe78",
+      "prefix": "7f2cd2b7aa3d"
+    },
+    {
+      "file": "02-rail-dark-feed.png",
+      "md5": "9c70c915cebe729eb5db27904780454f",
+      "prefix": "9c70c915cebe"
+    },
+    {
+      "file": "03-rail-nav-profile.png",
+      "md5": "9c70c915cebe729eb5db27904780454f",
+      "prefix": "9c70c915cebe"
+    },
+    {
+      "file": "05-mobile-feed-soft.png",
+      "md5": "bb59c688e1493f0986c41a8343e1c14a",
+      "prefix": "bb59c688e149"
+    }
+  ]
+}

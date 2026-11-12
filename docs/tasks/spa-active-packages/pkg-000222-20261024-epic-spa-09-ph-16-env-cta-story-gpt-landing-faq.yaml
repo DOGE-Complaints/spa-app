@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 222
+created_at: "2026-10-24T09:58:33Z"
+label: EPIC-SPA-09 PH-16 env CTA Story GPT + Landing FAQ
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq.md
+story_groups:
+- story_key: STORY-SPA-PH-16-env-cta-story-gpt-landing-faq
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq/task-spa-ph-16-t01-story-gpt/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq/task-spa-ph-16-t02-landing-faq/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq/task-spa-ph-16-t03-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-24T09:58:33Z wave OP-spa nf25-wave5-20261024.
+  input_mode=backlog_story. REUSE EPIC-SPA-09-public-shell-home. ui_scope: how-it-works /
+  public-home · mixed · Path A arch Present · Interview M2·M3 · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T03 Todo).
+  Hard: interview CTA → VITE_STORY_GPT_URL · FAQ → VITE_LANDING_FAQ_URL · empty → # ·
+  .env.example · Vitest · OP eye · no invent OP PASS · no invent GPT/FAQ URL.
+  OOS PH-17 Contact · invent Telegram handle · invent landing host.
+  Tip after pkg-000221. activation active.
+  Await P2 on OP. No P3 yet. No product code this call.

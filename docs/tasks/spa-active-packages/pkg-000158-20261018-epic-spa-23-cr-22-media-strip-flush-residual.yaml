@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 158
+created_at: "2026-10-18T12:22:10Z"
+label: EPIC-SPA-23 CR-22 media-strip flush residual
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-22-media-strip-flush-residual.md
+story_groups:
+- story_key: STORY-SPA-CR-22-media-strip-flush-residual
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-22-media-strip-flush-residual/task-spa-cr-22-t01-measure-gap/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-22-media-strip-flush-residual/task-spa-cr-22-t02-flush-fix/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-22-media-strip-flush-residual/task-spa-cr-22-t03-vitest-flush/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T12:22:10Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: feed-lab · mixed · Path A residual mirror §5 · CR-16 intent · Partial visual=BLOCK.
+  Skill react-expert (T01–T03). T01–T03 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: measure-then-fix · no invent SVG/HTTP/OP PASS · hold CR-16 chip · no carousel/new hero/#/next/feed.
+  Prior tip pkg-000157 · CR-21 P8 Done · gate BLOCK. Await P2 on OP. No P3 yet. No product code this call.

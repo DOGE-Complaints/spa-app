@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 97
+created_at: "2026-10-09T15:02:39Z"
+label: EPIC-SPA-19 NS-01 next routes + shell host WIP
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-01-next-routes-shell-host.md
+story_groups:
+- story_key: STORY-SPA-NS-01-next-routes-shell-host
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-01-next-routes-shell-host/task-spa-ns-01-t01-register-next-feed-routes/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-01-next-routes-shell-host/task-spa-ns-01-t02-wip-placeholder-page/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-01-next-routes-shell-host/task-spa-ns-01-t03-l10n-nextshell-wip/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-01-next-routes-shell-host/task-spa-ns-01-t04-vitest-route-smoke/README.md
+notes: |
+  P3 Done 2026-10-09T15:09:58Z. input_mode=backlog_story. REUSE EPIC-SPA-19.
+  ui_scope: shell · UX ready M149. Skill react-expert.
+  T01–T04 Done · gate PASS · `#/next/feed*` WIP host.
+  Do not invent BoardFeed/threads/HTTP. Do not flip `/` (NS-06). Do not git push. Next: P4 / NS-02 on OP.

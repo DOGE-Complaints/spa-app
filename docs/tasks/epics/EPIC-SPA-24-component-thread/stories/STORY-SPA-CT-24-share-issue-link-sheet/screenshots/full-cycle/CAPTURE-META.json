@@ -1,0 +1,39 @@
+{
+  "story": "STORY-SPA-CT-24-share-issue-link-sheet",
+  "ui_gate": "auto",
+  "path": "A",
+  "mockup": "DOGEstonia-M152d-post-share-residual-states-spec-v1.0",
+  "partial": "BLOCK",
+  "op_eye": "Absent",
+  "invent_pass": false,
+  "invent_http": false,
+  "md5s": [
+    {
+      "file": "01-desktop-popover.png",
+      "md5": "0b38c7267021e34c18537633ee1f8170",
+      "prefix": "0b38c7267021"
+    },
+    {
+      "file": "03-icon-rows.png",
+      "md5": "f9a4fe6b76a268aba51fb3f1dd8d922c",
+      "prefix": "f9a4fe6b76a2"
+    },
+    {
+      "file": "04-link-copied.png",
+      "md5": "ff3ec57704d05376665d7201753e46b2",
+      "prefix": "ff3ec57704d0"
+    },
+    {
+      "file": "05-url-unavailable.png",
+      "md5": "04639f73f7bc9607adfa0e4f6ddde367",
+      "prefix": "04639f73f7bc"
+    },
+    {
+      "file": "02-narrow-bottom-sheet.png",
+      "md5": "de3c94cc095791586e84a1603cc4639e",
+      "prefix": "de3c94cc0957"
+    }
+  ],
+  "fails": [],
+  "capturedAt": "2026-10-20T15:26:50.197Z"
+}

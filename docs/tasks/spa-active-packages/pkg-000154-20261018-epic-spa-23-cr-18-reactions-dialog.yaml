@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 154
+created_at: "2026-10-18T10:44:10Z"
+label: EPIC-SPA-23 CR-18 ReactionsDialog M155 B
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-18-reactions-dialog.md
+story_groups:
+- story_key: STORY-SPA-CR-18-reactions-dialog
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-18-reactions-dialog/task-spa-cr-18-t01-reactions-dialog-shell/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-18-reactions-dialog/task-spa-cr-18-t02-tabs-filter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-18-reactions-dialog/task-spa-cr-18-t03-row-connect-stub/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-18-reactions-dialog/task-spa-cr-18-t04-popover-to-dialog/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-18-reactions-dialog/task-spa-cr-18-t05-vitest-dialog/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T10:44:10Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount / feed-lab · mixed · Path A M155 B + polish §4.4 · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Prior tip pkg-000153 · CR-17 structure Present · visual BLOCK residual (OP eye · Gap v2).
+  ReactionsDialog tabs/Connect stub/You · popover→View all→dialog · fixtures only · Live fail-closed.
+  no invent people HTTP · no picker inside dialog · Connect stub only · no invent OP PASS · no #/next/feed.
+  Await P2 on OP. No P3 yet. No product code this call.

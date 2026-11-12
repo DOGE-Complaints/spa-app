@@ -1,0 +1,51 @@
+{
+  "story": "STORY-SPA-NF-14-civic-card-hit-target",
+  "captured_at": "2026-10-21T11:51:26.013Z",
+  "base": "http://127.0.0.1:5173",
+  "visual_gate": "BLOCK",
+  "path_a": "code-lock",
+  "probe": {
+    "listHit": true,
+    "listOpen": false,
+    "listMedia": true,
+    "listActions": true,
+    "actionsInsideHit": false,
+    "detailHit": false,
+    "detailOpen": false,
+    "hitHref": "#/next/feed/issue/NF14-PATH-A?from=%2Flab%2Ffeed",
+    "hitAria": "NF-14 hit-target card"
+  },
+  "fails": [],
+  "shots": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "ea2548107f10072b0834981d6738e9cf",
+      "prefix": "ea2548107f10"
+    },
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "eeddeb717f5c100085223b44e4e82704",
+      "prefix": "eeddeb717f5c"
+    },
+    {
+      "file": "02-list-hit-no-open-row.png",
+      "md5": "6c75e3e88912d6baa91ca88698413cc6",
+      "prefix": "6c75e3e88912"
+    },
+    {
+      "file": "03-strip-excluded.png",
+      "md5": "51b3ac387a29c9d0dff15a74c7287600",
+      "prefix": "51b3ac387a29"
+    },
+    {
+      "file": "04-detail-unchanged.png",
+      "md5": "92b7a437cf766379846ab942908af41c",
+      "prefix": "92b7a437cf76"
+    },
+    {
+      "file": "05-narrow-hit.png",
+      "md5": "f1b3918a3a65ee728a83ace683ca8553",
+      "prefix": "f1b3918a3a65"
+    }
+  ]
+}

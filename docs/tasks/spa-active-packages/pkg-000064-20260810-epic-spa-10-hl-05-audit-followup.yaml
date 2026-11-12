@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 64
+created_at: "2026-08-10T09:55:04Z"
+label: EPIC-SPA-10 HL-05 audit-followup
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/EPIC-SPA-10-hardening-cto-audit.md
+decision_ref: spa-app/docs/analysis/audit-STORY-SPA-HL-05-execution-2026-08-10.md
+story_groups:
+- story_key: STORY-SPA-HL-05-orphan-protected-route-redirect
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-05-orphan-protected-route-redirect/task-spa-hl-05-t04-commit-orphan-delete/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-05-orphan-protected-route-redirect/task-spa-hl-05-t05-as-of-done-pipeline-problema/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-05-orphan-protected-route-redirect/task-spa-hl-05-t06-as-of-done-t01-code-facts/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-05-orphan-protected-route-redirect/task-spa-hl-05-t07-dashboard-parent-index-hl-05-done/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-10-hardening-cto-audit/stories/STORY-SPA-HL-05-orphan-protected-route-redirect/task-spa-hl-05-t08-historical-zachem-narrative/README.md
+notes: |
+  P5 draft 2026-08-10T09:55:04Z. activation: none. TASKED=5 > override threshold → no safe-override in Spa_builder.plan.md.
+  Wave spa_hl_05_audit_2026_08_10 (informational). F1–F4+F6 TASKED · F5 WAIVED working-doc.
+  Product Story AC/DoD Done (P3) · OPEN gap-list not empty until P6. Do not demote Product Done.
+  Do not point spa-active-package.current.yaml until operator P1. current.yaml remains pkg-000063.
+  Next: operator activate draft → P6 T04–T08 → P7 reaudit.

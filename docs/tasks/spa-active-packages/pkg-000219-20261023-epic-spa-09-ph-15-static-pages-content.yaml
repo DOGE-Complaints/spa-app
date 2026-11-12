@@ -1,0 +1,26 @@
+schema_version: 1
+package_sequence: 219
+created_at: "2026-10-23T15:13:02Z"
+label: EPIC-SPA-09 PH-15 static pages content
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-15-static-pages-content.md
+story_groups:
+- story_key: STORY-SPA-PH-15-static-pages-content
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-15-static-pages-content/task-spa-ph-15-t01-about/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-15-static-pages-content/task-spa-ph-15-t02-privacy/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-15-static-pages-content/task-spa-ph-15-t03-contact/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-15-static-pages-content/task-spa-ph-15-t04-vitest/README.md
+notes: |
+  P3 Execute 2026-10-23T15:20:04Z wave OP-spa nf24-wave4-20261023.
+  input_mode=backlog_story. REUSE EPIC-SPA-09-public-shell-home. ui_scope: static-pages /
+  public-home · mixed · Path A p13UxReady M172 + privacy downloads · Interview S8 ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert
+  (T01–T04 Done). Hard: About/Contact RU verbatim + EN/ET · Privacy three PDF cards ·
+  no invent legal body · no invent RU/ET download labels · Vitest · OP eye ·
+  no invent OP PASS · no invent form POST · no invent email.
+  OOS PH-14 HIW · invent GDPR prose · invent form POST · invent RU/ET download labels.
+  Tip after pkg-000218. activation active. gate BLOCK · CAPTURE-META fails:[].
+  Await P4.

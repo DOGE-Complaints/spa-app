@@ -1,0 +1,15 @@
+# Указатель активного input package (Builder Queue, profile spa).
+# Не дублировать очередь задач здесь — только имя файла пакета.
+# Очередь: spa-active-packages/<package_file>
+#
+# activation:
+#   active — исполнять YAML-пакет (P3/P6 default)
+#   none — нет очереди / bootstrap / post-audit без override
+#   run_mode — P5/P6 audit override (не менять package_file)
+
+activation: none
+package_file: spa-active-packages/pkg-000234-20261105-epic-spa-25-req15-01-story-submit-handoff-continuity-verify.yaml
+
+
+
+schema_version: 1

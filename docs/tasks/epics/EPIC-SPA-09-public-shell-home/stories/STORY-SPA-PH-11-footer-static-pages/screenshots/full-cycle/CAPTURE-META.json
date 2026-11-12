@@ -1,0 +1,78 @@
+{
+  "story": "STORY-SPA-PH-11-footer-static-pages",
+  "captured_at": "2026-10-22T18:15:26.360Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_legal_prose": false,
+  "invent_cdn": false,
+  "fails": [],
+  "probe": {
+    "tagline": "Civic issues, structured.",
+    "brandHref": "#/next/feed",
+    "aboutHref": "#/about",
+    "privacyHref": "#/privacy",
+    "contactHref": "#/contact",
+    "logoCssW": 40,
+    "logoCssH": 40,
+    "logoStyleW": 40,
+    "logoStyleH": 40,
+    "hasTbd": false
+  },
+  "pageProbe": {
+    "pages": [
+      {
+        "route": "/about",
+        "key": "about",
+        "hasRoot": true,
+        "h1": "About",
+        "pending": "About copy — OP to supply (placeholder)",
+        "inventedLegal": false
+      },
+      {
+        "route": "/privacy",
+        "key": "privacy",
+        "hasRoot": true,
+        "h1": "Privacy",
+        "pending": "Privacy policy — OP to supply (placeholder)",
+        "inventedLegal": false
+      },
+      {
+        "route": "/contact",
+        "key": "contact",
+        "hasRoot": true,
+        "h1": "Contact",
+        "pending": "Contact details — OP to supply (placeholder)",
+        "inventedLegal": false
+      }
+    ]
+  },
+  "md5s": [
+    {
+      "file": "01-footer-mark-scale.png",
+      "md5": "9a6d3d5ba5b6b47d6041a3775e55c6aa",
+      "prefix": "9a6d3d5ba5b6"
+    },
+    {
+      "file": "02-footer-tagline.png",
+      "md5": "0d5b504608954418021e8e9d60668a84",
+      "prefix": "0d5b50460895"
+    },
+    {
+      "file": "04-brand-next-feed.png",
+      "md5": "67d1f75a232fee1e02d2a3755051b4fa",
+      "prefix": "67d1f75a232f"
+    },
+    {
+      "file": "05-footer-links.png",
+      "md5": "5e554f5da35eb9e301fa010c83c8041a",
+      "prefix": "5e554f5da35e"
+    },
+    {
+      "file": "03-static-pages-shell.png",
+      "md5": "c625d315636fbd71ced0432fc984fd27",
+      "prefix": "c625d315636f"
+    }
+  ]
+}

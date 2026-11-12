@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 125
+created_at: "2026-10-12T16:24:27Z"
+label: EPIC-SPA-21 NF-VL-11 verify gate chrome
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/EPIC-SPA-21-next-feed-vl.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-vl/STORY-SPA-NF-VL-11-verify-gate-chrome.md
+story_groups:
+- story_key: STORY-SPA-NF-VL-11-verify-gate-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-11-verify-gate-chrome/task-spa-nf-vl-11-t01-as-is-shelter-map/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-11-verify-gate-chrome/task-spa-nf-vl-11-t02-ds-verify-modules/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-11-verify-gate-chrome/task-spa-nf-vl-11-t03-semantics-seam/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-11-verify-gate-chrome/task-spa-nf-vl-11-t04-wire-displace-shelter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-11-verify-gate-chrome/task-spa-nf-vl-11-t05-anti-mixing-verify/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-11-verify-gate-chrome/task-spa-nf-vl-11-t06-docs-residual/README.md
+notes: |
+  P1.3 APPLY 2026-10-12T16:24:27Z. input_mode=backlog_story. REUSE EPIC-SPA-21.
+  ui_scope: feed · UX ready M157 · DS §10 · AD-VL-01/02 · local-five mandatory.
+  Skill react-expert. T01–T06 Todo · ui_anchor T02+T04+T05.
+  No invent verify API. Classic #/board gate OOS. Concern features/feed/verify/.
+  Await P2/P3 on OP.

@@ -1,0 +1,146 @@
+{
+  "captured_utc": "2026-10-11T15:31:01.374Z",
+  "spa_base": "http://127.0.0.1:4173",
+  "local_five": true,
+  "facts_collapsed": {
+    "url": "http://127.0.0.1:4173/#/next/feed",
+    "dataTheme": "light",
+    "counts": {
+      "civic": 12,
+      "thread": 0,
+      "m152": 12,
+      "m153": 0,
+      "m154": 6,
+      "m149List": 1
+    },
+    "firstThreadText": "",
+    "discussionPresentation": "m152-collapsed",
+    "reactionsPresentation": "m154-strip",
+    "hasViewDiscussion": true,
+    "hasReactionsFromResidents": false,
+    "hasExistingDiscussion": true,
+    "classicDiscussionRow": false,
+    "searchEnabled": true,
+    "searchUnavailable": false,
+    "searchInputPresent": true,
+    "actionStripIds": [
+      "feed-civic-action-react",
+      "feed-civic-action-comment",
+      "feed-civic-action-share",
+      "feed-civic-action-reactions",
+      "feed-civic-action-react",
+      "feed-civic-action-comment",
+      "feed-civic-action-share",
+      "feed-civic-action-reactions"
+    ],
+    "actionStripCount": 48,
+    "hasFourZone": true,
+    "ovalComposer": false,
+    "listPresentation": "m149-list",
+    "civicSampleText": "1b150a57-bcec-41b0-bae3-db11ab582985 PUBLISHED INCIDENT Tallinn, EE Oct 11, 2026 Dangerous pothole — Uus Veerenni by the entrance Dangerous pothole: a dangerous pothole damages vehicles [#01091] Infrastructure Open issue React Comment Share Reactions"
+  },
+  "facts_after_expand_attempt": {
+    "url": "http://127.0.0.1:4173/#/next/feed",
+    "dataTheme": "light",
+    "counts": {
+      "civic": 12,
+      "thread": 0,
+      "m152": 12,
+      "m153": 1,
+      "m154": 8,
+      "m149List": 1
+    },
+    "firstThreadText": "",
+    "discussionPresentation": "m153-tree",
+    "reactionsPresentation": "m154-strip",
+    "hasViewDiscussion": true,
+    "hasReactionsFromResidents": false,
+    "hasExistingDiscussion": true,
+    "classicDiscussionRow": false,
+    "searchEnabled": true,
+    "searchUnavailable": false,
+    "searchInputPresent": true,
+    "actionStripIds": [
+      "feed-civic-action-react",
+      "feed-civic-action-comment",
+      "feed-civic-action-share",
+      "feed-civic-action-reactions",
+      "feed-civic-action-react",
+      "feed-civic-action-comment",
+      "feed-civic-action-share",
+      "feed-civic-action-reactions"
+    ],
+    "actionStripCount": 48,
+    "hasFourZone": true,
+    "ovalComposer": false,
+    "listPresentation": "m149-list",
+    "civicSampleText": "1b150a57-bcec-41b0-bae3-db11ab582985 PUBLISHED INCIDENT Tallinn, EE Oct 11, 2026 Dangerous pothole — Uus Veerenni by the entrance Dangerous pothole: a dangerous pothole damages vehicles [#01091] Infrastructure Open issue React Comment Share Reactions"
+  },
+  "p6": {
+    "captured_utc": "2026-10-11T15:46:55.800Z",
+    "mode": "harness-thr01-populated+live-gateway",
+    "harness": {
+      "oval": 12,
+      "view": true,
+      "status": "populated",
+      "chrome": [
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry",
+        "oval-entry"
+      ]
+    },
+    "after": {
+      "tree": true,
+      "ovalChrome": "oval",
+      "entry": true,
+      "postText": "Post reply",
+      "br": "50%",
+      "w": "44px",
+      "h": "44px"
+    },
+    "ovalComposer": false,
+    "circular": true,
+    "md5_pairs": {
+      "07_vs_08": {
+        "a": "bff3a2d11848253f5a2090a003214f5c",
+        "b": "c94a2fece0bf00780c2faf639de8d8d6",
+        "distinct": true
+      },
+      "14_vs_15": {
+        "a": "68ac3b781a4bfdf9f6c5414cd81d5bf2",
+        "b": "1ccd7d54e8572d38bc7ad1c928b865ce",
+        "distinct": true
+      }
+    }
+  },
+  "p6_probe": {
+    "captured_utc": "2026-10-11T15:43:49.815Z",
+    "before": {
+      "oval": 0,
+      "chrome": [],
+      "view": false,
+      "post": false,
+      "postText": "",
+      "br": null,
+      "w": null
+    },
+    "after": {
+      "tree": false,
+      "oval": false,
+      "postText": "",
+      "br": null,
+      "w": null,
+      "h": null
+    },
+    "ovalComposer": false
+  }
+}

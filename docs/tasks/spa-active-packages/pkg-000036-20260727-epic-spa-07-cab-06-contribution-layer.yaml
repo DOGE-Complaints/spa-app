@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 36
+created_at: "2026-07-27T14:45:14Z"
+label: EPIC-SPA-07 CAB-06 contribution layer
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md
+decision_ref: spa-app/docs/tasks/backlog-stories/cabinet/STORY-SPA-CAB-06-contribution-layer.md
+story_groups:
+- story_key: STORY-SPA-CAB-06-contribution-layer
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-06-contribution-layer/task-spa-cab-06-t01-mount-contribution-layer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-06-contribution-layer/task-spa-cab-06-t02-runtime-states-a1-c3-stub-no-api/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-06-contribution-layer/task-spa-cab-06-t03-icon-wiring-contrib/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-06-contribution-layer/task-spa-cab-06-t04-l10n-cabinet-contrib-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-06-contribution-layer/task-spa-cab-06-t05-vitest-three-modules-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-06-contribution-layer/task-spa-cab-06-t06-story-gate-cab-06/README.md

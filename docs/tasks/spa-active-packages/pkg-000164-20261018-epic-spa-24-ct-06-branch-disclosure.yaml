@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 164
+created_at: "2026-10-18T13:44:33Z"
+label: EPIC-SPA-24 CT-06 Branch disclosure local
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-06-branch-disclosure.md
+story_groups:
+- story_key: STORY-SPA-CT-06-branch-disclosure
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-06-branch-disclosure/task-spa-ct-06-t01-branch-state/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-06-branch-disclosure/task-spa-ct-06-t02-sync-vs-async/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-06-branch-disclosure/task-spa-ct-06-t03-vitest-branch/README.md
+notes: |
+  P5 APPLY Done 2026-10-18T13:51:05Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX-MIRROR §4.2 T-coll/T-exp/T-err · M153 branch · Partial visual=BLOCK.
+  Skill react-expert (T01–T03). T01–T03 Done · gate BLOCK (OP eye Absent) · Path A shots 01–05 · vitest 99/99.
+  P5: TASKED=0 · activation none · F1 WAIVED operator · F2–F3 WAIVED info · P6 not needed.
+  Hard: no invent branch-fetch HTTP/OP PASS · View N only when count local · sync OK when children local · fixture delayed/error only.
+  data-tm-branch-fetch=false. Await P8. Do not invent OP PASS.
+

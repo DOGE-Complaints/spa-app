@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 209
+created_at: "2026-10-22T15:15:09Z"
+label: EPIC-SPA-23 CR-25 reaction selected hydrate persist
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-25-reaction-selected-hydrate-persist.md
+story_groups:
+- story_key: STORY-SPA-CR-25-reaction-selected-hydrate-persist
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-25-reaction-selected-hydrate-persist/task-spa-cr-25-t01-props/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-25-reaction-selected-hydrate-persist/task-spa-cr-25-t02-hosts/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-25-reaction-selected-hydrate-persist/task-spa-cr-25-t03-reload/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-25-reaction-selected-hydrate-persist/task-spa-cr-25-t04-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-22T15:15:09Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions. ui_scope: reactions-mount /
+  next-feed soft hosts · mixed · Path A p13UxReady Interview Rp12 · persist analysis Present ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04 Todo).
+  Hard: hydrate selected[] + summary_marks/aggregate_count from authenticated tree · post + comment ·
+  PUT→reload consistent · anonymous omit selected · no invent OP PASS · no invent people API ·
+  no invent gateway schema · no invent CDN.
+  OOS CR-24 underlay/own-icons visual · invent gateway schema · invent CDN.
+  Tip after pkg-000208. activation active. Await P2.

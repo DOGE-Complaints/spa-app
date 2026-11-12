@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 80
+created_at: "2026-09-22T21:42:26Z"
+label: EPIC-SPA-14 THR-04 escalation invitation stub
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/EPIC-SPA-14-threads-feed-ux.md
+decision_ref: spa-app/docs/tasks/backlog-stories/threads-feed/STORY-SPA-THR-04-escalation-stub.md
+story_groups:
+- story_key: STORY-SPA-THR-04-escalation-stub
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-04-escalation-stub/task-spa-thr-04-t01-invite-organization-control/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-04-escalation-stub/task-spa-thr-04-t02-stub-activated-feedback/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-04-escalation-stub/task-spa-thr-04-t03-l10n-escalate-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-04-escalation-stub/task-spa-thr-04-t04-vitest-stub-no-http/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-04-escalation-stub/task-spa-thr-04-t05-story-gate-thr-04/README.md
+notes: |
+  P1.3 APPLY 2026-09-22T21:42:26Z. input_mode=backlog_story. ui_scope: visual. UX ready M146 — brief skip.
+  REUSE EPIC-SPA-14 + T01–T05. @mockup on T01/T02/T05 + pipeline story.
+  No invent escalate HTTP. No false success / invitation-sent claim.
+  Do not start THR-05/06. Do not mix BUG/SSR pkgs. Do not retire spa_thr_* / spa_ssr_* / spa_bug_*.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T05 Todo.

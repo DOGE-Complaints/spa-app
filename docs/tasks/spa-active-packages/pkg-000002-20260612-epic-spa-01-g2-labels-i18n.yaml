@@ -1,0 +1,19 @@
+schema_version: 1
+package_sequence: 2
+created_at: "2026-06-12T18:00:00Z"
+label: EPIC-SPA-01 G2 labels i18n dictionary
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/EPIC-SPA-01-labels-i18n-dictionary.md
+decision_ref: spa-app/docs/tasks/backlog-stories/STORY-SPA-G2-labels-i18n-dictionary.md
+story_groups:
+- story_key: STORY-SPA-G2-labels-i18n-dictionary
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t00-label-taxonomy-product-workshop/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t01-extract-label-keys-ssot/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t02-add-labels-dictionary-section/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t03-localize-labels-filter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t04-localize-issue-card-and-details/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t05-tests-labels-i18n/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t06-sync-doc-touchpoints-g2/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-01-labels-i18n-dictionary/stories/STORY-SPA-G2-labels-i18n-dictionary/task-spa-g2-t07-story-acceptance-verification/README.md

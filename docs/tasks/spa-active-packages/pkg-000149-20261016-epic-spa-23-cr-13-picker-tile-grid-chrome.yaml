@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 149
+created_at: "2026-10-16T10:47:24Z"
+label: EPIC-SPA-23 CR-13 picker tile grid footer chrome M154 B/C
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-13-picker-tile-grid-chrome.md
+story_groups:
+- story_key: STORY-SPA-CR-13-picker-tile-grid-chrome
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-13-picker-tile-grid-chrome/task-spa-cr-13-t01-option-tile-layout/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-13-picker-tile-grid-chrome/task-spa-cr-13-t02-header-footer-chrome/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-13-picker-tile-grid-chrome/task-spa-cr-13-t03-portal-regression/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-13-picker-tile-grid-chrome/task-spa-cr-13-t04-vitest-picker-tiles/README.md
+notes: |
+  P1.3 APPLY 2026-10-16T10:47:24Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount / feed-lab · mixed · Path A M154 + OP-UX-MIRROR-m154 §4 · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Tile grid · header/footer Cancel/Add/Done · keep CR-10 portal · no invent HTTP · no M155 · no Lucide.
+  Accents → CR-14 OOS · invent HTTP OOS · #/next/feed OOS.
+  Await P2 on OP. No P3 yet. No product code this call. No invent OP PASS.

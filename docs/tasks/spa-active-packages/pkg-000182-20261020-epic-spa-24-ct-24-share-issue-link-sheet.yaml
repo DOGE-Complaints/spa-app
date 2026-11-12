@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 182
+created_at: "2026-10-20T15:19:51Z"
+label: EPIC-SPA-24 CT-24 Share Issue link sheet M152d
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-24-share-issue-link-sheet.md
+story_groups:
+- story_key: STORY-SPA-CT-24-share-issue-link-sheet
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-24-share-issue-link-sheet/task-spa-ct-24-t01-zone-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-24-share-issue-link-sheet/task-spa-ct-24-t02-surface/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-24-share-issue-link-sheet/task-spa-ct-24-t03-rows-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-24-share-issue-link-sheet/task-spa-ct-24-t04-url-copy/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-24-share-issue-link-sheet/task-spa-ct-24-t05-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T15:19:51Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: feed-lab · mixed · Path A M152d (+ PNG) · icons /icons/next-feed/share/* · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree.
+  Hard: Share popover desktop / bottom sheet 390 · TG IG X WA FB Copy · no invent HTTP/OP PASS.
+  Prior tip pkg-000181 · CT-23. Await P2 on OP. No P3 yet. No product code this call.

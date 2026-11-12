@@ -1,0 +1,48 @@
+{
+  "story": "STORY-SPA-CT-22-comment-attachment-preview",
+  "ui_gate": "auto",
+  "path": "A",
+  "partial": "BLOCK",
+  "op_eye": "Absent",
+  "invent_pass": false,
+  "invent_http": false,
+  "md5s": [
+    {
+      "file": "01-image-local-node.png",
+      "md5": "aa8c5b34ca9396c1df25c79658c96b73",
+      "prefix": "aa8c5b34ca93"
+    },
+    {
+      "file": "02-image-published-node.png",
+      "md5": "0b19ccdb476f630052c917977b0c4a9e",
+      "prefix": "0b19ccdb476f"
+    },
+    {
+      "file": "03-markdown-cue.png",
+      "md5": "36810d51d45d8da3749ecc2c09dc2f91",
+      "prefix": "36810d51d45d"
+    },
+    {
+      "file": "04-pdf-cue.png",
+      "md5": "9dac7fff3fe8b0e5811eb37cb23ffe99",
+      "prefix": "9dac7fff3fe8"
+    },
+    {
+      "file": "05-denied-omit.png",
+      "md5": "a38603e201ad58d72f9f82db4f997cb1",
+      "prefix": "a38603e201ad"
+    },
+    {
+      "file": "06-narrow-local.png",
+      "md5": "32640888d6409fd097f9ba4c50d70d26",
+      "prefix": "32640888d640"
+    },
+    {
+      "file": "07-attach-post-node.png",
+      "md5": "890dfdaff725cd838a3ba623c9dfe96d",
+      "prefix": "890dfdaff725"
+    }
+  ],
+  "fails": [],
+  "capturedAt": "2026-10-20T15:04:13.083Z"
+}

@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 177
+created_at: "2026-10-20T12:32:12Z"
+label: EPIC-SPA-24 CT-19 AttachmentRef Ready Denied paint M153b §7
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-19-attachment-ref-token-paint.md
+story_groups:
+- story_key: STORY-SPA-CT-19-attachment-ref-token-paint
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-19-attachment-ref-token-paint/task-spa-ct-19-t01-ready-tokens/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-19-attachment-ref-token-paint/task-spa-ct-19-t02-denied-tokens/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-19-attachment-ref-token-paint/task-spa-ct-19-t03-copy-honesty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-19-attachment-ref-token-paint/task-spa-ct-19-t04-style-audit/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T12:32:12Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A M153b §7 > M153a v1.1 C–E · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: no green Ready · Denied #F7F6F2/#B54708 · no invent MIME/HTTP/OP PASS.
+  Prior tip pkg-000176 · CT-18. Await P2 on OP. No P3 yet. No product code this call.

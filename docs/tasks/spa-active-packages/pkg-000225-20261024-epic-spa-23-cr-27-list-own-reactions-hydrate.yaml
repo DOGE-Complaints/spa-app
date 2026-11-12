@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 225
+created_at: "2026-10-24T10:29:17Z"
+label: EPIC-SPA-23 CR-27 list own reactions hydrate
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-27-list-own-reactions-hydrate.md
+story_groups:
+- story_key: STORY-SPA-CR-27-list-own-reactions-hydrate
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-27-list-own-reactions-hydrate/task-spa-cr-27-t01-probe/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-27-list-own-reactions-hydrate/task-spa-cr-27-t02-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-27-list-own-reactions-hydrate/task-spa-cr-27-t03-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-24T10:29:17Z wave OP-spa nf25-wave5-20261024.
+  input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions. ui_scope: reactions-mount /
+  next-feed list · mixed · Path A arch Present · Interview M10 · persist analysis ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T03 Todo).
+  Hard: list cards hydrate selected[] on Bearer load · reuse CR-25 mapping ·
+  no invent gateway schema · anonymous omit · Vitest · OP eye · no invent OP PASS.
+  OOS CR-26 own empty UX · invent people API · invent CDN.
+  Tip after pkg-000224. activation active.
+  Await P2 on OP. No P3 yet. No product code this call.

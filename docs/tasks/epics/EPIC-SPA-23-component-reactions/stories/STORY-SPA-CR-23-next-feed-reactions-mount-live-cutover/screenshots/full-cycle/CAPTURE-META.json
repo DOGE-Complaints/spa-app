@@ -1,0 +1,35 @@
+{
+  "story": "STORY-SPA-CR-23-next-feed-reactions-mount-live-cutover",
+  "captured_at": "2026-10-20T21:15:55.963Z",
+  "base": "http://127.0.0.1:5173",
+  "fails": [],
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "shots": [
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "1ca5cd04070887716ac87c6c581af431",
+      "prefix": "1ca5cd040708"
+    },
+    {
+      "file": "02-reactions-mount-live-strip.png",
+      "md5": "7540fbf8a18dd080e55f902543c3a7f1",
+      "prefix": "7540fbf8a18d"
+    },
+    {
+      "file": "03-comment-target-mount.png",
+      "md5": "680c12eb69bac7c55dde85c0804e9a5f",
+      "prefix": "680c12eb69ba"
+    },
+    {
+      "file": "04-strip-not-done.png",
+      "md5": "a02bba4aa68a667ff7f4cc45e0edef4c",
+      "prefix": "a02bba4aa68a"
+    },
+    {
+      "file": "05-lab-fixture-held.png",
+      "md5": "77f17e4f2d2164198497110dba20ac31",
+      "prefix": "77f17e4f2d21"
+    }
+  ]
+}

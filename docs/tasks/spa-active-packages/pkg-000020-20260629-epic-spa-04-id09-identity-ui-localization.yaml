@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 20
+created_at: "2026-06-29T10:51:38Z"
+label: EPIC-SPA-04 ID-09 identity UI localization
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-09-identity-ui-localization.md
+story_groups:
+- story_key: STORY-SPA-ID-09-identity-ui-localization
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-09-identity-ui-localization/task-spa-id-09-t01-i18n-foundation-dictionary-interpolation-forbidden-guard/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-09-identity-ui-localization/task-spa-id-09-t02-auth-login-map-auth-error-l10n/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-09-identity-ui-localization/task-spa-id-09-t03-session-shell-appshell-locale-switch/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-09-identity-ui-localization/task-spa-id-09-t04-civic-status-dashboard-host-l10n/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-09-identity-ui-localization/task-spa-id-09-t05-phone-flow-errors-verify-host-l10n/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-09-identity-ui-localization/task-spa-id-09-t06-l10n-tests-key-parity-forbidden-snapshots/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-09-identity-ui-localization/task-spa-id-09-t07-story-gate-id-09/README.md

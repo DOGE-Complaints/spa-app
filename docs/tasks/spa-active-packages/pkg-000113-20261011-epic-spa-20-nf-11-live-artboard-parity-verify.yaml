@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 113
+created_at: "2026-10-11T15:03:20Z"
+label: EPIC-SPA-20 NF-11 live artboard parity verify
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-11-live-artboard-parity-verify.md
+story_groups:
+- story_key: STORY-SPA-NF-11-live-artboard-parity-verify
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-11-live-artboard-parity-verify/task-spa-nf-11-t01-live-capture-matrix/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-11-live-artboard-parity-verify/task-spa-nf-11-t02-regress-checklist/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-11-live-artboard-parity-verify/task-spa-nf-11-t03-parity-report/README.md
+notes: |
+  P1.3 APPLY 2026-10-11T15:03:20Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M149–M160 Path A · AD-VP-04 · local-five mandatory.
+  Skill react-expert. T01–T03 Todo · ui_anchor T01+T03. Verify-only — no product invent.
+  Search matrix cell may be NR until NF-12. M155 OOS · shell Info only.
+  Await P2/P3 on OP.

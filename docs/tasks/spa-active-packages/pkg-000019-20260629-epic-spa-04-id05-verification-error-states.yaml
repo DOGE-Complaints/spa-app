@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 19
+created_at: "2026-06-29T09:20:49Z"
+label: EPIC-SPA-04 ID-05 verification error states
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-05-verification-error-states.md
+story_groups:
+- story_key: STORY-SPA-ID-05-verification-error-states
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-05-verification-error-states/task-spa-id-05-t01-verification-error-mapping-contract/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-05-verification-error-states/task-spa-id-05-t02-phone-verification-error-state-shell-m37/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-05-verification-error-states/task-spa-id-05-t03-error-states-rate-wrong-expired/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-05-verification-error-states/task-spa-id-05-t04-error-states-country-conflict-provider-auth-network/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-05-verification-error-states/task-spa-id-05-t05-phone-flow-error-integration/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-05-verification-error-states/task-spa-id-05-t06-tests-verification-errors-vitest/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-05-verification-error-states/task-spa-id-05-t07-story-gate-id-05/README.md

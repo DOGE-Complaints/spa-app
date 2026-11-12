@@ -1,0 +1,27 @@
+schema_version: 1
+package_sequence: 217
+created_at: "2026-10-23T14:39:13Z"
+label: EPIC-SPA-07 CAB-08 cabinet layout story activity wire
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md
+decision_ref: spa-app/docs/tasks/backlog-stories/cabinet/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire.md
+story_groups:
+- story_key: STORY-SPA-CAB-08-cabinet-layout-story-activity-wire
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire/task-spa-cab-08-t01-gate-slots/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire/task-spa-cab-08-t02-layout/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire/task-spa-cab-08-t03-http/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire/task-spa-cab-08-t04-cta/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-08-cabinet-layout-story-activity-wire/task-spa-cab-08-t05-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-23T14:39:13Z wave OP-spa nf24-wave4-20261023.
+  input_mode=backlog_story. REUSE EPIC-SPA-07-user-cabinet. ui_scope: cabinet ·
+  mixed · Path A p13UxReady M170+M45 · Interview P5 · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T05 Todo).
+  Hard: hide wallet/contrib keep code · compact civic · full-width activity ·
+  GET /story-activity wire · CTA /next/feed · Vitest · OP eye ·
+  no invent OP PASS · no invent contribution API · no invent rows.
+  OOS NS-14 brand · invent GW-CAB-03 · invent legal pages.
+  Tip after pkg-000216. activation active.
+  Await P2 on OP. No P3 yet. No product code this call.

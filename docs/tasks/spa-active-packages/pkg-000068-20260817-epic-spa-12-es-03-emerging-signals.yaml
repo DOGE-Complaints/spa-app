@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 68
+created_at: "2026-08-17T11:30:36Z"
+label: EPIC-SPA-12 ES-03 emerging-signals
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/EPIC-SPA-12-early-signal-dashboard.md
+decision_ref: spa-app/docs/tasks/backlog-stories/early-signal-dashboard/STORY-SPA-ES-03-emerging-signals-provisional.md
+story_groups:
+- story_key: STORY-SPA-ES-03-emerging-signals-provisional
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-03-emerging-signals-provisional/task-spa-es-03-t01-emerging-repository/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-03-emerging-signals-provisional/task-spa-es-03-t02-emerging-cards-empty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-03-emerging-signals-provisional/task-spa-es-03-t03-emerging-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-03-emerging-signals-provisional/task-spa-es-03-t04-vitest-emerging-shape/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-03-emerging-signals-provisional/task-spa-es-03-t05-story-gate-es-03/README.md
+notes: |
+  P1.3 APPLY 2026-08-17T11:30:36Z. input_mode=backlog_story. ui_scope: visual. Path A M138.
+  Reuse EPIC-SPA-12. ES-03 only (not ES-01/02/04/05). No STORY-UX-MOCKUP-BRIEF.
+  Next: P2 build window. T01–T05 Todo.

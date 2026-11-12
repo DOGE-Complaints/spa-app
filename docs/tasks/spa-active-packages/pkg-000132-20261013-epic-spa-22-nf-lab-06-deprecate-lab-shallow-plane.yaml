@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 132
+created_at: "2026-10-13T15:02:37Z"
+label: EPIC-SPA-22 NF-LAB-06 deprecate lab shallow plane
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-06-deprecate-lab-shallow-plane.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-06-deprecate-lab-shallow-plane
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-06-deprecate-lab-shallow-plane/task-spa-nf-lab-06-t01-inventory/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-06-deprecate-lab-shallow-plane/task-spa-nf-lab-06-t02-rename-lab-owned/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-06-deprecate-lab-shallow-plane/task-spa-nf-lab-06-t03-verify-smoke/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-06-deprecate-lab-shallow-plane/task-spa-nf-lab-06-t04-acceptance-verification/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T15:02:37Z. input_mode=backlog_story. REUSE EPIC-SPA-22-next-feed-lab.
+  ui_scope: feed-lab · rename foundation · NOT visual package PASS · NO UX appendix.
+  Skill react-expert. T01–T04 Todo.
+  Lab-owned only → *Deprecated · forbid rename shared features/feed/**.
+  Blocks LAB-07…10. Await P2/P3 on OP.

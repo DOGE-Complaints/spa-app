@@ -1,0 +1,36 @@
+{
+  "story": "STORY-SPA-CT-26-density-v2-borderless-fill",
+  "mockup": "M153d",
+  "captured_utc": "2026-10-20T19:43:01.681Z",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "density": "m153d",
+  "md5s": [
+    {
+      "file": "01-borderless-nested-tree.png",
+      "md5": "a4782f139b775bf53d273dab0f4dc0fa",
+      "prefix": "a4782f139b77"
+    },
+    {
+      "file": "02-reply-parent-selected.png",
+      "md5": "a52e8e2c9a553e4cf17c760d7c7820ca",
+      "prefix": "a52e8e2c9a55"
+    },
+    {
+      "file": "03-narrow-390.png",
+      "md5": "41eb3a59911f353886e7a38db837f9ea",
+      "prefix": "41eb3a59911f"
+    },
+    {
+      "file": "04-density-v2-tree.png",
+      "md5": "30e24cbf0735355eb33ef49d33061192",
+      "prefix": "30e24cbf0735"
+    },
+    {
+      "file": "05-attachment-ref-borders-held.png",
+      "md5": "91dfe5bb6a138087f01e0f6b5cfa2a64",
+      "prefix": "91dfe5bb6a13"
+    }
+  ],
+  "fails": []
+}

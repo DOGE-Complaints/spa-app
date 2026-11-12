@@ -1,0 +1,52 @@
+{
+  "story": "STORY-SPA-NS-14-brand-png-dual-theme",
+  "captured_at": "2026-10-23T14:30:17.697Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_png_masters": false,
+  "asset_status": "MASTERS_ABSENT",
+  "t01_soft_block": true,
+  "brand_light_master": false,
+  "brand_dark_master": false,
+  "header_wire": "svg_held_no_invent",
+  "footer_tagline": "Absent",
+  "fails": [],
+  "probeLight": {
+    "themeAttr": "dark",
+    "header": true,
+    "brandSrc": "/assets/DOGEstonia-logo-horizontal-dark.svg",
+    "footer": true,
+    "ns14": "no-tagline",
+    "tagline": false,
+    "taglineText": null
+  },
+  "md5s": [
+    {
+      "file": "01-header-brand-as-is-light.png",
+      "md5": "6fdc027bc8724b02cbff057721423d99",
+      "prefix": "6fdc027bc872"
+    },
+    {
+      "file": "02-footer-no-tagline-light.png",
+      "md5": "ece484556cce8dbe5d0411440ea13766",
+      "prefix": "ece484556cce"
+    },
+    {
+      "file": "03-header-brand-as-is-dark.png",
+      "md5": "218e8492a23d2aa1925be863f1101a3f",
+      "prefix": "218e8492a23d"
+    },
+    {
+      "file": "04-footer-no-tagline-dark.png",
+      "md5": "7bc8ed5abb74514c9c13f7e17b40c5f0",
+      "prefix": "7bc8ed5abb74"
+    },
+    {
+      "file": "05-brand-honesty.png",
+      "md5": "218e8492a23d2aa1925be863f1101a3f",
+      "prefix": "218e8492a23d"
+    }
+  ]
+}

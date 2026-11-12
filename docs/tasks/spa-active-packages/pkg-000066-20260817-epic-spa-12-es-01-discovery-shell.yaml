@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 66
+created_at: "2026-08-17T10:14:14Z"
+label: EPIC-SPA-12 ES-01 discovery-shell
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/EPIC-SPA-12-early-signal-dashboard.md
+decision_ref: spa-app/docs/tasks/backlog-stories/early-signal-dashboard/STORY-SPA-ES-01-board-pre-cluster-discovery-shell.md
+story_groups:
+- story_key: STORY-SPA-ES-01-board-pre-cluster-discovery-shell
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-01-board-pre-cluster-discovery-shell/task-spa-es-01-t01-discovery-root-testid/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-01-board-pre-cluster-discovery-shell/task-spa-es-01-t02-slot-layout-m136/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-01-board-pre-cluster-discovery-shell/task-spa-es-01-t03-preserve-filtered-error/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-01-board-pre-cluster-discovery-shell/task-spa-es-01-t04-l10n-discovery-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-01-board-pre-cluster-discovery-shell/task-spa-es-01-t05-vitest-discovery-empty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-12-early-signal-dashboard/stories/STORY-SPA-ES-01-board-pre-cluster-discovery-shell/task-spa-es-01-t06-story-gate-es-01/README.md
+notes: |
+  P1.3 APPLY 2026-08-17T10:14:14Z. input_mode=backlog_story. ui_scope: visual. Path A M136.
+  Reuse EPIC-SPA-12. ES-01 only (not ES-02…05). No STORY-UX-MOCKUP-BRIEF.
+  Next: P2 build window. T01–T06 Todo.

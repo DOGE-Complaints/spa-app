@@ -1,0 +1,29 @@
+schema_version: 1
+package_sequence: 229
+created_at: "2026-10-24T11:13:33Z"
+label: EPIC-SPA-20 NF-25 filters popover UX redesign
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-25-filters-popover-ux-redesign.md
+story_groups:
+- story_key: STORY-SPA-NF-25-filters-popover-ux-redesign
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-25-filters-popover-ux-redesign/task-spa-nf-25-t01-ux/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-25-filters-popover-ux-redesign/task-spa-nf-25-t02-layout/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-25-filters-popover-ux-redesign/task-spa-nf-25-t03-actions/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-25-filters-popover-ux-redesign/task-spa-nf-25-t04-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-24T11:13:33Z wave OP-spa nf25-wave5-20261024.
+  input_mode=backlog_story. REUSE EPIC-SPA-20-next-feed. ui_scope: feed / Filters
+  popover · mixed · Path A M175 intake PASS · Interview M13 · arch Present ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert
+  (T01 Done · T02–T04 Todo).
+  Hard: usable width · clear label/value rows · dates look active · native picker
+  + NF-21 color-scheme held · Apply/Reset hierarchy · NF-22 Reset held · Vitest ·
+  OP eye · no invent OP PASS · no invent filter API keys.
+  OOS Map theme · invent gateway filters.
+  Tip after pkg-000228. activation active.
+  P3 Execute Done 2026-10-24T11:24:31Z · T01–T04 Done · gate BLOCK · CAPTURE-META fails: [] ·
+  nf25 6/6 · Await P4.
+  P5 APPLY 2026-10-24T11:26:45Z · F1/F2 WAIVED · TASKED=0 · activation none · P6 skipped · Await P8.

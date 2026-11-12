@@ -1,0 +1,38 @@
+{
+  "captured_utc": "2026-10-15T19:58:24.952Z",
+  "route": "#/lab/feed",
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  },
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "card_overflow": "hidden",
+  "files": [
+    {
+      "file": "01-lab-feed-cr10-portal-open-1536x1024.png",
+      "md5": "8f535e1dc9e988643b4e72c8504ac9ac",
+      "prefix": "8f535e1dc9e9"
+    },
+    {
+      "file": "02-lab-feed-cr10-fixed-from-zone1-1536x1024.png",
+      "md5": "dfdb9ea310228504e21b60fb23646baf",
+      "prefix": "dfdb9ea31022"
+    },
+    {
+      "file": "03-lab-feed-cr10-scroll-under-1536x1024.png",
+      "md5": "8dd280baa23998ec9ef15ff9194b604d",
+      "prefix": "8dd280baa239"
+    },
+    {
+      "file": "04-lab-feed-cr10-dismiss-escape-1536x1024.png",
+      "md5": "bddfac5ee5f781712798a11d65551d3b",
+      "prefix": "bddfac5ee5f7"
+    },
+    {
+      "file": "05-lab-feed-cr10-overflow-hidden-kept-1536x1024.png",
+      "md5": "bddfac5ee5f781712798a11d65551d3b",
+      "prefix": "bddfac5ee5f7"
+    }
+  ]
+}

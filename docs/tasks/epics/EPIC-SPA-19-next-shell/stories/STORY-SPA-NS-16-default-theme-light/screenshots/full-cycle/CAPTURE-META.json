@@ -1,0 +1,45 @@
+{
+  "story": "STORY-SPA-NS-16-default-theme-light",
+  "captured_at": "2026-10-24T09:52:21.754Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_os_theme": false,
+  "default_unset": "light",
+  "stored_dark_held": true,
+  "fails": [],
+  "probeStoredDark": {
+    "themeAttr": "dark",
+    "colorScheme": "dark",
+    "stored": "dark",
+    "header": true
+  },
+  "md5s": [
+    {
+      "file": "01-default-unset-light.png",
+      "md5": "d991f98cb88510e429c2ffad9fbf7acc",
+      "prefix": "d991f98cb885"
+    },
+    {
+      "file": "02-shell-default-light.png",
+      "md5": "989550f234592b18da590f2819c0607a",
+      "prefix": "989550f23459"
+    },
+    {
+      "file": "03-stored-dark-held.png",
+      "md5": "9133aec027b2e6a1821f7ac6f72f782f",
+      "prefix": "9133aec027b2"
+    },
+    {
+      "file": "04-shell-stored-dark.png",
+      "md5": "378c8ac18a12ab65e14f6cb1fb210f52",
+      "prefix": "378c8ac18a12"
+    },
+    {
+      "file": "05-honesty.png",
+      "md5": "d50328c3427309f2bd205f9eb79247ff",
+      "prefix": "d50328c34273"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "story": "STORY-SPA-PH-15-static-pages-content",
+  "captured_at": "2026-10-23T15:20:12.628Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_legal_body": false,
+  "invent_ru_et_download_labels": false,
+  "invent_form_post": false,
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-about-desktop.png",
+      "md5": "649b02313f8d6bc872ed55f72016d6da",
+      "prefix": "649b02313f8d"
+    },
+    {
+      "file": "02-privacy-downloads.png",
+      "md5": "381c87b144e05f0bc09b312dae38abc3",
+      "prefix": "381c87b144e0"
+    },
+    {
+      "file": "03-contact-outline.png",
+      "md5": "67f37f7131f95fa82bbf02061b99c3f5",
+      "prefix": "67f37f7131f9"
+    },
+    {
+      "file": "04-privacy-mobile-390.png",
+      "md5": "7c1cb1052f8f0c4c9bf875f859b03626",
+      "prefix": "7c1cb1052f8f"
+    },
+    {
+      "file": "05-about-copy-honesty.png",
+      "md5": "649b02313f8d6bc872ed55f72016d6da",
+      "prefix": "649b02313f8d"
+    }
+  ]
+}

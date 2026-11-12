@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 155
+created_at: "2026-10-18T10:51:53Z"
+label: EPIC-SPA-23 CR-19 People sheet + lab wire M155 C
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-19-people-sheet-lab-wire.md
+story_groups:
+- story_key: STORY-SPA-CR-19-people-sheet-lab-wire
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-19-people-sheet-lab-wire/task-spa-cr-19-t01-people-sheet-surface/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-19-people-sheet-lab-wire/task-spa-cr-19-t02-lab-reactions-people-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-19-people-sheet-lab-wire/task-spa-cr-19-t03-lab-feed-people-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-19-people-sheet-lab-wire/task-spa-cr-19-t04-vitest-lab-people/README.md
+notes: |
+  P1.3 APPLY 2026-10-18T10:51:53Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount / feed-lab · mixed · Path A M155 C + polish §4.5 · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  OP queueSpec forces runtime (backlog Await «делай» superseded). Prior tip pkg-000154 · CR-17/18 structure Present.
+  Sheet ≤88dvh · both labs wire · CR-16 polish held · Reactions≠picker · fixtures only · Live fail-closed.
+  Gap v2 residual → visual BLOCK · no invent people HTTP · no invent OP PASS/SVG · no #/next/feed.
+  Await P2 on OP. No P3 yet. No product code this call.

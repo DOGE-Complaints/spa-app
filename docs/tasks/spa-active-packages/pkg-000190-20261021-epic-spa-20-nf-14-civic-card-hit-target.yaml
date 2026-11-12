@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 190
+created_at: "2026-10-21T11:43:47Z"
+label: EPIC-SPA-20 NF-14 civic card hit-target retire Open issue
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-14-civic-card-hit-target.md
+story_groups:
+- story_key: STORY-SPA-NF-14-civic-card-hit-target
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-14-civic-card-hit-target/task-spa-nf-14-t01-remove-open/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-14-civic-card-hit-target/task-spa-nf-14-t02-hit-region/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-14-civic-card-hit-target/task-spa-nf-14-t03-list-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-14-civic-card-hit-target/task-spa-nf-14-t04-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-21T11:43:47Z wave OP-spa nf13-16-ct30-20261021. input_mode=backlog_story.
+  REUSE EPIC-SPA-20-next-feed. ui_scope: feed · mixed · Path A code lock · ARCH-DELTA §2 ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04).
+  Hard: retire open Link · one hit wrapper · strip excluded · no invent HTTP/OP PASS.
+  Prior tip pkg-000189 · NF-13. Await P2 on OP. No P3 yet. No product code this call.

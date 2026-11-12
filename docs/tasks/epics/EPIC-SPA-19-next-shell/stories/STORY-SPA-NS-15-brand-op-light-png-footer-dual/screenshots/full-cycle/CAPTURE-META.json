@@ -1,0 +1,54 @@
+{
+  "story": "STORY-SPA-NS-15-brand-op-light-png-footer-dual",
+  "captured_at": "2026-10-24T09:40:52.628Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_png_masters": false,
+  "asset_status": "MASTERS_PRESENT",
+  "promote": "copy_tip_shelf_only",
+  "header_wire": "dogestonia-brand-{light,dark}.png",
+  "footer_wire": "dogestonia-brand-{light,dark}.png",
+  "footer_adjacent_text": "Absent",
+  "logo_big_footer": false,
+  "fails": [],
+  "probeDark": {
+    "themeAttr": "dark",
+    "header": true,
+    "brandSrc": "/assets/dogestonia-brand-dark.png",
+    "footer": true,
+    "ns14": "no-tagline",
+    "ns15": "brand-png-dual",
+    "footerSrc": "/assets/dogestonia-brand-dark.png",
+    "tagline": false,
+    "brandNameText": false
+  },
+  "md5s": [
+    {
+      "file": "01-header-brand-light.png",
+      "md5": "e36db35aaf103cb059774589b04ddcca",
+      "prefix": "e36db35aaf10"
+    },
+    {
+      "file": "02-footer-brand-light-no-text.png",
+      "md5": "ecd1f926c69fd2b4ad59af666f67d5b4",
+      "prefix": "ecd1f926c69f"
+    },
+    {
+      "file": "03-header-brand-dark.png",
+      "md5": "9133aec027b2e6a1821f7ac6f72f782f",
+      "prefix": "9133aec027b2"
+    },
+    {
+      "file": "04-footer-brand-dark.png",
+      "md5": "e793d2f3acaded4cfd77bb613387e75c",
+      "prefix": "e793d2f3acad"
+    },
+    {
+      "file": "05-brand-honesty.png",
+      "md5": "9133aec027b2e6a1821f7ac6f72f782f",
+      "prefix": "9133aec027b2"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 27
+created_at: "2026-07-06T13:39:53Z"
+label: EPIC-SPA-06 DEPLOY-01 railway deployability
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/EPIC-SPA-06-railway-deploy.md
+decision_ref: spa-app/docs/tasks/backlog-stories/railway-deploy/STORY-SPA-DEPLOY-01-railway-deployability.md
+story_groups:
+- story_key: STORY-SPA-DEPLOY-01-railway-deployability
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-01-railway-deployability/task-spa-deploy-01-t01-railway-monorepo-serve-config/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-01-railway-deployability/task-spa-deploy-01-t02-env-example-railway-build-vars/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-01-railway-deployability/task-spa-deploy-01-t03-verify-dist-env-bake/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-01-railway-deployability/task-spa-deploy-01-t04-story-gpt-url-wiring-tests/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-01-railway-deployability/task-spa-deploy-01-t05-m5-public-paths-bundle-guard/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-06-railway-deploy/stories/STORY-SPA-DEPLOY-01-railway-deployability/task-spa-deploy-01-t06-story-gate-deploy-01/README.md

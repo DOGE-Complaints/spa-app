@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 174
+created_at: "2026-10-20T11:34:39Z"
+label: EPIC-SPA-24 CT-16 Dual-append post ownership
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-16-dual-append-post-ownership.md
+story_groups:
+- story_key: STORY-SPA-CT-16-dual-append-post-ownership
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-16-dual-append-post-ownership/task-spa-ct-16-t01-pin-owner/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-16-dual-append-post-ownership/task-spa-ct-16-t02-remove-dual-append/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-16-dual-append-post-ownership/task-spa-ct-16-t03-vitest-unique-ids/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-16-dual-append-post-ownership/task-spa-ct-16-t04-puppeteer-regression/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T11:34:39Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A OP-UX M153a/b BUG-1 · Artboard Meta=— · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: single write-owner · no dual-append · unique ids · forest not flat from duplicate-id · vitest+puppeteer · no invent HTTP/OP PASS.
+  Prior tip pkg-000173 · CT-15. Await P2 on OP. No P3 yet. No product code this call.

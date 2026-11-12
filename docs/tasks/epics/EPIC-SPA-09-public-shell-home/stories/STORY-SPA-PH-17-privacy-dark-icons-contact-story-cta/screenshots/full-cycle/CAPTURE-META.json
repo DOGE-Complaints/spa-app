@@ -1,0 +1,38 @@
+{
+  "story": "STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta",
+  "utc": "2026-10-24T10:13:00.825Z",
+  "privacyProbe": {
+    "theme": "dark",
+    "cardCount": 3,
+    "iconFilter": "invert(1)",
+    "dlFilter": "invert(1)",
+    "iconVisible": true
+  },
+  "contactProbe": {
+    "hasHint": true,
+    "hasCta": true,
+    "ctaHref": "https://chatgpt.com/g/g-RkVU9xLWN-dogestonia",
+    "ctaLabel": "Submit a story",
+    "hrefOk": true,
+    "noHardcodedGptId": false
+  },
+  "md5s": [
+    {
+      "file": "01-privacy-dark-icons.png",
+      "md5": "3989c3a7d01b20e49a5cd0a490482d35",
+      "prefix": "3989c3a7d01b"
+    },
+    {
+      "file": "02-contact-story-cta.png",
+      "md5": "ea1450b31cb38bdff362f9c6bdc3dca3",
+      "prefix": "ea1450b31cb3"
+    },
+    {
+      "file": "03-privacy-dark-mobile.png",
+      "md5": "a0967e1fd5fff7bb06824b50af11f950",
+      "prefix": "a0967e1fd5ff"
+    }
+  ],
+  "fails": [],
+  "note": "OP eye Absent · Partial visual=BLOCK · no invent PASS / GPT URL / new art"
+}

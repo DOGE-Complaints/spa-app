@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-18T12:25:27.103Z",
+  "md5s": [
+    {
+      "file": "01-lab-feed-cr22-media-strip-flush-1536x1024.png",
+      "md5": "41ec692f4c288b2961042160ef77e409",
+      "prefix": "41ec692f4c28"
+    },
+    {
+      "file": "02-lab-feed-cr22-media-strip-dark-1536x1024.png",
+      "md5": "dc0e5b205e0b884b663242bf6d6f04d6",
+      "prefix": "dc0e5b205e0b"
+    },
+    {
+      "file": "03-lab-feed-cr22-adjacency-crop-1536x1024.png",
+      "md5": "0161f9d04232f3a13accc964392732a3",
+      "prefix": "0161f9d04232"
+    },
+    {
+      "file": "04-lab-feed-cr22-chip-hover-held-1536x1024.png",
+      "md5": "90dea0fc2b7ea3678eaa9207ee9bee72",
+      "prefix": "90dea0fc2b7e"
+    },
+    {
+      "file": "05-lab-feed-cr22-media-strip-narrow-390x844.png",
+      "md5": "32941c829a771bdfb6fa604016ce317a",
+      "prefix": "32941c829a77"
+    }
+  ],
+  "cause": "measure-cause-CR-22.md"
+}

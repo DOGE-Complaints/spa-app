@@ -1,0 +1,27 @@
+schema_version: 1
+package_sequence: 202
+created_at: "2026-10-22T13:07:53Z"
+label: EPIC-SPA-19 NS-09 ProfileRail Feed cleanup
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/EPIC-SPA-19-next-shell.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-shell/STORY-SPA-NS-09-profile-rail-feed-cleanup.md
+story_groups:
+- story_key: STORY-SPA-NS-09-profile-rail-feed-cleanup
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-09-profile-rail-feed-cleanup/task-spa-ns-09-t01-remove-summary/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-09-profile-rail-feed-cleanup/task-spa-ns-09-t02-feed-label/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-09-profile-rail-feed-cleanup/task-spa-ns-09-t03-empty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-19-next-shell/stories/STORY-SPA-NS-09-profile-rail-feed-cleanup/task-spa-ns-09-t04-vitest/README.md
+notes: |
+  P8 local close 2026-10-22T13:19:51Z · closed · Story BLOCKED (OP eye) OK · activation none · NO PUSH.
+  P5 APPLY F1 WAIVED operator · F2 WAIVED info · TASKED=0 · P7 wave COMPLETE · P6 not needed.
+  P3 Execute structure Pass · gate BLOCK · AppShell 25/25 · ns03+ns09 7/7 · Path A fails:[].
+  P1.3 APPLY 2026-10-22T13:07:53Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-19-next-shell. ui_scope: shell · soft #/next/feed host ·
+  mixed · Path A code lock · Interview R2 · soft M149/Component §10 · Partial visual=BLOCK ·
+  NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T04).
+  Hard: drop summary · one Profile nav · Feed label · /next/feed held · soft mobile Feed ·
+  omit «No stories yet» · no invent activity API · no invent OP PASS.
+  OOS Logo UX · locale · invent activity API.
+  Soft after pkg-000201 NS-08 P8. Soft NS-03/NS-07.

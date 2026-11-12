@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 117
+created_at: "2026-10-12T14:08:24Z"
+label: EPIC-SPA-21 NF-VL-03 reactions chrome atoms
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/EPIC-SPA-21-next-feed-vl.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-vl/STORY-SPA-NF-VL-03-reactions-chrome-atoms.md
+story_groups:
+- story_key: STORY-SPA-NF-VL-03-reactions-chrome-atoms
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-03-reactions-chrome-atoms/task-spa-nf-vl-03-t01-as-is-shelter-map/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-03-reactions-chrome-atoms/task-spa-nf-vl-03-t02-ds-reactions-modules/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-03-reactions-chrome-atoms/task-spa-nf-vl-03-t03-semantics-seam/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-03-reactions-chrome-atoms/task-spa-nf-vl-03-t04-wire-displace-shelter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-03-reactions-chrome-atoms/task-spa-nf-vl-03-t05-anti-mixing-verify/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-21-next-feed-vl/stories/STORY-SPA-NF-VL-03-reactions-chrome-atoms/task-spa-nf-vl-03-t06-icon-lock-residual/README.md
+notes: |
+  P1.3 APPLY 2026-10-12T14:08:24Z. input_mode=backlog_story. REUSE EPIC-SPA-21.
+  ui_scope: feed · UX ready M154 + DS SSOT §8 · AD-VL-01/02/03 · local-five mandatory.
+  Skill react-expert. T01–T06 Todo · ui_anchor T02+T04+T05.
+  No invent reaction ids/M155. No mutate #/board. No reopen NF-09 body.
+  Await P2/P3 on OP (this fence stops at P1.3).

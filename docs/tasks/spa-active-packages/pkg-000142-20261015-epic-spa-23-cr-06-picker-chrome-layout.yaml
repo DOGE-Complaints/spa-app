@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 142
+created_at: "2026-10-15T10:45:11Z"
+label: EPIC-SPA-23 CR-06 picker chrome layout
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-06-picker-chrome-layout.md
+story_groups:
+- story_key: STORY-SPA-CR-06-picker-chrome-layout
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-06-picker-chrome-layout/task-spa-cr-06-t01-icon-only-close-chrome/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-06-picker-chrome-layout/task-spa-cr-06-t02-root-hint-footer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-06-picker-chrome-layout/task-spa-cr-06-t03-hug-width-popover/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-06-picker-chrome-layout/task-spa-cr-06-t04-vitest-chrome-layout/README.md
+notes: |
+  P1.3 APPLY 2026-10-15T10:45:11Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount · visual|mixed · Path A M154 B/C + OP-UX-MIRROR §3.3 · Partial visual=BLOCK.
+  Skill react-expert (T04 test-master). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Icon-only close · root hint footer · hug-width popover · sheet full-bleed OK.
+  Depends CR-05 structure Present · CR-02 picker Present.
+  M155 OOS · invent HTTP OOS · #/next/feed cutover OOS · CR-07 OOS.
+  Await P2 on OP. No P3 yet. No product code this call.

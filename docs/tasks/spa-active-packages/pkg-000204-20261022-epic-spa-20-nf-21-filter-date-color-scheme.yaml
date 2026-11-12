@@ -1,0 +1,23 @@
+schema_version: 1
+package_sequence: 204
+created_at: "2026-10-22T13:43:45Z"
+label: EPIC-SPA-20 NF-21 filter date color-scheme theme
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-21-filter-date-color-scheme.md
+story_groups:
+- story_key: STORY-SPA-NF-21-filter-date-color-scheme
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-21-filter-date-color-scheme/task-spa-nf-21-t01-scheme/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-21-filter-date-color-scheme/task-spa-nf-21-t02-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-22T13:43:45Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-20-next-feed. ui_scope: feed/filters · soft #/next/feed ·
+  mixed · Path A p13UxReady Interview F3 · ARCH-DELTA §9 · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF ·
+  no UX gen. Skill react-expert (T01–T02).
+  Hard: color-scheme follows data-theme · retire hardcoded dark sole rule ·
+  no invent OP PASS · no invent custom calendar.
+  OOS NF-22 Reset Filters · invent calendar widget.
+  Tip after pkg-000203 NS-10 P8. Soft Filters/LocalizedDateInput Present.
+  Await P2 on OP. No P3 yet. No product code this call.

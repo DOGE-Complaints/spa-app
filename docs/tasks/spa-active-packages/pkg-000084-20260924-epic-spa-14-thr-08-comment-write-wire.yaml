@@ -1,0 +1,25 @@
+schema_version: 1
+package_sequence: 84
+created_at: "2026-09-24T07:50:12Z"
+label: EPIC-SPA-14 THR-08 comment write wire
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/EPIC-SPA-14-threads-feed-ux.md
+decision_ref: spa-app/docs/tasks/backlog-stories/threads-feed/STORY-SPA-THR-08-comment-write-wire.md
+story_groups:
+- story_key: STORY-SPA-THR-08-comment-write-wire
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-08-comment-write-wire/task-spa-thr-08-t01-close-comment-client/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-08-comment-write-wire/task-spa-thr-08-t02-session-bearer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-08-comment-write-wire/task-spa-thr-08-t03-composer-profile-props/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-08-comment-write-wire/task-spa-thr-08-t04-error-soft-fail/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-08-comment-write-wire/task-spa-thr-08-t05-post-success-refresh/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-08-comment-write-wire/task-spa-thr-08-t06-vitest-write/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-08-comment-write-wire/task-spa-thr-08-t07-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-09-24T07:50:12Z. input_mode=backlog_story. ui_scope: none — console clean (NO UX appendix / NOT p3Ux).
+  REUSE EPIC-SPA-14 + T01–T07. No @mockup.
+  Closed path only: POST /threads/issues/{issue_id}/comments · body {body, parent_id}. No invent URLs.
+  Do not start THR-09 this packet. Do not mix BUG/SSR pkgs. Do not retire spa_thr_* / spa_ssr_* / spa_bug_*.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T07 Todo. STOP before P4 after P3.

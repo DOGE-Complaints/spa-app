@@ -1,0 +1,16 @@
+schema_version: 1
+package_sequence: 54
+created_at: "2026-08-07T11:41:33Z"
+label: EPIC-SPA-11 BUG-02 logo background mismatch
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/EPIC-SPA-11-uat-inbound-2026-08.md
+decision_ref: spa-app/docs/tasks/backlog-stories/bugs/STORY-SPA-BUG-02-logo-background-mismatch.md
+story_groups:
+- story_key: STORY-SPA-BUG-02-logo-background-mismatch
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-02-logo-background-mismatch/task-spa-bug-02-t01-measure-surfaces-vs-asset/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-02-logo-background-mismatch/task-spa-bug-02-t02-transparent-asset-or-surface/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-02-logo-background-mismatch/task-spa-bug-02-t03-public-routes-logo-pass/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-02-logo-background-mismatch/task-spa-bug-02-t04-desktop-narrow-verify/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-11-uat-inbound-2026-08/stories/STORY-SPA-BUG-02-logo-background-mismatch/task-spa-bug-02-t05-story-gate-bug-02/README.md

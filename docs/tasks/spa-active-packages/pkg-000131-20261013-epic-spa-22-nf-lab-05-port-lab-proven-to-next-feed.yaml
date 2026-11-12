@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 131
+created_at: "2026-10-13T13:13:55Z"
+label: EPIC-SPA-22 NF-LAB-05 port lab-proven to next-feed
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/EPIC-SPA-22-next-feed-lab.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed-lab/STORY-SPA-NF-LAB-05-port-lab-proven-to-next-feed.md
+story_groups:
+- story_key: STORY-SPA-NF-LAB-05-port-lab-proven-to-next-feed
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-05-port-lab-proven-to-next-feed/task-spa-nf-lab-05-t01-displace-shelter/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-05-port-lab-proven-to-next-feed/task-spa-nf-lab-05-t02-reaction-css-plane/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-05-port-lab-proven-to-next-feed/task-spa-nf-lab-05-t03-discussion-copy-depth/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-22-next-feed-lab/stories/STORY-SPA-NF-LAB-05-port-lab-proven-to-next-feed/task-spa-nf-lab-05-t04-verify-port-gates/README.md
+notes: |
+  P1.3 APPLY 2026-10-13T13:13:55Z. input_mode=backlog_story. REUSE EPIC-SPA-22-next-feed-lab.
+  ui_scope: next-feed (product port) · Path A re-verify M150/M154/M152/M153/M158/M149 · Partial=BLOCK.
+  Skill react-expert. T01–T04 Todo · ui_anchor all.
+  DEPENDENCY: LAB-03/04 visual BLOCK · OP eye Absent → port gate may BLOCK until OP eye (do not invent PASS).
+  Ban BoardIssuePost shelter · classic ReactionControls.css on next Done path after port.
+  #/board classic preserved · #/lab/feed remains SSOT. No invent API/SVG. Await P2/P3 on OP.

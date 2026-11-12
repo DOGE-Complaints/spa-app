@@ -1,0 +1,17 @@
+schema_version: 1
+package_sequence: 37
+created_at: "2026-07-28T13:48:38Z"
+label: EPIC-SPA-07 CAB-07 cabinet page states
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/EPIC-SPA-07-user-cabinet.md
+decision_ref: spa-app/docs/tasks/backlog-stories/cabinet/STORY-SPA-CAB-07-cabinet-page-states.md
+story_groups:
+- story_key: STORY-SPA-CAB-07-cabinet-page-states
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-07-cabinet-page-states/task-spa-cab-07-t01-m23-composite-new-user-empty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-07-cabinet-page-states/task-spa-cab-07-t02-m22-profile-load-error-panel/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-07-cabinet-page-states/task-spa-cab-07-t03-l10n-cabinet-error-profile-load/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-07-cabinet-page-states/task-spa-cab-07-t04-icon-wiring-m22-reuse/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-07-cabinet-page-states/task-spa-cab-07-t05-vitest-m23-m22-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-07-user-cabinet/stories/STORY-SPA-CAB-07-cabinet-page-states/task-spa-cab-07-t06-story-gate-cab-07/README.md

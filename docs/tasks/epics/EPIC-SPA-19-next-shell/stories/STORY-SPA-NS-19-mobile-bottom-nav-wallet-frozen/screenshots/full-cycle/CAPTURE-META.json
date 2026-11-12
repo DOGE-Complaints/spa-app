@@ -1,0 +1,79 @@
+{
+  "story": "STORY-SPA-NS-19-mobile-bottom-nav-wallet-frozen",
+  "pkg": "pkg-000232",
+  "gate": "BLOCK",
+  "reason": "OP eye Absent · Partial visual=BLOCK · structure probes only · no invent PASS · no CAB-08 unfreeze · glyph soft handoff",
+  "op_eye": "Absent",
+  "fails": [],
+  "probes": {
+    "feedLight": {
+      "present": true,
+      "display": "flex",
+      "lab": "true",
+      "harmony": "m179",
+      "cab08": "held",
+      "navHeight": 57,
+      "itemMinH": "44px",
+      "itemMinW": "44px",
+      "feedHref": "#/next/feed",
+      "profileHref": "#/profile",
+      "walletFrozen": "frozen",
+      "walletAriaDisabled": "true",
+      "walletHref": null,
+      "walletTag": "span",
+      "drawerWallet": null
+    },
+    "profileLight": {
+      "present": true,
+      "display": "flex",
+      "lab": "true",
+      "harmony": "m179",
+      "cab08": "held",
+      "navHeight": 57,
+      "itemMinH": "44px",
+      "itemMinW": "44px",
+      "feedHref": "#/next/feed",
+      "profileHref": "#/profile",
+      "walletFrozen": "frozen",
+      "walletAriaDisabled": "true",
+      "walletHref": null,
+      "walletTag": "span",
+      "drawerWallet": null
+    },
+    "dark": {
+      "present": true,
+      "display": "flex",
+      "lab": "true",
+      "harmony": "m179",
+      "cab08": "held",
+      "navHeight": 57,
+      "itemMinH": "44px",
+      "itemMinW": "44px",
+      "feedHref": "#/next/feed",
+      "profileHref": "#/profile",
+      "walletFrozen": "frozen",
+      "walletAriaDisabled": "true",
+      "walletHref": null,
+      "walletTag": "span",
+      "drawerWallet": null
+    }
+  },
+  "md5s": [
+    {
+      "file": "01-bottom-nav-feed-frozen-wallet-390x844.png",
+      "md5": "a6461c52e500d4beeccb2c49cef0dffa",
+      "prefix": "a6461c52e500"
+    },
+    {
+      "file": "02-bottom-nav-profile-frozen-wallet-390x844.png",
+      "md5": "ff9829cc6e873463112eddf63a69c3ff",
+      "prefix": "ff9829cc6e87"
+    },
+    {
+      "file": "03-bottom-nav-dark-390x844.png",
+      "md5": "192aaeda35e846b4b10cfa65c5592a10",
+      "prefix": "192aaeda35e8"
+    }
+  ],
+  "utc": "2026-10-25T10:33:46.543Z"
+}

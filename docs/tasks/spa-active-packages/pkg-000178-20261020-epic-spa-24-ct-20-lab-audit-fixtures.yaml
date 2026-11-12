@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 178
+created_at: "2026-10-20T12:48:51Z"
+label: EPIC-SPA-24 CT-20 Lab audit fixtures Puppeteer residual LAB-1-4
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/EPIC-SPA-24-component-thread.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-thread/STORY-SPA-CT-20-lab-audit-fixtures.md
+story_groups:
+- story_key: STORY-SPA-CT-20-lab-audit-fixtures
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-20-lab-audit-fixtures/task-spa-ct-20-t01-status-stands/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-20-lab-audit-fixtures/task-spa-ct-20-t02-fail-attach-depth/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-20-lab-audit-fixtures/task-spa-ct-20-t03-harness-expand/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-24-component-thread/stories/STORY-SPA-CT-20-lab-audit-fixtures/task-spa-ct-20-t04-lab-waiver-log/README.md
+notes: |
+  P1.3 APPLY 2026-10-20T12:48:51Z. input_mode=backlog_story. REUSE EPIC-SPA-24-component-thread.
+  ui_scope: thread-mount / feed-lab · mixed · Path A LAB-1…4 · M152/M153/M153a coverage (not new gen) · Partial visual=BLOCK.
+  Skill react-expert (T01–T04). T01–T04 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Hard: loading/empty/unavailable · forcePostFail · attachmentsAvailable=false · maxDepth Reply ·
+  puppeteer dual-append+picker green · OP-WAIVE explicit if LAB not closed · no invent HTTP/OP PASS.
+  Prior tip pkg-000177 · CT-19. Await P2 on OP. No P3 yet. No product code this call.

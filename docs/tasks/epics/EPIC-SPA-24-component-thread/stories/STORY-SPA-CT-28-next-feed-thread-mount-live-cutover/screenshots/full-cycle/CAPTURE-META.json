@@ -1,0 +1,49 @@
+{
+  "story": "STORY-SPA-CT-28-next-feed-thread-mount-live-cutover",
+  "mockup": "gap-analysis-next-feed-cutover",
+  "captured_utc": "2026-10-20T20:52:54.940Z",
+  "op_eye": "Absent",
+  "partial": "BLOCK",
+  "probe": {
+    "ct28": "true",
+    "liveHost": "live",
+    "liveBound": "true",
+    "status": "populated",
+    "reason": null,
+    "tmPresent": true,
+    "discussionBlock": false
+  },
+  "lab": {
+    "present": true,
+    "host": "fixture",
+    "ct08": "true"
+  },
+  "md5s": [
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "1ca5cd04070887716ac87c6c581af431",
+      "prefix": "1ca5cd040708"
+    },
+    {
+      "file": "02-thread-mount-live.png",
+      "md5": "ca958b7879e4024df36460601532d1c4",
+      "prefix": "ca958b7879e4"
+    },
+    {
+      "file": "03-discussion-block-not-done.png",
+      "md5": "e22973386678f455c28d97123795f044",
+      "prefix": "e22973386678"
+    },
+    {
+      "file": "04-lab-fixture-held.png",
+      "md5": "f2a02c9b0fc8ee5e62d27cab01dbaa4f",
+      "prefix": "f2a02c9b0fc8"
+    },
+    {
+      "file": "05-narrow-next-feed.png",
+      "md5": "de887b80dd635a3285f0314cf25cd371",
+      "prefix": "de887b80dd63"
+    }
+  ],
+  "fails": []
+}

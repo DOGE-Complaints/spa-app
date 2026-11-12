@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 55
+created_at: "2026-08-07T19:36:12Z"
+label: EPIC-SPA-04 ID-14 post-submit path choice M135
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/EPIC-SPA-04-identity-and-auth.md
+decision_ref: spa-app/docs/tasks/backlog-stories/identity-auth/STORY-SPA-ID-14-post-submit-path-choice.md
+story_groups:
+- story_key: STORY-SPA-ID-14-post-submit-path-choice
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-14-post-submit-path-choice/task-spa-id-14-t01-pin-live-success-navigate-vs-m135/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-14-post-submit-path-choice/task-spa-id-14-t02-wire-submitted-phase-no-auto-navigate/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-14-post-submit-path-choice/task-spa-id-14-t03-wire-success-cta-icons/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-14-post-submit-path-choice/task-spa-id-14-t04-l10n-m135-gap-keys/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-14-post-submit-path-choice/task-spa-id-14-t05-panel-parity-m135/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-14-post-submit-path-choice/task-spa-id-14-t06-vitest-live-success-path/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-04-identity-and-auth/stories/STORY-SPA-ID-14-post-submit-path-choice/task-spa-id-14-t07-story-gate-id-14/README.md

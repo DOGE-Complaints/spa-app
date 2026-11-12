@@ -4,8 +4,8 @@
 > **Статус:** locked для ADMIN-ESD-01…06 (REQ itself may remain Draft awaiting PA.2)  
 > **Пакет:** [INDEX.md](INDEX.md)  
 > **Parent:** `docs/requirements backlog/DOGEstonia-Early-Signal-Dashboard-Pre-Cluster-Product-Requirements.md` · parent-id `early-signal-dashboard-pre-cluster`  
-> **Sibling:** [gateway REQ-48](../../../../doge-complaints-gateway/docs/requirements/48-early-signal-pre-cluster-data-readiness.md) — public L1/L2 aggregates **TBD**; no invented HTTP paths  
-> **Verified baseline (код):** `/` → `/board` ([`App.jsx:24–25`](../../../../src/App.jsx)); Issues via `issueService.getIssues` ([`BoardPage.jsx:101`](../../../../src/pages/BoardPage.jsx)); empty today = `data-testid="board-empty"` ([`BoardPage.jsx:326–334`](../../../../src/pages/BoardPage.jsx)); `GET {base}/tallinn/issues` ([`GatewayIssueRepository.js:76`](../../../../src/repositories/GatewayIssueRepository.js)); no Early Signal UI in `spa-app/src` (grep 0).
+> **Siblings (gateway):** [REQ-48](../../../../../doge-complaints-gateway/docs/requirements/48-early-signal-pre-cluster-data-readiness.md) inventory · **paths named:** [REQ-49](../../../../../doge-complaints-gateway/docs/requirements/49-early-signal-network-pulse-l1-api.md) `GET /tallinn/network-pulse` · [REQ-50](../../../../../doge-complaints-gateway/docs/requirements/50-early-signal-emerging-l2-api.md) `GET /tallinn/emerging-signals` · spa consumer SSOT [STORY-SPA-ES-api-requirements.md](STORY-SPA-ES-api-requirements.md)  
+> **Verified baseline (код):** `/` → `/board` ([`App.jsx:24–25`](../../../../src/App.jsx)); Issues via `issueService.getIssues` ([`BoardPage.jsx:101`](../../../../src/pages/BoardPage.jsx)); empty today = `data-testid="board-empty"` ([`BoardPage.jsx:326–334`](../../../../src/pages/BoardPage.jsx)); `GET {base}/tallinn/issues` ([`GatewayIssueRepository.js:76`](../../../../src/repositories/GatewayIssueRepository.js)); Pulse/Emerging **backend ready**, **no** Early Signal HTTP consumer in `spa-app/src` (grep 0).
 
 ## Решения (locked)
 
@@ -15,7 +15,7 @@
 | 2 | Zero Issues UX | Pre-Cluster **discovery composition** (five conceptual blocks), not sole «no issues» placeholder |
 | 3 | Blocks | Network Pulse · The Picture Is Forming · Emerging Signals · What's Missing · Help Complete the Picture |
 | 4 | Levels | Story / Emerging Signal / Issue; Level 2 ≠ Level 3; Topics ≠ Issues |
-| 5 | Metrics honesty | Pulse metrics **only** if sibling-approved fields exist; else omit or Story-presence framing — **no fabricated counts** |
+| 5 | Metrics honesty | Pulse/Emerging metrics **only** from REQ-49/50 approved fields; else omit or Story-presence framing — **no fabricated counts** (AC-SPA-ES-08) |
 | 6 | States A–E | UX modes from data density; illustrative Story counts ≠ clustering thresholds |
 | 7 | Continuum | Issues ≥1 → existing Issue feed **and** discovery framing where data allows |
 | 8 | Contribution | Help Complete / Missing → existing GPT / Submit entry points on board — no gamified «N more unlock Issue» |
@@ -30,7 +30,19 @@
 - Voices / unique-person metrics
 - Civic Search & Matching / Companions
 - Clustering algorithm thresholds
-- Implementing backend aggregates (gateway 48 / ES exposure)
+- Implementing backend aggregates (gateway already ships Pulse/Emerging; spa wiring = product stories)
+
+## Mockup table (ADMIN-ESD-02 SSOT)
+
+SSOT folder: [`docs/UX/mockups/early-discovery-dashboard/`](../../../UX/mockups/early-discovery-dashboard/) (not `early-signal-dashboard/`). Visual specs **do not invent gateway fields**.
+
+| Artboard | Mockup | Future story | Spec | PNG |
+|----------|--------|--------------|------|-----|
+| ESD-D | M136 | ES-01 | [mockup-136-…-spec.md](../../../UX/mockups/early-discovery-dashboard/mockup-136-early-signal-discovery-composition-state-sheet-spec.md) | [png](../../../UX/mockups/early-discovery-dashboard/mockup-136-early-signal-discovery-composition-state-sheet-spec.png) |
+| ESD-P | M137 | ES-02 | [mockup-137-…-spec.md](../../../UX/mockups/early-discovery-dashboard/mockup-137-network-pulse-block-state-sheet-spec.md) | [png](../../../UX/mockups/early-discovery-dashboard/mockup-137-network-pulse-block-state-sheet-spec.png) |
+| ESD-E | M138 | ES-03 | [mockup-138-…-spec.md](../../../UX/mockups/early-discovery-dashboard/mockup-138-emerging-signals-provisional-state-sheet-spec.md) | [png](../../../UX/mockups/early-discovery-dashboard/mockup-138-emerging-signals-provisional-state-sheet-spec.png) |
+| ESD-C | M139 | ES-04 | [mockup-139-…-spec.md](../../../UX/mockups/early-discovery-dashboard/mockup-139-coverage-trio-picture-missing-help-state-sheet-spec.md) | [png](../../../UX/mockups/early-discovery-dashboard/mockup-139-coverage-trio-picture-missing-help-state-sheet-spec.png) |
+| ESD-I | M140 | ES-05 | [mockup-140-…-spec.md](../../../UX/mockups/early-discovery-dashboard/mockup-140-issue-continuum-residual-discovery-state-sheet-spec.md) | [png](../../../UX/mockups/early-discovery-dashboard/mockup-140-issue-continuum-residual-discovery-state-sheet-spec.png) |
 
 ## Предполагаемые продуктовые стори (выход ADMIN-ESD-05)
 
@@ -44,14 +56,15 @@
 
 ## Зависимости
 
-- Sibling gateway 48 + TASK-GW-ES-04 seam for Pulse/Emerging **live** fields
+- Gateway Pulse/Emerging paths named (REQ-49/50); SPA FE wiring still open — see [STORY-SPA-ES-api-requirements.md](STORY-SPA-ES-api-requirements.md)
+- TASK-GW-ES-04 — formal PA.2 seam docs (optional; paths already Accepted on gateway)
 - Existing Issue read L3 (`GET /tallinn/issues`) — consume as-is
 - Public shell PH (Header/Submit GPT) — reuse; do not reopen PH chrome stories
 - Not blocked on identity for MVP discovery shell
 
 ## Open (carry from REQ §6 — operator PA.2)
 
-1. Ship UX shell + copy-only Pulse vs block Pulse until API PA.2?
+1. Ship UX shell + omit Pulse/Emerging until FE wiring vs bind live REQ-49/50 in first ES stories? (paths named; FE decision.)
 2. Confirm `/board` only (default) vs extra route?
 3. Voices — defer MVP forever?
 4. Who owns UX artboards before visual P3?

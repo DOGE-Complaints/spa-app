@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 96
+created_at: "2026-10-06T20:47:18Z"
+label: EPIC-SPA-18 REQ21-05 board features extract thin BoardPage
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/EPIC-SPA-18-ui-modularity-theme-redesign-prep.md
+decision_ref: spa-app/docs/tasks/backlog-stories/ui-modularity-theme-redesign-prep/STORY-SPA-REQ21-05-board-features-extract.md
+story_groups:
+- story_key: STORY-SPA-REQ21-05-board-features-extract
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-05-board-features-extract/task-spa-req21-05-t01-slice-boardpage-jsx/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-05-board-features-extract/task-spa-req21-05-t02-create-features-modules/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-05-board-features-extract/task-spa-req21-05-t03-preserve-data-plane/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-05-board-features-extract/task-spa-req21-05-t04-map-threads-parity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-05-board-features-extract/task-spa-req21-05-t05-vitest-board/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-18-ui-modularity-theme-redesign-prep/stories/STORY-SPA-REQ21-05-board-features-extract/task-spa-req21-05-t06-story-gate/README.md
+notes: |
+  P3 Done 2026-10-06T20:59:52Z. input_mode=backlog_story. REUSE EPIC-SPA-18.
+  ui_scope: none · UX SKIP. Skill react-expert.
+  src/features/board/ · thin BoardPage · AC-21-06 no new repos.
+  T01–T06 Done · gate PASS. Do not invent redesign. Do not git push. Next: P4 audit on OP.

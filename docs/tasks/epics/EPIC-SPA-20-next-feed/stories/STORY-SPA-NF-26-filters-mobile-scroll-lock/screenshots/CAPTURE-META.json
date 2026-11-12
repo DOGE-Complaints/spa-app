@@ -1,0 +1,83 @@
+{
+  "story": "STORY-SPA-NF-26-filters-mobile-scroll-lock",
+  "pkg": "pkg-000233",
+  "gate": "BLOCK",
+  "reason": "OP eye Absent · Partial visual=BLOCK · structure probes only · no invent PASS · no invent filter keys",
+  "op_eye": "Absent",
+  "harmony": "scroll-lock",
+  "m175_held": true,
+  "fails": [],
+  "probes": {
+    "mobile": {
+      "present": true,
+      "lab25": "true",
+      "harmony25": "m175",
+      "lab26": "true",
+      "harmony26": "scroll-lock",
+      "scrollLab": "true",
+      "bodyLock": "true",
+      "bodyOverflow": "hidden",
+      "touchAction": "none",
+      "scrollOverflowY": "auto",
+      "overscroll": "contain",
+      "touchPan": "pan-y",
+      "bodyBottom": "64px",
+      "bodyZ": "30",
+      "bodyBottomPx": 780,
+      "navTopPx": 787,
+      "clearsNav": true,
+      "canScroll": true,
+      "scrollHeight": 286,
+      "clientHeight": 286,
+      "hasFooter": true,
+      "width": 358
+    },
+    "closed": {
+      "bodyLock": null,
+      "bodyOverflow": "",
+      "panelOpen": false
+    },
+    "dark": {
+      "present": true,
+      "lab25": "true",
+      "harmony25": "m175",
+      "lab26": "true",
+      "harmony26": "scroll-lock",
+      "scrollLab": "true",
+      "bodyLock": "true",
+      "bodyOverflow": "hidden",
+      "touchAction": "none",
+      "scrollOverflowY": "auto",
+      "overscroll": "contain",
+      "touchPan": "pan-y",
+      "bodyBottom": "64px",
+      "bodyZ": "30",
+      "bodyBottomPx": 780,
+      "navTopPx": 787,
+      "clearsNav": true,
+      "canScroll": true,
+      "scrollHeight": 286,
+      "clientHeight": 286,
+      "hasFooter": true,
+      "width": 358
+    }
+  },
+  "md5s": [
+    {
+      "file": "01-filters-mobile-sheet-scroll-390x844.png",
+      "md5": "c9096db9f7b149eb2101e2f6a175e59b",
+      "prefix": "c9096db9f7b1"
+    },
+    {
+      "file": "02-filters-mobile-page-with-nav-390x844.png",
+      "md5": "da348e4a2ff3f4a2d3bd09a2e04f15e0",
+      "prefix": "da348e4a2ff3"
+    },
+    {
+      "file": "03-filters-mobile-sheet-dark-390x844.png",
+      "md5": "1c604af1e244a12d737430f84335ad2e",
+      "prefix": "1c604af1e244"
+    }
+  ],
+  "utc": "2026-10-25T10:46:19.744Z"
+}

@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 110
+created_at: "2026-10-11T13:36:54Z"
+label: EPIC-SPA-20 NF-08 discussion collapsed composer reskin
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-08-discussion-collapsed-composer-reskin.md
+story_groups:
+- story_key: STORY-SPA-NF-08-discussion-collapsed-composer-reskin
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-08-discussion-collapsed-composer-reskin/task-spa-nf-08-t01-feed-discussion-collapsed/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-08-discussion-collapsed-composer-reskin/task-spa-nf-08-t02-remove-duplicate-classic-actions/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-08-discussion-collapsed-composer-reskin/task-spa-nf-08-t03-expand-tree-oval-composer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-08-discussion-collapsed-composer-reskin/task-spa-nf-08-t04-load-empty-unavailable/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-08-discussion-collapsed-composer-reskin/task-spa-nf-08-t05-l10n-live-edges/README.md
+notes: |
+  P1.3 APPLY 2026-10-11T13:36:54Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M152/M153 Path A · AD-VP-01/02/04 · local-five required.
+  Skill react-expert. T01–T05 Todo · ui_anchor T01 (M152) + T03 (M153).
+  No invent AC · no invent threads URLs · shell chrome OOS · no Path A expanded-only narrowing.
+  Await P2/P3 on OP.

@@ -1,0 +1,21 @@
+schema_version: 1
+package_sequence: 107
+created_at: "2026-10-10T19:23:08Z"
+label: EPIC-SPA-20 NF-05 reactions invite write gate
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-05-reactions-invite-write-gate.md
+story_groups:
+- story_key: STORY-SPA-NF-05-reactions-invite-write-gate
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-05-reactions-invite-write-gate/task-spa-nf-05-t01-reactions-strip-picker/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-05-reactions-invite-write-gate/task-spa-nf-05-t02-invite-stub-honesty/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-05-reactions-invite-write-gate/task-spa-nf-05-t03-write-gate-identity-verified/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-05-reactions-invite-write-gate/task-spa-nf-05-t04-wire-reaction-invite-icons/README.md
+notes: |
+  P1.3 APPLY 2026-10-10T19:23:08Z. input_mode=backlog_story. REUSE EPIC-SPA-20.
+  ui_scope: feed · UX ready M154/M156/M157 Path A · M155 OOS · register NF-R → NF-05.
+  Skill react-expert. T01–T04 Todo · ui_anchor T01 (M154) · T02 M156 · T03 M157.
+  No invent reaction/invite HTTP · gate = /me identity_verified · shell chrome OOS.
+  Await P2/P3 on OP.

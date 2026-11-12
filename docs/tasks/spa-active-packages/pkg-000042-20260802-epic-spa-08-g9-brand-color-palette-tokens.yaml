@@ -1,0 +1,18 @@
+schema_version: 1
+package_sequence: 42
+created_at: "2026-08-02T08:45:25Z"
+label: EPIC-SPA-08 G9 brand color palette tokens
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/EPIC-SPA-08-design-foundation.md
+decision_ref: spa-app/docs/tasks/backlog-stories/design-foundation/STORY-SPA-G9-brand-color-palette-tokens.md
+story_groups:
+- story_key: STORY-SPA-G9-brand-color-palette-tokens
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G9-brand-color-palette-tokens/task-spa-g9-t01-insert-doge-brand-primitives/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G9-brand-color-palette-tokens/task-spa-g9-t02-rebind-color-tokens-to-doge/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G9-brand-color-palette-tokens/task-spa-g9-t03-cta-accent-contrast-fix/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G9-brand-color-palette-tokens/task-spa-g9-t04-design-system-palette-docs/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G9-brand-color-palette-tokens/task-spa-g9-t05-visual-gate-brand-surfaces/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G9-brand-color-palette-tokens/task-spa-g9-t06-docs-touchpoints-g4-index-header/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G9-brand-color-palette-tokens/task-spa-g9-t07-story-gate-g9/README.md

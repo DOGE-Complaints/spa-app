@@ -1,0 +1,20 @@
+schema_version: 1
+package_sequence: 192
+created_at: "2026-10-21T12:46:48Z"
+label: EPIC-SPA-20 NF-16 more menu deferred code lock
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/EPIC-SPA-20-next-feed.md
+decision_ref: spa-app/docs/tasks/backlog-stories/next-feed/STORY-SPA-NF-16-more-menu-deferred.md
+story_groups:
+- story_key: STORY-SPA-NF-16-more-menu-deferred
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-16-more-menu-deferred/task-spa-nf-16-t01-gate/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-16-more-menu-deferred/task-spa-nf-16-t02-catalog-note/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-20-next-feed/stories/STORY-SPA-NF-16-more-menu-deferred/task-spa-nf-16-t03-vitest/README.md
+notes: |
+  P1.3 APPLY 2026-10-21T12:46:48Z wave OP-spa nf13-16-ct30-20261021. input_mode=backlog_story.
+  REUSE EPIC-SPA-20-next-feed. ui_scope: feed · mixed · Path A code lock · ARCH-DELTA §4 ·
+  Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert (T01–T03).
+  Hard: gate more · TODO(NF-16) · keep more.svg · no invent menu/HTTP/OP PASS.
+  Prior tip pkg-000191 · NF-15. Await P2 on OP. No P3 yet. No product code this call.

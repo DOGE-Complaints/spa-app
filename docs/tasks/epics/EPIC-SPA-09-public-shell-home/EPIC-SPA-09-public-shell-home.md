@@ -1,6 +1,6 @@
 # EPIC-SPA-09 — Public Shell + Home (spa-app)
 
-> **ID:** `EPIC-SPA-09` · **Статус:** Done — PH-01…PH-07 · PH-10 Done (`pkg-000056` gate 2026-08-07T20:53:02Z); prior Wave 4 PH-07 (`pkg-000052` gate 2026-08-06T13:45:10Z)
+> **ID:** `EPIC-SPA-09` · **Статус:** `In Progress` — tip **PH-17** P5 APPLY · `2026-10-24T10:15:21Z` · `pkg-000223` · gate **BLOCK** · Story **BLOCKED** (OP eye) · `activation: none` · Await P8 · soft PH-16/PH-15/PH-14/PH-11/PH-13 P8 BLOCKED OP eye · prior Wave 6 PH-12 Done; prior Done PH-01…PH-07 · PH-10 (`pkg-000056`)
 > **Тип:** Product / UX
 > **source:** [`../../backlog-stories/public-home/README.md`](../../backlog-stories/public-home/README.md)
 > **Prerequisite:** [G8 AppShell](../../backlog-stories/design-foundation/STORY-SPA-G8-app-shell-refactor.md) Done (`pkg-000040`)
@@ -44,6 +44,14 @@
 | PH-06 | Submit GPT CTA (env) | 3 | M129/M133 CTA | **Done** · gate PASS 2026-08-05T10:31:01Z · `pkg-000051` · [pipeline](stories/STORY-SPA-PH-06-submit-story-gpt-cta/STORY-SPA-PH-06-submit-story-gpt-cta.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-06-submit-story-gpt-cta.md) |
 | PH-07 | Board feed backdrop (chrome evidence) | 4 | M132 / M129 | **Done** · gate PASS 2026-08-06T13:45:10Z · `pkg-000052` · [pipeline](stories/STORY-SPA-PH-07-board-feed-backdrop-evidence/STORY-SPA-PH-07-board-feed-backdrop-evidence.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-07-board-feed-backdrop-evidence.md) |
 | PH-10 | Header horizontal logo + favicon | 5 | M129 context | **Done** · gate PASS 2026-08-07T20:53:02Z · `pkg-000056` · [pipeline](stories/STORY-SPA-PH-10-header-horizontal-logo-favicon/STORY-SPA-PH-10-header-horizontal-logo-favicon.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-10-header-horizontal-logo-favicon.md) |
+| BUG-09 | Board map pins not rendered | 6 | UX brief | **Done** · P3/P6 `pkg-000090` · [pipeline](stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/STORY-SPA-BUG-09-board-map-pins-not-rendered.md) · [backlog](../../backlog-stories/bugs/STORY-SPA-BUG-09-board-map-pins-not-rendered.md) |
+| PH-12 | Board discussion priority sort | 6 | ui_scope none | **Done** · P3 gate PASS · P6 gap CLOSED 2026-10-03T15:59:58Z · `pkg-000091` · [pipeline](stories/STORY-SPA-PH-12-board-discussion-priority-sort/STORY-SPA-PH-12-board-discussion-priority-sort.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-12-board-discussion-priority-sort.md) |
+| PH-11 | Footer scale + About/Privacy/Contact | 7 | M166 | **P1.3** · T01–T04 Todo · gate PENDING · `pkg-000211` · [pipeline](stories/STORY-SPA-PH-11-footer-static-pages/STORY-SPA-PH-11-footer-static-pages.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-11-footer-static-pages.md) |
+| PH-13 | How It Works content + CTA + landing | 7 | M168 | **P8 Done** · gate **BLOCK** · Story **BLOCKED** (OP eye) OK · `pkg-000210` closed · [pipeline](stories/STORY-SPA-PH-13-how-it-works-content-cta/STORY-SPA-PH-13-how-it-works-content-cta.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-13-how-it-works-content-cta.md) |
+| PH-14 | How It Works deep redesign | wave4 OP residual | M171 | **P8 Done** · gate **BLOCK** · Story **BLOCKED** (OP eye) OK · `pkg-000218` closed · [pipeline](stories/STORY-SPA-PH-14-how-it-works-deep-redesign/STORY-SPA-PH-14-how-it-works-deep-redesign.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-14-how-it-works-deep-redesign.md) |
+| PH-15 | About / Privacy / Contact content | wave4 OP residual | M172 + privacy downloads | **P8 Done** · gate **BLOCK** · Story **BLOCKED** (OP eye) OK · `pkg-000219` closed · [pipeline](stories/STORY-SPA-PH-15-static-pages-content/STORY-SPA-PH-15-static-pages-content.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-15-static-pages-content.md) |
+| PH-16 | HIW env CTAs Story GPT + Landing FAQ | wave5 OP residual | arch 16 | **P8 Done** · gate **BLOCK** · Story **BLOCKED** (OP eye) OK · `pkg-000222` closed · [disposition](../../run-reports/p5-disposition-STORY-SPA-PH-16-2026-10-24.md) · [pipeline](stories/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-16-env-cta-story-gpt-landing-faq.md) |
+| PH-17 | Privacy dark icons + Contact story CTA | wave5 OP residual | arch 17 | **P5 APPLY** · T01–T03 Done · gate **BLOCK** · Story **BLOCKED** (OP eye) · `pkg-000223` · `activation: none` · Await P8 · [disposition](../../run-reports/p5-disposition-STORY-SPA-PH-17-2026-10-24.md) · [pipeline](stories/STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta/STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta.md) · [backlog](../../backlog-stories/public-home/STORY-SPA-PH-17-privacy-dark-icons-contact-story-cta.md) |
 
 ## Порядок волн
 
@@ -53,6 +61,10 @@ Wave 2: PH-04 (board feed cutover; no columns)
 Wave 3: PH-05 Done (`pkg-000050`) → PH-06 Done (`pkg-000051`, gate 2026-08-05T10:31:01Z)
 Wave 4: PH-07 Done (`pkg-000052`, gate 2026-08-06T13:45:10Z) — intentional board backdrop for chrome/CTA evidence
 Wave 5: PH-10 Done (`pkg-000056`, gate 2026-08-07T20:53:02Z) — horizontal logo + favicon polish
+Wave 6: BUG-09 Done (`pkg-000090`) · PH-12 P3 Done + P6 gap CLOSED (`pkg-000091`, 2026-10-03T15:59:58Z) — List discussion priority sort
+Wave 7: PH-13 P8 closed (`pkg-000210`) · PH-11 P8 closed (`pkg-000211`) — footer M166 + static shells  
+Wave 4 OP residual: **PH-15** P8 closed (`pkg-000219`) · soft PH-14 P8 closed (`pkg-000218`)
+Wave 5 OP residual: **PH-17** tip P5 (`pkg-000223`, 2026-10-24T10:15:21Z) — Privacy dark icons + Contact CTA · Await P8 · soft PH-16 P8 closed
 ```
 
 ## Cross-epic references

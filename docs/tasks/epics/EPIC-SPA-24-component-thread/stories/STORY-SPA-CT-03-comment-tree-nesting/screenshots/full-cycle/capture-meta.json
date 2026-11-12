@@ -1,0 +1,32 @@
+{
+  "utc": "2026-10-18T13:21:17.507Z",
+  "base": "http://127.0.0.1:5176",
+  "md5s": [
+    {
+      "file": "01-nested-tree.png",
+      "md5": "5d87e39035e0415f37777b5eb464c4fe",
+      "prefix": "5d87e39035e0"
+    },
+    {
+      "file": "03-max-depth-no-reply.png",
+      "md5": "0f8daa9c529d20269c5af0d0dae56ee5",
+      "prefix": "0f8daa9c529d"
+    },
+    {
+      "file": "02-visual-indent-cap.png",
+      "md5": "82952be747b64e76959045f653442205",
+      "prefix": "82952be747b6"
+    },
+    {
+      "file": "04-depth-vs-cap.png",
+      "md5": "82952be747b64e76959045f653442205",
+      "prefix": "82952be747b6"
+    },
+    {
+      "file": "05-flat-fallback.png",
+      "md5": "5ba9db9d02497a05a7c9f790a00bbeb3",
+      "prefix": "5ba9db9d0249"
+    }
+  ],
+  "opEye": "Absent"
+}

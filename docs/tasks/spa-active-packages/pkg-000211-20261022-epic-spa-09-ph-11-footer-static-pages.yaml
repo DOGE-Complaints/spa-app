@@ -1,0 +1,28 @@
+schema_version: 1
+package_sequence: 211
+created_at: "2026-10-22T18:09:06Z"
+label: EPIC-SPA-09 PH-11 footer static pages
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/public-home/STORY-SPA-PH-11-footer-static-pages.md
+story_groups:
+- story_key: STORY-SPA-PH-11-footer-static-pages
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-11-footer-static-pages/task-spa-ph-11-t01-footer/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-11-footer-static-pages/task-spa-ph-11-t02-routes/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-11-footer-static-pages/task-spa-ph-11-t03-links/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-PH-11-footer-static-pages/task-spa-ph-11-t04-vitest/README.md
+notes: |
+  P1.3 activated 2026-10-22T18:09:06Z wave OP-spa ns08-10-nf21-23-ct33-cr24-25-ph13-11-20261022.
+  input_mode=backlog_story. REUSE EPIC-SPA-09-public-shell-home. ui_scope: public-footer /
+  public-home · mixed · Path A p13UxReady M166 + legal overview + wave3 intake Present ·
+  Interview P9 · Partial visual=BLOCK · NO STORY-UX-MOCKUP-BRIEF · no UX gen. Skill react-expert
+  (T01–T04 Todo). Hard: footer mark ≥40px · tagline Civic issues, structured. · brand →
+  /next/feed · /about /privacy /contact shells · footer hrefs · Vitest · OP eye · no invent
+  OP PASS · no invent CDN · no invent final legal prose.
+  OOS PH-13 · invent CDN · invent final legal copy · legacy empty-state draft held.
+  Tip after pkg-000210. activation active.
+  P3 Execute Done 2026-10-22T18:17:08Z · T01–T04 Done · gate BLOCK · CAPTURE-META fails: [] · Await P4.
+  P5 APPLY 2026-10-22T18:20:12Z · TASKED=0 · activation none · F1/F2 WAIVED · P6 skipped · Await P8.
+  P8 local close 2026-10-22T18:22:41Z · pkg closed · Story BLOCKED (OP eye) · activation none · NO PUSH.

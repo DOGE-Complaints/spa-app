@@ -1,0 +1,47 @@
+{
+  "story": "STORY-SPA-NF-13-issue-type-identity-icon",
+  "generated_utc": "2026-10-21T11:33:54.174Z",
+  "base": "http://127.0.0.1:5173",
+  "probe": {
+    "incidentSrc": "/icons/next-feed/types/ic-issue-type-INCIDENT.svg",
+    "incidentW": "24",
+    "omitState": "omit-catalog-gap",
+    "omitHasImg": false,
+    "presentCount": 10
+  },
+  "md5s": [
+    {
+      "file": "ui0-next-feed-host.png",
+      "md5": "0e4f1a74b5f769e7edc9f5259a6bb8d8",
+      "prefix": "0e4f1a74b5f7"
+    },
+    {
+      "file": "01-next-feed-host.png",
+      "md5": "0e4f1a74b5f769e7edc9f5259a6bb8d8",
+      "prefix": "0e4f1a74b5f7"
+    },
+    {
+      "file": "02-type-incident-icon.png",
+      "md5": "d1b10d8ac787943d0ee1f9d7aff9ff16",
+      "prefix": "d1b10d8ac787"
+    },
+    {
+      "file": "03-type-keys-sample.png",
+      "md5": "2751186b0b2788d2cd52659a1b38fc13",
+      "prefix": "2751186b0b27"
+    },
+    {
+      "file": "04-unknown-omit.png",
+      "md5": "d81c6bb487c05db4c1e1138407a4d0b9",
+      "prefix": "d81c6bb487c0"
+    },
+    {
+      "file": "05-narrow-identity.png",
+      "md5": "9fdca31ce6c3dfcb17fb5f6e1a38245d",
+      "prefix": "9fdca31ce6c3"
+    }
+  ],
+  "fails": [],
+  "visual_gate": "BLOCK",
+  "note": "OP eye Absent · Partial visual=BLOCK · no invent OP PASS"
+}

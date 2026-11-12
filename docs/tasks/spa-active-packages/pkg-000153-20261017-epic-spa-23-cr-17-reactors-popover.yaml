@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 153
+created_at: "2026-10-17T14:01:53Z"
+label: EPIC-SPA-23 CR-17 ReactorsPopover M155 A
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/EPIC-SPA-23-component-reactions.md
+decision_ref: spa-app/docs/tasks/backlog-stories/component-reactions/STORY-SPA-CR-17-reactors-popover.md
+story_groups:
+- story_key: STORY-SPA-CR-17-reactors-popover
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-17-reactors-popover/task-spa-cr-17-t01-stop-picker-on-aggregate/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-17-reactors-popover/task-spa-cr-17-t02-reactors-popover-ui/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-17-reactors-popover/task-spa-cr-17-t03-fixture-list-reactors/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-17-reactors-popover/task-spa-cr-17-t04-reactions-icon-wire/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-23-component-reactions/stories/STORY-SPA-CR-17-reactors-popover/task-spa-cr-17-t05-vitest-popover/README.md
+notes: |
+  P1.3 APPLY 2026-10-17T14:01:53Z. input_mode=backlog_story. REUSE EPIC-SPA-23-component-reactions.
+  ui_scope: reactions-mount / feed-lab · mixed · Path A M155 A + polish §4.1–4.3 · Partial visual=BLOCK.
+  Skill react-expert (T01–T05). T01–T05 Todo · CREATE pipeline tree · NO STORY-UX-MOCKUP-BRIEF.
+  Prior tip pkg-000152 activation was none. Reactions/aggregate → people NOT picker.
+  FixtureAdapter people · Live fail-closed · no invent people HTTP · no Connect in compact popover.
+  Gap v2 reactions.svg Absent → wire Runtime URL · no invent SVG bodies · visual BLOCK residual OK.
+  no invent OP PASS · no #/next/feed. Await P2 on OP. No P3 yet. No product code this call.

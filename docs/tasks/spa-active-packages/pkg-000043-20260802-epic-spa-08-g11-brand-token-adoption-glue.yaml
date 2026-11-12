@@ -1,0 +1,22 @@
+schema_version: 1
+package_sequence: 43
+created_at: "2026-08-02T12:25:03Z"
+label: EPIC-SPA-08 G11 brand token adoption glue
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/EPIC-SPA-08-design-foundation.md
+decision_ref: spa-app/docs/tasks/backlog-stories/design-foundation/STORY-SPA-G11-brand-token-adoption-glue.md
+story_groups:
+- story_key: STORY-SPA-G11-brand-token-adoption-glue
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t01-sync-g9-backlog-historical-wording/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t02-sync-g4-g9-scope-done/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t03-color-palette-implemented-touchpoint/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t04-cta-accent-hover-and-ink-unify/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t05-soft-accent-fills-and-alias/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t06-text-warm-spot-and-ds-note/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t07-statusbadge-hex-to-surface-tokens/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t08-rgba-pack-cabinet/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t09-rgba-pack-auth-identity/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t10-rgba-pack-board-chrome/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-08-design-foundation/stories/STORY-SPA-G11-brand-token-adoption-glue/task-spa-g11-t11-story-gate-g11/README.md

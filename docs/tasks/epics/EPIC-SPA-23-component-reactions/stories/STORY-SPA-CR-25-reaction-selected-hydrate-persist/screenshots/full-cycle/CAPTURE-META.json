@@ -1,0 +1,38 @@
+{
+  "story": "STORY-SPA-CR-25-reaction-selected-hydrate-persist",
+  "captured_at": "2026-10-22T15:32:27.350Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_people_api": false,
+  "invent_gateway": false,
+  "fails": [],
+  "md5s": [
+    {
+      "file": "01-post-selected-hydrate.png",
+      "md5": "95f4ebcd293acf492353ca23a43d9968",
+      "prefix": "95f4ebcd293a"
+    },
+    {
+      "file": "02-comment-selected-hydrate.png",
+      "md5": "49d0172702afac984cc48d62deeddbe2",
+      "prefix": "49d0172702af"
+    },
+    {
+      "file": "03-summary-marks-hydrate.png",
+      "md5": "95f4ebcd293acf492353ca23a43d9968",
+      "prefix": "95f4ebcd293a"
+    },
+    {
+      "file": "04-put-then-reload.png",
+      "md5": "4ef225681c88174a9bf0daf846d10fa9",
+      "prefix": "4ef225681c88"
+    },
+    {
+      "file": "05-anonymous-omit-selected.png",
+      "md5": "3fe18a426a4fe0a5a8f9350dc300400f",
+      "prefix": "3fe18a426a4f"
+    }
+  ]
+}

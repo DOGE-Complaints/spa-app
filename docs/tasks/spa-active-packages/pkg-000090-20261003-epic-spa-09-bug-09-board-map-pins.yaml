@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 90
+created_at: "2026-10-03T15:08:51Z"
+label: EPIC-SPA-09 BUG-09 board map pins not rendered
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/EPIC-SPA-09-public-shell-home.md
+decision_ref: spa-app/docs/tasks/backlog-stories/bugs/STORY-SPA-BUG-09-board-map-pins-not-rendered.md
+story_groups:
+- story_key: STORY-SPA-BUG-09-board-map-pins-not-rendered
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/task-spa-bug-09-t01-repro-evidence/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/task-spa-bug-09-t02-confirm-h1-api/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/task-spa-bug-09-t03-fix-loadimage-boot/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/task-spa-bug-09-t04-fix-cluster-zoom-promise/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/task-spa-bug-09-t05-regression-tests/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/task-spa-bug-09-t06-list-map-smoke/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-09-public-shell-home/stories/STORY-SPA-BUG-09-board-map-pins-not-rendered/task-spa-bug-09-t07-story-gate/README.md
+notes: |
+  P1.3 APPLY 2026-10-03T15:08:51Z. input_mode=backlog_story. REUSE EPIC-SPA-09.
+  ui_scope: visual · UX mockup brief · ui_anchor T03.
+  H1 MapLibre v4 Promise loadImage + H1b cluster zoom. Skill javascript-pro.
+  Do not start P3 from APPLY without P2. Do not invent mockup PNG. Do not git push.
+  Next: optional UX-чат brief → P2 build window. T01–T07 Todo. STOP before P3 until OP.

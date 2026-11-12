@@ -1,0 +1,51 @@
+{
+  "story": "STORY-SPA-NS-12-freeze-rail-my-stories",
+  "captured_at": "2026-10-23T14:03:17.289Z",
+  "visual_gate": "BLOCK",
+  "op_eye": "Absent",
+  "partial_visual": "BLOCK",
+  "invent_pass": false,
+  "invent_story_list": false,
+  "invent_cab08": false,
+  "fails": [],
+  "probeLight": {
+    "theme": "dark",
+    "rail": true,
+    "ns12": "my-stories-gated",
+    "myStories": false,
+    "feed": true,
+    "feedHref": "#/next/feed",
+    "profile": true,
+    "profileHref": "#/profile",
+    "mobile": true,
+    "mobileNs12": "no-my-stories",
+    "mobileMyStories": false
+  },
+  "md5s": [
+    {
+      "file": "01-rail-no-my-stories-light.png",
+      "md5": "761a716bb8d72dd2cae26cffd54787c6",
+      "prefix": "761a716bb8d7"
+    },
+    {
+      "file": "02-feed-profile-held.png",
+      "md5": "761a716bb8d72dd2cae26cffd54787c6",
+      "prefix": "761a716bb8d7"
+    },
+    {
+      "file": "03-mobile-soft.png",
+      "md5": "bb59c688e1493f0986c41a8343e1c14a",
+      "prefix": "bb59c688e149"
+    },
+    {
+      "file": "04-rail-dark-held.png",
+      "md5": "27ea6a48cee2b237d0471aa4b93f3676",
+      "prefix": "27ea6a48cee2"
+    },
+    {
+      "file": "05-rail-honesty.png",
+      "md5": "27ea6a48cee2b237d0471aa4b93f3676",
+      "prefix": "27ea6a48cee2"
+    }
+  ]
+}

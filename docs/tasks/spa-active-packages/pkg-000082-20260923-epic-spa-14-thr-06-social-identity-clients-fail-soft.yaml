@@ -1,0 +1,24 @@
+schema_version: 1
+package_sequence: 82
+created_at: "2026-09-23T06:49:11Z"
+label: EPIC-SPA-14 THR-06 social identity clients fail-soft
+input_kind: epic_story_tree
+tasks_root: spa-app/docs/tasks/
+epic_file: spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/EPIC-SPA-14-threads-feed-ux.md
+decision_ref: spa-app/docs/tasks/backlog-stories/threads-feed/STORY-SPA-THR-06-social-identity-clients-fail-soft.md
+story_groups:
+- story_key: STORY-SPA-THR-06-social-identity-clients-fail-soft
+  paths:
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-06-social-identity-clients-fail-soft/task-spa-thr-06-t01-social-client-closed-or-unavailable/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-06-social-identity-clients-fail-soft/task-spa-thr-06-t02-me-identity-verified-cutover/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-06-social-identity-clients-fail-soft/task-spa-thr-06-t03-fail-soft-issues-regress/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-06-social-identity-clients-fail-soft/task-spa-thr-06-t04-vitest-fixtures-no-invent-urls/README.md
+  - spa-app/docs/tasks/epics/EPIC-SPA-14-threads-feed-ux/stories/STORY-SPA-THR-06-social-identity-clients-fail-soft/task-spa-thr-06-t05-story-gate-thr-06/README.md
+notes: |
+  P1.3 APPLY 2026-09-23T06:49:11Z. input_mode=backlog_story. ui_scope: none — console clean (NO UX appendix / NOT p3Ux).
+  REUSE EPIC-SPA-14 + T01–T05. No @mockup.
+  Social HTTP ADMIN-04 Open → Unavailable seams only; no invent production URLs.
+  identity_verified Me consumer cutover in scope. Do not invent HTTP.
+  Do not mix BUG/SSR pkgs. Do not retire spa_thr_* / spa_ssr_* / spa_bug_*.
+  Do not start P3 from APPLY without P2. Do not git push.
+  Next: P2 build window. T01–T05 Todo. STOP before P4 after P3.
